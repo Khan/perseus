@@ -2,7 +2,6 @@ import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
 
 import Rule from "../rule";
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "inaccessible-widget",
     severity: Rule.Severity.WARNING,
@@ -37,4 +36,4 @@ export default Rule.makeRule({
             };
         }
     },
-}) as Rule;
+});

@@ -17,7 +17,7 @@ import {
     testDependenciesV2,
 } from "../../testing/test-dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
-import {scorePerseusItemTesting} from "../../util/test-utils";
+import {scorePerseusItemTesting} from "../../util/scoring.testutils";
 import {renderQuestion} from "../__testutils__/render-question";
 
 import ExpressionWidgetExport from "./expression";

@@ -1,6 +1,5 @@
 import Rule from "../rule";
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "matcher-widget-error",
     severity: Rule.Severity.ERROR,
@@ -26,4 +25,4 @@ export default Rule.makeRule({
             return "The two halves of the matcher have different numbers of cards.";
         }
     },
-}) as Rule;
+});

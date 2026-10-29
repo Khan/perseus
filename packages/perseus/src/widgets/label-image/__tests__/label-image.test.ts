@@ -14,7 +14,7 @@ import {
     testDependencies,
     testDependenciesV2,
 } from "../../../testing/test-dependencies";
-import {scorePerseusItemTesting} from "../../../util/test-utils";
+import {scorePerseusItemTesting} from "../../../util/scoring.testutils";
 import {renderQuestion} from "../../__testutils__/render-question";
 import {LabelImage, getComputedSelectedState} from "../label-image";
 
@@ -1195,6 +1195,36 @@ describe("LabelImage", function () {
 
             // Assert
             expect(score).toHaveBeenAnsweredIncorrectly();
+        });
+    });
+
+    describe("UI-specific use cases", () => {
+        it(`renders the word "Click" in the instructions when NOT in mobile`, async () => {
+            // Arrange / Act
+            renderQuestion(answerfulItem.question, {
+                apiOptions: {isMobile: false},
+            });
+
+            // Assert
+            expect(
+                await screen.findByText(
+                    "Click each dot on the image to select an answer.",
+                ),
+            ).toBeInTheDocument();
+        });
+
+        it(`renders the word "Tap" in the instructions when in mobile`, async () => {
+            // Arrange / Act
+            renderQuestion(answerfulItem.question, {
+                apiOptions: {isMobile: true},
+            });
+
+            // Assert
+            expect(
+                await screen.findByText(
+                    "Tap each dot on the image to select an answer.",
+                ),
+            ).toBeInTheDocument();
         });
     });
 });

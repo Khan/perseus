@@ -4,7 +4,7 @@ import * as React from "react";
 
 import {mockImageLoading} from "../../testing/image-loader-utils";
 import {testDependencies} from "../../testing/test-dependencies";
-import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
+import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors.testutils";
 import TextDiff from "../text-diff";
 
 describe("TextDiff", () => {

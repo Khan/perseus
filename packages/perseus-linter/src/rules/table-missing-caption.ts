@@ -36,7 +36,6 @@ function getTitleText(titledTable: any): string {
     return getTextContent(titledTable?.title).trim();
 }
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "table-missing-caption",
     severity: Rule.Severity.GUIDELINE,
@@ -59,4 +58,4 @@ export default Rule.makeRule({
             return EMPTY_CAPTION_MESSAGE;
         }
     },
-}) as Rule;
+});

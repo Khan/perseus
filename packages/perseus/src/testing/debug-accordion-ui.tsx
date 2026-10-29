@@ -7,7 +7,7 @@ import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
-import {isCorrect} from "../util/scoring";
+import {isCorrect} from "../util/scoring.testutils";
 
 import styles from "./debug-accordion-ui.module.css";
 import UserInputUI from "./user-input-ui";
@@ -44,7 +44,7 @@ const ScoreHeader = ({score}: {score: PerseusScore}): React.ReactElement => {
         <div
             className={`${styles["status-badge"]} ${success ? styles["status-badge-success"] : styles["status-badge-error"]}`}
         >
-            <BodyText size="small">{label}:</BodyText>
+            <BodyText size="small">{`${label}:`}</BodyText>
             <BodyText
                 size="small"
                 style={{

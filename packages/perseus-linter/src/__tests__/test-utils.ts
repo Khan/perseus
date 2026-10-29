@@ -2,18 +2,13 @@ import {parse} from "@khanacademy/pure-markdown";
 
 import TreeTransformer from "../tree-transformer";
 
+import type {LinterWarning} from "../rule";
 import type Rule from "../rule";
 
-type CheckReturnType = ReturnType<InstanceType<typeof Rule>["check"]>;
-
-export function testRule(
-    rule: Rule,
-    markdown: string,
-    context,
-): CheckReturnType[] | null {
+function testRule(rule: Rule, markdown: string, context): LinterWarning[] {
     const tree = parse(markdown);
     const tt = new TreeTransformer(tree);
-    const warnings: CheckReturnType[] = [];
+    const warnings: LinterWarning[] = [];
 
     // The markdown parser often outputs adjacent text nodes. We
     // coalesce them before linting for efficiency and accuracy.
@@ -39,12 +34,10 @@ export function testRule(
     }
     tt.traverse((node, state, content) => {
         const check = rule.check(node, state, content, context);
-        if (check) {
-            warnings.push(check);
-        }
+        warnings.push(...check);
     });
 
-    return warnings.length === 0 ? null : warnings;
+    return warnings;
 }
 
 export function expectWarning(
@@ -52,22 +45,23 @@ export function expectWarning(
     string: string,
     context?,
     options?: {
-        message?: string;
+        messages?: string[];
         severity?: number;
     },
 ) {
     const result = testRule(rule, string, context);
-    expect(result).not.toBeNull();
 
-    if (options?.message) {
-        expect(result?.[0]?.message).toBe(options.message);
+    if (options?.messages) {
+        const actual = new Set(result.map((warning) => warning.message));
+        const expected = new Set(options.messages);
+        expect(actual).toEqual(expected);
     }
 
     if (options?.severity) {
-        expect(result?.[0]?.severity).toBe(options.severity);
+        expect(result[0]?.severity).toBe(options.severity);
     }
 }
 
 export function expectPass(rule, string: string, context?) {
-    expect(testRule(rule, string, context)).toBeNull();
+    expect(testRule(rule, string, context)).toEqual([]);
 }

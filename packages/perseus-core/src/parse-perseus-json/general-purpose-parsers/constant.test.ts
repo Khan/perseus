@@ -1,7 +1,7 @@
 import {success} from "../result";
 
 import {constant} from "./constant";
-import {ctx, parseFailureWith} from "./test-helpers";
+import {ctx, parseFailureWith} from "./parser.testutils";
 
 describe("constant()", function () {
     const fooParser = constant("foo");

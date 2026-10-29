@@ -10,7 +10,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {testDependencies} from "../../testing/test-dependencies";
-import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
+import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors.testutils";
 import WidgetEditorContainer, {
     _upgradeWidgetInfo,
 } from "../widget-editor-container";
@@ -214,27 +214,6 @@ describe("WidgetEditor", () => {
             expect(
                 screen.getByText("Perseus doesn't support this widget type."),
             ).toBeInTheDocument();
-        });
-
-        it("serializes the widget's options unchanged", () => {
-            // Arrange
-            const ref = React.createRef<WidgetEditorContainer>();
-            render(
-                <WidgetEditorContainer
-                    ref={ref}
-                    id="transformer 1"
-                    widgetInfo={widgetInfo}
-                    onChange={() => {}}
-                    onRemove={() => {}}
-                    apiOptions={ApiOptions.defaults}
-                />,
-            );
-
-            // Act
-            const serialized = ref.current?.serialize();
-
-            // Assert
-            expect(serialized).toMatchObject(widgetInfo);
         });
     });
 

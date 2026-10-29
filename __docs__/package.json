@@ -1,7 +1,7 @@
 {
     "name": "@internal/repo-stories",
     "private": true,
-    "dependencies": {
+    "devDependencies": {
         "@storybook/addon-docs": "10.6.0",
         "@khanacademy/perseus": "workspace:*",
         "@khanacademy/perseus-core": "workspace:*",

@@ -1,6 +1,5 @@
 import Rule from "../rule";
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "numeric-input-missing-label",
     severity: Rule.Severity.WARNING,
@@ -27,4 +26,4 @@ export default Rule.makeRule({
 While screen readers will fallback to a default label of 'Your answer', a more descriptive label would improve accessibility.`;
         }
     },
-}) as Rule;
+});

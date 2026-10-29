@@ -4,7 +4,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../dependencies";
 import {testDependencies} from "../../testing/test-dependencies";
-import {scorePerseusItemTesting} from "../../util/test-utils";
+import {scorePerseusItemTesting} from "../../util/scoring.testutils";
 import {renderQuestion} from "../__testutils__/render-question";
 
 import {

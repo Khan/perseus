@@ -11,7 +11,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
       style="align-items: stretch; border-width: var(--wb-border-width-thin); border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; border-color: var(--wb-semanticColor-core-border-neutral-subtle); max-width: 500px; border-radius: var(--wb-border-radius-radius_040);"
     >
       <div
-        id=":r7:"
+        id=":ra:"
         style="display: inline-flex; flex-direction: column; align-items: stretch; position: relative;"
       >
         <div
@@ -19,7 +19,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
         >
           <div
             aria-label="Keypad"
-            id=":r7:-tablist"
+            id=":ra:-tablist"
             role="tablist"
             style="display: flex; gap: var(--wb-sizing-size_080); border-block-end: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); padding-inline: var(--wb-sizing-size_080);"
           >
@@ -1145,7 +1145,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
       style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
     >
       <div
-        id=":r6:"
+        id=":r9:"
         style="display: inline-flex; flex-direction: column; align-items: stretch; position: relative;"
       >
         <div
@@ -1153,7 +1153,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
         >
           <div
             aria-label="Keypad"
-            id=":r6:-tablist"
+            id=":r9:-tablist"
             role="tablist"
             style="display: flex; gap: var(--wb-sizing-size_080); border-block-end: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); padding-inline: var(--wb-sizing-size_080);"
           >

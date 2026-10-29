@@ -38,16 +38,6 @@ class FreeResponseEditor extends React.Component<Props> {
         });
     }
 
-    serialize: () => PerseusFreeResponseWidgetOptions = () => {
-        return {
-            allowUnlimitedCharacters: this.props.allowUnlimitedCharacters,
-            characterLimit: this.props.characterLimit,
-            placeholder: this.props.placeholder,
-            question: this.props.question,
-            scoringCriteria: this.props.scoringCriteria,
-        };
-    };
-
     // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
     // the new linter rules for save warnings.
     getSaveWarnings: () => Array<string> = () => {

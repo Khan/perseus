@@ -1,19 +1,14 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
-import {
-    generateAnswerTile,
-    generateFillInTheBlankOptions,
-} from "@khanacademy/perseus-core";
+import {generateFillInTheBlankOptions} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
 import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {testDependencies} from "../../testing/test-dependencies";
-import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
+import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors.testutils";
 import * as WidgetEditorRegistry from "../../widget-editor-registry";
 
 import FillInTheBlankEditor from "./fill-in-the-blank-editor";
-
-type FillInTheBlankEditorHandle = React.ElementRef<typeof FillInTheBlankEditor>;
 
 describe("fill-in-the-blank-editor", () => {
     beforeAll(() => {
@@ -61,25 +56,6 @@ describe("fill-in-the-blank-editor", () => {
         expect(
             screen.queryByTestId("fill-in-the-blank-editor"),
         ).not.toBeInTheDocument();
-    });
-
-    it("serializes the options it was given", () => {
-        // Arrange
-        const options = generateFillInTheBlankOptions({
-            content: "A [[☃ blank 1]] is a drum.",
-            tiles: [generateAnswerTile({id: "djembe", content: "djembe"})],
-            maxUsesPerTile: "unlimited",
-            randomize: true,
-        });
-        const ref = React.createRef<FillInTheBlankEditorHandle>();
-        render(
-            <FillInTheBlankEditor {...options} ref={ref} onChange={() => {}} />,
-        );
-
-        // Act
-        const serialized = ref.current?.serialize();
-
-        expect(serialized).toEqual(options);
     });
 
     it("is registered as the editor for the fill-in-the-blank widget", () => {

@@ -11,14 +11,14 @@ import {render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {earthMoonImage} from "../../perseus/src/widgets/image/utils";
+import {earthMoonImage} from "../../perseus/src/widgets/image/__testdata__/image.testdata";
 
 import EditorPage from "./editor-page";
 import {
     testDependencies,
     testDependenciesV2,
 } from "./testing/test-dependencies";
-import {registerAllWidgetsAndEditorsForTesting} from "./util/register-all-widgets-and-editors-for-testing";
+import {registerAllWidgetsAndEditorsForTesting} from "./util/register-all-widgets-and-editors.testutils";
 
 import type {UserEvent} from "@testing-library/user-event";
 

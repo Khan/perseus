@@ -16,7 +16,7 @@ import styles from "./answer-tile.module.css";
 import type {MoveTarget} from "../dnd-action-menu";
 
 /** What a scored tile shows. Each value names a CSS class in the module. */
-export type TileScoring = "correct" | "incorrect" | "unused";
+type TileScoring = "correct" | "incorrect" | "unused";
 
 export interface AnswerTileProps {
     /** The tile that moves, named as the widget's placements name it. */

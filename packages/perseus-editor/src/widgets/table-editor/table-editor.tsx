@@ -75,19 +75,11 @@ class TableEditor extends React.Component<Props> {
         fixColumnSizing(headers);
         _.each(answers, fixColumnSizing);
 
-        this.props.onChange({
+        this.handleChange({
             rows: rows,
             columns: columns,
             answers: answers,
             headers: headers,
-        });
-    };
-
-    serialize: () => any = () => {
-        const json = _.pick(this.props, "headers", "rows", "columns");
-
-        return _.extend({}, json, {
-            answers: this.props.answers.map(_.clone),
         });
     };
 

@@ -8,7 +8,7 @@ import {
     getCurrentVersion,
     registerCoreWidgets,
 } from "../../widgets/core-widget-registry";
-import {anySuccess} from "../general-purpose-parsers/test-helpers";
+import {anySuccess} from "../general-purpose-parsers/parser.testutils";
 import {
     parseAndMigratePerseusArticle,
     parseAndMigratePerseusItem,

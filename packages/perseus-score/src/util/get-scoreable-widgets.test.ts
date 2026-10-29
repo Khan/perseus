@@ -1,5 +1,5 @@
 import getScoreableWidgets from "./get-scoreable-widgets";
-import {getTestDropdownWidget} from "./test-helpers";
+import {getTestDropdownWidget} from "./widgets.testutils";
 
 describe("getScoreableWidgets", () => {
     it("returns empty arrays for empty content", () => {

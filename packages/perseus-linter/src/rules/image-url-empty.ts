@@ -1,12 +1,11 @@
 import Rule from "../rule";
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "image-url-empty",
     severity: Rule.Severity.ERROR,
     selector: "image",
     lint: function (state, content, nodes) {
-        const image = nodes[0];
+        const image: any = nodes[0];
         const url = image.target;
 
         // If no URL is provided, an infinite spinner will be shown in articles
@@ -21,4 +20,4 @@ export default Rule.makeRule({
         // linting to be able to handle async functions, which it currently
         // cannot do.
     },
-}) as Rule;
+});

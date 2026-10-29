@@ -6,18 +6,8 @@ const fs = require("fs");
 const path = require("path");
 
 const ancesdir = require("ancesdir");
-const fg = require("fast-glob");
 
-const root = ancesdir(__dirname);
-const vendorMap = fg
-    .globSync(path.join(root, "vendor/*/package.json"))
-    .reduce((map, pkgJsonPath) => {
-        const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath).toString());
-        return {
-            ...map,
-            [`^${pkgJson.name}$`]: `<rootDir>/vendor/${pkgJson.name}/${pkgJson.main}`,
-        };
-    }, {});
+const root = ancesdir(__dirname, "pnpm-workspace.yaml");
 
 // NOTE: We need to use this plugin in order to turn the module exports
 // into module.exports. This will make it so that we can mock exports
@@ -75,7 +65,6 @@ module.exports = {
         "<rootDir>/config/test/aphrodite-snapshot-serializer.js",
     ],
     moduleNameMapper: {
-        ...vendorMap,
         // Load a .js file with no exports whenever a .css file is requested.
         "(?<!\\.module)\\.css$": "<rootDir>/config/test/style-mock.js",
     },

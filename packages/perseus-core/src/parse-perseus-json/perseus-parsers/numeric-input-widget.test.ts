@@ -1,4 +1,4 @@
-import {anyFailure} from "../general-purpose-parsers/test-helpers";
+import {anyFailure} from "../general-purpose-parsers/parser.testutils";
 import {parse} from "../parse";
 import {assertSuccess, success} from "../result";
 

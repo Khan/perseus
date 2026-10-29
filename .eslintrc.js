@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 /* eslint-disable import/no-commonjs */
-const fs = require("fs");
 const path = require("path");
 
 const fg = require("fast-glob");
@@ -12,14 +11,6 @@ const pkgNames = fg
 const pkgAliases = pkgNames.map((pkgName) => {
     return [`@khanacademy/${pkgName}`, `./packages/${pkgName}/src/index.js`];
 });
-
-const vendorAliases = fs
-    .readdirSync(path.join(__dirname, "vendor"))
-    .map((name) => {
-        return [name, `./vendor/${name}`];
-    });
-
-const allAliases = [...pkgAliases, ...vendorAliases];
 
 function banImportExtension(extension) {
     const message = `Unexpected use of file extension (.${extension}) in import`;
@@ -47,6 +38,50 @@ function banImportExtension(extension) {
         },
     ];
 }
+
+const bannedImportExtensions = [
+    ...banImportExtension("js"),
+    ...banImportExtension("jsx"),
+    ...banImportExtension("ts"),
+    ...banImportExtension("tsx"),
+];
+
+/**
+ * `no-restricted-syntax` restrictions that apply everywhere. Kept separate
+ * from the import-extension bans so that overrides which lift those bans
+ * (an override *replaces* the rule) still carry these.
+ */
+const restrictedSyntax = [
+    {
+        selector:
+            "MemberExpression[property.name='render'][object.name='ReactDOM']",
+        message: "DEPRECATED: Use a React Portal instead.",
+    },
+    {
+        selector:
+            "ImportDeclaration[source.value='react'] > ImportSpecifier[imported.name='createElement']",
+        message: "Use JSX instead of createElement.",
+    },
+    {
+        selector: "TSQualifiedName[left.name='React'][right.name='FC']",
+        message:
+            "Use of React.FC<Props> is disallowed, use the following alternative: https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/2201682693/TypeScript+for+Flow+Developers#Functional-Components",
+    },
+    {
+        // Ban `expr as Type` casts (TSAsExpression). `as const` is
+        // excluded because it's a const assertion — a distinct
+        // construct that has no `satisfies` equivalent.
+        selector: "TSAsExpression:not([typeAnnotation.typeName.name='const'])",
+        message:
+            "Avoid `as` for type casting — it bypasses type checking. Prefer `satisfies` to verify a value matches a type without widening or losing inference. If a cast is truly necessary (e.g., at an unsafe boundary like an external API), disable this rule on the line with a comment explaining why.",
+    },
+    {
+        // Ban the legacy angle-bracket assertion form: `<Type>expr`.
+        selector: "TSTypeAssertion",
+        message:
+            "Avoid angle-bracket type assertions (`<Type>expr`) — they bypass type checking. Prefer `satisfies` to verify a value matches a type without widening or losing inference.",
+    },
+];
 
 /**
  * Import restrictions shared by the base config and the per-package
@@ -159,7 +194,7 @@ module.exports = {
                 moduleDirectory: ["node_modules"],
             },
             alias: {
-                map: allAliases,
+                map: pkgAliases,
                 extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
             },
         },
@@ -274,6 +309,8 @@ module.exports = {
             rules: {
                 "no-restricted-syntax": [
                     "error",
+                    ...restrictedSyntax,
+                    ...bannedImportExtensions,
                     {
                         selector:
                             "ImportDeclaration > ImportSpecifier[local.name='APIOptions']",
@@ -301,12 +338,16 @@ module.exports = {
             },
         },
         {
-            files: ["*.ts", "*.tsx"],
+            files: ["*.ts", "*.tsx", "*.mts"],
             parser: "@typescript-eslint/parser",
             parserOptions: {
                 project: ["tsconfig.json", "config/cypress/tsconfig.json"],
             },
+            // Rules local to this repo (config/eslint-plugin). Registered
+            // here because they need type information.
+            plugins: ["@internal/perseus"],
             rules: {
+                "@internal/perseus/no-adjacent-text-nodes": "error",
                 "@typescript-eslint/strict-boolean-expressions": [
                     "error",
                     {
@@ -319,6 +360,21 @@ module.exports = {
                 ],
             },
             excludedFiles: ["*.d.ts"],
+        },
+        {
+            // Rules from config/eslint-plugin only apply to learner-facing
+            // code!
+            files: [
+                "packages/perseus-editor/**/*.ts",
+                "packages/perseus-editor/**/*.tsx",
+                "*.stories.tsx",
+                "*.test.ts",
+                "*.test.tsx",
+                "**/testing/**",
+            ],
+            rules: {
+                "@internal/perseus/no-adjacent-text-nodes": "off",
+            },
         },
     ],
     reportUnusedDisableDirectives: true,
@@ -437,35 +493,8 @@ module.exports = {
         ],
         "no-restricted-syntax": [
             "error",
-            {
-                selector:
-                    "MemberExpression[property.name='render'][object.name='ReactDOM']",
-                message: "DEPRECATED: Use a React Portal instead.",
-            },
-            ...banImportExtension("js"),
-            ...banImportExtension("jsx"),
-            ...banImportExtension("ts"),
-            ...banImportExtension("tsx"),
-            {
-                selector: "TSQualifiedName[left.name='React'][right.name='FC']",
-                message:
-                    "Use of React.FC<Props> is disallowed, use the following alternative: https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/2201682693/TypeScript+for+Flow+Developers#Functional-Components",
-            },
-            {
-                // Ban `expr as Type` casts (TSAsExpression). `as const` is
-                // excluded because it's a const assertion — a distinct
-                // construct that has no `satisfies` equivalent.
-                selector:
-                    "TSAsExpression:not([typeAnnotation.typeName.name='const'])",
-                message:
-                    "Avoid `as` for type casting — it bypasses type checking. Prefer `satisfies` to verify a value matches a type without widening or losing inference. If a cast is truly necessary (e.g., at an unsafe boundary like an external API), disable this rule on the line with a comment explaining why.",
-            },
-            {
-                // Ban the legacy angle-bracket assertion form: `<Type>expr`.
-                selector: "TSTypeAssertion",
-                message:
-                    "Avoid angle-bracket type assertions (`<Type>expr`) — they bypass type checking. Prefer `satisfies` to verify a value matches a type without widening or losing inference.",
-            },
+            ...restrictedSyntax,
+            ...bannedImportExtensions,
         ],
         "no-restricted-properties": [
             "error",
@@ -474,6 +503,11 @@ module.exports = {
                 property: "random",
                 message:
                     "Use seeded randomness. See: https://khanacademy.atlassian.net/browse/LEMS-3397",
+            },
+            {
+                object: "React",
+                property: "createElement",
+                message: "Use JSX instead of React.createElement.",
             },
         ],
         "no-restricted-imports": [

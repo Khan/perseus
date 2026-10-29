@@ -10,17 +10,17 @@ import invariant from "tiny-invariant";
 import * as Dependencies from "../../dependencies";
 import {mockImageLoading} from "../../testing/image-loader-utils";
 import {testDependencies} from "../../testing/test-dependencies";
-import {scorePerseusItemTesting} from "../../util/test-utils";
+import {scorePerseusItemTesting} from "../../util/scoring.testutils";
 import {renderQuestion} from "../__testutils__/render-question";
 
-import {question} from "./image.testdata";
 import {
     earthMoonImage,
     animatedGifLandscape,
     graphieImage,
     nonAnimatedGif,
-    decodeGifFrames,
-} from "./utils";
+} from "./__testdata__/image.testdata";
+import {question} from "./image.testdata";
+import {decodeGifFrames} from "./utils";
 
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
@@ -55,6 +55,11 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         );
 
         unmockImageLoading = mockImageLoading();
+
+        // The widget calls `.then` on the result for every GIF, so an
+        // unconfigured mock would crash the render.
+        // eslint-disable-next-line no-restricted-syntax
+        (decodeGifFrames as jest.Mock).mockResolvedValue([fakeFrame]);
 
         // jsdom doesn't implement canvas getContext or ImageData.
         // eslint-disable-next-line no-restricted-syntax
@@ -532,7 +537,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             expect(button).toBeInTheDocument();
         });
 
-        it("does not render a zoom image button for decorative images", () => {
+        it("does not render a zoom image button for decorative images", async () => {
             // Arrange
             const imageQuestion = generateTestPerseusRenderer({
                 content: "[[☃ image 1]]",
@@ -550,6 +555,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             renderQuestion(imageQuestion, {apiOptions});
 
             // Assert
+            expect(await screen.findByRole("presentation")).toBeVisible();
             const button = screen.queryByRole("button");
             expect(button).not.toBeInTheDocument();
         });
@@ -571,13 +577,14 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             renderQuestion(gifImageQuestion, {apiOptions});
 
             // Assert
+            expect(screen.getByRole("figure")).toBeVisible();
             const zoomButton = screen.queryByRole("button", {
                 name: "Zoom image.",
             });
             expect(zoomButton).not.toBeInTheDocument();
         });
 
-        it("does not render a zoom image button for images without sizes", () => {
+        it("does not render a zoom image button for images without sizes", async () => {
             // Arrange
             const imageQuestion = generateTestPerseusRenderer({
                 content: "[[☃ image 1]]",
@@ -597,6 +604,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             renderQuestion(imageQuestion, {apiOptions});
 
             // Assert
+            expect(await screen.findByRole("presentation")).toBeVisible();
             const button = screen.queryByRole("button");
             expect(button).not.toBeInTheDocument();
         });
@@ -682,6 +690,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Assert
+            expect(screen.getByRole("presentation")).toBeVisible();
             expect(screen.queryByText("widget title")).not.toBeInTheDocument();
         });
 
@@ -707,6 +716,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Assert
+            expect(screen.getByRole("presentation")).toBeVisible();
             expect(
                 screen.queryByText("widget caption"),
             ).not.toBeInTheDocument();
@@ -734,6 +744,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Assert
+            expect(screen.getByRole("presentation")).toBeVisible();
             expect(
                 screen.queryByRole("button", {
                     name: "Explore image and description",
@@ -1155,6 +1166,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Assert
+            expect(screen.getByRole("figure")).toBeVisible();
             const playButton = screen.queryByRole("button", {
                 name: "Play Animation",
             });
@@ -1180,6 +1192,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             renderQuestion(imageQuestion, {apiOptions});
 
             // Assert
+            expect(screen.getByRole("figure")).toBeVisible();
             const playButton = screen.queryByRole("button", {
                 name: "Play Animation",
             });

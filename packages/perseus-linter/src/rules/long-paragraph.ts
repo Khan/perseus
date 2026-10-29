@@ -1,6 +1,5 @@
 import Rule from "../rule";
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "long-paragraph",
     severity: Rule.Severity.GUIDELINE,
@@ -11,4 +10,4 @@ export default Rule.makeRule({
 This paragraph is ${content.length} characters long.
 Shorten it to 500 characters or fewer.`;
     },
-}) as Rule;
+});

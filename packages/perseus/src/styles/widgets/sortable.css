@@ -64,7 +64,6 @@
     }
     .perseus-sortable .perseus-sortable-draggable > div {
         display: inline-block;
-        font-size: var(--wb-font-body-size-small);
         max-width: 100%;
         vertical-align: middle;
     }

@@ -1,6 +1,5 @@
 import Rule from "../rule";
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "python-program-widget-error",
     severity: Rule.Severity.ERROR,
@@ -34,7 +33,6 @@ export default Rule.makeRule({
             errors.push("The height must be a positive integer.");
         }
 
-        const allErrorsString = errors.join("\n\n");
-        return allErrorsString;
+        return errors;
     },
-}) as Rule;
+});

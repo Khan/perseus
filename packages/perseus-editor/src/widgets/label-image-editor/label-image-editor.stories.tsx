@@ -6,9 +6,9 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {earthMoonImage} from "../../../../perseus/src/widgets/image/utils";
+import {earthMoonImage} from "../../../../perseus/src/widgets/image/__testdata__/image.testdata";
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
-import {PROD_EDITOR_WIDTH} from "../storybook-constants";
+import {PROD_EDITOR_WIDTH} from "../storybook-constants.testutils";
 
 import LabelImageEditor from "./label-image-editor";
 

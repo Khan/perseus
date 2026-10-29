@@ -1,12 +1,11 @@
 import Rule from "../rule";
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "table-missing-cells",
     severity: Rule.Severity.WARNING,
     selector: "table",
     lint: function (state, content, nodes, match) {
-        const table = nodes[0];
+        const table: any = nodes[0];
         const headerLength = table.header.length;
         const rowLengths = table.cells.map((r) => r.length);
         for (let r = 0; r < rowLengths.length; r++) {
@@ -17,4 +16,4 @@ Row ${r + 1} has ${rowLengths[r]} cells.`;
             }
         }
     },
-}) as Rule;
+});

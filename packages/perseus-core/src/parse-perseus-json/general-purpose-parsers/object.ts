@@ -33,7 +33,12 @@ export function object<S extends ObjectSchema>(
  *
  * The parser preserves any object properties not present in the schema. If
  * you want unrecognized properties to be filtered out instead, try `object`.
+ *
+ * @internal
+ * Only used in tests.
  */
+// TODO(benchristel): looseObject isn't used. Delete it and inline
+//  objectParserWithInitializer and testSharedObjectParserBehavior.
 export function looseObject<S extends ObjectSchema>(
     schema: S,
 ): Parser<OptionalizeProperties<{[K in keyof S]: ParsedValue<S[K]>}>> {

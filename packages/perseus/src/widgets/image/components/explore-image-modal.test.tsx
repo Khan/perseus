@@ -15,8 +15,8 @@ import {
     earthMoonImage,
     animatedGifLandscape,
     nonAnimatedGif,
-    decodeGifFrames,
-} from "../utils";
+} from "../__testdata__/image.testdata";
+import {decodeGifFrames} from "../utils";
 
 import {ExploreImageModal} from "./explore-image-modal";
 
@@ -75,6 +75,11 @@ describe("ExploreImageModal", () => {
         );
 
         unmockImageLoading = mockImageLoading();
+
+        // The modal calls `.then` on the result for every GIF, so an
+        // unconfigured mock would crash the render.
+        // eslint-disable-next-line no-restricted-syntax
+        (decodeGifFrames as jest.Mock).mockResolvedValue([fakeFrame]);
 
         // jsdom doesn't implement canvas getContext or ImageData.
         // eslint-disable-next-line no-restricted-syntax
@@ -345,6 +350,7 @@ describe("ExploreImageModal", () => {
                 expect(decodeGifFrames).toHaveBeenCalled();
             });
 
+            expect(screen.getByRole("img")).toBeVisible();
             const playButton = screen.queryByRole("button", {
                 name: "Play Animation",
             });
@@ -355,7 +361,7 @@ describe("ExploreImageModal", () => {
             expect(pauseButton).not.toBeInTheDocument();
         });
 
-        it("should not render gif controls if the image is not a gif", () => {
+        it("should not render gif controls if the image is not a gif", async () => {
             // Arrange, Act
             renderModal({
                 ...defaultProps,
@@ -366,6 +372,7 @@ describe("ExploreImageModal", () => {
             });
 
             // Assert
+            expect(await screen.findByRole("img")).toBeVisible();
             const playButton = screen.queryByRole("button", {
                 name: "Play Animation",
             });

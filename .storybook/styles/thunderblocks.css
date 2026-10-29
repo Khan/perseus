@@ -1,4 +1,6 @@
 /* The Plus Jakarta Sans font used in Classroom. */
+/* TODO(benchristel): we could use `var(--wb-font-family-sans)` here and drop
+   the [data-wb-theme="thunderblocks"] selector. WB sets the font families itself. */
 body[data-wb-theme="thunderblocks"] {
     font-family: "Plus Jakarta Sans", sans-serif;
 }

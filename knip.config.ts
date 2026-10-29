@@ -5,6 +5,9 @@ import type {KnipConfig} from "knip";
  * https://knip.dev/
  *
  * To use: `pnpm knip`
+ *
+ * For help troubleshooting issues found by knip, see:
+ * https://khanacademy.atlassian.net/wiki/spaces/LC/pages/5032640623/Fixing+Knip+errors+in+Perseus
  */
 
 // About `project` and `entry`: Knip will only look for dead code in `project`
@@ -13,51 +16,81 @@ import type {KnipConfig} from "knip";
 // See: https://knip.dev/guides/configuring-project-files#unused-files
 // Paths marked with `!` are production files.
 const basePackageConfig = {
-    project: ["src/**/*.{ts,tsx,js,jsx}!"],
+    project: [
+        "src/**/*.{ts,tsx,js,jsx}!",
+        "src/**/*.{cypress,mockData,stories,test,testdata,testutils,typetest}.{ts,tsx,js,jsx}",
+    ],
     entry: [
         "src/index.{ts,tsx}!",
-        "src/**/*.cypress.{ts,tsx}",
-        "src/**/*.test.{ts,tsx}",
-        "src/**/*.typetest.{ts,tsx}",
-        "src/**/*.stories.{ts,tsx}",
+        "src/**/*.{cypress,stories,test,typetest}.{ts,tsx}",
     ],
 };
 
+// Base configuration for packages that contain non-production directories like
+// __docs__, __testdata__, etc. Knip warns if this configuration is used for
+// a package that has no such directories, which is why it's separate from the
+// basePackageConfig.
+const basePackageConfigWithTestHelpers = {
+    ...basePackageConfig,
+    project: [
+        ...basePackageConfig.project,
+        "src/**/{__docs__,__testdata__,__testutils__,testing}/**/*.{ts,tsx,js,jsx}",
+    ],
+};
+
+// Configuration for packages that should not be checked by knip. By default,
+// knip will analyze all packages listed in pnpm-workspace.yaml. Packages that
+// use this config generated errors when I turned on `knip --production`, and
+// are low-value to check.
+// FUTURE(benchristel): we might want to unignore these packages someday.
+const ignoredPackageConfig = {
+    project: [],
+    entry: [],
+};
+
 const config: KnipConfig = {
-    // .pi/ holds local agent tooling that git ignores, but knip still picks
-    // up its files.
-    ignore: [".pi/**"],
-    // Knip only parses JS and TS files. To follow imports in other file
-    // types, it runs a "compiler" that turns a file into JS/TS source it can
-    // parse. See: https://knip.dev/features/compilers
-    //
-    // Storybook docs pages (.mdx) import components, stories, and packages,
-    // so without this knip reports those as unused. Knip has a built-in MDX
-    // compiler, but in this version it only turns on when an MDX package
-    // (e.g. @mdx-js/mdx) is a direct dependency, and none is here. (Knip 6
-    // can turn it on with `mdx: true` instead.)
-    //
-    // Knip only needs the import statements, so this returns the lines that
-    // start with `import`. It first removes fenced code blocks, because the
-    // docs show sample imports (e.g. of @khanacademy/perseus-score) that
-    // aren't real. An import split over several lines would break this;
-    // none of our .mdx files has one.
-    compilers: {
-        mdx: (text: string) =>
-            text
-                .replace(/```[\s\S]*?```/g, "")
-                .match(/^import\s.+$/gm)
-                ?.join("\n") ?? "",
-    },
+    ignoreExportsUsedInFile: true,
     workspaces: {
         ".": {
-            project: ["{config,utils}/**/*.{ts,tsx,js,jsx}"],
+            project: [
+                "{config,utils}/**/*.{ts,tsx,js,jsx,mdx}",
+                "!config/build/**/*",
+            ],
             entry: [
                 // CLI tools
                 "utils/**/*.{ts,tsx,js,jsx}",
             ],
         },
+        __docs__: ignoredPackageConfig,
+        "config/build": {
+            project: ["**/*.{ts,tsx,js,jsx}"],
+        },
+        "config/cypress": {
+            // Cypress loads this file through its supportFile setting.
+            entry: ["support.ts"],
+        },
+        "config/eslint-plugin": {
+            project: [
+                "**/*.{ts,tsx,js,jsx}",
+                // ESLint rule test fixtures are referenced by path (RuleTester
+                // `filename`), never imported.
+                "!rules/__fixtures__/**",
+            ],
+        },
+        data: ignoredPackageConfig,
         "packages/*": basePackageConfig,
+        "packages/kas": {
+            ...basePackageConfig,
+            project: [
+                ...basePackageConfig.project,
+                // The parser generator is a dev tool. Exclude it from the
+                // production project.
+                "!src/parser-generator.ts!",
+            ],
+        },
+        "packages/math-input": basePackageConfigWithTestHelpers,
+        "packages/perseus": basePackageConfigWithTestHelpers,
+        "packages/perseus-editor": basePackageConfigWithTestHelpers,
         "packages/perseus-core": {
             ...basePackageConfig,
             entry: [
@@ -76,10 +109,10 @@ const config: KnipConfig = {
     // These are packages that are listed in package.json files but not
     // directly imported in our code.
     ignoreDependencies: [
-        // perseus-build-settings is listed as a dependency so package
+        // @internal/build-settings is listed as a dependency so package
         // versions will get automatically bumped when there is a change to
         // our build tooling.
-        "perseus-build-settings",
+        "@internal/build-settings",
         // @swc-node/register is used in the shabang of executable TypeScript
         // files.
         "@swc-node/register",
@@ -89,17 +122,6 @@ const config: KnipConfig = {
         // `swcrc.jsc.experimental.plugins.push(["swc_mut_cjs_exports", {}]);`
         // (hence, not imported).
         "swc_mut_cjs_exports",
-        // @swc/helpers is referenced via externalHelpers in .swcrc, not imported directly.
-        "@swc/helpers",
-        // We use esbuild for the item-splitting change check in a Github action.
-        "esbuild",
-    ],
-    // Scripts we use in `package.json`
-    ignoreBinaries: [
-        "utils/changed-files.sh",
-        "utils/lint.sh",
-        "utils/pre-publish-check-ci.ts",
-        "utils/update-catalog-hashes-cli.ts",
     ],
 };
 

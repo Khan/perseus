@@ -9,7 +9,6 @@ import Rule from "../rule";
  * content authors of this policy change. This rule ignores
  * markdown images found within other widgets for now.
  */
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "image-markdown",
     severity: Rule.Severity.WARNING,
@@ -17,7 +16,7 @@ export default Rule.makeRule({
     lint: function (state, content, nodes, match, context) {
         // Check if we're inside a widget - if so, allow markdown images.
         if (context?.stack && context.stack.includes("widget")) {
-            return null;
+            return;
         }
 
         // Discourage using markdown images in main content
@@ -35,7 +34,5 @@ export default Rule.makeRule({
 Markdown images are not recommended - these are images that use the
 ![alt](url) format. Please use the Image widget instead.`;
         }
-
-        return null;
     },
-}) as Rule;
+});

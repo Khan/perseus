@@ -4,10 +4,7 @@ import {
 } from "@khanacademy/perseus-core";
 
 import {themeModes} from "../../../../../../.storybook/modes";
-import {
-    mobileDecorator,
-    rtlDecorator,
-} from "../../__testutils__/story-decorators";
+import {rtlDecorator} from "../../__testutils__/story-decorators";
 
 import {gradedGroupRendererDecorator} from "./graded-group-renderer-decorator";
 
@@ -63,14 +60,6 @@ export const DefaultDesktop: Story = {
     args: sharedArgs,
 };
 
-export const DefaultMobile: Story = {
-    decorators: [gradedGroupRendererDecorator, mobileDecorator],
-    args: sharedArgs,
-    parameters: {
-        apiOptions: {isMobile: true},
-    },
-};
-
 export const RightToLeft: Story = {
     decorators: [gradedGroupRendererDecorator, rtlDecorator],
     args: sharedArgs,
@@ -98,4 +87,22 @@ const texArgs = {
 export const DesktopWithTex: Story = {
     decorators: [gradedGroupRendererDecorator],
     args: texArgs,
+};
+
+const tableContent = `
+| column A | column B (right aligned) | column C (centered)    |
+| -------- | -----------------------: | :--------------------: |
+| turtles  | 42                       | $\\text{\\red{red}}$   |
+| bats     | 96                       | $\\text{\\blue{blue}}$ |
+| cabbages | 0                        | $\\dfrac{1}{2}$        |
+`;
+
+export const WithTable: Story = {
+    decorators: [gradedGroupRendererDecorator],
+    args: {
+        title: "This is a graded group",
+        content: tableContent,
+        widgets: {},
+        images: {},
+    },
 };

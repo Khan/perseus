@@ -454,47 +454,6 @@ describe("expression-editor", () => {
         );
     });
 
-    it("serializes", () => {
-        const editorRef = React.createRef<ExpressionEditor>();
-
-        render(<HarnessedEditor ref={editorRef} />);
-
-        const options = editorRef.current?.serialize();
-
-        expect(options).toEqual({
-            answerForms: [],
-            buttonSets: ["basic"],
-            extraKeys: ["PI"],
-            functions: ["f", "g", "h"],
-            times: false,
-        });
-    });
-
-    it("derives extra keys when serializing", () => {
-        const editorRef = React.createRef<ExpressionEditor>();
-
-        render(
-            <HarnessedEditor
-                ref={editorRef}
-                onChange={() => {}}
-                answerForms={[
-                    {
-                        // deriveExtraKeys should find x
-                        value: "42x",
-                        considered: "correct",
-                        form: false,
-                        key: "0-0-0-0-0",
-                        simplify: false,
-                    },
-                ]}
-            />,
-        );
-
-        const options = editorRef.current?.serialize();
-
-        expect(options?.extraKeys).toEqual(["x"]);
-    });
-
     it("calls onChange with extra keys", async () => {
         let options: any;
 

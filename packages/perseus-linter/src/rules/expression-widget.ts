@@ -1,3 +1,5 @@
+import * as KAS from "@khanacademy/kas";
+
 import Rule from "../rule";
 
 function buttonNotInButtonSet(name: string, set: string): string {
@@ -20,30 +22,13 @@ const stringToButtonSet = {
  * available in the keypad (desktop learners can use a keyboard,
  * but mobile learners must use the MathInput keypad)
  */
-// eslint-disable-next-line no-restricted-syntax
-export default Rule.makeRule({
-    name: "expression-widget",
+export const ExpressionWidgetButtons = Rule.makeWidgetRule({
+    name: "expression-widget-buttons",
+    widgetType: "expression",
     severity: Rule.Severity.WARNING,
-    selector: "widget",
-    lint: function (state, content, nodes, match, context) {
-        // This rule only looks at expression widgets
-        if (state.currentNode().widgetType !== "expression") {
-            return;
-        }
-
-        const nodeId = state.currentNode().id;
-        if (!nodeId) {
-            return;
-        }
-
-        // If it can't find a definition for the widget it does nothing
-        const widget = context?.widgets?.[nodeId];
-        if (!widget) {
-            return;
-        }
-
+    lint(widget) {
         const answers = widget.options.answerForms;
-        const buttons = widget.options.buttonSets;
+        const buttons: string[] = widget.options.buttonSets;
         for (const answer of answers) {
             for (const [str, set] of Object.entries(stringToButtonSet)) {
                 if (answer.value.includes(str) && !buttons.includes(set)) {
@@ -52,4 +37,60 @@ export default Rule.makeRule({
             }
         }
     },
-}) as Rule;
+});
+
+/**
+ * Checks that expression widgets have a correct answer.
+ */
+export const ExpressionWidgetCorrectAnswer = Rule.makeWidgetRule({
+    name: "expression-widget-correct-answer",
+    widgetType: "expression",
+    severity: Rule.Severity.ERROR,
+    lint(widget) {
+        const {answerForms} = widget.options;
+
+        if (answerForms.length === 0) {
+            return "No answers specified.";
+        }
+
+        const hasCorrect = answerForms.some((form) => {
+            return form.considered === "correct";
+        });
+        if (!hasCorrect) {
+            return "No correct answer specified.";
+        }
+    },
+});
+
+/**
+ * Checks that each of an expression widget's answers is a parseable
+ * expression, and is simplified if the answer requires simplification.
+ */
+export const ExpressionWidgetAnswerForms = Rule.makeWidgetRule({
+    name: "expression-widget-answer-forms",
+    widgetType: "expression",
+    severity: Rule.Severity.ERROR,
+    lint(widget) {
+        const {answerForms, functions} = widget.options;
+        const issues: string[] = [];
+
+        answerForms.forEach((form, ix) => {
+            if (form.value === "") {
+                issues.push(`Answer ${ix + 1} is empty.`);
+                return;
+            }
+            const expression = KAS.parse(form.value, {functions});
+            if (!expression.parsed) {
+                issues.push(`Couldn't parse ${form.value}.`);
+                return;
+            }
+            if (form.simplify && !expression.expr.isSimplified()) {
+                issues.push(
+                    `${form.value} isn't simplified, but is required to be.`,
+                );
+            }
+        });
+
+        return issues;
+    },
+});

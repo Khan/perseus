@@ -1,8 +1,5 @@
 import {themeModes} from "../../../../../../.storybook/modes";
-import {
-    mobileDecorator,
-    rtlDecorator,
-} from "../../__testutils__/story-decorators";
+import {rtlDecorator} from "../../__testutils__/story-decorators";
 
 import {expressionRendererDecorator} from "./expression-renderer-decorator";
 
@@ -96,22 +93,6 @@ export const Static: Story = {
     },
     parameters: {
         isStatic: true,
-        initialUserInput: {"expression 1": "2x"},
-    },
-};
-
-export const Mobile: Story = {
-    decorators: [expressionRendererDecorator, mobileDecorator],
-    args: {
-        answerForms: [],
-        buttonSets: ["basic"],
-        functions: [],
-        times: false,
-        extraKeys: [],
-        visibleLabel: "Enter your answer",
-    },
-    parameters: {
-        apiOptions: {customKeypad: true},
         initialUserInput: {"expression 1": "2x"},
     },
 };

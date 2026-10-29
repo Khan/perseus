@@ -1,6 +1,5 @@
 import Rule from "../rule";
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "math-align-linebreaks",
     severity: Rule.Severity.WARNING,
@@ -40,4 +39,4 @@ export default Rule.makeRule({
             text = text.substring(nextpair[0].length);
         }
     },
-}) as Rule;
+});

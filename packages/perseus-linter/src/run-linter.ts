@@ -1,13 +1,9 @@
-import Rule from "./rule";
-import AllRules from "./rules/all-rules";
+import {allRules} from "./rules/all-rules";
 import TreeTransformer from "./tree-transformer";
 
+import type Rule from "./rule";
 import type {LinterWarning} from "./rule";
 import type {TreeNode} from "./tree-transformer";
-
-export const allLintRules: ReadonlyArray<any> = AllRules.filter(
-    (r) => r.severity < Rule.Severity.BULK_WARNING,
-);
 
 /**
  * Run the Perseus linter over the specified markdown parse tree, with the
@@ -31,7 +27,7 @@ export function runLinter(
     tree: any,
     context: any,
     highlight: boolean,
-    rules: ReadonlyArray<Rule> = allLintRules,
+    rules: ReadonlyArray<Rule> = allRules,
 ): ReadonlyArray<LinterWarning> {
     const warnings: Array<LinterWarning> = [];
     const tt = new TreeTransformer(tree);
@@ -92,8 +88,8 @@ export function runLinter(
         } as const;
 
         applicableRules.forEach((rule) => {
-            const warning = rule.check(node, state, content, nodeContext);
-            if (warning) {
+            const ruleWarnings = rule.check(node, state, content, nodeContext);
+            for (const warning of ruleWarnings) {
                 // The start and end locations are relative to this
                 // particular node, and so are not generally very useful.
                 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions

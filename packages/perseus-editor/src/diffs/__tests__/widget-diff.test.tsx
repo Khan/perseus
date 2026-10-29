@@ -2,7 +2,7 @@ import {generateRadioWidget} from "@khanacademy/perseus-core";
 import {render} from "@testing-library/react";
 import * as React from "react";
 
-import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
+import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors.testutils";
 import WidgetDiff from "../widget-diff";
 
 import type {PerseusWidget} from "@khanacademy/perseus-core";

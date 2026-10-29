@@ -3,7 +3,7 @@
     "description": "Shared Perseus infrastructure",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "42.0.0",
+    "version": "42.1.0",
     "publishConfig": {
         "access": "public",
         "exports": {
@@ -35,8 +35,8 @@
         "tiny-invariant": "catalog:prodDeps"
     },
     "devDependencies": {
+        "@internal/build-settings": "workspace:*",
         "@khanacademy/wonder-stuff-core": "catalog:devDeps",
-        "perseus-build-settings": "workspace:*",
         "underscore": "catalog:devDeps"
     },
     "peerDependencies": {

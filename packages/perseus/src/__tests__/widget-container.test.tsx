@@ -1,11 +1,3 @@
-/***********************************************************************
- *                                                                     *
- * WARNING!!!! THERE ARE ACTIVE CHANGES HAPPENING IN THE RENDERER!     *
- *                                                                     *
- ***********************************************************************/
-// TODO(LEMS-4304): feature flag cleanup - rename this file to widget-container.test.tsx.
-// This file is the new widget container test file that will replace the old container tests.
-
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";

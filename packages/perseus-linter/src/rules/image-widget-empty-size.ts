@@ -6,7 +6,6 @@ import Rule from "../rule";
 // slightly increase efficiency, but it means that if there is more
 // than one problem with an image widget, the user will only see one
 // problem at a time.
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "image-widget-empty-size",
     severity: Rule.Severity.WARNING,
@@ -41,4 +40,4 @@ This image has a width of ${width} and a height of ${height}.
 Please use the "Reset to original size" button to set the size of the image.`;
         }
     },
-}) as Rule;
+});

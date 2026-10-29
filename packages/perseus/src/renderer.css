@@ -1,0 +1,92 @@
+@layer perseus-base {
+    /*****************
+     * Base Elements *
+     *****************/
+    /* TODO: remove .framework-perseus and replace with a class we control */
+    .framework-perseus {
+        font-size: var(--wb-font-body-size-medium);
+        font-family: var(--wb-font-family-sans);
+        font-weight: var(--wb-font-weight-medium);
+        line-height: var(--wb-font-body-lineHeight-medium);
+
+        p {
+            /* override base font size set by frontend */
+            font-size: inherit;
+        }
+
+        h1 {
+            font-size: var(--wb-font-heading-size-xxlarge);
+            line-height: var(--wb-font-heading-lineHeight-xxlarge);
+        }
+
+        h2 {
+            font-size: var(--wb-font-heading-size-xlarge);
+            line-height: var(--wb-font-heading-lineHeight-xlarge);
+        }
+
+        h3 {
+            font-size: var(--wb-font-heading-size-large);
+            line-height: var(--wb-font-heading-lineHeight-large);
+        }
+
+        h4,
+        h5,
+        h6 {
+            font-size: var(--wb-font-heading-size-medium);
+            line-height: var(--wb-font-heading-lineHeight-medium);
+        }
+    }
+
+    /**********
+     * Layout *
+     **********/
+    .perseus-article > .perseus-renderer > * {
+        /** center everything in a column except full-width widgets */
+        margin-inline: auto;
+        /* TODO: remove the perseus-paragraph-full-width wrapper element */
+        &:not(.perseus-paragraph-full-width, .widget-full-width) {
+            max-width: 68.8rem;
+        }
+    }
+
+    /*******************
+     * Markdown Tables *
+     *******************/
+    .framework-perseus table {
+        border-collapse: collapse;
+        margin-inline: 0;
+        margin-block: auto;
+        /* min-width prevents tables from being too cramped on small screens.
+         * If the table is wider than the container, we use JavaScript to apply
+         * a CSS transform to zoom it out. The user can then click to zoom in.
+         */
+        min-width: 48rem;
+        tbody > tr {
+            border: var(--wb-border-width-thin) solid
+                var(--wb-semanticColor-core-border-neutral-subtle);
+        }
+        th {
+            font-weight: bold;
+        }
+        td {
+            background-color: var(
+                --wb-semanticColor-core-background-base-default
+            );
+        }
+        :is(th, td) {
+            padding: var(--wb-sizing-size_160);
+            text-align: left;
+
+            &[align="center"] {
+                text-align: center;
+            }
+            &[align="right"] {
+                text-align: right;
+            }
+        }
+    }
+    .framework-perseus .perseus-table-title {
+        text-align: center;
+        font-size: var(--wb-font-heading-size-medium);
+    }
+}

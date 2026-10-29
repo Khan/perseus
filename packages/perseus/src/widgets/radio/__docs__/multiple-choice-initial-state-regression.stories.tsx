@@ -8,7 +8,7 @@ import {themeModes} from "../../../../../../.storybook/modes";
 import {ServerItemRenderer} from "../../../server-item-renderer";
 import {testDependenciesV2} from "../../../testing/test-dependencies";
 import {
-    mobileDecorator,
+    styledContainer,
     narrowViewportDecorator,
     rtlDecorator,
 } from "../../__testutils__/story-decorators";
@@ -143,14 +143,16 @@ export const SingleSelectWithImagesAndScroll: Story = {
     },
 };
 
+const sum1To50 = Array(50)
+    .fill(null)
+    .map((_, i) => i + 1)
+    .join(" + ");
+
 export const SingleSelectWithLongMathjax: Story = {
     decorators: [radioRendererDecorator],
     args: {
         choices: [
-            generateRadioChoice(
-                "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
-                {correct: true},
-            ),
+            generateRadioChoice(`$${sum1To50}$`, {correct: true}),
             generateRadioChoice("$100-50$"),
             generateRadioChoice("$200-125+10$"),
             generateRadioChoice("$10+10+10+10$"),
@@ -332,14 +334,14 @@ export const MultiSelectRTL: Story = {
     },
 };
 
-export const SingleSelectWithLongMathjaxMobile: Story = {
-    decorators: [radioRendererDecorator, mobileDecorator],
+export const SingleSelectWithLongMathjax688px: Story = {
+    decorators: [
+        radioRendererDecorator,
+        styledContainer({maxWidth: "688px", marginInline: "auto"}),
+    ],
     args: {
         choices: [
-            generateRadioChoice(
-                "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
-                {correct: true},
-            ),
+            generateRadioChoice(`$${sum1To50}$`, {correct: true}),
             generateRadioChoice("$100-50$"),
             generateRadioChoice("$200-125+10$"),
             generateRadioChoice("$10+10+10+10$"),
@@ -352,10 +354,7 @@ export const MultiSelectWithLongMathjax: Story = {
     args: {
         multipleSelect: true,
         choices: [
-            generateRadioChoice(
-                "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
-                {correct: true},
-            ),
+            generateRadioChoice(`$${sum1To50}$`, {correct: true}),
             generateRadioChoice("$100-50$", {
                 correct: true,
             }),

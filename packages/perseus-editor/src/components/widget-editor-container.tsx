@@ -34,8 +34,6 @@ type State = {
 
 // exported for tests
 export function _upgradeWidgetInfo(widgetInfo: PerseusWidget): PerseusWidget {
-    // We can't call serialize here because this.refs.widget
-    // doesn't exist before this component is mounted.
     // eslint-disable-next-line no-restricted-syntax
     const filteredWidget: PerseusWidget = excludeDenylistKeys(
         widgetInfo,
@@ -51,13 +49,8 @@ export function _upgradeWidgetInfo(widgetInfo: PerseusWidget): PerseusWidget {
     return applyDefaultsToWidget(filteredWidget);
 }
 
-// This component handles upgrading widget editor props via prop
-// upgrade transforms. Widget editors will always be rendered
-// with all available transforms applied, but the results of those
-// transforms will not be propogated upwards until serialization.
 class WidgetEditorContainer extends React.Component<Props, State> {
     widgetSpecificEditor: React.RefObject<{
-        serialize(): unknown;
         getSaveWarnings?: () => unknown;
     }>;
 
@@ -90,11 +83,7 @@ class WidgetEditorContainer extends React.Component<Props, State> {
         // eslint-disable-next-line no-restricted-syntax
         const newWidgetInfo = {
             ...this.state.widgetInfo,
-            options: {
-                ...this.state.widgetInfo.options,
-                ...(this.widgetSpecificEditor.current?.serialize() ?? {}),
-                ...newOptions,
-            },
+            options: newOptions,
         } as PerseusWidget;
         this.props.onChange(newWidgetInfo);
     };
@@ -133,20 +122,6 @@ class WidgetEditorContainer extends React.Component<Props, State> {
     getSaveWarnings = () => {
         const issuesFunc = this.widgetSpecificEditor.current?.getSaveWarnings;
         return issuesFunc ? issuesFunc() : [];
-    };
-
-    serialize = () => {
-        const widgetInfo = this.state.widgetInfo;
-        return {
-            type: widgetInfo.type,
-            alignment: widgetInfo.alignment,
-            static: widgetInfo.static,
-            graded: widgetInfo.graded,
-            options:
-                this.widgetSpecificEditor.current?.serialize() ??
-                widgetInfo.options,
-            version: widgetInfo.version,
-        };
     };
 
     render(): React.ReactNode {

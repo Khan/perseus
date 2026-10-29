@@ -3,7 +3,8 @@ export {libVersion} from "./version";
 export {linterContextDefault} from "./proptypes";
 
 export {default as Rule} from "./rule";
-export {runLinter, allLintRules as rules} from "./run-linter";
+export {runLinter} from "./run-linter";
+export {allRules as rules} from "./rules/all-rules";
 
 export type {LinterWarning} from "./rule";
 export type {LinterContextProps} from "./types";

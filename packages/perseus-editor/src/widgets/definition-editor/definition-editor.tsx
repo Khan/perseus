@@ -4,7 +4,6 @@ import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../../editor";
-import EditorJsonify from "../../mixins/editor-jsonify";
 
 import type {InitializeWidgetOptionsParams} from "../../editor";
 import type {WidgetEditorProps} from "../widget-editor-props";
@@ -43,10 +42,6 @@ class DefinitionEditor extends React.Component<Props> {
             ...changed,
         });
     }
-
-    serialize: () => any = () => {
-        return EditorJsonify.serialize.call(this);
-    };
 
     render(): React.ReactNode {
         return (

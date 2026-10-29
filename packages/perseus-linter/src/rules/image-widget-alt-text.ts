@@ -6,7 +6,6 @@ import Rule from "../rule";
 // slightly increase efficiency, but it means that if there is more
 // than one problem with an image widget, the user will only see one
 // problem at a time.
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "image-widget-alt-text",
     severity: Rule.Severity.WARNING,
@@ -59,4 +58,4 @@ Please pair your alt with a long description below if you need significantly
 more text to sufficiently describe the image.`;
         }
     },
-}) as Rule;
+});
