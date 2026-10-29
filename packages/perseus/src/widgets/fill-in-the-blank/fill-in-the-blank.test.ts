@@ -146,6 +146,52 @@ describe("Fill in the Blank Widget", () => {
         });
     });
 
+    it("keeps placements separate between two widgets with the same blank IDs in the same question", async () => {
+        // Arrange
+        // Both FITB widgets name their blank "blank 1", so a leak between their
+        // BlankContext or drag-and-drop providers would show up here.
+        const oneBlank: Partial<PerseusFillInTheBlankWidgetOptions> = {
+            content: "The [[☃ blank 1]] is a drum.",
+            widgets: {"blank 1": generateBlankWidget()},
+        };
+        const {renderer} = renderQuestion(
+            generateTestPerseusRenderer({
+                content:
+                    "[[☃ fill-in-the-blank 1]]\n\n[[☃ fill-in-the-blank 2]]",
+                widgets: {
+                    "fill-in-the-blank 1": generateFillInTheBlankWidget({
+                        options: generateFillInTheBlankOptions({
+                            ...oneBlank,
+                            tiles: drumTiles.slice(0, 2),
+                        }),
+                    }),
+                    "fill-in-the-blank 2": generateFillInTheBlankWidget({
+                        options: generateFillInTheBlankOptions({
+                            ...oneBlank,
+                            tiles: drumTiles.slice(2),
+                        }),
+                    }),
+                },
+            }),
+            {apiOptions},
+        );
+
+        // Act
+        await moveViaMenu(user, "djembe", "Blank 1");
+
+        // Assert
+        expect(renderer.getUserInputMap()).toEqual({
+            "fill-in-the-blank 1": {"blank 1": {selected: "djembe"}},
+            // Untouched, so it still holds its start input.
+            "fill-in-the-blank 2": {},
+        });
+        const [firstBlank, secondBlank] = screen.getAllByTestId("blank-widget");
+        expect(
+            within(firstBlank).getByRole("button", {name: "djembe"}),
+        ).toBeInTheDocument();
+        expect(secondBlank).toBeEmptyDOMElement();
+    });
+
     it("removes a placed single-use tile from the choice bank", async () => {
         // Arrange
         renderFillInTheBlank({
