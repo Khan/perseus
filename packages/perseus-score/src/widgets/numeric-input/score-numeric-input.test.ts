@@ -3,7 +3,17 @@ import {
     generateNumericInputOptions,
 } from "@khanacademy/perseus-core";
 
+import {
+    fractionMultipleOfPi,
+    mixedNumberMultipleOfPi,
+    multipleOfPi,
+    piAsNumerator,
+    piInNumerator,
+} from "../../util/answer-types";
+
 import scoreNumericInput, {maybeParsePercentInput} from "./score-numeric-input";
+
+import type {PerseusNumericInputUserInput} from "@khanacademy/perseus-core";
 
 describe("scoreNumericInput", () => {
     it("is invalid when input is undefined", () => {
@@ -294,6 +304,30 @@ describe("scoreNumericInput", () => {
         const score = scoreNumericInput(userInput, rubric);
 
         expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("guards against pathological input", () => {
+        jest.useRealTimers();
+        const rubric = generateNumericInputOptions({
+            coefficient: false,
+            answers: [
+                generateNumericInputAnswer({
+                    value: 311.01767270538954,
+                    answerForms: ["pi"],
+                }),
+            ],
+        });
+
+        const userInput: PerseusNumericInputUserInput = {
+            currentValue: "123" + " ".repeat(2000) + "12",
+        };
+
+        const t0 = Date.now();
+        const score = scoreNumericInput(userInput, rubric);
+        const t1 = Date.now();
+
+        expect(t1 - t0).toBeLessThan(500);
+        expect(score).toHaveInvalidInput();
     });
 
     it("with a strict answer", () => {
@@ -818,3 +852,53 @@ describe("maybeParsePercentInput utility function", () => {
         expect(result).toBe(0.2);
     });
 });
+
+describe("the regex for fractional multiples of pi", () => {
+    it("is resilient to pathological input", () => {
+        const evilString = "123" + " ".repeat(5000) + "12";
+        expect(timeRegex(fractionMultipleOfPi, evilString)).toBeLessThan(500);
+    });
+});
+
+describe("the regex for mixed-number multiples of pi", () => {
+    it("is resilient to pathological input", () => {
+        const evilString = "1 1/2" + " ".repeat(100_000) + "12";
+        expect(timeRegex(mixedNumberMultipleOfPi, evilString)).toBeLessThan(
+            500,
+        );
+    });
+});
+
+describe("the regex for fractions with pi in the numerator", () => {
+    it("is resilient to pathological input without a / character", () => {
+        const evilString = "1" + " ".repeat(100_000) + "12";
+        expect(timeRegex(piInNumerator, evilString)).toBeLessThan(500);
+    });
+
+    it("is resilient to pathological input with a / character", () => {
+        const evilString = "2 pi /" + " ".repeat(100_000) + "a";
+        expect(timeRegex(piInNumerator, evilString)).toBeLessThan(500);
+    });
+});
+
+describe("the regex for fractions with pi as the numerator", () => {
+    it("is resilient to pathological input", () => {
+        const evilString = "-" + " ".repeat(100_000) + "a";
+        expect(timeRegex(piAsNumerator, evilString)).toBeLessThan(500);
+    });
+});
+
+describe("the regex for multiples of pi (with any coefficient format)", () => {
+    it("is resilient to pathological input", () => {
+        const evilString = "1" + " ".repeat(100_000) + "a";
+        expect(timeRegex(multipleOfPi, evilString)).toBeLessThan(500);
+    });
+});
+
+function timeRegex(re: RegExp, s: string): number {
+    jest.useRealTimers();
+    const t0 = Date.now();
+    re.test(s);
+    const t1 = Date.now();
+    return t1 - t0;
+}

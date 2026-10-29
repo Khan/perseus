@@ -37,6 +37,18 @@ type PredicateValidatorOptions = {
     message?: string;
 };
 
+// Exported for testing.
+export const fractionMultipleOfPi =
+    /^([+-]?\s*\d+\s*(?:\/\s*(?:[+-]\s*)?\d+\s*)?)(\*\s*)?(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i;
+export const mixedNumberMultipleOfPi =
+    /^([+-]?)\s*(\d+)\s*([+-]?\d+)\s*\/\s*([+-]?\d+)\s*(?:\*\s*)?(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i;
+export const piInNumerator =
+    /^([+-]?\s*\d+)\s*(?:\*\s*)?(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*((?:[+-]\s*)?\d+))?$/i;
+export const piAsNumerator =
+    /^([+-]?)\s*(?:\*\s*)?(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*([+-]?\d+))?$/i;
+export const multipleOfPi =
+    /^(\S+)\s*(?:\*\s*)?(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i;
+
 /**
  * Answer types
  *
@@ -299,19 +311,11 @@ const KhanAnswerTypes = {
                         ];
 
                         // 5 / 6 pi
-                    } else if (
-                        (match = text.match(
-                            /^([+-]?\s*\d+\s*(?:\/\s*[+-]?\s*\d+)?)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i,
-                        ))
-                    ) {
+                    } else if ((match = text.match(fractionMultipleOfPi))) {
                         possibilities = fractionTransformer(match[1]);
 
                         // 4 5 / 6 pi
-                    } else if (
-                        (match = text.match(
-                            /^([+-]?)\s*(\d+)\s*([+-]?\d+)\s*\/\s*([+-]?\d+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i,
-                        ))
-                    ) {
+                    } else if ((match = text.match(mixedNumberMultipleOfPi))) {
                         const sign = parseFloat(match[1] + "1");
                         const integ = parseFloat(match[2]);
                         const num = parseFloat(match[3]);
@@ -327,21 +331,13 @@ const KhanAnswerTypes = {
                         ];
 
                         // 5 pi / 6
-                    } else if (
-                        (match = text.match(
-                            /^([+-]?\s*\d+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*([+-]?\s*\d+))?$/i,
-                        ))
-                    ) {
+                    } else if ((match = text.match(piInNumerator))) {
                         possibilities = fractionTransformer(
                             match[1] + "/" + match[3],
                         );
 
                         // - pi / 4
-                    } else if (
-                        (match = text.match(
-                            /^([+-]?)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*([+-]?\d+))?$/i,
-                        ))
-                    ) {
+                    } else if ((match = text.match(piAsNumerator))) {
                         possibilities = fractionTransformer(
                             match[1] + "1/" + match[3],
                         );
@@ -351,11 +347,7 @@ const KhanAnswerTypes = {
                         possibilities = [{value: 0, exact: true}];
 
                         // 0.5 pi (fallback)
-                    } else if (
-                        (match = text.match(
-                            /^(.+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i,
-                        ))
-                    ) {
+                    } else if ((match = text.match(multipleOfPi))) {
                         possibilities = forms.decimal(match[1]);
                     } else {
                         possibilities = _.reduce(
