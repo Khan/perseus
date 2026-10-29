@@ -17,21 +17,6 @@ const DRAGGED_CARD = 'li.perseus-sortable-draggable[style*="absolute"]';
 // The gap Sorter puts between cards on desktop.
 const CARD_MARGIN = 5;
 
-const EXPECTED_CORRECT_SCORE = {
-    type: "points",
-    earned: 1,
-    total: 1,
-    message: null,
-    widgetScores: {
-        "sorter 1": {
-            type: "points",
-            earned: 1,
-            total: 1,
-            message: null,
-        },
-    },
-} as const;
-
 /**
  * Drags the card at `index` (DOM order) downwards past the card below it and
  * releases it.
@@ -122,7 +107,7 @@ test.describe("Sorter widget", () => {
                 twoCardVerticalQuestion,
                 await getUserInputMap(),
             );
-            expect(score).toEqual(EXPECTED_CORRECT_SCORE);
+            expect(score).toHaveBeenAnsweredCorrectly();
         }).toPass();
     });
 });

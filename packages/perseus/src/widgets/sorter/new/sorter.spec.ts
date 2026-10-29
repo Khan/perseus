@@ -12,21 +12,6 @@ const BANK_TILES = "ul li";
 
 const apiOptions = {flags: getFeatureFlags({"dnd-widget-sorter": true})};
 
-const EXPECTED_CORRECT_SCORE = {
-    type: "points",
-    earned: 1,
-    total: 1,
-    message: null,
-    widgetScores: {
-        "sorter 1": {
-            type: "points",
-            earned: 1,
-            total: 1,
-            message: null,
-        },
-    },
-} as const;
-
 async function center(locator: Locator): Promise<{x: number; y: number}> {
     const box = await locator.boundingBox();
     if (!box) {
@@ -117,6 +102,6 @@ test.describe("Sorter widget (drag-and-drop)", () => {
             twoCardVerticalQuestion,
             await getUserInputMap(),
         );
-        expect(score).toEqual(EXPECTED_CORRECT_SCORE);
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 });

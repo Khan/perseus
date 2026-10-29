@@ -167,23 +167,6 @@ async function moveAsymptoteTo(
     );
 }
 
-function expectedScore(earned: 0 | 1) {
-    return {
-        type: "points",
-        earned,
-        total: 1,
-        message: null,
-        widgetScores: {
-            "grapher 1": {
-                type: "points",
-                earned,
-                total: 1,
-                message: null,
-            },
-        },
-    };
-}
-
 // Picks one of the graph types offered by a grapher with more than one
 // available type.
 async function pickGraphType(page: Page, type: string): Promise<void> {
@@ -328,45 +311,58 @@ test.describe("Grapher widget", () => {
 
             for (const {name, item} of data) {
                 test.describe(name, () => {
-                    const answers = [
-                        {
-                            title: "should be correctly answerable",
-                            answer: graphCase.answerCorrectly,
-                            earned: 1,
-                        },
-                        {
-                            title: "should be incorrectly answerable",
-                            answer: graphCase.answerIncorrectly,
-                            earned: 0,
-                        },
-                    ] as const;
+                    test("should be correctly answerable", async ({
+                        mount,
+                        page,
+                    }) => {
+                        // Arrange
+                        const {getUserInputMap} = await renderQuestion(
+                            mount,
+                            item.question,
+                        );
 
-                    for (const {title, answer, earned} of answers) {
-                        test(title, async ({mount, page}) => {
-                            // Arrange
-                            const {getUserInputMap} = await renderQuestion(
-                                mount,
-                                item.question,
+                        // Act
+                        await graphCase.answerCorrectly(page);
+
+                        // Assert
+                        // `toPass` retries while the last move reaches the
+                        // user input: the Mafs graph updates its handles'
+                        // aria-labels (which the keyboard helpers wait on) a
+                        // render before it reports the move through
+                        // handleUserInput.
+                        await expect(async () => {
+                            const score = scorePerseusItemTesting(
+                                answerful.question,
+                                await getUserInputMap(),
                             );
+                            expect(score).toHaveBeenAnsweredCorrectly();
+                        }).toPass();
+                    });
 
-                            // Act
-                            await answer(page);
+                    test("should be incorrectly answerable", async ({
+                        mount,
+                        page,
+                    }) => {
+                        // Arrange
+                        const {getUserInputMap} = await renderQuestion(
+                            mount,
+                            item.question,
+                        );
 
-                            // Assert
-                            // `toPass` retries while the last move reaches
-                            // the user input: the Mafs graph updates its
-                            // handles' aria-labels (which the keyboard
-                            // helpers wait on) a render before it reports
-                            // the move through handleUserInput.
-                            await expect(async () => {
-                                const score = scorePerseusItemTesting(
-                                    answerful.question,
-                                    await getUserInputMap(),
-                                );
-                                expect(score).toEqual(expectedScore(earned));
-                            }).toPass();
-                        });
-                    }
+                        // Act
+                        await graphCase.answerIncorrectly(page);
+
+                        // Assert
+                        // See "should be correctly answerable" for why this
+                        // retries.
+                        await expect(async () => {
+                            const score = scorePerseusItemTesting(
+                                answerful.question,
+                                await getUserInputMap(),
+                            );
+                            expect(score).toHaveBeenAnsweredIncorrectly();
+                        }).toPass();
+                    });
                 });
             }
         });

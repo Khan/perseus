@@ -7,7 +7,9 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
-import {test as base, expect} from "@playwright/test";
+import {test as base, expect as baseExpect} from "@playwright/test";
+
+import {scoreMatchers} from "../test/score-matchers";
 
 import {COVERAGE_DIR, COVERAGE_ENABLED} from "./constants";
 import {toIstanbulCoverage} from "./coverage";
@@ -42,4 +44,8 @@ export const test = base.extend<{collectCoverage: void}>({
     ],
 });
 
-export {expect};
+/**
+ * Playwright's `expect`, plus the score matchers our Jest tests use, such as
+ * `expect(score).toHaveBeenAnsweredCorrectly()`.
+ */
+export const expect = baseExpect.extend(scoreMatchers);
