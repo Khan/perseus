@@ -42,6 +42,25 @@ packages/
 └── perseus-score/       # Server-side scoring functions
 ```
 
+## Widget IDs
+
+**Widget IDs are opaque strings. Never depend on their format.** Widget IDs
+like `"radio 1"` are planned to become UUIDs, and any code that assumes the
+`"<type> <number>"` shape will break when that happens.
+
+This is a hard rule with no exceptions. Do NOT:
+- Parse, split, regex-match, or prefix-check a widget ID (e.g. `id.split(" ")`,
+  `id.startsWith("radio")`) to get a widget's type or index
+- Encode the ID format in types, such as template literal keys like
+  `` `blank ${number}` `` or new types built on `MakeWidgetMap`
+- Propose any of the above as an option, alternative, or follow-up, even if
+  you call it a risk
+
+To find a widget's type, read the `type` field on its `PerseusWidget` data. To
+find widgets of a given type, use the helpers in `perseus-core` that look up the
+widget data (e.g. `getWidgetIdsFromContentByType`). Existing code that relies on
+the ID format is legacy. Don't copy it or extend it.
+
 ## Testing Guidelines
 
 ### Test Structure
