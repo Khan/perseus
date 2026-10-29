@@ -22,21 +22,21 @@ const lintyRenderer = generateTestPerseusRenderer({
 
 describe("lintPerseusRenderer", () => {
     it("returns an empty array for clean content", () => {
-        const warnings = lintPerseusRenderer(cleanRenderer, "renderer");
+        const issues = lintPerseusRenderer(cleanRenderer, "renderer");
 
-        expect(warnings).toHaveLength(0);
+        expect(issues).toHaveLength(0);
     });
 
-    it("returns warnings when content violates a lint rule", () => {
-        const warnings = lintPerseusRenderer(lintyRenderer, "renderer");
+    it("returns issues when content violates a lint rule", () => {
+        const issues = lintPerseusRenderer(lintyRenderer, "renderer");
 
-        expect(warnings.length).toBeGreaterThan(0);
-        expect(warnings[0].rule).toBe("long-paragraph");
+        expect(issues.length).toBeGreaterThan(0);
+        expect(issues[0].rule).toBe("long-paragraph");
     });
 });
 
 describe("lintPerseusItem", () => {
-    it("returns warnings from the question content", () => {
+    it("returns issues from the question content", () => {
         const item = generateTestPerseusItem({
             question: lintyRenderer,
         });
@@ -48,7 +48,7 @@ describe("lintPerseusItem", () => {
         expect(hints).toHaveLength(0);
     });
 
-    it("returns warnings from hints", () => {
+    it("returns issues from hints", () => {
         const item = generateTestPerseusItem({
             question: cleanRenderer,
             hints: [lintyRenderer],
@@ -62,7 +62,7 @@ describe("lintPerseusItem", () => {
         expect(hints[0][0].rule).toBe("long-paragraph");
     });
 
-    it("returns separate warning lists for question and each hint", () => {
+    it("returns separate issue lists for question and each hint", () => {
         const item = generateTestPerseusItem({
             question: lintyRenderer,
             hints: [lintyRenderer],
@@ -77,7 +77,7 @@ describe("lintPerseusItem", () => {
         expect(hints[0][0].rule).toBe("long-paragraph");
     });
 
-    it("aligns hint warning arrays with item.hints", () => {
+    it("aligns hint issue arrays with item.hints", () => {
         const item = generateTestPerseusItem({
             question: cleanRenderer,
             hints: [cleanRenderer, lintyRenderer],
@@ -92,7 +92,7 @@ describe("lintPerseusItem", () => {
     });
 });
 
-describe("widget warnings", () => {
+describe("widget issues", () => {
     it("returns radio-widget-error when no radio choice is marked correct", () => {
         const renderer = generateTestPerseusRenderer({
             content: "Pick one: [[☃ radio 1]]",
@@ -109,9 +109,9 @@ describe("widget warnings", () => {
             },
         });
 
-        const warnings = lintPerseusRenderer(renderer, "renderer");
+        const issues = lintPerseusRenderer(renderer, "renderer");
 
-        expect(warnings).toContainEqual(
+        expect(issues).toContainEqual(
             expect.objectContaining({
                 rule: "radio-widget-error",
                 message: "radio 1: No choice is marked as correct.",
@@ -122,36 +122,36 @@ describe("widget warnings", () => {
 
 describe("lintPerseusArticle", () => {
     it("handles a single renderer", () => {
-        const warningsBySection = lintPerseusArticle(lintyRenderer);
+        const issuesBySection = lintPerseusArticle(lintyRenderer);
 
-        expect(warningsBySection).toHaveLength(1);
-        expect(warningsBySection[0].length).toBeGreaterThan(0);
-        expect(warningsBySection[0][0].rule).toBe("long-paragraph");
+        expect(issuesBySection).toHaveLength(1);
+        expect(issuesBySection[0].length).toBeGreaterThan(0);
+        expect(issuesBySection[0][0].rule).toBe("long-paragraph");
     });
 
     it("handles an array of renderer sections", () => {
-        const warningsBySection = lintPerseusArticle([
+        const issuesBySection = lintPerseusArticle([
             lintyRenderer,
             cleanRenderer,
             lintyRenderer,
         ]);
 
-        expect(warningsBySection).toHaveLength(3);
-        expect(warningsBySection[0].length).toBeGreaterThan(0);
-        expect(warningsBySection[0][0].rule).toBe("long-paragraph");
-        expect(warningsBySection[1]).toHaveLength(0);
-        expect(warningsBySection[2].length).toBeGreaterThan(0);
-        expect(warningsBySection[2][0].rule).toBe("long-paragraph");
+        expect(issuesBySection).toHaveLength(3);
+        expect(issuesBySection[0].length).toBeGreaterThan(0);
+        expect(issuesBySection[0][0].rule).toBe("long-paragraph");
+        expect(issuesBySection[1]).toHaveLength(0);
+        expect(issuesBySection[2].length).toBeGreaterThan(0);
+        expect(issuesBySection[2][0].rule).toBe("long-paragraph");
     });
 
     it("returns one empty inner array per section when all sections are clean", () => {
-        const warningsBySection = lintPerseusArticle([
+        const issuesBySection = lintPerseusArticle([
             cleanRenderer,
             cleanRenderer,
         ]);
 
-        expect(warningsBySection).toHaveLength(2);
-        expect(warningsBySection[0]).toHaveLength(0);
-        expect(warningsBySection[1]).toHaveLength(0);
+        expect(issuesBySection).toHaveLength(2);
+        expect(issuesBySection[0]).toHaveLength(0);
+        expect(issuesBySection[1]).toHaveLength(0);
     });
 });

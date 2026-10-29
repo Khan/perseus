@@ -1,10 +1,10 @@
-import {expectPass, expectWarning} from "../__tests__/test-utils";
+import {expectPass, expectIssue} from "../__tests__/test-utils";
 
 import pythonProgramWidgetErrorRule from "./python-program-widget-error";
 
 describe("python-program-widget-error", () => {
     it("warns when no program ID is specified", () => {
-        expectWarning(pythonProgramWidgetErrorRule, "[[☃ python-program 1]]", {
+        expectIssue(pythonProgramWidgetErrorRule, "[[☃ python-program 1]]", {
             widgets: {
                 "python-program 1": {
                     options: {
@@ -16,7 +16,7 @@ describe("python-program-widget-error", () => {
     });
 
     it("warns when the height is not a positive integer (0)", () => {
-        expectWarning(pythonProgramWidgetErrorRule, "[[☃ python-program 1]]", {
+        expectIssue(pythonProgramWidgetErrorRule, "[[☃ python-program 1]]", {
             widgets: {
                 "python-program 1": {
                     options: {
@@ -28,7 +28,7 @@ describe("python-program-widget-error", () => {
     });
 
     it("warns when the height is not a positive integer (negative)", () => {
-        expectWarning(pythonProgramWidgetErrorRule, "[[☃ python-program 1]]", {
+        expectIssue(pythonProgramWidgetErrorRule, "[[☃ python-program 1]]", {
             widgets: {
                 "python-program 1": {
                     options: {

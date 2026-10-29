@@ -1,10 +1,10 @@
-import {expectPass, expectWarning} from "../__tests__/test-utils";
+import {expectPass, expectIssue} from "../__tests__/test-utils";
 
 import sorterWidgetErrorRule from "./sorter-widget-error";
 
 describe("sorter-widget-error", () => {
     it("warns for a sorter widget with a blank card", () => {
-        expectWarning(
+        expectIssue(
             sorterWidgetErrorRule,
             "[[☃ sorter 1]]",
             {
@@ -19,7 +19,7 @@ describe("sorter-widget-error", () => {
     });
 
     it("warns for a sorter widget with a whitespace-only card", () => {
-        expectWarning(
+        expectIssue(
             sorterWidgetErrorRule,
             "[[☃ sorter 1]]",
             {
@@ -34,7 +34,7 @@ describe("sorter-widget-error", () => {
     });
 
     it("warns for a sorter widget with only one card", () => {
-        expectWarning(
+        expectIssue(
             sorterWidgetErrorRule,
             "[[☃ sorter 1]]",
             {
@@ -49,7 +49,7 @@ describe("sorter-widget-error", () => {
     });
 
     it("warns for a sorter widget with no cards", () => {
-        expectWarning(
+        expectIssue(
             sorterWidgetErrorRule,
             "[[☃ sorter 1]]",
             {
@@ -64,7 +64,7 @@ describe("sorter-widget-error", () => {
     });
 
     it("reports both problems when a sorter has a single blank card", () => {
-        expectWarning(
+        expectIssue(
             sorterWidgetErrorRule,
             "[[☃ sorter 1]]",
             {
@@ -84,7 +84,7 @@ describe("sorter-widget-error", () => {
     });
 
     it("warns for a sorter card with text before an image", () => {
-        expectWarning(
+        expectIssue(
             sorterWidgetErrorRule,
             "[[☃ sorter 1]]",
             {
@@ -108,7 +108,7 @@ describe("sorter-widget-error", () => {
     });
 
     it("warns for a sorter card with math alongside an image", () => {
-        expectWarning(
+        expectIssue(
             sorterWidgetErrorRule,
             "[[☃ sorter 1]]",
             {
@@ -132,7 +132,7 @@ describe("sorter-widget-error", () => {
     });
 
     it("warns for a sorter card holding more than one image", () => {
-        expectWarning(
+        expectIssue(
             sorterWidgetErrorRule,
             "[[☃ sorter 1]]",
             {

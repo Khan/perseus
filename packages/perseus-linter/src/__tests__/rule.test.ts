@@ -3,7 +3,7 @@ import * as PureMarkdown from "@khanacademy/pure-markdown";
 import Rule from "../rule";
 import TreeTransformer from "../tree-transformer";
 
-import type {MakeRuleOptions, LinterWarning} from "../rule";
+import type {MakeRuleOptions, LinterIssue} from "../rule";
 
 describe("PerseusLinter lint Rules class", () => {
     const markdown = `
@@ -63,23 +63,23 @@ the previous heading was level ${previousHeading.level}`;
         const rules = ruleDescriptions.map((r) => Rule.makeRule(r));
         const tree = parseTree();
         const tt = new TreeTransformer(tree);
-        const warnings: LinterWarning[] = [];
+        const issues: LinterIssue[] = [];
 
         tt.traverse((node, state, content) => {
             rules.forEach((r) => {
                 const lint = r.check(node, state, content, undefined);
-                warnings.push(...lint);
+                issues.push(...lint);
             });
         });
 
-        expect(warnings).toHaveLength(3);
+        expect(issues).toHaveLength(3);
 
-        expect(warnings[0].rule).toEqual(ruleDescriptions[0].name);
-        expect(warnings[0].message).toEqual(ruleDescriptions[0].message);
+        expect(issues[0].rule).toEqual(ruleDescriptions[0].name);
+        expect(issues[0].message).toEqual(ruleDescriptions[0].message);
 
-        expect(warnings[1].rule).toEqual(ruleDescriptions[1].name);
-        expect(warnings[1].message).toEqual(ruleDescriptions[1].message);
+        expect(issues[1].rule).toEqual(ruleDescriptions[1].name);
+        expect(issues[1].message).toEqual(ruleDescriptions[1].message);
 
-        expect(warnings[2].rule).toEqual(ruleDescriptions[2].name);
+        expect(issues[2].rule).toEqual(ruleDescriptions[2].name);
     });
 });

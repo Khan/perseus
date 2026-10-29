@@ -1,4 +1,4 @@
-import {expectWarning, expectPass} from "../__tests__/test-utils";
+import {expectIssue, expectPass} from "../__tests__/test-utils";
 
 import mathFracRule from "./math-frac";
 
@@ -6,7 +6,7 @@ describe("math-frac", () => {
     it.each(["$\\frac 12$", "$\\frac{1}{2}$"])(
         "mathFracRule warns with: %s",
         (str: string) => {
-            expectWarning(mathFracRule, str);
+            expectIssue(mathFracRule, str);
         },
     );
 

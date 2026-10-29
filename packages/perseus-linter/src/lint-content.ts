@@ -2,27 +2,27 @@ import {parse} from "@khanacademy/pure-markdown";
 
 import {runLinter} from "./run-linter";
 
-import type {LinterWarning} from "./rule";
+import type {LinterIssue} from "./rule";
 import type {
     PerseusItem,
     PerseusArticle,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
-export type LinterWarningItem = {
-    question: LinterWarning[];
-    hints: LinterWarning[][];
+export type ItemLinterIssues = {
+    question: LinterIssue[];
+    hints: LinterIssue[][];
 };
 /**
  * Lint a full Perseus item, including the question and all hints.
  *
  * @param parsedPerseusItem - A parsed PerseusItem, typically the output of
  *   `parseAndMigratePerseusItem`.
- * @returns Question warnings plus per-hint warning arrays.
+ * @returns Question issues plus per-hint issue arrays.
  */
 export function lintPerseusItem(
     parsedPerseusItem: PerseusItem,
-): LinterWarningItem {
+): ItemLinterIssues {
     const questionLint = lintPerseusRenderer(
         parsedPerseusItem.question,
         "exercise",
@@ -44,11 +44,11 @@ export function lintPerseusItem(
  * has length 1.
  * @param parsedPerseusArticle - A parsed PerseusArticle, typically the output
  *   of `parseAndMigratePerseusArticle`.
- * @returns A nested array with one array of lint warnings per article section
+ * @returns A nested array with one array of linter issues per article section
  */
 export function lintPerseusArticle(
     parsedPerseusArticle: PerseusArticle,
-): LinterWarning[][] {
+): LinterIssue[][] {
     const articleSections = Array.isArray(parsedPerseusArticle)
         ? parsedPerseusArticle
         : [parsedPerseusArticle];
@@ -64,12 +64,12 @@ export function lintPerseusArticle(
  *
  * @param parsedPerseusRenderer - Parsed renderer (content and widgets).
  * @param contentType - Lint context: article, exercise, or renderer-only.
- * @returns An array of lint warnings found in the content.
+ * @returns An array of lint issues found in the content.
  */
 export function lintPerseusRenderer(
     parsedPerseusRenderer: PerseusRenderer,
     contentType: "article" | "exercise" | "renderer",
-): LinterWarning[] {
+): LinterIssue[] {
     const tree = parse(parsedPerseusRenderer.content);
     const context = {
         content: parsedPerseusRenderer.content,

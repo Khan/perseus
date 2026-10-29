@@ -1,4 +1,4 @@
-import {expectWarning, expectPass} from "../__tests__/test-utils";
+import {expectIssue, expectPass} from "../__tests__/test-utils";
 
 import tableMissingCellsRule from "./table-missing-cells";
 
@@ -10,7 +10,7 @@ describe("table-missing-cells", () => {
         "|col1|\n|----|----|\n|col1|\n|cell1|cell2|",
         "|col1|col2|\n|----|----|\n|col1|\n|cell1|cell2|",
     ])("tableMissingCellsRule warns with: %s", (str: string) => {
-        expectWarning(tableMissingCellsRule, str);
+        expectIssue(tableMissingCellsRule, str);
     });
 
     it.each([

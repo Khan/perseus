@@ -29,21 +29,21 @@ export default Rule.makeWidgetRule({
     widgetType: "sorter",
     severity: Rule.Severity.ERROR,
     lint(widget) {
-        const warnings: string[] = [];
+        const issues: string[] = [];
         const correct: string[] = widget.options.correct ?? [];
 
         if (correct.length < minCards) {
-            warnings.push(`Sorter requires at least ${minCards} cards.`);
+            issues.push(`Sorter requires at least ${minCards} cards.`);
         }
 
         if (correct.some((card) => card.trim() === "")) {
-            warnings.push("Sorter cards cannot be blank.");
+            issues.push("Sorter cards cannot be blank.");
         }
 
         if (correct.some(hasMixedContent)) {
-            warnings.push("Sorter cards cannot mix images with other content.");
+            issues.push("Sorter cards cannot mix images with other content.");
         }
 
-        return warnings;
+        return issues;
     },
 });

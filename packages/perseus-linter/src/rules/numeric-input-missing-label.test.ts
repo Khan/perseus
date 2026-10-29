@@ -1,10 +1,10 @@
-import {expectPass, expectWarning} from "../__tests__/test-utils";
+import {expectPass, expectIssue} from "../__tests__/test-utils";
 
 import numericInputMissingLabelRule from "./numeric-input-missing-label";
 
 describe("numeric-input-missing-label", () => {
     it("warns when labelText is empty", () => {
-        expectWarning(numericInputMissingLabelRule, "[[☃ numeric-input 1]]", {
+        expectIssue(numericInputMissingLabelRule, "[[☃ numeric-input 1]]", {
             widgets: {
                 "numeric-input 1": {
                     options: {
@@ -17,7 +17,7 @@ describe("numeric-input-missing-label", () => {
     });
 
     it("warns when labelText is undefined", () => {
-        expectWarning(numericInputMissingLabelRule, "[[☃ numeric-input 1]]", {
+        expectIssue(numericInputMissingLabelRule, "[[☃ numeric-input 1]]", {
             widgets: {
                 "numeric-input 1": {
                     options: {

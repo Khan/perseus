@@ -1,10 +1,10 @@
-import {expectPass, expectWarning} from "../__tests__/test-utils";
+import {expectPass, expectIssue} from "../__tests__/test-utils";
 
 import numericInputWidgetErrorRule from "./numeric-input-widget-error";
 
 describe("radio-widget-error", () => {
     it("warns for numeric input widget with all empty answers", () => {
-        expectWarning(numericInputWidgetErrorRule, "[[☃ numeric-input 1]]", {
+        expectIssue(numericInputWidgetErrorRule, "[[☃ numeric-input 1]]", {
             widgets: {
                 "numeric-input 1": {
                     options: {
@@ -23,7 +23,7 @@ describe("radio-widget-error", () => {
     });
 
     it("warns for numeric input widget with some empty answers", () => {
-        expectWarning(numericInputWidgetErrorRule, "[[☃ numeric-input 1]]", {
+        expectIssue(numericInputWidgetErrorRule, "[[☃ numeric-input 1]]", {
             widgets: {
                 "numeric-input 1": {
                     options: {
@@ -42,7 +42,7 @@ describe("radio-widget-error", () => {
     });
 
     it("warns for numeric input with required format but no format selected", () => {
-        expectWarning(numericInputWidgetErrorRule, "[[☃ numeric-input 1]]", {
+        expectIssue(numericInputWidgetErrorRule, "[[☃ numeric-input 1]]", {
             widgets: {
                 "numeric-input 1": {
                     options: {

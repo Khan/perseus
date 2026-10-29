@@ -1,9 +1,9 @@
-import {expectWarning, expectPass} from "../__tests__/test-utils";
+import {expectIssue, expectPass} from "../__tests__/test-utils";
 
 import imageMarkdownRule from "./image-markdown";
 
 describe("image-markdown", () => {
-    // All markdown images (format ![alt](url)) should result in a warning
+    // All markdown images (format ![alt](url)) should result in an issue
     // when NOT inside a widget
     it.each([
         "![]()",
@@ -21,7 +21,7 @@ describe("image-markdown", () => {
         "![alt alt alt][url-ref]", // Reference image
         "![][url-ref]", // Reference image
     ])("imageMarkdownRule warns with: %s", (str: string) => {
-        expectWarning(imageMarkdownRule, str);
+        expectIssue(imageMarkdownRule, str);
     });
 
     // Text that does not contain markdown images should pass
@@ -78,7 +78,7 @@ describe("image-markdown", () => {
     });
 
     it("warns for a markdown image when the stack is just an image", () => {
-        expectWarning(
+        expectIssue(
             imageMarkdownRule,
             "![test image](http://test.com/img.jpg)",
             {

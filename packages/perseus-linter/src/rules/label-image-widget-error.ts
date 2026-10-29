@@ -5,23 +5,23 @@ export default Rule.makeWidgetRule({
     widgetType: "label-image",
     severity: Rule.Severity.ERROR,
     lint(widget) {
-        const warnings: string[] = [];
+        const issues: string[] = [];
         const {choices, imageAlt, imageUrl, markers} = widget.options;
 
         if (choices.length < 2) {
-            warnings.push(
+            issues.push(
                 "label-image widget must have at least two answer choices",
             );
         }
 
         if (!imageUrl) {
-            warnings.push("No image url provided");
+            issues.push("No image url provided");
         } else if (!imageAlt) {
-            warnings.push("No image alt text provided");
+            issues.push("No image alt text provided");
         }
 
         if (markers.length === 0) {
-            warnings.push("label-image widget requires at least one marker");
+            issues.push("label-image widget requires at least one marker");
         } else {
             let numNoAnswers = 0;
             let numNoLabels = 0;
@@ -37,18 +37,18 @@ export default Rule.makeWidgetRule({
             }
 
             if (numNoAnswers > 0) {
-                warnings.push(
+                issues.push(
                     `label-image widget has ${numNoAnswers} markers with no answers selected`,
                 );
             }
 
             if (numNoLabels > 0) {
-                warnings.push(
+                issues.push(
                     `label-image widget has ${numNoLabels} markers with no ARIA label`,
                 );
             }
         }
 
-        return warnings;
+        return issues;
     },
 });

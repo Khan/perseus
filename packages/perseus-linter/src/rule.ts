@@ -152,7 +152,7 @@ export type MakeWidgetRuleOptions<
 // TypeScript doesn't handle it well, so we punt and just use any.
 type PatternMatchType = any;
 
-export type LinterWarning = {
+export type LinterIssue = {
     rule: string;
     message: string;
     start: number;
@@ -164,7 +164,7 @@ export type LinterWarning = {
 
 // This the type returned by the lint detection function passed as the 4th
 // argument to the Rule() constructor.
-type LintTesterReturnType =
+type Lint =
     | string
     | {
           message: string;
@@ -195,7 +195,7 @@ type LintTester = (
     selectorMatch: ReadonlyArray<TreeNode>,
     patternMatch: PatternMatchType,
     context: LintRuleContextObject,
-) => LintTesterReturnType | LintTesterReturnType[] | undefined;
+) => Lint | Lint[] | undefined;
 
 // An optional check to verify whether or not a particular rule should
 // be checked by context. For example, some rules only apply in exercises,
@@ -311,13 +311,11 @@ export default class Rule {
         traversalState: TraversalState,
         content: string,
         context: LintRuleContextObject,
-    ): LinterWarning[] {
+    ): LinterIssue[] {
         // Define some helper functions. These have to be inside the check
         // method because they need to close over both the `content` parameter
         // and the `this` binding.
-        const toLinterWarning = (
-            error: LintTesterReturnType,
-        ): LinterWarning => {
+        const toLinterIssue = (error: Lint): LinterIssue => {
             if (typeof error === "string") {
                 // If the lint function returned a string we assume it
                 // applies to the entire content of the node and return it.
@@ -341,19 +339,16 @@ export default class Rule {
             };
         };
 
-        const toLinterWarnings = (
-            rawLintOutput:
-                | undefined
-                | LintTesterReturnType
-                | LintTesterReturnType[],
-        ): LinterWarning[] => {
+        const toLinterIssues = (
+            rawLintOutput: undefined | Lint | Lint[],
+        ): LinterIssue[] => {
             if (rawLintOutput == null) {
                 return [];
             }
             if (Array.isArray(rawLintOutput)) {
-                return rawLintOutput.map(toLinterWarning);
+                return rawLintOutput.map(toLinterIssue);
             }
-            return [toLinterWarning(rawLintOutput)];
+            return [toLinterIssue(rawLintOutput)];
         };
 
         // First, see if we match the selector.
@@ -384,7 +379,7 @@ export default class Rule {
         try {
             // If we get here, then the selector and pattern have matched
             // so now we call the lint function to see if there is lint.
-            return toLinterWarnings(
+            return toLinterIssues(
                 this.lint(
                     traversalState,
                     content,
@@ -426,7 +421,7 @@ ${e.stack}`,
         selectorMatch: ReadonlyArray<TreeNode>,
         patternMatch: PatternMatchType,
         context: LintRuleContextObject,
-    ): LintTesterReturnType {
+    ): Lint {
         return {
             message: this.message || "",
             start: patternMatch.index,

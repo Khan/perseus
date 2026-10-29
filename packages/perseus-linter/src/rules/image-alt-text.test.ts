@@ -1,4 +1,4 @@
-import {expectWarning, expectPass} from "../__tests__/test-utils";
+import {expectIssue, expectPass} from "../__tests__/test-utils";
 
 import imageAltTextRule from "./image-alt-text";
 
@@ -11,7 +11,7 @@ describe("image-alt-text", () => {
         "![ \t\n ](http://google.com/)", // all whitespace
         "![blah](http://google.com/)", // too short to be meaningful
     ])("imageAltTextRule warns with: %s", (str: string) => {
-        expectWarning(imageAltTextRule, str);
+        expectIssue(imageAltTextRule, str);
     });
 
     it.each([

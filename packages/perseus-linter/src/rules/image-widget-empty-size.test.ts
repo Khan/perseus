@@ -1,10 +1,10 @@
-import {expectWarning, expectPass} from "../__tests__/test-utils";
+import {expectIssue, expectPass} from "../__tests__/test-utils";
 
 import imageWidgetEmptySizeRule from "./image-widget-empty-size";
 
 describe("image-widget-empty-size", () => {
     it("warns for image widget with undefined width", () => {
-        expectWarning(imageWidgetEmptySizeRule, "[[☃ image 1]]", {
+        expectIssue(imageWidgetEmptySizeRule, "[[☃ image 1]]", {
             widgets: {
                 "image 1": {
                     options: {
@@ -19,7 +19,7 @@ describe("image-widget-empty-size", () => {
     });
 
     it("warns for image widget with undefined height", () => {
-        expectWarning(imageWidgetEmptySizeRule, "[[☃ image 1]]", {
+        expectIssue(imageWidgetEmptySizeRule, "[[☃ image 1]]", {
             widgets: {
                 "image 1": {
                     options: {
@@ -34,7 +34,7 @@ describe("image-widget-empty-size", () => {
     });
 
     it("warns for image widget with 0 width", () => {
-        expectWarning(imageWidgetEmptySizeRule, "[[☃ image 1]]", {
+        expectIssue(imageWidgetEmptySizeRule, "[[☃ image 1]]", {
             widgets: {
                 "image 1": {
                     options: {
@@ -50,7 +50,7 @@ describe("image-widget-empty-size", () => {
     });
 
     it("warns for image widget with 0 height", () => {
-        expectWarning(imageWidgetEmptySizeRule, "[[☃ image 1]]", {
+        expectIssue(imageWidgetEmptySizeRule, "[[☃ image 1]]", {
             widgets: {
                 "image 1": {
                     options: {
