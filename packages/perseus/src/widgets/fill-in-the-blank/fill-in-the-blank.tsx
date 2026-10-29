@@ -195,10 +195,7 @@ function FillInTheBlank({
     };
 
     return (
-        <div
-            className={styles.fillInTheBlank}
-            data-testid="fill-in-the-blank-widget"
-        >
+        <div className={styles.fillInTheBlank}>
             <PerseusDndProvider onDragEnd={handleDragEnd}>
                 <BlankContext.Provider value={{renderPlacedTile}}>
                     <div className={styles.answerZone}>
