@@ -4,5 +4,13 @@
     "type": "module",
     "exports": {
         ".": "./fixtures.ts"
+    },
+    "peerDependencies": {
+        "@khanacademy/wonder-blocks-tokens": "catalog:devDeps",
+        "@playwright/test": "^1.64.1",
+        "istanbul-lib-coverage": "^3.2.0",
+        "react": "catalog:devDeps",
+        "react-dom": "catalog:devDeps",
+        "v8-to-istanbul": "^9.0.1"
     }
 }

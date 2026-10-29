@@ -324,7 +324,7 @@ test.describe("Grapher widget", () => {
             });
             const answerless = splitPerseusItem(answerful);
 
-            test("should not have answerful data in answerless item", () => {
+            test("removes the correct answer from the answerless item", () => {
                 expect(
                     answerless.question.widgets["grapher 1"].options,
                 ).not.toHaveProperty("correct");
@@ -337,7 +337,9 @@ test.describe("Grapher widget", () => {
 
             for (const {name, item} of data) {
                 test.describe(name, () => {
-                    test("should be correctly answerable", async ({mount}) => {
+                    test("scores a correct answer as correct", async ({
+                        mount,
+                    }) => {
                         // Arrange
                         const question = await renderQuestion(
                             mount,
@@ -355,7 +357,7 @@ test.describe("Grapher widget", () => {
                         expect(score).toHaveBeenAnsweredCorrectly();
                     });
 
-                    test("should be incorrectly answerable", async ({
+                    test("scores an incorrect answer as incorrect", async ({
                         mount,
                     }) => {
                         // Arrange

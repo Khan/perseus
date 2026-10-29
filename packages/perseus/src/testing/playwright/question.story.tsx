@@ -18,7 +18,6 @@ import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 // This module only ever loads in the Playwright component test gallery
 // (config/playwright/gallery), so we can set Perseus up as the module loads.
-export default {};
 Perseus.init();
 Perseus.Dependencies.setDependencies(playwrightTestDependencies);
 
@@ -32,8 +31,9 @@ type Props = {
  * Renders a Perseus question for a Playwright component test.
  *
  * Don't mount this directly; use `renderQuestion()` from `./render-question`,
- * which also waits for the question to finish rendering. Props must be serializable, since Playwright sends them
- * from the test (in Node) to the browser.
+ * which also waits for the question to finish rendering. Props must be
+ * serializable, since Playwright sends them from the test (in Node) to the
+ * browser.
  *
  * The test can't reach into the browser to call methods on the Renderer, so
  * this story records what the test needs to observe in hidden inputs next to

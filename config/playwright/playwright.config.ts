@@ -21,6 +21,15 @@ import {GALLERY_URL, REPO_ROOT} from "./constants";
  */
 const isCI = Boolean(process.env.CI);
 
+// How long an assertion retries, and how long an action (a click, a
+// `boundingBox()`, and so on) waits for its element, before failing.
+// Playwright's default for actions is "no limit", so a hung action runs into
+// the test timeout with nothing to say which step hung.
+const ASSERTION_TIMEOUT = 5_000;
+// How long a page load may take. The gallery is local, so this only needs to
+// cover a slow CI runner.
+const NAVIGATION_TIMEOUT = 15_000;
+
 export default defineConfig({
     testDir: path.join(REPO_ROOT, "packages"),
     testMatch: "**/*.spec.ts",
@@ -46,9 +55,18 @@ export default defineConfig({
     // Nothing reads the git diff Playwright captures for its reports in CI,
     // and fetching the base commit for it can stall a run.
     captureGitInfo: {diff: false},
+    // Playwright's default; stated so that the timeouts are all in one place.
+    timeout: 30_000,
+    expect: {timeout: ASSERTION_TIMEOUT},
     use: {
         baseURL: GALLERY_URL,
         locale: "en",
+        // So that dates and times don't depend on where the tests run.
+        // (Khan/frontend found that without one, its CI browser reports its
+        // time zone as `Etc/Unknown`, which `Intl` and `Temporal` reject.)
+        timezoneId: "America/Los_Angeles",
+        actionTimeout: ASSERTION_TIMEOUT,
+        navigationTimeout: NAVIGATION_TIMEOUT,
         // Trace every first attempt and keep only the ones that fail, so a
         // flaky test leaves a trace of the attempt that failed, not just of
         // the retry that passed.
