@@ -3,8 +3,12 @@ import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render} from "@testing-library/react";
 import * as React from "react";
 
+import {setDependencies} from "../dependencies";
 import WrappedServerItemRenderer from "../server-item-renderer";
-import {testDependenciesV2} from "../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../testing/test-dependencies";
 
 import type {ServerItemRenderer} from "../server-item-renderer";
 import type {APIOptions} from "../types";
@@ -24,8 +28,9 @@ export const renderItem = (
     renderer: ServerItemRenderer;
     rerender: any;
 } => {
-    let renderer: ServerItemRenderer | null = null;
+    setDependencies(testDependencies);
 
+    let renderer: ServerItemRenderer | null = null;
     const {container, rerender} = render(
         <RenderStateRoot>
             <WrappedServerItemRenderer
