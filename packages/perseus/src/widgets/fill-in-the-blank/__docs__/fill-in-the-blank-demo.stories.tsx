@@ -13,8 +13,6 @@ const meta: Meta<typeof QuestionRendererForStories> = {
     title: "Widgets/Fill in the Blank/Widget Demo",
     component: QuestionRendererForStories,
     tags: ["!autodocs"],
-    // TODO(LEMS-4396): clean up feature flag
-    globals: {featureFlags: ["dnd-widget-fitb"]},
     render: (args) => <QuestionRendererForStories {...args} />,
     args: {
         question: paragraphFillInTheBlankQuestion,
