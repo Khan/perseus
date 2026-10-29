@@ -11,12 +11,12 @@
 
         /* Vertical spacing for non-text elements
            (tables, widgets, etc.) */
-        /* Remove the following selector once deprecated-perseus-container
+        /* TODO: Remove the following selector once deprecated-perseus-container
            is removed from the renderer. Update the 2nd selector to not include
             deprecated-perseus-container. */
         .perseus-renderer
             > .deprecated-perseus-container
-            > :not(p, ul, ol, h1, h2, h3, h4, h5, h6),
+            > :not(p, ul, ol, h1, h2, h3, h4, h5, h6, blockquote),
         .perseus-renderer
             > :not(
                 p,
@@ -28,6 +28,7 @@
                 h4,
                 h5,
                 h6,
+                blockquote,
                 .deprecated-perseus-container
             ) {
             margin-block-end: var(--wb-sizing-size_240);
