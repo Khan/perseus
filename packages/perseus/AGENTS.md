@@ -3,13 +3,13 @@
 ## Storybook MCP
 
 When Storybook is running (`pnpm storybook`), `@storybook/addon-mcp` serves
-the `storybook-mcp` tools. Call `get-storybook-story-instructions` once per
+the `storybook` tools. Call `get-storybook-story-instructions` once per
 session before writing stories, and use the story preview tool to check your
 changes.
 
 If the task involves stories or UI changes and these tools aren't available,
 tell the user before starting that work and offer to start Storybook in the
-background; start it only after they say yes. The `storybook-mcp` server may
+background; start it only after they say yes. The `storybook` server may
 then need to be reconnected in your agent's MCP settings. If they decline,
 read `packages/perseus/src/widgets/dropdown/__docs__/` instead of searching
 for examples.
