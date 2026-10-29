@@ -9,7 +9,6 @@ import Rule from "../rule";
  * content authors of this policy change. This rule ignores
  * markdown images found within other widgets for now.
  */
-
 export default Rule.makeRule({
     name: "image-markdown",
     severity: Rule.Severity.WARNING,

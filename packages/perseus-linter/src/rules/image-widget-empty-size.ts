@@ -6,7 +6,6 @@ import Rule from "../rule";
 // slightly increase efficiency, but it means that if there is more
 // than one problem with an image widget, the user will only see one
 // problem at a time.
-
 export default Rule.makeRule({
     name: "image-widget-empty-size",
     severity: Rule.Severity.WARNING,
