@@ -84,9 +84,7 @@ utils/                   # Repo scripts (changed-files, lint, publishing)
 
 ## Accessibility
 
-When doing any UI work, follow the guidelines in `accessibility-instructions.md` (at the repo root).
-
-@accessibility-instructions.md
+For any UI work, apply the `accessibility` skill (`.agents/skills/accessibility/`).
 
 ## Commit Messages
 
