@@ -20,8 +20,9 @@ type BlankProps = WidgetProps<PerseusBlankWidgetOptions, PerseusBlankUserInput>;
  * which is unique within this renderer and names the blank as a drop
  * target and move target.
  *
- * The parent widget supplies the placed tile through BlankContext.
- * Without a provider, the slot renders empty.
+ * The parent widget supplies the placed tile through BlankContext. A blank
+ * is only meaningful inside such a parent, so rendering one without a
+ * provider throws an error.
  */
 const BlankWidget = forwardRef<Widget, BlankProps>(
     function BlankWidget(props, ref) {
@@ -29,6 +30,11 @@ const BlankWidget = forwardRef<Widget, BlankProps>(
         // with the TUT team about what data they need from this widget.
         useImperativeHandle(ref, () => ({}));
         const blankContext = useContext(BlankContext);
+        if (blankContext == null) {
+            throw new Error(
+                "The blank widget must be rendered inside a BlankContext provider.",
+            );
+        }
 
         return (
             <BlankComponent
@@ -38,7 +44,7 @@ const BlankWidget = forwardRef<Widget, BlankProps>(
                 // to identify a blank-widget
                 testId="blank-widget"
             >
-                {blankContext?.renderPlacedTile(props.widgetId)}
+                {blankContext.renderPlacedTile(props.widgetId)}
             </BlankComponent>
         );
     },
