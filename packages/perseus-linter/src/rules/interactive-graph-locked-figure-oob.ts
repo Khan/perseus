@@ -8,27 +8,11 @@ import type {
     PerseusInteractiveGraphWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-export default Rule.makeRule({
+export default Rule.makeWidgetRule({
     name: "interactive-graph-locked-figure-oob",
+    widgetType: "interactive-graph",
     severity: Rule.Severity.WARNING,
-    selector: "widget",
-    lint: function (state, content, nodes, match, context) {
-        // This rule only looks at interactive-graph widgets
-        if (state.currentNode().widgetType !== "interactive-graph") {
-            return;
-        }
-
-        const nodeId = state.currentNode().id;
-        if (!nodeId) {
-            return;
-        }
-
-        // If there are no widget options, it does nothing.
-        const widget = context?.widgets?.[nodeId];
-        if (!widget) {
-            return;
-        }
-
+    lint(widget) {
         const {range, lockedFigures}: PerseusInteractiveGraphWidgetOptions =
             widget.options;
 

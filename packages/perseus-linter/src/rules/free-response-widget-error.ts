@@ -11,28 +11,11 @@ import Rule from "../rule";
 // restricted dependency of perseus-linter (circular dependency).
 const rWidgetRule = /\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/;
 
-export default Rule.makeRule({
+export default Rule.makeWidgetRule({
     name: "free-response-widget-error",
+    widgetType: "free-response",
     severity: Rule.Severity.ERROR,
-    selector: "widget",
-    lint: function (state, content, nodes, match, context) {
-        // This rule only looks at radio widgets
-        if (state.currentNode().widgetType !== "free-response") {
-            return;
-        }
-
-        const nodeId = state.currentNode().id;
-        if (!nodeId) {
-            return;
-        }
-
-        // If it can't find a definition for the widget it does nothing
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        const widget = context && context.widgets && context.widgets[nodeId];
-        if (!widget) {
-            return;
-        }
-
+    lint(widget) {
         const question = widget.options.question;
         if (!question) {
             return "The question is empty";

@@ -4,28 +4,11 @@ import {getHostname} from "./lint-utils";
 
 const LEGACY_HOSTNAME = "ka-perseus-images.s3.amazonaws.com";
 
-export default Rule.makeRule({
+export default Rule.makeWidgetRule({
     name: "legacy-gif-url",
+    widgetType: "image",
     severity: Rule.Severity.GUIDELINE,
-    selector: "widget",
-    lint: function (state, content, nodes, match, context) {
-        // This rule only looks at image widgets.
-        if (state.currentNode().widgetType !== "image") {
-            return;
-        }
-
-        const nodeId = state.currentNode().id;
-        if (!nodeId) {
-            return;
-        }
-
-        // If it can't find a definition for the widget it does nothing.
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        const widget = context && context.widgets && context.widgets[nodeId];
-        if (!widget) {
-            return;
-        }
-
+    lint(widget) {
         const url = widget.options?.backgroundImage?.url;
         if (!url) {
             return;

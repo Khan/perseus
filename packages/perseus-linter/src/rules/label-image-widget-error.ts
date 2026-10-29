@@ -1,27 +1,11 @@
 import Rule from "../rule";
 
-export default Rule.makeRule({
+export default Rule.makeWidgetRule({
     name: "label-image-widget-error",
+    widgetType: "label-image",
     severity: Rule.Severity.ERROR,
-    selector: "widget",
-    lint: function (state, content, nodes, match, context) {
-        // This rule only looks at label-image widgets
-        if (state.currentNode().widgetType !== "label-image") {
-            return;
-        }
-
-        const nodeId = state.currentNode().id;
-        if (!nodeId) {
-            return;
-        }
-
-        // If it can't find a definition for the widget it does nothing
-        const widget = context?.widgets?.[nodeId];
-        if (!widget) {
-            return;
-        }
-
-        const warnings: Array<string> = [];
+    lint(widget) {
+        const warnings: string[] = [];
         const {choices, imageAlt, imageUrl, markers} = widget.options;
 
         if (choices.length < 2) {
@@ -36,14 +20,14 @@ export default Rule.makeRule({
             warnings.push("No image alt text provided");
         }
 
-        if (!markers.length) {
+        if (markers.length === 0) {
             warnings.push("label-image widget requires at least one marker");
         } else {
             let numNoAnswers = 0;
             let numNoLabels = 0;
 
             for (const marker of markers) {
-                if (!marker.answers.length) {
+                if (marker.answers.length === 0) {
                     numNoAnswers++;
                 }
 

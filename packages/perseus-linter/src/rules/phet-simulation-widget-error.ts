@@ -2,27 +2,11 @@ import {makeSafeUrl} from "@khanacademy/perseus-core";
 
 import Rule from "../rule";
 
-export default Rule.makeRule({
+export default Rule.makeWidgetRule({
     name: "phet-simulation-widget-error",
+    widgetType: "phet-simulation",
     severity: Rule.Severity.ERROR,
-    selector: "widget",
-    lint: function (state, content, nodes, match, context) {
-        // This rule only looks at phet-simulation widgets
-        if (state.currentNode().widgetType !== "phet-simulation") {
-            return;
-        }
-
-        const nodeId = state.currentNode().id;
-        if (!nodeId) {
-            return;
-        }
-
-        // If it can't find a definition for the widget it does nothing
-        const widget = context?.widgets?.[nodeId];
-        if (!widget) {
-            return;
-        }
-
+    lint(widget) {
         if (
             makeSafeUrl(
                 widget.options.url,

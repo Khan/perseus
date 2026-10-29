@@ -1,26 +1,10 @@
 import Rule from "../rule";
 
-export default Rule.makeRule({
+export default Rule.makeWidgetRule({
     name: "python-program-widget-error",
+    widgetType: "python-program",
     severity: Rule.Severity.ERROR,
-    selector: "widget",
-    lint: function (state, content, nodes, match, context) {
-        // This rule only looks at python-program widgets
-        if (state.currentNode().widgetType !== "python-program") {
-            return;
-        }
-
-        const nodeId = state.currentNode().id;
-        if (!nodeId) {
-            return;
-        }
-
-        // If it can't find a definition for the widget it does nothing
-        const widget = context?.widgets?.[nodeId];
-        if (!widget) {
-            return;
-        }
-
+    lint(widget) {
         const errors: Array<string> = [];
         const height = widget.options.height;
         const programID = widget.options.programID;
