@@ -1,9 +1,3 @@
-/***********************************************************************
- *                                                                     *
- * WARNING!!!! THERE ARE ACTIVE CHANGES HAPPENING IN THE RENDERER!     *
- *                                                                     *
- ***********************************************************************/
-
 import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
 import classNames from "classnames";
 import * as React from "react";

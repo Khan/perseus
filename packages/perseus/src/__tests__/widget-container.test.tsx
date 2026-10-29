@@ -1,9 +1,3 @@
-/***********************************************************************
- *                                                                     *
- * WARNING!!!! THERE ARE ACTIVE CHANGES HAPPENING IN THE RENDERER!     *
- *                                                                     *
- ***********************************************************************/
-
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
