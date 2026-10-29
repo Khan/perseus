@@ -86,7 +86,15 @@ const renderTable = (
             {row.map((content: TableCell, c: number) =>
                 c === 0 ? (
                     <th key={c} style={getStyle(c)} scope="row">
-                        {output(content, state)}
+                        {/* Row headers are already bold, so render the
+                            contents of a bold cell without its `<strong>`. */}
+                        {output(
+                            isBoldCell(content)
+                                ? content.find((node) => node.type === "strong")
+                                      ?.content
+                                : content,
+                            state,
+                        )}
                     </th>
                 ) : (
                     <td key={c} style={getStyle(c)}>
