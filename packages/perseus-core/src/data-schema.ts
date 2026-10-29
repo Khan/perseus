@@ -1970,11 +1970,12 @@ export type PerseusSorterWidgetOptions = {
     layout: "horizontal" | "vertical";
 
     /**
-     * How cards are placed
-     * "scale" places cards along a spectrum between two categories,
-     * "timeline" places them in time order.
+     * Which kind of Sorter this is. Content saved without one is parsed as
+     * "scale".
+     * Sets the allowed number of blanks, the layout ("timeline" adds connector
+     * lines and staggers blanks around the legend), and the default legend caps.
      */
-    variant?: SorterVariant;
+    variant: SorterVariant;
     /**
      * The labeled line along the blanks that shows learners which order
      * to place the tiles in, with optional end caps.
