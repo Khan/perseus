@@ -4,7 +4,7 @@ import {
 } from "@khanacademy/perseus-core";
 import {act} from "@testing-library/react";
 
-import {renderQuestion} from "../../__tests__/test-utils";
+import {renderItem} from "../../__tests__/test-utils";
 import * as Dependencies from "../../dependencies";
 import {testDependencies} from "../../testing/test-dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
@@ -86,7 +86,7 @@ describe("Grapher serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicGrapher());
+        const {renderer} = renderItem(generateBasicGrapher());
 
         // Act
         const state = renderer.getSerializedState();

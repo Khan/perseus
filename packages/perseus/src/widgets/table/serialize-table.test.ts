@@ -5,7 +5,7 @@ import {
 import {screen, act} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {renderQuestion} from "../../__tests__/test-utils";
+import {renderItem} from "../../__tests__/test-utils";
 import * as Dependencies from "../../dependencies";
 import {testDependencies} from "../../testing/test-dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
@@ -77,7 +77,7 @@ describe("Table serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicTable());
+        const {renderer} = renderItem(generateBasicTable());
 
         const preAnswerState = renderer.getSerializedState();
 
