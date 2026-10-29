@@ -1,7 +1,5 @@
-import {parseUserInputMap} from "./user-input-map";
+import {record, string} from "../general-purpose-parsers";
 
-// NOTE: Function wrapper is necessary to avoid circular import issues with user-input-map.ts
-export const parseFillInTheBlankUserInput: typeof parseUserInputMap = (
-    rawVal,
-    ctx,
-) => parseUserInputMap(rawVal, ctx);
+import {parseBlankUserInput} from "./blank-user-input";
+
+export const parseFillInTheBlankUserInput = record(string, parseBlankUserInput);

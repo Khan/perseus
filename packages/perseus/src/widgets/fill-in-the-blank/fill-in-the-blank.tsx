@@ -13,7 +13,6 @@ import {
 import {useTileMoveActions} from "../../components/drag-and-drop/use-tile-move-actions";
 import {usePerseusI18n} from "../../components/i18n-context";
 import Renderer from "../../renderer";
-import {sharedInitializeUserInput} from "../../user-input-manager";
 import {BlankContext} from "../blank/blank-context";
 
 import styles from "./fill-in-the-blank.module.css";
@@ -24,19 +23,16 @@ import type {
 } from "../../components/drag-and-drop/tile-placements";
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {
+    PerseusBlankUserInput,
     PerseusFillInTheBlankUserInput,
     PerseusFillInTheBlankWidgetOptions,
+    UserInputMap,
 } from "@khanacademy/perseus-core";
 
 type FillInTheBlankProps = WidgetProps<
     PerseusFillInTheBlankWidgetOptions,
     PerseusFillInTheBlankUserInput
 >;
-
-/** Blank widget IDs have the form "blank n". */
-function isBlankId(id: string): id is `blank ${number}` {
-    return /^blank \d+$/.test(id);
-}
 
 /** Reads the blankId -> tileId placements out of the user input. */
 function getPlacements(
@@ -45,9 +41,7 @@ function getPlacements(
 ): TilePlacements {
     const placements: Record<string, string> = {};
     for (const blankId of blankIds) {
-        const selected = isBlankId(blankId)
-            ? userInput[blankId]?.selected
-            : null;
+        const selected = userInput[blankId]?.selected;
         if (selected != null) {
             placements[blankId] = selected;
         }
@@ -62,9 +56,7 @@ function getUserInput(
 ): PerseusFillInTheBlankUserInput {
     const userInput: PerseusFillInTheBlankUserInput = {};
     for (const blankId of blankIds) {
-        if (isBlankId(blankId)) {
-            userInput[blankId] = {selected: placements[blankId] ?? null};
-        }
+        userInput[blankId] = {selected: placements[blankId] ?? null};
     }
     return userInput;
 }
@@ -202,11 +194,20 @@ function FillInTheBlank({
                         <Renderer
                             content={content}
                             widgets={widgets}
-                            userInput={userInput}
+                            // Renderer takes a UserInputMap which supports
+                            // all widget user input types, but FitB only
+                            // supports PerseusBlankUserInput
+                            // eslint-disable-next-line no-restricted-syntax
+                            userInput={userInput as unknown as UserInputMap}
                             handleUserInput={(widgetId, blankInput) =>
                                 handleUserInput({
                                     ...userInput,
-                                    [widgetId]: blankInput,
+                                    [widgetId]:
+                                        // Renderer provides a UserInputMap which supports
+                                        // all widget user input types, but FitB only
+                                        // supports PerseusBlankUserInput
+                                        // eslint-disable-next-line no-restricted-syntax
+                                        blankInput as PerseusBlankUserInput,
                                 })
                             }
                             strings={i18nStrings}
@@ -219,11 +220,8 @@ function FillInTheBlank({
     );
 }
 
-function getStartUserInput(
-    options: PerseusFillInTheBlankWidgetOptions,
-    problemNum: number,
-): PerseusFillInTheBlankUserInput {
-    return sharedInitializeUserInput(options.widgets, problemNum);
+function getStartUserInput(): PerseusFillInTheBlankUserInput {
+    return {};
 }
 
 export default {
