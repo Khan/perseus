@@ -91,7 +91,8 @@ describe("Fill in the Blank Widget", () => {
 
     it("renders one blank per marker in the content", () => {
         // Arrange, Act
-        renderFillInTheBlank(twoBlanks);
+        const widgetOptions = twoBlanks;
+        renderFillInTheBlank(widgetOptions);
 
         // Assert
         expect(screen.getAllByTestId("blank-widget")).toHaveLength(2);
@@ -99,7 +100,8 @@ describe("Fill in the Blank Widget", () => {
 
     it("renders every unplaced tile in the choice bank", () => {
         // Arrange, Act
-        renderFillInTheBlank({...twoBlanks, tiles: drumTiles});
+        const widgetOptions = {...twoBlanks, tiles: drumTiles};
+        renderFillInTheBlank(widgetOptions);
 
         // Assert
         const bank = screen.getByRole("list", {name: "Choices"});
@@ -108,10 +110,13 @@ describe("Fill in the Blank Widget", () => {
 
     it("renders only the unplaced tiles in the choice bank", () => {
         // Arrange, Act
-        renderFillInTheBlank(
-            {...twoBlanks, tiles: drumTiles, maxUsesPerTile: 1},
-            {"blank 1": {selected: "djembe"}},
-        );
+        const widgetOptions = {
+            ...twoBlanks,
+            tiles: drumTiles,
+            maxUsesPerTile: 1,
+        };
+        const userInput = {"blank 1": {selected: "djembe"}};
+        renderFillInTheBlank(widgetOptions, userInput);
 
         // Assert
         const bank = screen.getByRole("list", {name: "Choices"});
@@ -128,10 +133,8 @@ describe("Fill in the Blank Widget", () => {
 
     it("records a tile placed through the actions menu", async () => {
         // Arrange
-        const {renderer} = renderFillInTheBlank({
-            ...twoBlanks,
-            tiles: drumTiles,
-        });
+        const widgetOptions = {...twoBlanks, tiles: drumTiles};
+        const {renderer} = renderFillInTheBlank(widgetOptions);
 
         // Act
         await moveViaMenu("djembe", "Blank 1");
@@ -193,11 +196,12 @@ describe("Fill in the Blank Widget", () => {
 
     it("removes a placed single-use tile from the choice bank", async () => {
         // Arrange
-        renderFillInTheBlank({
+        const widgetOptions = {
             ...twoBlanks,
             tiles: drumTiles,
             maxUsesPerTile: 1,
-        });
+        };
+        renderFillInTheBlank(widgetOptions);
 
         // Act
         await moveViaMenu("djembe", "Blank 1");
@@ -212,10 +216,9 @@ describe("Fill in the Blank Widget", () => {
 
     it("returns the occupant to the bank when a tile takes its blank", async () => {
         // Arrange
-        const {renderer} = renderFillInTheBlank(
-            {...twoBlanks, tiles: drumTiles},
-            {"blank 1": {selected: "bongo"}},
-        );
+        const widgetOptions = {...twoBlanks, tiles: drumTiles};
+        const userInput = {"blank 1": {selected: "bongo"}};
+        const {renderer} = renderFillInTheBlank(widgetOptions, userInput);
 
         // Act
         await moveViaMenu("djembe", "Blank 1");
@@ -232,10 +235,9 @@ describe("Fill in the Blank Widget", () => {
 
     it("clears a placed tile through its actions menu", async () => {
         // Arrange
-        const {renderer} = renderFillInTheBlank(
-            {...twoBlanks, tiles: drumTiles},
-            {"blank 1": {selected: "djembe"}},
-        );
+        const widgetOptions = {...twoBlanks, tiles: drumTiles};
+        const userInput = {"blank 1": {selected: "djembe"}};
+        const {renderer} = renderFillInTheBlank(widgetOptions, userInput);
 
         // Act
         await user.click(screen.getByRole("button", {name: "djembe"}));
@@ -254,7 +256,7 @@ describe("Fill in the Blank Widget", () => {
 
     it("moves focus to the placed tile's menu when the bank empties", async () => {
         // Arrange
-        renderFillInTheBlank({
+        const widgetOptions = {
             ...twoBlanks,
             tiles: [
                 generateAnswerTile({
@@ -263,7 +265,8 @@ describe("Fill in the Blank Widget", () => {
                     label: "djembe",
                 }),
             ],
-        });
+        };
+        renderFillInTheBlank(widgetOptions);
 
         // Act
         await moveViaMenu("djembe", "Blank 1");
@@ -274,10 +277,9 @@ describe("Fill in the Blank Widget", () => {
 
     it("keeps a capped multi-use tile in the bank until exhausted", async () => {
         // Arrange
-        renderFillInTheBlank(
-            {...twoBlanks, tiles: drumTiles, maxUsesPerTile: 2},
-            {"blank 1": {selected: "djembe"}},
-        );
+        const widgetOptions = {...twoBlanks, tiles: drumTiles, maxUsesPerTile: 2};
+        const userInput = {"blank 1": {selected: "djembe"}};
+        renderFillInTheBlank(widgetOptions, userInput);
 
         // One use left: the tile still shows in the bank.
         const bank = screen.getByRole("list", {name: "Choices"});
