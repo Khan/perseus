@@ -36,6 +36,14 @@ function getTitleText(titledTable: any): string {
     return getTextContent(titledTable?.title).trim();
 }
 
+// Returns true when every column header cell of a `table` node has no text in it
+// (for example "|  |  |"). Each header cell is an array of inline nodes.
+function hasEmptyHeaders(table: any): boolean {
+    return table.header.every(
+        (cell: any) => getTextContent(cell).trim() === "",
+    );
+}
+
 // eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "table-missing-caption",
@@ -45,7 +53,14 @@ export default Rule.makeRule({
     // `titledTable` node whose `table` property holds the table itself, so
     // the table's parent tells us whether a caption was authored.
     selector: "table",
-    lint: function (state) {
+    lint: function (state, _content, nodes) {
+        // A table whose column headers are all empty isn't being used as a
+        // data table (instead as a layout table) so a caption is not required
+        // to ensure accessibility of the content.
+        if (hasEmptyHeaders(nodes[0])) {
+            return;
+        }
+
         const parent = state.parent();
 
         if (parent?.type !== "titledTable") {
