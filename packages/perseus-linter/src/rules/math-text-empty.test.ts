@@ -1,4 +1,4 @@
-import {expectWarning, expectPass} from "../__tests__/test-utils";
+import {expectIssue, expectPass} from "../__tests__/test-utils";
 
 import mathTextEmptyRule from "./math-text-empty";
 
@@ -9,7 +9,7 @@ describe("math-text-empty", () => {
         "$x\\text{\n}y$",
         "$x\\text{\t}y$",
     ])("mathTextEmptyRule warns with: %s", (str: string) => {
-        expectWarning(mathTextEmptyRule, str);
+        expectIssue(mathTextEmptyRule, str);
     });
 
     it("passes for non-empty text in math", () => {

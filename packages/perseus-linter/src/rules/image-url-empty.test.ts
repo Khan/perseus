@@ -1,4 +1,4 @@
-import {expectWarning, expectPass} from "../__tests__/test-utils";
+import {expectIssue, expectPass} from "../__tests__/test-utils";
 
 import imageUrlEmptyRule from "./image-url-empty";
 
@@ -8,7 +8,7 @@ describe("image-url-empty", () => {
         "![alt-text](  )", // empty URL with spaces
         "![alt-text](\n)", // empty URL with newline
     ])("imageUrlEmptyRule warns with: %s", (str: string) => {
-        expectWarning(imageUrlEmptyRule, str);
+        expectIssue(imageUrlEmptyRule, str);
     });
 
     it.each([

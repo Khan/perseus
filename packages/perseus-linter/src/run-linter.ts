@@ -2,7 +2,7 @@ import {allRules} from "./rules/all-rules";
 import TreeTransformer from "./tree-transformer";
 
 import type Rule from "./rule";
-import type {LinterWarning} from "./rule";
+import type {LinterIssue} from "./rule";
 import type {TreeNode} from "./tree-transformer";
 
 /**
@@ -28,8 +28,8 @@ export function runLinter(
     context: any,
     highlight: boolean,
     rules: ReadonlyArray<Rule> = allRules,
-): ReadonlyArray<LinterWarning> {
-    const warnings: Array<LinterWarning> = [];
+): ReadonlyArray<LinterIssue> {
+    const issues: Array<LinterIssue> = [];
     const tt = new TreeTransformer(tree);
 
     // The markdown parser often outputs adjacent text nodes. We
@@ -63,14 +63,14 @@ export function runLinter(
     // issue too. But using JavaScript has its own downsides: there is
     // risk that the linter JavaScript would interfere with
     // widget-related Javascript.
-    let tableWarnings: LinterWarning[] = [];
+    let tableIssues: LinterIssue[] = [];
     let insideTable = false;
 
     // Traverse through the nodes of the parse tree. At each node, loop
     // through the array of lint rules and check whether there is a
     // lint violation at that node.
     tt.traverse((node, state, content) => {
-        const nodeWarnings: LinterWarning[] = [];
+        const nodeIssues: LinterIssue[] = [];
 
         // If our rule is only designed to be tested against a particular
         // content type and we're not in that content type, we don't need to
@@ -88,25 +88,22 @@ export function runLinter(
         } as const;
 
         applicableRules.forEach((rule) => {
-            const ruleWarnings = rule.check(node, state, content, nodeContext);
-            for (const warning of ruleWarnings) {
+            const ruleIssues = rule.check(node, state, content, nodeContext);
+            for (const issue of ruleIssues) {
                 // The start and end locations are relative to this
                 // particular node, and so are not generally very useful.
                 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                if (warning.start || warning.end) {
-                    warning.target = content.substring(
-                        warning.start,
-                        warning.end,
-                    );
+                if (issue.start || issue.end) {
+                    issue.target = content.substring(issue.start, issue.end);
                 }
 
-                // Add the warning to the list of all lint we've found
-                warnings.push(warning);
+                // Add the issue to the list of all lint we've found
+                issues.push(issue);
 
                 // If we're going to be highlighting lint, then we also
-                // need to keep track of warnings specific to this node.
+                // need to keep track of issues specific to this node.
                 if (highlight) {
-                    nodeWarnings.push(warning);
+                    nodeIssues.push(issue);
                 }
             }
         });
@@ -121,14 +118,14 @@ export function runLinter(
         // inside the table, then we want to add that lint here
         if (node.type === "table") {
             // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            if (tableWarnings.length) {
-                nodeWarnings.push(...tableWarnings);
+            if (tableIssues.length) {
+                nodeIssues.push(...tableIssues);
             }
 
             // We're not in a table anymore, and don't have to remember
-            // the warnings for the table
+            // the issues for the table
             insideTable = false;
-            tableWarnings = [];
+            tableIssues = [];
         } else if (!insideTable) {
             // Otherwise, if we are not already inside a table, check
             // to see if we've entered one. Because this is a post-order
@@ -139,47 +136,47 @@ export function runLinter(
             insideTable = state.ancestors().some((n) => n.type === "table");
         }
 
-        // If we are inside a table and there were any warnings on
-        // this node, then we need to save the warnings for display
+        // If we are inside a table and there were any issues on
+        // this node, then we need to save the issues for display
         // on the table itself
-        if (insideTable && nodeWarnings.length > 0) {
-            tableWarnings.push(...nodeWarnings);
+        if (insideTable && nodeIssues.length > 0) {
+            tableIssues.push(...nodeIssues);
         }
 
-        // If there were any warnings on this node, and if we're highlighting
+        // If there were any issues on this node, and if we're highlighting
         // lint, then reparent the node so we can highlight it. Note that
-        // a single node can have multiple warnings. If this happends we
-        // concatenate the warnings and newline separate them. (The lint.jsx
-        // component that displays the warnings may want to convert the
+        // a single node can have multiple issues. If this happends we
+        // concatenate the issues and newline separate them. (The lint.jsx
+        // component that displays the issues may want to convert the
         // newlines into <br> tags.) We also provide a lint rule name
         // so that lint.jsx can link to a document that provides more details
-        // on that particular lint rule. If there is more than one warning
+        // on that particular lint rule. If there is more than one issue
         // we only link to the first rule, however.
         //
         // Note that even if we're inside a table, we still reparent the
         // linty node so that it can be highlighted. We just make a note
         // of whether this lint is inside a table or not.
-        if (nodeWarnings.length > 0) {
-            nodeWarnings.sort((a, b) => {
+        if (nodeIssues.length > 0) {
+            nodeIssues.sort((a, b) => {
                 return a.severity - b.severity;
             });
 
-            if (node.type !== "text" || nodeWarnings.length > 1) {
+            if (node.type !== "text" || nodeIssues.length > 1) {
                 // If the linty node is not a text node, or if there is more
-                // than one warning on a text node, then reparent the entire
-                // node under a new lint node and put the warnings there.
+                // than one issue on a text node, then reparent the entire
+                // node under a new lint node and put the issues there.
                 state.replace({
                     type: "lint",
                     content: node,
-                    message: nodeWarnings.map((w) => w.message).join("\n\n"),
-                    ruleName: nodeWarnings[0].rule,
+                    message: nodeIssues.map((w) => w.message).join("\n\n"),
+                    ruleName: nodeIssues[0].rule,
                     blockHighlight: nodeContext.blockHighlight,
                     insideTable: insideTable,
-                    severity: nodeWarnings[0].severity,
+                    severity: nodeIssues[0].severity,
                 });
             } else {
                 //
-                // Otherwise, it is a single warning on a text node, and we
+                // Otherwise, it is a single issue on a text node, and we
                 // only want to highlight the actual linty part of that string
                 // of text. So we want to replace the text node with (in the
                 // general case) three nodes:
@@ -196,18 +193,18 @@ export function runLinter(
                 // course.
                 //
                 // Note that we could generalize this to work with multple
-                // warnings on a text node as long as the warnings are
-                // non-overlapping. Hopefully, though, multiple warnings in a
+                // issues on a text node as long as the issues are
+                // non-overlapping. Hopefully, though, multiple issues in a
                 // single text node will be rare in practice. Also, we don't
                 // have a good way to display multiple lint indicators on a
                 // single line, so keeping them combined in that case might
                 // be the best thing, anyway.
                 //
                 const content = node.content; // Text nodes have content
-                const warning = nodeWarnings[0]; // There is only one warning.
+                const issue = nodeIssues[0]; // There is only one issue.
                 // These are the lint boundaries within the content
-                const start = warning.start;
-                const end = warning.end;
+                const start = issue.start;
+                const end = issue.end;
                 const prefix = content.substring(0, start);
                 const lint = content.substring(start, end);
                 const suffix = content.substring(end);
@@ -228,10 +225,10 @@ export function runLinter(
                         type: "text",
                         content: lint,
                     },
-                    message: warning.message,
-                    ruleName: warning.rule,
+                    message: issue.message,
+                    ruleName: issue.rule,
                     insideTable: insideTable,
-                    severity: warning.severity,
+                    severity: issue.severity,
                 });
 
                 // The suffix node, if there is one
@@ -249,5 +246,5 @@ export function runLinter(
         }
     });
 
-    return warnings;
+    return issues;
 }

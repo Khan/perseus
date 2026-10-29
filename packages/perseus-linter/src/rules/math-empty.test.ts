@@ -1,4 +1,4 @@
-import {expectWarning, expectPass} from "../__tests__/test-utils";
+import {expectIssue, expectPass} from "../__tests__/test-utils";
 
 import mathEmptyRule from "./math-empty";
 
@@ -8,7 +8,7 @@ describe("math-empty", () => {
         "foo\n\n$$\n\nbar",
         "$$ | $$ | $$\n- | - | -\ndata 1 | data 2 | data 3",
     ])("mathEmptyRule warns with: %s", (str: string) => {
-        expectWarning(mathEmptyRule, str);
+        expectIssue(mathEmptyRule, str);
     });
 
     it.each([

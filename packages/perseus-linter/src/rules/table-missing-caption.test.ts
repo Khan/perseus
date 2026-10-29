@@ -1,4 +1,4 @@
-import {expectPass, expectWarning} from "../__tests__/test-utils";
+import {expectPass, expectIssue} from "../__tests__/test-utils";
 
 import tableMissingCaptionRule, {
     MISSING_CAPTION_MESSAGE,
@@ -17,7 +17,7 @@ const captionedTable = (title: string) =>
 describe("table-missing-caption", () => {
     it("warns when a table has no caption", () => {
         // Arrange, Act
-        expectWarning(tableMissingCaptionRule, UNCAPTIONED_TABLE, undefined, {
+        expectIssue(tableMissingCaptionRule, UNCAPTIONED_TABLE, undefined, {
             messages: [MISSING_CAPTION_MESSAGE],
         });
     });
@@ -25,7 +25,7 @@ describe("table-missing-caption", () => {
     it.each(["", " ", "   "])(
         "warns when a caption is empty or only contains whitespace: %j",
         (title) => {
-            expectWarning(
+            expectIssue(
                 tableMissingCaptionRule,
                 captionedTable(title),
                 undefined,

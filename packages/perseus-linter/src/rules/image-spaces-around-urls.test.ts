@@ -1,4 +1,4 @@
-import {expectWarning, expectPass} from "../__tests__/test-utils";
+import {expectIssue, expectPass} from "../__tests__/test-utils";
 
 import imageSpacesAroundUrlsRule from "./image-spaces-around-urls";
 
@@ -12,7 +12,7 @@ describe("image-spaces-around-urls", () => {
         "![alternative](\nhttp://example.com/image.jpg)",
         "![alternative](http://example.com/image.jpg\n)",
     ])("imageSpacesAroundUrlsRule warns with: %s", (str: string) => {
-        expectWarning(imageSpacesAroundUrlsRule, str);
+        expectIssue(imageSpacesAroundUrlsRule, str);
     });
 
     it.each([

@@ -1,4 +1,4 @@
-import {expectPass, expectWarning} from "../__tests__/test-utils";
+import {expectPass, expectIssue} from "../__tests__/test-utils";
 
 import mathWithoutDollarsRule from "./math-without-dollars";
 
@@ -9,7 +9,7 @@ describe("math-without-dollars", () => {
         "This looks like someone's ear: {",
         "Here's the other ear: }. Weird!",
     ])("mathWithoutDollarsRule warns with: %s", (str: string) => {
-        expectWarning(mathWithoutDollarsRule, str);
+        expectIssue(mathWithoutDollarsRule, str);
     });
 
     it.each([
