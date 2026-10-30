@@ -1,5 +1,27 @@
 # @khanacademy/perseus
 
+## 93.0.2
+
+### Patch Changes
+
+-   [#4452](https://github.com/Khan/perseus/pull/4452) [`9370c0d`](https://github.com/Khan/perseus/commit/9370c0d080a4bf3f3a18b32ca62659b94681cf0f) Thanks [@benchristel](https://github.com/benchristel)! - Moved markdown table styles to renderer.css, and consolidated desktop and mobile styles. The styles are now in the perseus-base layer.
+
+-   [#4448](https://github.com/Khan/perseus/pull/4448) [`c58e2a7`](https://github.com/Khan/perseus/commit/c58e2a76ef41feaa224f0030ee906b035d3c351b) Thanks [@handeyeco](https://github.com/handeyeco)! - Ban React.createElement and replace uses
+
+-   [#4443](https://github.com/Khan/perseus/pull/4443) [`e71d6ff`](https://github.com/Khan/perseus/commit/e71d6ff0c1d04d2882de142fb8c647b51c046123) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Adjust heading font settings to match what is used in the app
+
+-   [#4459](https://github.com/Khan/perseus/pull/4459) [`70b6b86`](https://github.com/Khan/perseus/commit/70b6b86e35cfd9cf90f8c5ddc5972f6ddc435963) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Internal: Remove stale `TODO(LEMS-4304)` comments and "active changes in the renderer" warning banners now that the feature flag cleanup is complete.
+
+-   Updated dependencies [[`c58e2a7`](https://github.com/Khan/perseus/commit/c58e2a76ef41feaa224f0030ee906b035d3c351b), [`de3f186`](https://github.com/Khan/perseus/commit/de3f186628f1cf0bedaa40286a787622f086cb34), [`2b9fa74`](https://github.com/Khan/perseus/commit/2b9fa743061dc27dfbe79392d232f712f7686216), [`645b55f`](https://github.com/Khan/perseus/commit/645b55fcc87f40c8b920f2ed0046e04b000515e9), [`00d20b8`](https://github.com/Khan/perseus/commit/00d20b86648e27e2e4a53b159078a3d802152668), [`e0afd53`](https://github.com/Khan/perseus/commit/e0afd53b939f315223c7e948cd1da8eb32c279f5)]:
+    -   @khanacademy/simple-markdown@4.0.3
+    -   @khanacademy/perseus-linter@7.0.2
+    -   @khanacademy/perseus-score@9.0.12
+    -   @khanacademy/pure-markdown@3.1.2
+    -   @khanacademy/perseus-core@42.1.1
+    -   @khanacademy/keypad-context@6.0.11
+    -   @khanacademy/kmath@3.1.4
+    -   @khanacademy/math-input@30.2.1
+
 ## 93.0.1
 
 ### Patch Changes
