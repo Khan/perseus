@@ -39,9 +39,9 @@ type PredicateValidatorOptions = {
 
 // Exported for testing.
 export const fractionMultipleOfPi =
-    /^([+-]?\s*\d+\s*(?:\/\s*(?:[+-]\s*)?\d+\s*)?)(\*\s*)?(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i;
+    /^([+-]?\s*\d+\s*(?:\/\s*(?:[+-]\s*)?\d+\s*)?)(?:\*\s*)?(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i;
 export const mixedNumberMultipleOfPi =
-    /^([+-]?)\s*(\d+)\s*([+-]?\d+)\s*\/\s*([+-]?\d+)\s*(?:\*\s*)?(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i;
+    /^([+-]?)\s*(\d+)\s+([+-]?\d+)\s*\/\s*([+-]?\d+)\s*(?:\*\s*)?(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i;
 export const piInNumerator =
     /^([+-]?\s*\d+)\s*(?:\*\s*)?(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*((?:[+-]\s*)?\d+))?$/i;
 export const piAsNumerator =

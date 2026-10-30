@@ -861,8 +861,27 @@ describe("the regex for fractional multiples of pi", () => {
 });
 
 describe("the regex for mixed-number multiples of pi", () => {
-    it("is resilient to pathological input", () => {
+    it.each([
+        "1 1/2 pi",
+        "-1 1/2 pi",
+        "1 -1/2 pi",
+        "1 1/-2 pi",
+        "1 1 / 2 pi",
+        "1 1/2 * pi",
+        "1 1/2*pi",
+    ])("matches %s", (input) => {
+        expect(input).toMatch(mixedNumberMultipleOfPi);
+    });
+
+    it("is resilient to a pathological sequence of spaces", () => {
         const evilString = "1 1/2" + " ".repeat(100_000) + "12";
+        expect(timeRegex(mixedNumberMultipleOfPi, evilString)).toBeLessThan(
+            500,
+        );
+    });
+
+    it("is resilient to a pathological sequence of digits", () => {
+        const evilString = "1".repeat(100_000);
         expect(timeRegex(mixedNumberMultipleOfPi, evilString)).toBeLessThan(
             500,
         );
