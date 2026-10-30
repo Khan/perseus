@@ -18,7 +18,7 @@ description: >
 # Wonder Blocks UI Implementation
 
 Wonder Blocks is Khan Academy's React component library (`@khanacademy/wonder-blocks-*`).
-All components are TypeScript-friendly, use aphrodite for styling, and follow WAI-ARIA
+All components are TypeScript-friendly and follow WAI-ARIA
 accessibility patterns.
 
 ## Implementation workflow
@@ -41,7 +41,7 @@ to learn more about the API.
 
 | Package | Key exports |
 | --- | --- |
-| `wonder-blocks-core` | `View`,`addStyle` |
+| `wonder-blocks-core` | `View` |
 | `wonder-blocks-tokens` | `semanticColor`, `sizing`, `border`, `boxShadow`, `font`, `breakpoint` |
 | `wonder-blocks-typography` | `BodyText`, `Heading` |
 | `wonder-blocks-button` | `Button`, `ActivityButton` |
@@ -56,67 +56,52 @@ to learn more about the API.
 | `wonder-blocks-accordion` | `Accordion`, `AccordionSection` |
 | `wonder-blocks-badge` | `Badge`, `StatusBadge`, `GemBadge`, `StreakBadge`, `DueBadge`, `NeutralBadge` |
 | `wonder-blocks-banner` | `Banner` |
-| `wonder-blocks-breadcrumbs` | `Breadcrumbs`, `BreadcrumbsItem` |
-| `wonder-blocks-card` | `Card` |
-| `wonder-blocks-cell` | `CompactCell`, `DetailCell` |
 | `wonder-blocks-popover` | `Popover`, `PopoverContent`, `PopoverContentCore` |
 | `wonder-blocks-progress-spinner` | `CircularSpinner` |
-| `wonder-blocks-search-field` | `SearchField` |
 | `wonder-blocks-switch` | `Switch` |
 | `wonder-blocks-tabs` | `ResponsiveTabs`, `ResponsiveNavigationTabs` |
-| `wonder-blocks-toolbar` | `Toolbar` |
 | `wonder-blocks-tooltip` | `Tooltip`, `TooltipContent` |
 | `wonder-blocks-theming` | Theme providers |
-| `wonder-blocks-styles` | Global style helpers like `focusStyles` |
 
-## Styling with aphrodite
+## Styling with CSS modules
 
-WB uses aphrodite for scoped CSS. Never use inline style objects for complex styles —
-define them with `StyleSheet.create` so they're type-safe and mergeable.
+New code uses CSS modules (`*.module.css`). Older code uses aphrodite
+(`StyleSheet.create`). When you're already changing a component's styling and
+the conversion is mechanical, migrate its styles to CSS modules in a separate
+commit from the behavior change. Don't migrate files you aren't otherwise
+changing, or styles that override WB components (see below). For an example,
+see `packages/perseus-editor/src/components/coordinate-pair-input.tsx` and its
+`.module.css`.
 
 ```tsx
-import {StyleSheet} from "aphrodite";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {sizing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 
-const MyComponent = () => (
-    <View style={styles.container}>
-        ...
-    </View>
-);
+import styles from "./my-component.module.css";
 
-const styles = StyleSheet.create({
-    container: {
-        padding: sizing.size_160,
-        backgroundColor: semanticColor.core.background.base.default,
-    },
-});
+const MyComponent = () => <View className={styles.container}>...</View>;
 ```
 
-- Apply multiple styles with an array: `style={[styles.base, isActive && styles.active]}`.
+```css
+.container {
+    padding: var(--wb-sizing-size_160);
+    background-color: var(--wb-semanticColor-core-background-base-default);
+}
+```
 
+- Tokens are CSS custom properties: the token path with dots replaced by dashes,
+  prefixed with `--wb-` (`sizing.size_160` → `var(--wb-sizing-size_160)`).
+- WB components keep their own styles in aphrodite, which wins over a CSS module
+  class. Until that changes, mark each declaration that overrides a WB component
+  `!important`, with the comment
+  `/* TODO(LEMS-3686): Remove the !important once Wonder Blocks is in the shared layer. */`.
+- Props that take per-part style objects (e.g. `styles={{root: ...}}`) can't use
+  CSS modules yet; pass a style object there.
+- When Perseus upgrades to a Wonder Blocks version that ships CSS-module styles,
+  update the two points above (LEMS-3686).
 - Avoid applying too many custom styles to a Wonder Blocks component. Layout related properties
 are okay like `margin`, but prefer using props for choosing supported variants.
-- If custom styling is necessary for a Wonder Blocks component, use the `style` or
-`styles` prop depending on the component. Prompt the user to reach out to the Wonder
-Blocks team if many styles need to be overridden. This may mean there is a limitation
-with the component.
-
-```tsx
-import { StyleSheet } from "aphrodite";
-import { sizing } from "@khanacademy/wonder-blocks-tokens";
-import { BodyText } from "@khanacademy/wonder-blocks-typography";
-
-const styles = StyleSheet.create({
-    text: {
-        margin: sizing.size_160,
-    },
-});
-
-const Example = () => (
-    <BodyText style={styles.text}>Hello world</BodyText>
-);
-```
+- Prompt the user to reach out to the Wonder Blocks team if many styles need to
+be overridden. This may mean there is a limitation with the component.
 
 ## Design tokens
 
@@ -124,8 +109,12 @@ Always reach for tokens rather than hardcoded values. The two main namespaces:
 
 **`semanticColor`** — the right choice for most UI work. Tokens like
 `semanticColor.core.background.base.default`, `semanticColor.core.foreground.neutral.strong`,
-`semanticColor.core.border.neutral.default`, `semanticColor.feedback.success.background`.
+`semanticColor.core.border.neutral.default`, `semanticColor.feedback.success.subtle.background`.
 These automatically adapt to themes. Use these values with the appropriate CSS properties.
+
+In CSS modules, write each token below as a custom property (see "Styling with
+CSS modules" above). Don't use the deprecated `spacing` and `color` tokens;
+use `sizing` and `semanticColor`.
 
 **`sizing`** — Use `sizing` tokens for spacing. These values use `rem` values so
 they scale with the font size. 1rem = 10px
@@ -135,43 +124,54 @@ they scale with the font size. 1rem = 10px
 - Radius: `border.radius.radius_040`, `border.radius.radius_full`, etc.
 - Width: `border.width.thin`, `border.width.medium`, `border.width.thick`
 
-```ts
-// ✅ correct
-border: `${border.width.thin} solid ${semanticColor.core.border.neutral.default}`,
-borderRadius: border.radius.radius_040,
+```css
+/* ✅ correct */
+border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-default);
+border-radius: var(--wb-border-radius-radius_040);
 
-// ❌ avoid
-border: `1px solid ${semanticColor.core.border.neutral.default}`,
-borderRadius: 4,
+/* ❌ avoid */
+border: 1px solid var(--wb-semanticColor-core-border-neutral-default);
+border-radius: 4px;
 ```
 
 **`boxShadow`** — `boxShadow.low`, `boxShadow.mid`, `boxShadow.high`.
 
 **`font`** — Always use font tokens instead of hardcoded values for weight, size, and line-height.
 
-- Weight: `font.body.weight.regular`, `font.body.weight.bold`
+- Weight: `font.weight.regular`, `font.weight.bold`
 - Size: `font.body.size.medium`, `font.heading.size.large`, etc.
 - Line height: `font.body.lineHeight.medium`, etc.
 
-```ts
-// ✅ correct
-fontWeight: font.body.weight.bold,
+```css
+/* ✅ correct */
+font-weight: var(--wb-font-weight-bold);
 
-// ❌ avoid
-fontWeight: "700",
-fontWeight: 700,
+/* ❌ avoid */
+font-weight: 700;
 ```
 
-**`breakpoint`** — media query breakpoints for responsive layouts.
+**Responsive layout** — prefer a container query when the layout depends on the
+space the component gets rather than on the viewport. Perseus renders inside host
+pages whose layout it doesn't control. For an example, see
+`packages/perseus/src/widgets/graded-group/graded-group-answer-bar.module.css`.
 
-```tsx
-import {breakpoint} from "@khanacademy/wonder-blocks-tokens";
-const styles = StyleSheet.create({
-    [breakpoint.mediaQuery.sm]: {
-        flexDirection: "column",
-    },
-});
+```css
+.container {
+    container-type: inline-size;
+}
+
+/* breakpoint.width.smMin is 568px */
+@container (width < 568px) {
+    .content {
+        flex-direction: column;
+    }
+}
 ```
+
+Use a media query only when the layout truly depends on the viewport. CSS custom
+properties can't be used in `@media` or `@container`, so write the value from
+`breakpoint.width` / `breakpoint.mediaQuery` by hand and name the token in a
+comment.
 
 ## Typography
 
@@ -233,14 +233,6 @@ import {View} from "@khanacademy/wonder-blocks-core";
 </View>
 ```
 
-For bordered content sections (summaries, form panels, info boxes), use `Card` from `wonder-blocks-card` instead of recreating the pattern with a custom `View` + border + padding styles.
-
-```tsx
-import {Card} from "@khanacademy/wonder-blocks-card";
-
-<Card>...</Card>
-```
-
 ## Components
 
 - Use components from Wonder Blocks as much as possible and prefer them over native browser elements or custom components.
@@ -253,12 +245,14 @@ import {Card} from "@khanacademy/wonder-blocks-card";
 
 ## Accessibility
 
+Apply the `accessibility` skill alongside this one.
+
 - Always pass `aria-label` to `IconButton` and any `Clickable` with non-text content.
 - Use WB LabeledField for form fields — they wire up `htmlFor`/`id` and `aria-describedby` automatically.
 - For overlays, `ModalLauncher` and `DrawerLauncher` handles focus trapping and restoration automatically.
 - The Wonder Blocks components will often implement aria attributes for accessible patterns. Only add aria attributes when the prop docs instructs you to.
 - Use the `tag` prop when needed to ensure correct semantics. Check the default and allowed tags for a component first.
-- For custom components, use the `focusStyles.focus` styles from `@khanacademy/wonder-blocks-styles` for `:focus-visible` styles.
+- For custom components, style `:focus-visible` with the `semanticColor.focus.outer` / `inner` tokens.
 
 ## Motion
 
@@ -267,29 +261,29 @@ import {Card} from "@khanacademy/wonder-blocks-card";
 ## Responsiveness
 
 - UI should scale based on screen width and zoom level. Use `sizing` tokens (rem-based) for spacing that should scale correctly with browser zoom.
-- Avoid fixed pixel widths on containers — prefer `maxInlineSize`, percentages, or flex-based sizing so content reflows at smaller screen widths.
-- The interface should not be horizontally scrollable. Use `breakpoint.mediaQuery` tokens to adapt layouts at smaller screen sizes (e.g., switching from row to column). Tables are an exception and may scroll horizontally when their content requires it.
+- Avoid fixed pixel widths on containers — prefer `max-inline-size`, percentages, or flex-based sizing so content reflows at smaller screen widths.
+- The interface should not be horizontally scrollable. Use container queries (or `breakpoint` values in media queries) to adapt layouts at smaller sizes (e.g., switching from row to column). Tables are an exception and may scroll horizontally when their content requires it.
 
 ## Internationalization
 
-- Always use logical CSS properties in `StyleSheet.create` to support RTL languages. This is enforced by ESLint — using physical properties will cause lint errors.
+- Always use logical CSS properties to support RTL languages. Nothing checks `.module.css` files for this yet (ESLint only checks older aphrodite styles).
 
   | Physical (avoid) | Logical (use) |
   | --- | --- |
-  | `marginLeft` / `marginRight` | `marginInlineStart` / `marginInlineEnd` |
-  | `paddingLeft` / `paddingRight` | `paddingInlineStart` / `paddingInlineEnd` |
-  | `marginTop` / `marginBottom` | `marginBlockStart` / `marginBlockEnd` |
-  | `paddingTop` / `paddingBottom` | `paddingBlockStart` / `paddingBlockEnd` |
-  | `borderTop` / `borderBottom` | `borderBlockStart` / `borderBlockEnd` |
-  | `borderLeft` / `borderRight` | `borderInlineStart` / `borderInlineEnd` |
-  | `maxWidth` / `minWidth` | `maxInlineSize` / `minInlineSize` |
-  | `maxHeight` / `minHeight` | `maxBlockSize` / `minBlockSize` |
-  | `width` / `height` (when directional) | `inlineSize` / `blockSize` |
+  | `margin-left` / `margin-right` | `margin-inline-start` / `margin-inline-end` |
+  | `padding-left` / `padding-right` | `padding-inline-start` / `padding-inline-end` |
+  | `margin-top` / `margin-bottom` | `margin-block-start` / `margin-block-end` |
+  | `padding-top` / `padding-bottom` | `padding-block-start` / `padding-block-end` |
+  | `border-top` / `border-bottom` | `border-block-start` / `border-block-end` |
+  | `border-left` / `border-right` | `border-inline-start` / `border-inline-end` |
+  | `max-width` / `min-width` | `max-inline-size` / `min-inline-size` |
+  | `max-height` / `min-height` | `max-block-size` / `min-block-size` |
+  | `width` / `height` (when directional) | `inline-size` / `block-size` |
 
 - Pass translated strings into the `labels` prop for components that support it.
 
 ## Patterns
 
-- Forms and error validation: When implementing form elements (text inputs, textareas, checkboxes, radio groups,
-selects, or a submit action), read the reference file before writing any form code:
+- Form fields and validation: When implementing form fields (text inputs, textareas, checkboxes, radio groups,
+or selects), read the reference file before writing any form code:
 `./references/forms.md`

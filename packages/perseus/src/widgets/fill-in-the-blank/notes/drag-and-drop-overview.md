@@ -92,8 +92,9 @@ stay **FITB-specific**, since it's the bay for FITB's *inline* blanks.
 - **Designs:** before building any UI, ask the engineer whether they're working
   from a design. If so, ask for the design link or offer to connect to the Figma
   MCP to pull it.
-- **Accessibility is first-class.** Follow the repo `accessibility-instructions.md`
-  (native element → modified native → ARIA last). RTL support is required — avoid
+- **Accessibility is first-class.** Follow the repo's `accessibility` skill
+  (`.agents/skills/accessibility/`): native element → modified native → ARIA
+  last. RTL support is required — avoid
   hardcoded physical directions in CSS (use flow-relative properties / logical
   properties so layout reverses automatically).
 - **User input** must flow through `handleUserInput` / the `userInput` prop, not
