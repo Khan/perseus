@@ -1,9 +1,4 @@
 import {
-    StatefulKeypadContextProvider,
-    KeypadContext,
-} from "@khanacademy/keypad-context";
-import {MobileKeypad} from "@khanacademy/math-input";
-import {
     generateGradedGroupOptions,
     generateGradedGroupSetWidget,
     generateGradedGroupWidget,
@@ -12,89 +7,20 @@ import {
     generateRadioWidget,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
-import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {
-    screen,
-    render,
-    fireEvent,
-    waitFor,
-    act,
-    within,
-} from "@testing-library/react";
+import {screen, fireEvent, waitFor, act, within} from "@testing-library/react";
 import {userEvent} from "@testing-library/user-event";
-import * as React from "react";
 
 import {articleSectionWithExpression} from "../__testdata__/article-renderer.testdata";
-import ArticleRenderer from "../article-renderer";
+import {renderArticle} from "../__testutils__/render-article";
 import * as Dependencies from "../dependencies";
 import {ApiOptions} from "../perseus-api";
-import {
-    testDependencies,
-    testDependenciesV2,
-} from "../testing/test-dependencies";
+import {testDependencies} from "../testing/test-dependencies";
 
-import type {APIOptions} from "../types";
 import type {
     PerseusGradedGroupWidgetOptions,
-    PerseusArticle,
     PerseusRenderer,
     RadioWidget,
 } from "@khanacademy/perseus-core";
-
-function KeypadWithContext() {
-    return (
-        <KeypadContext.Consumer>
-            {({setKeypadElement}) => {
-                return (
-                    <MobileKeypad
-                        onElementMounted={setKeypadElement}
-                        onDismiss={() => {}}
-                        onAnalyticsEvent={async () => {}}
-                    />
-                );
-            }}
-        </KeypadContext.Consumer>
-    );
-}
-// Like `renderQuestion` in `__testutils__/render-question.tsx`, but renders
-// with the ArticleRenderer.
-export const renderArticle = (
-    json: PerseusArticle = articleSectionWithExpression,
-    apiOptions: APIOptions = Object.freeze({}),
-    seed = 0,
-): {
-    container: HTMLElement;
-    renderer: ArticleRenderer;
-} => {
-    let renderer: ArticleRenderer | null = null;
-    const {container} = render(
-        <RenderStateRoot>
-            <StatefulKeypadContextProvider>
-                <KeypadContext.Consumer>
-                    {({keypadElement, setRenderer}) => (
-                        <ArticleRenderer
-                            ref={(node) => {
-                                renderer = node;
-                                setRenderer(node);
-                            }}
-                            json={json}
-                            seed={seed}
-                            dependencies={testDependenciesV2}
-                            apiOptions={{...apiOptions}}
-                            keypadElement={keypadElement}
-                        />
-                    )}
-                </KeypadContext.Consumer>
-                <KeypadWithContext />
-            </StatefulKeypadContextProvider>
-        </RenderStateRoot>,
-    );
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    if (!renderer) {
-        throw new Error(`Failed to render!`);
-    }
-    return {container, renderer};
-};
 
 const apiOptions = {
     ...ApiOptions.defaults,
@@ -110,10 +36,6 @@ describe("article renderer", () => {
             unobserve: jest.fn(),
             disconnect: jest.fn(),
         }));
-
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
     });
 
     afterEach(() => {
