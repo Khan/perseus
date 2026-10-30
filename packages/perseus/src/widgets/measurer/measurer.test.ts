@@ -1,4 +1,4 @@
-import {renderQuestion} from "../../__tests__/render-question";
+import {renderQuestion} from "../../__testutils__/render-question";
 import GraphUtils from "../../util/graph-utils";
 
 import {measurerQuestion} from "./measurer.testdata";

@@ -1,6 +1,6 @@
 import {act} from "@testing-library/react";
 
-import {renderQuestion} from "../../__tests__/render-question";
+import {renderQuestion} from "../../__testutils__/render-question";
 
 import {question1} from "./cs-program.testdata";
 

@@ -4,7 +4,7 @@
  * easier for translators.
  */
 
-import {renderQuestion} from "../../__tests__/render-question";
+import {renderQuestion} from "../../__testutils__/render-question";
 import * as Dependencies from "../../dependencies";
 import {testDependencies} from "../../testing/test-dependencies";
 

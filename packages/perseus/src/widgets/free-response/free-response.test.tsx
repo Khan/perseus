@@ -6,7 +6,7 @@ import {
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {renderQuestion} from "../../__tests__/render-question";
+import {renderQuestion} from "../../__testutils__/render-question";
 
 import type {APIOptions} from "../../types";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";

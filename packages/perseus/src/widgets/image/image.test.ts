@@ -7,7 +7,7 @@ import {act, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import invariant from "tiny-invariant";
 
-import {renderQuestion} from "../../__tests__/render-question";
+import {renderQuestion} from "../../__testutils__/render-question";
 import {mockImageLoading} from "../../testing/image-loader-utils";
 import {scorePerseusItemTesting} from "../../util/scoring.testutils";
 

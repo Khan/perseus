@@ -1,6 +1,6 @@
 import {screen} from "@testing-library/react";
 
-import {renderQuestion} from "../../__tests__/render-question";
+import {renderQuestion} from "../../__testutils__/render-question";
 import {getFeatureFlags} from "../../testing/feature-flags-util";
 
 import {basicQuestion} from "./sorter.testdata";

@@ -1,4 +1,4 @@
-import {renderQuestion} from "../../__tests__/render-question";
+import {renderQuestion} from "../../__testutils__/render-question";
 
 import {getPromptJSON} from "./group-ai-utils";
 import {question1} from "./group-ai-utils.testdata";

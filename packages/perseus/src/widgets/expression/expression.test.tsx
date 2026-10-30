@@ -11,7 +11,7 @@ import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {renderQuestion} from "../../__tests__/render-question";
+import {renderQuestion} from "../../__testutils__/render-question";
 import {testDependenciesV2} from "../../testing/test-dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {scorePerseusItemTesting} from "../../util/scoring.testutils";

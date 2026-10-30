@@ -11,7 +11,7 @@ import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import {act, screen} from "@testing-library/react";
 import * as React from "react";
 
-import {renderQuestion} from "../../../__tests__/render-question";
+import {renderQuestion} from "../../../__testutils__/render-question";
 import * as Dependencies from "../../../dependencies";
 import {testDependencies} from "../../../testing/test-dependencies";
 import {wait} from "../../../testing/wait";

@@ -1,6 +1,6 @@
 import {act} from "react-dom/test-utils";
 
-import {renderQuestion} from "../../__tests__/render-question";
+import {renderQuestion} from "../../__testutils__/render-question";
 import {scorePerseusItemTesting} from "../../util/scoring.testutils";
 
 import {question1} from "./iframe.testdata";
