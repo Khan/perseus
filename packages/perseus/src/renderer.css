@@ -152,6 +152,7 @@
      * Exceptions *
      **************/
     .perseus-in-wb-popover p {
+        font-size: initial;
         margin: 0;
     }
 }
