@@ -28,7 +28,7 @@ export default ${objectName};`;
     fs.writeFileSync(aphroditeFilePath, fileContent);
     (async () => {
         try {
-            await execAsync(`prettier --write ${aphroditeFilePath}`);
+            await execAsync(`oxfmt ${aphroditeFilePath}`);
         } catch (error) {
             console.log(error);
         }

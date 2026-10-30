@@ -68,7 +68,7 @@ utils/                   # Repo scripts (changed-files, lint, publishing)
 - Prefer `satisfies` over `as`.
 - Use `function` declarations for named functions; keep arrow functions for
   inline callbacks.
-- Wrap comments and string literals at 80 columns. Prettier doesn't wrap
+- Wrap comments and string literals at 80 columns. oxfmt doesn't wrap
   them. Split long strings by concatenation so the runtime value is
   unchanged.
 - Run `pnpm fixc` to format and lint changed files.

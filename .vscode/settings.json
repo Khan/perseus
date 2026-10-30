@@ -4,6 +4,10 @@
         "source.fixAll.eslint": "explicit"
     },
     "editor.formatOnSave": false,
+    "[javascript][javascriptreact][typescript][typescriptreact][json][jsonc][markdown][css][yaml]": {
+        "editor.defaultFormatter": "oxc.oxc-vscode",
+        "editor.formatOnSave": true,
+    },
     "eslint.codeActionsOnSave.mode": "all",
     "files.trimTrailingWhitespace": true,
     "todo-tree.filtering.excludeGlobs": [
