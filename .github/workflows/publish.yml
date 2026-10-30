@@ -460,6 +460,56 @@ jobs:
                   echo "::error::No PR number provided. Terminating step."
                   exit 1
 
+            # We build from GitHub's merge commit for the PR
+            # (refs/pull/<number>/merge). GitHub only updates that ref while
+            # the PR can merge cleanly into its base. If the PR has conflicts,
+            # the ref stays on the last merge GitHub could make, and we'd
+            # quietly publish old code. So we ask GitHub whether the PR can
+            # merge before we check anything out. Asking also makes GitHub
+            # refresh the merge ref if it's out of date (e.g. right after a
+            # push). That takes a few seconds, so we retry while GitHub's
+            # answer is still "unknown" (null).
+            - name: Check that the PR can merge into its base
+              id: pr-state
+              env:
+                  GH_TOKEN: ${{ github.token }}
+                  PR_NUMBER: ${{ inputs.pr_number }}
+              run: |
+                  for attempt in $(seq 1 12); do
+                      pr=$(gh api "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER")
+                      # GitHub never computes `mergeable` for closed PRs.
+                      if [ "$(jq -r '.state' <<< "$pr")" != "open" ]; then
+                          echo "problem=This PR is closed, so there is nothing to snapshot." >> "$GITHUB_OUTPUT"
+                          echo "::error::PR is not open. Not publishing a snapshot."
+                          exit 1
+                      fi
+                      mergeable=$(jq -r '.mergeable' <<< "$pr")
+                      [ "$mergeable" != "null" ] && break
+                      echo "GitHub is still checking whether the PR can merge (attempt $attempt). Waiting 5s..."
+                      sleep 5
+                  done
+
+                  head_sha=$(jq -r '.head.sha' <<< "$pr")
+                  base_ref=$(jq -r '.base.ref' <<< "$pr")
+
+                  case "$mergeable" in
+                      true)
+                          echo "PR head ${head_sha} can merge into ${base_ref}."
+                          ;;
+                      false)
+                          printf 'problem=This PR (%s) has merge conflicts with its base branch, `%s`, so GitHub cannot build the merge commit we publish from. Resolve the conflicts, then comment `/snapshot` again.\n' \
+                              "${head_sha:0:10}" "$base_ref" >> "$GITHUB_OUTPUT"
+                          echo "::error::PR has merge conflicts with ${base_ref}. Not publishing a snapshot."
+                          exit 1
+                          ;;
+                      *)
+                          printf 'problem=GitHub has not finished checking whether this PR (%s) can merge into `%s`. Wait a minute, then comment `/snapshot` again.\n' \
+                              "${head_sha:0:10}" "$base_ref" >> "$GITHUB_OUTPUT"
+                          echo "::error::GitHub did not report whether the PR can merge. Not publishing a snapshot."
+                          exit 1
+                          ;;
+                  esac
+
             # We need to checkout all history, so that the changeset tool can diff it.
             # We check out the PR's merge commit so we publish what would land on main.
             - name: Checkout current commit
@@ -533,12 +583,12 @@ jobs:
                       echo "WARNING_EOF"
                   } >> "$GITHUB_OUTPUT"
 
-            - name: Calculate short SHA for this commit
+            # GitHub's merge commit has the base branch as its first parent
+            # and the PR head as its second (HEAD^2). We report the PR head
+            # so people can match the snapshot to a commit in the PR.
+            - name: Calculate short SHA of the PR commit we built
               id: short-sha
-              # We capture HEAD after checkout rather than using
-              # github.event.pull_request.head.sha, which isn't available for
-              # workflow_dispatch events.
-              run: echo "short_sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+              run: echo "short_sha=$(git rev-parse --short=10 HEAD^2)" >> $GITHUB_OUTPUT
 
             # Note: these two actions are locked to the latest version that were
             # published when I created this yml file (just for security).
@@ -605,11 +655,29 @@ jobs:
                       ---
                       Want to try again? Comment `/snapshot` once you've added a changeset.
 
+            - name: Create or update npm snapshot comment - failure, merge commit not usable
+              if: failure() && steps.pr-state.outputs.problem != ''
+              uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5.0.0
+              with:
+                  issue-number: ${{ inputs.pr_number }}
+                  comment-id: ${{ steps.find-comment.outputs.comment-id }}
+                  edit-mode: replace
+                  body: |
+                      ${{ env.SNAPSHOT_COMMENT_MARKER }}
+                      # npm Snapshot: **NOT** Published
+
+                      ${{ steps.pr-state.outputs.problem }}
+
+                      [Workflow run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
             # comment_id is only set when trigger-snapshot.yml dispatched us.
             - name: React to /snapshot comment on failure
               if: failure() && inputs.comment_id != ''
               env:
                   GH_TOKEN: ${{ github.token }}
+                  # Lets `gh` resolve `{owner}/{repo}` even when we failed
+                  # before the checkout step.
+                  GH_REPO: ${{ github.repository }}
                   COMMENT_ID: ${{ inputs.comment_id }}
               run: |
                   gh api --method POST -f content=confused \
