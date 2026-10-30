@@ -1,19 +1,24 @@
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import {render} from "@testing-library/react";
 import * as React from "react";
 
+import {setDependencies} from "../dependencies";
 import WrappedServerItemRenderer from "../server-item-renderer";
-import {testDependenciesV2} from "../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../testing/test-dependencies";
 
 import type {ServerItemRenderer} from "../server-item-renderer";
 import type {APIOptions} from "../types";
 import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
-// This looks alot like `widgets/__tests__/render-question.tsx', except we use
-// the ServerItemRenderer instead of Renderer
-export const renderQuestion = (
+/**
+ * Renders a whole `PerseusItem` (question, hints, answer area) with the
+ * ServerItemRenderer. Widget tests use `renderQuestion` instead.
+ */
+export const renderItem = (
     question: PerseusItem,
     apiOptions: APIOptions = Object.freeze({}),
     optionalProps: Partial<
@@ -24,8 +29,9 @@ export const renderQuestion = (
     renderer: ServerItemRenderer;
     rerender: any;
 } => {
-    let renderer: ServerItemRenderer | null = null;
+    setDependencies(testDependencies);
 
+    let renderer: ServerItemRenderer | null = null;
     const {container, rerender} = render(
         <RenderStateRoot>
             <WrappedServerItemRenderer

@@ -3,15 +3,13 @@ import {scorePerseusItem, validateMatrix} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {renderQuestion} from "../../__testutils__/render-question";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {
     getAnswerfulItem,
     getAnswerlessItem,
     scorePerseusItemTesting,
 } from "../../util/scoring.testutils";
-import {renderQuestion} from "../__testutils__/render-question";
 
 import matrixExport from "./matrix";
 import {question1} from "./matrix.testdata";
@@ -25,10 +23,6 @@ describe("matrix widget", () => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
     });
 
     it("should snapshot", () => {

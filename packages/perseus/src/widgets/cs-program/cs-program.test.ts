@@ -1,8 +1,6 @@
 import {act} from "@testing-library/react";
 
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
-import {renderQuestion} from "../__testutils__/render-question";
+import {renderQuestion} from "../../__testutils__/render-question";
 
 import {question1} from "./cs-program.testdata";
 
@@ -17,12 +15,6 @@ function postResultFromIframe(data: unknown): void {
 }
 
 describe("cs-program widget", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
     it("should snapshot", () => {
         // Arrange
         const apiOptions = {

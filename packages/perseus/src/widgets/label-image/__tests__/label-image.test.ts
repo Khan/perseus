@@ -9,13 +9,9 @@ import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import * as Dependencies from "../../../dependencies";
-import {
-    testDependencies,
-    testDependenciesV2,
-} from "../../../testing/test-dependencies";
+import {renderQuestion} from "../../../__testutils__/render-question";
+import {testDependenciesV2} from "../../../testing/test-dependencies";
 import {scorePerseusItemTesting} from "../../../util/scoring.testutils";
-import {renderQuestion} from "../../__testutils__/render-question";
 import {LabelImage, getComputedSelectedState} from "../label-image";
 
 import {shortTextQuestion, textQuestion} from "./label-image.testdata";
@@ -826,12 +822,6 @@ describe("LabelImage", function () {
     describe("analytics", () => {
         beforeEach(() => {
             jest.spyOn(testDependenciesV2.analytics, "onAnalyticsEvent");
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-                testDependencies,
-            );
-            jest.spyOn(Dependencies, "useDependencies").mockReturnValue(
-                testDependenciesV2,
-            );
         });
 
         it("sends an analytics event when widget is rendered", async () => {

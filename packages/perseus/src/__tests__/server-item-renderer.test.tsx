@@ -19,6 +19,7 @@ import {
     itemWithMath,
     itemWithTable,
 } from "../__testdata__/server-item-renderer.testdata";
+import {renderItem} from "../__testutils__/render-item";
 import {ENTRANCE_TRANSITION_DURATION_MS} from "../components/zoomable";
 import * as Dependencies from "../dependencies";
 import {ServerItemRenderer} from "../server-item-renderer";
@@ -31,7 +32,6 @@ import MockAssetLoadingWidgetExport from "../widgets/mock-widgets/mock-asset-loa
 import MockWidget from "../widgets/mock-widgets/mock-widget";
 
 import {mockedAssetItem} from "./test-items/mock-asset-loading-item";
-import {renderQuestion} from "./test-utils";
 
 import type {MockAssetLoadingWidgetHandle} from "../widgets/mock-widgets/mock-asset-loading-widget.testutils";
 import type {KeypadAPI} from "@khanacademy/math-input";
@@ -63,7 +63,7 @@ describe("server item renderer", () => {
 
     it("should snapshot", () => {
         // Arrange and Act
-        const {container} = renderQuestion({
+        const {container} = renderItem({
             ...itemWithMockWidget,
             hints: [
                 {content: "Hint #1", images: {}, widgets: {}},
@@ -78,7 +78,7 @@ describe("server item renderer", () => {
 
     it("should render the content", () => {
         // Arrange and Act
-        renderQuestion(itemWithMockWidget);
+        renderItem(itemWithMockWidget);
 
         // Assert
         expect(screen.getByRole("textbox")).toBeVisible();
@@ -86,7 +86,7 @@ describe("server item renderer", () => {
 
     it("should pass showSolutions to the widgets", () => {
         // Arrange
-        const {container} = renderQuestion(
+        const {container} = renderItem(
             itemWithRadioAndExpressionWidgets,
             Object.freeze({}),
             {
@@ -104,7 +104,7 @@ describe("server item renderer", () => {
     it("calls onInteraction callback with the current user data", async () => {
         // Arrange
         const interactionCallback = jest.fn();
-        renderQuestion(itemWithTwoMockWidgets, {
+        renderItem(itemWithTwoMockWidgets, {
             interactionCallback,
         });
 
@@ -123,7 +123,7 @@ describe("server item renderer", () => {
 
     it("should return the DOM node for the requested focus path", async () => {
         // Arrange
-        const {renderer} = renderQuestion(itemWithMockWidget);
+        const {renderer} = renderItem(itemWithMockWidget);
 
         // Act
         const node = renderer.getDOMNodeForPath(["mock-widget 1"]);
@@ -135,7 +135,7 @@ describe("server item renderer", () => {
 
     it("should return the number of hints available", () => {
         // Arrange
-        const {renderer} = renderQuestion({
+        const {renderer} = renderItem({
             ...itemWithMockWidget,
             hints: [
                 {content: "Hint #1", images: {}, widgets: {}},
@@ -153,7 +153,7 @@ describe("server item renderer", () => {
 
     it("should return all widget ids", () => {
         // Arrange
-        const {renderer} = renderQuestion(itemWithTwoMockWidgets);
+        const {renderer} = renderItem(itemWithTwoMockWidgets);
 
         // Act
         const widgetIds = renderer.getWidgetIds();
@@ -446,7 +446,7 @@ describe("server item renderer", () => {
     });
 
     it("should get prompt JSON with the correct content and widgets", () => {
-        const {renderer} = renderQuestion(itemWithTwoMockWidgets);
+        const {renderer} = renderItem(itemWithTwoMockWidgets);
 
         const json = renderer.getPromptJSON();
 
@@ -461,7 +461,7 @@ describe("server item renderer", () => {
         it("calls onFocusChange when focusing the renderer", async () => {
             // Arranged
             const onFocusChange = jest.fn();
-            const {renderer} = renderQuestion(itemWithMockWidget, {
+            const {renderer} = renderItem(itemWithMockWidget, {
                 onFocusChange,
             });
 
@@ -504,7 +504,7 @@ describe("server item renderer", () => {
                 setCursor: jest.fn(),
                 setKeyHandler: jest.fn(),
             };
-            const {renderer} = renderQuestion(
+            const {renderer} = renderItem(
                 itemWithNumericInput,
                 {onFocusChange, isMobile: true},
                 {keypadElement},
@@ -530,7 +530,7 @@ describe("server item renderer", () => {
         it("calls onFocusChange when blurring the renderer", () => {
             // Arrange
             const onFocusChange = jest.fn();
-            const {renderer} = renderQuestion(itemWithMockWidget, {
+            const {renderer} = renderItem(itemWithMockWidget, {
                 onFocusChange,
             });
             act(() => renderer.focus());
@@ -574,7 +574,7 @@ describe("server item renderer", () => {
                 setCursor: jest.fn(),
                 setKeyHandler: jest.fn(),
             };
-            const {renderer} = renderQuestion(
+            const {renderer} = renderItem(
                 itemWithNumericInput,
                 {onFocusChange, isMobile: true},
                 {keypadElement},
@@ -601,7 +601,7 @@ describe("server item renderer", () => {
         it("should focus the widget requested in focusPath()", () => {
             // Arrange
             const onFocusChange = jest.fn();
-            const {renderer} = renderQuestion(itemWithMockWidget, {
+            const {renderer} = renderItem(itemWithMockWidget, {
                 onFocusChange,
             });
 
@@ -624,7 +624,7 @@ describe("server item renderer", () => {
     describe("state serialization", () => {
         it("should serialize the current state", async () => {
             // Arrange
-            const {renderer} = renderQuestion({
+            const {renderer} = renderItem({
                 ...itemWithMockWidget,
                 hints: [
                     {content: "Hint #1", images: {}, widgets: {}},
@@ -654,7 +654,7 @@ describe("server item renderer", () => {
 
     describe("content editing", () => {
         const renderQuestionWithLint = (highlightLint: boolean) =>
-            renderQuestion(itemWithLintingError, undefined, {
+            renderItem(itemWithLintingError, undefined, {
                 linterContext: {
                     contentType: "exercise",
                     highlightLint,
@@ -731,7 +731,7 @@ describe("server item renderer", () => {
             const answerless = splitPerseusItem(answerful);
 
             // render starting with answerless data
-            const {renderer, rerender} = renderQuestion(answerless);
+            const {renderer, rerender} = renderItem(answerless);
 
             // select the right answer
             await userEvent.click(

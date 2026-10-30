@@ -1,9 +1,7 @@
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
-import {renderQuestion} from "../../widgets/__testutils__/render-question";
+import {renderQuestion} from "../../__testutils__/render-question";
 
 import {getPromptJSON} from "./categorizer-ai-utils";
 
@@ -44,10 +42,6 @@ describe("Categorizer AI utils", () => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
     });
 
     it("it returns JSON with the expected format and fields", () => {

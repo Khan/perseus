@@ -1,7 +1,5 @@
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {renderQuestion} from "../../__testutils__/render-question";
 import GraphUtils from "../../util/graph-utils";
-import {renderQuestion} from "../__testutils__/render-question";
 
 import {measurerQuestion} from "./measurer.testdata";
 
@@ -17,10 +15,6 @@ describe("measurer widget", () => {
     let ruler: jest.Mock;
 
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-
         protractor = jest.fn(() => ({remove: jest.fn()}));
         ruler = jest.fn(() => ({remove: jest.fn()}));
         const fakeGraphie = {

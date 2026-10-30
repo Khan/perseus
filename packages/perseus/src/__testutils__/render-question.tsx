@@ -2,22 +2,22 @@ import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render} from "@testing-library/react";
 import * as React from "react";
 
-import {PerseusI18nContextProvider} from "../../components/i18n-context";
+import {PerseusI18nContextProvider} from "../components/i18n-context";
 import {
     DependenciesContext,
     useDependencies,
     setDependencies,
-} from "../../dependencies";
-import * as Perseus from "../../index";
-import {mockStrings} from "../../strings";
+} from "../dependencies";
+import * as Perseus from "../index";
+import {mockStrings} from "../strings";
 import {
     testDependenciesV2,
     testDependencies,
-} from "../../testing/test-dependencies";
-import UserInputManager from "../../user-input-manager";
-import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
+} from "../testing/test-dependencies";
+import UserInputManager from "../user-input-manager";
+import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-testing";
 
-import type {APIOptions, PerseusDependenciesV2} from "../../types";
+import type {APIOptions, PerseusDependenciesV2} from "../types";
 import type {PerseusRenderer, UserInputMap} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 

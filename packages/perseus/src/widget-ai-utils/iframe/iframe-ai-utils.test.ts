@@ -1,4 +1,4 @@
-import {renderQuestion} from "../../widgets/__testutils__/render-question";
+import {renderQuestion} from "../../__testutils__/render-question";
 
 import {getPromptJSON} from "./iframe-ai-utils";
 

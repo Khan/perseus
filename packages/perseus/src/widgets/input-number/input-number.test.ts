@@ -9,14 +9,12 @@ import {
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {renderQuestion} from "../../__testutils__/render-question";
 import {
     getAnswerfulItem,
     getAnswerlessItem,
     scorePerseusItemTesting,
 } from "../../util/scoring.testutils";
-import {renderQuestion} from "../__testutils__/render-question";
 
 import InputNumber from "./input-number";
 import {question3 as question} from "./input-number.testdata";
@@ -30,10 +28,6 @@ describe("input-number", function () {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
     });
 
     describe("full render", function () {
@@ -318,10 +312,6 @@ describe("input-number", () => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
     });
 
     it("renders the NumericInput UI (default aria-label)", () => {
@@ -446,12 +436,6 @@ describe("input-number", () => {
 });
 
 describe("getOneCorrectAnswerFromRubric", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
     it("should return empty if the answer value is null", () => {
         // Arrange
         const rubric = generateInputNumberOptions({
@@ -525,12 +509,6 @@ describe("getOneCorrectAnswerFromRubric", () => {
 });
 
 describe("rendering", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
     it("supports mobile rendering", () => {
         const {container} = renderQuestion(question, {
             apiOptions: {
@@ -545,12 +523,6 @@ describe("rendering", () => {
 });
 
 describe("focus state", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
     it("supports focusing", async () => {
         //  Arrange
         const {renderer} = renderQuestion(question);

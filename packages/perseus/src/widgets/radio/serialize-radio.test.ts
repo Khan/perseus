@@ -5,9 +5,7 @@ import {
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {renderQuestion} from "../../__tests__/test-utils";
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {renderItem} from "../../__testutils__/render-item";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
 import type {PerseusItem} from "@khanacademy/perseus-core";
@@ -149,15 +147,11 @@ describe("Radio widget serialization", () => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
     });
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicRadioContent());
+        const {renderer} = renderItem(generateBasicRadioContent());
 
         const preAnswerState = renderer.getSerializedState();
 

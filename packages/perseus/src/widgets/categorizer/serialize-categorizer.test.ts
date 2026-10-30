@@ -5,9 +5,7 @@ import {
 import {screen, act} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {renderQuestion} from "../../__tests__/test-utils";
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {renderItem} from "../../__testutils__/render-item";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
 import type {PerseusItem} from "@khanacademy/perseus-core";
@@ -58,10 +56,6 @@ describe("Categorizer serialization", () => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
     });
 
     afterEach(() => {
@@ -74,7 +68,7 @@ describe("Categorizer serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicCategorizer());
+        const {renderer} = renderItem(generateBasicCategorizer());
 
         await userEvent.click(screen.getAllByRole("button", {name: "one"})[0]);
 

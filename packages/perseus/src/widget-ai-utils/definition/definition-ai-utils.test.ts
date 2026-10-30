@@ -4,7 +4,7 @@ import {
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
 
-import {renderQuestion} from "../../widgets/__testutils__/render-question";
+import {renderQuestion} from "../../__testutils__/render-question";
 
 import {getPromptJSON} from "./definition-ai-utils";
 

@@ -2,9 +2,7 @@ import {type PerseusRenderer} from "@khanacademy/perseus-core";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
-import {renderQuestion} from "../__testutils__/render-question";
+import {renderQuestion} from "../../__testutils__/render-question";
 
 import {
     article1,
@@ -19,10 +17,6 @@ describe("graded group set widget", () => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
 
         // Mocked for loading graphie in svg-image
         // eslint-disable-next-line no-restricted-syntax

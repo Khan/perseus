@@ -1,10 +1,8 @@
 import invariant from "tiny-invariant";
 
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {renderQuestion} from "../../__testutils__/render-question";
 import {waitForInitialGraphieRender} from "../../testing/wait";
 import {scorePerseusItemTesting} from "../../util/scoring.testutils";
-import {renderQuestion} from "../__testutils__/render-question";
 
 import {
     question1,
@@ -12,12 +10,6 @@ import {
 } from "./interaction.testdata";
 
 describe("interaction widget", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
     it("should render", async () => {
         // Arrange/Act
         const {container} = renderQuestion(question1);

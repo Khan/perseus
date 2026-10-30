@@ -1,6 +1,6 @@
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {renderQuestion} from "../../widgets/__testutils__/render-question";
+import {renderQuestion} from "../../__testutils__/render-question";
 import {
     angleQuestion,
     circleQuestion,
