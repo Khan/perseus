@@ -1,14 +1,10 @@
 import {describe, beforeEach, it} from "@jest/globals";
-import {act, render, screen} from "@testing-library/react";
+import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {renderQuestion} from "../__testutils__/render-question";
-import * as Dependencies from "../dependencies";
 import {ClassNames} from "../perseus-api";
-import Renderer from "../renderer";
-import {mockStrings} from "../strings";
-import {testDependencies} from "../testing/test-dependencies";
 import {registerWidget} from "../widgets";
 import MockWidget from "../widgets/mock-widgets/mock-widget";
 
@@ -29,9 +25,6 @@ describe("Perseus API", function () {
             advanceTimers: jest.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
         registerWidget("mock-widget", MockWidget);
     });
 
@@ -156,16 +149,9 @@ describe("Perseus API", function () {
                 </span>
             );
 
-            render(
-                <Renderer
-                    content={itemWidget.question.content}
-                    images={itemWidget.question.images}
-                    widgets={itemWidget.question.widgets}
-                    problemNum={0}
-                    apiOptions={{widgetPlaceholder}}
-                    strings={mockStrings}
-                />,
-            );
+            renderQuestion(itemWidget.question, {
+                apiOptions: {widgetPlaceholder},
+            });
 
             expect(screen.getByTestId("widget-container")).toBeInTheDocument();
             expect(screen.getByTestId("widget-container")).toHaveTextContent(
@@ -179,16 +165,9 @@ describe("Perseus API", function () {
                     [IMAGE]
                 </span>
             );
-            render(
-                <Renderer
-                    content={imageItem.question.content}
-                    images={imageItem.question.images}
-                    widgets={imageItem.question.widgets}
-                    problemNum={0}
-                    strings={mockStrings}
-                    apiOptions={{imagePlaceholder}}
-                />,
-            );
+            renderQuestion(imageItem.question, {
+                apiOptions: {imagePlaceholder},
+            });
 
             expect(screen.getByTestId("image-container")).toBeInTheDocument();
             expect(screen.getByTestId("image-container")).toHaveTextContent(
