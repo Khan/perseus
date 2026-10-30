@@ -22,7 +22,6 @@
     line-height: 19.6px;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile) .perseus-block-math {
-    margin-bottom: var(--wb-sizing-size_320);
     position: relative;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
