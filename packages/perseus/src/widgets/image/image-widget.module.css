@@ -7,6 +7,10 @@
         var(--wb-semanticColor-core-border-neutral-subtle);
     padding-block-start: var(--wb-sizing-size_160);
     padding-block-end: var(--wb-sizing-size_160);
+
+    p {
+        margin-block: 0;
+    }
 }
 
 .info-area-container {
@@ -27,6 +31,11 @@
 :global(.perseus-image-caption) {
     font-size: var(--wb-font-body-size-small);
     line-height: var(--wb-font-body-lineHeight-small);
+
+    p {
+        padding-right: var(--wb-sizing-size_120);
+        margin-block: 0;
+    }
 }
 
 .modal-container {

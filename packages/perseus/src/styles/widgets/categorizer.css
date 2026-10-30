@@ -24,7 +24,6 @@ body.mobile
     content: "\f111"; /* fa-circle */
 }
 
-/***** New categorizer styles referencing .deprecated-perseus-container *****/
-.categorizer-container :is(div, p).deprecated-perseus-container {
+.framework-perseus .categorizer-container p {
     margin: 10px 0px;
 }

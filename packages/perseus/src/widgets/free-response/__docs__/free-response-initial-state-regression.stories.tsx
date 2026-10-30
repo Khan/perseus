@@ -33,7 +33,8 @@ export const DefaultWithCharacterCount: Story = {
         allowUnlimitedCharacters: false,
         characterLimit: 500,
         placeholder: "Enter your answer here",
-        question: "What is the theme of the essay?",
+        question:
+            "Introductory text for the question (testing that spacing is correct).\n\nWhat is the theme of the essay?",
     },
 };
 
