@@ -14,8 +14,10 @@ import type {APIOptions} from "../types";
 import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
-// Like `renderQuestion` in `render-question.tsx`, but
-// renders a whole `PerseusItem` with the ServerItemRenderer.
+/**
+ * Renders a whole `PerseusItem` (question, hints, answer area) with the
+ * ServerItemRenderer. Widget tests use `renderQuestion` instead.
+ */
 export const renderItem = (
     question: PerseusItem,
     apiOptions: APIOptions = Object.freeze({}),
