@@ -89,6 +89,13 @@ const restrictedSyntax = [
  * than merging with it, so anything adding restrictions must carry these.
  */
 const restrictedImportPaths = [
+    /** Playwright Restricted Imports */
+    {
+        name: "@playwright/test",
+        importNames: ["test", "expect"],
+        message:
+            "Import `test` and `expect` from @internal/playwright instead, so that our fixtures (e.g. coverage) apply.",
+    },
     /** Wonder Blocks Restricted Imports */
     {
         name: "@khanacademy/wonder-blocks-tokens",
@@ -139,6 +146,31 @@ const restrictedImportPaths = [
  * whatever it pulls in. Nothing errors, so the duplication is invisible — and
  * for a module holding state (a registry, a singleton) the two copies diverge.
  */
+/**
+ * Every rule from eslint-plugin-testing-library, turned off. Playwright's
+ * locators (`page.getByRole()` and friends) look like Testing Library's
+ * queries, so these rules misfire on Playwright code, and none of them
+ * apply to it.
+ */
+const testingLibraryRulesOff = Object.fromEntries(
+    Object.keys(require("eslint-plugin-testing-library").rules).map((rule) => [
+        `testing-library/${rule}`,
+        "off",
+    ]),
+);
+
+/**
+ * Every rule from eslint-plugin-storybook, turned off. Its recommended config
+ * treats `*.story.*` files as Storybook stories, but ours are Playwright
+ * component test stories.
+ */
+const storybookRulesOff = Object.fromEntries(
+    Object.keys(require("eslint-plugin-storybook").rules).map((rule) => [
+        `storybook/${rule}`,
+        "off",
+    ]),
+);
+
 const noSelfPackageImports = pkgNames.map((pkgName) => ({
     files: [`packages/${pkgName}/**`],
     rules: {
@@ -242,8 +274,9 @@ module.exports = {
         ...noSelfPackageImports,
         {
             files: [
-                "*.cypress.tsx",
-                "*.cypress.ts",
+                "*.spec.ts",
+                "*.story.tsx",
+                "**/testing/playwright/**",
                 "*.test.ts",
                 "*.test.tsx",
                 "*.testdata.ts",
@@ -263,18 +296,30 @@ module.exports = {
         },
         {
             files: [
-                "*.cypress.ts",
-                "*.cypress.tsx",
-                "config/cypress/support.ts",
-                "packages/perseus/src/testing/render-question-with-cypress.tsx",
+                "*.spec.ts",
+                "*.story.tsx",
+                "config/playwright/**",
+                "**/testing/playwright/**",
             ],
-            extends: ["plugin:cypress/recommended"],
+            extends: ["plugin:playwright/recommended"],
+            rules: testingLibraryRulesOff,
+        },
+        {
+            files: ["*.story.tsx"],
+            rules: storybookRulesOff,
+        },
+        {
+            // Defines the `test` and `expect` everything else imports.
+            files: ["config/playwright/fixtures.ts"],
             rules: {
-                "cypress/assertion-before-screenshot": "error",
-                "cypress/no-async-before": "error",
-                "cypress/no-debug": "error",
-                "cypress/no-force": "error",
-                "cypress/no-pause": "error",
+                "no-restricted-imports": [
+                    "error",
+                    {
+                        paths: restrictedImportPaths.filter(
+                            ({name}) => name !== "@playwright/test",
+                        ),
+                    },
+                ],
             },
         },
         {
@@ -341,7 +386,7 @@ module.exports = {
             files: ["*.ts", "*.tsx", "*.mts"],
             parser: "@typescript-eslint/parser",
             parserOptions: {
-                project: ["tsconfig.json", "config/cypress/tsconfig.json"],
+                project: ["tsconfig.json"],
             },
             // Rules local to this repo (config/eslint-plugin). Registered
             // here because they need type information.

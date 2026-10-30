@@ -2,7 +2,7 @@
 /* Visit https://aka.ms/tsconfig to read more about this file */
 {
     // This is a shared TypeScript build config. As such, we exclude everything
-    // that is test-related (Jest, Cypress, Storybook).
+    // that is test-related (Jest, Playwright, Storybook).
     //
     // Paths in this file resolve relative to THIS file, not to any file that
     // extends it, so a bare "dist" would mean `packages/dist` and match
@@ -21,7 +21,8 @@
         "**/*.stories.*",
         "**/__stories__/**",
         "**/__docs__/**",
-        "**/*.cypress.*",
+        "**/*.spec.*",
+        "**/*.story.*",
         // Perseus's `./testing` entry point exists only for cross-package
         // imports within this repo. It is not published, so a declaration for
         // it would ship a file nothing can import.

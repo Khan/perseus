@@ -1,0 +1,17 @@
+{
+    "name": "@internal/playwright",
+    "private": true,
+    "type": "module",
+    "exports": {
+        ".": "./fixtures.ts"
+    },
+    "devDependencies": {
+        "@khanacademy/wonder-blocks-tokens": "catalog:devDeps",
+        "@playwright/test": "catalog:toolDeps",
+        "@types/istanbul-lib-coverage": "^2.0.6",
+        "istanbul-lib-coverage": "^3.2.0",
+        "react": "catalog:devDeps",
+        "react-dom": "catalog:devDeps",
+        "v8-to-istanbul": "^9.0.1"
+    }
+}
