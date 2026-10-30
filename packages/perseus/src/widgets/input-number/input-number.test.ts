@@ -9,12 +9,12 @@ import {
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
+import {renderQuestion} from "../../__tests__/render-question";
 import {
     getAnswerfulItem,
     getAnswerlessItem,
     scorePerseusItemTesting,
 } from "../../util/scoring.testutils";
-import {renderQuestion} from "../__testutils__/render-question";
 
 import InputNumber from "./input-number";
 import {question3 as question} from "./input-number.testdata";

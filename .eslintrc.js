@@ -251,6 +251,7 @@ module.exports = {
                 "*.typetest.tsx",
                 "*.stories.ts",
                 "*.stories.tsx",
+                "**/__tests__/**",
                 "**/__testutils__/**",
                 "**/__stories__/**",
                 "**/__docs__/**",

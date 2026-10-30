@@ -1,13 +1,13 @@
 import {screen, act} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
+import {renderQuestion} from "../../__tests__/render-question";
 import {Log} from "../../logging/log";
 import {
     getAnswerfulItem,
     getAnswerlessItem,
     scorePerseusItemTesting,
 } from "../../util/scoring.testutils";
-import {renderQuestion} from "../__testutils__/render-question";
 
 import {question1, tickCtrl} from "./number-line.testdata";
 

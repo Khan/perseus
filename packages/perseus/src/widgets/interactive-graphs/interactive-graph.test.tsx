@@ -22,8 +22,8 @@ import {Plot} from "mafs";
 import * as React from "react";
 import invariant from "tiny-invariant";
 
+import {renderQuestion} from "../../__tests__/render-question";
 import {scorePerseusItemTesting} from "../../util/scoring.testutils";
-import {renderQuestion} from "../__testutils__/render-question";
 import {sinusoidQuestion} from "../grapher/grapher.testdata";
 
 import {

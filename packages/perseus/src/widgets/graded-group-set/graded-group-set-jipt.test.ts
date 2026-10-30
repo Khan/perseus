@@ -4,9 +4,9 @@
  * easier for translators.
  */
 
+import {renderQuestion} from "../../__tests__/render-question";
 import * as Dependencies from "../../dependencies";
 import {testDependencies} from "../../testing/test-dependencies";
-import {renderQuestion} from "../__testutils__/render-question";
 
 import {article1} from "./graded-group-set.testdata";
 

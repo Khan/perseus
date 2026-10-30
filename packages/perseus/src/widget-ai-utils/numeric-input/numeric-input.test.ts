@@ -8,7 +8,7 @@ import {
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {renderQuestion} from "../../widgets/__testutils__/render-question";
+import {renderQuestion} from "../../__tests__/render-question";
 
 import type {UserEvent} from "@testing-library/user-event";
 

@@ -2,9 +2,9 @@ import {generateMatcherOptions} from "@khanacademy/perseus-core";
 import {screen, within} from "@testing-library/react";
 import * as React from "react";
 
+import {renderQuestion} from "../../__tests__/render-question";
 import * as Dependencies from "../../dependencies";
 import {testDependencies} from "../../testing/test-dependencies";
-import {renderQuestion} from "../../widgets/__testutils__/render-question";
 
 import {getPromptJSON} from "./matcher-ai-utils";
 

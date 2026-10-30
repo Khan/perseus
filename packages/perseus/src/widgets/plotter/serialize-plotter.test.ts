@@ -5,7 +5,7 @@ import {
 } from "@khanacademy/perseus-core";
 import {act} from "@testing-library/react";
 
-import {renderItem} from "../../__tests__/test-utils";
+import {renderItem} from "../../__tests__/render-item";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
 import type {PerseusItem} from "@khanacademy/perseus-core";

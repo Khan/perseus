@@ -2,11 +2,11 @@ import {generatePlotterOptions} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
 
+import {renderQuestion} from "../../__tests__/render-question";
 import {
     getAnswerfulItem,
     getAnswerlessItem,
 } from "../../util/scoring.testutils";
-import {renderQuestion} from "../__testutils__/render-question";
 
 import {dotPlotter} from "./plotter.testdata";
 

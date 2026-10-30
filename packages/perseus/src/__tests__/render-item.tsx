@@ -1,5 +1,4 @@
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import {render} from "@testing-library/react";
 import * as React from "react";
 
@@ -15,7 +14,7 @@ import type {APIOptions} from "../types";
 import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
-// Like `renderQuestion` in `widgets/__testutils__/render-question.tsx`, but
+// Like `renderQuestion` in `render-question.tsx`, but
 // renders a whole `PerseusItem` with the ServerItemRenderer.
 export const renderItem = (
     question: PerseusItem,
