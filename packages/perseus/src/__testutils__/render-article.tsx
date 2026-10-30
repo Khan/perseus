@@ -33,8 +33,10 @@ function KeypadWithContext() {
         </KeypadContext.Consumer>
     );
 }
-// Like `renderQuestion` in `render-question.tsx`, but renders with the
-// ArticleRenderer.
+
+/**
+ * Renders a `PerseusArticle` with the ArticleRenderer and a mobile keypad.
+ */
 export const renderArticle = (
     json: PerseusArticle = articleSectionWithExpression,
     apiOptions: APIOptions = Object.freeze({}),
