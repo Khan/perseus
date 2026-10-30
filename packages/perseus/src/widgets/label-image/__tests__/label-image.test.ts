@@ -9,7 +9,7 @@ import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {renderQuestion} from "../../../__tests__/render-question";
+import {renderQuestion} from "../../../__testutils__/render-question";
 import {testDependenciesV2} from "../../../testing/test-dependencies";
 import {scorePerseusItemTesting} from "../../../util/scoring.testutils";
 import {LabelImage, getComputedSelectedState} from "../label-image";

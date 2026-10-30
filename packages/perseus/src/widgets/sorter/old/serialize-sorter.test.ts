@@ -4,7 +4,7 @@ import {
 } from "@khanacademy/perseus-core";
 import {act} from "@testing-library/react";
 
-import {renderItem} from "../../../__tests__/render-item";
+import {renderItem} from "../../../__testutils__/render-item";
 import {deriveUserInputFromSerializedState} from "../../../user-input-manager";
 import {registerAllWidgetsForTesting} from "../../../util/register-all-widgets-for-testing";
 

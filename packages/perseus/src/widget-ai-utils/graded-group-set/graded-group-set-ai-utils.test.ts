@@ -1,7 +1,7 @@
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {renderQuestion} from "../../__tests__/render-question";
+import {renderQuestion} from "../../__testutils__/render-question";
 import {article1} from "../../widgets/graded-group-set/graded-group-set.testdata";
 
 import {getPromptJSON} from "./graded-group-set-ai-utils";

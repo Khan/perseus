@@ -19,6 +19,7 @@ import {
     itemWithMath,
     itemWithTable,
 } from "../__testdata__/server-item-renderer.testdata";
+import {renderItem} from "../__testutils__/render-item";
 import {ENTRANCE_TRANSITION_DURATION_MS} from "../components/zoomable";
 import * as Dependencies from "../dependencies";
 import {ServerItemRenderer} from "../server-item-renderer";
@@ -30,7 +31,6 @@ import {registerWidget} from "../widgets";
 import MockAssetLoadingWidgetExport from "../widgets/mock-widgets/mock-asset-loading-widget.testutils";
 import MockWidget from "../widgets/mock-widgets/mock-widget";
 
-import {renderItem} from "./render-item";
 import {mockedAssetItem} from "./test-items/mock-asset-loading-item";
 
 import type {MockAssetLoadingWidgetHandle} from "../widgets/mock-widgets/mock-asset-loading-widget.testutils";

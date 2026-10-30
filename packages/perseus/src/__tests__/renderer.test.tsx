@@ -19,6 +19,7 @@ import {
     definitionItem,
     mockedRandomItem,
 } from "../__testdata__/renderer.testdata";
+import {renderQuestion} from "../__testutils__/render-question";
 import * as Dependencies from "../dependencies";
 import Renderer, {
     isDifferentQuestion,
@@ -31,8 +32,6 @@ import {testDependencies} from "../testing/test-dependencies";
 import {registerWidget} from "../widgets";
 import {simpleGroupQuestion} from "../widgets/group/group.testdata";
 import MockWidgetExport from "../widgets/mock-widgets/mock-widget";
-
-import {renderQuestion} from "./render-question";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";

@@ -2,7 +2,7 @@ import {makeSafeUrl} from "@khanacademy/perseus-core";
 import {screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {renderQuestion} from "../../__tests__/render-question";
+import {renderQuestion} from "../../__testutils__/render-question";
 
 import {nonPhetUrl, question1} from "./phet-simulation.testdata";
 

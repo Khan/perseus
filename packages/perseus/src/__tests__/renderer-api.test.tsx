@@ -3,6 +3,7 @@ import {act, render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import {renderQuestion} from "../__testutils__/render-question";
 import * as Dependencies from "../dependencies";
 import {ClassNames} from "../perseus-api";
 import Renderer from "../renderer";
@@ -11,7 +12,6 @@ import {testDependencies} from "../testing/test-dependencies";
 import {registerWidget} from "../widgets";
 import MockWidget from "../widgets/mock-widgets/mock-widget";
 
-import {renderQuestion} from "./render-question";
 import imageItem from "./test-items/image-item";
 import mockWidget1Item from "./test-items/mock-widget-1-item";
 import mockWidget2Item from "./test-items/mock-widget-2-item";
