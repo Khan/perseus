@@ -2,7 +2,7 @@ import {type PerseusRenderer} from "@khanacademy/perseus-core";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {renderQuestion} from "../__testutils__/render-question";
+import {renderQuestion} from "../../__tests__/render-question";
 
 import {
     article1,

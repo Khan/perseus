@@ -1,8 +1,8 @@
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
+import {renderQuestion} from "../../__tests__/render-question";
 import {waitForInitialGraphieRender} from "../../testing/wait";
-import {renderQuestion} from "../__testutils__/render-question";
 
 import {
     linearQuestion,

@@ -1,6 +1,6 @@
 import {generateImageOptions} from "@khanacademy/perseus-core";
 
-import {renderQuestion} from "../../widgets/__testutils__/render-question";
+import {renderQuestion} from "../../__tests__/render-question";
 
 import {getPromptJSON} from "./image-ai-utils";
 

@@ -1,5 +1,5 @@
+import {renderQuestion} from "../../__tests__/render-question";
 import GraphUtils from "../../util/graph-utils";
-import {renderQuestion} from "../__testutils__/render-question";
 
 import {measurerQuestion} from "./measurer.testdata";
 

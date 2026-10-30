@@ -9,9 +9,9 @@ import Renderer from "../renderer";
 import {mockStrings} from "../strings";
 import {testDependencies} from "../testing/test-dependencies";
 import {registerWidget} from "../widgets";
-import {renderQuestion} from "../widgets/__testutils__/render-question";
 import MockWidget from "../widgets/mock-widgets/mock-widget";
 
+import {renderQuestion} from "./render-question";
 import imageItem from "./test-items/image-item";
 import mockWidget1Item from "./test-items/mock-widget-1-item";
 import mockWidget2Item from "./test-items/mock-widget-2-item";
