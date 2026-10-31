@@ -1,0 +1,11 @@
+.fillInTheBlank {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_640);
+}
+
+/* A paragraph that holds a blank takes the blank's 48px height as its
+ * line height, so the blank does not crowd the lines around it. */
+.answerZone :is(p, [role="paragraph"]):has([data-blank]) {
+    line-height: var(--wb-sizing-size_480);
+}

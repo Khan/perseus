@@ -70,8 +70,9 @@ export interface AnswerTileProps {
     menuRef?: React.Ref<HTMLButtonElement>;
     /**
      * Set true for a tile whose menu stays hidden until hover or focus.
-     * Fill in the Blank uses this for a tile in an inline blank, to keep
-     * the line of text short at rest.
+     * The tile keeps the menu's space at rest, so showing the menu does
+     * not reflow the line. Fill in the Blank uses this for a tile in an
+     * inline blank.
      */
     hidesMenuAtRest?: boolean;
     /**

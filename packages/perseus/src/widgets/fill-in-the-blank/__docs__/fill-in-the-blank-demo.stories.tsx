@@ -1,63 +1,41 @@
-import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
-import {basicFillInTheBlankQuestion} from "../fill-in-the-blank.testdata";
+import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {paragraphFillInTheBlankQuestion} from "../fill-in-the-blank.testdata";
 
-import type {PerseusItem} from "@khanacademy/perseus-core";
-import type {Meta} from "@storybook/react-vite";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
-type StoryArgs = {
-    // Story Option
-    item: PerseusItem;
-} & Pick<
-    React.ComponentProps<typeof ServerItemRendererWithDebugUI>,
-    "reviewMode" | "showSolutions"
->;
-
-export default {
+/**
+ * Fill in the Blank asks learners to drag answer tiles from a choice bank
+ * into blanks in a passage, or to place them through each tile's menu.
+ */
+const meta: Meta<typeof QuestionRendererForStories> = {
     title: "Widgets/Fill in the Blank/Widget Demo",
-    component: ServerItemRendererWithDebugUI,
+    component: QuestionRendererForStories,
     tags: ["!autodocs"],
-    // TODO(LEMS-4396): clean up feature flag
-    globals: {featureFlags: ["dnd-widget-fitb"]},
-    parameters: {
-        docs: {
-            description: {
-                component:
-                    "A widget that asks learners to drag answer tiles from a choice bank\
-                    into blanks in a passage. The render is still a placeholder.",
-            },
-        },
-    },
+    render: (args) => <QuestionRendererForStories {...args} />,
     args: {
-        reviewMode: false,
-        showSolutions: "none",
-        item: generateTestPerseusItem({
-            question: basicFillInTheBlankQuestion,
-        }),
-    } satisfies StoryArgs,
-    argTypes: {
-        showSolutions: {
-            options: ["none", "all", "selected"],
-            control: {
-                type: "select",
-            },
-        },
+        question: paragraphFillInTheBlankQuestion,
     },
-    render: (args: StoryArgs) => (
-        <ServerItemRendererWithDebugUI
-            item={{...args.item}}
-            reviewMode={args.reviewMode}
-            showSolutions={args.showSolutions}
-        />
-    ),
-} satisfies Meta<StoryArgs>;
+};
 
-export const Default = {
+export default meta;
+
+type Story = StoryObj<typeof QuestionRendererForStories>;
+
+/** A paragraph with four empty blanks. */
+export const Paragraph: Story = {};
+
+/** The same paragraph with every blank answered. */
+export const ParagraphAnswered: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: basicFillInTheBlankQuestion,
-        }),
+        initialUserInput: {
+            "fill-in-the-blank 1": {
+                "blank 1": {selected: "bongo"},
+                "blank 2": {selected: "tambourine"},
+                "blank 3": {selected: "snare"},
+                "blank 4": {selected: "bass"},
+            },
+        },
     },
 };
