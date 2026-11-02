@@ -1,4 +1,5 @@
 export interface LintOptions {
+    /** Indices into the content string where the issue occurs */
     location?: {start: number; end: number};
     metadata?: Record<string, any>;
 }
@@ -16,6 +17,7 @@ export const Severity = {
 export interface Lint extends LintOptions {
     message: string;
     severity: number;
+    /** Indices into the content string where the issue occurs */
     location?: {start: number; end: number};
     metadata?: Record<string, any>;
 }
