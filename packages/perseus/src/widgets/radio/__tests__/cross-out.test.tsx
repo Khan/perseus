@@ -209,7 +209,7 @@ describe("Radio cross-out", () => {
         });
     });
 
-    it("keeps choices crossed out when the toggle is turned off", async () => {
+    it("stops showing cross-outs when the toggle is turned off", async () => {
         // Arrange
         renderQuestion(generateQuestion(), {apiOptions: crossOutOn});
         await userEvent.click(getToggle());
@@ -223,8 +223,44 @@ describe("Radio cross-out", () => {
             screen.queryByRole("button", {name: /Cross out choice/}),
         ).not.toBeInTheDocument();
         expect(
+            screen.getByRole("button", {name: "(Choice B) Brick"}),
+        ).toBeInTheDocument();
+    });
+
+    it("shows cross-outs again when the toggle is turned back on", async () => {
+        // Arrange
+        renderQuestion(generateQuestion(), {apiOptions: crossOutOn});
+        await userEvent.click(getToggle());
+        await userEvent.click(getCrossOutButton("B"));
+        await userEvent.click(getToggle());
+
+        // Act
+        await userEvent.click(getToggle());
+
+        // Assert
+        expect(
             screen.getByRole("button", {name: "(Choice B, crossed out) Brick"}),
         ).toBeInTheDocument();
+        expect(getCrossOutButton("B")).toHaveAttribute("aria-pressed", "true");
+    });
+
+    it("forgets a cross-out when its choice is selected while the toggle is off", async () => {
+        // Arrange
+        renderQuestion(generateQuestion(), {apiOptions: crossOutOn});
+        await userEvent.click(getToggle());
+        await userEvent.click(getCrossOutButton("B"));
+        await userEvent.click(getToggle());
+        jest.mocked(announceMessage).mockClear();
+
+        // Act
+        await userEvent.click(getChoice("B"));
+        await userEvent.click(getToggle());
+
+        // Assert
+        expect(getCrossOutButton("B")).toHaveAttribute("aria-pressed", "false");
+        expect(announceMessage).not.toHaveBeenCalledWith({
+            message: "Choice B restored and selected.",
+        });
     });
 
     it("unselects a selected choice when it's crossed out, with one announcement", async () => {

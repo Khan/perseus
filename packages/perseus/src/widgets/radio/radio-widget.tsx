@@ -110,6 +110,10 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
         const [crossedOutIds, setCrossedOutIds] = useState<
             ReadonlyArray<string>
         >([]);
+        // While the toggle is off, crossed-out choices look and read like any
+        // other choice. They're remembered, so turning the toggle back on
+        // shows them again.
+        const visibleCrossedOutIds = crossOutToggleOn ? crossedOutIds : [];
 
         // Clear cross-outs when the host changes the reset key (on each
         // Check) and when review mode turns on. Done while rendering, rather
@@ -281,12 +285,13 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
             const currentSelectedIds = choiceStates
                 .filter((choice) => choice.selected)
                 .map((choice) => choice.id);
-            // Selecting a crossed-out choice restores it.
-            const restoredChoice =
-                newCheckedState && crossedOutIds.includes(choiceId);
-            if (restoredChoice) {
+            // Selecting a crossed-out choice restores it. While the toggle is
+            // off it isn't shown as crossed out, so it's restored silently.
+            if (newCheckedState && crossedOutIds.includes(choiceId)) {
                 setCrossedOutIds(crossedOutIds.filter((id) => id !== choiceId));
             }
+            const restoredChoice =
+                newCheckedState && visibleCrossedOutIds.includes(choiceId);
             if (newCheckedState && !multipleSelect) {
                 checkedChoiceIds.push(choiceId);
             } else if (newCheckedState && multipleSelect) {
@@ -478,7 +483,7 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
                       toggleOn: crossOutToggleOn,
                       disabled: !!apiOptions.readOnly,
                       onToggleChange: handleCrossOutToggleChange,
-                      crossedOutIds,
+                      crossedOutIds: visibleCrossedOutIds,
                       onCrossOutChange: handleCrossOutChange,
                   }
                 : undefined;
