@@ -42,8 +42,3 @@ export function lintGuideline(message: string, options?: LintOptions): Lint {
         ...options,
     };
 }
-
-// FIXME: remove severity from Rule, and then delete this function.
-export function lintWithSeverity(severity: number, message: string): Lint {
-    return {message, severity};
-}
