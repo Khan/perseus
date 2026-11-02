@@ -145,7 +145,7 @@ export type MakeWidgetRuleOptions<
     widgetType: TWidgetType;
     lint: (
         widgetInfo: PerseusWidgetTypes[TWidgetType],
-    ) => undefined | string | string[];
+    ) => undefined | Lint | Lint[];
 };
 
 export type MakeLintFunctionOptions = {
