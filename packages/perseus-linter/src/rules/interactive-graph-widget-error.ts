@@ -1,11 +1,11 @@
 import {vector as kvector} from "@khanacademy/kmath";
 
+import {linterError} from "../lint";
 import Rule from "../rule";
 
 export default Rule.makeWidgetRule({
     name: "interactive-graph-widget-error",
     widgetType: "interactive-graph",
-    severity: Rule.Severity.ERROR,
     lint(widget) {
         const issues: string[] = [];
         const {correct, graph, lockedFigures} = widget.options;
@@ -70,7 +70,7 @@ export default Rule.makeWidgetRule({
         checkShowPointLabelsHasLabels(graph, issues);
         checkShowPointLabelsHasLabels(correct, issues);
 
-        return issues;
+        return issues.map((issue) => linterError(issue));
     },
 });
 

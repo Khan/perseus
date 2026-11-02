@@ -3,95 +3,19 @@
  * method that takes the same (node, state, content) arguments that a
  * TreeTransformer traversal callback function does. Call the check() method
  * during a tree traversal to determine whether the current node of the tree
- * violates the rule. If there is no violation, then check() returns
- * null. Otherwise, it returns an object that includes the name of the rule,
- * an error message, and the start and end positions within the node's content
- * string of the lint.
+ * violates the rule. If there is a violation, check() returns an array of
+ * issues. Each issue is an object that includes the name of the rule,
+ * an error message, and the start and end positions of the lint within the
+ * node's content string. If there are no violations of the rule, check()
+ * returns an empty array.
  *
- * A Perseus lint rule consists of a name, a severity, a selector, a pattern
- * (RegExp) and two functions. The check() method uses the selector, pattern,
- * and functions as follows:
+ * A Rule is typically defined in terms of a name, a selector, a pattern
+ * (RegExp) and a linting function. Use the `Rule.makeRule()` or
+ * `Rule.makeWidgetRule()` static methods to create rules.
  *
- * - First, when determining which rules to apply to a particular piece of
- *   content, each rule can specify an optional function provided in the fifth
- *   parameter to evaluate whether or not we should be applying this rule.
- *   If the function returns false, we don't use the rule on this content.
- *
- * - Next, check() tests whether the node currently being traversed matches
- *   the selector. If it does not, then the rule does not apply at this node
- *   and there is no lint and check() returns null.
- *
- * - If the selector matched, then check() tests the text content of the node
- *   (and its children) against the pattern. If the pattern does not match,
- *   then there is no lint, and check() returns null.
- *
- * - If both the selector and pattern match, then check() calls the function
- *   passing the TraversalState object, the content string for the node, the
- *   array of nodes returned by the selector match, and the array of strings
- *   returned by the pattern match. This function can use these arguments to
- *   implement any kind of lint detection logic it wants. If it determines
- *   that there is no lint, then it should return null. Otherwise, it should
- *   return an error message as a string, or an object with `message`, `start`
- *   and `end` properties. The start and end properties are numbers that mark
- *   the beginning and end of the problematic content. Note that these numbers
- *   are relative to the content string passed to the traversal callback, not
- *   to the entire string that was used to generate the parse tree in the
- *   first place.
- *
- * - If the function returns null, then check() returns null. Otherwise,
- *   check() returns an object with `rule`, `message`, `start` and `end`
- *   properties. The value of the `rule` property is the name of the rule,
- *   which is useful for error reporting purposes.
- *
- * The name, severity, selector, pattern and function arguments to the Rule()
- * constructor are optional, but you may not omit both the selector and the
- * pattern. If you do not specify a selector, a default selector that matches
- * any node of type "text" will be used. If you do not specify a pattern, then
- * any node that matches the selector will be assumed to match the pattern as
- * well. If you don't pass a function as the fourth argument to the Rule()
- * constructor, then you must pass an error message string instead. If you do
- * this, you'll get a default function that unconditionally returns an object
- * that includes the error message and the start and end indexes of the
- * portion of the content string that matched the pattern. If you don't pass a
- * function in the fifth parameter, the rule will be applied in any context.
- *
- * One of the design goals of this Rule class is to allow simple lint rules to
- * be described in JSON files without any JavaScript code. So in addition to
- * the Rule() constructor, the class also defines a Rule.makeRule() factory
- * method. This method takes a single object as its argument and expects the
- * object to have four string properties. The `name` property is passed as the
- * first argument to the Rule() construtctor.  The optional `selector`
- * property, if specified, is passed to Selector.parse() and the resulting
- * Selector object is used as the second argument to Rule().  The optional
- * `pattern` property is converted to a RegExp before being passed as the
- * third argument to Rule(). (See Rule.makePattern() for details on the string
- * to RegExp conversion). Finally, the `message` property specifies an error
- * message that is passed as the final argument to Rule(). You can also use a
- * real RegExp as the value of the `pattern` property or define a custom lint
- * function on the `lint` property instead of setting the `message`
- * property. Doing either of these things means that your rule description can
- * no longer be saved in a JSON file, however.
- *
- * For example, here are two lint rules defined with Rule.makeRule():
- *
- *    let nestedLists = Rule.makeRule({
- *        name: "nested-lists",
- *        selector: "list list",
- *        message: `Nested lists:
- *    nested lists are hard to read on mobile devices;
- *    do not use additional indentation.`,
- *    });
- *
- *    let longParagraph = Rule.makeRule({
- *        name: "long-paragraph",
- *        selector: "paragraph",
- *        pattern: /^.{501,}/,
- *        lint: function(state, content, nodes, match) {
- *            return `Paragraph too long:
- *    This paragraph is ${content.length} characters long.
- *    Shorten it to 500 characters or fewer.`;
- *        },
- *    });
+ * Rules only apply to nodes matching both the selector and the RegExp pattern.
+ * If check() is called with a non-matching node, then the linting function is
+ * not called, and check() returns an empty array.
  *
  * Certain advanced lint rules need additional information about the content
  * being linted in order to detect lint. For example, a rule to check for
@@ -120,30 +44,34 @@
 
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 
+import {Severity} from "./lint";
 import Selector from "./selector";
 
+import type {Lint} from "./lint";
 import type {TraversalState, TreeNode} from "./tree-transformer";
 import type {PerseusWidgetTypes} from "@khanacademy/perseus-core";
 
 export type MakeRuleOptions = {
     name: string;
     pattern?: RegExp;
-    severity: number;
     selector?: string;
     locale?: string;
     lint: LintTester;
-    applies?: AppliesTester;
 };
 
 export type MakeWidgetRuleOptions<
     TWidgetType extends keyof PerseusWidgetTypes,
 > = {
     name: string;
-    severity: number;
     widgetType: TWidgetType;
     lint: (
         widgetInfo: PerseusWidgetTypes[TWidgetType],
-    ) => undefined | string | string[];
+    ) => undefined | Lint | Lint[];
+};
+
+export type MakeLintFunctionOptions = {
+    message: string;
+    severity: number;
 };
 
 // This represents the type returned by String.match(). It is an
@@ -160,17 +88,6 @@ export type LinterIssue = {
     severity: number;
     metadata?: Record<string, any>;
 };
-
-// This the type returned by the lint detection function passed as the 4th
-// argument to the Rule() constructor.
-type Lint =
-    | string
-    | {
-          message: string;
-          start: number;
-          end: number;
-          metadata?: Record<string, any>;
-      };
 
 type LintRuleContextObject =
     | {
@@ -196,34 +113,24 @@ type LintTester = (
     context: LintRuleContextObject,
 ) => Lint | Lint[] | undefined;
 
-// An optional check to verify whether or not a particular rule should
-// be checked by context. For example, some rules only apply in exercises,
-// and should never be applied to articles. Defaults to true, so if we
-// omit the applies function in a rule, it'll be tested everywhere.
-type AppliesTester = (context: LintRuleContextObject) => boolean;
-
 /**
  * A Rule object describes a Perseus lint rule. See the comment at the top of
  * this file for detailed description.
  */
 export default class Rule {
     name: string; // The name of the rule
-    severity: number; // The severity of the rule
     selector: Selector; // The specified selector or the DEFAULT_SELECTOR
     pattern: RegExp | null | undefined; // A regular expression if one was specified
     lint: LintTester; // The lint-testing function or a default
-    applies: AppliesTester; // Checks to see if we should apply a rule or not
     static DEFAULT_SELECTOR: Selector;
 
     // The comment at the top of this file has detailed docs for
     // this constructor and its arguments
     constructor(
         name: string | null | undefined,
-        severity: number,
         selector: Selector | null | undefined,
         pattern: RegExp | null | undefined,
         lint: LintTester,
-        applies: AppliesTester | undefined,
     ) {
         if (!selector && !pattern) {
             throw new PerseusError(
@@ -234,16 +141,9 @@ export default class Rule {
         }
 
         this.name = name || "unnamed rule";
-        this.severity = severity;
         this.selector = selector || Rule.DEFAULT_SELECTOR;
         this.pattern = pattern || null;
         this.lint = lint;
-
-        this.applies =
-            applies ||
-            function () {
-                return true;
-            };
     }
 
     // A factory method for use with rules described in JSON files
@@ -251,11 +151,9 @@ export default class Rule {
     static makeRule(options: MakeRuleOptions): Rule {
         return new Rule(
             options.name,
-            options.severity,
             options.selector ? Selector.parse(options.selector) : null,
             Rule.makePattern(options.pattern),
             options.lint,
-            options.applies,
         );
     }
 
@@ -264,7 +162,6 @@ export default class Rule {
     ): Rule {
         return new Rule(
             options.name,
-            options.severity,
             Selector.parse("widget"),
             null,
             (state, content, nodes, match, context) => {
@@ -283,12 +180,11 @@ export default class Rule {
                     return;
                 }
 
-                return [options.lint(widgetInfo)]
-                    .filter(Boolean)
-                    .flat()
-                    .map((message) => `${widgetId}: ${message}`);
+                return [options.lint(widgetInfo) ?? []].flat().map((lint) => ({
+                    ...lint,
+                    message: `${widgetId}: ${lint.message}`,
+                }));
             },
-            undefined,
         );
     }
 
@@ -305,26 +201,15 @@ export default class Rule {
         // method because they need to close over both the `content` parameter
         // and the `this` binding.
         const toLinterIssue = (error: Lint): LinterIssue => {
-            if (typeof error === "string") {
-                // If the lint function returned a string we assume it
-                // applies to the entire content of the node and return it.
-                return {
-                    rule: this.name,
-                    severity: this.severity,
-                    message: error,
-                    start: 0,
-                    end: content.length,
-                };
-            }
-            // If the lint function returned an object, then we just
-            // add the rule name to the message, start and end.
+            // If the error has no location data, we default the location to
+            // the entire content string.
+            const {location = {start: 0, end: content.length}} = error;
             return {
                 rule: this.name,
-                severity: this.severity,
+                severity: error.severity,
                 message: error.message,
-                start: error.start,
-                end: error.end,
                 metadata: error.metadata,
+                ...location,
             };
         };
 
@@ -386,7 +271,7 @@ export default class Rule {
             return [
                 {
                     rule: "lint-rule-failure",
-                    severity: this.severity,
+                    severity: Rule.Severity.ERROR,
                     message: `Exception in rule ${this.name}: ${e.message}
 Stack trace:
 ${e.stack}`,
@@ -400,7 +285,10 @@ ${e.stack}`,
     /**
      * Create a linter function from a message.
      */
-    static makeLintFunction({message}: {message: string}): LintTester {
+    static makeLintFunction({
+        message,
+        severity,
+    }: MakeLintFunctionOptions): LintTester {
         return (
             state: TraversalState,
             content: string,
@@ -409,9 +297,12 @@ ${e.stack}`,
             context: LintRuleContextObject,
         ) => {
             return {
-                message: message,
-                start: patternMatch.index,
-                end: patternMatch.index + patternMatch[0].length,
+                message,
+                severity,
+                location: {
+                    start: patternMatch.index,
+                    end: patternMatch.index + patternMatch[0].length,
+                },
             };
         };
     }
@@ -471,11 +362,7 @@ ${e.stack}`,
         ERROR: number;
         GUIDELINE: number;
         WARNING: number;
-    } = {
-        ERROR: 1,
-        WARNING: 2,
-        GUIDELINE: 3,
-    };
+    } = Severity;
 }
 
 Rule.DEFAULT_SELECTOR = Selector.parse("text");

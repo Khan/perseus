@@ -72,11 +72,6 @@ export function runLinter(
     tt.traverse((node, state, content) => {
         const nodeIssues: LinterIssue[] = [];
 
-        // If our rule is only designed to be tested against a particular
-        // content type and we're not in that content type, we don't need to
-        // consider that rule.
-        const applicableRules = rules.filter((r) => r.applies(context));
-
         // Generate a stack so we can identify our position in the tree in
         // lint rules
         const stack = [...context.stack];
@@ -87,7 +82,7 @@ export function runLinter(
             stack: stack.join("."),
         } as const;
 
-        applicableRules.forEach((rule) => {
+        rules.forEach((rule) => {
             const ruleIssues = rule.check(node, state, content, nodeContext);
             for (const issue of ruleIssues) {
                 // The start and end locations are relative to this

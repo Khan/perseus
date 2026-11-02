@@ -1,5 +1,6 @@
 import * as KAS from "@khanacademy/kas";
 
+import {linterError, linterWarning} from "../lint";
 import Rule from "../rule";
 
 function buttonNotInButtonSet(name: string, set: string): string {
@@ -25,14 +26,13 @@ const stringToButtonSet = {
 export const ExpressionWidgetButtons = Rule.makeWidgetRule({
     name: "expression-widget-buttons",
     widgetType: "expression",
-    severity: Rule.Severity.WARNING,
     lint(widget) {
         const answers = widget.options.answerForms;
         const buttons: string[] = widget.options.buttonSets;
         for (const answer of answers) {
             for (const [str, set] of Object.entries(stringToButtonSet)) {
                 if (answer.value.includes(str) && !buttons.includes(set)) {
-                    return buttonNotInButtonSet(str, set);
+                    return linterWarning(buttonNotInButtonSet(str, set));
                 }
             }
         }
@@ -45,19 +45,18 @@ export const ExpressionWidgetButtons = Rule.makeWidgetRule({
 export const ExpressionWidgetCorrectAnswer = Rule.makeWidgetRule({
     name: "expression-widget-correct-answer",
     widgetType: "expression",
-    severity: Rule.Severity.ERROR,
     lint(widget) {
         const {answerForms} = widget.options;
 
         if (answerForms.length === 0) {
-            return "No answers specified.";
+            return linterError("No answers specified.");
         }
 
         const hasCorrect = answerForms.some((form) => {
             return form.considered === "correct";
         });
         if (!hasCorrect) {
-            return "No correct answer specified.";
+            return linterError("No correct answer specified.");
         }
     },
 });
@@ -69,7 +68,6 @@ export const ExpressionWidgetCorrectAnswer = Rule.makeWidgetRule({
 export const ExpressionWidgetAnswerForms = Rule.makeWidgetRule({
     name: "expression-widget-answer-forms",
     widgetType: "expression",
-    severity: Rule.Severity.ERROR,
     lint(widget) {
         const {answerForms, functions} = widget.options;
         const issues: string[] = [];
@@ -91,6 +89,6 @@ export const ExpressionWidgetAnswerForms = Rule.makeWidgetRule({
             }
         });
 
-        return issues;
+        return issues.map((issue) => linterError(issue));
     },
 });

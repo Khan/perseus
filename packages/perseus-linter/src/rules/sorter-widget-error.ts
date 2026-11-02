@@ -1,5 +1,6 @@
 import {parse, traverseContent} from "@khanacademy/pure-markdown";
 
+import {linterError} from "../lint";
 import Rule from "../rule";
 
 // There's nothing to sort with fewer than two cards.
@@ -27,7 +28,6 @@ function hasMixedContent(card: string): boolean {
 export default Rule.makeWidgetRule({
     name: "sorter-widget-error",
     widgetType: "sorter",
-    severity: Rule.Severity.ERROR,
     lint(widget) {
         const issues: string[] = [];
         const correct: string[] = widget.options.correct ?? [];
@@ -44,6 +44,6 @@ export default Rule.makeWidgetRule({
             issues.push("Sorter cards cannot mix images with other content.");
         }
 
-        return issues;
+        return issues.map((issue) => linterError(issue));
     },
 });

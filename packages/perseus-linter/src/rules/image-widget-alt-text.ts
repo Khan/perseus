@@ -1,3 +1,4 @@
+import {linterWarning} from "../lint";
 import Rule from "../rule";
 
 // Normally we have one rule per file. But since our selector class
@@ -9,7 +10,6 @@ import Rule from "../rule";
 export default Rule.makeWidgetRule({
     name: "image-widget-alt-text",
     widgetType: "image",
-    severity: Rule.Severity.WARNING,
     lint(widget) {
         // Decorative images don't need alt text validation
         if (widget.options.decorative) {
@@ -20,25 +20,25 @@ export default Rule.makeWidgetRule({
 
         // Non-decorative images must have alt text
         if (!alt) {
-            return `Images should have alt text:
+            return linterWarning(`Images should have alt text:
 for accessibility, all images should have a text description.
-Add a description in the "Alt Text" box of the image widget.`;
+Add a description in the "Alt Text" box of the image widget.`);
         }
 
         // Alt text must be descriptive (at least 8 characters)
         if (alt.trim().length < 8) {
-            return `Images should have alt text:
+            return linterWarning(`Images should have alt text:
 for accessibility, all images should have descriptive alt text.
-This image's alt text is only ${alt.trim().length} characters long.`;
+This image's alt text is only ${alt.trim().length} characters long.`);
         }
 
         // Make sure the alt text is not too long to be navigable
         if (alt.trim().length > 125) {
-            return `Images should have alt text:
+            return linterWarning(`Images should have alt text:
 for accessibility, image alt text should not exceed 125 characters.
 This image's alt text is ${alt.trim().length} characters long.
 Please pair your alt with a long description below if you need significantly
-more text to sufficiently describe the image.`;
+more text to sufficiently describe the image.`);
         }
     },
 });

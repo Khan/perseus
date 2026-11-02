@@ -1,5 +1,6 @@
 import * as PureMarkdown from "@khanacademy/pure-markdown";
 
+import {linterWarning} from "../lint";
 import Rule from "../rule";
 import TreeTransformer from "../tree-transformer";
 
@@ -23,20 +24,23 @@ Otherwise escape it by writing \\$.`;
     const ruleDescriptions: MakeRuleOptions[] = [
         {
             name: "heading-title-case",
-            severity: Rule.Severity.WARNING,
             selector: "heading",
             pattern: /\s[A-Z][a-z]/,
-            lint: Rule.makeLintFunction({message: titleCaseMessage}),
+            lint: Rule.makeLintFunction({
+                message: titleCaseMessage,
+                severity: Rule.Severity.WARNING,
+            }),
         },
         {
             name: "unescaped-dollar",
-            severity: Rule.Severity.WARNING,
             selector: "unescapedDollar",
-            lint: Rule.makeLintFunction({message: unescapedDollarMessage}),
+            lint: Rule.makeLintFunction({
+                message: unescapedDollarMessage,
+                severity: Rule.Severity.WARNING,
+            }),
         },
         {
             name: "heading-level-skip",
-            severity: Rule.Severity.WARNING,
             selector: "heading ~ heading",
             lint: function (state, content, nodes) {
                 const currentHeading: any = nodes[1];
@@ -49,9 +53,9 @@ Otherwise escape it by writing \\$.`;
                 // or one more than the previous heading. But going up
                 // by 2 or more levels is not right
                 if (currentHeading.level > previousHeading.level + 1) {
-                    return `Skipped heading level:
+                    return linterWarning(`Skipped heading level:
 this heading is level ${currentHeading.level} but
-the previous heading was level ${previousHeading.level}`;
+the previous heading was level ${previousHeading.level}`);
                 }
                 return;
             },

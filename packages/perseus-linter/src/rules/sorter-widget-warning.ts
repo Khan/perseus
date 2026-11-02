@@ -1,5 +1,6 @@
 import {SORTER_MAX_CARDS} from "@khanacademy/perseus-core";
 
+import {linterWarning} from "../lint";
 import Rule from "../rule";
 
 import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
@@ -11,7 +12,6 @@ export const sorterMaxHorizontalCards = 5;
 export default Rule.makeWidgetRule({
     name: "sorter-widget-warning",
     widgetType: "sorter",
-    severity: Rule.Severity.WARNING,
     lint(widget) {
         const warnings: string[] = [];
         const options: PerseusSorterWidgetOptions = widget.options;
@@ -38,6 +38,6 @@ export default Rule.makeWidgetRule({
             );
         }
 
-        return warnings;
+        return warnings.map((warning) => linterWarning(warning));
     },
 });

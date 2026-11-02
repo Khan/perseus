@@ -1,3 +1,4 @@
+import {linterGuideline} from "../lint";
 import Rule from "../rule";
 
 import {getHostname} from "./lint-utils";
@@ -7,7 +8,6 @@ const LEGACY_HOSTNAME = "ka-perseus-images.s3.amazonaws.com";
 export default Rule.makeWidgetRule({
     name: "legacy-gif-url",
     widgetType: "image",
-    severity: Rule.Severity.GUIDELINE,
     lint(widget) {
         const url = widget.options?.backgroundImage?.url;
         if (!url) {
@@ -21,11 +21,11 @@ export default Rule.makeWidgetRule({
             getHostname(url) === LEGACY_HOSTNAME &&
             url.toLowerCase().endsWith(".gif")
         ) {
-            return `Legacy gif URL:
+            return linterGuideline(`Legacy gif URL:
 gifs hosted at ${LEGACY_HOSTNAME} might not appear in the editor preview,
 but can still be viewed in the published content. Please use a
 cdn.kastatic.org/ka-perseus-images/ URL instead or confirm the
-image displays correctly in the published content.`;
+image displays correctly in the published content.`);
         }
     },
 });

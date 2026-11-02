@@ -1,3 +1,4 @@
+import {linterError} from "../lint";
 import Rule from "../rule";
 
 // Taken from packages/perseus/src/util.ts
@@ -14,15 +15,14 @@ const rWidgetRule = /\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/;
 export default Rule.makeWidgetRule({
     name: "free-response-widget-error",
     widgetType: "free-response",
-    severity: Rule.Severity.ERROR,
     lint(widget) {
         const question = widget.options.question;
         if (!question) {
-            return "The question is empty";
+            return linterError("The question is empty");
         }
 
         if (question.match(rWidgetRule) != null) {
-            return "The question contains a widget";
+            return linterError("The question contains a widget");
         }
     },
 });
