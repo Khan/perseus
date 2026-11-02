@@ -4,7 +4,18 @@ import Rule from "../rule";
 export const GradedGroupWidgetRule = Rule.makeWidgetRule({
     name: "graded-group",
     widgetType: "graded-group",
-    lint: (widget, context) => {
-        return lintPerseusRenderer(widget.options, context.contentType);
+    lint: (widget, {contentType}) => {
+        const {hint} = widget.options;
+
+        const issues = [...lintPerseusRenderer(widget.options, contentType)];
+
+        if (hint) {
+            const hintIssues = lintPerseusRenderer(hint, contentType).map(
+                (lint) => ({...lint, message: `(in hint) ${lint.message}`}),
+            );
+            issues.push(...hintIssues);
+        }
+
+        return issues;
     },
 });

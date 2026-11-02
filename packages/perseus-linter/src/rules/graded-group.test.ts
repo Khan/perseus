@@ -58,4 +58,30 @@ describe("the graded-group linter", () => {
             },
         );
     });
+
+    it("lints the hint", () => {
+        expectIssue(
+            GradedGroupWidgetRule,
+            "[[☃ graded-group 1]]",
+            {
+                widgets: {
+                    "graded-group 1": generateGradedGroupWidget({
+                        options: generateGradedGroupOptions({
+                            content: "valid",
+                            hint: {
+                                content: "# A level one heading - bad!",
+                                widgets: {},
+                                images: {},
+                            },
+                        }),
+                    }),
+                },
+            },
+            {
+                messages: [
+                    "graded-group 1: (in hint) Don't use level-1 headings:\nBegin headings with two or more # characters.",
+                ],
+            },
+        );
+    });
 });
