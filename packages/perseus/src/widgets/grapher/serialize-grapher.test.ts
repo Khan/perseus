@@ -4,9 +4,7 @@ import {
 } from "@khanacademy/perseus-core";
 import {act} from "@testing-library/react";
 
-import {renderQuestion} from "../../__tests__/test-utils";
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {renderItem} from "../../__testutils__/render-item";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
 import type {PerseusItem} from "@khanacademy/perseus-core";
@@ -70,12 +68,6 @@ describe("Grapher serialization", () => {
         registerAllWidgetsForTesting();
     });
 
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
     afterEach(() => {
         // The Renderer uses a timer to wait for widgets to complete rendering.
         // If we don't spin the timers here, then the timer fires in the test
@@ -86,7 +78,7 @@ describe("Grapher serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicGrapher());
+        const {renderer} = renderItem(generateBasicGrapher());
 
         // Act
         const state = renderer.getSerializedState();

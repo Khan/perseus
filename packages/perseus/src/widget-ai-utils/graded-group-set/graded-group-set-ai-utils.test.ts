@@ -1,9 +1,7 @@
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
-import {renderQuestion} from "../../widgets/__testutils__/render-question";
+import {renderQuestion} from "../../__testutils__/render-question";
 import {article1} from "../../widgets/graded-group-set/graded-group-set.testdata";
 
 import {getPromptJSON} from "./graded-group-set-ai-utils";
@@ -17,10 +15,6 @@ describe("GradedGroupSet AI utils", () => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
 
         // Mocked for loading graphie in svg-image
         // eslint-disable-next-line no-restricted-syntax

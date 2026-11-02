@@ -19,6 +19,7 @@ import {
     definitionItem,
     mockedRandomItem,
 } from "../__testdata__/renderer.testdata";
+import {renderQuestion} from "../__testutils__/render-question";
 import * as Dependencies from "../dependencies";
 import Renderer, {
     isDifferentQuestion,
@@ -29,7 +30,6 @@ import {mockImageLoading} from "../testing/image-loader-utils";
 import {clone} from "../testing/object-utils";
 import {testDependencies} from "../testing/test-dependencies";
 import {registerWidget} from "../widgets";
-import {renderQuestion} from "../widgets/__testutils__/render-question";
 import {simpleGroupQuestion} from "../widgets/group/group.testdata";
 import MockWidgetExport from "../widgets/mock-widgets/mock-widget";
 
@@ -64,10 +64,6 @@ describe("renderer", () => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
 
         // Mocked for loading graphie in svg-image
         // eslint-disable-next-line no-restricted-syntax

@@ -2,15 +2,13 @@ import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {renderQuestion} from "../../__testutils__/render-question";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {
     getAnswerfulItem,
     getAnswerlessItem,
     scorePerseusItemTesting,
 } from "../../util/scoring.testutils";
-import {renderQuestion} from "../__testutils__/render-question";
 
 import CategorizerExport from "./categorizer";
 import {question1} from "./categorizer.testdata";
@@ -25,10 +23,6 @@ describe("categorizer widget", () => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
     });
 
     it("should snapshot", () => {
@@ -196,10 +190,6 @@ describe("categorizer widget", () => {
             userEvent = userEventLib.setup({
                 advanceTimers: jest.advanceTimersByTime,
             });
-
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-                testDependencies,
-            );
         });
 
         const options: PerseusCategorizerWidgetOptions = {

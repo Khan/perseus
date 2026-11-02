@@ -12,10 +12,8 @@ import {
 import {act, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {renderArticle} from "../../__tests__/article-renderer.test";
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
-import {renderQuestion} from "../__testutils__/render-question";
+import {renderArticle} from "../../__testutils__/render-article";
+import {renderQuestion} from "../../__testutils__/render-question";
 
 import {
     question1,
@@ -61,10 +59,6 @@ describe("graded-group", () => {
         // HTML try using dangerouslySetInnerHTML instead. React was passed
         // "javascript:void(0)""
         jest.spyOn(console, "error").mockImplementation(() => {});
-
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
     });
 
     it.each([true, false])("should snapshot", (isMobile: boolean) => {

@@ -1,21 +1,13 @@
 import {act} from "react-dom/test-utils";
 
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {renderQuestion} from "../../__testutils__/render-question";
 import {scorePerseusItemTesting} from "../../util/scoring.testutils";
-import {renderQuestion} from "../__testutils__/render-question";
 
 import {question1} from "./iframe.testdata";
 
 import type {APIOptions} from "../../types";
 
 describe("iframe widget", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
     it("should snapshot", () => {
         // Arrange
         const apiOptions: APIOptions = {
