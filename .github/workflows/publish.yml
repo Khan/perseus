@@ -486,7 +486,7 @@ jobs:
                       mergeable=$(jq -r '.mergeable' <<< "$pr")
                       [ "$mergeable" != "null" ] && break
                       echo "GitHub is still checking whether the PR can merge (attempt $attempt). Waiting 5s..."
-                      sleep 5
+                      sleep 5s
                   done
 
                   head_sha=$(jq -r '.head.sha' <<< "$pr")
@@ -583,12 +583,15 @@ jobs:
                       echo "WARNING_EOF"
                   } >> "$GITHUB_OUTPUT"
 
-            # GitHub's merge commit has the base branch as its first parent
-            # and the PR head as its second (HEAD^2). We report the PR head
-            # so people can match the snapshot to a commit in the PR.
+            # We report the PR commit we built (not the merge commit) so
+            # people can match the snapshot to a commit in the PR.
             - name: Calculate short SHA of the PR commit we built
               id: short-sha
-              run: echo "short_sha=$(git rev-parse --short=10 HEAD^2)" >> $GITHUB_OUTPUT
+              run: |
+                  # GitHub's merge commit has the base branch as its first
+                  # parent and the PR head as its second, so HEAD^2 is the PR
+                  # commit.
+                  echo "short_sha=$(git rev-parse --short=10 HEAD^2)" >> $GITHUB_OUTPUT
 
             # Note: these two actions are locked to the latest version that were
             # published when I created this yml file (just for security).
