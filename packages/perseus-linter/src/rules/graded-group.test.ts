@@ -7,12 +7,12 @@ import {
 
 import {expectIssue} from "../__tests__/test-utils";
 
-import {gradedGroupWidgetRule} from "./graded-group";
+import {GradedGroupWidgetRule} from "./graded-group";
 
 describe("the graded-group linter", () => {
     it("runs markdown linters on the content of the group", () => {
         expectIssue(
-            gradedGroupWidgetRule,
+            GradedGroupWidgetRule,
             "[[☃ graded-group 1]]",
             {
                 widgets: {
@@ -33,7 +33,7 @@ describe("the graded-group linter", () => {
 
     it("runs widget linters on widgets in the group", () => {
         expectIssue(
-            gradedGroupWidgetRule,
+            GradedGroupWidgetRule,
             "[[☃ graded-group 1]]",
             {
                 widgets: {
