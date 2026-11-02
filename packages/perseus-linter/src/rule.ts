@@ -66,8 +66,8 @@ export type MakeWidgetRuleOptions<
     widgetType: TWidgetType;
     lint: (
         widgetInfo: PerseusWidgetTypes[TWidgetType],
-        // TODO-NEXT: type context properly, here and everywhere it's used in
-        // the perseus-linter package.
+        // TODO(benchristel): type context properly, here and everywhere it's
+        //  used in the perseus-linter package.
         context: any,
     ) => undefined | Lint | Lint[];
 };
