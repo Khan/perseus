@@ -124,6 +124,7 @@ import Selector from "./selector";
 
 import type {TraversalState, TreeNode} from "./tree-transformer";
 import type {PerseusWidgetTypes} from "@khanacademy/perseus-core";
+import {Lint, lintWithSeverity} from "./lint";
 
 export type MakeRuleOptions = {
     name: string;
@@ -146,6 +147,11 @@ export type MakeWidgetRuleOptions<
     ) => undefined | string | string[];
 };
 
+export type MakeLintFunctionOptions = {
+    message: string;
+    severity: number;
+};
+
 // This represents the type returned by String.match(). It is an
 // array of strings, but also has index:number and input:string properties.
 // TypeScript doesn't handle it well, so we punt and just use any.
@@ -160,17 +166,6 @@ export type LinterIssue = {
     severity: number;
     metadata?: Record<string, any>;
 };
-
-// This the type returned by the lint detection function passed as the 4th
-// argument to the Rule() constructor.
-type Lint =
-    | string
-    | {
-          message: string;
-          start: number;
-          end: number;
-          metadata?: Record<string, any>;
-      };
 
 type LintRuleContextObject =
     | {
@@ -286,7 +281,12 @@ export default class Rule {
                 return [options.lint(widgetInfo)]
                     .filter(Boolean)
                     .flat()
-                    .map((message) => `${widgetId}: ${message}`);
+                    .map((message) =>
+                        lintWithSeverity(
+                            options.severity,
+                            `${widgetId}: ${message}`,
+                        ),
+                    );
             },
             undefined,
         );
@@ -305,26 +305,15 @@ export default class Rule {
         // method because they need to close over both the `content` parameter
         // and the `this` binding.
         const toLinterIssue = (error: Lint): LinterIssue => {
-            if (typeof error === "string") {
-                // If the lint function returned a string we assume it
-                // applies to the entire content of the node and return it.
-                return {
-                    rule: this.name,
-                    severity: this.severity,
-                    message: error,
-                    start: 0,
-                    end: content.length,
-                };
-            }
-            // If the lint function returned an object, then we just
-            // add the rule name to the message, start and end.
+            // If the error has no location data, we default the location to
+            // the entire content string.
+            const {location = {start: 0, end: content.length}} = error;
             return {
                 rule: this.name,
                 severity: this.severity,
                 message: error.message,
-                start: error.start,
-                end: error.end,
                 metadata: error.metadata,
+                ...location,
             };
         };
 
@@ -400,7 +389,10 @@ ${e.stack}`,
     /**
      * Create a linter function from a message.
      */
-    static makeLintFunction({message}: {message: string}): LintTester {
+    static makeLintFunction({
+        message,
+        severity,
+    }: MakeLintFunctionOptions): LintTester {
         return (
             state: TraversalState,
             content: string,
@@ -409,9 +401,12 @@ ${e.stack}`,
             context: LintRuleContextObject,
         ) => {
             return {
-                message: message,
-                start: patternMatch.index,
-                end: patternMatch.index + patternMatch[0].length,
+                message,
+                severity,
+                location: {
+                    start: patternMatch.index,
+                    end: patternMatch.index + patternMatch[0].length,
+                },
             };
         };
     }
