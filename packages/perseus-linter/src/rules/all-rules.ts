@@ -9,7 +9,8 @@ import {
     ExpressionWidgetCorrectAnswer,
 } from "./expression-widget";
 import FreeResponseWidgetError from "./free-response-widget-error";
-import {GradedGroupSetWidgetRule, GradedGroupWidgetRule} from "./graded-group";
+import {GradedGroupWidgetRule} from "./graded-group";
+import {GradedGroupSetWidgetRule} from "./graded-group-set";
 import HeadingLevel1 from "./heading-level-1";
 import HeadingLevelSkip from "./heading-level-skip";
 import HeadingSentenceCase from "./heading-sentence-case";
