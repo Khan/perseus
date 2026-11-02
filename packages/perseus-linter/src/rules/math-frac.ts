@@ -5,5 +5,7 @@ export default Rule.makeRule({
     severity: Rule.Severity.GUIDELINE,
     selector: "math, blockMath",
     pattern: /\\frac[ {]/,
-    message: "Use \\dfrac instead of \\frac in your math expressions.",
+    lint: Rule.makeLintFunction({
+        message: "Use \\dfrac instead of \\frac in your math expressions.",
+    }),
 });

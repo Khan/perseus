@@ -5,5 +5,7 @@ export default Rule.makeRule({
     severity: Rule.Severity.WARNING,
     selector: "math, blockMath",
     pattern: /\\text{\s*}/,
-    message: "Empty \\text{} block in math expression",
+    lint: Rule.makeLintFunction({
+        message: "Empty \\text{} block in math expression",
+    }),
 });

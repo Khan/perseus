@@ -5,6 +5,8 @@ export default Rule.makeRule({
     severity: Rule.Severity.ERROR,
     selector: "math, blockMath",
     pattern: /\\text{[^$}]*\$[^$}]*\$[^}]*}/,
-    message: `Nested math:
+    lint: Rule.makeLintFunction({
+        message: `Nested math:
 Don't nest math expressions inside \\text{} blocks`,
+    }),
 });

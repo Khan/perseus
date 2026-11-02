@@ -14,22 +14,25 @@ This paragraph contains an unescaped $ sign.
 #### This heading skipped a level
 `;
 
+    const titleCaseMessage = `Title case in heading:
+Only capitalize the first word of headings.`;
+    const unescapedDollarMessage = `Unescaped '$':
+If writing math, pair with another $.
+Otherwise escape it by writing \\$.`;
+
     const ruleDescriptions: MakeRuleOptions[] = [
         {
             name: "heading-title-case",
             severity: Rule.Severity.WARNING,
             selector: "heading",
             pattern: /\s[A-Z][a-z]/,
-            message: `Title case in heading:
-Only capitalize the first word of headings.`,
+            lint: Rule.makeLintFunction({message: titleCaseMessage}),
         },
         {
             name: "unescaped-dollar",
             severity: Rule.Severity.WARNING,
             selector: "unescapedDollar",
-            message: `Unescaped '$':
-If writing math, pair with another $.
-Otherwise escape it by writing \\$.`,
+            lint: Rule.makeLintFunction({message: unescapedDollarMessage}),
         },
         {
             name: "heading-level-skip",
@@ -75,10 +78,10 @@ the previous heading was level ${previousHeading.level}`;
         expect(issues).toHaveLength(3);
 
         expect(issues[0].rule).toEqual(ruleDescriptions[0].name);
-        expect(issues[0].message).toEqual(ruleDescriptions[0].message);
+        expect(issues[0].message).toEqual(titleCaseMessage);
 
         expect(issues[1].rule).toEqual(ruleDescriptions[1].name);
-        expect(issues[1].message).toEqual(ruleDescriptions[1].message);
+        expect(issues[1].message).toEqual(unescapedDollarMessage);
 
         expect(issues[2].rule).toEqual(ruleDescriptions[2].name);
     });
