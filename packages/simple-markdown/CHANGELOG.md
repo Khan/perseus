@@ -1,5 +1,11 @@
 # @khanacademy/simple-markdown
 
+## 4.0.3
+
+### Patch Changes
+
+-   [#4448](https://github.com/Khan/perseus/pull/4448) [`c58e2a7`](https://github.com/Khan/perseus/commit/c58e2a76ef41feaa224f0030ee906b035d3c351b) Thanks [@handeyeco](https://github.com/handeyeco)! - Ban React.createElement and replace uses
+
 ## 4.0.2
 
 ### Patch Changes

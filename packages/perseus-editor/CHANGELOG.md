@@ -1,5 +1,19 @@
 # @khanacademy/perseus-editor
 
+## 45.0.6
+
+### Patch Changes
+
+-   [#4451](https://github.com/Khan/perseus/pull/4451) [`74af27d`](https://github.com/Khan/perseus/commit/74af27dba72d12d11a23da72d065206f9aee2161) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert WidgetDiff to a functional component
+
+-   Updated dependencies [[`9370c0d`](https://github.com/Khan/perseus/commit/9370c0d080a4bf3f3a18b32ca62659b94681cf0f), [`c58e2a7`](https://github.com/Khan/perseus/commit/c58e2a76ef41feaa224f0030ee906b035d3c351b), [`de3f186`](https://github.com/Khan/perseus/commit/de3f186628f1cf0bedaa40286a787622f086cb34), [`e71d6ff`](https://github.com/Khan/perseus/commit/e71d6ff0c1d04d2882de142fb8c647b51c046123), [`2b9fa74`](https://github.com/Khan/perseus/commit/2b9fa743061dc27dfbe79392d232f712f7686216), [`645b55f`](https://github.com/Khan/perseus/commit/645b55fcc87f40c8b920f2ed0046e04b000515e9), [`00d20b8`](https://github.com/Khan/perseus/commit/00d20b86648e27e2e4a53b159078a3d802152668), [`70b6b86`](https://github.com/Khan/perseus/commit/70b6b86e35cfd9cf90f8c5ddc5972f6ddc435963)]:
+    -   @khanacademy/perseus@93.0.2
+    -   @khanacademy/perseus-linter@7.0.2
+    -   @khanacademy/perseus-core@42.1.1
+    -   @khanacademy/keypad-context@6.0.11
+    -   @khanacademy/kmath@3.1.4
+    -   @khanacademy/math-input@30.2.1
+
 ## 45.0.5
 
 ### Patch Changes

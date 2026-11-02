@@ -1,5 +1,12 @@
 # @khanacademy/perseus-core
 
+## 42.1.1
+
+### Patch Changes
+
+-   Updated dependencies []:
+    -   @khanacademy/pure-markdown@3.1.2
+
 ## 42.1.0
 
 ### Minor Changes

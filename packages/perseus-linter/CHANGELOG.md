@@ -1,5 +1,22 @@
 # @khanacademy/perseus-linter
 
+## 7.0.2
+
+### Patch Changes
+
+-   [#4456](https://github.com/Khan/perseus/pull/4456) [`de3f186`](https://github.com/Khan/perseus/commit/de3f186628f1cf0bedaa40286a787622f086cb34) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Renamed `LinterWarning` to `LinterIssue`, and updated names of variables and functions to match.
+
+-   [#4446](https://github.com/Khan/perseus/pull/4446) [`2b9fa74`](https://github.com/Khan/perseus/commit/2b9fa743061dc27dfbe79392d232f712f7686216) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Linter rules can now return an array of issues instead of only one.
+
+-   [#4460](https://github.com/Khan/perseus/pull/4460) [`645b55f`](https://github.com/Khan/perseus/commit/645b55fcc87f40c8b920f2ed0046e04b000515e9) Thanks [@benchristel](https://github.com/benchristel)! - Internal: We now use `Rule.makeWidgetRule()` to define linter rules for specific widget types.
+
+-   [#4453](https://github.com/Khan/perseus/pull/4453) [`00d20b8`](https://github.com/Khan/perseus/commit/00d20b86648e27e2e4a53b159078a3d802152668) Thanks [@benchristel](https://github.com/benchristel)! - Internal: removed unnecessary `as Rule` casts from linter rules.
+
+-   Updated dependencies []:
+    -   @khanacademy/pure-markdown@3.1.2
+    -   @khanacademy/perseus-core@42.1.1
+    -   @khanacademy/kmath@3.1.4
+
 ## 7.0.1
 
 ### Patch Changes
