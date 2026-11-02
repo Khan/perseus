@@ -133,7 +133,6 @@ export type MakeRuleOptions = {
     selector?: string;
     locale?: string;
     lint: LintTester;
-    applies?: AppliesTester;
 };
 
 export type MakeWidgetRuleOptions<
@@ -190,12 +189,6 @@ type LintTester = (
     context: LintRuleContextObject,
 ) => Lint | Lint[] | undefined;
 
-// An optional check to verify whether or not a particular rule should
-// be checked by context. For example, some rules only apply in exercises,
-// and should never be applied to articles. Defaults to true, so if we
-// omit the applies function in a rule, it'll be tested everywhere.
-type AppliesTester = (context: LintRuleContextObject) => boolean;
-
 /**
  * A Rule object describes a Perseus lint rule. See the comment at the top of
  * this file for detailed description.
@@ -205,7 +198,6 @@ export default class Rule {
     selector: Selector; // The specified selector or the DEFAULT_SELECTOR
     pattern: RegExp | null | undefined; // A regular expression if one was specified
     lint: LintTester; // The lint-testing function or a default
-    applies: AppliesTester; // Checks to see if we should apply a rule or not
     static DEFAULT_SELECTOR: Selector;
 
     // The comment at the top of this file has detailed docs for
@@ -215,7 +207,6 @@ export default class Rule {
         selector: Selector | null | undefined,
         pattern: RegExp | null | undefined,
         lint: LintTester,
-        applies: AppliesTester | undefined,
     ) {
         if (!selector && !pattern) {
             throw new PerseusError(
@@ -229,12 +220,6 @@ export default class Rule {
         this.selector = selector || Rule.DEFAULT_SELECTOR;
         this.pattern = pattern || null;
         this.lint = lint;
-
-        this.applies =
-            applies ||
-            function () {
-                return true;
-            };
     }
 
     // A factory method for use with rules described in JSON files
@@ -245,7 +230,6 @@ export default class Rule {
             options.selector ? Selector.parse(options.selector) : null,
             Rule.makePattern(options.pattern),
             options.lint,
-            options.applies,
         );
     }
 
@@ -277,7 +261,7 @@ export default class Rule {
                     message: `${widgetId}: ${lint.message}`,
                 }));
             },
-            undefined,
+
         );
     }
 
