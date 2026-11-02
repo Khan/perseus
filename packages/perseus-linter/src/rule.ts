@@ -120,6 +120,7 @@
 
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 
+import {Severity} from "./lint";
 import Selector from "./selector";
 
 import type {Lint} from "./lint";
@@ -454,11 +455,7 @@ ${e.stack}`,
         ERROR: number;
         GUIDELINE: number;
         WARNING: number;
-    } = {
-        ERROR: 1,
-        WARNING: 2,
-        GUIDELINE: 3,
-    };
+    } = Severity;
 }
 
 Rule.DEFAULT_SELECTOR = Selector.parse("text");

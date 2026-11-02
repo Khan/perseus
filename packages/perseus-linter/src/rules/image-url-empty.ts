@@ -1,4 +1,4 @@
-import {lintError} from "../lint";
+import {linterError} from "../lint";
 import Rule from "../rule";
 
 export default Rule.makeRule({
@@ -12,7 +12,7 @@ export default Rule.makeRule({
         // overlaying the page where the image should be. This prevents the page
         // from fully loading. As a result, we check for URLS with all images.
         if (!url || !url.trim()) {
-            return lintError("Images should have a URL");
+            return linterError("Images should have a URL");
         }
 
         // NOTE(TB): Ideally there would be a check to confirm the URL works

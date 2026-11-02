@@ -1,6 +1,6 @@
 import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
 
-import {lintWarning} from "../lint";
+import {linterWarning} from "../lint";
 import Rule from "../rule";
 
 export default Rule.makeRule({
@@ -25,7 +25,7 @@ export default Rule.makeRule({
             widgetInfo.options,
         );
         if (!accessible) {
-            return lintWarning(
+            return linterWarning(
                 `The "${widgetType}" widget is not accessible.`,
                 {
                     location: {start: 0, end: content.length},

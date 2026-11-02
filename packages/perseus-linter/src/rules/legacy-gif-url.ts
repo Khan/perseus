@@ -1,4 +1,4 @@
-import {lintGuideline} from "../lint";
+import {linterGuideline} from "../lint";
 import Rule from "../rule";
 
 import {getHostname} from "./lint-utils";
@@ -21,7 +21,7 @@ export default Rule.makeWidgetRule({
             getHostname(url) === LEGACY_HOSTNAME &&
             url.toLowerCase().endsWith(".gif")
         ) {
-            return lintGuideline(`Legacy gif URL:
+            return linterGuideline(`Legacy gif URL:
 gifs hosted at ${LEGACY_HOSTNAME} might not appear in the editor preview,
 but can still be viewed in the published content. Please use a
 cdn.kastatic.org/ka-perseus-images/ URL instead or confirm the

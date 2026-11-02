@@ -1,6 +1,6 @@
 import * as KAS from "@khanacademy/kas";
 
-import {lintError, lintWarning} from "../lint";
+import {linterError, linterWarning} from "../lint";
 import Rule from "../rule";
 
 function buttonNotInButtonSet(name: string, set: string): string {
@@ -32,7 +32,7 @@ export const ExpressionWidgetButtons = Rule.makeWidgetRule({
         for (const answer of answers) {
             for (const [str, set] of Object.entries(stringToButtonSet)) {
                 if (answer.value.includes(str) && !buttons.includes(set)) {
-                    return lintWarning(buttonNotInButtonSet(str, set));
+                    return linterWarning(buttonNotInButtonSet(str, set));
                 }
             }
         }
@@ -49,14 +49,14 @@ export const ExpressionWidgetCorrectAnswer = Rule.makeWidgetRule({
         const {answerForms} = widget.options;
 
         if (answerForms.length === 0) {
-            return lintError("No answers specified.");
+            return linterError("No answers specified.");
         }
 
         const hasCorrect = answerForms.some((form) => {
             return form.considered === "correct";
         });
         if (!hasCorrect) {
-            return lintError("No correct answer specified.");
+            return linterError("No correct answer specified.");
         }
     },
 });
@@ -89,6 +89,6 @@ export const ExpressionWidgetAnswerForms = Rule.makeWidgetRule({
             }
         });
 
-        return issues.map((issue) => lintError(issue));
+        return issues.map((issue) => linterError(issue));
     },
 });

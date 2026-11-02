@@ -1,4 +1,4 @@
-import {lintError} from "../lint";
+import {linterError} from "../lint";
 import Rule from "../rule";
 
 export default Rule.makeRule({
@@ -25,7 +25,7 @@ export default Rule.makeRule({
                 context.content[index - 1] !== "(" ||
                 context.content[index + url.length] !== ")"
             ) {
-                return lintError(`Whitespace before or after image url:
+                return linterError(`Whitespace before or after image url:
 For images, don't include any space or newlines after '(' or before ')'.
 Whitespace in image URLs causes translation difficulties.`);
             }

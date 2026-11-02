@@ -1,4 +1,4 @@
-import {lintWarning} from "../lint";
+import {linterWarning} from "../lint";
 import Rule from "../rule";
 
 import type {
@@ -31,7 +31,7 @@ export default Rule.makeWidgetRule({
             }
         }
 
-        return warnings.map((warning) => lintWarning(warning));
+        return warnings.map((warning) => linterWarning(warning));
     },
 });
 

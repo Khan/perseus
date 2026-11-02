@@ -1,4 +1,4 @@
-import {lintWarning} from "../lint";
+import {linterWarning} from "../lint";
 import Rule from "../rule";
 
 export default Rule.makeRule({
@@ -10,7 +10,7 @@ export default Rule.makeRule({
         const rowLengths = table.cells.map((r) => r.length);
         for (let r = 0; r < rowLengths.length; r++) {
             if (rowLengths[r] !== headerLength) {
-                return lintWarning(`Table rows don't match header:
+                return linterWarning(`Table rows don't match header:
 The table header has ${headerLength} cells, but
 Row ${r + 1} has ${rowLengths[r]} cells.`);
             }

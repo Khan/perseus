@@ -1,4 +1,4 @@
-import {lintGuideline} from "../lint";
+import {linterGuideline} from "../lint";
 import Rule from "../rule";
 
 import {getHostname} from "./lint-utils";
@@ -15,7 +15,7 @@ export default Rule.makeRule({
             hostname === "khanacademy.org" ||
             hostname.endsWith(".khanacademy.org")
         ) {
-            return lintGuideline(`Don't use absolute URLs:
+            return linterGuideline(`Don't use absolute URLs:
 When linking to KA content or images, omit the
 https://www.khanacademy.org URL prefix.
 Use a relative URL beginning with / instead.`);

@@ -1,4 +1,4 @@
-import {lintWarning} from "../lint";
+import {linterWarning} from "../lint";
 import Rule from "../rule";
 
 export default Rule.makeWidgetRule({
@@ -6,7 +6,7 @@ export default Rule.makeWidgetRule({
     widgetType: "numeric-input",
     lint(widget) {
         if (!widget.options.labelText) {
-            return lintWarning(`Inputs should have an aria label:
+            return linterWarning(`Inputs should have an aria label:
 While screen readers will fallback to a default label of 'Your answer', a more descriptive label would improve accessibility.`);
         }
     },

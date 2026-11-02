@@ -1,4 +1,4 @@
-import {lintWarning} from "../lint";
+import {linterWarning} from "../lint";
 import Rule from "../rule";
 
 export default Rule.makeRule({
@@ -11,7 +11,7 @@ export default Rule.makeRule({
         // or one more than the previous heading. But going up
         // by 2 or more levels is not right
         if (currentHeading.level > previousHeading.level + 1) {
-            return lintWarning(`Skipped heading level:
+            return linterWarning(`Skipped heading level:
 this heading is level ${currentHeading.level} but
 the previous heading was level ${previousHeading.level}`);
         }

@@ -1,4 +1,4 @@
-import {lintError} from "../lint";
+import {linterError} from "../lint";
 import Rule from "../rule";
 
 export default Rule.makeWidgetRule({
@@ -49,6 +49,6 @@ export default Rule.makeWidgetRule({
             }
         }
 
-        return issues.map((issue) => lintError(issue));
+        return issues.map((issue) => linterError(issue));
     },
 });

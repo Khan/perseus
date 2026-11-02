@@ -1,4 +1,4 @@
-import {lintWarning} from "../lint";
+import {linterWarning} from "../lint";
 import Rule from "../rule";
 
 // Normally we have one rule per file. But since our selector class
@@ -18,7 +18,7 @@ export default Rule.makeWidgetRule({
         const {width, height} = widget.options.backgroundImage;
 
         if (!width || !height) {
-            return lintWarning(`Images should have a non-zero size.
+            return linterWarning(`Images should have a non-zero size.
 This image has a width of ${width} and a height of ${height}.
 Please use the "Reset to original size" button to set the size of the image.`);
         }

@@ -1,4 +1,4 @@
-import {lintError} from "../lint";
+import {linterError} from "../lint";
 import Rule from "../rule";
 
 export default Rule.makeWidgetRule({
@@ -17,6 +17,6 @@ export default Rule.makeWidgetRule({
             errors.push("The height must be a positive integer.");
         }
 
-        return errors.map((error) => lintError(error));
+        return errors.map((error) => linterError(error));
     },
 });

@@ -1,4 +1,4 @@
-import {lintWarning} from "../lint";
+import {linterWarning} from "../lint";
 import Rule from "../rule";
 
 export default Rule.makeRule({
@@ -7,7 +7,7 @@ export default Rule.makeRule({
     lint: function (state, content, nodes, match) {
         const heading: any = nodes[0];
         if (heading.level === 1) {
-            return lintWarning(`Don't use level-1 headings:
+            return linterWarning(`Don't use level-1 headings:
 Begin headings with two or more # characters.`);
         }
     },

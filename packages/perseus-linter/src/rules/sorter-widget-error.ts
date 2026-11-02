@@ -1,6 +1,6 @@
 import {parse, traverseContent} from "@khanacademy/pure-markdown";
 
-import {lintError} from "../lint";
+import {linterError} from "../lint";
 import Rule from "../rule";
 
 // There's nothing to sort with fewer than two cards.
@@ -44,6 +44,6 @@ export default Rule.makeWidgetRule({
             issues.push("Sorter cards cannot mix images with other content.");
         }
 
-        return issues.map((issue) => lintError(issue));
+        return issues.map((issue) => linterError(issue));
     },
 });

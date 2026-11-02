@@ -1,4 +1,4 @@
-import {lintError} from "../lint";
+import {linterError} from "../lint";
 import Rule from "../rule";
 
 export default Rule.makeWidgetRule({
@@ -6,7 +6,7 @@ export default Rule.makeWidgetRule({
     widgetType: "matcher",
     lint(widget) {
         if (widget.options.left.length !== widget.options.right.length) {
-            return lintError(
+            return linterError(
                 "The two halves of the matcher have different numbers of cards.",
             );
         }
