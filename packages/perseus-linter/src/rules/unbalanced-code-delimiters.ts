@@ -9,6 +9,7 @@ export default Rule.makeRule({
     severity: Rule.Severity.ERROR,
     pattern: /[`~]+/,
     lint: Rule.makeLintFunction({
+        severity: Rule.Severity.ERROR,
         message: `Unbalanced code delimiters:
 code blocks should begin and end with the same type and number of delimiters`,
     }),

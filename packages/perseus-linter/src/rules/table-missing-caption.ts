@@ -1,3 +1,4 @@
+import {lintGuideline} from "../lint";
 import Rule from "../rule";
 
 export const MISSING_CAPTION_MESSAGE = `Table is missing a caption:
@@ -48,14 +49,14 @@ export default Rule.makeRule({
         const parent = state.parent();
 
         if (parent?.type !== "titledTable") {
-            return MISSING_CAPTION_MESSAGE;
+            return lintGuideline(MISSING_CAPTION_MESSAGE);
         }
 
         // The table has a caption line, but an author can write one with no
         // text in it (for example "||   ||"), which renders an empty
         // <caption> element. That is no more useful than having no caption.
         if (getTitleText(parent) === "") {
-            return EMPTY_CAPTION_MESSAGE;
+            return lintGuideline(EMPTY_CAPTION_MESSAGE);
         }
     },
 });

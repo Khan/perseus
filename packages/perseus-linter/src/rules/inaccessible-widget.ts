@@ -1,5 +1,6 @@
 import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
 
+import {lintWarning} from "../lint";
 import Rule from "../rule";
 
 export default Rule.makeRule({
@@ -25,15 +26,16 @@ export default Rule.makeRule({
             widgetInfo.options,
         );
         if (!accessible) {
-            return {
-                message: `The "${widgetType}" widget is not accessible.`,
-                start: 0,
-                end: content.length,
-                metadata: {
-                    widgetType: widgetType,
-                    widgetId: widgetId,
+            return lintWarning(
+                `The "${widgetType}" widget is not accessible.`,
+                {
+                    location: {start: 0, end: content.length},
+                    metadata: {
+                        widgetType: widgetType,
+                        widgetId: widgetId,
+                    },
                 },
-            };
+            );
         }
     },
 });

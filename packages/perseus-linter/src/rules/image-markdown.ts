@@ -1,5 +1,6 @@
 import {parse, traverseContent} from "@khanacademy/pure-markdown";
 
+import {lintWarning} from "../lint";
 import Rule from "../rule";
 
 /**
@@ -30,9 +31,9 @@ export default Rule.makeRule({
         });
 
         if (hasInlineImageNode) {
-            return `[Inline markdown image]:
+            return lintWarning(`[Inline markdown image]:
 Markdown images are not recommended - these are images that use the
-![alt](url) format. Please use the Image widget instead.`;
+![alt](url) format. Please use the Image widget instead.`);
         }
     },
 });

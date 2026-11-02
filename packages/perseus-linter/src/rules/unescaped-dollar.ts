@@ -5,6 +5,7 @@ export default Rule.makeRule({
     severity: Rule.Severity.ERROR,
     selector: "unescapedDollar",
     lint: Rule.makeLintFunction({
+        severity: Rule.Severity.ERROR,
         message: `Unescaped dollar sign:
 Dollar signs must appear in pairs or be escaped as \\$`,
     }),

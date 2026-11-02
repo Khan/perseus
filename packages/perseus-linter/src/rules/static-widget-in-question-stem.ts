@@ -1,3 +1,4 @@
+import {lintWarning} from "../lint";
 import Rule from "../rule";
 
 export default Rule.makeRule({
@@ -24,7 +25,9 @@ export default Rule.makeRule({
         }
 
         if (widget.static) {
-            return `Widget in question stem is static (non-interactive).`;
+            return lintWarning(
+                `Widget in question stem is static (non-interactive).`,
+            );
         }
     },
 });

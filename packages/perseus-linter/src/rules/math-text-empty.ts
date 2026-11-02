@@ -6,6 +6,7 @@ export default Rule.makeRule({
     selector: "math, blockMath",
     pattern: /\\text{\s*}/,
     lint: Rule.makeLintFunction({
+        severity: Rule.Severity.WARNING,
         message: "Empty \\text{} block in math expression",
     }),
 });

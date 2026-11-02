@@ -9,6 +9,7 @@ export default Rule.makeRule({
     severity: Rule.Severity.GUIDELINE,
     pattern: /\\\w+{[^}]*}|{|}/,
     lint: Rule.makeLintFunction({
+        severity: Rule.Severity.GUIDELINE,
         message: `This looks like LaTeX:
 did you mean to put it inside dollar signs?`,
     }),

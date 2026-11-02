@@ -1,3 +1,4 @@
+import {lintGuideline} from "../lint";
 import Rule from "../rule";
 
 // These are 3-letter and longer words that we would not expect to be
@@ -51,9 +52,9 @@ export default Rule.makeRule({
         // If there are at least 3 remaining words and all
         // are capitalized, then the heading is in title case.
         if (words.length >= 3 && words.every((w) => isCapitalized(w))) {
-            return `Title-case heading:
+            return lintGuideline(`Title-case heading:
 This heading appears to be in title-case, but should be sentence-case.
-Only capitalize the first letter and proper nouns.`;
+Only capitalize the first letter and proper nouns.`);
         }
     },
 });

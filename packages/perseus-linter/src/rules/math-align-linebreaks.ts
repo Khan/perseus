@@ -1,3 +1,4 @@
+import {lintWarning} from "../lint";
 import Rule from "../rule";
 
 export default Rule.makeRule({
@@ -30,7 +31,9 @@ export default Rule.makeRule({
             // If that does not match then we either have too few or too
             // many pairs of backslashes.
             if (!nextpair) {
-                return "Use four backslashes between lines of an align block";
+                return lintWarning(
+                    "Use four backslashes between lines of an align block",
+                );
             }
 
             // If it did match, then, shorten the string and continue looping

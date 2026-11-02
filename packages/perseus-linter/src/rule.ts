@@ -120,11 +120,12 @@
 
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 
+import {lintWithSeverity} from "./lint";
 import Selector from "./selector";
 
+import type {Lint} from "./lint";
 import type {TraversalState, TreeNode} from "./tree-transformer";
 import type {PerseusWidgetTypes} from "@khanacademy/perseus-core";
-import {Lint, lintWithSeverity} from "./lint";
 
 export type MakeRuleOptions = {
     name: string;

@@ -5,6 +5,7 @@ export default Rule.makeRule({
     severity: Rule.Severity.WARNING,
     selector: "list list",
     lint: Rule.makeLintFunction({
+        severity: Rule.Severity.WARNING,
         message: `Nested lists:
 nested lists are hard to read on mobile devices;
 do not use additional indentation.`,

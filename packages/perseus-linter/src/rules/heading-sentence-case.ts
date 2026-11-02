@@ -6,6 +6,7 @@ export default Rule.makeRule({
     selector: "heading",
     pattern: /^\W*[a-z]/, // first letter is lowercase
     lint: Rule.makeLintFunction({
+        severity: Rule.Severity.GUIDELINE,
         message: `First letter is lowercase:
 the first letter of a heading should be capitalized.`,
     }),
