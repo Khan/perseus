@@ -15,6 +15,8 @@ debug-storybook.log
 
 # Local development files
 CLAUDE.local.md
+# perseus-mcp's drafts (its default data directory)
+.perseus-mcp/
 .claude/settings.local.json
 
 # Claude worktrees are created here - we don't want these checked in!

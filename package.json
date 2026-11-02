@@ -126,6 +126,8 @@
         "tesc": "utils/changed-files.sh | tr '\\n' '\\0' | xargs -r -0 pnpm jest --silent --findRelatedTests --passWithNoTests --",
         "storybook": "storybook dev -p 6006",
         "start": "pnpm storybook",
+        "start-mcp": "node packages/perseus-mcp/bin/perseus-mcp.mjs --http",
+        "start-mcp:stdio": "node packages/perseus-mcp/bin/perseus-mcp.mjs --stdio",
         "cypress": "cypress open --component --config-file ./cypress.config.mts",
         "cypress:ci": "cypress run --component --config-file ./cypress.config.mts",
         "format": "prettier --write .",

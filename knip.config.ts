@@ -91,6 +91,14 @@ const config: KnipConfig = {
         "packages/math-input": basePackageConfigWithTestHelpers,
         "packages/perseus": basePackageConfigWithTestHelpers,
         "packages/perseus-editor": basePackageConfigWithTestHelpers,
+        "packages/perseus-mcp": {
+            ...basePackageConfig,
+            // A server, not a library: it has no src/index.ts, and Knip finds
+            // its entry point by following the `bin` in package.json.
+            entry: basePackageConfig.entry.filter(
+                (pattern) => !pattern.startsWith("src/index."),
+            ),
+        },
         "packages/perseus-core": {
             ...basePackageConfig,
             entry: [

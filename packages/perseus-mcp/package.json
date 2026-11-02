@@ -1,0 +1,29 @@
+{
+    "name": "@khanacademy/perseus-mcp",
+    "description": "MCP server for building, editing, validating and previewing Perseus items",
+    "author": "Khan Academy",
+    "license": "MIT",
+    "version": "0.0.1",
+    "private": true,
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Khan/perseus.git",
+        "directory": "packages/perseus-mcp"
+    },
+    "bugs": {
+        "url": "https://github.com/Khan/perseus/issues"
+    },
+    "type": "module",
+    "bin": {
+        "perseus-mcp": "./bin/perseus-mcp.mjs"
+    },
+    "scripts": {},
+    "dependencies": {
+        "@khanacademy/perseus-core": "workspace:*",
+        "@modelcontextprotocol/sdk": "^1.32.2",
+        "@swc-node/register": "^1.10.10",
+        "fastify": "^5.12.7",
+        "zod": "^4.6.7"
+    },
+    "keywords": []
+}
