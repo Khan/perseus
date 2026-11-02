@@ -1,6 +1,7 @@
 import {lintPerseusRenderer} from "../lint-content";
 import Rule from "../rule";
 
+// TODO-NEXT: Create a rule along the lines of this one for GradedGroupSet.
 export const GradedGroupWidgetRule = Rule.makeWidgetRule({
     name: "graded-group",
     widgetType: "graded-group",
