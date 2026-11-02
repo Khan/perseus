@@ -102,6 +102,32 @@ export type PerseusStrings = {
     choicesSelected: ({num}: {num: number}) => string;
     bringBack: string;
     openMenuForChoice: ({letter}: {letter: string}) => string;
+    crossOutAnswers: string;
+    crossOutAnswersDescription: string;
+    crossOutChoice: ({letter}: {letter: string}) => string;
+    choiceCrossedOut: ({letter}: {letter: string}) => string;
+    choiceCrossedOutRemaining: ({
+        letter,
+        num,
+    }: {
+        letter: string;
+        num: number;
+    }) => string;
+    choiceCrossedOutAndUnselectedRemaining: ({
+        letter,
+        num,
+    }: {
+        letter: string;
+        num: number;
+    }) => string;
+    choiceRestoredRemaining: ({
+        letter,
+        num,
+    }: {
+        letter: string;
+        num: number;
+    }) => string;
+    choiceRestoredAndSelected: ({letter}: {letter: string}) => string;
     letters: string;
     scrollAnswers: string;
     scrollStart: string;
@@ -1054,6 +1080,43 @@ export const strings = {
     },
     bringBack: "Bring back",
     openMenuForChoice: "Open menu for Choice %(letter)s",
+    crossOutAnswers: {
+        context:
+            "Label for a switch that shows a button after each multiple choice option, which learners use to cross out options they've ruled out.",
+        message: "Cross out answers",
+    },
+    crossOutAnswersDescription: {
+        context:
+            "Screen reader description of the 'Cross out answers' switch in a multiple choice question.",
+        message: "Adds a cross-out button after each answer choice.",
+    },
+    crossOutChoice: {
+        context:
+            "Screen reader label for a button that crosses out a multiple choice option, e.g. 'Cross out choice A'.",
+        message: "Cross out choice %(letter)s",
+    },
+    choiceCrossedOut: {
+        context:
+            "Screen reader label for a multiple choice option the learner crossed out.",
+        message: "(Choice %(letter)s, crossed out)",
+    },
+    choiceCrossedOutRemaining: {
+        one: "Choice %(letter)s crossed out. %(num)s choice left.",
+        other: "Choice %(letter)s crossed out. %(num)s choices left.",
+    },
+    choiceCrossedOutAndUnselectedRemaining: {
+        one: "Choice %(letter)s crossed out. It was unselected. %(num)s choice left.",
+        other: "Choice %(letter)s crossed out. It was unselected. %(num)s choices left.",
+    },
+    choiceRestoredRemaining: {
+        one: "Choice %(letter)s restored. %(num)s choice left.",
+        other: "Choice %(letter)s restored. %(num)s choices left.",
+    },
+    choiceRestoredAndSelected: {
+        context:
+            "Screen reader announcement when the learner selects a multiple choice option they had crossed out, which restores it.",
+        message: "Choice %(letter)s restored and selected.",
+    },
     letters: {
         context:
             "This is a list of single-character labels that will appear in front of multiple-choice options. For instance, a multiple-choice question with three options would display (A) first option (B) second option (C) third option. There must be spaces between each of the different characters. The characters will show up next to options in the order that they are listed here. Most multiple choice questions have 5 or fewer options.",
@@ -1994,6 +2057,25 @@ export const mockStrings: PerseusStrings = {
         num === 1 ? `${num} choice selected` : `${num} choices selected`,
     bringBack: "Bring back",
     openMenuForChoice: ({letter}) => `Open menu for Choice ${letter}`,
+    crossOutAnswers: "Cross out answers",
+    crossOutAnswersDescription:
+        "Adds a cross-out button after each answer choice.",
+    crossOutChoice: ({letter}) => `Cross out choice ${letter}`,
+    choiceCrossedOut: ({letter}) => `(Choice ${letter}, crossed out)`,
+    choiceCrossedOutRemaining: ({letter, num}) =>
+        num === 1
+            ? `Choice ${letter} crossed out. ${num} choice left.`
+            : `Choice ${letter} crossed out. ${num} choices left.`,
+    choiceCrossedOutAndUnselectedRemaining: ({letter, num}) =>
+        num === 1
+            ? `Choice ${letter} crossed out. It was unselected. ${num} choice left.`
+            : `Choice ${letter} crossed out. It was unselected. ${num} choices left.`,
+    choiceRestoredRemaining: ({letter, num}) =>
+        num === 1
+            ? `Choice ${letter} restored. ${num} choice left.`
+            : `Choice ${letter} restored. ${num} choices left.`,
+    choiceRestoredAndSelected: ({letter}) =>
+        `Choice ${letter} restored and selected.`,
     letters: "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z",
     scrollAnswers: "Scroll Answers",
     scrollStart: "Scroll to view start of the content",

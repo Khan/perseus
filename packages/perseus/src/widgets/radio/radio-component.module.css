@@ -212,3 +212,32 @@
             var(--perseus-multiple-choice-indicator-correct-size)
     );
 }
+
+/* CROSS-OUT TOGGLE
+   "Choose 1 answer:" sits at the inline start of the instructions line and the
+   "Cross out answers" toggle at the inline end. On narrow screens the toggle
+   wraps under the instructions.
+ */
+.has-cross-out .instructions {
+    float: inline-start;
+}
+
+.cross-out-toggle {
+    align-items: center;
+    display: flex;
+    float: inline-end;
+    gap: var(--wb-sizing-size_080);
+    margin-block-end: var(--wb-sizing-size_160);
+}
+
+.cross-out-label {
+    color: var(--wb-semanticColor-core-foreground-neutral-strong);
+    cursor: pointer;
+    font-size: var(--wb-font-body-size-medium);
+    font-weight: var(--wb-font-weight-semi);
+    line-height: var(--wb-font-body-lineHeight-medium);
+}
+
+.clear-floats {
+    clear: both;
+}

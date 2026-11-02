@@ -1,0 +1,56 @@
+/* Pins the button to the visible inline-end edge while wide answers scroll.
+   The choice row spans the full scroll width, so the sticky slot can travel
+   along it and stay in view.
+ */
+.slot {
+    background-color: var(--perseus-multiple-choice-fade-color);
+    flex: none;
+    inset-inline-end: 0;
+    position: sticky;
+    z-index: 2; /* Above the scroll fade and the choice dividers */
+}
+
+/* Toggle off: keep the space (no row-height or text-wrap shift when the
+   toggle changes), but hide the button, which also removes it from the tab
+   order.
+ */
+.hidden {
+    visibility: hidden;
+}
+
+.button {
+    -webkit-tap-highlight-color: transparent;
+    align-items: center;
+    appearance: none;
+    background-color: var(--wb-semanticColor-core-transparent);
+    border: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-default);
+    border-radius: var(--wb-border-radius-radius_080);
+    color: var(--wb-semanticColor-core-foreground-neutral-default);
+    cursor: pointer;
+    display: flex;
+    height: var(--perseus-multiple-choice-indicator-size);
+    justify-content: center;
+    padding: 0;
+    width: var(--perseus-multiple-choice-indicator-size);
+}
+
+.button:hover:not([aria-disabled="true"]) {
+    border-color: var(--wb-semanticColor-core-border-instructive-default);
+}
+
+.button:focus-visible {
+    outline: var(--wb-border-width-medium) solid
+        var(--wb-semanticColor-focus-outer);
+    outline-offset: var(--wb-border-width-medium);
+}
+
+.button[aria-pressed="true"] {
+    border-color: var(--wb-semanticColor-core-border-instructive-default);
+    color: var(--wb-semanticColor-core-foreground-instructive-default);
+}
+
+.button[aria-disabled="true"] {
+    cursor: default;
+    opacity: 0.5;
+}

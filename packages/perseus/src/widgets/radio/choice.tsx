@@ -2,8 +2,10 @@ import React, {useRef} from "react";
 
 import Indicator from "./choice-indicator";
 import styles from "./choice.module.css";
+import CrossOutButton from "./cross-out-button";
 
 import type {IndicatorContent} from "./choice-indicator";
+import type {CrossOutButtonProps} from "./cross-out-button";
 
 export interface IndicatorProps {
     checked: boolean;
@@ -12,6 +14,10 @@ export interface IndicatorProps {
     isMultiSelect: boolean;
     showCorrectness?: "correct" | "wrong";
     updateChecked: (isChecked: boolean) => void;
+    /**
+     * The choice's cross-out button. Leave it out when cross-out is off.
+     */
+    crossOut?: CrossOutButtonProps;
 }
 /*
  * NOTE: Redundant ARIA roles for <li> element
@@ -31,8 +37,11 @@ const Choice = (props: IndicatorProps) => {
         : () => {
               buttonRef.current?.click();
           };
+    const crossOut = props.crossOut;
     const classes = [styles.choice]
         .concat(showCorrectness ? [styles["is-" + showCorrectness]] : [])
+        .concat(crossOut ? [styles["has-cross-out"]] : [])
+        .concat(crossOut?.crossedOut ? [styles["is-crossed-out"]] : [])
         .join(" ");
     return (
         /*
@@ -53,6 +62,7 @@ const Choice = (props: IndicatorProps) => {
                 updateChecked={props.updateChecked}
             />
             {props.children}
+            {crossOut && <CrossOutButton {...crossOut} />}
         </li>
     );
 };

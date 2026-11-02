@@ -240,3 +240,29 @@
 .choice :global(.deprecated-perseus-container):first-child:has(img:only-child) {
     margin-block-start: 0;
 }
+
+/*********
+ CROSS-OUT
+ *********/
+
+/* With cross-out on, the cross-out button sits at the end of the row,
+   between the same dividers as the choice letter.
+ */
+.has-cross-out {
+    align-items: flex-start;
+    display: flex;
+    gap: var(--perseus-multiple-choice-spacing);
+}
+
+.has-cross-out > div {
+    flex: 1 1 auto;
+}
+
+.is-crossed-out {
+    color: var(--wb-semanticColor-core-foreground-neutral-subtle);
+}
+
+.is-crossed-out > div {
+    text-decoration: line-through;
+    text-decoration-thickness: var(--wb-border-width-medium);
+}

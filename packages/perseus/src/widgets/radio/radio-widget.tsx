@@ -1,7 +1,7 @@
 import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
-import {forwardRef, useImperativeHandle, useMemo} from "react";
+import {forwardRef, useImperativeHandle, useMemo, useState} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 import {useDependencies} from "../../dependencies";
@@ -10,9 +10,10 @@ import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 
 import RadioComponent from "./radio-component";
-import {choiceTransform} from "./util";
+import {choiceTransform, getChoiceLetter} from "./util";
 import {getChoiceStates} from "./utils/general-utils";
 
+import type {RadioCrossOutProps} from "./radio-component";
 import type {WidgetProps, ChoiceState, Widget} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
@@ -94,6 +95,34 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
         const {strings} = usePerseusI18n();
         const {analytics} = useDependencies();
 
+        // This is strange, but currently we're showing the same view for both
+        // reviewMode, and showSolutions === "all". We may wish to
+        // differentiate between the two in the future, depending on the outcomes
+        // of the Perseus GUTC project.
+        const isReviewMode = reviewMode || showSolutions === "all";
+
+        // Cross-out state is display-only. It's kept here, never in userInput,
+        // so it's never part of the answer that gets scored.
+        const crossOutOptions = apiOptions.crossOut;
+        const crossOutEnabled = crossOutOptions?.enabled ?? false;
+        const [localToggleOn, setLocalToggleOn] = useState(false);
+        const crossOutToggleOn = crossOutOptions?.toggleOn ?? localToggleOn;
+        const [crossedOutIds, setCrossedOutIds] = useState<
+            ReadonlyArray<string>
+        >([]);
+
+        // Clear cross-outs when the host changes the reset key (on each
+        // Check) and when review mode turns on. Done while rendering, rather
+        // than in an effect, so a stale cross-out is never painted.
+        const resetKey = crossOutOptions?.resetKey;
+        const [prevResetKey, setPrevResetKey] = useState(resetKey);
+        if (resetKey !== prevResetKey) {
+            setPrevResetKey(resetKey);
+            setCrossedOutIds([]);
+        } else if (isReviewMode && crossedOutIds.length > 0) {
+            setCrossedOutIds([]);
+        }
+
         const randomSeed = (props.problemNum ?? 0) + (props.widgetIndex ?? 0);
         const choices = useMemo(() => {
             return [
@@ -105,6 +134,12 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
                 ),
             ];
         }, [options.choices, options.randomize, strings, randomSeed]);
+
+        const getLetterForChoice = (choiceId: string): string =>
+            getChoiceLetter(
+                choices.findIndex((choice) => choice.id === choiceId),
+                strings,
+            );
 
         useOnMountEffect(() => {
             analytics.onAnalyticsEvent({
@@ -246,6 +281,12 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
             const currentSelectedIds = choiceStates
                 .filter((choice) => choice.selected)
                 .map((choice) => choice.id);
+            // Selecting a crossed-out choice restores it.
+            const restoredChoice =
+                newCheckedState && crossedOutIds.includes(choiceId);
+            if (restoredChoice) {
+                setCrossedOutIds(crossedOutIds.filter((id) => id !== choiceId));
+            }
             if (newCheckedState && !multipleSelect) {
                 checkedChoiceIds.push(choiceId);
             } else if (newCheckedState && multipleSelect) {
@@ -263,7 +304,65 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
             });
 
             trackInteraction();
-            announceChoiceChange(checkedChoiceIds.length);
+            if (restoredChoice) {
+                // One message covers both changes, so nothing is announced
+                // twice.
+                announceMessage({
+                    message: strings.choiceRestoredAndSelected({
+                        letter: getLetterForChoice(choiceId),
+                    }),
+                });
+            } else {
+                announceChoiceChange(checkedChoiceIds.length);
+            }
+        };
+
+        /**
+         * Handles a learner crossing out a choice or restoring it.
+         *
+         * Crossing out a selected choice also unselects it.
+         *
+         * @param choiceId - The ID of the choice that changed
+         * @param crossedOut - Whether the choice is now crossed out
+         */
+        const handleCrossOutChange = (
+            choiceId: string,
+            crossedOut: boolean,
+        ): void => {
+            const newCrossedOutIds = crossedOut
+                ? [...crossedOutIds, choiceId]
+                : crossedOutIds.filter((id) => id !== choiceId);
+            setCrossedOutIds(newCrossedOutIds);
+
+            const selectedChoiceIds = props.userInput?.selectedChoiceIds ?? [];
+            const unselected =
+                crossedOut && selectedChoiceIds.includes(choiceId);
+            if (unselected) {
+                handleUserInput({
+                    selectedChoiceIds: selectedChoiceIds.filter(
+                        (id) => id !== choiceId,
+                    ),
+                });
+                trackInteraction();
+            }
+
+            const messageArgs = {
+                letter: getLetterForChoice(choiceId),
+                num: choices.length - newCrossedOutIds.length,
+            };
+            // One message covers the cross-out and the unselect, so nothing
+            // is announced twice.
+            const message = unselected
+                ? strings.choiceCrossedOutAndUnselectedRemaining(messageArgs)
+                : crossedOut
+                  ? strings.choiceCrossedOutRemaining(messageArgs)
+                  : strings.choiceRestoredRemaining(messageArgs);
+            announceMessage({message});
+        };
+
+        const handleCrossOutToggleChange = (toggleOn: boolean): void => {
+            setLocalToggleOn(toggleOn);
+            crossOutOptions?.onToggleChange?.(toggleOn);
         };
 
         const announceChoiceChange = (newCheckedCount: number) => {
@@ -363,12 +462,6 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
         const choicesProps = prepareChoicesProps();
         const numCorrect = options.numCorrect;
 
-        // This is strange, but currently we're showing the same view for both
-        // reviewMode, and showSolutions === "all". We may wish to
-        // differentiate between the two in the future, depending on the outcomes
-        // of the Perseus GUTC project.
-        const isReviewMode = reviewMode || showSolutions === "all";
-
         const onChoiceChange =
             apiOptions.readOnly || isReviewMode ? () => {} : handleChoiceChange;
 
@@ -377,6 +470,18 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
             !isReviewMode &&
             !props.static &&
             !apiOptions.readOnly;
+
+        // Cross-out is hidden in review mode, and can't be changed after Check.
+        const crossOut: RadioCrossOutProps | undefined =
+            crossOutEnabled && !isReviewMode && !props.static
+                ? {
+                      toggleOn: crossOutToggleOn,
+                      disabled: !!apiOptions.readOnly,
+                      onToggleChange: handleCrossOutToggleChange,
+                      crossedOutIds,
+                      onCrossOutChange: handleCrossOutChange,
+                  }
+                : undefined;
 
         return (
             <RadioComponent
@@ -387,6 +492,7 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
                 numCorrect={numCorrect}
                 choices={choicesProps}
                 onChoiceChange={onChoiceChange}
+                crossOut={crossOut}
             />
         );
     },
