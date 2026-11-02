@@ -5,5 +5,7 @@ export default Rule.makeRule({
     severity: Rule.Severity.WARNING,
     selector: "math, blockMath",
     pattern: /^$/,
-    message: "Empty math: don't use $$ in your markdown.",
+    lint: Rule.makeLintFunction({
+        message: "Empty math: don't use $$ in your markdown.",
+    }),
 });

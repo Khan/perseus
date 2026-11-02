@@ -5,6 +5,8 @@ export default Rule.makeRule({
     severity: Rule.Severity.WARNING,
     selector: "blockMath",
     pattern: /(\\{2,})\s*\\end{align}/,
-    message: `Extra space at end of block:
+    lint: Rule.makeLintFunction({
+        message: `Extra space at end of block:
 Don't end an align block with backslashes`,
+    }),
 });

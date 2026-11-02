@@ -8,6 +8,8 @@ export default Rule.makeRule({
     name: "unbalanced-code-delimiters",
     severity: Rule.Severity.ERROR,
     pattern: /[`~]+/,
-    message: `Unbalanced code delimiters:
+    lint: Rule.makeLintFunction({
+        message: `Unbalanced code delimiters:
 code blocks should begin and end with the same type and number of delimiters`,
+    }),
 });

@@ -131,8 +131,7 @@ export type MakeRuleOptions = {
     severity: number;
     selector?: string;
     locale?: string;
-    message?: string;
-    lint?: LintTester;
+    lint: LintTester;
     applies?: AppliesTester;
 };
 
@@ -214,7 +213,6 @@ export default class Rule {
     pattern: RegExp | null | undefined; // A regular expression if one was specified
     lint: LintTester; // The lint-testing function or a default
     applies: AppliesTester; // Checks to see if we should apply a rule or not
-    message: string | null | undefined; // The error message for use with the default function
     static DEFAULT_SELECTOR: Selector;
 
     // The comment at the top of this file has detailed docs for
@@ -224,7 +222,7 @@ export default class Rule {
         severity: number,
         selector: Selector | null | undefined,
         pattern: RegExp | null | undefined,
-        lint: LintTester | string | undefined,
+        lint: LintTester,
         applies: AppliesTester | undefined,
     ) {
         if (!selector && !pattern) {
@@ -239,16 +237,7 @@ export default class Rule {
         this.severity = severity;
         this.selector = selector || Rule.DEFAULT_SELECTOR;
         this.pattern = pattern || null;
-
-        // If we're called with an error message instead of a function then
-        // use a default function that will return the message.
-        if (typeof lint === "function") {
-            this.lint = lint;
-            this.message = null;
-        } else {
-            this.lint = (...args) => this._defaultLintFunction(...args);
-            this.message = lint;
-        }
+        this.lint = lint;
 
         this.applies =
             applies ||
@@ -265,7 +254,7 @@ export default class Rule {
             options.severity,
             options.selector ? Selector.parse(options.selector) : null,
             Rule.makePattern(options.pattern),
-            options.lint || options.message,
+            options.lint,
             options.applies,
         );
     }
@@ -408,24 +397,22 @@ ${e.stack}`,
         }
     }
 
-    // This internal method is the default lint function that we use when a
-    // rule is defined without a function. This is useful for rules where the
-    // selector and/or pattern match are enough to indicate lint. This
-    // function unconditionally returns the error message that was passed in
-    // place of a function, but also adds start and end properties that
-    // specify which particular portion of the node content matched the
-    // pattern.
-    _defaultLintFunction(
-        state: TraversalState,
-        content: string,
-        selectorMatch: ReadonlyArray<TreeNode>,
-        patternMatch: PatternMatchType,
-        context: LintRuleContextObject,
-    ): Lint {
-        return {
-            message: this.message || "",
-            start: patternMatch.index,
-            end: patternMatch.index + patternMatch[0].length,
+    /**
+     * Create a linter function from a message.
+     */
+    static makeLintFunction({message}: {message: string}): LintTester {
+        return (
+            state: TraversalState,
+            content: string,
+            selectorMatch: ReadonlyArray<TreeNode>,
+            patternMatch: PatternMatchType,
+            context: LintRuleContextObject,
+        ) => {
+            return {
+                message: message,
+                start: patternMatch.index,
+                end: patternMatch.index + patternMatch[0].length,
+            };
         };
     }
 
