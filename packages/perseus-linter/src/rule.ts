@@ -120,7 +120,6 @@
 
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 
-import {lintWithSeverity} from "./lint";
 import Selector from "./selector";
 
 import type {Lint} from "./lint";
@@ -279,15 +278,10 @@ export default class Rule {
                     return;
                 }
 
-                return [options.lint(widgetInfo)]
-                    .filter(Boolean)
-                    .flat()
-                    .map((message) =>
-                        lintWithSeverity(
-                            options.severity,
-                            `${widgetId}: ${message}`,
-                        ),
-                    );
+                return [options.lint(widgetInfo) ?? []].flat().map((lint) => ({
+                    ...lint,
+                    message: `${widgetId}: ${lint.message}`,
+                }));
             },
             undefined,
         );

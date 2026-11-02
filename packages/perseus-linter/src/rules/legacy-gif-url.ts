@@ -1,3 +1,4 @@
+import {lintGuideline} from "../lint";
 import Rule from "../rule";
 
 import {getHostname} from "./lint-utils";
@@ -21,11 +22,11 @@ export default Rule.makeWidgetRule({
             getHostname(url) === LEGACY_HOSTNAME &&
             url.toLowerCase().endsWith(".gif")
         ) {
-            return `Legacy gif URL:
+            return lintGuideline(`Legacy gif URL:
 gifs hosted at ${LEGACY_HOSTNAME} might not appear in the editor preview,
 but can still be viewed in the published content. Please use a
 cdn.kastatic.org/ka-perseus-images/ URL instead or confirm the
-image displays correctly in the published content.`;
+image displays correctly in the published content.`);
         }
     },
 });

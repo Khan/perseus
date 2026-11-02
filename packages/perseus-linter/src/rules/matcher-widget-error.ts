@@ -1,3 +1,4 @@
+import {lintError} from "../lint";
 import Rule from "../rule";
 
 export default Rule.makeWidgetRule({
@@ -6,7 +7,9 @@ export default Rule.makeWidgetRule({
     severity: Rule.Severity.ERROR,
     lint(widget) {
         if (widget.options.left.length !== widget.options.right.length) {
-            return "The two halves of the matcher have different numbers of cards.";
+            return lintError(
+                "The two halves of the matcher have different numbers of cards.",
+            );
         }
     },
 });

@@ -1,3 +1,4 @@
+import {lintWarning} from "../lint";
 import Rule from "../rule";
 
 import type {PerseusWidgetsMap} from "@khanacademy/perseus-core";
@@ -18,7 +19,7 @@ export const ExplanationInGradedGroup = Rule.makeWidgetRule({
     widgetType: "graded-group",
     lint: function (widget) {
         if (hasExplanation(widget.options.widgets)) {
-            return `Contains explanation widget. ${instructions}`;
+            return lintWarning(`Contains explanation widget. ${instructions}`);
         }
     },
 });
@@ -32,7 +33,9 @@ export const ExplanationInGradedGroupSet = Rule.makeWidgetRule({
             .map((group, i) => (hasExplanation(group.widgets) ? i + 1 : 0))
             .filter((groupNumber) => groupNumber > 0);
         if (groupNumbers.length > 0) {
-            return `Explanation widget in group ${groupNumbers.join(" and ")}. ${instructions}`;
+            return lintWarning(
+                `Explanation widget in group ${groupNumbers.join(" and ")}. ${instructions}`,
+            );
         }
     },
 });

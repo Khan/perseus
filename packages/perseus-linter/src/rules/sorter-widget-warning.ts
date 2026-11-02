@@ -1,5 +1,6 @@
 import {SORTER_MAX_CARDS} from "@khanacademy/perseus-core";
 
+import {lintWarning} from "../lint";
 import Rule from "../rule";
 
 import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
@@ -38,6 +39,6 @@ export default Rule.makeWidgetRule({
             );
         }
 
-        return warnings;
+        return warnings.map((warning) => lintWarning(warning));
     },
 });

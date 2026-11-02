@@ -1,3 +1,4 @@
+import {lintError} from "../lint";
 import Rule from "../rule";
 
 // Taken from packages/perseus/src/util.ts
@@ -18,11 +19,11 @@ export default Rule.makeWidgetRule({
     lint(widget) {
         const question = widget.options.question;
         if (!question) {
-            return "The question is empty";
+            return lintError("The question is empty");
         }
 
         if (question.match(rWidgetRule) != null) {
-            return "The question contains a widget";
+            return lintError("The question contains a widget");
         }
     },
 });

@@ -1,5 +1,6 @@
 import {vector as kvector} from "@khanacademy/kmath";
 
+import {lintError} from "../lint";
 import Rule from "../rule";
 
 export default Rule.makeWidgetRule({
@@ -70,7 +71,7 @@ export default Rule.makeWidgetRule({
         checkShowPointLabelsHasLabels(graph, issues);
         checkShowPointLabelsHasLabels(correct, issues);
 
-        return issues;
+        return issues.map((issue) => lintError(issue));
     },
 });
 
