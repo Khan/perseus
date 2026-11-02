@@ -28,7 +28,6 @@ function hasMixedContent(card: string): boolean {
 export default Rule.makeWidgetRule({
     name: "sorter-widget-error",
     widgetType: "sorter",
-    severity: Rule.Severity.ERROR,
     lint(widget) {
         const issues: string[] = [];
         const correct: string[] = widget.options.correct ?? [];

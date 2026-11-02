@@ -2,7 +2,6 @@ import Rule from "../rule";
 
 export default Rule.makeRule({
     name: "math-frac",
-    severity: Rule.Severity.GUIDELINE,
     selector: "math, blockMath",
     pattern: /\\frac[ {]/,
     lint: Rule.makeLintFunction({

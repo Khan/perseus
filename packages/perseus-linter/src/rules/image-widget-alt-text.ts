@@ -10,7 +10,6 @@ import Rule from "../rule";
 export default Rule.makeWidgetRule({
     name: "image-widget-alt-text",
     widgetType: "image",
-    severity: Rule.Severity.WARNING,
     lint(widget) {
         // Decorative images don't need alt text validation
         if (widget.options.decorative) {

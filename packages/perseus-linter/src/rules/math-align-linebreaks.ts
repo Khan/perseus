@@ -3,7 +3,6 @@ import Rule from "../rule";
 
 export default Rule.makeRule({
     name: "math-align-linebreaks",
-    severity: Rule.Severity.WARNING,
     selector: "blockMath",
     // Match any align block with double backslashes in it
     // Use [\s\S]* instead of .* so we match newlines as well.

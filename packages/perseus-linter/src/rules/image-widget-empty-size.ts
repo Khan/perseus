@@ -10,7 +10,6 @@ import Rule from "../rule";
 export default Rule.makeWidgetRule({
     name: "image-widget-empty-size",
     widgetType: "image",
-    severity: Rule.Severity.WARNING,
     lint(widget) {
         if (!widget.options.backgroundImage.url) {
             return;

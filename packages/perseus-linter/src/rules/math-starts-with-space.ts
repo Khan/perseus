@@ -2,7 +2,6 @@ import Rule from "../rule";
 
 export default Rule.makeRule({
     name: "math-starts-with-space",
-    severity: Rule.Severity.GUIDELINE,
     selector: "math, blockMath",
     pattern: /^\s*(~|\\qquad|\\quad|\\,|\\;|\\:|\\ |\\!|\\enspace|\\phantom)/,
     lint: Rule.makeLintFunction({

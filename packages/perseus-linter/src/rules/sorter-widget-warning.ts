@@ -12,7 +12,6 @@ export const sorterMaxHorizontalCards = 5;
 export default Rule.makeWidgetRule({
     name: "sorter-widget-warning",
     widgetType: "sorter",
-    severity: Rule.Severity.WARNING,
     lint(widget) {
         const warnings: string[] = [];
         const options: PerseusSorterWidgetOptions = widget.options;

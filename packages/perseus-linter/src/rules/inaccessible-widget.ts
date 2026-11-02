@@ -5,7 +5,6 @@ import Rule from "../rule";
 
 export default Rule.makeRule({
     name: "inaccessible-widget",
-    severity: Rule.Severity.WARNING,
     selector: "widget",
     lint: function (state, content, nodes, match, context) {
         const node = state.currentNode();

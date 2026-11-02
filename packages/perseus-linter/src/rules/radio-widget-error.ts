@@ -4,7 +4,6 @@ import Rule from "../rule";
 export default Rule.makeWidgetRule({
     name: "radio-widget-error",
     widgetType: "radio",
-    severity: Rule.Severity.ERROR,
     lint(widget) {
         const choices = widget.options.choices;
 

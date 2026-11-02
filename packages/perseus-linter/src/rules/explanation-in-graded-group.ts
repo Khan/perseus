@@ -15,7 +15,6 @@ const instructions = `Don't use explanation widgets in graded groups. Use the Gr
 // inside one shows learners two differently-styled "Explain" buttons.
 export const ExplanationInGradedGroup = Rule.makeWidgetRule({
     name: "explanation-in-graded-group",
-    severity: Rule.Severity.WARNING,
     widgetType: "graded-group",
     lint: function (widget) {
         if (hasExplanation(widget.options.widgets)) {
@@ -26,7 +25,6 @@ export const ExplanationInGradedGroup = Rule.makeWidgetRule({
 
 export const ExplanationInGradedGroupSet = Rule.makeWidgetRule({
     name: "explanation-in-graded-group-set",
-    severity: Rule.Severity.WARNING,
     widgetType: "graded-group-set",
     lint: function (widget) {
         const groupNumbers = widget.options.gradedGroups

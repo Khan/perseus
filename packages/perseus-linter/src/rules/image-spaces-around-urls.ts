@@ -3,7 +3,6 @@ import Rule from "../rule";
 
 export default Rule.makeRule({
     name: "image-spaces-around-urls",
-    severity: Rule.Severity.ERROR,
     selector: "image",
     lint: function (state, content, nodes, match, context) {
         const image: any = nodes[0];

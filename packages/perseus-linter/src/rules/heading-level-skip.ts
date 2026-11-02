@@ -3,7 +3,6 @@ import Rule from "../rule";
 
 export default Rule.makeRule({
     name: "heading-level-skip",
-    severity: Rule.Severity.WARNING,
     selector: "heading ~ heading",
     lint: function (state, content, nodes, match) {
         const currentHeading: any = nodes[1];

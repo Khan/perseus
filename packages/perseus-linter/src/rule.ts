@@ -129,7 +129,6 @@ import type {PerseusWidgetTypes} from "@khanacademy/perseus-core";
 export type MakeRuleOptions = {
     name: string;
     pattern?: RegExp;
-    severity: number;
     selector?: string;
     locale?: string;
     lint: LintTester;
@@ -140,7 +139,6 @@ export type MakeWidgetRuleOptions<
     TWidgetType extends keyof PerseusWidgetTypes,
 > = {
     name: string;
-    severity: number;
     widgetType: TWidgetType;
     lint: (
         widgetInfo: PerseusWidgetTypes[TWidgetType],
@@ -203,7 +201,6 @@ type AppliesTester = (context: LintRuleContextObject) => boolean;
  */
 export default class Rule {
     name: string; // The name of the rule
-    severity: number; // The severity of the rule
     selector: Selector; // The specified selector or the DEFAULT_SELECTOR
     pattern: RegExp | null | undefined; // A regular expression if one was specified
     lint: LintTester; // The lint-testing function or a default
@@ -214,7 +211,6 @@ export default class Rule {
     // this constructor and its arguments
     constructor(
         name: string | null | undefined,
-        severity: number,
         selector: Selector | null | undefined,
         pattern: RegExp | null | undefined,
         lint: LintTester,
@@ -229,7 +225,6 @@ export default class Rule {
         }
 
         this.name = name || "unnamed rule";
-        this.severity = severity;
         this.selector = selector || Rule.DEFAULT_SELECTOR;
         this.pattern = pattern || null;
         this.lint = lint;
@@ -246,7 +241,6 @@ export default class Rule {
     static makeRule(options: MakeRuleOptions): Rule {
         return new Rule(
             options.name,
-            options.severity,
             options.selector ? Selector.parse(options.selector) : null,
             Rule.makePattern(options.pattern),
             options.lint,
@@ -259,7 +253,6 @@ export default class Rule {
     ): Rule {
         return new Rule(
             options.name,
-            options.severity,
             Selector.parse("widget"),
             null,
             (state, content, nodes, match, context) => {
@@ -305,7 +298,7 @@ export default class Rule {
             const {location = {start: 0, end: content.length}} = error;
             return {
                 rule: this.name,
-                severity: this.severity,
+                severity: error.severity,
                 message: error.message,
                 metadata: error.metadata,
                 ...location,
@@ -370,7 +363,7 @@ export default class Rule {
             return [
                 {
                     rule: "lint-rule-failure",
-                    severity: this.severity,
+                    severity: Rule.Severity.ERROR,
                     message: `Exception in rule ${this.name}: ${e.message}
 Stack trace:
 ${e.stack}`,

@@ -3,7 +3,6 @@ import Rule from "../rule";
 export default Rule.makeWidgetRule({
     name: "numeric-input-widget-error",
     widgetType: "numeric-input",
-    severity: Rule.Severity.ERROR,
     lint(widget) {
         const issues: Array<any | string> = [];
         const answers = widget.options.answers;

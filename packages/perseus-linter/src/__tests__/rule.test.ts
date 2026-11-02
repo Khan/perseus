@@ -24,7 +24,6 @@ Otherwise escape it by writing \\$.`;
     const ruleDescriptions: MakeRuleOptions[] = [
         {
             name: "heading-title-case",
-            severity: Rule.Severity.WARNING,
             selector: "heading",
             pattern: /\s[A-Z][a-z]/,
             lint: Rule.makeLintFunction({
@@ -34,7 +33,6 @@ Otherwise escape it by writing \\$.`;
         },
         {
             name: "unescaped-dollar",
-            severity: Rule.Severity.WARNING,
             selector: "unescapedDollar",
             lint: Rule.makeLintFunction({
                 message: unescapedDollarMessage,
@@ -43,7 +41,6 @@ Otherwise escape it by writing \\$.`;
         },
         {
             name: "heading-level-skip",
-            severity: Rule.Severity.WARNING,
             selector: "heading ~ heading",
             lint: function (state, content, nodes) {
                 const currentHeading: any = nodes[1];

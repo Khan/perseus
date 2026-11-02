@@ -26,7 +26,6 @@ const stringToButtonSet = {
 export const ExpressionWidgetButtons = Rule.makeWidgetRule({
     name: "expression-widget-buttons",
     widgetType: "expression",
-    severity: Rule.Severity.WARNING,
     lint(widget) {
         const answers = widget.options.answerForms;
         const buttons: string[] = widget.options.buttonSets;
@@ -46,7 +45,6 @@ export const ExpressionWidgetButtons = Rule.makeWidgetRule({
 export const ExpressionWidgetCorrectAnswer = Rule.makeWidgetRule({
     name: "expression-widget-correct-answer",
     widgetType: "expression",
-    severity: Rule.Severity.ERROR,
     lint(widget) {
         const {answerForms} = widget.options;
 
@@ -70,7 +68,6 @@ export const ExpressionWidgetCorrectAnswer = Rule.makeWidgetRule({
 export const ExpressionWidgetAnswerForms = Rule.makeWidgetRule({
     name: "expression-widget-answer-forms",
     widgetType: "expression",
-    severity: Rule.Severity.ERROR,
     lint(widget) {
         const {answerForms, functions} = widget.options;
         const issues: string[] = [];

@@ -3,7 +3,6 @@ import Rule from "../rule";
 
 export default Rule.makeRule({
     name: "static-widget-in-question-stem",
-    severity: Rule.Severity.WARNING,
     selector: "widget",
     lint: (state, content, nodes, match, context) => {
         if (context?.contentType !== "exercise") {

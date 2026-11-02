@@ -3,7 +3,6 @@ import Rule from "../rule";
 
 export default Rule.makeRule({
     name: "long-paragraph",
-    severity: Rule.Severity.GUIDELINE,
     selector: "paragraph",
     pattern: /^.{501,}/,
     lint: function (state, content, nodes, match) {

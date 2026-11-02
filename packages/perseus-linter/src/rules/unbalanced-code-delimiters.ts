@@ -6,7 +6,6 @@ import Rule from "../rule";
 // apply inside $$ or ``.
 export default Rule.makeRule({
     name: "unbalanced-code-delimiters",
-    severity: Rule.Severity.ERROR,
     pattern: /[`~]+/,
     lint: Rule.makeLintFunction({
         severity: Rule.Severity.ERROR,

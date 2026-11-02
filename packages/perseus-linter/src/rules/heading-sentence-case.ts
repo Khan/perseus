@@ -2,7 +2,6 @@ import Rule from "../rule";
 
 export default Rule.makeRule({
     name: "heading-sentence-case",
-    severity: Rule.Severity.GUIDELINE,
     selector: "heading",
     pattern: /^\W*[a-z]/, // first letter is lowercase
     lint: Rule.makeLintFunction({

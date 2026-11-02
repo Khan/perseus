@@ -3,7 +3,6 @@ import Rule from "../rule";
 
 export default Rule.makeRule({
     name: "image-alt-text",
-    severity: Rule.Severity.WARNING,
     selector: "image",
     lint: function (state, content, nodes, match) {
         const image: any = nodes[0];

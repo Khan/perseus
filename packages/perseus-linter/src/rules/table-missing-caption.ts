@@ -39,7 +39,6 @@ function getTitleText(titledTable: any): string {
 
 export default Rule.makeRule({
     name: "table-missing-caption",
-    severity: Rule.Severity.GUIDELINE,
     // The selector grammar has no `:not()`, so we match every table and
     // inspect its parent in `lint()`. A captioned table is parsed as a
     // `titledTable` node whose `table` property holds the table itself, so

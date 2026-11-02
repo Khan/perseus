@@ -3,7 +3,6 @@ import Rule from "../rule";
 
 export default Rule.makeRule({
     name: "table-missing-cells",
-    severity: Rule.Severity.WARNING,
     selector: "table",
     lint: function (state, content, nodes, match) {
         const table: any = nodes[0];

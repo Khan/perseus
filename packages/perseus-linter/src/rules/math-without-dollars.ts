@@ -6,7 +6,6 @@ import Rule from "../rule";
 // apply inside $$ or ``.
 export default Rule.makeRule({
     name: "math-without-dollars",
-    severity: Rule.Severity.GUIDELINE,
     pattern: /\\\w+{[^}]*}|{|}/,
     lint: Rule.makeLintFunction({
         severity: Rule.Severity.GUIDELINE,

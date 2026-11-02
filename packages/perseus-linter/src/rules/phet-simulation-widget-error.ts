@@ -6,7 +6,6 @@ import Rule from "../rule";
 export default Rule.makeWidgetRule({
     name: "phet-simulation-widget-error",
     widgetType: "phet-simulation",
-    severity: Rule.Severity.ERROR,
     lint(widget) {
         if (
             makeSafeUrl(

@@ -6,7 +6,6 @@ import Rule from "../rule";
 export default Rule.makeWidgetRule({
     name: "interactive-graph-widget-error",
     widgetType: "interactive-graph",
-    severity: Rule.Severity.ERROR,
     lint(widget) {
         const issues: string[] = [];
         const {correct, graph, lockedFigures} = widget.options;

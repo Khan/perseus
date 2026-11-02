@@ -8,7 +8,6 @@ const LEGACY_HOSTNAME = "ka-perseus-images.s3.amazonaws.com";
 export default Rule.makeWidgetRule({
     name: "legacy-gif-url",
     widgetType: "image",
-    severity: Rule.Severity.GUIDELINE,
     lint(widget) {
         const url = widget.options?.backgroundImage?.url;
         if (!url) {

@@ -3,7 +3,6 @@ import Rule from "../rule";
 
 export default Rule.makeRule({
     name: "image-url-empty",
-    severity: Rule.Severity.ERROR,
     selector: "image",
     lint: function (state, content, nodes) {
         const image: any = nodes[0];

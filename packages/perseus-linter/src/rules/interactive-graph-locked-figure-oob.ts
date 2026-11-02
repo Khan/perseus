@@ -12,7 +12,6 @@ import type {
 export default Rule.makeWidgetRule({
     name: "interactive-graph-locked-figure-oob",
     widgetType: "interactive-graph",
-    severity: Rule.Severity.WARNING,
     lint(widget) {
         const {range, lockedFigures}: PerseusInteractiveGraphWidgetOptions =
             widget.options;

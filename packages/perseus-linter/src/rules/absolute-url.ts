@@ -5,7 +5,6 @@ import {getHostname} from "./lint-utils";
 
 export default Rule.makeRule({
     name: "absolute-url",
-    severity: Rule.Severity.GUIDELINE,
     selector: "link, image",
     lint: function (state, content, nodes, match) {
         const linkOrImage: any = nodes[0];

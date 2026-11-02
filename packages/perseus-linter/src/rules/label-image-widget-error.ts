@@ -4,7 +4,6 @@ import Rule from "../rule";
 export default Rule.makeWidgetRule({
     name: "label-image-widget-error",
     widgetType: "label-image",
-    severity: Rule.Severity.ERROR,
     lint(widget) {
         const issues: string[] = [];
         const {choices, imageAlt, imageUrl, markers} = widget.options;

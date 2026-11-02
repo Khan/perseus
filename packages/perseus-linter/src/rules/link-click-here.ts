@@ -2,7 +2,6 @@ import Rule from "../rule";
 
 export default Rule.makeRule({
     name: "link-click-here",
-    severity: Rule.Severity.WARNING,
     selector: "link",
     pattern: /click here/i,
     lint: Rule.makeLintFunction({
