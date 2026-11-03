@@ -15,7 +15,11 @@ import {
 } from "./adapters/fs/file-draft-repository";
 import {nodeItemFileReader} from "./adapters/fs/node-item-file-reader";
 import {createPerseusCoreSchemaSource} from "./adapters/fs/perseus-core-schema-source";
-import {createHttpServer, previewLinks} from "./adapters/http/server";
+import {
+    allowedHostnames,
+    createHttpServer,
+    previewLinks,
+} from "./adapters/http/server";
 import {createMcpServer} from "./adapters/mcp/server";
 import {createCatalog} from "./app/catalog";
 import {withDraftFeed} from "./app/draft-feed";
@@ -147,6 +151,7 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
         createMcpServer: () => createMcpServer({...useCases, previewApp}),
         drafts: useCases.drafts,
         createPreview,
+        allowedHostnames: allowedHostnames(host),
     });
     try {
         const address = new URL(await httpServer.listen({port, host}));

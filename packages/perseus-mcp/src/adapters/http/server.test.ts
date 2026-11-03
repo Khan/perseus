@@ -1,6 +1,8 @@
 /**
  * @jest-environment node
  */
+import http from "node:http";
+
 import {
     CoreWidgetRegistry,
     generateTestPerseusItem,
@@ -14,7 +16,7 @@ import {inMemoryRepository} from "../../app/in-memory-draft-repository.testutils
 import {checkoutPaths} from "../../runtime-paths";
 import {createPerseusCoreSchemaSource} from "../fs/perseus-core-schema-source";
 
-import {createHttpServer, previewLinks} from "./server";
+import {allowedHostnames, createHttpServer, previewLinks} from "./server";
 
 import type {PreviewPages} from "./server";
 import type {FastifyInstance} from "fastify";
@@ -50,8 +52,47 @@ async function setUp() {
         },
         drafts: useCases,
         createPreview: async () => fakePreview,
+        allowedHostnames: allowedHostnames("127.0.0.1"),
     });
     return {app, useCases};
+}
+
+/**
+ * Sends a request with the given `Host` header, which fetch() won't let a
+ * caller set.
+ */
+function requestWithHost(
+    address: string,
+    {
+        host,
+        path,
+        method = "GET",
+        body,
+    }: {host: string; path: string; method?: string; body?: unknown},
+): Promise<{status: number; body: string}> {
+    return new Promise((resolve, reject) => {
+        const req = http.request(
+            new URL(path, address),
+            {
+                method,
+                headers: {
+                    host,
+                    "content-type": "application/json",
+                    accept: "application/json, text/event-stream",
+                },
+            },
+            (res) => {
+                let text = "";
+                res.setEncoding("utf8");
+                res.on("data", (chunk) => (text += chunk));
+                res.on("end", () =>
+                    resolve({status: res.statusCode ?? 0, body: text}),
+                );
+            },
+        );
+        req.on("error", reject);
+        req.end(body == null ? undefined : JSON.stringify(body));
+    });
 }
 
 /** Reads server-sent events from a response body, one `data` per call. */
@@ -176,6 +217,53 @@ describe("createHttpServer", () => {
         expect(await response.text()).toBe("<p>frame for /preview/frame</p>");
     });
 
+    it("rejects a request whose Host header names another host", async () => {
+        // Arrange
+        app = (await setUp()).app;
+        const address = await app.listen({port: 0, host: "127.0.0.1"});
+
+        // Act
+        const response = await requestWithHost(address, {
+            host: "attacker.example:4567",
+            path: "/preview/frame",
+        });
+
+        // Assert
+        expect(response.status).toBe(403);
+    });
+
+    it("rejects an MCP request whose Host header names another host", async () => {
+        // Arrange
+        app = (await setUp()).app;
+        const address = await app.listen({port: 0, host: "127.0.0.1"});
+
+        // Act
+        const response = await requestWithHost(address, {
+            host: "attacker.example",
+            path: "/mcp",
+            method: "POST",
+            body: {jsonrpc: "2.0", id: 1, method: "ping"},
+        });
+
+        // Assert
+        expect(response.status).toBe(403);
+    });
+
+    it("accepts a request to localhost by name", async () => {
+        // Arrange
+        app = (await setUp()).app;
+        const address = await app.listen({port: 0, host: "127.0.0.1"});
+
+        // Act
+        const response = await requestWithHost(address, {
+            host: "localhost:4567",
+            path: "/preview/frame",
+        });
+
+        // Assert
+        expect(response.body).toBe("<p>frame for /preview/frame</p>");
+    });
+
     it("serves the preview's assets through its middleware", async () => {
         // Arrange
         app = (await setUp()).app;
@@ -186,6 +274,35 @@ describe("createHttpServer", () => {
 
         // Assert
         expect(await response.text()).toBe("asset");
+    });
+});
+
+describe("allowedHostnames", () => {
+    it("allows only localhost's names for a loopback address", () => {
+        // Arrange, Act
+        const names = allowedHostnames("127.0.0.1");
+
+        // Assert
+        expect(names).toEqual(["localhost", "127.0.0.1", "[::1]"]);
+    });
+
+    it("allows only localhost's names for a wildcard address", () => {
+        // Arrange, Act
+        const names = allowedHostnames("::");
+
+        // Assert
+        expect(names).toEqual(["localhost", "127.0.0.1", "[::1]"]);
+    });
+
+    it("adds the listening host, in brackets for IPv6", () => {
+        // Arrange, Act
+        const names = [
+            allowedHostnames("dev.test"),
+            allowedHostnames("fe80::1"),
+        ];
+
+        // Assert
+        expect(names.map((n) => n.at(-1))).toEqual(["dev.test", "[fe80::1]"]);
     });
 });
 

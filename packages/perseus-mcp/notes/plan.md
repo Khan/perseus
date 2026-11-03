@@ -73,11 +73,13 @@ from outside the repo.
 | Prebuild the preview pages for serving without Vite | `pnpm --filter @khanacademy/perseus-mcp build:pages` builds the browser preview's shell and frame (scripts, styles, fonts under `preview/assets/`) and the MCP Apps page into `dist/pages`; `perseus-mcp --pages <dir>` serves them with `createStaticPreviewPages` and `createStaticAppPage` instead of Vite. The build lives in `scripts/` (tooling, not the server); `productionBuild`, the page folders and the SVG setting move into `vite-shared.ts`. |
 | Bundle a packaged perseus-mcp server | `build:mcpb` builds `dist/mcpb/`: `server/index.mjs` (the packaged entry point, `main-packaged.ts`, and every dependency, from Vite's server-side build with `ssr.noExternal`), perseus-core's two type files in `types/`, and the prebuilt pages in `pages/`. `start()` holds the wiring both entry points share; `main.ts` (the repo) passes `checkoutPaths()` and Vite or `--pages`, `main-packaged.ts` passes `packagedPaths()` and the prebuilt pages, so Vite stays out of the bundle. Installed, drafts go in the user's data folder (`userDataDir`), and the server logs where. Run from a copy outside the repo: all tools, the shipped type files, drafts in Application Support, both previews. |
 | Pack perseus-mcp into a .mcpb | `build:mcpb` (also `pnpm build:mcpb` at the root) now writes `manifest.json` (MCP Bundle 0.3, generated from perseus-mcp's `package.json`, so the versions match; `node` over stdio; all three platforms; Node 20.11 or later; tools and prompts listed by the server), the repo's `logo.png` as `icon.png`, the MIT `LICENSE` and the fonts' OFL texts (also added next to the fonts in `config/environment`), then runs `mcpb validate` and `mcpb pack` from the `@anthropic-ai/mcpb` dev dependency into `dist/perseus-mcp.mcpb` (7.9 MB). Unpacked outside the repo, the server lists all its tools over stdio. |
+| Check the Host header on perseus-mcp's HTTP server | Every HTTP request (MCP, event streams, preview pages and assets) must name an allowed host in its `Host` header or gets a 403, through the MCP SDK's `hostHeaderValidation`, so a web page can't reach a local server through DNS rebinding and read or change drafts. `allowedHostnames(host)` allows localhost's names (`localhost`, `127.0.0.1`, `[::1]`) plus `--host` when it names a host; a wildcard `--host` (`0.0.0.0`, `::`) allows only localhost's names. Checked on the packed server: `localhost` gets 200, another `Host` 403. |
 
 Remaining, in order:
 
 1. Build order step 6: package perseus-mcp as a Claude Desktop extension
-   (`.mcpb`) for testers, from commit 6 on.
+   (`.mcpb`) for testers: install the built `.mcpb` in Claude Desktop (in
+   place of a development config entry) and test it there.
 2. Step 5 follow-ups, once testing in Claude Desktop says what's needed:
    send what the learner did (answers, scores) to the chat as model context
    (`app.updateModelContext`), and shrink the in-chat page (most of its
@@ -626,8 +628,10 @@ Steps 1–3 need no Perseus changes, so building can start there.
       `@anthropic-ai/mcpb`, a dev dependency run with `pnpm exec` (never
       `npx`). The output, `dist/perseus-mcp.mcpb`, isn't committed. The
       validator recommends a 512×512 icon; `logo.png` is 400×400.
-   6. **`Host` header check** on HTTP requests, so a web page can't reach a
-      tester's local server through DNS rebinding.
+   6. **`Host` header check** (done) on HTTP requests, so a web page can't
+      reach a tester's local server through DNS rebinding. A wildcard
+      `--host` allows only localhost's names; a hosted deployment (step 10)
+      will need its own allowed names.
    - **How it's built:** with the repo's Vite, through its JavaScript API,
      in a `build:mcpb` script of perseus-mcp's own (run with
      `pnpm --filter @khanacademy/perseus-mcp build:mcpb`), written like
