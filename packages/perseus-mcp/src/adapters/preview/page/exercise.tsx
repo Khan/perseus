@@ -78,26 +78,31 @@ function Hints({
             }}
         >
             <h2 id={headingId}>{strings.hints}</h2>
-            {shown.map((pos) => (
-                <React.Fragment key={pos}>
-                    <h3>{strings.hintPos({pos: pos + 1})}</h3>
-                    <HintRenderer
-                        hint={hints[pos]}
-                        pos={pos}
-                        totalHints={hints.length}
-                        // Perseus emphasizes the last hint unless the author
-                        // already bolded part of it.
-                        lastHint={
-                            pos === hints.length - 1 &&
-                            !/\*\*/.test(hints[pos].content)
-                        }
-                        lastRendered={pos === hintsState.hintsVisible - 1}
-                        apiOptions={hintApiOptions}
-                        linterContext={linterContextDefault}
-                        dependencies={dependenciesV2}
-                    />
-                </React.Fragment>
-            ))}
+            {/* Perseus styles hints only inside an exercise page's
+                container: their border and padding, and the "n / total"
+                label that hangs to the left of the last one revealed. */}
+            <div className="bibliotron-exercise">
+                {shown.map((pos) => (
+                    <React.Fragment key={pos}>
+                        <h3>{strings.hintPos({pos: pos + 1})}</h3>
+                        <HintRenderer
+                            hint={hints[pos]}
+                            pos={pos}
+                            totalHints={hints.length}
+                            // Perseus emphasizes the last hint unless the author
+                            // already bolded part of it.
+                            lastHint={
+                                pos === hints.length - 1 &&
+                                !/\*\*/.test(hints[pos].content)
+                            }
+                            lastRendered={pos === hintsState.hintsVisible - 1}
+                            apiOptions={hintApiOptions}
+                            linterContext={linterContextDefault}
+                            dependencies={dependenciesV2}
+                        />
+                    </React.Fragment>
+                ))}
+            </div>
         </section>
     );
 }

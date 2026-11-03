@@ -75,6 +75,8 @@ from outside the repo.
 | Pack perseus-mcp into a .mcpb | `build:mcpb` (also `pnpm build:mcpb` at the root) now writes `manifest.json` (MCP Bundle 0.3, generated from perseus-mcp's `package.json`, so the versions match; `node` over stdio; all three platforms; Node 20.11 or later; tools and prompts listed by the server), the repo's `logo.png` as `icon.png`, the MIT `LICENSE` and the fonts' OFL texts (also added next to the fonts in `config/environment`), then runs `mcpb validate` and `mcpb pack` from the `@anthropic-ai/mcpb` dev dependency into `dist/perseus-mcp.mcpb` (7.9 MB). Unpacked outside the repo, the server lists all its tools over stdio. |
 | Check the Host header on perseus-mcp's HTTP server | Every HTTP request (MCP, event streams, preview pages and assets) must name an allowed host in its `Host` header or gets a 403, through the MCP SDK's `hostHeaderValidation`, so a web page can't reach a local server through DNS rebinding and read or change drafts. `allowedHostnames(host)` allows localhost's names (`localhost`, `127.0.0.1`, `[::1]`) plus `--host` when it names a host; a wildcard `--host` (`0.0.0.0`, `::`) allows only localhost's names. Checked on the packed server: `localhost` gets 200, another `Host` 403. |
 | Ship perseus-mcp to testers as a macOS zip | The organization's extension allowlist keeps Claude Desktop from installing a `.mcpb` that an owner hasn't approved, so testers run the server from a `claude_desktop_config.json` entry instead, and the `.mcpb` (manifest, icon, `@anthropic-ai/mcpb`) is gone. `build:bundle` (renamed from `build:mcpb`) builds `dist/perseus-mcp-macos-arm64.zip`: a `perseus-mcp/` folder with the server, the Node that ran the build (it must be an official macOS arm64 build, 20.11 or later; signed by the Node.js Foundation, so Gatekeeper takes it), Node's license and `INSTALL.md` with the config entry. Only macOS on Apple silicon is supported. Tested in Claude Desktop from `~/Applications/perseus-mcp`: the tools, validation and answer checks, the in-chat preview following edits, and the browser preview. |
+| Plan a gutter for the preview's hint labels | Plan only. |
+| Show the preview's hint labels | Perseus styles hints only inside an exercise page's `.bibliotron-exercise` container (`perseus-renderer-part-2.css`), as Storybook's hints decorator does: without it, a hint has no border, padding or `position: relative`, and its "n / total" label (`position: absolute; right: 100%`) lands off the page. The preview's hints are now in that container, and both pages leave a 6.4rem gutter at their inline start for the label. Checked in the browser preview. |
 
 Remaining, in order:
 
@@ -83,15 +85,7 @@ Remaining, in order:
    (`app.updateModelContext`), and shrink the in-chat page (most of its
    7.6 MB is MathJax and its speech engine).
 2. The preview's `renderDone` and `renderError` markers (see Preview).
-3. Padding around the in-chat preview, so hint labels aren't cut off.
-   `HintRenderer` shows each hint's "n / total" label outside the hint, to
-   its left (`.perseus-hint-label` in
-   `packages/perseus/src/styles/perseus-renderer-part-2.css`: `position:
-   absolute; right: 100%` plus a right margin), as the exercise page's
-   gutter expects. With no gutter, the in-chat page clips the label at its
-   left edge. Give the page an inline-start gutter at least the label's
-   width; check the browser preview's frame too.
-4. Build order steps 7 to 10.
+3. Build order steps 7 to 10.
 
 Consuming applications aren't in this repo: the changesets carry the
 migration steps, and they're updated separately.
