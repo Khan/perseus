@@ -8,6 +8,19 @@ export class DraftNotFoundError extends Error {
     }
 }
 
+export class UnknownWidgetTypeError extends Error {
+    readonly type: string;
+
+    constructor(type: string, knownTypes: ReadonlyArray<string>) {
+        super(
+            `"${type}" isn't a Perseus widget type. Known types: ` +
+                `${knownTypes.join(", ")}.`,
+        );
+        this.name = "UnknownWidgetTypeError";
+        this.type = type;
+    }
+}
+
 export class InvalidItemError extends Error {
     /** Why the item was rejected, e.g. the parser's message. */
     readonly reason: string;

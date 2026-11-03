@@ -6,6 +6,7 @@ import {McpServer} from "./sdk";
 import {errorResult, jsonResult, runTool} from "./tool-results";
 
 import type {DraftUseCases} from "../../app/drafts";
+import type {WidgetUseCases} from "../../app/widgets";
 
 // Sent to the agent when it connects (the `instructions` field of the MCP
 // initialize result); hosts may add it to the agent's system prompt.
@@ -16,7 +17,10 @@ Work on drafts: open_item returns an itemId, which later tools take instead of
 the whole item. Keep notes on a draft (where it came from, what it's for,
 what's left) so you can find it again with list_items. Items from any Perseus
 version are accepted; items are always returned fully migrated to the latest
-schema. export_item returns the finished JSON.`;
+schema. export_item returns the finished JSON.
+
+list_widgets and get_widget_spec describe each widget's options; validate_item
+checks an item the way Perseus will.`;
 
 const notesSchema = z
     .string()
@@ -31,7 +35,13 @@ const notesSchema = z
  * server is created per request (stateless transport), so it holds no state
  * of its own.
  */
-export function createMcpServer(drafts: DraftUseCases): McpServer {
+export function createMcpServer({
+    drafts,
+    widgets,
+}: {
+    drafts: DraftUseCases;
+    widgets: WidgetUseCases;
+}): McpServer {
     const server = new McpServer(
         {name: "perseus", version: libVersion},
         {instructions: INSTRUCTIONS},
@@ -118,6 +128,81 @@ export function createMcpServer(drafts: DraftUseCases): McpServer {
                     skipped,
                 });
             }),
+    );
+
+    server.registerTool(
+        "list_widgets",
+        {
+            title: "List widget types",
+            description:
+                "List every Perseus widget type with its status " +
+                '("supported", "avoid" for deprecated widgets, "do-not-use" ' +
+                "for unfinished ones), whether it's accessible, and notes. " +
+                "Use get_widget_spec for a widget's full options.",
+            inputSchema: {},
+            annotations: {readOnlyHint: true},
+        },
+        () => runTool(() => jsonResult(widgets.listWidgets())),
+    );
+
+    server.registerTool(
+        "get_widget_spec",
+        {
+            title: "Get a widget's spec",
+            description:
+                "Return a widget type's status and notes, its default " +
+                "options, and the documented TypeScript definitions of its " +
+                "options and user input, taken from Perseus's own schema.",
+            inputSchema: {type: z.string().describe('e.g. "radio"')},
+            annotations: {readOnlyHint: true},
+        },
+        ({type}) => runTool(() => jsonResult(widgets.getWidgetSpec(type))),
+    );
+
+    server.registerTool(
+        "validate_item",
+        {
+            title: "Validate a Perseus item",
+            description:
+                "Check a draft (by itemId) or a PerseusItem (as JSON): it " +
+                "must parse, every [[☃ widget-id]] placeholder must have a " +
+                "widget and vice versa, and the content is linted. Returns " +
+                "`valid` plus issues with JSON paths.",
+            inputSchema: {
+                itemId: z.string().optional(),
+                item: z
+                    .unknown()
+                    .optional()
+                    .describe("A PerseusItem as an object or JSON string."),
+            },
+            annotations: {readOnlyHint: true},
+        },
+        ({itemId, item}) =>
+            runTool(() => {
+                if ((itemId == null) === (item == null)) {
+                    return errorResult(
+                        "Pass exactly one of `itemId` or `item`.",
+                    );
+                }
+                return jsonResult(
+                    widgets.validateItem(itemId != null ? {itemId} : {item}),
+                );
+            }),
+    );
+
+    server.registerResource(
+        "data-schema",
+        "perseus://schema/data-schema.ts",
+        {
+            title: "Perseus data schema",
+            description:
+                "perseus-core's data-schema.ts: the documented TypeScript " +
+                "types for PerseusItem and every widget's options.",
+            mimeType: "text/x-typescript",
+        },
+        (uri) => ({
+            contents: [{uri: uri.href, text: widgets.dataSchema()}],
+        }),
     );
 
     return server;

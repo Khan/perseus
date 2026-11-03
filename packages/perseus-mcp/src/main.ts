@@ -12,10 +12,13 @@ import {
     FileDraftRepository,
 } from "./adapters/fs/file-draft-repository";
 import {nodeItemFileReader} from "./adapters/fs/node-item-file-reader";
+import {createPerseusCoreSchemaSource} from "./adapters/fs/perseus-core-schema-source";
 import {createHttpServer} from "./adapters/http/server";
 import {StdioServerTransport} from "./adapters/mcp/sdk";
 import {createMcpServer} from "./adapters/mcp/server";
+import {createCatalog} from "./app/catalog";
 import {createDraftUseCases} from "./app/drafts";
+import {createWidgetUseCases} from "./app/widgets";
 
 // Drafts are local work, so by default they live in the checkout (each
 // worktree gets its own); `.perseus-mcp/` is gitignored.
@@ -79,21 +82,27 @@ for (const {location, reason} of repository.skipped()) {
     log(`perseus-mcp: skipped ${location}: ${reason}`);
 }
 
-const drafts = createDraftUseCases({
-    drafts: repository,
-    files: nodeItemFileReader,
-    now: () => new Date(),
-    newId: () => randomUUID().slice(0, 8),
-});
+const useCases = {
+    drafts: createDraftUseCases({
+        drafts: repository,
+        files: nodeItemFileReader,
+        now: () => new Date(),
+        newId: () => randomUUID().slice(0, 8),
+    }),
+    widgets: createWidgetUseCases({
+        catalog: createCatalog(createPerseusCoreSchemaSource()),
+        drafts: repository,
+    }),
+};
 
 if (values.stdio) {
-    await createMcpServer(drafts).connect(new StdioServerTransport());
+    await createMcpServer(useCases).connect(new StdioServerTransport());
 } else {
     const port = Number(values.port);
     const host = values.host;
     const baseUrl = `http://${host === "127.0.0.1" ? "localhost" : host}:${port}`;
     try {
-        await createHttpServer(() => createMcpServer(drafts)).listen({
+        await createHttpServer(() => createMcpServer(useCases)).listen({
             port,
             host,
         });

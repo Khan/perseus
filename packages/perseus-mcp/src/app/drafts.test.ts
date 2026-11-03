@@ -9,21 +9,10 @@ import {
 
 import {createDraftUseCases} from "./drafts";
 import {DraftNotFoundError, InvalidItemError} from "./errors";
+import {inMemoryRepository} from "./in-memory-draft-repository.testutils";
 
-import type {Draft} from "../domain/draft";
-import type {DraftRepository, SkippedDraft} from "../ports/draft-repository";
+import type {SkippedDraft} from "../ports/draft-repository";
 import type {ItemFileReader} from "../ports/item-file-reader";
-
-function inMemoryRepository(skipped: SkippedDraft[] = []): DraftRepository {
-    const drafts = new Map<string, Draft>();
-    return {
-        get: (itemId) => drafts.get(itemId),
-        list: () => [...drafts.values()],
-        save: (draft) => void drafts.set(draft.itemId, draft),
-        locationOf: (itemId) => `memory://${itemId}`,
-        skipped: () => skipped,
-    };
-}
 
 function setUp(
     options: {files?: ItemFileReader; skipped?: SkippedDraft[]} = {},

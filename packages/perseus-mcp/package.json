@@ -20,9 +20,11 @@
     "scripts": {},
     "dependencies": {
         "@khanacademy/perseus-core": "workspace:*",
+        "@khanacademy/perseus-linter": "workspace:*",
         "@modelcontextprotocol/sdk": "^1.32.2",
         "@swc-node/register": "^1.10.10",
         "fastify": "^5.12.7",
+        "typescript": "catalog:toolDeps",
         "zod": "^4.6.7"
     },
     "keywords": []
