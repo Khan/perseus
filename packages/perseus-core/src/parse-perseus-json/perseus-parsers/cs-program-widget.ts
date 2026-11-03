@@ -20,4 +20,7 @@ export const parseCSProgramWidget = parseWidget(
         showButtons: boolean,
         height: number,
     }),
+    // CS Program is only used in articles and doesn't get scored, so
+    // it doesn't ever need to be disabled.
+    {supportsStatic: false},
 );
