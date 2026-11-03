@@ -10,6 +10,7 @@ import {
 } from "./expression-widget";
 import FreeResponseWidgetError from "./free-response-widget-error";
 import {GradedGroupWidgetRule} from "./graded-group";
+import {GradedGroupSetWidgetRule} from "./graded-group-set";
 import HeadingLevel1 from "./heading-level-1";
 import HeadingLevelSkip from "./heading-level-skip";
 import HeadingSentenceCase from "./heading-sentence-case";
@@ -103,5 +104,6 @@ export function allRules(): Rule[] {
         ExplanationInGradedGroup,
         ExplanationInGradedGroupSet,
         GradedGroupWidgetRule,
+        GradedGroupSetWidgetRule,
     ];
 }
