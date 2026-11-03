@@ -14,10 +14,11 @@ const INSTRUCTIONS = `\
 Tools for authoring Perseus items (Khan Academy exercise content).
 
 Work on drafts: open_item returns an itemId, which later tools take instead of
-the whole item. Keep notes on a draft (where it came from, what it's for,
-what's left) so you can find it again with list_items. Items from any Perseus
-version are accepted; items are always returned fully migrated to the latest
-schema. export_item returns the finished JSON.
+the whole item. edit_item changes a draft with a JSON Patch; every change is
+validated before it's saved. Keep notes on a draft (where it came from, what
+it's for, what's left) so you can find it again with list_items. Items from
+any Perseus version are accepted; items are always returned fully migrated to
+the latest schema. export_item returns the finished JSON.
 
 list_widgets and get_widget_spec describe each widget's options; validate_item
 checks an item the way Perseus will.`;
@@ -77,6 +78,67 @@ export function createMcpServer({
                     notes,
                 );
                 return jsonResult({itemId: draft.itemId, item: draft.item});
+            }),
+    );
+
+    server.registerTool(
+        "edit_item",
+        {
+            title: "Edit a Perseus item",
+            description:
+                "Change a draft with a JSON Patch (RFC 6902) against its " +
+                "PerseusItem JSON, e.g. " +
+                '[{"op": "replace", "path": "/question/widgets/radio 1/' +
+                'options/choices/1/correct", "value": true}], and/or replace ' +
+                "its notes. The patched item is validated as validate_item " +
+                "does. If an operation fails or the item has errors, nothing " +
+                "is saved and the issues are returned; fix the patch and " +
+                "retry. Use a `test` operation to check a value before " +
+                "changing it. Returns the new revision and any warnings; use " +
+                "export_item to read the item.",
+            inputSchema: {
+                itemId: z.string(),
+                patch: z
+                    .array(
+                        z.object({
+                            op: z.enum([
+                                "add",
+                                "remove",
+                                "replace",
+                                "move",
+                                "copy",
+                                "test",
+                            ]),
+                            path: z.string(),
+                            value: z.unknown().optional(),
+                            from: z.string().optional(),
+                        }),
+                    )
+                    .optional(),
+                notes: notesSchema.describe(
+                    "Replaces the draft's notes: context to keep with it, " +
+                        "such as where the item came from, what it's for or " +
+                        "what's left to do.",
+                ),
+            },
+        },
+        ({itemId, patch, notes}) =>
+            runTool(() => {
+                if ((patch == null || patch.length === 0) && notes == null) {
+                    return errorResult("Pass a `patch`, `notes` or both.");
+                }
+                const result = drafts.editItem(itemId, {patch, notes});
+                if (!result.ok) {
+                    return errorResult(
+                        "The edit wasn't applied; the draft is unchanged.",
+                        {issues: result.issues},
+                    );
+                }
+                return jsonResult({
+                    itemId,
+                    revision: result.draft.revision,
+                    issues: result.issues,
+                });
             }),
     );
 

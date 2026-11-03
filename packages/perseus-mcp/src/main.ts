@@ -82,17 +82,16 @@ for (const {location, reason} of repository.skipped()) {
     log(`perseus-mcp: skipped ${location}: ${reason}`);
 }
 
+const catalog = createCatalog(createPerseusCoreSchemaSource());
 const useCases = {
     drafts: createDraftUseCases({
         drafts: repository,
         files: nodeItemFileReader,
+        catalog,
         now: () => new Date(),
         newId: () => randomUUID().slice(0, 8),
     }),
-    widgets: createWidgetUseCases({
-        catalog: createCatalog(createPerseusCoreSchemaSource()),
-        drafts: repository,
-    }),
+    widgets: createWidgetUseCases({catalog, drafts: repository}),
 };
 
 if (values.stdio) {

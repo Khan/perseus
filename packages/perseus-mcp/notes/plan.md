@@ -47,15 +47,15 @@ every tool was smoke-tested over stdio from outside the repo.
 | --- | --- |
 | Add perseus-mcp, a local MCP server for Perseus items | The private package in the hexagonal layout: MCP over Streamable HTTP on `/mcp` (Fastify) or over stdio; the file draft repository (drafts parsed on load, bad files skipped); `open_item`, `export_item` and `list_items`, with notes. Root scripts `start-mcp` and `start-mcp:stdio`. The package build skips private packages. This plan. |
 | Add widget specs and item validation to perseus-mcp | `list_widgets`, `get_widget_spec`, `validate_item` and the `data-schema.ts` resource. The schema index and widget catalog are domain code, fed by a `SchemaSource` port. |
+| Add edit_item to perseus-mcp | `edit_item`: a JSON Patch, new notes or both. Rejected, leaving the draft unchanged, if an operation fails or the result has errors. |
 
 Remaining, in order:
 
-1. `edit_item`: a JSON Patch, new notes or both, rejected if anything fails.
-2. `create_item`: content plus a list of widgets, built over each type's defaults.
-3. `add_widget`: one widget into the question or a hint, placed after given text or at the end.
-4. `score_item` and `check_user_inputs`. `@khanacademy/perseus-score` is added here, where it's first used.
-5. The `review_item` prompt and checklist resource (see Item review).
-6. Then build order steps 3 to 7.
+1. `create_item`: content plus a list of widgets, built over each type's defaults.
+2. `add_widget`: one widget into the question or a hint, placed after given text or at the end.
+3. `score_item` and `check_user_inputs`. `@khanacademy/perseus-score` is added here, where it's first used.
+4. The `review_item` prompt and checklist resource (see Item review).
+5. Then build order steps 3 to 7.
 
 ## Notes for whoever picks this up
 

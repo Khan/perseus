@@ -1,15 +1,20 @@
-import {newDraft} from "../domain/draft";
+import {newDraft, reviseDraft} from "../domain/draft";
+import {editItem as applyItemPatch} from "../domain/items/edit";
 import {parseItem} from "../domain/items/parse";
 
 import {DraftNotFoundError, InvalidItemError} from "./errors";
 
+import type {Catalog} from "./catalog";
 import type {Draft} from "../domain/draft";
+import type {PatchOperation} from "../domain/items/edit";
+import type {Issue} from "../domain/items/validate";
 import type {DraftRepository, SkippedDraft} from "../ports/draft-repository";
 import type {ItemFileReader} from "../ports/item-file-reader";
 
 export type DraftDependencies = {
     drafts: DraftRepository;
     files: ItemFileReader;
+    catalog: Catalog;
     now: () => Date;
     newId: () => string;
 };
@@ -17,9 +22,16 @@ export type DraftDependencies = {
 /** A PerseusItem (an object or JSON string), or the path of a JSON file. */
 export type ItemSource = {item: unknown} | {path: string};
 
+/** A change to a draft: a JSON Patch to its item, new notes, or both. */
+export type DraftEdit = {patch?: ReadonlyArray<PatchOperation>; notes?: string};
+
+export type DraftEditResult =
+    | {ok: true; draft: Draft; issues: Issue[]}
+    | {ok: false; issues: Issue[]};
+
 /**
- * The use cases for starting, reading and listing drafts, written against the
- * ports only.
+ * The use cases for starting, changing, reading and listing drafts, written
+ * against the ports only.
  */
 export function createDraftUseCases(deps: DraftDependencies) {
     const {drafts} = deps;
@@ -56,6 +68,37 @@ export function createDraftUseCases(deps: DraftDependencies) {
             });
             drafts.save(draft);
             return draft;
+        },
+
+        /**
+         * Changes a draft. A patch is applied to the item and the result
+         * validated; if an operation fails or the item has errors, nothing
+         * is saved (not even new notes), so a stored draft always parses.
+         *
+         * @throws DraftNotFoundError
+         */
+        editItem(itemId: string, edit: DraftEdit): DraftEditResult {
+            const draft = getDraft(itemId);
+            let item = draft.item;
+            let issues: Issue[] = [];
+            if (edit.patch != null && edit.patch.length > 0) {
+                const result = applyItemPatch(
+                    draft.item,
+                    edit.patch,
+                    deps.catalog.widgets(),
+                );
+                if (!result.ok) {
+                    return result;
+                }
+                ({item, issues} = result);
+            }
+            const revised = reviseDraft(draft, {
+                item,
+                notes: edit.notes,
+                now: deps.now(),
+            });
+            drafts.save(revised);
+            return {ok: true, draft: revised, issues};
         },
 
         /** @throws DraftNotFoundError */

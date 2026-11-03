@@ -35,3 +35,17 @@ export function newDraft(args: {
         item: args.item,
     };
 }
+
+/** The draft after a change: the new values, a new revision and timestamp. */
+export function reviseDraft(
+    draft: Draft,
+    changes: {item?: PerseusItem; notes?: string; now: Date},
+): Draft {
+    return {
+        ...draft,
+        revision: draft.revision + 1,
+        updatedAt: changes.now.toISOString(),
+        item: changes.item ?? draft.item,
+        notes: changes.notes ?? draft.notes,
+    };
+}

@@ -7,6 +7,9 @@ import {
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
 
+import {createPerseusCoreSchemaSource} from "../adapters/fs/perseus-core-schema-source";
+
+import {createCatalog} from "./catalog";
 import {createDraftUseCases} from "./drafts";
 import {DraftNotFoundError, InvalidItemError} from "./errors";
 import {inMemoryRepository} from "./in-memory-draft-repository.testutils";
@@ -21,6 +24,7 @@ function setUp(
     const useCases = createDraftUseCases({
         drafts,
         files: options.files ?? {read: () => Promise.reject(new Error())},
+        catalog: createCatalog(createPerseusCoreSchemaSource()),
         now: () => new Date("2026-01-01T00:00:00Z"),
         newId: () => "abc",
     });
@@ -84,6 +88,91 @@ describe("draft use cases", () => {
             // Assert
             await expect(opening).rejects.toThrow(InvalidItemError);
             expect(drafts.list()).toEqual([]);
+        });
+    });
+
+    describe("editItem", () => {
+        async function openedDraft() {
+            const setup = setUp();
+            await setup.useCases.openItem(
+                {
+                    item: generateTestPerseusItem({
+                        question: generateTestPerseusRenderer({
+                            content: "Before",
+                        }),
+                    }),
+                },
+                "Original notes",
+            );
+            return setup;
+        }
+
+        it("saves the patched item as the next revision", async () => {
+            // Arrange
+            const {drafts, useCases} = await openedDraft();
+
+            // Act
+            useCases.editItem("abc", {
+                patch: [
+                    {op: "replace", path: "/question/content", value: "After"},
+                ],
+            });
+
+            // Assert
+            expect(drafts.get("abc")).toMatchObject({
+                revision: 2,
+                notes: "Original notes",
+                item: {question: {content: "After"}},
+            });
+        });
+
+        it("replaces the notes without a patch", async () => {
+            // Arrange
+            const {drafts, useCases} = await openedDraft();
+
+            // Act
+            useCases.editItem("abc", {notes: "Reviewed"});
+
+            // Assert
+            expect(drafts.get("abc")).toMatchObject({
+                revision: 2,
+                notes: "Reviewed",
+                item: {question: {content: "Before"}},
+            });
+        });
+
+        it("leaves the stored draft unchanged when the edit is rejected", async () => {
+            // Arrange
+            const {drafts, useCases} = await openedDraft();
+            const before = drafts.get("abc");
+
+            // Act
+            const result = useCases.editItem("abc", {
+                patch: [
+                    {
+                        op: "replace",
+                        path: "/question/content",
+                        value: "[[☃ radio 1]]",
+                    },
+                ],
+                notes: "Should not be saved",
+            });
+
+            // Assert
+            expect({ok: result.ok, draft: drafts.get("abc")}).toEqual({
+                ok: false,
+                draft: before,
+            });
+        });
+
+        it("throws DraftNotFoundError for an unknown itemId", () => {
+            // Arrange
+            const {useCases} = setUp();
+
+            // Act, Assert
+            expect(() => useCases.editItem("nope", {notes: "x"})).toThrow(
+                DraftNotFoundError,
+            );
         });
     });
 
