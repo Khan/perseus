@@ -224,6 +224,8 @@ class WidgetContainer extends React.Component<Props, State> {
                                     containerSizeClass={this.state.sizeClass}
                                     ref={this.widgetRef}
                                 />
+                                {/* TODO(nisha): Remove this div once all widgets
+                                    handle their own disabled elements. */}
                                 {shouldUseStaticOverlay && (
                                     <div
                                         data-testid="widget-container-static-overlay"
