@@ -66,17 +66,19 @@ from outside the repo.
 | Add lint rules for placeholders, choices and Graphie | perseus-linter (minor changeset `calm-rivers-check`): `duplicate-choices` (radio and dropdown, ignoring `$` and spacing), `graphie-image-url` (suggests a `web+graphie://` URL in place of a Graphie PNG), and `widget-placeholder-missing-widget`, `-duplicate` and `-unrenderable`. `validate_item` keeps its own placeholder checks only for renderers nested in widgets, which the linter doesn't visit, plus `orphaned-widget`: a widget that's never placed has no node in the content for a lint rule to report on. The review checklist links the new codes. |
 | Move perseus-mcp to the v2 MCP SDK | `@modelcontextprotocol/server` and `@modelcontextprotocol/node` replace `@modelcontextprotocol/sdk` 1.x, as MCP Apps' `ext-apps` 2.x needs. HTTP serves MCP through `createMcpHandler` (stateless, a fresh server per request; it also answers GET and DELETE), stdio through `serveStdio`, and tool and prompt schemas are `z.object(...)`. The `sdk.ts` shim is gone: v2's import paths pass the lint rules. Migrated by hand (the SDK's codemod runs through `npx`). Smoke-tested over stdio from outside the repo and over HTTP. |
 | Add an MCP Apps spike that frames the preview | `preview_item` links (`_meta.ui.resourceUri`, plus the deprecated `ui/resourceUri`) to `ui://perseus/preview.html` (`text/html;profile=mcp-app`), whose CSP declares the local server in `frameDomains`. The page (`adapters/preview/app/`) connects with ext-apps' `App`, waits for the tool result and frames its URL, with a status line saying what happened. `createViteAppPage` builds it with Vite on the first request into one document (the script inlined, minified) and caches it; the real page will reuse this. |
-| Share the preview's controls with the app page | No change in behavior. The browser preview's option and hint controls move to `page/controls.tsx`, and perseus-editor exports its hint rules (`revealHints`, `describeHints`, `INITIAL_HINTS_REVEAL`), so the MCP Apps page can reuse both. Plan: Claude Desktop refused to let the spike frame `http://localhost`, so the app page renders the item itself; a hosted deployment is now build order step 9. |
+| Share the preview's controls with the app page | No change in behavior. The browser preview's option and hint controls move to `page/controls.tsx`, and perseus-editor exports its hint rules (`revealHints`, `describeHints`, `INITIAL_HINTS_REVEAL`), so the MCP Apps page can reuse both. Plan: Claude Desktop refused to let the spike frame `http://localhost`, so the app page renders the item itself; a hosted deployment became a build order step (now step 10). |
 | Render the preview inside the MCP Apps page | The app page renders the draft itself: Perseus, MathJax, the shared styles and fonts, Wonder Blocks and the shared controls and `Exercise`, all inlined into one 7.6 MB document. It follows the draft by polling `get_preview_draft`, an app-only tool (`visibility: ["app"]`) that returns the draft or `changed: false`, and keeps hint state with perseus-editor's rules; `preview_item` now also returns the `itemId`. The resource's CSP declares `cdn.kastatic.org` and the Perseus image hosts in `resourceDomains`. Checked in a stand-in host built on ext-apps' `AppBridge` (outside the repo): it renders, follows a new revision, reveals hints and checks answers. |
 
 Remaining, in order:
 
-1. Step 5: try the in-chat preview in Claude Desktop. Possible follow-ups:
+1. Build order step 6: package perseus-mcp as a Claude Desktop extension
+   (`.mcpb`) for testers.
+2. Step 5 follow-ups, once testing in Claude Desktop says what's needed:
    send what the learner did (answers, scores) to the chat as model context
-   (`app.updateModelContext`), and shrink the page (most of its 7.6 MB is
-   MathJax and its speech engine).
-2. The preview's `renderDone` and `renderError` markers (see Preview).
-3. Build order steps 6 to 9.
+   (`app.updateModelContext`), and shrink the in-chat page (most of its
+   7.6 MB is MathJax and its speech engine).
+3. The preview's `renderDone` and `renderError` markers (see Preview).
+4. Build order steps 7 to 10.
 
 Consuming applications aren't in this repo: the changesets carry the
 migration steps, and they're updated separately.
@@ -227,7 +229,7 @@ them.
 | --- | --- |
 | Where it runs | Local first: MCP over stdio or local HTTP, with HTTP always running for the preview page. A hosted service later. |
 | Architecture | Hexagonal (ports and adapters); see Architecture. |
-| Where the code lives | `packages/perseus-mcp` in this monorepo, a private package; run with `pnpm start-mcp`. Published to npm as `@khanacademy/perseus-mcp` once it has been tested in use (build order step 8). |
+| Where the code lives | `packages/perseus-mcp` in this monorepo, a private package; run with `pnpm start-mcp`. Shared with testers as a Claude Desktop extension (build order step 6), then published to npm as `@khanacademy/perseus-mcp` once it has been tested in use (step 9). |
 | Stack | Official TypeScript MCP SDK, v2 (`@modelcontextprotocol/server`, `@modelcontextprotocol/node`), with Fastify. |
 | Data in and out | Raw PerseusItem JSON. Any older Perseus version is accepted; tools always return fully migrated, latest-schema items. Content-backend API access is out of scope. |
 | Auth and limits | None. Tools are pure functions over JSON the caller supplies. |
@@ -373,7 +375,7 @@ the host supports MCP Apps.
   compiles the page from source on request, like the server itself: no
   build step to forget, at the cost of a slower first load. A prebuilt
   bundle was rejected for development because every change would need a
-  rebuild; a published package will need one (build order step 8).
+  rebuild; the packaged extension will need one (build order step 6).
 - A top-level shell follows the draft over SSE and runs
   `usePreviewController`; an iframe on the same origin runs
   `usePreviewPresenter` and renders with ServerItemRenderer. Same origin
@@ -425,7 +427,7 @@ that the chat app shows inside the conversation.
 - It declares the outside hosts it loads from in its CSP
   (`resourceDomains`): `cdn.kastatic.org` (MathJax fonts) and the Perseus
   image hosts.
-- A hosted deployment (build order step 9) would give the preview an https
+- A hosted deployment (build order step 10) would give the preview an https
   origin hosts accept, so the page could frame it instead.
 - Confirmed host: Claude Desktop.
 
@@ -563,37 +565,66 @@ Steps 1–3 need no Perseus changes, so building can start there.
    linter can't help (nested renderers, widgets never placed).
 5. **Embedded MCP Apps page:** Perseus rendered inside the page, fed through
    MCP tool calls (hosts won't let it frame the local server).
-6. **`create_graphie`:** declarative spec to Graphie image, served locally.
-7. **Eval harness** on the Claude Agent SDK with a few smoke tasks, until the
+6. **Package as a Claude Desktop extension (`.mcpb`)**, so testers install
+   it with one click, without the repo, a terminal or config editing. A
+   `.mcpb` is a zip of a `manifest.json` and the server's files; Claude
+   Desktop runs `node ${__dirname}/server/index.mjs --stdio` with the Node it
+   ships (whose version the spec doesn't state: the manifest declares
+   20.11 or later, `import.meta.dirname`, and the installed extension is
+   checked). Decisions: all three platforms (`darwin`, `win32`, `linux`;
+   only macOS is tested), unsigned (it installs with a warning), the Perseus
+   logo as its icon (a PNG made from `static/perseus-logo.svg`), and the
+   manifest's version copied from perseus-mcp's `package.json`. Commits:
+   1. **Paths by where the server runs:** one module gives the files the
+      server reads (perseus-core's `data-schema.ts` and `validation.types.ts`
+      for `get_widget_spec`, the pages, the Vite config) as repo paths when
+      run from the checkout, and as the package's own files when installed.
+      Running from the repo doesn't change.
+   2. **Drafts in the user's data directory** when installed:
+      `~/Library/Application Support/perseus-mcp` on macOS,
+      `$XDG_DATA_HOME/perseus-mcp` (default `~/.local/share/perseus-mcp`) on
+      Linux, `%LOCALAPPDATA%\perseus-mcp` on Windows. Runs from the repo keep
+      `.perseus-mcp/` at its root.
+   3. **Prebuilt pages:** the browser preview's shell and frame built once
+      by Vite into static files, served by Fastify in place of Vite's dev
+      middleware; the MCP Apps page built at packaging time and shipped as a
+      file; the fonts (with their OFL licenses) and shared styles included.
+   4. **One bundled server file:** the server and its dependencies in
+      `server/index.mjs` (Vite in library mode, for Node), since pnpm's
+      `node_modules` is symlinks and doesn't survive zipping. It includes
+      the TypeScript compiler, which `get_widget_spec` uses; the two
+      perseus-core type files ship next to it.
+   5. **Manifest and pack script:** `manifest.json` (name, display name,
+      version, author, description, the tools, the `node` command,
+      `compatibility`, icon), and a script that builds into a staging
+      directory, then runs `mcpb validate` and `mcpb pack` from
+      `@anthropic-ai/mcpb`, a dev dependency run with `pnpm exec` (never
+      `npx`). The output, `perseus-mcp.mcpb`, isn't committed.
+   6. **`Host` header check** on HTTP requests, so a web page can't reach a
+      tester's local server through DNS rebinding.
+   7. **Install and test:** the built server smoke-tested over stdio from
+      outside the repo; then the `.mcpb` installed in Claude Desktop (with
+      the dev config entry removed, so two perseus servers don't run): the
+      tools, the browser preview and the in-chat preview.
+7. **`create_graphie`:** declarative spec to Graphie image, served locally.
+8. **Eval harness** on the Claude Agent SDK with a few smoke tasks, until the
    real task set is ready.
-8. **Publish to npm** as `@khanacademy/perseus-mcp`, for Khan Academy
-   content authors, once steps 4 to 7 are done and the server has been
+9. **Publish to npm** as `@khanacademy/perseus-mcp`, for Khan Academy
+   content authors, once steps 4 to 8 are done and the server has been
    tested in use. It installs and runs with `npx @khanacademy/perseus-mcp
-   --stdio` in an MCP host's config.
-   - **Build:** bundle everything the server needs and fix its paths for an
-     installed package. Today it runs from source with swc (using the root
-     `tsconfig.json`), compiles the preview with Vite at request time from
-     the root `vite.config.mts`, and loads `@internal/perseus-environment`,
-     a private package. The published package gets a compiled server and a
-     prebuilt preview bundle with its styles and fonts (the fonts' OFL
-     licenses included). Running from the repo keeps Vite middleware mode.
-   - **Drafts:** in the user's data directory: `~/Library/Application
-     Support/perseus-mcp` on macOS, `$XDG_DATA_HOME/perseus-mcp` (default
-     `~/.local/share/perseus-mcp`) on Linux, `%LOCALAPPDATA%\perseus-mcp` on
-     Windows. Runs from the repo keep `.perseus-mcp/` at its root.
+   --stdio` in an MCP host's config. The build, the data directory and the
+   `Host` check come from step 6; what's left:
    - **Releases:** through the existing changesets workflow. The Perseus
      packages it uses are pinned to the versions changesets produces, so a
      Perseus release that changes them releases perseus-mcp too.
-   - **Before publishing:** check the `Host` header on HTTP requests (the MCP
-     SDK's allowed-hosts option), so a web page can't reach the local server
-     through DNS rebinding. Set `engines` to Node 20.11 or later
-     (`import.meta.dirname`).
-9. **Hosted deployment**, after publishing: run the server as a hosted
-   service on an https origin. It needs a shared draft store (a new
-   `DraftRepository` adapter), live updates across instances (one instance,
-   a pub/sub layer, or polling), OAuth for remote MCP connectors, a decision
-   on storing unpublished drafts, and the prebuilt bundles from step 8. It
-   would also let the embedded page frame the hosted preview.
+   - **Package metadata:** `engines` set to Node 20.11 or later, the `bin`
+     pointing at the built server, and `files` listing what ships.
+10. **Hosted deployment**, after publishing: run the server as a hosted
+    service on an https origin. It needs a shared draft store (a new
+    `DraftRepository` adapter), live updates across instances (one
+    instance, a pub/sub layer, or polling), OAuth for remote MCP connectors,
+    a decision on storing unpublished drafts, and the prebuilt bundles from
+    step 6. It would also let the embedded page frame the hosted preview.
 
 ## Graphie images
 
