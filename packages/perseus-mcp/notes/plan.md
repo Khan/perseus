@@ -83,7 +83,15 @@ Remaining, in order:
    (`app.updateModelContext`), and shrink the in-chat page (most of its
    7.6 MB is MathJax and its speech engine).
 2. The preview's `renderDone` and `renderError` markers (see Preview).
-3. Build order steps 7 to 10.
+3. Padding around the in-chat preview, so hint labels aren't cut off.
+   `HintRenderer` shows each hint's "n / total" label outside the hint, to
+   its left (`.perseus-hint-label` in
+   `packages/perseus/src/styles/perseus-renderer-part-2.css`: `position:
+   absolute; right: 100%` plus a right margin), as the exercise page's
+   gutter expects. With no gutter, the in-chat page clips the label at its
+   left edge. Give the page an inline-start gutter at least the label's
+   width; check the browser preview's frame too.
+4. Build order steps 7 to 10.
 
 Consuming applications aren't in this repo: the changesets carry the
 migration steps, and they're updated separately.
