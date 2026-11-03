@@ -1,4 +1,5 @@
 import {newDraft, reviseDraft} from "../domain/draft";
+import {addWidget} from "../domain/items/add-widget";
 import {buildItem} from "../domain/items/build";
 import {editItem as applyItemPatch} from "../domain/items/edit";
 import {parseItem} from "../domain/items/parse";
@@ -7,6 +8,7 @@ import {DraftNotFoundError, InvalidItemError} from "./errors";
 
 import type {Catalog} from "./catalog";
 import type {Draft} from "../domain/draft";
+import type {AddWidgetInput} from "../domain/items/add-widget";
 import type {ItemInput} from "../domain/items/build";
 import type {PatchOperation} from "../domain/items/edit";
 import type {Issue} from "../domain/items/validate";
@@ -121,6 +123,36 @@ export function createDraftUseCases(deps: DraftDependencies) {
             });
             drafts.save(revised);
             return {ok: true, draft: revised, issues};
+        },
+
+        /**
+         * Adds a widget to a draft's question or one of its hints. Nothing is
+         * saved if the widget doesn't build or the item has errors.
+         *
+         * @throws DraftNotFoundError
+         */
+        addWidget(
+            itemId: string,
+            input: AddWidgetInput,
+        ):
+            | {ok: true; draft: Draft; widgetId: string; issues: Issue[]}
+            | {ok: false; issues: Issue[]} {
+            const draft = getDraft(itemId);
+            const result = addWidget(draft.item, input, deps.catalog.widgets());
+            if (!result.ok) {
+                return result;
+            }
+            const revised = reviseDraft(draft, {
+                item: result.item,
+                now: deps.now(),
+            });
+            drafts.save(revised);
+            return {
+                ok: true,
+                draft: revised,
+                widgetId: result.widgetId,
+                issues: result.issues,
+            };
         },
 
         /** @throws DraftNotFoundError */

@@ -15,11 +15,12 @@ Tools for authoring Perseus items (Khan Academy exercise content).
 
 Work on drafts: create_item (for new content) or open_item (for an existing
 item) returns an itemId, which later tools take instead of the whole item.
-edit_item changes a draft with a JSON Patch; every change is validated before
-it's saved. Keep notes on a draft (where it came from, what it's for, what's
-left) so you can find it again with list_items. Items from any Perseus version
-are accepted; items are always returned fully migrated to the latest schema.
-export_item returns the finished JSON.
+add_widget adds a widget and edit_item changes a draft with a JSON Patch;
+every change is validated before it's saved. Keep notes on a draft (where it
+came from, what it's for, what's left) so you can find it again with
+list_items. Items from any Perseus version are accepted; items are always
+returned fully migrated to the latest schema. export_item returns the finished
+JSON.
 
 list_widgets and get_widget_spec describe each widget's options; validate_item
 checks an item the way Perseus will.`;
@@ -160,6 +161,63 @@ export function createMcpServer({
                 }
                 return jsonResult({
                     itemId: result.draft.itemId,
+                    issues: result.issues,
+                });
+            }),
+    );
+
+    server.registerTool(
+        "add_widget",
+        {
+            title: "Add a widget",
+            description:
+                "Add a widget to a draft's question (or a hint) and place its " +
+                "[[☃ id]] placeholder in the content: right after the `after` " +
+                "text, or at the end if `after` is omitted. `options` are " +
+                "merged over the type's defaults; get_widget_spec or the " +
+                "data-schema.ts resource gives their exact shape, and the " +
+                "Perseus parser checks them. If the widget or the item has " +
+                "errors, nothing is saved and the issues are returned. " +
+                "Returns the widget's id, the new revision and any warnings.",
+            inputSchema: {
+                itemId: z.string(),
+                ...widgetInputSchema.shape,
+                id: widgetInputSchema.shape.id
+                    .optional()
+                    .describe(
+                        'Defaults to the next free "<type> <n>" id, e.g. ' +
+                            '"radio 2".',
+                    ),
+                hint: z
+                    .number()
+                    .int()
+                    .min(0)
+                    .optional()
+                    .describe(
+                        "The hint to add it to; the question if omitted.",
+                    ),
+                after: z
+                    .string()
+                    .optional()
+                    .describe(
+                        "Text already in the content; the placeholder goes " +
+                            "right after its first occurrence.",
+                    ),
+            },
+        },
+        ({itemId, ...input}) =>
+            runTool(() => {
+                const result = drafts.addWidget(itemId, input);
+                if (!result.ok) {
+                    return errorResult(
+                        "The widget wasn't added; the draft is unchanged.",
+                        {issues: result.issues},
+                    );
+                }
+                return jsonResult({
+                    itemId,
+                    widgetId: result.widgetId,
+                    revision: result.draft.revision,
                     issues: result.issues,
                 });
             }),

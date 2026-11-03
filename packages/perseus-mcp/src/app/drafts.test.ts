@@ -219,6 +219,39 @@ describe("draft use cases", () => {
         });
     });
 
+    describe("addWidget", () => {
+        it("saves the draft with the widget as the next revision", async () => {
+            // Arrange
+            const {drafts, useCases} = setUp();
+            await useCases.openItem({item: generateTestPerseusItem()});
+
+            // Act
+            const result = useCases.addWidget("abc", {type: "dropdown"});
+
+            // Assert
+            expect({result, draft: drafts.get("abc")}).toMatchObject({
+                result: {ok: true, widgetId: "dropdown 1"},
+                draft: {
+                    revision: 2,
+                    item: {question: {widgets: {"dropdown 1": {}}}},
+                },
+            });
+        });
+
+        it("leaves the stored draft unchanged when the widget is rejected", async () => {
+            // Arrange
+            const {drafts, useCases} = setUp();
+            await useCases.openItem({item: generateTestPerseusItem()});
+            const before = drafts.get("abc");
+
+            // Act
+            useCases.addWidget("abc", {type: "slider"});
+
+            // Assert
+            expect(drafts.get("abc")).toEqual(before);
+        });
+    });
+
     describe("exportItem", () => {
         it("returns the draft and where it's stored", async () => {
             // Arrange
