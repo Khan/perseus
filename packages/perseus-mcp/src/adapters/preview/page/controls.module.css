@@ -1,0 +1,11 @@
+/* TODO(LEMS-3686): Remove the !important once Wonder Blocks is in the shared layer. */
+.group {
+    gap: var(--wb-sizing-size_120) !important;
+}
+
+.row {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: flex-start !important;
+    gap: var(--wb-sizing-size_160) var(--wb-sizing-size_320) !important;
+}

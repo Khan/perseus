@@ -18,8 +18,13 @@ export {A11yOverlays} from "./preview/a11y/overlays";
 export {default as PreviewWithIframe} from "./preview-with-iframe";
 export {DEFAULT_PREVIEW_OPTIONS} from "./preview/message-types";
 export type {PreviewContent, PreviewOptions} from "./preview/message-types";
-export {shownHintPositions} from "./preview/hints-state";
-export type {HintsState} from "./preview/hints-state";
+export {
+    describeHints,
+    INITIAL_HINTS_REVEAL,
+    revealHints,
+    shownHintPositions,
+} from "./preview/hints-state";
+export type {HintsReveal, HintsState} from "./preview/hints-state";
 
 import "./styles/perseus-editor.css";
 

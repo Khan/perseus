@@ -66,19 +66,19 @@ from outside the repo.
 | Add lint rules for placeholders, choices and Graphie | perseus-linter (minor changeset `calm-rivers-check`): `duplicate-choices` (radio and dropdown, ignoring `$` and spacing), `graphie-image-url` (suggests a `web+graphie://` URL in place of a Graphie PNG), and `widget-placeholder-missing-widget`, `-duplicate` and `-unrenderable`. `validate_item` keeps its own placeholder checks only for renderers nested in widgets, which the linter doesn't visit, plus `orphaned-widget`: a widget that's never placed has no node in the content for a lint rule to report on. The review checklist links the new codes. |
 | Move perseus-mcp to the v2 MCP SDK | `@modelcontextprotocol/server` and `@modelcontextprotocol/node` replace `@modelcontextprotocol/sdk` 1.x, as MCP Apps' `ext-apps` 2.x needs. HTTP serves MCP through `createMcpHandler` (stateless, a fresh server per request; it also answers GET and DELETE), stdio through `serveStdio`, and tool and prompt schemas are `z.object(...)`. The `sdk.ts` shim is gone: v2's import paths pass the lint rules. Migrated by hand (the SDK's codemod runs through `npx`). Smoke-tested over stdio from outside the repo and over HTTP. |
 | Add an MCP Apps spike that frames the preview | `preview_item` links (`_meta.ui.resourceUri`, plus the deprecated `ui/resourceUri`) to `ui://perseus/preview.html` (`text/html;profile=mcp-app`), whose CSP declares the local server in `frameDomains`. The page (`adapters/preview/app/`) connects with ext-apps' `App`, waits for the tool result and frames its URL, with a status line saying what happened. `createViteAppPage` builds it with Vite on the first request into one document (the script inlined, minified) and caches it; the real page will reuse this. |
+| Share the preview's controls with the app page | No change in behavior. The browser preview's option and hint controls move to `page/controls.tsx`, and perseus-editor exports its hint rules (`revealHints`, `describeHints`, `INITIAL_HINTS_REVEAL`), so the MCP Apps page can reuse both. Plan: Claude Desktop refused to let the spike frame `http://localhost`, so the app page renders the item itself; a hosted deployment is now build order step 9. |
 
 Remaining, in order:
 
 1. Step 5, the embedded MCP Apps page, with `@modelcontextprotocol/ext-apps`
-   2.x:
-   1. Try the spike in Claude Desktop: nobody has confirmed that hosts let
-      an app page frame `http://localhost`.
-   2. If it works, the real page: the controller (`usePreviewController`)
-      in the chat, framing our presenter cross-origin, with hints, options
-      and Check answer through `app.callServerTool`, and context sent to the
-      chat.
+   2.x. The spike showed that Claude Desktop won't let an app page frame
+   the local server (see Embedded MCP Apps page), so the page renders the
+   item itself:
+   1. The page: Perseus bundled into the single HTML file, the draft fetched
+      and followed through an app-only tool, hints, options and Check answer
+      in the page.
 2. The preview's `renderDone` and `renderError` markers (see Preview).
-3. Build order steps 6 to 8.
+3. Build order steps 6 to 9.
 
 Consuming applications aren't in this repo: the changesets carry the
 migration steps, and they're updated separately.
@@ -399,13 +399,25 @@ that the chat app shows inside the conversation.
 - The server registers a `ui://` page; `preview_item` links to it through
   `_meta.ui.resourceUri`. When the agent calls the tool, the host loads the
   page in a sandboxed frame and hands it the tool result.
-- The page acts as the controller and frames the localhost presenter. That
-  is cross-origin, so it needs the target-origin hook change.
-- It can call our tools back ("Check answer" via `score_item`) and send
-  context to the chat.
-- It must be one self-contained file and declare every outside domain in its
-  CSP: `ka-perseus-graphie.s3.amazonaws.com`, `cdn.kastatic.org` and the
-  local server.
+- **It renders the item itself** rather than framing the local presenter.
+  The spike framed `http://localhost:<port>` and Claude Desktop refused:
+  hosts accept only https origins with a dotted name in
+  `_meta.ui.csp.frameDomains`, and refuse IP addresses, names without a
+  dot and private-network names, so `localhost` can't be declared and the
+  page's `frame-src` stays `blob: data:`. Serving the local server over
+  https under a public name that resolves to the machine (with a locally
+  trusted certificate) might pass, but every author would need that setup
+  and Chromium's local-network protections may block it anyway; rejected.
+- So Perseus is bundled into the page (one self-contained HTML file, built
+  with Vite when a host first asks for it). The page gets the draft through
+  `app.callServerTool`, which the host relays to our server, and polls an
+  app-only tool to follow edits. Hints, options and Check answer live in the
+  page, sharing the browser preview's components.
+- It declares the outside hosts it loads from in its CSP
+  (`resourceDomains`): `cdn.kastatic.org` (MathJax fonts) and the Perseus
+  image hosts.
+- A hosted deployment (build order step 9) would give the preview an https
+  origin hosts accept, so the page could frame it instead.
 - Confirmed host: Claude Desktop.
 
 ## Preview messaging (Perseus hook changes)
@@ -540,8 +552,8 @@ Steps 1–3 need no Perseus changes, so building can start there.
    changeset: the duplicate-choices, graphie-URL and placeholder lint rules;
    `validate_item` then keeps its own placeholder checks only where the
    linter can't help (nested renderers, widgets never placed).
-5. **Embedded MCP Apps page:** the cross-origin case, so it waits on step 4's
-   target-origin change.
+5. **Embedded MCP Apps page:** Perseus rendered inside the page, fed through
+   MCP tool calls (hosts won't let it frame the local server).
 6. **`create_graphie`:** declarative spec to Graphie image, served locally.
 7. **Eval harness** on the Claude Agent SDK with a few smoke tasks, until the
    real task set is ready.
@@ -567,6 +579,12 @@ Steps 1–3 need no Perseus changes, so building can start there.
      SDK's allowed-hosts option), so a web page can't reach the local server
      through DNS rebinding. Set `engines` to Node 20.11 or later
      (`import.meta.dirname`).
+9. **Hosted deployment**, after publishing: run the server as a hosted
+   service on an https origin. It needs a shared draft store (a new
+   `DraftRepository` adapter), live updates across instances (one instance,
+   a pub/sub layer, or polling), OAuth for remote MCP connectors, a decision
+   on storing unpublished drafts, and the prebuilt bundles from step 8. It
+   would also let the embedded page frame the hosted preview.
 
 ## Graphie images
 
@@ -619,7 +637,6 @@ interactive-graph.
 ## Later work
 
 - Write the real eval task set (separate session).
-- Host the server as a service, with a real draft store.
 - Lint in the context of articles (low value).
 - Share the SVG inlining setting. Vite inlines small SVGs as an unquoted
   `url(data:...)`, which the quotes in Wonder Blocks' icons break, so the
