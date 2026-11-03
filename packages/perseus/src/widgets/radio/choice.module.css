@@ -269,10 +269,85 @@
 }
 
 .is-crossed-out {
+    --perseus-cross-out-hatch: repeating-linear-gradient(
+        45deg,
+        var(--wb-semanticColor-core-border-neutral-default) 0
+            var(--wb-border-width-thin),
+        transparent var(--wb-border-width-thin) var(--wb-sizing-size_080)
+    );
+    --perseus-cross-out-image-opacity: 0.7;
+    --perseus-cross-out-strike-width: var(--wb-border-width-medium);
     color: var(--wb-semanticColor-core-foreground-neutral-subtle);
 }
 
 .is-crossed-out > .choice-target > div {
     text-decoration: line-through;
-    text-decoration-thickness: var(--wb-border-width-medium);
+    text-decoration-thickness: var(--perseus-cross-out-strike-width);
+}
+
+/* Text decorations skip inline-block descendants, which is how MathJax
+   renders math, so math gets its own strike line through the middle,
+   in line with the text's.
+   Labels on a graph are left alone: the graph is hatched instead (below).
+ */
+.is-crossed-out
+    :global(.mathjax-wrapper):not(:global(.graphie-label) *)::after {
+    background-color: currentColor;
+    content: "";
+    height: var(--perseus-cross-out-strike-width);
+    inset-inline: 0;
+    pointer-events: none;
+    position: absolute;
+    top: calc(50% - var(--perseus-cross-out-strike-width) / 2);
+    z-index: 1; /* Above the copyable TeX that the renderer layers over the math */
+}
+
+/* A line through the middle of tall or multi-line math runs into a fraction
+   bar or between rows, so that math is hatched instead. The hatching sits
+   behind the math so the math stays readable.
+ */
+.is-crossed-out
+    :global(.mathjax-wrapper):not(:global(.graphie-label) *):has(
+        mjx-mfrac,
+        mjx-msqrt,
+        mjx-mroot,
+        mjx-munder,
+        mjx-mover,
+        mjx-munderover,
+        mjx-mtable
+    ) {
+    background-image: var(--perseus-cross-out-hatch);
+
+    &::after {
+        content: none;
+    }
+}
+
+/* Images and graphs are dimmed, with hatching over them.
+   A markdown image renders as a bare <img>, which can't hold the hatching
+   itself, so its paragraph does. Making that paragraph an inline-block
+   lets it take the image's size without moving anything. The strike line
+   is set again because text decorations skip inline-blocks.
+   NOTE: :only-child ignores text, so an image that shares its line with text
+         hatches the text beside it too.
+ */
+.is-crossed-out :global(.deprecated-perseus-container):has(> img:only-child),
+.is-crossed-out :global(.unresponsive-svg-image) {
+    display: inline-block;
+    margin: 0;
+    position: relative;
+    text-decoration: line-through;
+    text-decoration-thickness: var(--perseus-cross-out-strike-width);
+
+    & > * {
+        opacity: var(--perseus-cross-out-image-opacity);
+    }
+
+    &::after {
+        background-image: var(--perseus-cross-out-hatch);
+        content: "";
+        inset: 0;
+        pointer-events: none;
+        position: absolute;
+    }
 }
