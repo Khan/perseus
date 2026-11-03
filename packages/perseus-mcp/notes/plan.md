@@ -59,15 +59,15 @@ from outside the repo.
 | Add preview_item, hints and answer checks | `preview_item`: the URL of a draft's preview page (`PreviewLinks` port, implemented by the HTTP adapter once it's listening; `PreviewUnavailableError` if it never does). The frame renders the whole item with `ServerItemRenderer`, with a "Check answer" button that scores with the same `scoreItem` as `score_item` and shows Perseus's message for the learner, and hints revealed one at a time ("Hide hints" remounts the item, since Perseus can't hide them). |
 | Send preview messages to the iframe's origin | perseus-editor (major changeset `steady-harbors-listen`, which the next two commits add to): `usePreviewController` posts to the origin of its iframe's `src` instead of `"/"` and accepts messages only from it; `usePreviewPresenter` sends `iframe-ready` to `"*"`, then replies only to the origin of the parent's first message. A cross-origin parent still can't use the presenter until the next commit, because it reads `window.frameElement`. |
 | Send preview options to the iframe in messages | `PreviewOptions` and `DEFAULT_PREVIEW_OPTIONS`: `iframe-init` carries `previewOptions`, and `set-preview-options` (some of the options) replaces `set-a11y-scanning-enabled`. The controller's `setPreviewOptions` replaces `setA11yScanningEnabled`; the presenter returns `previewOptions` in place of `isMobile`, `hasLintGutter` and `a11yScanningEnabled`, no longer reads the iframe's `data-*` attributes (`PreviewWithIframe` sends them as options), and checks it's in a frame with `window.parent === window`, so a cross-origin parent works. Checked in Chrome with a frame from `127.0.0.1` inside a page on `localhost`. |
+| Add reveal-hint and hints-state to the preview | `reveal-hint` (`hintsVisible?`: a count, -1 for all, left out for the next) and the `hints-state` reply (`HintsState`). The presenter mirrors HintsRenderer's rules in `hints-state.ts` (`revealHints`, `describeHints`): a jump of more than one enters final-help-page mode, `replace` counts only outside it, and hiding hints bumps `renderKey` so the page remounts. It returns `hintsVisible` and `renderKey`; the controller returns `revealHint` and `hintsState`. |
 
 Remaining, in order:
 
-1. Step 4, in four more commits:
-   1. `reveal-hint` and `hints-state`.
-   2. perseus-mcp's shell drives hints and options through them.
-   3. The duplicate-choices, graphie-URL and placeholder lint rules (minor
+1. Step 4, in three more commits:
+   1. perseus-mcp's shell drives hints and options through them.
+   2. The duplicate-choices, graphie-URL and placeholder lint rules (minor
       changeset).
-   4. `validate_item` drops its own placeholder checks.
+   3. `validate_item` drops its own placeholder checks.
 2. The preview's `renderDone` and `renderError` markers (see Preview); they
    can come with the preview options.
 3. Build order steps 5 to 8.
@@ -420,7 +420,8 @@ Perseus changes make them work across origins and add hint control.
       applications follow the changeset's migration notes.
     - Query params were rejected: a second source of truth, and changing
       them reloads the page.
-3. **A `reveal-hint` message:** `{type: "reveal-hint", hintsVisible?: number}`,
+3. **A `reveal-hint` message** (done; the presenter mirrors HintsRenderer's
+   rules in `hints-state.ts`, since it can't read HintsRenderer's state): `{type: "reveal-hint", hintsVisible?: number}`,
    the same term and meaning as HintsRenderer's `hintsVisible` prop
    (`packages/perseus/src/hints-renderer.tsx`).
     - `hintsVisible` is a count: 0 = none, n = the first n hints, -1 = all.

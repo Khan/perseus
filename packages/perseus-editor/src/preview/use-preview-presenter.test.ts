@@ -1,3 +1,7 @@
+import {
+    generateTestPerseusItem,
+    generateTestPerseusRenderer,
+} from "@khanacademy/perseus-core";
 import {renderHook, act, waitFor} from "@testing-library/react";
 
 import {
@@ -1129,6 +1133,124 @@ describe("usePreviewPresenter", () => {
             });
 
             expect(result.current.content).toBeNull();
+        });
+    });
+
+    describe("hints", () => {
+        // An exercise with three hints, the second replacing the first.
+        function exerciseContent(): PreviewContent {
+            const hint = generateTestPerseusRenderer({content: "A hint"});
+            return {
+                type: "exercise",
+                data: {
+                    item: generateTestPerseusItem({
+                        hints: [hint, {...hint, replace: true}, hint],
+                    }),
+                    apiOptions: {},
+                    showRationales: false,
+                },
+            };
+        }
+
+        function renderWithExercise() {
+            const rendered = renderHook(() => usePreviewPresenter());
+            act(() => {
+                dispatchToPresenter(
+                    createPreviewIframeInitMessage(
+                        exerciseContent(),
+                        DEFAULT_PREVIEW_OPTIONS,
+                        1,
+                    ),
+                );
+            });
+            return rendered;
+        }
+
+        function lastHintsState() {
+            const reports = mockPostMessage.mock.calls.filter(
+                ([message]) => message.type === "hints-state",
+            );
+            return reports[reports.length - 1];
+        }
+
+        it("reports the exercise's hints when content arrives", () => {
+            // Arrange, Act
+            renderWithExercise();
+
+            // Assert
+            expect(lastHintsState()).toEqual([
+                {
+                    source: PREVIEW_MESSAGE_SOURCE,
+                    type: "hints-state",
+                    hintsState: {
+                        hintsVisible: 0,
+                        total: 3,
+                        visibleCount: 0,
+                        isFinalHelpPage: false,
+                    },
+                },
+                PARENT_ORIGIN,
+            ]);
+        });
+
+        it("reveals the next hint when reveal-hint has no count", () => {
+            // Arrange
+            const {result} = renderWithExercise();
+
+            // Act
+            act(() => {
+                dispatchToPresenter({
+                    source: PREVIEW_MESSAGE_SOURCE,
+                    type: "reveal-hint",
+                });
+                dispatchToPresenter({
+                    source: PREVIEW_MESSAGE_SOURCE,
+                    type: "reveal-hint",
+                });
+            });
+
+            // Assert
+            expect({
+                hintsVisible: result.current.hintsVisible,
+                reported: lastHintsState()[0].hintsState,
+            }).toEqual({
+                hintsVisible: 2,
+                // The second hint replaces the first.
+                reported: {
+                    hintsVisible: 2,
+                    total: 3,
+                    visibleCount: 1,
+                    isFinalHelpPage: false,
+                },
+            });
+        });
+
+        it("changes renderKey when hints are hidden", () => {
+            // Arrange
+            const {result} = renderWithExercise();
+            act(() => {
+                dispatchToPresenter({
+                    source: PREVIEW_MESSAGE_SOURCE,
+                    type: "reveal-hint",
+                    hintsVisible: -1,
+                });
+            });
+            const keyWithAllHints = result.current.renderKey;
+
+            // Act
+            act(() => {
+                dispatchToPresenter({
+                    source: PREVIEW_MESSAGE_SOURCE,
+                    type: "reveal-hint",
+                    hintsVisible: 0,
+                });
+            });
+
+            // Assert
+            expect({
+                hintsVisible: result.current.hintsVisible,
+                keyChanged: result.current.renderKey !== keyWithAllHints,
+            }).toEqual({hintsVisible: 0, keyChanged: true});
         });
     });
 

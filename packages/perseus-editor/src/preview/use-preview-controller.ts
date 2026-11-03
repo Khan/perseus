@@ -5,6 +5,7 @@ import {
     createPreviewClearHighlightsMessage,
     createPreviewHighlightIssuesMessage,
     createPreviewIframeInitMessage,
+    createPreviewRevealHintMessage,
     createPreviewSetPreviewOptionsMessage,
     DEFAULT_PREVIEW_OPTIONS,
     PREVIEW_MESSAGE_SOURCE,
@@ -12,6 +13,7 @@ import {
 import {isIframeToParentMessage} from "./message-validators";
 import {sanitizePreviewData} from "./preview-data-sanitizer";
 
+import type {HintsState} from "./hints-state";
 import type {
     ParentToIframeMessage,
     PreviewContent,
@@ -65,6 +67,15 @@ type UsePreviewControllerResult = {
      * The latest accessibility report received from the iframe (null if none)
      */
     a11yReport: A11yReport | null;
+    /**
+     * Ask the iframe to show the first `hintsVisible` of the exercise's
+     * hints (-1 for all), or the next hint if left out.
+     */
+    revealHint: (hintsVisible?: number) => void;
+    /**
+     * Which hints the iframe last reported showing (null until it reports).
+     */
+    hintsState: HintsState | null;
 };
 
 /**
@@ -102,6 +113,7 @@ export function usePreviewController(
     const [height, setHeight] = React.useState<number | null>(null);
     const [isIframeReady, setIsIframeReady] = React.useState(false);
     const [a11yReport, setA11yReport] = React.useState<A11yReport | null>(null);
+    const [hintsState, setHintsState] = React.useState<HintsState | null>(null);
 
     // The current desired preview state, resent in full as an `iframe-init`
     // reply whenever the iframe announces `iframe-ready` — including on a
@@ -183,6 +195,10 @@ export function usePreviewController(
                     });
                     break;
 
+                case "hints-state":
+                    setHintsState(message.hintsState);
+                    break;
+
                 default:
                     throw new UnreachableCaseError(message);
             }
@@ -251,6 +267,15 @@ export function usePreviewController(
         [postToIframe],
     );
 
+    // Shows hints in the iframe. Hint state isn't kept across a reload: the
+    // reloaded iframe starts with no hints showing and reports that.
+    const revealHint = React.useCallback(
+        (hintsVisible?: number) => {
+            postToIframe(createPreviewRevealHintMessage(hintsVisible));
+        },
+        [postToIframe],
+    );
+
     // Clears any highlighted elements in the iframe
     const clearHighlights = React.useCallback(() => {
         postToIframe(createPreviewClearHighlightsMessage());
@@ -263,5 +288,7 @@ export function usePreviewController(
         highlightIssues,
         clearHighlights,
         a11yReport,
+        revealHint,
+        hintsState,
     };
 }

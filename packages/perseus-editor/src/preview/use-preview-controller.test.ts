@@ -1,6 +1,7 @@
 import {renderHook, act, waitFor} from "@testing-library/react";
 
 import {
+    createPreviewHintsStateMessage,
     createPreviewIframeReadyMessage,
     DEFAULT_PREVIEW_OPTIONS,
     PREVIEW_MESSAGE_SOURCE,
@@ -490,6 +491,61 @@ describe("usePreviewController", () => {
                 }),
             });
             expect(messagesOfType("iframe-init")).toEqual([resent, resent]);
+        });
+    });
+
+    describe("hints", () => {
+        it.each([
+            [undefined, {}],
+            [2, {hintsVisible: 2}],
+        ])(
+            "posts a reveal-hint command for hintsVisible: %s",
+            (hintsVisible, expected) => {
+                // Arrange
+                const {result} = renderHook(() =>
+                    usePreviewController(iframeRef),
+                );
+
+                // Act
+                act(() => {
+                    result.current.revealHint(hintsVisible);
+                });
+
+                // Assert
+                expect(mockContentWindow.postMessage).toHaveBeenCalledWith(
+                    {
+                        source: PREVIEW_MESSAGE_SOURCE,
+                        type: "reveal-hint",
+                        ...expected,
+                    },
+                    IFRAME_ORIGIN,
+                );
+            },
+        );
+
+        it("returns the hints state the iframe last reported", () => {
+            // Arrange
+            const {result} = renderHook(() => usePreviewController(iframeRef));
+            const hintsState = {
+                hintsVisible: 2,
+                total: 3,
+                visibleCount: 1,
+                isFinalHelpPage: false,
+            };
+
+            // Act
+            act(() => {
+                window.dispatchEvent(
+                    new MessageEvent("message", {
+                        data: createPreviewHintsStateMessage(hintsState),
+                        source: mockContentWindow,
+                        origin: IFRAME_ORIGIN,
+                    }),
+                );
+            });
+
+            // Assert
+            expect(result.current.hintsState).toEqual(hintsState);
         });
     });
 

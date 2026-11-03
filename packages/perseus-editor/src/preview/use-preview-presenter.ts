@@ -3,8 +3,10 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 
 import {mapAxeResults} from "./a11y/map-axe-results";
+import {describeHints, INITIAL_HINTS_REVEAL, revealHints} from "./hints-state";
 import {
     createPreviewA11yReportMessage,
+    createPreviewHintsStateMessage,
     createPreviewIframeReadyMessage,
     DEFAULT_PREVIEW_OPTIONS,
     PREVIEW_MESSAGE_SOURCE,
@@ -17,6 +19,7 @@ import type {
     PreviewContent,
     PreviewOptions,
 } from "./message-types";
+import type {Hint} from "@khanacademy/perseus-core";
 
 type UsePreviewPresenterOptions = {
     /**
@@ -46,7 +49,23 @@ type UsePreviewPresenterResult = {
      * message.
      */
     highlightTargets: Element[];
+    /**
+     * How many of an exercise's hints to show, as the parent last asked with
+     * `reveal-hint`: pass it to the renderer's `hintsVisible` prop.
+     */
+    hintsVisible: number;
+    /**
+     * Changes when the parent hides hints. Use it as the `key` of the
+     * rendered content: HintsRenderer can't hide a hint once it's shown, so
+     * the content has to remount.
+     */
+    renderKey: number;
 };
+
+/** The hints of the content, if it's a whole exercise. */
+function hintsOf(content: PreviewContent | null): ReadonlyArray<Hint> {
+    return content?.type === "exercise" ? content.data.item.hints : [];
+}
 
 /**
  * Hook for preview iframe to receive data from parent and send updates back.
@@ -83,6 +102,7 @@ export function usePreviewPresenter(
     const {contentContainerRef} = options;
     const [content, setContent] = React.useState<PreviewContent | null>(null);
     const [contentVersion, setContentVersion] = React.useState(0);
+    const [hintsReveal, setHintsReveal] = React.useState(INITIAL_HINTS_REVEAL);
     const [previewOptions, setPreviewOptions] = React.useState<PreviewOptions>(
         DEFAULT_PREVIEW_OPTIONS,
     );
@@ -167,6 +187,16 @@ export function usePreviewPresenter(
 
                 case "clear-highlights":
                     setHighlightTargets([]);
+                    break;
+
+                case "reveal-hint":
+                    setHintsReveal((current) =>
+                        revealHints(
+                            current,
+                            message.hintsVisible,
+                            hintCountRef.current,
+                        ),
+                    );
                     break;
 
                 default:
@@ -308,6 +338,36 @@ export function usePreviewPresenter(
         startScan,
     ]);
 
+    const hints = hintsOf(content);
+    // Mirrored into a ref for the message handler, which reads it when a
+    // reveal-hint arrives.
+    const hintCountRef = React.useRef(hints.length);
+    React.useEffect(() => {
+        hintCountRef.current = hints.length;
+    }, [hints.length]);
+
+    const hintsState = describeHints(hints, hintsReveal);
+    const {hintsVisible, visibleCount, total, isFinalHelpPage} = hintsState;
+    // Reported on every content update too, so the parent learns how many
+    // hints the content has.
+    React.useEffect(() => {
+        postToParent(
+            createPreviewHintsStateMessage({
+                hintsVisible,
+                total,
+                visibleCount,
+                isFinalHelpPage,
+            }),
+        );
+    }, [
+        postToParent,
+        contentVersion,
+        hintsVisible,
+        total,
+        visibleCount,
+        isFinalHelpPage,
+    ]);
+
     // Memoized callback to report height
     const reportHeight = React.useCallback(
         (height: number) => {
@@ -329,5 +389,7 @@ export function usePreviewPresenter(
         previewOptions,
         reportHeight,
         highlightTargets,
+        hintsVisible,
+        renderKey: hintsReveal.renderKey,
     };
 }

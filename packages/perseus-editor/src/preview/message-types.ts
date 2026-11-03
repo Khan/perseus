@@ -3,6 +3,7 @@
  * the preview iframe.
  */
 
+import type {HintsState} from "./hints-state";
 import type {SerializableApiOptions} from "./sanitize-api-options";
 import type {A11yIssue} from "../components/issues-panel";
 import type {
@@ -221,6 +222,29 @@ export function createPreviewSetPreviewOptionsMessage(
 }
 
 /**
+ * Command from parent telling the iframe which of an exercise's hints to show.
+ * `hintsVisible` is a count, as in HintsRenderer's prop of that name: 0 for
+ * none, n for the first n, -1 for all. Leave it out to reveal the next hint.
+ * Revealing more than one hint at once enters final-help-page mode (see
+ * {@link HintsState}); showing fewer hints than before remounts the preview,
+ * which also clears the learner's answers.
+ */
+interface PreviewRevealHintMessage extends PreviewMessageBase {
+    type: "reveal-hint";
+    hintsVisible?: number;
+}
+
+export function createPreviewRevealHintMessage(
+    hintsVisible?: number,
+): PreviewRevealHintMessage {
+    return {
+        source: PREVIEW_MESSAGE_SOURCE,
+        type: "reveal-hint",
+        ...(hintsVisible == null ? {} : {hintsVisible}),
+    };
+}
+
+/**
  * Command from parent telling the iframe to highlight the elements for the
  * given instanceIds (the "Show Me" overlays drawn inside the iframe).
  */
@@ -263,6 +287,7 @@ export type ParentToIframeMessage =
     | PreviewDataMessage
     | PreviewIframeInitMessage
     | PreviewSetPreviewOptionsMessage
+    | PreviewRevealHintMessage
     | PreviewHighlightIssuesMessage
     | PreviewClearHighlightsMessage;
 
@@ -299,12 +324,33 @@ interface PreviewA11yReportMessage extends PreviewMessageVersioned {
 }
 
 /**
+ * Message from iframe reporting which of the exercise's hints it shows. Sent
+ * whenever that changes, including when new content has a different number
+ * of hints.
+ */
+interface PreviewHintsStateMessage extends PreviewMessageBase {
+    type: "hints-state";
+    hintsState: HintsState;
+}
+
+export function createPreviewHintsStateMessage(
+    hintsState: HintsState,
+): PreviewHintsStateMessage {
+    return {
+        source: PREVIEW_MESSAGE_SOURCE,
+        type: "hints-state",
+        hintsState,
+    };
+}
+
+/**
  * Union of all messages sent from iframe to parent
  */
 export type IframeToParentMessage =
     | PreviewIframeReadyMessage
     | PreviewHeightUpdateMessage
-    | PreviewA11yReportMessage;
+    | PreviewA11yReportMessage
+    | PreviewHintsStateMessage;
 
 export function createPreviewIframeReadyMessage(): PreviewIframeReadyMessage {
     return {
