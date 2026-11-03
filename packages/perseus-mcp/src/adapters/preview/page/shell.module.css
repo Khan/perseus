@@ -1,0 +1,30 @@
+/* TODO(LEMS-3686): Remove the !important once Wonder Blocks is in the shared layer. */
+.page {
+    gap: var(--wb-sizing-size_240) !important;
+}
+
+/* The whole page: the root font size is 10px, so 120rem is 1200px. */
+.root {
+    max-inline-size: 120rem;
+    margin-inline: auto !important;
+    padding: var(--wb-sizing-size_240) var(--wb-sizing-size_160) !important;
+}
+
+.group {
+    gap: var(--wb-sizing-size_120) !important;
+}
+
+.row {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: flex-start !important;
+    gap: var(--wb-sizing-size_160) var(--wb-sizing-size_320) !important;
+}
+
+.frame {
+    display: block;
+    inline-size: 100%;
+    min-block-size: 10rem;
+    border: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-default);
+}

@@ -2,8 +2,20 @@
 // draft's event stream and sends each revision to the preview frame, so the
 // page shows the draft's latest state without reloading.
 import {usePreviewController} from "@khanacademy/perseus-editor";
+import Button from "@khanacademy/wonder-blocks-button";
+import {RenderStateRoot, View} from "@khanacademy/wonder-blocks-core";
+import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
+import {CheckboxGroup, Choice} from "@khanacademy/wonder-blocks-form";
+import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
+import {BodyText, Heading} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import {createRoot} from "react-dom/client";
+
+import styles from "./shell.module.css";
+
+// The page setup Wonder Blocks expects: its tokens, fonts and base styles.
+import "@internal/perseus-environment/styles.css";
+import "@internal/perseus-environment/lato.css";
 
 import type {PerseusItem, ShowSolutions} from "@khanacademy/perseus-core";
 import type {HintsState, PreviewOptions} from "@khanacademy/perseus-editor";
@@ -75,40 +87,55 @@ function HintControls({
     hintsState: HintsState | null;
     revealHint: (hintsVisible?: number) => void;
 }) {
-    if (hintsState?.total === 0) {
-        return <p>This item has no hints.</p>;
-    }
+    const headingId = React.useId();
     const hintsVisible = hintsState?.hintsVisible ?? 0;
     const allRevealed =
         hintsState == null || hintsState.hintsVisible >= hintsState.total;
     return (
-        <fieldset>
-            <legend>Hints</legend>
-            <div className="controls">
-                <button
-                    type="button"
-                    disabled={allRevealed}
-                    onClick={() => revealHint()}
-                >
-                    Show next hint
-                </button>
-                <button
-                    type="button"
-                    disabled={allRevealed}
-                    onClick={() => revealHint(-1)}
-                >
-                    Show all hints
-                </button>
-                <button
-                    type="button"
-                    disabled={hintsVisible === 0}
-                    onClick={() => revealHint(0)}
-                >
-                    Hide hints
-                </button>
-            </div>
-            {hintsState != null && <p>{describeHintsState(hintsState)}</p>}
-        </fieldset>
+        <View
+            tag="section"
+            aria-labelledby={headingId}
+            className={styles.group}
+        >
+            <Heading id={headingId} tag="h2" size="medium">
+                Hints
+            </Heading>
+            {hintsState?.total === 0 ? (
+                <BodyText>This item has no hints.</BodyText>
+            ) : (
+                <>
+                    <View className={styles.row}>
+                        <Button
+                            kind="secondary"
+                            size="small"
+                            disabled={allRevealed}
+                            onClick={() => revealHint()}
+                        >
+                            Show next hint
+                        </Button>
+                        <Button
+                            kind="secondary"
+                            size="small"
+                            disabled={allRevealed}
+                            onClick={() => revealHint(-1)}
+                        >
+                            Show all hints
+                        </Button>
+                        <Button
+                            kind="secondary"
+                            size="small"
+                            disabled={hintsVisible === 0}
+                            onClick={() => revealHint(0)}
+                        >
+                            Hide hints
+                        </Button>
+                    </View>
+                    {hintsState != null && (
+                        <BodyText>{describeHintsState(hintsState)}</BodyText>
+                    )}
+                </>
+            )}
+        </View>
     );
 }
 
@@ -118,6 +145,18 @@ type OfferedOptions = Pick<
     PreviewOptions,
     "reviewMode" | "showSolutions" | "answerless" | "readOnly"
 >;
+
+const TOGGLES = {
+    reviewMode: "Review mode",
+    answerless: "Without answers, as learners get it",
+    readOnly: "Read only",
+} satisfies Record<Exclude<keyof OfferedOptions, "showSolutions">, string>;
+
+type Toggle = keyof typeof TOGGLES;
+
+function isToggle(value: string): value is Toggle {
+    return Object.keys(TOGGLES).includes(value);
+}
 
 const SHOW_SOLUTIONS_TEXT: Record<ShowSolutions, string> = {
     none: "None",
@@ -136,32 +175,39 @@ function OptionControls({
     options: OfferedOptions;
     onChange: (options: Partial<OfferedOptions>) => void;
 }) {
-    const checkbox = (
-        name: "reviewMode" | "answerless" | "readOnly",
-        label: string,
-    ) => (
-        <label>
-            <input
-                type="checkbox"
-                checked={options[name]}
-                onChange={(event) => onChange({[name]: event.target.checked})}
-            />
-            {label}
-        </label>
-    );
+    const toggles = Object.keys(TOGGLES).filter(isToggle);
     return (
-        <fieldset>
-            <legend>Preview options</legend>
-            <div className="controls">
-                {checkbox("reviewMode", "Review mode")}
-                {checkbox("answerless", "Without answers, as learners get it")}
-                {checkbox("readOnly", "Read only")}
-                <label>
-                    Show solutions
-                    <select
-                        value={options.showSolutions}
-                        onChange={(event) => {
-                            const {value} = event.target;
+        <View className={styles.row}>
+            <CheckboxGroup
+                label="Preview options"
+                groupName="preview-options"
+                selectedValues={toggles.filter((toggle) => options[toggle])}
+                onChange={(selected) =>
+                    onChange(
+                        Object.fromEntries(
+                            toggles.map((toggle) => [
+                                toggle,
+                                selected.includes(toggle),
+                            ]),
+                        ),
+                    )
+                }
+            >
+                {toggles.map((toggle) => (
+                    <Choice
+                        key={toggle}
+                        label={TOGGLES[toggle]}
+                        value={toggle}
+                    />
+                ))}
+            </CheckboxGroup>
+            <LabeledField
+                label="Show solutions"
+                field={
+                    <SingleSelect
+                        placeholder="Choose when to show solutions"
+                        selectedValue={options.showSolutions}
+                        onChange={(value) => {
                             if (isShowSolutions(value)) {
                                 onChange({showSolutions: value});
                             }
@@ -169,15 +215,17 @@ function OptionControls({
                     >
                         {Object.entries(SHOW_SOLUTIONS_TEXT).map(
                             ([value, text]) => (
-                                <option key={value} value={value}>
-                                    {text}
-                                </option>
+                                <OptionItem
+                                    key={value}
+                                    label={text}
+                                    value={value}
+                                />
                             ),
                         )}
-                    </select>
-                </label>
-            </div>
-        </fieldset>
+                    </SingleSelect>
+                }
+            />
+        </View>
     );
 }
 
@@ -211,30 +259,37 @@ function Shell({itemId}: {itemId: string}) {
     }, [draft, sendData]);
 
     return (
-        <>
-            <header>
-                <h1>{`Preview of draft ${itemId}`}</h1>
-                <p>{status}</p>
-            </header>
-            <main>
-                <HintControls hintsState={hintsState} revealHint={revealHint} />
+        <View className={`${styles.root} ${styles.page}`}>
+            <View tag="header" className={styles.group}>
+                <Heading tag="h1" size="xlarge">
+                    {`Preview of draft ${itemId}`}
+                </Heading>
+                <BodyText>{status}</BodyText>
+            </View>
+            <View tag="main" className={styles.page}>
                 <OptionControls
                     options={options}
                     onChange={(changed) =>
                         setOptions((current) => ({...current, ...changed}))
                     }
                 />
+                <HintControls hintsState={hintsState} revealHint={revealHint} />
                 <iframe
                     ref={iframeRef}
                     src="/preview/frame"
                     title={`Draft ${itemId}`}
-                    style={{height: height ?? undefined}}
+                    className={styles.frame}
+                    style={{blockSize: height ?? undefined}}
                 />
-            </main>
-        </>
+            </View>
+        </View>
     );
 }
 
 // The page's path is /drafts/<itemId>/preview.
 const itemId = decodeURIComponent(window.location.pathname.split("/")[2]);
-createRoot(document.getElementById("root")!).render(<Shell itemId={itemId} />);
+createRoot(document.getElementById("root")!).render(
+    <RenderStateRoot>
+        <Shell itemId={itemId} />
+    </RenderStateRoot>,
+);

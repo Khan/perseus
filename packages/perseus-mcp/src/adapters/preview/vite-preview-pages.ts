@@ -33,6 +33,13 @@ export async function createVitePreviewPages(
         // Puts Perseus's CSS in the cascade layers it has in production.
         plugins: [cssWrapper],
         server: {middlewareMode: true, hmr: {server}},
+        // Vite inlines small SVGs as `url(data:...)` without quoting them, and
+        // the quotes inside Wonder Blocks' icons then break the CSS: icons
+        // show as solid squares. Storybook turns this off the same way.
+        build: {
+            assetsInlineLimit: (file) =>
+                file.endsWith(".svg") ? false : undefined,
+        },
         // Perseus and math-input fall back to their English strings in
         // Storybook. The preview is the same kind of dev environment.
         define: {"process.env.STORYBOOK": "true"},
