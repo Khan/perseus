@@ -1,6 +1,6 @@
-// Runs the server from a package (the Claude Desktop extension, built by
-// scripts/build-mcpb-lib.ts): this file is bundled into server/index.mjs, next
-// to the prebuilt pages and perseus-core's type definitions. Nothing here
+// Runs the server from the bundle testers install (built by
+// scripts/build-bundle-lib.ts): this file is bundled into server/index.mjs,
+// next to the prebuilt pages and perseus-core's type definitions. Nothing here
 // loads Vite, which the package doesn't include.
 import path from "node:path";
 

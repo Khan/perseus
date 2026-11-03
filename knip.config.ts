@@ -106,15 +106,12 @@ const config: KnipConfig = {
                 // The preview pages' scripts, loaded by their HTML through
                 // Vite.
                 "src/adapters/preview/page/{shell,frame}.tsx!",
-                // The packaged server's entry point, which scripts/build-mcpb
+                // The packaged server's entry point, which scripts/build-bundle
                 // bundles.
                 "src/main-packaged.ts!",
                 // The MCP Apps page's script, built when a host asks for it.
                 "src/adapters/preview/app/preview-app.tsx!",
             ],
-            // scripts/build-mcpb-lib.ts runs its CLI with `pnpm exec`, which
-            // Knip doesn't read.
-            ignoreDependencies: ["@anthropic-ai/mcpb"],
         },
         "packages/perseus-core": {
             ...basePackageConfig,

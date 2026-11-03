@@ -18,7 +18,7 @@
         "perseus-mcp": "./bin/perseus-mcp.mjs"
     },
     "scripts": {
-        "build:mcpb": "node scripts/build-mcpb.mjs",
+        "build:bundle": "node scripts/build-bundle.mjs",
         "build:pages": "node scripts/build-pages.mjs"
     },
     "dependencies": {
@@ -50,7 +50,6 @@
     },
     "keywords": [],
     "devDependencies": {
-        "@anthropic-ai/mcpb": "^2.1.2",
         "@internal/perseus-environment": "workspace:*"
     }
 }

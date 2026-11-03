@@ -58,7 +58,7 @@ export function userDataDir(
 export type PackagedPaths = RuntimePaths & {pagesDir: string};
 
 /**
- * Running from a package laid out as `scripts/build-mcpb-lib.ts` builds it,
+ * Running from a bundle laid out as `scripts/build-bundle-lib.ts` builds it,
  * in `root`: `server/index.mjs`, `types/` and `pages/`. Drafts go in the
  * user's data folder, since there's no checkout to keep them in.
  */

@@ -74,18 +74,16 @@ from outside the repo.
 | Bundle a packaged perseus-mcp server | `build:mcpb` builds `dist/mcpb/`: `server/index.mjs` (the packaged entry point, `main-packaged.ts`, and every dependency, from Vite's server-side build with `ssr.noExternal`), perseus-core's two type files in `types/`, and the prebuilt pages in `pages/`. `start()` holds the wiring both entry points share; `main.ts` (the repo) passes `checkoutPaths()` and Vite or `--pages`, `main-packaged.ts` passes `packagedPaths()` and the prebuilt pages, so Vite stays out of the bundle. Installed, drafts go in the user's data folder (`userDataDir`), and the server logs where. Run from a copy outside the repo: all tools, the shipped type files, drafts in Application Support, both previews. |
 | Pack perseus-mcp into a .mcpb | `build:mcpb` (also `pnpm build:mcpb` at the root) now writes `manifest.json` (MCP Bundle 0.3, generated from perseus-mcp's `package.json`, so the versions match; `node` over stdio; all three platforms; Node 20.11 or later; tools and prompts listed by the server), the repo's `logo.png` as `icon.png`, the MIT `LICENSE` and the fonts' OFL texts (also added next to the fonts in `config/environment`), then runs `mcpb validate` and `mcpb pack` from the `@anthropic-ai/mcpb` dev dependency into `dist/perseus-mcp.mcpb` (7.9 MB). Unpacked outside the repo, the server lists all its tools over stdio. |
 | Check the Host header on perseus-mcp's HTTP server | Every HTTP request (MCP, event streams, preview pages and assets) must name an allowed host in its `Host` header or gets a 403, through the MCP SDK's `hostHeaderValidation`, so a web page can't reach a local server through DNS rebinding and read or change drafts. `allowedHostnames(host)` allows localhost's names (`localhost`, `127.0.0.1`, `[::1]`) plus `--host` when it names a host; a wildcard `--host` (`0.0.0.0`, `::`) allows only localhost's names. Checked on the packed server: `localhost` gets 200, another `Host` 403. |
+| Ship perseus-mcp to testers as a macOS zip | The organization's extension allowlist keeps Claude Desktop from installing a `.mcpb` that an owner hasn't approved, so testers run the server from a `claude_desktop_config.json` entry instead, and the `.mcpb` (manifest, icon, `@anthropic-ai/mcpb`) is gone. `build:bundle` (renamed from `build:mcpb`) builds `dist/perseus-mcp-macos-arm64.zip`: a `perseus-mcp/` folder with the server, the Node that ran the build (it must be an official macOS arm64 build, 20.11 or later; signed by the Node.js Foundation, so Gatekeeper takes it), Node's license and `INSTALL.md` with the config entry. Only macOS on Apple silicon is supported. Tested in Claude Desktop from `~/Applications/perseus-mcp`: the tools, validation and answer checks, the in-chat preview following edits, and the browser preview. |
 
 Remaining, in order:
 
-1. Build order step 6: package perseus-mcp as a Claude Desktop extension
-   (`.mcpb`) for testers: install the built `.mcpb` in Claude Desktop (in
-   place of a development config entry) and test it there.
-2. Step 5 follow-ups, once testing in Claude Desktop says what's needed:
+1. Step 5 follow-ups, once testing in Claude Desktop says what's needed:
    send what the learner did (answers, scores) to the chat as model context
    (`app.updateModelContext`), and shrink the in-chat page (most of its
    7.6 MB is MathJax and its speech engine).
-3. The preview's `renderDone` and `renderError` markers (see Preview).
-4. Build order steps 7 to 10.
+2. The preview's `renderDone` and `renderError` markers (see Preview).
+3. Build order steps 7 to 10.
 
 Consuming applications aren't in this repo: the changesets carry the
 migration steps, and they're updated separately.
@@ -112,17 +110,17 @@ migration steps, and they're updated separately.
   package: it would drop `private` and `bin`. Knip finds the entry point by
   following `bin`; `knip.config.ts` only drops the default `src/index.*`
   pattern, which matches nothing here.
-- **The packaged server:** `pnpm --filter @khanacademy/perseus-mcp build:mcpb`
-  builds `dist/mcpb/` (`server/index.mjs`, `types/`, `pages/`), laid out as
-  `packagedPaths()` expects. Try it from a copy outside the repo with
-  `node <copy>/server/index.mjs --stdio`; set `HOME` to a scratch folder to
-  keep its drafts apart (with mise, run the real `node` binary, since its
-  shim reads `HOME`).
+- **The testers' bundle:** `pnpm build:bundle` (macOS on Apple silicon only)
+  builds `dist/bundle/perseus-mcp/` (`node`, `server/index.mjs`, `types/`,
+  `pages/`, licenses, `INSTALL.md`), laid out as `packagedPaths()` expects,
+  and zips it into `dist/perseus-mcp-macos-arm64.zip`. Try it from a copy
+  outside the repo with `<copy>/node <copy>/server/index.mjs --stdio`; set
+  `HOME` to a scratch folder to keep its drafts apart.
 - **Prebuilt pages:** `build:pages` writes `dist/pages/preview/` (the
   shell, the frame and `assets/`) and `dist/pages/preview-app.html`
   (`src/adapters/preview/prebuilt-layout.ts`, kept free of Vite so serving
   doesn't load it). Run `perseus-mcp --pages packages/perseus-mcp/dist/pages`
-  to try exactly what the extension will ship. Builds run in production
+  to try exactly what the bundle ships. Builds run in production
   mode through `productionBuild` (see below).
 - **The MCP Apps page** is built by `createViteAppPage` when a host first
   reads `ui://perseus/preview.html`, and cached:
@@ -248,7 +246,7 @@ them.
 | --- | --- |
 | Where it runs | Local first: MCP over stdio or local HTTP, with HTTP always running for the preview page. A hosted service later. |
 | Architecture | Hexagonal (ports and adapters); see Architecture. |
-| Where the code lives | `packages/perseus-mcp` in this monorepo, a private package; run with `pnpm start-mcp`. Shared with testers as a Claude Desktop extension (build order step 6), then published to npm as `@khanacademy/perseus-mcp` once it has been tested in use (step 9). |
+| Where the code lives | `packages/perseus-mcp` in this monorepo, a private package; run with `pnpm start-mcp`. Shared with testers as a macOS zip run from Claude Desktop's config (build order step 6), then published to npm as `@khanacademy/perseus-mcp` once it has been tested in use (step 9). |
 | Stack | Official TypeScript MCP SDK, v2 (`@modelcontextprotocol/server`, `@modelcontextprotocol/node`), with Fastify. |
 | Data in and out | Raw PerseusItem JSON. Any older Perseus version is accepted; tools always return fully migrated, latest-schema items. Content-backend API access is out of scope. |
 | Auth and limits | None. Tools are pure functions over JSON the caller supplies. |
@@ -394,7 +392,7 @@ the host supports MCP Apps.
   compiles the page from source on request, like the server itself: no
   build step to forget, at the cost of a slower first load. A prebuilt
   bundle was rejected for development because every change would need a
-  rebuild; the packaged extension will need one (build order step 6).
+  rebuild; the testers' bundle has one (build order step 6).
 - A top-level shell follows the draft over SSE and runs
   `usePreviewController`; an iframe on the same origin runs
   `usePreviewPresenter` and renders with ServerItemRenderer. Same origin
@@ -584,16 +582,15 @@ Steps 1–3 need no Perseus changes, so building can start there.
    linter can't help (nested renderers, widgets never placed).
 5. **Embedded MCP Apps page:** Perseus rendered inside the page, fed through
    MCP tool calls (hosts won't let it frame the local server).
-6. **Package as a Claude Desktop extension (`.mcpb`)**, so testers install
-   it with one click, without the repo, a terminal or config editing. A
-   `.mcpb` is a zip of a `manifest.json` and the server's files; Claude
-   Desktop runs `node ${__dirname}/server/index.mjs --stdio` with the Node it
-   ships (whose version the spec doesn't state: the manifest declares
-   20.11 or later, `import.meta.dirname`, and the installed extension is
-   checked). Decisions: all three platforms (`darwin`, `win32`, `linux`;
-   only macOS is tested), unsigned (it installs with a warning), the Perseus
-   logo as its icon (the repo's `logo.png`), and the
-   manifest's version copied from perseus-mcp's `package.json`. Commits:
+6. **Ship to testers** (done) as a macOS zip they unpack and add to
+   `claude_desktop_config.json`. The plan was a Claude Desktop extension
+   (`.mcpb`), installed with one click, but the organization's extension
+   allowlist refuses any `.mcpb` an owner hasn't approved.
+   So the zip carries its own Node (an official build, signed by the Node.js
+   Foundation), and only macOS on Apple silicon is supported: the build
+   ships the Node that runs it. If an owner later allows a custom
+   extension, the `.mcpb` build is in this branch's history (commit "Pack
+   perseus-mcp into a .mcpb"). Commits:
    1. **Paths by where the server runs** (done): `RuntimePaths` gives the
       files the installed server must find (perseus-core's type definitions,
       the default data directory); `checkoutPaths()` the repo's. The
@@ -610,40 +607,33 @@ Steps 1–3 need no Perseus changes, so building can start there.
       and the MCP Apps page into `dist/pages`; `--pages <dir>` serves them
       without Vite. The pages keep Vite's default browser targets:
       `config/build/browser-targets.ts` has no package export, and importing
-      it across packages breaks the lint rules. The fonts' OFL licenses go
-      in with the pack script (commit 5).
+      it across packages breaks the lint rules.
    4. **One bundled server file** (done): a packaged entry point
       (`packagedPaths()`, no Vite) bundled with all its dependencies into
       `server/index.mjs` (Vite's server-side build for Node, with
-      `ssr.noExternal: true`), since pnpm's `node_modules` is symlinks and
-      doesn't survive zipping. It includes the TypeScript compiler, which
-      `get_widget_spec` uses; the two perseus-core type files ship next to
-      it. Rolldown gives bundled CommonJS its own `require()`;
-      `__filename` and `__dirname` (which the TypeScript compiler reads) are
-      defined as `import.meta.filename` and `import.meta.dirname`, which
-      need Node 20.11.
-   5. **Manifest and pack script** (done): `build:mcpb` writes
-      `manifest.json` from `package.json`, copies the icon and licenses into
-      `dist/mcpb`, then runs `mcpb validate` and `mcpb pack` from
-      `@anthropic-ai/mcpb`, a dev dependency run with `pnpm exec` (never
-      `npx`). The output, `dist/perseus-mcp.mcpb`, isn't committed. The
-      validator recommends a 512×512 icon; `logo.png` is 400×400.
+      `ssr.noExternal: true`), since pnpm's `node_modules` is symlinks. It
+      includes the TypeScript compiler, which `get_widget_spec` uses; the
+      two perseus-core type files ship next to it. Rolldown gives bundled
+      CommonJS its own `require()`; `__filename` and `__dirname` (which the
+      TypeScript compiler reads) are defined as `import.meta.filename` and
+      `import.meta.dirname`, which need Node 20.11.
+   5. **Licenses** (done, with the `.mcpb` pack step that commit 7
+      removed): the MIT `LICENSE` and the fonts' OFL texts go in the bundle.
    6. **`Host` header check** (done) on HTTP requests, so a web page can't
       reach a tester's local server through DNS rebinding. A wildcard
       `--host` allows only localhost's names; a hosted deployment (step 10)
       will need its own allowed names.
+   7. **The macOS zip, tested** (done): `build:bundle` adds Node, its
+      license and `INSTALL.md`, and zips the folder with `ditto` (which keeps
+      the binary's signature). Checked unzipped and quarantined outside the
+      repo, then in Claude Desktop: the tools, the browser preview and the
+      in-chat preview.
    - **How it's built:** with the repo's Vite, through its JavaScript API,
-     in a `build:mcpb` script of perseus-mcp's own (run with
-     `pnpm --filter @khanacademy/perseus-mcp build:mcpb`), written like
-     `config/build/build-packages.ts`. The pages reuse `PERSEUS_VITE_CONFIG`
-     and `config/build/browser-targets.ts`. It isn't part of `pnpm build`,
-     which builds what's published (as browser libraries with external
-     dependencies) and runs in CI; a CI job that runs `build:mcpb` can come
-     once the first `.mcpb` works.
-   7. **Install and test:** the built server smoke-tested over stdio from
-      outside the repo; then the `.mcpb` installed in Claude Desktop (with
-      the dev config entry removed, so two perseus servers don't run): the
-      tools, the browser preview and the in-chat preview.
+     in a `build:bundle` script of perseus-mcp's own (`pnpm build:bundle` at
+     the root). It isn't part of `pnpm build`, which builds what's published
+     (as browser libraries with external dependencies) and runs in CI.
+   - **Not done:** Windows and Linux bundles (each would ship that
+     platform's Node), and a CI job that builds the zip.
 7. **`create_graphie`:** declarative spec to Graphie image, served locally.
 8. **Eval harness** on the Claude Agent SDK with a few smoke tasks, until the
    real task set is ready.
