@@ -6,6 +6,7 @@ import {mapAxeResults} from "./a11y/map-axe-results";
 import {
     createPreviewA11yReportMessage,
     createPreviewIframeReadyMessage,
+    DEFAULT_PREVIEW_OPTIONS,
     PREVIEW_MESSAGE_SOURCE,
 } from "./message-types";
 import {isParentToIframeMessage} from "./message-validators";
@@ -14,6 +15,7 @@ import type {
     IframeToParentMessage,
     ParentToIframeMessage,
     PreviewContent,
+    PreviewOptions,
 } from "./message-types";
 
 type UsePreviewPresenterOptions = {
@@ -30,21 +32,14 @@ type UsePreviewPresenterResult = {
      */
     content: PreviewContent | null;
     /**
-     * Whether the preview should render in mobile mode (from data-mobile attribute)
+     * How to render the content, as last set by the parent. Starts as
+     * `DEFAULT_PREVIEW_OPTIONS`.
      */
-    isMobile: boolean;
-    /**
-     * Whether to show the lint gutter (from data-lint-gutter attribute)
-     */
-    hasLintGutter: boolean;
+    previewOptions: PreviewOptions;
     /**
      * Function to report the current height of the iframe content to the parent
      */
     reportHeight: (height: number) => void;
-    /**
-     * Whether axe-core accessibility scanning is enabled
-     */
-    a11yScanningEnabled: boolean;
     /**
      * Elements to draw "Show Me" highlight overlays over, resolved from the
      * latest scan's element map via the instanceIds in a highlight-issues
@@ -57,15 +52,15 @@ type UsePreviewPresenterResult = {
  * Hook for preview iframe to receive data from parent and send updates back.
  *
  * This hook:
- * - Reads iframe configuration from dataset attributes (id, mobile, lintGutter)
- * - Listens for content data from the parent window via postMessage
+ * - Listens for content data and preview options from the parent window via
+ *   postMessage
  * - Requests initial data on mount
  * - Provides functions to report height and lint warnings back to parent
  *
  * @example
  * ```tsx
  * function PreviewPage() {
- *   const { content, isMobile, reportHeight } = usePreviewPresenter();
+ *   const { content, previewOptions, reportHeight } = usePreviewPresenter();
  *
  *   React.useEffect(() => {
  *     if (containerRef.current) {
@@ -77,7 +72,7 @@ type UsePreviewPresenterResult = {
  *   return <PreviewRenderer
  *       ref={containerRef}
  *       content={content}
- *       isMobile={isMobile}
+ *       isMobile={previewOptions.isMobile}
  *   />;
  * }
  * ```
@@ -88,15 +83,18 @@ export function usePreviewPresenter(
     const {contentContainerRef} = options;
     const [content, setContent] = React.useState<PreviewContent | null>(null);
     const [contentVersion, setContentVersion] = React.useState(0);
-    const [a11yScanningEnabled, setA11yScanningEnabled] = React.useState(false);
+    const [previewOptions, setPreviewOptions] = React.useState<PreviewOptions>(
+        DEFAULT_PREVIEW_OPTIONS,
+    );
+    const {a11yScanningEnabled} = previewOptions;
     const [highlightTargets, setHighlightTargets] = React.useState<Element[]>(
         [],
     );
     const schedule = useActionScheduler();
 
-    // eslint-disable-next-line no-restricted-syntax
-    const iframe = window.frameElement as HTMLIFrameElement | null;
-    if (iframe == null) {
+    // A top-level window is its own parent. (window.frameElement can't tell:
+    // it's null when the parent is on another origin.)
+    if (window.parent === window) {
         throw new Error("usePreviewPresenter must be used within an iframe");
     }
 
@@ -141,12 +139,15 @@ export function usePreviewPresenter(
 
                 case "iframe-init":
                     setContent(message.content);
-                    setA11yScanningEnabled(message.a11yScanningEnabled);
+                    setPreviewOptions(message.previewOptions);
                     setContentVersion(message.contentVersion);
                     break;
 
-                case "set-a11y-scanning-enabled":
-                    setA11yScanningEnabled(message.enabled);
+                case "set-preview-options":
+                    setPreviewOptions((current) => ({
+                        ...current,
+                        ...message.options,
+                    }));
                     break;
 
                 case "highlight-issues":
@@ -325,10 +326,8 @@ export function usePreviewPresenter(
 
     return {
         content,
-        isMobile: iframe.dataset.mobile === "true",
-        hasLintGutter: iframe.dataset.lintGutter === "true",
+        previewOptions,
         reportHeight,
-        a11yScanningEnabled,
         highlightTargets,
     };
 }

@@ -1,6 +1,8 @@
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
+import {DEFAULT_PREVIEW_OPTIONS} from "../../preview/message-types";
+
 import ExercisePreviewPage from "./exercise-preview-page";
 
 import type {PreviewContent} from "../../preview/message-types";
@@ -12,10 +14,8 @@ let mockHighlightTargets: Element[] = [];
 jest.mock("../../preview/use-preview-presenter", () => ({
     usePreviewPresenter: () => ({
         content: mockContent,
-        isMobile: false,
-        hasLintGutter: false,
+        previewOptions: DEFAULT_PREVIEW_OPTIONS,
         reportHeight: mockReportHeight,
-        a11yScanningEnabled: false,
         highlightTargets: mockHighlightTargets,
     }),
 }));

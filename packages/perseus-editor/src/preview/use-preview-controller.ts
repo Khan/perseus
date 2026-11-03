@@ -5,13 +5,18 @@ import {
     createPreviewClearHighlightsMessage,
     createPreviewHighlightIssuesMessage,
     createPreviewIframeInitMessage,
-    createPreviewSetA11yScanningEnabledMessage,
+    createPreviewSetPreviewOptionsMessage,
+    DEFAULT_PREVIEW_OPTIONS,
     PREVIEW_MESSAGE_SOURCE,
 } from "./message-types";
 import {isIframeToParentMessage} from "./message-validators";
 import {sanitizePreviewData} from "./preview-data-sanitizer";
 
-import type {ParentToIframeMessage, PreviewContent} from "./message-types";
+import type {
+    ParentToIframeMessage,
+    PreviewContent,
+    PreviewOptions,
+} from "./message-types";
 import type {A11yIssue} from "../components/issues-panel";
 
 export type A11yReport = {
@@ -43,9 +48,11 @@ type UsePreviewControllerResult = {
      */
     height: number | null;
     /**
-     * Enable or disable axe-core accessibility scanning in the iframe
+     * Change some of the preview options (see {@link PreviewOptions}); the
+     * rest keep their current values. They start as
+     * `DEFAULT_PREVIEW_OPTIONS`.
      */
-    setA11yScanningEnabled: (enabled: boolean) => void;
+    setPreviewOptions: (options: Partial<PreviewOptions>) => void;
     /**
      * Highlight the elements for the given instanceIds in the iframe
      */
@@ -102,7 +109,9 @@ export function usePreviewController(
     // (re)loaded iframe never has to rely on messages sent before it was
     // listening.
     const currentContentRef = React.useRef<PreviewContent | null>(null);
-    const currentA11yScanningEnabledRef = React.useRef(false);
+    const currentPreviewOptionsRef = React.useRef<PreviewOptions>(
+        DEFAULT_PREVIEW_OPTIONS,
+    );
 
     // Sends a message to the iframe, dropping it if the iframe isn't
     // currently mounted (eg. during a reload/remount) or has no URL yet.
@@ -150,7 +159,7 @@ export function usePreviewController(
                             currentContentRef.current
                                 ? sanitizePreviewData(currentContentRef.current)
                                 : null,
-                            currentA11yScanningEnabledRef.current,
+                            currentPreviewOptionsRef.current,
                             contentVersionRef.current,
                         ),
                     );
@@ -210,10 +219,13 @@ export function usePreviewController(
         [isIframeReady, postToIframe],
     );
 
-    // Enables/disables accessibility scanning in the iframe
-    const setA11yScanningEnabled = React.useCallback(
-        (enabled: boolean) => {
-            currentA11yScanningEnabledRef.current = enabled;
+    // Changes some of the preview options in the iframe
+    const setPreviewOptions = React.useCallback(
+        (options: Partial<PreviewOptions>) => {
+            currentPreviewOptionsRef.current = {
+                ...currentPreviewOptionsRef.current,
+                ...options,
+            };
 
             // We can safely bail here. We'll send a full init message later
             // once the iframe sends it's 'iframe-ready' message.
@@ -221,7 +233,7 @@ export function usePreviewController(
                 return;
             }
 
-            postToIframe(createPreviewSetA11yScanningEnabledMessage(enabled));
+            postToIframe(createPreviewSetPreviewOptionsMessage(options));
         },
         [isIframeReady, postToIframe],
     );
@@ -247,7 +259,7 @@ export function usePreviewController(
     return {
         sendData,
         height,
-        setA11yScanningEnabled,
+        setPreviewOptions,
         highlightIssues,
         clearHighlights,
         a11yReport,

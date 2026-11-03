@@ -58,18 +58,16 @@ from outside the repo.
 | Add the draft preview page to perseus-mcp | `/drafts/<itemId>/preview`: a shell that follows the draft's event stream and sends the question to a same-origin iframe (`/preview/frame`) through `usePreviewController` and `usePreviewPresenter`; the frame renders it with `Renderer` and MathJax, in the page setup from `@internal/perseus-environment`, and the iframe resizes to fit. Fastify serves the pages with Vite in middleware mode (`@fastify/middie`), so there's no build step; `createHttpServer` takes the pages as an optional `PreviewPages`, faked in the tests. |
 | Add preview_item, hints and answer checks | `preview_item`: the URL of a draft's preview page (`PreviewLinks` port, implemented by the HTTP adapter once it's listening; `PreviewUnavailableError` if it never does). The frame renders the whole item with `ServerItemRenderer`, with a "Check answer" button that scores with the same `scoreItem` as `score_item` and shows Perseus's message for the learner, and hints revealed one at a time ("Hide hints" remounts the item, since Perseus can't hide them). |
 | Send preview messages to the iframe's origin | perseus-editor (major changeset `steady-harbors-listen`, which the next two commits add to): `usePreviewController` posts to the origin of its iframe's `src` instead of `"/"` and accepts messages only from it; `usePreviewPresenter` sends `iframe-ready` to `"*"`, then replies only to the origin of the parent's first message. A cross-origin parent still can't use the presenter until the next commit, because it reads `window.frameElement`. |
+| Send preview options to the iframe in messages | `PreviewOptions` and `DEFAULT_PREVIEW_OPTIONS`: `iframe-init` carries `previewOptions`, and `set-preview-options` (some of the options) replaces `set-a11y-scanning-enabled`. The controller's `setPreviewOptions` replaces `setA11yScanningEnabled`; the presenter returns `previewOptions` in place of `isMobile`, `hasLintGutter` and `a11yScanningEnabled`, no longer reads the iframe's `data-*` attributes (`PreviewWithIframe` sends them as options), and checks it's in a frame with `window.parent === window`, so a cross-origin parent works. Checked in Chrome with a frame from `127.0.0.1` inside a page on `localhost`. |
 
 Remaining, in order:
 
-1. Step 4, in five more commits:
-   1. Preview options in messages: `previewOptions` in `iframe-init` and a
-      `set-preview-options` message, replacing `set-a11y-scanning-enabled`
-      and the iframe's `data-*` attributes.
-   2. `reveal-hint` and `hints-state`.
-   3. perseus-mcp's shell drives hints and options through them.
-   4. The duplicate-choices, graphie-URL and placeholder lint rules (minor
+1. Step 4, in four more commits:
+   1. `reveal-hint` and `hints-state`.
+   2. perseus-mcp's shell drives hints and options through them.
+   3. The duplicate-choices, graphie-URL and placeholder lint rules (minor
       changeset).
-   5. `validate_item` drops its own placeholder checks.
+   4. `validate_item` drops its own placeholder checks.
 2. The preview's `renderDone` and `renderError` markers (see Preview); they
    can come with the preview options.
 3. Build order steps 5 to 8.
@@ -406,7 +404,7 @@ Perseus changes make them work across origins and add hint control.
    and replies only to the origin of the parent's first message. A parent
    that navigates to another origin removes the iframe, so that origin
    can't change while the preview runs.
-2. **Configuration always comes from messages.** The presenter stops reading
+2. **Configuration always comes from messages** (done). The presenter stops reading
    `window.frameElement.dataset`, which is null when the parent is on
    another origin.
     - A `previewOptions` object rides in `iframe-init`, which the controller
@@ -416,9 +414,10 @@ Perseus changes make them work across origins and add hint control.
     - `PreviewOptions`: `isMobile`, `hasLintGutter`, `a11yScanningEnabled`,
       `reviewMode`, `showSolutions`, `showRationales`, `answerless`,
       `locale`, `colorScheme`, `readOnly`.
-    - The presenter's return values stay the same, so existing preview frame
-      pages in consuming applications keep working. `PreviewWithIframe`
-      sends these in init instead of `data-*` attributes.
+    - The presenter returns `previewOptions` in place of `isMobile`,
+      `hasLintGutter` and `a11yScanningEnabled`, and `PreviewWithIframe`
+      sends them as options instead of `data-*` attributes. Consuming
+      applications follow the changeset's migration notes.
     - Query params were rejected: a second source of truth, and changing
       them reloads the page.
 3. **A `reveal-hint` message:** `{type: "reveal-hint", hintsVisible?: number}`,
@@ -603,6 +602,11 @@ interactive-graph.
 - Write the real eval task set (separate session).
 - Host the server as a service, with a real draft store.
 - Lint in the context of articles (low value).
+- Limit which sites can embed the preview frame, with a
+  `Content-Security-Policy: frame-ancestors` header on the frame's response
+  (`'self'`, plus the MCP Apps host once there is one). Not needed for
+  safety: the presenter only talks to the window that embeds it, so another
+  site embedding the frame can only preview content it sends itself.
 
 ## Open questions
 

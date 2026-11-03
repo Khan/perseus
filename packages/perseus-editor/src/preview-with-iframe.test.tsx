@@ -10,7 +10,7 @@ import type {PreviewContent} from "./preview/message-types";
 import type {A11yReport} from "./preview/use-preview-controller";
 
 const mockSendData = jest.fn();
-const mockSetA11yScanningEnabled = jest.fn();
+const mockSetPreviewOptions = jest.fn();
 const mockHighlightIssues = jest.fn();
 const mockClearHighlights = jest.fn();
 let mockHeight: number | null = null;
@@ -20,7 +20,7 @@ jest.mock("./preview/use-preview-controller", () => ({
     usePreviewController: () => ({
         sendData: mockSendData,
         height: mockHeight,
-        setA11yScanningEnabled: mockSetA11yScanningEnabled,
+        setPreviewOptions: mockSetPreviewOptions,
         highlightIssues: mockHighlightIssues,
         clearHighlights: mockClearHighlights,
         a11yReport: mockA11yReport,
@@ -59,7 +59,7 @@ describe("PreviewWithIframe", () => {
         mockHeight = null;
         mockA11yReport = null;
         mockSendData.mockClear();
-        mockSetA11yScanningEnabled.mockClear();
+        mockSetPreviewOptions.mockClear();
         mockHighlightIssues.mockClear();
         mockClearHighlights.mockClear();
     });
@@ -93,8 +93,9 @@ describe("PreviewWithIframe", () => {
     });
 
     it.each([true, false])(
-        "sets data-mobile attribute when isMobile is: %s",
+        "sends isMobile: %s as a preview option",
         (isMobile: boolean) => {
+            // Arrange, Act
             render(
                 <PreviewWithIframe
                     url="/preview"
@@ -104,14 +105,17 @@ describe("PreviewWithIframe", () => {
                 />,
             );
 
-            const iframe = screen.getByTitle(/perseus-preview/);
-            expect(iframe.dataset.mobile).toBe(isMobile.toString());
+            // Assert
+            expect(mockSetPreviewOptions).toHaveBeenLastCalledWith(
+                expect.objectContaining({isMobile}),
+            );
         },
     );
 
     it.each([true, false])(
-        "sets data-lint-gutter attribute when seamless is: %s",
+        "sends hasLintGutter: %s as a preview option when seamless is too",
         (seamless: boolean) => {
+            // Arrange, Act
             render(
                 <PreviewWithIframe
                     url="/preview"
@@ -121,8 +125,10 @@ describe("PreviewWithIframe", () => {
                 />,
             );
 
-            const iframe = screen.getByTitle(/perseus-preview/);
-            expect(iframe.dataset.lintGutter).toBe(seamless.toString());
+            // Assert
+            expect(mockSetPreviewOptions).toHaveBeenLastCalledWith(
+                expect.objectContaining({hasLintGutter: seamless}),
+            );
         },
     );
 
@@ -220,7 +226,7 @@ describe("PreviewWithIframe", () => {
     });
 
     describe("a11yScanningEnabled prop", () => {
-        it("calls setA11yScanningEnabled with the prop's value", () => {
+        it("sends the prop's value as a preview option", () => {
             // Arrange, Act
             render(
                 <PreviewWithIframe
@@ -233,7 +239,9 @@ describe("PreviewWithIframe", () => {
             );
 
             // Assert
-            expect(mockSetA11yScanningEnabled).toHaveBeenCalledWith(true);
+            expect(mockSetPreviewOptions).toHaveBeenLastCalledWith(
+                expect.objectContaining({a11yScanningEnabled: true}),
+            );
         });
     });
 

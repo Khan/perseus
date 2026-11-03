@@ -9,6 +9,7 @@ import type {
     Hint,
     PerseusItem,
     PerseusRenderer,
+    ShowSolutions,
 } from "@khanacademy/perseus-core";
 
 /**
@@ -20,6 +21,50 @@ import type {
 type PreviewLinterContext = {
     contentType: string;
     highlightLint: boolean;
+};
+
+/**
+ * How the preview iframe should render its content. The parent sends these in
+ * `iframe-init` and changes them with `set-preview-options`; the iframe never
+ * reads them from its own element, which it can't reach when the parent is on
+ * another origin.
+ *
+ * The presenter acts on `a11yScanningEnabled` itself. The other options are
+ * for the preview page to apply as it renders.
+ */
+export type PreviewOptions = {
+    /** Render as on a phone or tablet. */
+    isMobile: boolean;
+    /** Leave room in the right margin for lint indicators. */
+    hasLintGutter: boolean;
+    /** Run axe-core accessibility scans and report the results. */
+    a11yScanningEnabled: boolean;
+    /** Render as after the learner has answered: widgets show their state. */
+    reviewMode: boolean;
+    /** Which choices' correctness to show. */
+    showSolutions: ShowSolutions;
+    /** Show rationales (choice explanations). */
+    showRationales: boolean;
+    /** Render without the answers, as learners receive the item. */
+    answerless: boolean;
+    /** The locale to render in, e.g. "en" or "ar". */
+    locale: string;
+    colorScheme: "light" | "dark";
+    /** Show the content but don't accept input. */
+    readOnly: boolean;
+};
+
+export const DEFAULT_PREVIEW_OPTIONS: PreviewOptions = {
+    isMobile: false,
+    hasLintGutter: false,
+    a11yScanningEnabled: false,
+    reviewMode: false,
+    showSolutions: "none",
+    showRationales: false,
+    answerless: false,
+    locale: "en",
+    colorScheme: "light",
+    readOnly: false,
 };
 
 /**
@@ -138,40 +183,40 @@ interface PreviewDataMessage extends PreviewMessageVersioned {
 interface PreviewIframeInitMessage extends PreviewMessageVersioned {
     type: "iframe-init";
     content: PreviewContent | null;
-    a11yScanningEnabled: boolean;
+    previewOptions: PreviewOptions;
 }
 
 export function createPreviewIframeInitMessage(
     content: PreviewContent | null,
-    a11yScanningEnabled: boolean,
+    previewOptions: PreviewOptions,
     contentVersion: number,
 ): PreviewIframeInitMessage {
     return {
         source: PREVIEW_MESSAGE_SOURCE,
         type: "iframe-init",
         content,
-        a11yScanningEnabled,
+        previewOptions,
         contentVersion,
     };
 }
 
 /**
- * Command from parent telling the iframe to enable or disable axe-core
- * accessibility scanning. When enabled, the iframe runs scans and reports back;
- * when disabled, it neither imports nor runs axe-core.
+ * Command from parent changing some of the preview options; the rest keep
+ * their current values. Turning `a11yScanningEnabled` off stops the iframe
+ * from importing or running axe-core.
  */
-interface PreviewSetA11yScanningEnabledMessage extends PreviewMessageBase {
-    type: "set-a11y-scanning-enabled";
-    enabled: boolean;
+interface PreviewSetPreviewOptionsMessage extends PreviewMessageBase {
+    type: "set-preview-options";
+    options: Partial<PreviewOptions>;
 }
 
-export function createPreviewSetA11yScanningEnabledMessage(
-    enabled: boolean,
-): PreviewSetA11yScanningEnabledMessage {
+export function createPreviewSetPreviewOptionsMessage(
+    options: Partial<PreviewOptions>,
+): PreviewSetPreviewOptionsMessage {
     return {
         source: PREVIEW_MESSAGE_SOURCE,
-        type: "set-a11y-scanning-enabled",
-        enabled,
+        type: "set-preview-options",
+        options,
     };
 }
 
@@ -217,7 +262,7 @@ export function createPreviewClearHighlightsMessage(): PreviewClearHighlightsMes
 export type ParentToIframeMessage =
     | PreviewDataMessage
     | PreviewIframeInitMessage
-    | PreviewSetA11yScanningEnabledMessage
+    | PreviewSetPreviewOptionsMessage
     | PreviewHighlightIssuesMessage
     | PreviewClearHighlightsMessage;
 

@@ -64,7 +64,7 @@ function PreviewWithIframe(props: Props) {
     const {
         sendData,
         height,
-        setA11yScanningEnabled,
+        setPreviewOptions,
         highlightIssues,
         clearHighlights,
         a11yReport,
@@ -81,9 +81,17 @@ function PreviewWithIframe(props: Props) {
         }
     }, [sendData, props.content]);
 
+    // The seamless prop is the same as the "nochrome" prop that gets passed
+    // to DeviceFramer. If it is set, then we're displaying editor previews and
+    // want to leave some room for lint indicators in the right margin.
+    const {isMobile, seamless, a11yScanningEnabled = false} = props;
     React.useEffect(() => {
-        setA11yScanningEnabled(props.a11yScanningEnabled ?? false);
-    }, [setA11yScanningEnabled, props.a11yScanningEnabled]);
+        setPreviewOptions({
+            isMobile,
+            hasLintGutter: seamless,
+            a11yScanningEnabled,
+        });
+    }, [setPreviewOptions, isMobile, seamless, a11yScanningEnabled]);
 
     React.useEffect(() => {
         if (
@@ -112,12 +120,6 @@ function PreviewWithIframe(props: Props) {
         <iframe
             ref={iframeRef}
             title={`perseus-preview`}
-            data-mobile={String(props.isMobile)}
-            // The seamless prop is the same as the "nochrome" prop that
-            // gets passed to DeviceFramer. If it is set, then we're going
-            // to be displaying editor previews and want to leave some room
-            // for lint indicators in the right margin.
-            data-lint-gutter={String(props.seamless)}
             style={{width: "100%", height: containerHeight}}
             src={props.url}
         />

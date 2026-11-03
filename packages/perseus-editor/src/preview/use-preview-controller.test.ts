@@ -2,6 +2,7 @@ import {renderHook, act, waitFor} from "@testing-library/react";
 
 import {
     createPreviewIframeReadyMessage,
+    DEFAULT_PREVIEW_OPTIONS,
     PREVIEW_MESSAGE_SOURCE,
 } from "./message-types";
 import {usePreviewController} from "./use-preview-controller";
@@ -146,20 +147,20 @@ describe("usePreviewController", () => {
         });
     });
 
-    describe("setA11yScanningEnabled", () => {
-        it("posts a set-a11y-scanning-enabled command to the iframe once ready", () => {
+    describe("setPreviewOptions", () => {
+        it("posts a set-preview-options command with the changed options once ready", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
             sendIframeReadyMessage();
 
             act(() => {
-                result.current.setA11yScanningEnabled(true);
+                result.current.setPreviewOptions({a11yScanningEnabled: true});
             });
 
             expect(mockContentWindow.postMessage).toHaveBeenCalledWith(
                 {
                     source: PREVIEW_MESSAGE_SOURCE,
-                    type: "set-a11y-scanning-enabled",
-                    enabled: true,
+                    type: "set-preview-options",
+                    options: {a11yScanningEnabled: true},
                 },
                 IFRAME_ORIGIN,
             );
@@ -169,7 +170,7 @@ describe("usePreviewController", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
 
             act(() => {
-                result.current.setA11yScanningEnabled(true);
+                result.current.setPreviewOptions({a11yScanningEnabled: true});
             });
 
             expect(mockContentWindow.postMessage).not.toHaveBeenCalled();
@@ -404,7 +405,7 @@ describe("usePreviewController", () => {
     });
 
     describe("replying to iframe-ready with an iframe-init message", () => {
-        it("sends null content and a11yScanningEnabled: false when nothing has been set", () => {
+        it("sends null content and the default preview options when nothing has been set", () => {
             renderHook(() => usePreviewController(iframeRef));
 
             sendIframeReadyMessage();
@@ -414,7 +415,7 @@ describe("usePreviewController", () => {
                     source: PREVIEW_MESSAGE_SOURCE,
                     type: "iframe-init",
                     content: null,
-                    a11yScanningEnabled: false,
+                    previewOptions: DEFAULT_PREVIEW_OPTIONS,
                     contentVersion: 0,
                 },
                 IFRAME_ORIGIN,
@@ -445,17 +446,26 @@ describe("usePreviewController", () => {
             ]);
         });
 
-        it("sends the latest a11yScanningEnabled value set before the iframe was ready", () => {
+        it("sends every preview option set before the iframe was ready, merged", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
 
             act(() => {
-                result.current.setA11yScanningEnabled(false);
-                result.current.setA11yScanningEnabled(true);
+                result.current.setPreviewOptions({
+                    isMobile: true,
+                    a11yScanningEnabled: false,
+                });
+                result.current.setPreviewOptions({a11yScanningEnabled: true});
             });
             sendIframeReadyMessage();
 
             expect(messagesOfType("iframe-init")).toEqual([
-                expect.objectContaining({a11yScanningEnabled: true}),
+                expect.objectContaining({
+                    previewOptions: {
+                        ...DEFAULT_PREVIEW_OPTIONS,
+                        isMobile: true,
+                        a11yScanningEnabled: true,
+                    },
+                }),
             ]);
         });
 
@@ -465,7 +475,7 @@ describe("usePreviewController", () => {
 
             act(() => {
                 result.current.sendData(previewData);
-                result.current.setA11yScanningEnabled(true);
+                result.current.setPreviewOptions({a11yScanningEnabled: true});
             });
             sendIframeReadyMessage();
 
@@ -474,10 +484,12 @@ describe("usePreviewController", () => {
             // Simulate a genuine reload: the iframe announces ready again.
             sendIframeReadyMessage();
 
-            expect(messagesOfType("iframe-init")).toEqual([
-                expect.objectContaining({a11yScanningEnabled: true}),
-                expect.objectContaining({a11yScanningEnabled: true}),
-            ]);
+            const resent = expect.objectContaining({
+                previewOptions: expect.objectContaining({
+                    a11yScanningEnabled: true,
+                }),
+            });
+            expect(messagesOfType("iframe-init")).toEqual([resent, resent]);
         });
     });
 

@@ -23,7 +23,7 @@ const ExercisePreviewPage = () => {
         containerRef.current = node;
         setContainerElement(node);
     }, []);
-    const {content, isMobile, hasLintGutter, reportHeight, highlightTargets} =
+    const {content, previewOptions, reportHeight, highlightTargets} =
         usePreviewPresenter({contentContainerRef: containerRef});
     const lastHeightRef = React.useRef<number | null>(null);
 
@@ -85,8 +85,8 @@ const ExercisePreviewPage = () => {
         <View ref={setContainerRefs} style={styles.container}>
             <PreviewRenderer
                 content={content}
-                isMobile={isMobile}
-                hasLintGutter={hasLintGutter}
+                isMobile={previewOptions.isMobile}
+                hasLintGutter={previewOptions.hasLintGutter}
             />
             <A11yOverlays
                 container={containerElement}

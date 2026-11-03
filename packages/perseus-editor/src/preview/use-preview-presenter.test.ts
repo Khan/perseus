@@ -2,6 +2,7 @@ import {renderHook, act, waitFor} from "@testing-library/react";
 
 import {
     createPreviewIframeInitMessage,
+    DEFAULT_PREVIEW_OPTIONS,
     PREVIEW_MESSAGE_SOURCE,
 } from "./message-types";
 import {usePreviewPresenter} from "./use-preview-presenter";
@@ -34,7 +35,6 @@ const scanQuestionContent: PreviewContent = {
 const PARENT_ORIGIN = "https://editor.example";
 
 describe("usePreviewPresenter", () => {
-    let mockIframeElement: {dataset: {[key: string]: string | undefined}};
     let mockParentWindow: typeof window.parent;
     let mockPostMessage: jest.Mock;
 
@@ -47,19 +47,6 @@ describe("usePreviewPresenter", () => {
             postMessage: mockPostMessage,
         } as unknown as Window;
 
-        // Mock iframe element with dataset
-        mockIframeElement = {
-            dataset: {
-                mobile: "false",
-                lintGutter: "false",
-            },
-        };
-
-        // Override window properties
-        jest.spyOn(window, "frameElement", "get").mockReturnValue(
-            // eslint-disable-next-line no-restricted-syntax
-            mockIframeElement as unknown as HTMLIFrameElement,
-        );
         jest.spyOn(window, "parent", "get").mockReturnValue(mockParentWindow);
     });
 
@@ -79,8 +66,8 @@ describe("usePreviewPresenter", () => {
         act(() => {
             dispatchToPresenter({
                 source: PREVIEW_MESSAGE_SOURCE,
-                type: "set-a11y-scanning-enabled",
-                enabled: true,
+                type: "set-preview-options",
+                options: {a11yScanningEnabled: true},
             });
             dispatchToPresenter({
                 source: PREVIEW_MESSAGE_SOURCE,
@@ -110,20 +97,9 @@ describe("usePreviewPresenter", () => {
             const {result} = renderHook(() => usePreviewPresenter());
 
             expect(result.current.content).toBeNull();
-            expect(result.current.isMobile).toBe(false);
-            expect(result.current.hasLintGutter).toBe(false);
-        });
-
-        it("reads iframe configuration from dataset", () => {
-            mockIframeElement.dataset = {
-                mobile: "true",
-                lintGutter: "true",
-            };
-
-            const {result} = renderHook(() => usePreviewPresenter());
-
-            expect(result.current.isMobile).toBe(true);
-            expect(result.current.hasLintGutter).toBe(true);
+            expect(result.current.previewOptions).toEqual(
+                DEFAULT_PREVIEW_OPTIONS,
+            );
         });
 
         it("sends iframe-ready message on mount", async () => {
@@ -142,7 +118,8 @@ describe("usePreviewPresenter", () => {
         });
 
         it("throws error when not used within an iframe", () => {
-            jest.spyOn(window, "frameElement", "get").mockReturnValue(null);
+            // A top-level window is its own parent.
+            jest.spyOn(window, "parent", "get").mockReturnValue(window);
 
             expect(() => {
                 renderHook(() => usePreviewPresenter());
@@ -411,7 +388,7 @@ describe("usePreviewPresenter", () => {
     });
 
     describe("receiving iframe-init message", () => {
-        it("sets content and a11yScanningEnabled together from one message", () => {
+        it("sets content and preview options together from one message", () => {
             const {result} = renderHook(() => usePreviewPresenter());
 
             const questionContent: PreviewContent = {
@@ -437,7 +414,10 @@ describe("usePreviewPresenter", () => {
                             source: PREVIEW_MESSAGE_SOURCE,
                             type: "iframe-init",
                             content: questionContent,
-                            a11yScanningEnabled: true,
+                            previewOptions: {
+                                ...DEFAULT_PREVIEW_OPTIONS,
+                                isMobile: true,
+                            },
                             contentVersion: 1,
                         },
                         source: mockParentWindow,
@@ -447,7 +427,7 @@ describe("usePreviewPresenter", () => {
             });
 
             expect(result.current.content).toEqual(questionContent);
-            expect(result.current.a11yScanningEnabled).toBe(true);
+            expect(result.current.previewOptions.isMobile).toBe(true);
         });
 
         it("handles null content (nothing sent yet)", () => {
@@ -460,7 +440,7 @@ describe("usePreviewPresenter", () => {
                             source: PREVIEW_MESSAGE_SOURCE,
                             type: "iframe-init",
                             content: null,
-                            a11yScanningEnabled: false,
+                            previewOptions: DEFAULT_PREVIEW_OPTIONS,
                             contentVersion: 0,
                         },
                         source: mockParentWindow,
@@ -470,23 +450,29 @@ describe("usePreviewPresenter", () => {
             });
 
             expect(result.current.content).toBeNull();
-            expect(result.current.a11yScanningEnabled).toBe(false);
         });
     });
 
-    describe("receiving set-a11y-scanning-enabled message", () => {
-        it("enables scanning when told to", () => {
+    describe("receiving set-preview-options message", () => {
+        it("changes only the options it names", () => {
             const {result} = renderHook(() => usePreviewPresenter());
-
-            expect(result.current.a11yScanningEnabled).toBe(false);
+            act(() => {
+                dispatchToPresenter(
+                    createPreviewIframeInitMessage(
+                        null,
+                        {...DEFAULT_PREVIEW_OPTIONS, isMobile: true},
+                        0,
+                    ),
+                );
+            });
 
             act(() => {
                 window.dispatchEvent(
                     new MessageEvent("message", {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
-                            type: "set-a11y-scanning-enabled",
-                            enabled: true,
+                            type: "set-preview-options",
+                            options: {a11yScanningEnabled: true},
                         },
                         source: mockParentWindow,
                         origin: PARENT_ORIGIN,
@@ -494,7 +480,11 @@ describe("usePreviewPresenter", () => {
                 );
             });
 
-            expect(result.current.a11yScanningEnabled).toBe(true);
+            expect(result.current.previewOptions).toEqual({
+                ...DEFAULT_PREVIEW_OPTIONS,
+                isMobile: true,
+                a11yScanningEnabled: true,
+            });
         });
     });
 
@@ -504,8 +494,8 @@ describe("usePreviewPresenter", () => {
                 new MessageEvent("message", {
                     data: {
                         source: PREVIEW_MESSAGE_SOURCE,
-                        type: "set-a11y-scanning-enabled",
-                        enabled: true,
+                        type: "set-preview-options",
+                        options: {a11yScanningEnabled: true},
                     },
                     source: mockParentWindow,
                     origin: PARENT_ORIGIN,
@@ -673,8 +663,8 @@ describe("usePreviewPresenter", () => {
                     new MessageEvent("message", {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
-                            type: "set-a11y-scanning-enabled",
-                            enabled: true,
+                            type: "set-preview-options",
+                            options: {a11yScanningEnabled: true},
                         },
                         source: mockParentWindow,
                         origin: PARENT_ORIGIN,
@@ -826,8 +816,8 @@ describe("usePreviewPresenter", () => {
                     new MessageEvent("message", {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
-                            type: "set-a11y-scanning-enabled",
-                            enabled: true,
+                            type: "set-preview-options",
+                            options: {a11yScanningEnabled: true},
                         },
                         source: mockParentWindow,
                         origin: PARENT_ORIGIN,
@@ -974,7 +964,11 @@ describe("usePreviewPresenter", () => {
             const {result} = renderHook(() => usePreviewPresenter());
             act(() => {
                 dispatchToPresenter(
-                    createPreviewIframeInitMessage(null, false, 0),
+                    createPreviewIframeInitMessage(
+                        null,
+                        DEFAULT_PREVIEW_OPTIONS,
+                        0,
+                    ),
                 );
             });
 
@@ -1135,60 +1129,6 @@ describe("usePreviewPresenter", () => {
             });
 
             expect(result.current.content).toBeNull();
-        });
-    });
-
-    describe("dataset configuration variations", () => {
-        it.each([true, false])("handles mobile='%s' string", (isMobile) => {
-            mockIframeElement.dataset = {
-                id: "test-id",
-                mobile: isMobile.toString(),
-                lintGutter: "false",
-            };
-
-            const {result} = renderHook(() => usePreviewPresenter());
-
-            expect(result.current.isMobile).toBe(isMobile);
-        });
-
-        it("handles mobile as any other string (treated as false)", () => {
-            mockIframeElement.dataset = {
-                id: "test-id",
-                mobile: "yes",
-                lintGutter: "false",
-            };
-
-            const {result} = renderHook(() => usePreviewPresenter());
-
-            expect(result.current.isMobile).toBe(false);
-        });
-
-        it.each([true, false])(
-            "handles lintGutter='%s' string",
-            (lintGutter) => {
-                mockIframeElement.dataset = {
-                    id: "test-id",
-                    mobile: "false",
-                    lintGutter: lintGutter.toString(),
-                };
-
-                const {result} = renderHook(() => usePreviewPresenter());
-
-                expect(result.current.hasLintGutter).toBe(lintGutter);
-            },
-        );
-
-        it("handles undefined dataset values", () => {
-            mockIframeElement.dataset = {
-                id: "required-id",
-                mobile: undefined,
-                lintGutter: undefined,
-            };
-
-            const {result} = renderHook(() => usePreviewPresenter());
-
-            expect(result.current.isMobile).toBe(false);
-            expect(result.current.hasLintGutter).toBe(false);
         });
     });
 
