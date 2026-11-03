@@ -22,10 +22,7 @@ export interface CrossOutButtonProps {
 const CrossOutButton = (props: CrossOutButtonProps) => {
     const {crossedOut, disabled, hidden, label, onChange} = props;
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        // The choice's <li> selects the choice when clicked (for mouse users),
-        // so stop the click here: crossing out must never select or unselect.
-        event.stopPropagation();
+    const handleClick = () => {
         if (!disabled) {
             onChange(!crossedOut);
         }

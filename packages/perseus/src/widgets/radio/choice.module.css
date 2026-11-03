@@ -17,7 +17,10 @@
     }
 
     &:global(.perseus-article) {
-        .choice:not(.is-correct):has(> button[aria-pressed="true"])
+        .choice:not(.is-correct):has(
+                > button[aria-pressed="true"],
+                > .choice-target > button[aria-pressed="true"]
+            )
             :global(.deprecated-perseus-container) {
             color: var(--wb-semanticColor-core-foreground-instructive-strong);
         }
@@ -51,7 +54,10 @@
     cursor: pointer;
 }
 
-.choice:not(.is-correct):has(> button[aria-pressed="true"]) {
+.choice:not(.is-correct):has(
+        > button[aria-pressed="true"],
+        > .choice-target > button[aria-pressed="true"]
+    ) {
     color: var(--wb-semanticColor-core-foreground-instructive-strong);
 }
 
@@ -254,7 +260,11 @@
     gap: var(--perseus-multiple-choice-spacing);
 }
 
-.has-cross-out > div {
+/* The click-to-select area: the choice letter and content. It fills the row's
+   height so clicking anywhere beside the content still selects the choice.
+ */
+.choice-target {
+    align-self: stretch;
     flex: 1 1 auto;
 }
 
@@ -262,7 +272,7 @@
     color: var(--wb-semanticColor-core-foreground-neutral-subtle);
 }
 
-.is-crossed-out > div {
+.is-crossed-out > .choice-target > div {
     text-decoration: line-through;
     text-decoration-thickness: var(--wb-border-width-medium);
 }
