@@ -42,7 +42,7 @@ exports[`ArticleEditor should match snapshot for editing disabled for all widget
                   data-testid="issues-icon-warning-octagon-fill.svg"
                   style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_240); height: var(--wb-sizing-size_240); background-color: var(--wb-semanticColor-feedback-critical-strong-icon); mask-image: url(warning-octagon-fill.svg); margin-inline-end: 0.25em;"
                 />
-                17 issues
+                18 issues
               </div>
             </div>
             <div

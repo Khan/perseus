@@ -66,6 +66,9 @@ export type MakeWidgetRuleOptions<
     widgetType: TWidgetType;
     lint: (
         widgetInfo: PerseusWidgetTypes[TWidgetType],
+        // TODO(benchristel): type context properly, here and everywhere it's
+        //  used in the perseus-linter package.
+        context: any,
     ) => undefined | Lint | Lint[];
 };
 
@@ -180,10 +183,12 @@ export default class Rule {
                     return;
                 }
 
-                return [options.lint(widgetInfo) ?? []].flat().map((lint) => ({
-                    ...lint,
-                    message: `${widgetId}: ${lint.message}`,
-                }));
+                return [options.lint(widgetInfo, context) ?? []]
+                    .flat()
+                    .map((lint) => ({
+                        ...lint,
+                        message: `${widgetId}: ${lint.message}`,
+                    }));
             },
         );
     }
