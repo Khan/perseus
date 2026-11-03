@@ -50,6 +50,7 @@
     },
     "keywords": [],
     "devDependencies": {
+        "@anthropic-ai/mcpb": "^2.1.2",
         "@internal/perseus-environment": "workspace:*"
     }
 }

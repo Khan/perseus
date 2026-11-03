@@ -110,6 +110,7 @@
         "build:docs": "typedoc",
         "build:storybook": "storybook build --stats-json",
         "build:types": "tsc --build --force tsconfig-build.json",
+        "build:mcpb": "pnpm --filter @khanacademy/perseus-mcp build:mcpb",
         "build:prodsizecheck": "pnpm build --configEnvironment='production'",
         "watch": "pnpm build --watch",
         "clean": "./utils/clean.sh",
