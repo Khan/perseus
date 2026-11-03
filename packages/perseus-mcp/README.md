@@ -49,8 +49,9 @@ to it over stdin and stdout (`claude_desktop_config.json`):
 
 ## Drafts
 
-Tools work on drafts: `open_item` returns an `itemId`, and later tools take
-that `itemId` instead of the whole item. A draft can carry `notes`, context the
+Tools work on drafts: `create_item` (from new content) or `open_item` (from an
+existing item) returns an `itemId`, and later tools take that `itemId` instead
+of the whole item. A draft can carry `notes`, context the
 agent keeps with it. Each draft is saved as `<data-dir>/drafts/<itemId>.json`,
 so drafts survive restarts, and `export_item` returns the finished item. Items
 from any Perseus version are accepted, and items are always returned fully

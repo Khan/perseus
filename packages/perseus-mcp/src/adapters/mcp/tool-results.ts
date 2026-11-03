@@ -38,8 +38,8 @@ export async function runTool(
 function describeError(e: unknown): string {
     if (e instanceof DraftNotFoundError) {
         return (
-            `${e.message} Use open_item to start a draft, or list_items to ` +
-            `see the saved ones.`
+            `${e.message} Use create_item or open_item to start a draft, or ` +
+            `list_items to see the saved ones.`
         );
     }
     return e instanceof Error ? e.message : String(e);

@@ -13,12 +13,13 @@ import type {WidgetUseCases} from "../../app/widgets";
 const INSTRUCTIONS = `\
 Tools for authoring Perseus items (Khan Academy exercise content).
 
-Work on drafts: open_item returns an itemId, which later tools take instead of
-the whole item. edit_item changes a draft with a JSON Patch; every change is
-validated before it's saved. Keep notes on a draft (where it came from, what
-it's for, what's left) so you can find it again with list_items. Items from
-any Perseus version are accepted; items are always returned fully migrated to
-the latest schema. export_item returns the finished JSON.
+Work on drafts: create_item (for new content) or open_item (for an existing
+item) returns an itemId, which later tools take instead of the whole item.
+edit_item changes a draft with a JSON Patch; every change is validated before
+it's saved. Keep notes on a draft (where it came from, what it's for, what's
+left) so you can find it again with list_items. Items from any Perseus version
+are accepted; items are always returned fully migrated to the latest schema.
+export_item returns the finished JSON.
 
 list_widgets and get_widget_spec describe each widget's options; validate_item
 checks an item the way Perseus will.`;
@@ -78,6 +79,89 @@ export function createMcpServer({
                     notes,
                 );
                 return jsonResult({itemId: draft.itemId, item: draft.item});
+            }),
+    );
+
+    const widgetInputSchema = z.object({
+        id: z
+            .string()
+            .describe(
+                'Where the content places it, as "<type> <n>": "radio 1" ' +
+                    "goes with [[☃ radio 1]].",
+            ),
+        type: z.string().describe('e.g. "radio"; see list_widgets.'),
+        options: z
+            .record(z.string(), z.unknown())
+            .optional()
+            .describe(
+                "Merged over the type's default options; see " +
+                    "get_widget_spec.",
+            ),
+        graded: z.boolean().optional().describe("Default true."),
+        static: z.boolean().optional().describe("Default false."),
+        alignment: z.string().optional(),
+    });
+    const rendererShape = {
+        content: z
+            .string()
+            .describe(
+                "Markdown with $TeX$ math and a [[☃ <widget id>]] " +
+                    "placeholder for each widget.",
+            ),
+        widgets: z.array(widgetInputSchema).optional(),
+        images: z.record(z.string(), z.unknown()).optional(),
+    };
+
+    server.registerTool(
+        "create_item",
+        {
+            title: "Create a Perseus item",
+            description:
+                "Start a draft from new content. Give the question (and any " +
+                "hints) as content plus a list of widgets; each widget's " +
+                "options are merged over its type's defaults and checked, " +
+                "and the whole item is validated as validate_item does. If " +
+                "anything has errors, nothing is saved and the issues are " +
+                "returned. Returns the new itemId and any warnings; use " +
+                "export_item to read the item.",
+            inputSchema: {
+                question: z.object(rendererShape),
+                hints: z
+                    .array(
+                        z.object({
+                            ...rendererShape,
+                            replace: z
+                                .boolean()
+                                .optional()
+                                .describe(
+                                    "Show this hint in place of the one " +
+                                        "before it.",
+                                ),
+                        }),
+                    )
+                    .optional(),
+                answerArea: z
+                    .record(z.string(), z.unknown())
+                    .optional()
+                    .describe(
+                        "Tools offered with the item, e.g. a calculator.",
+                    ),
+                notes: notesSchema,
+            },
+        },
+        ({notes, ...input}) =>
+            runTool(() => {
+                const result = drafts.createItem(input, notes);
+                if (!result.ok) {
+                    return errorResult(
+                        "The item wasn't created; nothing was saved.",
+                        {issues: result.issues},
+                    );
+                }
+                return jsonResult({
+                    itemId: result.draft.itemId,
+                    issues: result.issues,
+                });
             }),
     );
 

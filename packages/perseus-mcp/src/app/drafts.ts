@@ -1,4 +1,5 @@
 import {newDraft, reviseDraft} from "../domain/draft";
+import {buildItem} from "../domain/items/build";
 import {editItem as applyItemPatch} from "../domain/items/edit";
 import {parseItem} from "../domain/items/parse";
 
@@ -6,6 +7,7 @@ import {DraftNotFoundError, InvalidItemError} from "./errors";
 
 import type {Catalog} from "./catalog";
 import type {Draft} from "../domain/draft";
+import type {ItemInput} from "../domain/items/build";
 import type {PatchOperation} from "../domain/items/edit";
 import type {Issue} from "../domain/items/validate";
 import type {DraftRepository, SkippedDraft} from "../ports/draft-repository";
@@ -25,7 +27,8 @@ export type ItemSource = {item: unknown} | {path: string};
 /** A change to a draft: a JSON Patch to its item, new notes, or both. */
 export type DraftEdit = {patch?: ReadonlyArray<PatchOperation>; notes?: string};
 
-export type DraftEditResult =
+/** A new or changed draft and its warnings, or why nothing was saved. */
+export type DraftChangeResult =
     | {ok: true; draft: Draft; issues: Issue[]}
     | {ok: false; issues: Issue[]};
 
@@ -71,13 +74,32 @@ export function createDraftUseCases(deps: DraftDependencies) {
         },
 
         /**
+         * Starts a draft from new content and widgets. Nothing is saved if a
+         * widget doesn't build or the item has errors.
+         */
+        createItem(input: ItemInput, notes?: string): DraftChangeResult {
+            const result = buildItem(input, deps.catalog.widgets());
+            if (!result.ok) {
+                return result;
+            }
+            const draft = newDraft({
+                itemId: deps.newId(),
+                item: result.item,
+                notes,
+                now: deps.now(),
+            });
+            drafts.save(draft);
+            return {ok: true, draft, issues: result.issues};
+        },
+
+        /**
          * Changes a draft. A patch is applied to the item and the result
          * validated; if an operation fails or the item has errors, nothing
          * is saved (not even new notes), so a stored draft always parses.
          *
          * @throws DraftNotFoundError
          */
-        editItem(itemId: string, edit: DraftEdit): DraftEditResult {
+        editItem(itemId: string, edit: DraftEdit): DraftChangeResult {
             const draft = getDraft(itemId);
             let item = draft.item;
             let issues: Issue[] = [];

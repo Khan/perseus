@@ -91,6 +91,49 @@ describe("draft use cases", () => {
         });
     });
 
+    describe("createItem", () => {
+        it("saves a new draft holding the built item", () => {
+            // Arrange
+            const {drafts, useCases} = setUp();
+
+            // Act
+            useCases.createItem(
+                {
+                    question: {
+                        content: "Pick one: [[☃ dropdown 1]]",
+                        widgets: [{id: "dropdown 1", type: "dropdown"}],
+                    },
+                },
+                "Fractions unit",
+            );
+
+            // Assert
+            expect(drafts.get("abc")).toMatchObject({
+                revision: 1,
+                notes: "Fractions unit",
+                item: {
+                    question: {widgets: {"dropdown 1": {type: "dropdown"}}},
+                },
+            });
+        });
+
+        it("saves nothing when the item has errors", () => {
+            // Arrange
+            const {drafts, useCases} = setUp();
+
+            // Act
+            const result = useCases.createItem({
+                question: {content: "[[☃ radio 1]]"},
+            });
+
+            // Assert
+            expect({ok: result.ok, drafts: drafts.list()}).toEqual({
+                ok: false,
+                drafts: [],
+            });
+        });
+    });
+
     describe("editItem", () => {
         async function openedDraft() {
             const setup = setUp();
