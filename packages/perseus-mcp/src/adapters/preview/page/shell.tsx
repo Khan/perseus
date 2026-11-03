@@ -57,12 +57,8 @@ function Shell({itemId}: {itemId: string}) {
             return;
         }
         sendData({
-            type: "question",
-            data: {
-                question: draft.item.question,
-                apiOptions: {},
-                linterContext: {contentType: "exercise", highlightLint: false},
-            },
+            type: "exercise",
+            data: {item: draft.item, apiOptions: {}, showRationales: false},
         });
     }, [draft, sendData]);
 

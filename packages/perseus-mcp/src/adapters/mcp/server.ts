@@ -7,6 +7,7 @@ import {McpServer} from "./sdk";
 import {errorResult, jsonResult, runTool} from "./tool-results";
 
 import type {DraftUseCases} from "../../app/drafts";
+import type {PreviewUseCases} from "../../app/preview";
 import type {ReviewUseCases} from "../../app/review";
 import type {ScoringUseCases} from "../../app/scoring";
 import type {WidgetUseCases} from "../../app/widgets";
@@ -33,7 +34,11 @@ outcome you expect.
 
 Review every item you create or edit before returning it: the review_item
 prompt gives the procedure, and the review checklist resource describes each
-kind of defect.`;
+kind of defect.
+
+preview_item returns a URL where a person can see a draft as learners will,
+answer it and reveal its hints; the page follows the draft's changes, so give
+it to them once and keep editing.`;
 
 const notesSchema = z
     .string()
@@ -53,11 +58,13 @@ export function createMcpServer({
     widgets,
     scoring,
     review,
+    preview,
 }: {
     drafts: DraftUseCases;
     widgets: WidgetUseCases;
     scoring: ScoringUseCases;
     review: ReviewUseCases;
+    preview: PreviewUseCases;
 }): McpServer {
     const server = new McpServer(
         {name: "perseus", version: libVersion},
@@ -319,6 +326,22 @@ export function createMcpServer({
                     item: draft.item,
                 });
             }),
+    );
+
+    server.registerTool(
+        "preview_item",
+        {
+            title: "Preview a draft",
+            description:
+                "Return the URL of a page showing a draft as learners will " +
+                "see it, where a person can answer it, check their answer " +
+                "and reveal the hints. The page updates as the draft " +
+                "changes. Give the URL to the person you're working with.",
+            inputSchema: {itemId: z.string()},
+            annotations: {readOnlyHint: true},
+        },
+        ({itemId}) =>
+            runTool(() => jsonResult({url: preview.previewUrl(itemId)})),
     );
 
     server.registerTool(

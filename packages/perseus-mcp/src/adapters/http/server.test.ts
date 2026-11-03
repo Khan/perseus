@@ -13,7 +13,7 @@ import {createDraftUseCases} from "../../app/drafts";
 import {inMemoryRepository} from "../../app/in-memory-draft-repository.testutils";
 import {createPerseusCoreSchemaSource} from "../fs/perseus-core-schema-source";
 
-import {createHttpServer} from "./server";
+import {createHttpServer, previewLinks} from "./server";
 
 import type {PreviewPages} from "./server";
 import type {FastifyInstance} from "fastify";
@@ -183,5 +183,29 @@ describe("createHttpServer", () => {
 
         // Assert
         expect(await response.text()).toBe("asset");
+    });
+});
+
+describe("previewLinks", () => {
+    it("links to a draft's preview page at the base URL", () => {
+        // Arrange
+        const links = previewLinks(() => "http://localhost:4567");
+
+        // Act
+        const url = links.urlFor("a b");
+
+        // Assert
+        expect(url).toBe("http://localhost:4567/drafts/a%20b/preview");
+    });
+
+    it("returns null while the server has no address", () => {
+        // Arrange
+        const links = previewLinks(() => null);
+
+        // Act
+        const url = links.urlFor("abc");
+
+        // Assert
+        expect(url).toBeNull();
     });
 });

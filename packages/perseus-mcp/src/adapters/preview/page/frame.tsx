@@ -1,43 +1,14 @@
 // The preview frame: renders whatever the shell page sends it, the way
 // Perseus renders it for learners. It runs in an iframe so the item's styles
 // and scripts can't touch the shell.
-import {
-    DependenciesContext,
-    Renderer,
-    UserInputManager,
-    usePerseusI18n,
-} from "@khanacademy/perseus";
+import {DependenciesContext} from "@khanacademy/perseus";
 import {usePreviewPresenter} from "@khanacademy/perseus-editor";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {createRoot} from "react-dom/client";
 
+import {Exercise} from "./exercise";
 import {dependenciesV2} from "./perseus-environment";
-
-import type {PreviewContent} from "@khanacademy/perseus-editor";
-
-type QuestionData = Extract<PreviewContent, {type: "question"}>["data"];
-
-function Question({data}: {data: QuestionData}) {
-    const {strings} = usePerseusI18n();
-    const {question, apiOptions} = data;
-    return (
-        <UserInputManager widgets={question.widgets} problemNum={0}>
-            {({userInput, handleUserInput, initializeUserInput}) => (
-                <Renderer
-                    strings={strings}
-                    content={question.content}
-                    widgets={question.widgets}
-                    images={question.images}
-                    apiOptions={apiOptions}
-                    userInput={userInput}
-                    handleUserInput={handleUserInput}
-                    initializeUserInput={initializeUserInput}
-                />
-            )}
-        </UserInputManager>
-    );
-}
 
 function Frame() {
     const containerRef = React.useRef<HTMLDivElement>(null);
@@ -65,8 +36,8 @@ function Frame() {
             ref={containerRef}
             className="framework-perseus box-sizing-border-box-reset"
         >
-            {content?.type === "question" ? (
-                <Question data={content.data} />
+            {content?.type === "exercise" ? (
+                <Exercise data={content.data} />
             ) : (
                 <p>Waiting for the item…</p>
             )}

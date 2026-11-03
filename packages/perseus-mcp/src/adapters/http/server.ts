@@ -6,6 +6,7 @@ import {StreamableHTTPServerTransport} from "../mcp/sdk";
 
 import type {DraftUseCases} from "../../app/drafts";
 import type {Draft} from "../../domain/draft";
+import type {PreviewLinks} from "../../ports/preview-links";
 import type {McpServer} from "../mcp/sdk";
 import type {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
 import type {IncomingMessage, Server, ServerResponse} from "node:http";
@@ -39,6 +40,21 @@ function draftEvent(draft: Draft): string {
         item: draft.item,
     };
     return `event: draft\ndata: ${JSON.stringify(data)}\n\n`;
+}
+
+/**
+ * Links to the preview pages this server serves at `baseUrl`, which is null
+ * until the server is listening (and stays null if it never does).
+ */
+export function previewLinks(baseUrl: () => string | null): PreviewLinks {
+    return {
+        urlFor(itemId) {
+            const base = baseUrl();
+            return base == null
+                ? null
+                : `${base}/drafts/${encodeURIComponent(itemId)}/preview`;
+        },
+    };
 }
 
 /**

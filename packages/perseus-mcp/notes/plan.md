@@ -40,7 +40,7 @@ How the work is done. An agent resuming this plan follows these rules exactly.
 
 ## Status
 
-**Build order step 3 is under way.** The commits below are on
+**Build order steps 1 to 3 are done.** The commits below are on
 `jer/perseus-mcp`, oldest first, and every tool was smoke-tested over stdio
 from outside the repo.
 
@@ -56,11 +56,13 @@ from outside the repo.
 | Add a draft change feed to perseus-mcp | `/drafts/<itemId>/events`: a server-sent event stream of a draft, sent on connect and after every change (`withDraftFeed` wraps the repository, so every save is announced; `watchItem` use case). In stdio mode HTTP runs too, on a free port the OS picks unless `--port` is given, and the process exits when stdin closes. |
 | Add @internal/perseus-environment for page setup | `config/environment`, a private package holding the page setup Perseus expects from the sites that host it: the styles Storybook had in `.storybook/styles`, the Lato and Plus Jakarta Sans fonts from `static/`, and the CSS-layer Vite plugin from Storybook's config. Storybook now loads them from it, and the preview will too, so the MCP uses no Storybook code. |
 | Add the draft preview page to perseus-mcp | `/drafts/<itemId>/preview`: a shell that follows the draft's event stream and sends the question to a same-origin iframe (`/preview/frame`) through `usePreviewController` and `usePreviewPresenter`; the frame renders it with `Renderer` and MathJax, in the page setup from `@internal/perseus-environment`, and the iframe resizes to fit. Fastify serves the pages with Vite in middleware mode (`@fastify/middie`), so there's no build step; `createHttpServer` takes the pages as an optional `PreviewPages`, faked in the tests. |
+| Add preview_item, hints and answer checks | `preview_item`: the URL of a draft's preview page (`PreviewLinks` port, implemented by the HTTP adapter once it's listening; `PreviewUnavailableError` if it never does). The frame renders the whole item with `ServerItemRenderer`, with a "Check answer" button that scores with the same `scoreItem` as `score_item` and shows Perseus's message for the learner, and hints revealed one at a time ("Hide hints" remounts the item, since Perseus can't hide them). |
 
 Remaining, in order:
 
-1. Hints, check answer and `preview_item`, which returns the page's URL.
-2. Then build order steps 4 to 8.
+1. Build order steps 4 to 8. The preview's `renderDone` and `renderError`
+   markers (see Preview) aren't built yet; they can come with step 4's
+   preview options.
 
 ## Notes for whoever picks this up
 
@@ -76,7 +78,7 @@ Remaining, in order:
   from TypeScript source in any working directory. A `node -r` or `--import`
   shebang would look swc up from the host's working directory and fail.
 - **Code layout:** hexagonal; see Architecture. Ports and other behaviour
-  types (`DraftRepository`, `DraftFeed`, `ItemFileReader`, `SchemaSource`,
+  types (`DraftRepository`, `DraftFeed`, `PreviewLinks`, `ItemFileReader`, `SchemaSource`,
   `SchemaIndex`, `WidgetCatalog`, `Catalog`) are `interface`s; data shapes stay `type`.
 - **The package** has no `index.ts` or `exports`, and each dependency arrives
   with the commit that first uses it. `package.json` keys follow
@@ -161,15 +163,16 @@ without touching the core.
   validation, editing, scoring, ...). No file system, network or process
   access.
 - **Ports** (`src/ports/`): the interfaces the core needs, such as
-  `DraftRepository`, `DraftFeed`, `ItemFileReader` and `SchemaSource`.
+  `DraftRepository`, `DraftFeed`, `PreviewLinks`, `ItemFileReader` and
+  `SchemaSource`.
 - **Application** (`src/app/`): the use cases behind the tools, prompts and
-  resources (drafts, widgets, scoring, review), written against the ports
+  resources (drafts, widgets, scoring, review, preview), written against the ports
   only, and `withDraftFeed`, which announces every save on the draft feed.
 - **Adapters** (`src/adapters/`): inbound `mcp/` (tool registration, zod
   input schemas, tool results, `INSTRUCTIONS`) and `http/` (Fastify,
-  transports, the drafts' event streams); outbound `fs/` (the file draft
-  repository, the item file reader, the `data-schema.ts` reader). Later: the
-  preview page and a hosted draft store.
+  transports, the drafts' event streams and preview pages); `preview/` (the
+  pages and Vite); outbound `fs/` (the file draft repository, the item file
+  reader, the `data-schema.ts` reader). Later: a hosted draft store.
 - **Composition root** (`src/main.ts`): parses arguments, picks the data
   directory default, registers widgets, wires adapters to use cases and
   writes user-facing error messages.
@@ -340,7 +343,9 @@ the host supports MCP Apps.
   means today's hooks work unchanged.
 - Includes hints and check-answer. Hints are revealed one at a time,
   following `Hint.replace` (a replacing hint takes the place of the one
-  before it).
+  before it). Until step 4's `reveal-hint` message, the buttons live in the
+  frame, next to `ServerItemRenderer`; check answer scores with the same
+  `scoreItem` as `score_item`, so the two always agree.
 - Like the render pages consuming applications use for screenshots, it sets
   `body.dataset.renderDone` and `body.dataset.renderError` markers.
 - A dedicated page avoids the same-origin limits of existing editor preview

@@ -31,3 +31,13 @@ export class InvalidItemError extends Error {
         this.reason = reason;
     }
 }
+
+export class PreviewUnavailableError extends Error {
+    constructor() {
+        super(
+            "Previews aren't available: perseus-mcp couldn't start its " +
+                "HTTP server. Its log (stderr) says why.",
+        );
+        this.name = "PreviewUnavailableError";
+    }
+}

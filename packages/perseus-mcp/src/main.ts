@@ -13,13 +13,14 @@ import {
 } from "./adapters/fs/file-draft-repository";
 import {nodeItemFileReader} from "./adapters/fs/node-item-file-reader";
 import {createPerseusCoreSchemaSource} from "./adapters/fs/perseus-core-schema-source";
-import {createHttpServer} from "./adapters/http/server";
+import {createHttpServer, previewLinks} from "./adapters/http/server";
 import {StdioServerTransport} from "./adapters/mcp/sdk";
 import {createMcpServer} from "./adapters/mcp/server";
 import {createVitePreviewPages} from "./adapters/preview/vite-preview-pages";
 import {createCatalog} from "./app/catalog";
 import {withDraftFeed} from "./app/draft-feed";
 import {createDraftUseCases} from "./app/drafts";
+import {createPreviewUseCases} from "./app/preview";
 import {createReviewUseCases} from "./app/review";
 import {createScoringUseCases} from "./app/scoring";
 import {createWidgetUseCases} from "./app/widgets";
@@ -89,6 +90,9 @@ for (const {location, reason} of fileRepository.skipped()) {
 // Every save goes through the feed, so open previews hear about it.
 const {drafts: repository, feed} = withDraftFeed(fileRepository);
 
+// Set once the HTTP server is listening.
+let baseUrl: string | null = null;
+
 const catalog = createCatalog(createPerseusCoreSchemaSource());
 const useCases = {
     drafts: createDraftUseCases({
@@ -102,6 +106,10 @@ const useCases = {
     widgets: createWidgetUseCases({catalog, drafts: repository}),
     scoring: createScoringUseCases({drafts: repository}),
     review: createReviewUseCases({drafts: repository}),
+    preview: createPreviewUseCases({
+        drafts: repository,
+        links: previewLinks(() => baseUrl),
+    }),
 };
 
 const host = values.host;
@@ -114,7 +122,7 @@ const httpServer = await createHttpServer({
 });
 try {
     const address = new URL(await httpServer.listen({port, host}));
-    const baseUrl = `http://${host === "127.0.0.1" ? "localhost" : host}:${address.port}`;
+    baseUrl = `http://${host === "127.0.0.1" ? "localhost" : host}:${address.port}`;
     log(`perseus-mcp: HTTP on ${baseUrl} (MCP on ${baseUrl}/mcp)`);
 } catch (e) {
     log(`perseus-mcp: couldn't listen on ${host}:${port}: ${String(e)}`);
