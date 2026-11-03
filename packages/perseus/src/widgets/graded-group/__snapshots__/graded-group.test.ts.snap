@@ -848,6 +848,7 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                           </table>
                         </div>
                         <div
+                          data-testid="widget-container-static-overlay"
                           style="width: 100%; height: 100%; position: absolute; top: 0px; left: 0px; z-index: 3;"
                         />
                       </div>
@@ -1570,6 +1571,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                           </table>
                         </div>
                         <div
+                          data-testid="widget-container-static-overlay"
                           style="width: 100%; height: 100%; position: absolute; top: 0px; left: 0px; z-index: 3;"
                         />
                       </div>
