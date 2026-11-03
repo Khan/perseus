@@ -36,6 +36,10 @@ import type {
     PerseusWidgetOptions,
 } from "./data-schema";
 
+// MockWidgetOptions, defined and added to PerseusWidgetOptions in
+// packages/perseus/src/widgets/mock-widgets/mock-widget-types.ts
+type MockWidgetOptions = {static?: boolean; value: string};
+
 describe("PerseusInputNumberWidgetOptions", () => {
     it("is identical to PerseusNumericInputWidgetOptions", () => {
         // This test is needed because the PerseusInputNumberWidgetOptions now
@@ -49,7 +53,7 @@ describe("PerseusInputNumberWidgetOptions", () => {
 
 describe("PerseusWidgetOptions", () => {
     it("includes all widget options", () => {
-        expect<PerseusWidgetOptions>().type.toBeAssignableFrom<
+        expect<PerseusWidgetOptions>().type.toBe<
             | PerseusBlankWidgetOptions
             | PerseusCategorizerWidgetOptions
             | PerseusCSProgramWidgetOptions
@@ -82,6 +86,7 @@ describe("PerseusWidgetOptions", () => {
             | PerseusSorterWidgetOptions
             | PerseusTableWidgetOptions
             | PerseusVideoWidgetOptions
+            | MockWidgetOptions
         >();
     });
 });
