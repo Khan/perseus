@@ -146,7 +146,7 @@ class WidgetContainer extends React.Component<Props, State> {
         // Ideally widgets themselves should know how to prevent interaction.
         // UPDATE HTML5: `inert` on the underlying div would be better
         //
-        // TODO(nisha): Remove `shoudlUseStaticOverlay` after all the widgets
+        // TODO(nisha): Remove `shouldUseStaticOverlay` after all the widgets
         // handle their own static elements.
         const shouldUseStaticOverlay =
             (this.props.widgetProps.static || apiOptions.readOnly) &&
@@ -224,7 +224,10 @@ class WidgetContainer extends React.Component<Props, State> {
                                     ref={this.widgetRef}
                                 />
                                 {shouldUseStaticOverlay && (
-                                    <div style={staticOverlayStyles} />
+                                    <div
+                                        data-testid="widget-container-static-overlay"
+                                        style={staticOverlayStyles}
+                                    />
                                 )}
                             </ErrorBoundary>
                         )}
