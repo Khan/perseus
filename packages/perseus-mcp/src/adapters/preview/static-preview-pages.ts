@@ -68,3 +68,14 @@ export function createStaticAppPage(dir: string): {html(): Promise<string>} {
         },
     };
 }
+
+/** Both prebuilt preview pages in `dir`, as `start()` takes them. */
+export function createStaticPreviewSource(dir: string): {
+    createPreview: () => Promise<PreviewPages>;
+    previewApp: {html(): Promise<string>};
+} {
+    return {
+        createPreview: async () => createStaticPreviewPages(dir),
+        previewApp: createStaticAppPage(dir),
+    };
+}

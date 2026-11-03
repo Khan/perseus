@@ -71,6 +71,7 @@ from outside the repo.
 | Plan packaging perseus-mcp as a .mcpb | Plan only: build order step 6 packages the server as a Claude Desktop extension for testers; the later steps move down one. |
 | Find runtime files through RuntimePaths | `RuntimePaths` names the files the server reads at runtime that the installed extension must find too: perseus-core's type definitions (now passed to `createPerseusCoreSchemaSource`) and the default data directory. `checkoutPaths()` gives the repo's; the packaged layout comes with the packaged entry point. The Vite adapters keep finding their sources next to them: they only run from the checkout. |
 | Prebuild the preview pages for serving without Vite | `pnpm --filter @khanacademy/perseus-mcp build:pages` builds the browser preview's shell and frame (scripts, styles, fonts under `preview/assets/`) and the MCP Apps page into `dist/pages`; `perseus-mcp --pages <dir>` serves them with `createStaticPreviewPages` and `createStaticAppPage` instead of Vite. The build lives in `scripts/` (tooling, not the server); `productionBuild`, the page folders and the SVG setting move into `vite-shared.ts`. |
+| Bundle a packaged perseus-mcp server | `build:mcpb` builds `dist/mcpb/`: `server/index.mjs` (the packaged entry point, `main-packaged.ts`, and every dependency, from Vite's server-side build with `ssr.noExternal`), perseus-core's two type files in `types/`, and the prebuilt pages in `pages/`. `start()` holds the wiring both entry points share; `main.ts` (the repo) passes `checkoutPaths()` and Vite or `--pages`, `main-packaged.ts` passes `packagedPaths()` and the prebuilt pages, so Vite stays out of the bundle. Installed, drafts go in the user's data folder (`userDataDir`), and the server logs where. Run from a copy outside the repo: all tools, the shipped type files, drafts in Application Support, both previews. |
 
 Remaining, in order:
 
@@ -108,6 +109,12 @@ migration steps, and they're updated separately.
   package: it would drop `private` and `bin`. Knip finds the entry point by
   following `bin`; `knip.config.ts` only drops the default `src/index.*`
   pattern, which matches nothing here.
+- **The packaged server:** `pnpm --filter @khanacademy/perseus-mcp build:mcpb`
+  builds `dist/mcpb/` (`server/index.mjs`, `types/`, `pages/`), laid out as
+  `packagedPaths()` expects. Try it from a copy outside the repo with
+  `node <copy>/server/index.mjs --stdio`; set `HOME` to a scratch folder to
+  keep its drafts apart (with mise, run the real `node` binary, since its
+  shim reads `HOME`).
 - **Prebuilt pages:** `build:pages` writes `dist/pages/preview/` (the
   shell, the frame and `assets/`) and `dist/pages/preview-app.html`
   (`src/adapters/preview/prebuilt-layout.ts`, kept free of Vite so serving
@@ -590,8 +597,8 @@ Steps 1–3 need no Perseus changes, so building can start there.
       packaged layout (`packagedPaths()`) comes with the packaged entry
       point in commit 4. The Vite adapters keep their own paths, since only
       the checkout runs them.
-   2. **Drafts in the user's data directory** (folded into commit 4, with
-      the packaged entry point that uses it) when installed:
+   2. **Drafts in the user's data directory** (done, in commit 4 with the
+      packaged entry point that uses it) when installed:
       `~/Library/Application Support/perseus-mcp` on macOS,
       `$XDG_DATA_HOME/perseus-mcp` (default `~/.local/share/perseus-mcp`) on
       Linux, `%LOCALAPPDATA%\perseus-mcp` on Windows. Runs from the repo keep
@@ -602,14 +609,18 @@ Steps 1–3 need no Perseus changes, so building can start there.
       `config/build/browser-targets.ts` has no package export, and importing
       it across packages breaks the lint rules. The fonts' OFL licenses go
       in with the pack script (commit 5).
-   4. **One bundled server file:** a packaged entry point
+   4. **One bundled server file** (done): a packaged entry point
       (`packagedPaths()`, no Vite) bundled with all its dependencies into
       `server/index.mjs` (Vite's server-side build for Node, with
       `ssr.noExternal: true`), since pnpm's `node_modules` is symlinks and
       doesn't survive zipping. It includes the TypeScript compiler, which
       `get_widget_spec` uses; the two perseus-core type files ship next to
-      it.
-   5. **Manifest and pack script:** `manifest.json` (name, display name,
+      it. Rolldown gives bundled CommonJS its own `require()`;
+      `__filename` and `__dirname` (which the TypeScript compiler reads) are
+      defined as `import.meta.filename` and `import.meta.dirname`, which
+      need Node 20.11.
+   5. **Manifest and pack script**, added to `build:mcpb`, which already
+      builds the package directory (`dist/mcpb`): `manifest.json` (name, display name,
       version, author, description, the tools, the `node` command,
       `compatibility`, icon), and a script that builds into a staging
       directory, then runs `mcpb validate` and `mcpb pack` from

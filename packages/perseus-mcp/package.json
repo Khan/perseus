@@ -18,6 +18,7 @@
         "perseus-mcp": "./bin/perseus-mcp.mjs"
     },
     "scripts": {
+        "build:mcpb": "node scripts/build-mcpb.mjs",
         "build:pages": "node scripts/build-pages.mjs"
     },
     "dependencies": {
