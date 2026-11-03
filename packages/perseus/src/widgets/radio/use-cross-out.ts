@@ -1,16 +1,14 @@
 import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
-import {useState} from "react";
+import {useContext, useState} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 
+import CrossOutContext from "./cross-out-context";
 import {getChoiceLetter} from "./util";
 
 import type {RadioCrossOutProps} from "./radio-component";
-import type {CrossOutOptions} from "../../types";
 
 interface UseCrossOutArgs {
-    /** The host's cross-out settings (`apiOptions.crossOut`). */
-    options: CrossOutOptions | undefined;
     /** The choices, in the order they're shown. */
     choices: ReadonlyArray<{id: string}>;
     /** The IDs of the choices the learner selected. */
@@ -49,13 +47,13 @@ interface UseCrossOutResult {
 /**
  * Keep the state of the Radio widget's cross-out tool.
  *
- * Cross-out state is display-only. It lives here, never in userInput, so it's
- * never part of the answer that gets scored.
+ * The host's settings come from `CrossOutContext`. Cross-out state is
+ * display-only. It lives here, never in userInput, so it's never part of the
+ * answer that gets scored.
  *
  * @returns The cross-out props and a handler for selected choices.
  */
 export function useCrossOut({
-    options,
     choices,
     selectedChoiceIds,
     isReviewMode,
@@ -64,6 +62,7 @@ export function useCrossOut({
     onUnselect,
 }: UseCrossOutArgs): UseCrossOutResult {
     const {strings} = usePerseusI18n();
+    const options = useContext(CrossOutContext);
     const [localToggleOn, setLocalToggleOn] = useState(false);
     const toggleOn = options?.toggleOn ?? localToggleOn;
     const [crossedOutIds, setCrossedOutIds] = useState<ReadonlyArray<string>>(

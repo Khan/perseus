@@ -230,18 +230,14 @@ export type APIOptions = Readonly<{
      * Define the feature flag name in packages/perseus-core/src/feature-flags.ts
      */
     flags?: Record<(typeof PerseusFeatureFlags)[number], boolean>;
-    /**
-     * Settings for the cross-out tool in multiple choice (Radio) widgets.
-     * Leave it out to turn cross-out off.
-     */
-    crossOut?: CrossOutOptions;
 }>;
 
 /**
  * Settings for the cross-out tool in multiple choice (Radio) widgets.
  *
- * Cross-outs are display-only: they are never part of the learner's answer
- * and never affect scoring.
+ * Hosts provide them with `CrossOutContext`; without a provider, cross-out is
+ * off. Cross-outs are display-only: they are never part of the learner's
+ * answer and never affect scoring.
  */
 export type CrossOutOptions = Readonly<{
     /**

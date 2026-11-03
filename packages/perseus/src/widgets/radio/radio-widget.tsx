@@ -114,7 +114,6 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
         }, [options.choices, options.randomize, strings, randomSeed]);
 
         const {crossOut, restoreSelectedChoice} = useCrossOut({
-            options: apiOptions.crossOut,
             choices,
             selectedChoiceIds: props.userInput?.selectedChoiceIds ?? [],
             isReviewMode,

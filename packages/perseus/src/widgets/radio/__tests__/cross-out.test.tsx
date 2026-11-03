@@ -15,6 +15,7 @@ import {testDependencies} from "../../../testing/test-dependencies";
 import {scorePerseusItemTesting} from "../../../util/scoring.testutils";
 import {containerSizeClass} from "../../../util/sizing-utils";
 import {renderQuestion} from "../../__testutils__/render-question";
+import CrossOutContext from "../cross-out-context";
 import Radio from "../radio-widget";
 
 import type {APIOptions, CrossOutOptions, WidgetProps} from "../../../types";
@@ -51,7 +52,17 @@ const generateQuestion = (multipleSelect = false): PerseusRenderer =>
         },
     });
 
-const crossOutOn: APIOptions = {crossOut: {enabled: true}};
+function crossOutWrapper(options: CrossOutOptions) {
+    return function CrossOutWrapper({children}: {children: React.ReactNode}) {
+        return (
+            <CrossOutContext.Provider value={options}>
+                {children}
+            </CrossOutContext.Provider>
+        );
+    };
+}
+
+const crossOutOn = {wrapper: crossOutWrapper({enabled: true})};
 
 const getToggle = () => screen.getByRole("switch", {name: "Cross out answers"});
 
@@ -85,7 +96,7 @@ describe("Radio cross-out", () => {
     it("renders no toggle or cross-out buttons when cross-out is disabled", () => {
         // Arrange, Act
         renderQuestion(generateQuestion(), {
-            apiOptions: {crossOut: {enabled: false}},
+            wrapper: crossOutWrapper({enabled: false}),
         });
 
         // Assert
@@ -94,7 +105,7 @@ describe("Radio cross-out", () => {
 
     it("renders the toggle off by default, with no cross-out buttons", () => {
         // Arrange, Act
-        renderQuestion(generateQuestion(), {apiOptions: crossOutOn});
+        renderQuestion(generateQuestion(), crossOutOn);
 
         // Assert
         expect(getToggle()).not.toBeChecked();
@@ -105,7 +116,7 @@ describe("Radio cross-out", () => {
 
     it("describes what the toggle does", () => {
         // Arrange, Act
-        renderQuestion(generateQuestion(), {apiOptions: crossOutOn});
+        renderQuestion(generateQuestion(), crossOutOn);
 
         // Assert
         expect(
@@ -118,7 +129,7 @@ describe("Radio cross-out", () => {
 
     it("places the toggle before the choices in tab order", async () => {
         // Arrange
-        renderQuestion(generateQuestion(), {apiOptions: crossOutOn});
+        renderQuestion(generateQuestion(), crossOutOn);
 
         // Act
         await userEvent.tab();
@@ -130,7 +141,7 @@ describe("Radio cross-out", () => {
 
     it("shows a cross-out button on every choice when the toggle is turned on", async () => {
         // Arrange
-        renderQuestion(generateQuestion(), {apiOptions: crossOutOn});
+        renderQuestion(generateQuestion(), crossOutOn);
 
         // Act
         await userEvent.click(getToggle());
@@ -144,7 +155,7 @@ describe("Radio cross-out", () => {
 
     it("tabs from each choice to its cross-out button", async () => {
         // Arrange
-        renderQuestion(generateQuestion(), {apiOptions: crossOutOn});
+        renderQuestion(generateQuestion(), crossOutOn);
         await userEvent.click(getToggle());
 
         // Act & Assert
@@ -159,7 +170,7 @@ describe("Radio cross-out", () => {
     it("crosses out a choice without selecting it", async () => {
         // Arrange
         const {renderer} = renderQuestion(generateQuestion(), {
-            apiOptions: crossOutOn,
+            ...crossOutOn,
         });
         await userEvent.click(getToggle());
 
@@ -178,7 +189,7 @@ describe("Radio cross-out", () => {
 
     it("announces the cross-out and how many choices are left", async () => {
         // Arrange
-        renderQuestion(generateQuestion(), {apiOptions: crossOutOn});
+        renderQuestion(generateQuestion(), crossOutOn);
         await userEvent.click(getToggle());
 
         // Act
@@ -192,7 +203,7 @@ describe("Radio cross-out", () => {
 
     it("restores a crossed-out choice when its cross-out button is pressed again", async () => {
         // Arrange
-        renderQuestion(generateQuestion(), {apiOptions: crossOutOn});
+        renderQuestion(generateQuestion(), crossOutOn);
         await userEvent.click(getToggle());
         await userEvent.click(getCrossOutButton("B"));
 
@@ -211,7 +222,7 @@ describe("Radio cross-out", () => {
 
     it("stops showing cross-outs when the toggle is turned off", async () => {
         // Arrange
-        renderQuestion(generateQuestion(), {apiOptions: crossOutOn});
+        renderQuestion(generateQuestion(), crossOutOn);
         await userEvent.click(getToggle());
         await userEvent.click(getCrossOutButton("B"));
 
@@ -229,7 +240,7 @@ describe("Radio cross-out", () => {
 
     it("shows cross-outs again when the toggle is turned back on", async () => {
         // Arrange
-        renderQuestion(generateQuestion(), {apiOptions: crossOutOn});
+        renderQuestion(generateQuestion(), crossOutOn);
         await userEvent.click(getToggle());
         await userEvent.click(getCrossOutButton("B"));
         await userEvent.click(getToggle());
@@ -246,7 +257,7 @@ describe("Radio cross-out", () => {
 
     it("announces how many choices are crossed out when the toggle is turned back on", async () => {
         // Arrange
-        renderQuestion(generateQuestion(), {apiOptions: crossOutOn});
+        renderQuestion(generateQuestion(), crossOutOn);
         await userEvent.click(getToggle());
         await userEvent.click(getCrossOutButton("B"));
         await userEvent.click(getCrossOutButton("C"));
@@ -265,7 +276,7 @@ describe("Radio cross-out", () => {
 
     it("announces a single crossed-out choice when the toggle is turned back on", async () => {
         // Arrange
-        renderQuestion(generateQuestion(), {apiOptions: crossOutOn});
+        renderQuestion(generateQuestion(), crossOutOn);
         await userEvent.click(getToggle());
         await userEvent.click(getCrossOutButton("B"));
         await userEvent.click(getToggle());
@@ -282,7 +293,7 @@ describe("Radio cross-out", () => {
 
     it("doesn't announce anything when the toggle is turned on with no cross-outs", async () => {
         // Arrange
-        renderQuestion(generateQuestion(), {apiOptions: crossOutOn});
+        renderQuestion(generateQuestion(), crossOutOn);
 
         // Act
         await userEvent.click(getToggle());
@@ -293,7 +304,7 @@ describe("Radio cross-out", () => {
 
     it("doesn't announce the cross-outs when the toggle is turned off", async () => {
         // Arrange
-        renderQuestion(generateQuestion(), {apiOptions: crossOutOn});
+        renderQuestion(generateQuestion(), crossOutOn);
         await userEvent.click(getToggle());
         await userEvent.click(getCrossOutButton("B"));
         jest.mocked(announceMessage).mockClear();
@@ -307,7 +318,7 @@ describe("Radio cross-out", () => {
 
     it("forgets a cross-out when its choice is selected while the toggle is off", async () => {
         // Arrange
-        renderQuestion(generateQuestion(), {apiOptions: crossOutOn});
+        renderQuestion(generateQuestion(), crossOutOn);
         await userEvent.click(getToggle());
         await userEvent.click(getCrossOutButton("B"));
         await userEvent.click(getToggle());
@@ -327,7 +338,7 @@ describe("Radio cross-out", () => {
     it("unselects a selected choice when it's crossed out, with one announcement", async () => {
         // Arrange
         const {renderer} = renderQuestion(generateQuestion(), {
-            apiOptions: crossOutOn,
+            ...crossOutOn,
         });
         await userEvent.click(getToggle());
         await userEvent.click(getChoice("A"));
@@ -349,7 +360,7 @@ describe("Radio cross-out", () => {
     it("restores and selects a crossed-out choice when it's selected", async () => {
         // Arrange
         const {renderer} = renderQuestion(generateQuestion(), {
-            apiOptions: crossOutOn,
+            ...crossOutOn,
         });
         await userEvent.click(getToggle());
         await userEvent.click(getCrossOutButton("A"));
@@ -371,7 +382,7 @@ describe("Radio cross-out", () => {
 
     it("crosses out choices in multi-select questions", async () => {
         // Arrange
-        renderQuestion(generateQuestion(true), {apiOptions: crossOutOn});
+        renderQuestion(generateQuestion(true), crossOutOn);
         await userEvent.click(getToggle());
 
         // Act
@@ -387,7 +398,7 @@ describe("Radio cross-out", () => {
     it("scores the same with and without cross-outs", async () => {
         // Arrange
         const question = generateQuestion();
-        const {renderer} = renderQuestion(question, {apiOptions: crossOutOn});
+        const {renderer} = renderQuestion(question, crossOutOn);
         await userEvent.click(getToggle());
         await userEvent.click(getChoice("A"));
 
@@ -406,7 +417,7 @@ describe("Radio cross-out", () => {
     it("hides the toggle and clears cross-outs in review mode", async () => {
         // Arrange
         const question = generateQuestion();
-        const {rerender} = renderQuestion(question, {apiOptions: crossOutOn});
+        const {rerender} = renderQuestion(question, crossOutOn);
         await userEvent.click(getToggle());
         await userEvent.click(getCrossOutButton("B"));
 
@@ -423,7 +434,7 @@ describe("Radio cross-out", () => {
     it("keeps cross-outs cleared after review mode ends", async () => {
         // Arrange
         const question = generateQuestion();
-        const {rerender} = renderQuestion(question, {apiOptions: crossOutOn});
+        const {rerender} = renderQuestion(question, crossOutOn);
         await userEvent.click(getToggle());
         await userEvent.click(getCrossOutButton("B"));
         rerender(question, {reviewMode: true});
@@ -438,7 +449,7 @@ describe("Radio cross-out", () => {
     });
 });
 
-describe("Radio cross-out options from the host", () => {
+describe("Radio cross-out settings from CrossOutContext", () => {
     let userEvent: UserEvent;
 
     const choices = generateRadioOptions({
@@ -450,7 +461,6 @@ describe("Radio cross-out options from the host", () => {
     }).choices.map((choice, index) => ({...choice, originalIndex: index}));
 
     const getProps = (
-        crossOut: CrossOutOptions,
         apiOverrides: Partial<APIOptions> = {},
     ): WidgetProps<
         RadioProps,
@@ -464,7 +474,7 @@ describe("Radio cross-out options from the host", () => {
         alignment: null,
         static: false,
         problemNum: 0,
-        apiOptions: {...ApiOptions.defaults, ...apiOverrides, crossOut},
+        apiOptions: {...ApiOptions.defaults, ...apiOverrides},
         onFocus: jest.fn(),
         onBlur: jest.fn(),
         findWidgets: () => [],
@@ -481,6 +491,15 @@ describe("Radio cross-out options from the host", () => {
         containerSizeClass: containerSizeClass.MEDIUM,
     });
 
+    const radioWithCrossOut = (
+        crossOut: CrossOutOptions,
+        apiOverrides: Partial<APIOptions> = {},
+    ) => (
+        <CrossOutContext.Provider value={crossOut}>
+            <Radio {...getProps(apiOverrides)} />
+        </CrossOutContext.Provider>
+    );
+
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
@@ -492,7 +511,7 @@ describe("Radio cross-out options from the host", () => {
 
     it("uses the toggle state the host passes", () => {
         // Arrange, Act
-        render(<Radio {...getProps({enabled: true, toggleOn: true})} />);
+        render(radioWithCrossOut({enabled: true, toggleOn: true}));
 
         // Assert
         expect(getToggle()).toBeChecked();
@@ -503,9 +522,7 @@ describe("Radio cross-out options from the host", () => {
         // Arrange
         const onToggleChange = jest.fn();
         render(
-            <Radio
-                {...getProps({enabled: true, toggleOn: false, onToggleChange})}
-            />,
+            radioWithCrossOut({enabled: true, toggleOn: false, onToggleChange}),
         );
 
         // Act
@@ -518,17 +535,13 @@ describe("Radio cross-out options from the host", () => {
     it("clears cross-outs when the host changes the reset key", async () => {
         // Arrange
         const {rerender} = render(
-            <Radio
-                {...getProps({enabled: true, toggleOn: true, resetKey: 1})}
-            />,
+            radioWithCrossOut({enabled: true, toggleOn: true, resetKey: 1}),
         );
         await userEvent.click(getCrossOutButton("B"));
 
         // Act
         rerender(
-            <Radio
-                {...getProps({enabled: true, toggleOn: true, resetKey: 2})}
-            />,
+            radioWithCrossOut({enabled: true, toggleOn: true, resetKey: 2}),
         );
 
         // Assert
@@ -538,9 +551,10 @@ describe("Radio cross-out options from the host", () => {
     it("disables the toggle and cross-out buttons when read-only", () => {
         // Arrange, Act
         render(
-            <Radio
-                {...getProps({enabled: true, toggleOn: true}, {readOnly: true})}
-            />,
+            radioWithCrossOut(
+                {enabled: true, toggleOn: true},
+                {readOnly: true},
+            ),
         );
 
         // Assert
@@ -551,9 +565,10 @@ describe("Radio cross-out options from the host", () => {
     it("doesn't cross out a choice when read-only", async () => {
         // Arrange
         render(
-            <Radio
-                {...getProps({enabled: true, toggleOn: true}, {readOnly: true})}
-            />,
+            radioWithCrossOut(
+                {enabled: true, toggleOn: true},
+                {readOnly: true},
+            ),
         );
 
         // Act

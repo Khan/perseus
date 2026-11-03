@@ -1,20 +1,30 @@
 import {generateRadioChoice} from "@khanacademy/perseus-core";
+import * as React from "react";
+
+import CrossOutContext from "../cross-out-context";
 
 import {radioRendererDecoratorWithDebugUI} from "./radio-renderer-decorator";
 
 import type {PerseusRadioWidgetOptions} from "@khanacademy/perseus-core";
-import type {Meta, StoryObj} from "@storybook/react-vite";
+import type {Decorator, Meta, StoryObj} from "@storybook/react-vite";
+
+// Listed after the renderer decorator so it wraps it: the renderer decorator
+// renders the question itself rather than the story.
+const crossOutDecorator: Decorator = (Story) => (
+    <CrossOutContext.Provider value={{enabled: true}}>
+        <Story />
+    </CrossOutContext.Provider>
+);
 
 const meta: Meta<PerseusRadioWidgetOptions> = {
     title: "Widgets/Radio/Cross-out",
     tags: ["!autodocs"],
-    decorators: [radioRendererDecoratorWithDebugUI],
+    decorators: [radioRendererDecoratorWithDebugUI, crossOutDecorator],
     parameters: {
-        apiOptions: {crossOut: {enabled: true}},
         docs: {
             description: {
                 component:
-                    "The cross-out tool, turned on with `apiOptions.crossOut`. Turn on the Cross out answers toggle to show a cross-out button on each choice.",
+                    "The cross-out tool, turned on by wrapping the renderer in `CrossOutContext.Provider`. Turn on the Cross out answers toggle to show a cross-out button on each choice.",
             },
         },
     },
