@@ -55,15 +55,12 @@ from outside the repo.
 | Add review_item prompt and checklist to perseus-mcp | The `review_item` prompt (the review procedure for a draft) and the review checklist resource, built from one list of entries in `src/domain/review/`. `validate_item` issues the checklist explains carry a `see` link to their entry. |
 | Add a draft change feed to perseus-mcp | `/drafts/<itemId>/events`: a server-sent event stream of a draft, sent on connect and after every change (`withDraftFeed` wraps the repository, so every save is announced; `watchItem` use case). In stdio mode HTTP runs too, on a free port the OS picks unless `--port` is given, and the process exits when stdin closes. |
 | Add @internal/perseus-environment for page setup | `config/environment`, a private package holding the page setup Perseus expects from the sites that host it: the styles Storybook had in `.storybook/styles`, the Lato and Plus Jakarta Sans fonts from `static/`, and the CSS-layer Vite plugin from Storybook's config. Storybook now loads them from it, and the preview will too, so the MCP uses no Storybook code. |
+| Add the draft preview page to perseus-mcp | `/drafts/<itemId>/preview`: a shell that follows the draft's event stream and sends the question to a same-origin iframe (`/preview/frame`) through `usePreviewController` and `usePreviewPresenter`; the frame renders it with `Renderer` and MathJax, in the page setup from `@internal/perseus-environment`, and the iframe resizes to fit. Fastify serves the pages with Vite in middleware mode (`@fastify/middie`), so there's no build step; `createHttpServer` takes the pages as an optional `PreviewPages`, faked in the tests. |
 
 Remaining, in order:
 
-1. The preview page, rendering the question: Vite in middleware mode inside
-   Fastify (through `@fastify/middie`, so there's no build step), a shell
-   that follows the draft's event stream and runs `usePreviewController`,
-   and a same-origin iframe that runs `usePreviewPresenter`.
-2. Hints, check answer and `preview_item`, which returns the page's URL.
-3. Then build order steps 4 to 7.
+1. Hints, check answer and `preview_item`, which returns the page's URL.
+2. Then build order steps 4 to 8.
 
 ## Notes for whoever picks this up
 
@@ -124,6 +121,18 @@ Remaining, in order:
   `node packages/perseus-mcp/bin/perseus-mcp.mjs --stdio --data-dir <temp dir>`.
   Jest runs everything as CommonJS, so it misses ESM import and loader
   problems: the launcher and `fast-json-patch` crashes both passed the tests.
+- **The preview pages** (`src/adapters/preview/page/`) load through Vite,
+  which Jest can't load (Vite 8 is ESM-only), so the HTTP tests fake
+  `PreviewPages`; check the real page in a browser before each commit. Script
+  paths in the pages' HTML are relative to the page directory (`/shell.tsx`):
+  Vite adds the `/preview/` base. Vite defines `process.env.STORYBOOK`, which
+  Perseus's and math-input's i18n read on load, so both use their English
+  strings. The frame sizes itself from `#root`, because the shared page
+  styles stretch the body to the viewport. Editing a page reloads it rather
+  than hot-swapping it (the entry modules render the page themselves); that's
+  fine, since the draft comes back over the event stream. Vite's file
+  watcher doesn't see edits when the server runs inside an agent's sandbox;
+  restart it there.
 - **Installing:** use `CYPRESS_INSTALL_BINARY=0 pnpm install`. An interrupted
   `pnpm add` can leave packages missing; a full `pnpm install` repairs it.
 
@@ -178,7 +187,7 @@ them.
 | --- | --- |
 | Where it runs | Local first: MCP over stdio or local HTTP, with HTTP always running for the preview page. A hosted service later. |
 | Architecture | Hexagonal (ports and adapters); see Architecture. |
-| Where the code lives | `packages/perseus-mcp` in this monorepo, a private package; run with `pnpm start-mcp`. npm publishing later. |
+| Where the code lives | `packages/perseus-mcp` in this monorepo, a private package; run with `pnpm start-mcp`. Published to npm as `@khanacademy/perseus-mcp` once it has been tested in use (build order step 8). |
 | Stack | Official TypeScript MCP SDK (`@modelcontextprotocol/sdk`) with Fastify. |
 | Data in and out | Raw PerseusItem JSON. Any older Perseus version is accepted; tools always return fully migrated, latest-schema items. Content-backend API access is out of scope. |
 | Auth and limits | None. Tools are pure functions over JSON the caller supplies. |
@@ -318,12 +327,13 @@ with a browser) can open, and an embedded page shown inside the chat where
 the host supports MCP Apps.
 
 **Hosted preview page.** A Vite/React app served by Fastify at
-`http://localhost:<port>/preview/<itemId>`, built just for this MCP.
+`http://localhost:<port>/drafts/<itemId>/preview`, built just for this MCP.
 
 - Fastify runs Vite in middleware mode (through `@fastify/middie`), which
   compiles the page from source on request, like the server itself: no
   build step to forget, at the cost of a slower first load. A prebuilt
-  bundle was rejected because every change would need a rebuild.
+  bundle was rejected for development because every change would need a
+  rebuild; a published package will need one (build order step 8).
 - A top-level shell follows the draft over SSE and runs
   `usePreviewController`; an iframe on the same origin runs
   `usePreviewPresenter` and renders with ServerItemRenderer. Same origin
@@ -496,6 +506,28 @@ Steps 1–3 need no Perseus changes, so building can start there.
 6. **`create_graphie`:** declarative spec to Graphie image, served locally.
 7. **Eval harness** on the Claude Agent SDK with a few smoke tasks, until the
    real task set is ready.
+8. **Publish to npm** as `@khanacademy/perseus-mcp`, for Khan Academy
+   content authors, once steps 4 to 7 are done and the server has been
+   tested in use. It installs and runs with `npx @khanacademy/perseus-mcp
+   --stdio` in an MCP host's config.
+   - **Build:** bundle everything the server needs and fix its paths for an
+     installed package. Today it runs from source with swc (using the root
+     `tsconfig.json`), compiles the preview with Vite at request time from
+     the root `vite.config.mts`, and loads `@internal/perseus-environment`,
+     a private package. The published package gets a compiled server and a
+     prebuilt preview bundle with its styles and fonts (the fonts' OFL
+     licenses included). Running from the repo keeps Vite middleware mode.
+   - **Drafts:** in the user's data directory: `~/Library/Application
+     Support/perseus-mcp` on macOS, `$XDG_DATA_HOME/perseus-mcp` (default
+     `~/.local/share/perseus-mcp`) on Linux, `%LOCALAPPDATA%\perseus-mcp` on
+     Windows. Runs from the repo keep `.perseus-mcp/` at its root.
+   - **Releases:** through the existing changesets workflow. The Perseus
+     packages it uses are pinned to the versions changesets produces, so a
+     Perseus release that changes them releases perseus-mcp too.
+   - **Before publishing:** check the `Host` header on HTTP requests (the MCP
+     SDK's allowed-hosts option), so a web page can't reach the local server
+     through DNS rebinding. Set `engines` to Node 20.11 or later
+     (`import.meta.dirname`).
 
 ## Graphie images
 

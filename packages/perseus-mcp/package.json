@@ -19,15 +19,26 @@
     },
     "scripts": {},
     "dependencies": {
+        "@fastify/middie": "^9.3.6",
+        "@khanacademy/mathjax-renderer": "catalog:devDeps",
+        "@khanacademy/perseus": "workspace:*",
         "@khanacademy/perseus-core": "workspace:*",
+        "@khanacademy/perseus-editor": "workspace:*",
         "@khanacademy/perseus-linter": "workspace:*",
         "@khanacademy/perseus-score": "workspace:*",
+        "@khanacademy/wonder-blocks-core": "catalog:devDeps",
         "@modelcontextprotocol/sdk": "^1.32.2",
         "@swc-node/register": "^1.10.10",
         "fast-json-patch": "^3.1.1",
         "fastify": "^5.12.7",
+        "react": "catalog:devDeps",
+        "react-dom": "catalog:devDeps",
         "typescript": "catalog:toolDeps",
+        "vite": "8.3.1",
         "zod": "^4.6.7"
     },
-    "keywords": []
+    "keywords": [],
+    "devDependencies": {
+        "@internal/perseus-environment": "workspace:*"
+    }
 }

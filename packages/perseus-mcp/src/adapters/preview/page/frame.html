@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Perseus item</title>
+        <!-- The other fonts Storybook loads. -->
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Inconsolata"
+        />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro&display=swap"
+        />
+        <style>
+            /* The page styles (imported by the frame's script) set the root
+               font size, fonts and colors, and stretch the body to the
+               viewport. The shell sizes this frame to fit #root, so the
+               padding goes there and the frame never scrolls. */
+            body {
+                overflow: hidden;
+            }
+            #root {
+                padding: 1.6rem;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root"></div>
+        <!-- Relative to the page directory; Vite adds the /preview/ base. -->
+        <script type="module" src="/frame.tsx"></script>
+    </body>
+</html>

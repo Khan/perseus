@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Perseus draft preview</title>
+        <style>
+            body {
+                margin: 0 auto;
+                max-width: 72rem;
+                padding: 1.6rem;
+                font-family: system-ui, sans-serif;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+            iframe {
+                display: block;
+                width: 100%;
+                min-height: 10rem;
+                border: 1px solid #ccc;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root"></div>
+        <!-- Relative to the page directory; Vite adds the /preview/ base. -->
+        <script type="module" src="/shell.tsx"></script>
+    </body>
+</html>

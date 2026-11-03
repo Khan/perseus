@@ -99,9 +99,14 @@ const config: KnipConfig = {
             ...basePackageConfig,
             // A server, not a library: it has no src/index.ts, and Knip finds
             // its entry point by following the `bin` in package.json.
-            entry: basePackageConfig.entry.filter(
-                (pattern) => !pattern.startsWith("src/index."),
-            ),
+            entry: [
+                ...basePackageConfig.entry.filter(
+                    (pattern) => !pattern.startsWith("src/index."),
+                ),
+                // The preview pages' scripts, loaded by their HTML through
+                // Vite.
+                "src/adapters/preview/page/{shell,frame}.tsx!",
+            ],
         },
         "packages/perseus-core": {
             ...basePackageConfig,

@@ -16,6 +16,7 @@ import {createPerseusCoreSchemaSource} from "./adapters/fs/perseus-core-schema-s
 import {createHttpServer} from "./adapters/http/server";
 import {StdioServerTransport} from "./adapters/mcp/sdk";
 import {createMcpServer} from "./adapters/mcp/server";
+import {createVitePreviewPages} from "./adapters/preview/vite-preview-pages";
 import {createCatalog} from "./app/catalog";
 import {withDraftFeed} from "./app/draft-feed";
 import {createDraftUseCases} from "./app/drafts";
@@ -106,9 +107,10 @@ const useCases = {
 const host = values.host;
 // Port 0 asks the OS for a free port.
 const port = Number(values.port ?? (values.stdio ? 0 : 4567));
-const httpServer = createHttpServer({
+const httpServer = await createHttpServer({
     createMcpServer: () => createMcpServer(useCases),
     drafts: useCases.drafts,
+    createPreview: createVitePreviewPages,
 });
 try {
     const address = new URL(await httpServer.listen({port, host}));
