@@ -286,41 +286,13 @@
 }
 
 /* Text decorations skip inline-block descendants, which is how MathJax
-   renders math, so math gets its own strike line through the middle,
-   in line with the text's.
+   renders math, so math is hatched instead. A strike line would sit on the
+   math axis, where it hides the bars of +, − and = and runs into fraction
+   bars. The hatching sits behind the math so the math stays readable.
    Labels on a graph are left alone: the graph is hatched instead (below).
  */
-.is-crossed-out
-    :global(.mathjax-wrapper):not(:global(.graphie-label) *)::after {
-    background-color: currentColor;
-    content: "";
-    height: var(--perseus-cross-out-strike-width);
-    inset-inline: 0;
-    pointer-events: none;
-    position: absolute;
-    top: calc(50% - var(--perseus-cross-out-strike-width) / 2);
-    z-index: 1; /* Above the copyable TeX that the renderer layers over the math */
-}
-
-/* A line through the middle of tall or multi-line math runs into a fraction
-   bar or between rows, so that math is hatched instead. The hatching sits
-   behind the math so the math stays readable.
- */
-.is-crossed-out
-    :global(.mathjax-wrapper):not(:global(.graphie-label) *):has(
-        mjx-mfrac,
-        mjx-msqrt,
-        mjx-mroot,
-        mjx-munder,
-        mjx-mover,
-        mjx-munderover,
-        mjx-mtable
-    ) {
+.is-crossed-out :global(.mathjax-wrapper):not(:global(.graphie-label) *) {
     background-image: var(--perseus-cross-out-hatch);
-
-    &::after {
-        content: none;
-    }
 }
 
 /* Images and graphs are dimmed, with hatching over them.
