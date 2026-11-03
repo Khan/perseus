@@ -26,6 +26,12 @@ type Props = {
     keypadElement?: KeypadAPI;
     ariaLabel: string;
     ariaRequired?: boolean;
+    /**
+     * Whether the input is disabled. A disabled input stays in the tab order
+     * so that it can be discovered, but it can't be edited and doesn't open
+     * the keypad.
+     */
+    disabled?: boolean;
     onBlur: () => void;
     onChange: (value: string, callback: any) => void;
     onFocus: () => void;
@@ -233,6 +239,11 @@ class MathInput extends React.Component<Props, State> {
         if (prevState.focused !== this.state.focused) {
             this._updateInputPadding();
         }
+
+        if (!prevProps.disabled && this.props.disabled && this.state.focused) {
+            this.blur();
+            this.props.onBlur?.();
+        }
     }
 
     componentWillUnmount() {
@@ -349,6 +360,13 @@ class MathInput extends React.Component<Props, State> {
     focus: (setKeypadActive: KeypadContextType["setKeypadActive"]) => void = (
         setKeypadActive,
     ) => {
+        if (this.props.disabled) {
+            // Show a focus indicator for keyboard users, but don't hook up
+            // the keypad or focus the MathQuill field.
+            this.setState({showInputFocusStyle: true});
+            return;
+        }
+
         // Pass this component's handleKey method to the keypad so it can call
         // it whenever it needs to trigger a keypress action.
         this.props.keypadElement?.setKeyHandler((key) => {
@@ -603,6 +621,10 @@ class MathInput extends React.Component<Props, State> {
     ): void => {
         e.stopPropagation();
 
+        if (this.props.disabled) {
+            return;
+        }
+
         // Hide the cursor handle on touch start, if the handle itself isn't
         // handling the touch event.
         this._hideCursorHandle();
@@ -646,6 +668,10 @@ class MathInput extends React.Component<Props, State> {
         setKeypadActive: KeypadContextType["setKeypadActive"],
     ): void => {
         e.stopPropagation();
+
+        if (this.props.disabled) {
+            return;
+        }
 
         // Hide the cursor handle on click
         this._hideCursorHandle();
@@ -861,6 +887,10 @@ class MathInput extends React.Component<Props, State> {
     };
 
     handleKeyUp: (e: React.KeyboardEvent<HTMLDivElement>) => void = (e) => {
+        if (this.props.disabled) {
+            return;
+        }
+
         const mathQuillKey = this.domKeyToMathQuillKey(e.key);
 
         if (mathQuillKey) {
@@ -917,7 +947,7 @@ class MathInput extends React.Component<Props, State> {
 
     render(): React.ReactNode {
         const {showInputFocusStyle, handle} = this.state;
-        const {style} = this.props;
+        const {style, disabled} = this.props;
 
         const innerStyle = {
             ...inlineStyles.innerContainer,
@@ -927,6 +957,10 @@ class MathInput extends React.Component<Props, State> {
                       borderColor:
                           semanticColor.core.border.instructive.default,
                   }
+                : {}),
+            ...(disabled ? inlineStyles.innerContainerDisabled : {}),
+            ...(disabled && showInputFocusStyle
+                ? inlineStyles.innerContainerDisabledFocused
                 : {}),
             ...style,
         } as const;
@@ -961,6 +995,12 @@ class MathInput extends React.Component<Props, State> {
                         role={"textbox"}
                         aria-label={ariaLabel}
                         aria-required={this.props.ariaRequired}
+                        // This is a custom textbox rather than a native
+                        // input, so we use aria-disabled to tell assistive
+                        // technology that it can't be edited. Unlike the
+                        // native `disabled` attribute, this keeps the input
+                        // in the tab order.
+                        aria-disabled={disabled}
                     >
                         {/* NOTE(charlie): This is used purely to namespace the styles in
                 overrides.css. */}
@@ -1051,6 +1091,17 @@ const inlineStyles = {
         borderColor: semanticColor.core.border.neutral.default,
         borderRadius: 4,
         color: semanticColor.core.foreground.neutral.strong,
+    },
+    innerContainerDisabled: {
+        backgroundColor: semanticColor.input.disabled.background,
+        borderColor: semanticColor.input.disabled.border,
+        color: semanticColor.input.disabled.foreground,
+    },
+    innerContainerDisabledFocused: {
+        // `.keypad-input` removes the browser's focus outline, so we draw
+        // our own when a disabled input has keyboard focus.
+        outline: `2px solid ${semanticColor.focus.outer}`,
+        outlineOffset: 1,
     },
 } as const;
 
