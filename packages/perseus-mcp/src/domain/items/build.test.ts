@@ -5,6 +5,7 @@ import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
 
 import {createPerseusCoreSchemaSource} from "../../adapters/fs/perseus-core-schema-source";
 import {createCatalog} from "../../app/catalog";
+import {checkoutPaths} from "../../runtime-paths";
 
 import {buildItem as buildItemWith, buildWidget} from "./build";
 
@@ -20,7 +21,9 @@ function buildItem(input: ItemInput) {
 describe("build", () => {
     beforeAll(() => {
         CoreWidgetRegistry.registerCoreWidgets();
-        widgets = createCatalog(createPerseusCoreSchemaSource()).widgets();
+        widgets = createCatalog(
+            createPerseusCoreSchemaSource(checkoutPaths().perseusCoreTypesDir),
+        ).widgets();
     });
 
     describe("buildWidget", () => {

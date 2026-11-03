@@ -5,6 +5,7 @@ import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
 
 import {createPerseusCoreSchemaSource} from "../../adapters/fs/perseus-core-schema-source";
 import {createCatalog} from "../../app/catalog";
+import {checkoutPaths} from "../../runtime-paths";
 
 import type {WidgetCatalog} from "./widgets";
 
@@ -14,7 +15,9 @@ describe("WidgetCatalog", () => {
     beforeAll(() => {
         CoreWidgetRegistry.registerCoreWidgets();
         // The real perseus-core schema, so the tests catch changes to it.
-        widgets = createCatalog(createPerseusCoreSchemaSource()).widgets();
+        widgets = createCatalog(
+            createPerseusCoreSchemaSource(checkoutPaths().perseusCoreTypesDir),
+        ).widgets();
     });
 
     describe("types", () => {

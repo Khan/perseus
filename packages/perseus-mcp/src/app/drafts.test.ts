@@ -8,6 +8,7 @@ import {
 } from "@khanacademy/perseus-core";
 
 import {createPerseusCoreSchemaSource} from "../adapters/fs/perseus-core-schema-source";
+import {checkoutPaths} from "../runtime-paths";
 
 import {createCatalog} from "./catalog";
 import {withDraftFeed} from "./draft-feed";
@@ -26,7 +27,9 @@ function setUp(
         drafts,
         feed,
         files: options.files ?? {read: () => Promise.reject(new Error())},
-        catalog: createCatalog(createPerseusCoreSchemaSource()),
+        catalog: createCatalog(
+            createPerseusCoreSchemaSource(checkoutPaths().perseusCoreTypesDir),
+        ),
         now: () => new Date("2026-01-01T00:00:00Z"),
         newId: () => "abc",
     });

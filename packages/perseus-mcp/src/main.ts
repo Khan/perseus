@@ -2,7 +2,6 @@
 // cases, and starts the server. Everything that knows about the process, the
 // command line or how errors are shown to people lives here.
 import {randomUUID} from "node:crypto";
-import path from "node:path";
 import {parseArgs} from "node:util";
 
 import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
@@ -25,12 +24,11 @@ import {createPreviewUseCases} from "./app/preview";
 import {createReviewUseCases} from "./app/review";
 import {createScoringUseCases} from "./app/scoring";
 import {createWidgetUseCases} from "./app/widgets";
+import {checkoutPaths} from "./runtime-paths";
 
-// Drafts are local work, so by default they live in the checkout (each
-// worktree gets its own); `.perseus-mcp/` is gitignored.
-const REPO_ROOT = path.resolve(import.meta.dirname, "../../..");
+const paths = checkoutPaths();
 const DEFAULT_DATA_DIR =
-    process.env.PERSEUS_MCP_DATA_DIR ?? path.join(REPO_ROOT, ".perseus-mcp");
+    process.env.PERSEUS_MCP_DATA_DIR ?? paths.defaultDataDir;
 
 const USAGE = `\
 Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <dir>]
@@ -94,7 +92,9 @@ const {drafts: repository, feed} = withDraftFeed(fileRepository);
 // Set once the HTTP server is listening.
 let baseUrl: string | null = null;
 
-const catalog = createCatalog(createPerseusCoreSchemaSource());
+const catalog = createCatalog(
+    createPerseusCoreSchemaSource(paths.perseusCoreTypesDir),
+);
 const useCases = {
     drafts: createDraftUseCases({
         drafts: repository,

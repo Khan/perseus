@@ -17,6 +17,7 @@ import {
 
 import {createPerseusCoreSchemaSource} from "../../adapters/fs/perseus-core-schema-source";
 import {createCatalog} from "../../app/catalog";
+import {checkoutPaths} from "../../runtime-paths";
 
 import {validateItem as validateItemWith} from "./validate";
 
@@ -38,7 +39,9 @@ function itemWith(content: string, widgets: PerseusRenderer["widgets"]) {
 describe("validateItem", () => {
     beforeAll(() => {
         CoreWidgetRegistry.registerCoreWidgets();
-        widgets = createCatalog(createPerseusCoreSchemaSource()).widgets();
+        widgets = createCatalog(
+            createPerseusCoreSchemaSource(checkoutPaths().perseusCoreTypesDir),
+        ).widgets();
     });
 
     it("accepts an item whose placeholders and widgets match", () => {

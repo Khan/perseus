@@ -40,7 +40,7 @@ How the work is done. An agent resuming this plan follows these rules exactly.
 
 ## Status
 
-**Build order steps 1 to 4 are done, and step 5 is under way.** The commits below are on
+**Build order steps 1 to 4 are done; step 5 is being tested, and step 6 is under way.** The commits below are on
 `jer/perseus-mcp`, oldest first, and every tool was smoke-tested over stdio
 from outside the repo.
 
@@ -68,11 +68,13 @@ from outside the repo.
 | Add an MCP Apps spike that frames the preview | `preview_item` links (`_meta.ui.resourceUri`, plus the deprecated `ui/resourceUri`) to `ui://perseus/preview.html` (`text/html;profile=mcp-app`), whose CSP declares the local server in `frameDomains`. The page (`adapters/preview/app/`) connects with ext-apps' `App`, waits for the tool result and frames its URL, with a status line saying what happened. `createViteAppPage` builds it with Vite on the first request into one document (the script inlined, minified) and caches it; the real page will reuse this. |
 | Share the preview's controls with the app page | No change in behavior. The browser preview's option and hint controls move to `page/controls.tsx`, and perseus-editor exports its hint rules (`revealHints`, `describeHints`, `INITIAL_HINTS_REVEAL`), so the MCP Apps page can reuse both. Plan: Claude Desktop refused to let the spike frame `http://localhost`, so the app page renders the item itself; a hosted deployment became a build order step (now step 10). |
 | Render the preview inside the MCP Apps page | The app page renders the draft itself: Perseus, MathJax, the shared styles and fonts, Wonder Blocks and the shared controls and `Exercise`, all inlined into one 7.6 MB document. It follows the draft by polling `get_preview_draft`, an app-only tool (`visibility: ["app"]`) that returns the draft or `changed: false`, and keeps hint state with perseus-editor's rules; `preview_item` now also returns the `itemId`. The resource's CSP declares `cdn.kastatic.org` and the Perseus image hosts in `resourceDomains`. Checked in a stand-in host built on ext-apps' `AppBridge` (outside the repo): it renders, follows a new revision, reveals hints and checks answers. |
+| Plan packaging perseus-mcp as a .mcpb | Plan only: build order step 6 packages the server as a Claude Desktop extension for testers; the later steps move down one. |
+| Find runtime files through RuntimePaths | `RuntimePaths` names the files the server reads at runtime that the installed extension must find too: perseus-core's type definitions (now passed to `createPerseusCoreSchemaSource`) and the default data directory. `checkoutPaths()` gives the repo's; the packaged layout comes with the packaged entry point. The Vite adapters keep finding their sources next to them: they only run from the checkout. |
 
 Remaining, in order:
 
 1. Build order step 6: package perseus-mcp as a Claude Desktop extension
-   (`.mcpb`) for testers.
+   (`.mcpb`) for testers, from commit 2 on.
 2. Step 5 follow-ups, once testing in Claude Desktop says what's needed:
    send what the learner did (answers, scores) to the chat as model context
    (`app.updateModelContext`), and shrink the in-chat page (most of its
@@ -575,11 +577,12 @@ Steps 1–3 need no Perseus changes, so building can start there.
    only macOS is tested), unsigned (it installs with a warning), the Perseus
    logo as its icon (a PNG made from `static/perseus-logo.svg`), and the
    manifest's version copied from perseus-mcp's `package.json`. Commits:
-   1. **Paths by where the server runs:** one module gives the files the
-      server reads (perseus-core's `data-schema.ts` and `validation.types.ts`
-      for `get_widget_spec`, the pages, the Vite config) as repo paths when
-      run from the checkout, and as the package's own files when installed.
-      Running from the repo doesn't change.
+   1. **Paths by where the server runs** (done): `RuntimePaths` gives the
+      files the installed server must find (perseus-core's type definitions,
+      the default data directory); `checkoutPaths()` the repo's. The
+      packaged layout (`packagedPaths()`) comes with the packaged entry
+      point in commit 4. The Vite adapters keep their own paths, since only
+      the checkout runs them.
    2. **Drafts in the user's data directory** when installed:
       `~/Library/Application Support/perseus-mcp` on macOS,
       `$XDG_DATA_HOME/perseus-mcp` (default `~/.local/share/perseus-mcp`) on
@@ -589,11 +592,13 @@ Steps 1–3 need no Perseus changes, so building can start there.
       by Vite into static files, served by Fastify in place of Vite's dev
       middleware; the MCP Apps page built at packaging time and shipped as a
       file; the fonts (with their OFL licenses) and shared styles included.
-   4. **One bundled server file:** the server and its dependencies in
-      `server/index.mjs` (Vite in library mode, for Node), since pnpm's
-      `node_modules` is symlinks and doesn't survive zipping. It includes
-      the TypeScript compiler, which `get_widget_spec` uses; the two
-      perseus-core type files ship next to it.
+   4. **One bundled server file:** a packaged entry point
+      (`packagedPaths()`, no Vite) bundled with all its dependencies into
+      `server/index.mjs` (Vite's server-side build for Node, with
+      `ssr.noExternal: true`), since pnpm's `node_modules` is symlinks and
+      doesn't survive zipping. It includes the TypeScript compiler, which
+      `get_widget_spec` uses; the two perseus-core type files ship next to
+      it.
    5. **Manifest and pack script:** `manifest.json` (name, display name,
       version, author, description, the tools, the `node` command,
       `compatibility`, icon), and a script that builds into a staging
@@ -602,6 +607,14 @@ Steps 1–3 need no Perseus changes, so building can start there.
       `npx`). The output, `perseus-mcp.mcpb`, isn't committed.
    6. **`Host` header check** on HTTP requests, so a web page can't reach a
       tester's local server through DNS rebinding.
+   - **How it's built:** with the repo's Vite, through its JavaScript API,
+     in a `build:mcpb` script of perseus-mcp's own (run with
+     `pnpm --filter @khanacademy/perseus-mcp build:mcpb`), written like
+     `config/build/build-packages.ts`. The pages reuse `PERSEUS_VITE_CONFIG`
+     and `config/build/browser-targets.ts`. It isn't part of `pnpm build`,
+     which builds what's published (as browser libraries with external
+     dependencies) and runs in CI; a CI job that runs `build:mcpb` can come
+     once the first `.mcpb` works.
    7. **Install and test:** the built server smoke-tested over stdio from
       outside the repo; then the `.mcpb` installed in Claude Desktop (with
       the dev config entry removed, so two perseus servers don't run): the
@@ -619,6 +632,10 @@ Steps 1–3 need no Perseus changes, so building can start there.
      Perseus release that changes them releases perseus-mcp too.
    - **Package metadata:** `engines` set to Node 20.11 or later, the `bin`
      pointing at the built server, and `files` listing what ships.
+   - **The repo's build:** a public perseus-mcp would be picked up by
+     `config/build`'s `getPackageNames`, whose library build is wrong for
+     it. Either `build-packages.ts` hands a package to its own build script,
+     or perseus-mcp stays private and is published from its built output.
 10. **Hosted deployment**, after publishing: run the server as a hosted
     service on an https origin. It needs a shared draft store (a new
     `DraftRepository` adapter), live updates across instances (one

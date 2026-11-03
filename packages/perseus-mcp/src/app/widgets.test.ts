@@ -9,6 +9,7 @@ import {
 
 import {createPerseusCoreSchemaSource} from "../adapters/fs/perseus-core-schema-source";
 import {newDraft} from "../domain/draft";
+import {checkoutPaths} from "../runtime-paths";
 
 import {createCatalog} from "./catalog";
 import {DraftNotFoundError, UnknownWidgetTypeError} from "./errors";
@@ -18,7 +19,9 @@ import {createWidgetUseCases} from "./widgets";
 function setUp() {
     const drafts = inMemoryRepository();
     const useCases = createWidgetUseCases({
-        catalog: createCatalog(createPerseusCoreSchemaSource()),
+        catalog: createCatalog(
+            createPerseusCoreSchemaSource(checkoutPaths().perseusCoreTypesDir),
+        ),
         drafts,
     });
     return {drafts, useCases};

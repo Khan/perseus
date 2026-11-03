@@ -10,6 +10,7 @@ import {
 
 import {createPerseusCoreSchemaSource} from "../../adapters/fs/perseus-core-schema-source";
 import {createCatalog} from "../../app/catalog";
+import {checkoutPaths} from "../../runtime-paths";
 
 import {addWidget as addWidgetWith, nextWidgetId} from "./add-widget";
 
@@ -43,7 +44,9 @@ describe("nextWidgetId", () => {
 describe("addWidget", () => {
     beforeAll(() => {
         CoreWidgetRegistry.registerCoreWidgets();
-        widgets = createCatalog(createPerseusCoreSchemaSource()).widgets();
+        widgets = createCatalog(
+            createPerseusCoreSchemaSource(checkoutPaths().perseusCoreTypesDir),
+        ).widgets();
     });
 
     it("appends the placeholder as a new paragraph by default", () => {

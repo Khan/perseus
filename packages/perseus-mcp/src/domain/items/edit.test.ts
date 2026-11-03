@@ -13,6 +13,7 @@ import {
 
 import {createPerseusCoreSchemaSource} from "../../adapters/fs/perseus-core-schema-source";
 import {createCatalog} from "../../app/catalog";
+import {checkoutPaths} from "../../runtime-paths";
 
 import {editItem as editItemWith} from "./edit";
 
@@ -47,7 +48,9 @@ function radioItem(): PerseusItem {
 describe("editItem", () => {
     beforeAll(() => {
         CoreWidgetRegistry.registerCoreWidgets();
-        widgets = createCatalog(createPerseusCoreSchemaSource()).widgets();
+        widgets = createCatalog(
+            createPerseusCoreSchemaSource(checkoutPaths().perseusCoreTypesDir),
+        ).widgets();
     });
 
     it("returns the patched item", () => {

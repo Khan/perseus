@@ -11,6 +11,7 @@ import {createCatalog} from "../../app/catalog";
 import {withDraftFeed} from "../../app/draft-feed";
 import {createDraftUseCases} from "../../app/drafts";
 import {inMemoryRepository} from "../../app/in-memory-draft-repository.testutils";
+import {checkoutPaths} from "../../runtime-paths";
 import {createPerseusCoreSchemaSource} from "../fs/perseus-core-schema-source";
 
 import {createHttpServer, previewLinks} from "./server";
@@ -37,7 +38,9 @@ async function setUp() {
         drafts,
         feed,
         files: {read: () => Promise.reject(new Error())},
-        catalog: createCatalog(createPerseusCoreSchemaSource()),
+        catalog: createCatalog(
+            createPerseusCoreSchemaSource(checkoutPaths().perseusCoreTypesDir),
+        ),
         now: () => new Date("2026-01-01T00:00:00Z"),
         newId: () => "abc",
     });
