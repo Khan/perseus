@@ -1,4 +1,6 @@
 import {
+    generateExpressionOptions,
+    generateExpressionWidget,
     generateGroupOptions,
     generateGroupWidget,
 } from "@khanacademy/perseus-core";
@@ -25,6 +27,34 @@ describe("the group linter", () => {
                 messages: [
                     "group 1: Don't use level-1 headings:\nBegin headings with two or more # characters.",
                 ],
+            },
+        );
+    });
+
+    it("runs linters on the widgets in the group", () => {
+        const expressionWithNoAnswers = generateExpressionWidget({
+            options: generateExpressionOptions({
+                answerForms: [],
+            }),
+        });
+
+        expectIssue(
+            GroupWidgetRule,
+            "[[☃ group 1]]",
+            {
+                widgets: {
+                    "group 1": generateGroupWidget({
+                        options: generateGroupOptions({
+                            content: "[[☃ expression 1]]",
+                            widgets: {
+                                "expression 1": expressionWithNoAnswers,
+                            },
+                        }),
+                    }),
+                },
+            },
+            {
+                messages: ["group 1: expression 1: No answers specified."],
             },
         );
     });
