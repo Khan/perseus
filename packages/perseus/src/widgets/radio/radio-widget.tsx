@@ -1,7 +1,7 @@
 import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
-import {forwardRef, useImperativeHandle, useMemo, useState} from "react";
+import {forwardRef, useImperativeHandle, useMemo} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 import {useDependencies} from "../../dependencies";
@@ -10,10 +10,10 @@ import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 
 import RadioComponent from "./radio-component";
-import {choiceTransform, getChoiceLetter} from "./util";
+import {useCrossOut} from "./use-cross-out";
+import {choiceTransform} from "./util";
 import {getChoiceStates} from "./utils/general-utils";
 
-import type {RadioCrossOutProps} from "./radio-component";
 import type {WidgetProps, ChoiceState, Widget} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
@@ -101,32 +101,6 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
         // of the Perseus GUTC project.
         const isReviewMode = reviewMode || showSolutions === "all";
 
-        // Cross-out state is display-only. It's kept here, never in userInput,
-        // so it's never part of the answer that gets scored.
-        const crossOutOptions = apiOptions.crossOut;
-        const crossOutEnabled = crossOutOptions?.enabled ?? false;
-        const [localToggleOn, setLocalToggleOn] = useState(false);
-        const crossOutToggleOn = crossOutOptions?.toggleOn ?? localToggleOn;
-        const [crossedOutIds, setCrossedOutIds] = useState<
-            ReadonlyArray<string>
-        >([]);
-        // While the toggle is off, crossed-out choices look and read like any
-        // other choice. They're remembered, so turning the toggle back on
-        // shows them again.
-        const visibleCrossedOutIds = crossOutToggleOn ? crossedOutIds : [];
-
-        // Clear cross-outs when the host changes the reset key (on each
-        // Check) and when review mode turns on. Done while rendering, rather
-        // than in an effect, so a stale cross-out is never painted.
-        const resetKey = crossOutOptions?.resetKey;
-        const [prevResetKey, setPrevResetKey] = useState(resetKey);
-        if (resetKey !== prevResetKey) {
-            setPrevResetKey(resetKey);
-            setCrossedOutIds([]);
-        } else if (isReviewMode && crossedOutIds.length > 0) {
-            setCrossedOutIds([]);
-        }
-
         const randomSeed = (props.problemNum ?? 0) + (props.widgetIndex ?? 0);
         const choices = useMemo(() => {
             return [
@@ -139,11 +113,18 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
             ];
         }, [options.choices, options.randomize, strings, randomSeed]);
 
-        const getLetterForChoice = (choiceId: string): string =>
-            getChoiceLetter(
-                choices.findIndex((choice) => choice.id === choiceId),
-                strings,
-            );
+        const {crossOut, restoreSelectedChoice} = useCrossOut({
+            options: apiOptions.crossOut,
+            choices,
+            selectedChoiceIds: props.userInput?.selectedChoiceIds ?? [],
+            isReviewMode,
+            isStatic: !!props.static,
+            readOnly: !!apiOptions.readOnly,
+            onUnselect: (selectedChoiceIds) => {
+                handleUserInput({selectedChoiceIds});
+                trackInteraction();
+            },
+        });
 
         useOnMountEffect(() => {
             analytics.onAnalyticsEvent({
@@ -285,13 +266,6 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
             const currentSelectedIds = choiceStates
                 .filter((choice) => choice.selected)
                 .map((choice) => choice.id);
-            // Selecting a crossed-out choice restores it. While the toggle is
-            // off it isn't shown as crossed out, so it's restored silently.
-            if (newCheckedState && crossedOutIds.includes(choiceId)) {
-                setCrossedOutIds(crossedOutIds.filter((id) => id !== choiceId));
-            }
-            const restoredChoice =
-                newCheckedState && visibleCrossedOutIds.includes(choiceId);
             if (newCheckedState && !multipleSelect) {
                 checkedChoiceIds.push(choiceId);
             } else if (newCheckedState && multipleSelect) {
@@ -309,65 +283,13 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
             });
 
             trackInteraction();
-            if (restoredChoice) {
-                // One message covers both changes, so nothing is announced
-                // twice.
-                announceMessage({
-                    message: strings.choiceRestoredAndSelected({
-                        letter: getLetterForChoice(choiceId),
-                    }),
-                });
-            } else {
+            // Selecting a crossed-out choice restores it. When it was shown
+            // as crossed out, that's announced instead of the usual message.
+            const announcedRestore =
+                newCheckedState && restoreSelectedChoice(choiceId);
+            if (!announcedRestore) {
                 announceChoiceChange(checkedChoiceIds.length);
             }
-        };
-
-        /**
-         * Handles a learner crossing out a choice or restoring it.
-         *
-         * Crossing out a selected choice also unselects it.
-         *
-         * @param choiceId - The ID of the choice that changed
-         * @param crossedOut - Whether the choice is now crossed out
-         */
-        const handleCrossOutChange = (
-            choiceId: string,
-            crossedOut: boolean,
-        ): void => {
-            const newCrossedOutIds = crossedOut
-                ? [...crossedOutIds, choiceId]
-                : crossedOutIds.filter((id) => id !== choiceId);
-            setCrossedOutIds(newCrossedOutIds);
-
-            const selectedChoiceIds = props.userInput?.selectedChoiceIds ?? [];
-            const unselected =
-                crossedOut && selectedChoiceIds.includes(choiceId);
-            if (unselected) {
-                handleUserInput({
-                    selectedChoiceIds: selectedChoiceIds.filter(
-                        (id) => id !== choiceId,
-                    ),
-                });
-                trackInteraction();
-            }
-
-            const messageArgs = {
-                letter: getLetterForChoice(choiceId),
-                num: choices.length - newCrossedOutIds.length,
-            };
-            // One message covers the cross-out and the unselect, so nothing
-            // is announced twice.
-            const message = unselected
-                ? strings.choiceCrossedOutAndUnselectedRemaining(messageArgs)
-                : crossedOut
-                  ? strings.choiceCrossedOutRemaining(messageArgs)
-                  : strings.choiceRestoredRemaining(messageArgs);
-            announceMessage({message});
-        };
-
-        const handleCrossOutToggleChange = (toggleOn: boolean): void => {
-            setLocalToggleOn(toggleOn);
-            crossOutOptions?.onToggleChange?.(toggleOn);
         };
 
         const announceChoiceChange = (newCheckedCount: number) => {
@@ -475,18 +397,6 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
             !isReviewMode &&
             !props.static &&
             !apiOptions.readOnly;
-
-        // Cross-out is hidden in review mode, and can't be changed after Check.
-        const crossOut: RadioCrossOutProps | undefined =
-            crossOutEnabled && !isReviewMode && !props.static
-                ? {
-                      toggleOn: crossOutToggleOn,
-                      disabled: !!apiOptions.readOnly,
-                      onToggleChange: handleCrossOutToggleChange,
-                      crossedOutIds: visibleCrossedOutIds,
-                      onCrossOutChange: handleCrossOutChange,
-                  }
-                : undefined;
 
         return (
             <RadioComponent
