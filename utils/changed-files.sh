@@ -9,6 +9,86 @@ set -e
 #   3. the point where the branch, plus any in-progress merge, forked from
 #      its upstream
 #   4. the point where the branch forked from main
+#
+# Untracked files are listed too.
+#
+# Files come from `git diff <commit>`, which compares the working tree to
+# <commit> and lists every file that differs, in either direction. A change
+# that's in <commit> but not in the working tree is listed just like your
+# own edits, so <commit> has to be where the branch forked off, not
+# wherever its upstream has moved to since.
+#
+# Legend: M = main, Y = your commits, X = some other branch, [wt] = the
+# working tree, * = the commit diffed against.
+#
+# Upstream moved ahead (e.g. after a `git fetch`): diff against the fork
+# point (M2), not the upstream's tip (M4), which would also list the files
+# M3 and M4 changed.
+#
+#   origin/main (@{u})   M1--M2*-M3--M4
+#                             \
+#   feature (HEAD)             Y1--Y2--[wt]
+#
+# Mid-rebase onto a new base: HEAD is detached and has no upstream, so diff
+# against the commit being rebased onto (M4).
+#
+#   origin/main          M1--M2--M3--M4*
+#                             \        \
+#   original branch            Y1--Y2   Y1'--[wt: Y2' in progress]
+#                                       ^ HEAD (detached)
+#
+# Mid-rebase in place (`git rebase -i HEAD~2`): the commit being rebased
+# onto (Y2) is one of the branch's own commits, and diffing against it
+# would skip the files Y1 and Y2 changed. Use the branch's fork point (M2),
+# as if no rebase were in progress.
+#
+#   origin/main (@{u})   M1--M2*
+#                             \
+#   feature                    Y1--Y2--Y3--Y4      (orig-head)
+#                                   \
+#   rebase in progress               Y3'--[wt]     (onto = Y2)
+#                                    ^ HEAD (detached)
+#
+# Mid-merge of the upstream (e.g. merging main in): HEAD is still the
+# pre-merge commit, but the working tree already holds the commits being
+# merged in. Diff against the fork point the merge commit will have (M4).
+# HEAD's fork point (M2) would also list the files M3 and M4 changed.
+#
+#   origin/main (@{u})   M1--M2--M3--M4* (MERGE_HEAD)
+#                             \        \
+#   feature                    Y1--Y2--(merge in progress)
+#                                   ^ HEAD
+#
+# Mid-merge of another branch: the fork point stays on the upstream (M2),
+# so X1 and X2 are listed as part of your changes, which they are once the
+# merge is committed.
+#
+#   origin/main (@{u})   M1--M2*
+#                             \
+#   feature                    Y1--Y2--(merge in progress)
+#                                   ^ HEAD
+#
+#   other branch         M1--X1--X2 (MERGE_HEAD)
+#
+# Mid-cherry-pick: HEAD stays on the branch, so nothing special happens.
+# The picked commit (X2) is becoming one of your changes, so its files
+# should be listed.
+#
+#   origin/main (@{u})   M1--M2*
+#                             \
+#   feature (HEAD)             Y1--Y2--[wt: + X2's changes]
+#
+#   other branch         X1--X2 (CHERRY_PICK_HEAD)
+#
+# No upstream: diff against the merge-base with main (M2). On a stacked
+# branch with no upstream this also lists the parent branch's files (P1);
+# set UPSTREAM=<parent> to be exact.
+#
+#   main                 M1--M2*-M3
+#                             \
+#   parent                     P1
+#                               \
+#   feature (HEAD, no @{u})      Y1--Y2--[wt]
 
 if [ -z "${UPSTREAM}" ]; then
     # Mid-rebase, HEAD is detached and has no upstream. Git records the commit
