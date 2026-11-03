@@ -75,6 +75,13 @@ export interface AnswerTileProps {
      */
     hidesMenuAtRest?: boolean;
     /**
+     * Set true with `hidesMenuAtRest` to keep the hidden menu's space at
+     * rest, partly as even padding inside the tile and partly as even
+     * margin outside it. Hover or focus shows the menu and the tile
+     * grows into its margin, so the line of text does not reflow.
+     */
+    reservesMenuSpace?: boolean;
+    /**
      * Set true for a placed tile that stretches to fill its blank, with
      * the content at the start. The menu stays visible. The Sorter uses
      * this for placed tiles.
@@ -116,6 +123,7 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
         tileId,
         fromBlankId,
         hidesMenuAtRest,
+        reservesMenuSpace,
         fillsBlank,
         onContentRender,
         imageHeight,
@@ -142,6 +150,7 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
         isDraggable && styles.draggable,
         isDragging && styles.dragging,
         hidesMenuAtRest && styles.hidesMenuAtRest,
+        hidesMenuAtRest && reservesMenuSpace && styles.reservesMenuSpace,
         fillsBlank && styles.fillsBlank,
         compact && styles.compact,
     );
