@@ -1,4 +1,5 @@
 import AbsoluteUrl from "./absolute-url";
+import DuplicateChoices from "./duplicate-choices";
 import {ExplanationWidgetRule} from "./explanation";
 import {
     ExplanationInGradedGroup,
@@ -13,6 +14,7 @@ import {FillInTheBlankRule} from "./fill-in-the-blank";
 import FreeResponseWidgetError from "./free-response-widget-error";
 import {GradedGroupWidgetRule} from "./graded-group";
 import {GradedGroupSetWidgetRule} from "./graded-group-set";
+import GraphieImageUrl from "./graphie-image-url";
 import {GroupWidgetRule} from "./group";
 import HeadingLevel1 from "./heading-level-1";
 import HeadingLevelSkip from "./heading-level-skip";
@@ -54,12 +56,18 @@ import TableMissingCaption from "./table-missing-caption";
 import TableMissingCells from "./table-missing-cells";
 import UnbalancedCodeDelimiters from "./unbalanced-code-delimiters";
 import UnescapedDollar from "./unescaped-dollar";
+import {
+    WidgetPlaceholderDuplicate,
+    WidgetPlaceholderMissingWidget,
+    WidgetPlaceholderUnrenderable,
+} from "./widget-placeholder";
 
 import type Rule from "../rule";
 
 export function allRules(): Rule[] {
     return [
         AbsoluteUrl,
+        DuplicateChoices,
         ExplanationInGradedGroup,
         ExplanationInGradedGroupSet,
         ExplanationWidgetRule,
@@ -70,6 +78,7 @@ export function allRules(): Rule[] {
         FreeResponseWidgetError,
         GradedGroupSetWidgetRule,
         GradedGroupWidgetRule,
+        GraphieImageUrl,
         GroupWidgetRule,
         HeadingLevel1,
         HeadingLevelSkip,
@@ -111,5 +120,8 @@ export function allRules(): Rule[] {
         TableMissingCells,
         UnbalancedCodeDelimiters,
         UnescapedDollar,
+        WidgetPlaceholderDuplicate,
+        WidgetPlaceholderMissingWidget,
+        WidgetPlaceholderUnrenderable,
     ];
 }

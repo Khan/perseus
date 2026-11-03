@@ -122,7 +122,11 @@ describe("editItem", () => {
         // Assert
         expect(result).toEqual({
             ok: false,
-            issues: [expect.objectContaining({code: "missing-widget"})],
+            issues: [
+                expect.objectContaining({
+                    code: "lint:widget-placeholder-missing-widget",
+                }),
+            ],
         });
     });
 

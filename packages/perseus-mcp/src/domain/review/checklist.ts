@@ -65,7 +65,7 @@ export const CHECKLIST: ReadonlyArray<ChecklistEntry> = [
             "Compare the choices with whitespace and `$` signs ignored; " +
             "two that read the same are a finding.",
         example: 'Choices A "$\\frac{1}{2}$" and D "$\\frac{1}{2}$ ".',
-        issueCodes: [],
+        issueCodes: ["lint:duplicate-choices"],
     },
     {
         id: "untranslatable-graphie-image",
@@ -76,7 +76,7 @@ export const CHECKLIST: ReadonlyArray<ChecklistEntry> = [
         example:
             "`https://ka-perseus-graphie.s3.amazonaws.com/ab12.png` in an " +
             "image widget.",
-        issueCodes: [],
+        issueCodes: ["lint:graphie-image-url"],
     },
     {
         id: "key-contradicts-hints",
@@ -133,6 +133,11 @@ export const CHECKLIST: ReadonlyArray<ChecklistEntry> = [
             "Content with [[☃ radio 1]] whose widgets map only has " +
             '"radio 2".',
         issueCodes: [
+            // The linter checks the question and hints; validate_item
+            // checks renderers nested in widgets, and widgets never placed.
+            "lint:widget-placeholder-missing-widget",
+            "lint:widget-placeholder-duplicate",
+            "lint:widget-placeholder-unrenderable",
             "missing-widget",
             "orphaned-widget",
             "duplicate-placeholder",

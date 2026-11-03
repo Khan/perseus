@@ -37,7 +37,12 @@ export type ValidationResult = {
 // (see pure-markdown's widget rule); anything else renders as plain text.
 const RENDERABLE_WIDGET_ID = /^[a-z-]+ [0-9]+$/;
 
-type RendererAtPath = {renderer: PerseusRenderer; path: string};
+type RendererAtPath = {
+    renderer: PerseusRenderer;
+    path: string;
+    /** Inside a widget such as group, where the linter doesn't look. */
+    nested: boolean;
+};
 
 /**
  * Lists every renderer in the item, including those nested inside widgets
@@ -48,26 +53,34 @@ type RendererAtPath = {renderer: PerseusRenderer; path: string};
  */
 function collectRenderers(item: PerseusItem): RendererAtPath[] {
     const out: RendererAtPath[] = [];
-    const visit = (renderer: PerseusRenderer, path: string) => {
-        out.push({renderer, path});
+    const visit = (
+        renderer: PerseusRenderer,
+        path: string,
+        nested: boolean,
+    ) => {
+        out.push({renderer, path, nested});
         for (const [id, widget] of Object.entries(renderer.widgets ?? {})) {
             let n = 0;
             CoreWidgetRegistry.traverseChildWidgets(
                 widget,
                 (child: PerseusRenderer) => {
-                    visit(child, `${path}.widgets["${id}"] (nested #${++n})`);
+                    visit(
+                        child,
+                        `${path}.widgets["${id}"] (nested #${++n})`,
+                        true,
+                    );
                     return child;
                 },
             );
         }
     };
-    visit(item.question, "question");
-    item.hints.forEach((hint, i) => visit(hint, `hints[${i}]`));
+    visit(item.question, "question", false);
+    item.hints.forEach((hint, i) => visit(hint, `hints[${i}]`, false));
     return out;
 }
 
 function checkRenderer(
-    {renderer, path}: RendererAtPath,
+    {renderer, path, nested}: RendererAtPath,
     widgets: WidgetCatalog,
 ): Issue[] {
     const issues: Issue[] = [];
@@ -76,6 +89,12 @@ function checkRenderer(
 
     const seen = new Set<string>();
     for (const id of placeholderIds) {
+        // The linter's widget-placeholder rules check the question and
+        // hints; only nested renderers need these checks here.
+        if (!nested) {
+            seen.add(id);
+            continue;
+        }
         if (seen.has(id)) {
             issues.push({
                 severity: "error",

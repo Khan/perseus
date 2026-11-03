@@ -5,6 +5,8 @@ import {
     CoreWidgetRegistry,
     generateDropdownWidget,
     generateFreeResponseWidget,
+    generateGroupOptions,
+    generateGroupWidget,
     generatePlotterWidget,
     generateRadioChoice,
     generateRadioOptions,
@@ -79,7 +81,11 @@ describe("validateItem", () => {
         // Assert
         expect(result).toMatchObject({
             valid: false,
-            issues: [expect.objectContaining({code: "missing-widget"})],
+            issues: [
+                expect.objectContaining({
+                    code: "lint:widget-placeholder-missing-widget",
+                }),
+            ],
         });
     });
 
@@ -90,7 +96,7 @@ describe("validateItem", () => {
         // Assert
         expect(result.issues).toEqual([
             expect.objectContaining({
-                code: "missing-widget",
+                code: "lint:widget-placeholder-missing-widget",
                 see: "perseus://guides/review-checklist.md#placeholder-mismatch",
             }),
         ]);
@@ -120,7 +126,9 @@ describe("validateItem", () => {
 
         // Assert
         expect(result.issues).toContainEqual(
-            expect.objectContaining({code: "unrenderable-widget-id"}),
+            expect.objectContaining({
+                code: "lint:widget-placeholder-unrenderable",
+            }),
         );
     });
 
@@ -167,8 +175,31 @@ describe("validateItem", () => {
         // Assert
         expect(result.issues).toContainEqual(
             expect.objectContaining({
-                code: "missing-widget",
+                code: "lint:widget-placeholder-missing-widget",
                 path: "hints[0].content",
+            }),
+        );
+    });
+
+    it("checks placeholders inside a group, which the linter doesn't", () => {
+        // Arrange
+        const group = generateGroupWidget({
+            options: generateGroupOptions({
+                content: "[[☃ radio 1]]",
+                widgets: {},
+            }),
+        });
+
+        // Act
+        const result = validateItem(
+            itemWith("[[☃ group 1]]", {"group 1": group}),
+        );
+
+        // Assert
+        expect(result.issues).toContainEqual(
+            expect.objectContaining({
+                code: "missing-widget",
+                path: 'question.widgets["group 1"] (nested #1).content',
             }),
         );
     });

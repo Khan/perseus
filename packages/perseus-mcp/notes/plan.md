@@ -40,7 +40,7 @@ How the work is done. An agent resuming this plan follows these rules exactly.
 
 ## Status
 
-**Build order steps 1 to 3 are done, and step 4 is under way.** The commits below are on
+**Build order steps 1 to 4 are done.** The commits below are on
 `jer/perseus-mcp`, oldest first, and every tool was smoke-tested over stdio
 from outside the repo.
 
@@ -63,16 +63,12 @@ from outside the repo.
 | Show preview hints under their own headings | The frame renders the question with `ServerItemRenderer` and the revealed hints itself, one `HintRenderer` each, in a section below the buttons with a "Hints" heading and a "Hint #n" heading per hint (Perseus's own strings). `replace` still decides which hints show. Hiding hints no longer remounts the item, so the answer survives. |
 | Drive preview hints and options from the shell | The shell has hint controls (show next, show all, hide, with the reported `hints-state` and a notice on the final help page) and preview options (review mode, answerless, read only, show solutions), sent with `revealHint` and `setPreviewOptions`. The frame renders what the presenter reports: hints picked with perseus-editor's new `shownHintPositions` (so the rules live in one place), the item split with `splitPerseusItem` when answerless (unless review mode or solutions need the answers), and the other options passed to `ServerItemRenderer`. Check answer stays in the frame. Mobile, locale, color scheme and rationales aren't offered yet. |
 | Build the preview shell with Wonder Blocks | The shell uses Wonder Blocks (`View`, `Heading`, `BodyText`, `Button`, `CheckboxGroup`, `SingleSelect` in a `LabeledField`) and the page setup from `@internal/perseus-environment`, with layout in `shell.module.css`; preview options now come before hints. Vite no longer inlines SVGs, as in Storybook: inlined, Wonder Blocks' icons break their CSS and show as squares. |
+| Add lint rules for placeholders, choices and Graphie | perseus-linter (minor changeset `calm-rivers-check`): `duplicate-choices` (radio and dropdown, ignoring `$` and spacing), `graphie-image-url` (suggests a `web+graphie://` URL in place of a Graphie PNG), and `widget-placeholder-missing-widget`, `-duplicate` and `-unrenderable`. `validate_item` keeps its own placeholder checks only for renderers nested in widgets, which the linter doesn't visit, plus `orphaned-widget`: a widget that's never placed has no node in the content for a lint rule to report on. The review checklist links the new codes. |
 
 Remaining, in order:
 
-1. Step 4, in two more commits:
-   1. The duplicate-choices, graphie-URL and placeholder lint rules (minor
-      changeset).
-   2. `validate_item` drops its own placeholder checks.
-2. The preview's `renderDone` and `renderError` markers (see Preview); they
-   can come with the preview options.
-3. Build order steps 5 to 8.
+1. The preview's `renderDone` and `renderError` markers (see Preview).
+2. Build order steps 5 to 8.
 
 Consuming applications aren't in this repo: the changesets carry the
 migration steps, and they're updated separately.
@@ -299,10 +295,10 @@ in `validate_item`, and judgment calls go in the agent's review procedure.
 | Widget in the question left `static: true`, so it can't be answered | `static-widget-in-question-stem` | linter | exists |
 | Sorter over 10 cards, or over 5 in horizontal layout | `sorter-widget-warning` | linter | exists |
 | Table with no caption or headers | `table-missing-caption` (more table rules coming) | linter | exists |
-| Duplicate radio or dropdown choices (e.g. "A and D are the same") | Compare normalized choice text (trim, ignore `$` and whitespace) | linter: new widget rule | new |
-| Untranslatable `https://ka-perseus-graphie…/X.png` image | Suggest `web+graphie://…/X` | linter: new image rule, like `legacy-gif-url` | new |
+| Duplicate radio or dropdown choices (e.g. "A and D are the same") | Compare normalized choice text (trim, ignore `$` and whitespace) | linter: `duplicate-choices` | exists |
+| Untranslatable `https://ka-perseus-graphie…/X.png` image | Suggest `web+graphie://…/X` | linter: `graphie-image-url` | exists |
 | Key contradicts the hints (hints say 11 cm, key says 16 cm) | Score the numbers and math in the last hint; warn if none score correct | `validate_item`: needs the question's widgets and the scorer, which a lint rule doesn't have | new, warning only |
-| Placeholder with no widget, widget never placed, placeholder used twice, widget id that won't render | Compare the content's placeholders with the widgets map | linter: new rules, built on this branch in build step 4; `validate_item` until then | new |
+| Placeholder with no widget, widget never placed, placeholder used twice, widget id that won't render | Compare the content's placeholders with the widgets map | linter: `widget-placeholder-*` for the question and hints; `validate_item` for nested renderers and widgets never placed | exists |
 | free-response, or an avoid-if-possible widget | Notes from `get_widget_spec` | `validate_item` | exists |
 
 **Review procedure** (the agent's judgment):
@@ -523,7 +519,8 @@ Steps 1–3 need no Perseus changes, so building can start there.
    `reveal-hint` and `hints-state`, a configurable target origin. Then wire
    hint controls and options into the preview page. Separately, as a minor
    changeset: the duplicate-choices, graphie-URL and placeholder lint rules;
-   `validate_item` then drops its own placeholder checks.
+   `validate_item` then keeps its own placeholder checks only where the
+   linter can't help (nested renderers, widgets never placed).
 5. **Embedded MCP Apps page:** the cross-origin case, so it waits on step 4's
    target-origin change.
 6. **`create_graphie`:** declarative spec to Graphie image, served locally.
@@ -605,6 +602,15 @@ interactive-graph.
 - Write the real eval task set (separate session).
 - Host the server as a service, with a real draft store.
 - Lint in the context of articles (low value).
+- Share the SVG inlining setting. Vite inlines small SVGs as an unquoted
+  `url(data:...)`, which the quotes in Wonder Blocks' icons break, so the
+  icons show as squares. Storybook (`.storybook/main.ts`) and the preview
+  (`vite-preview-pages.ts`) each turn inlining off for SVGs; move that into
+  one shared place, such as the root `vite.config.mts` or
+  `@internal/perseus-environment`. (Not reported to Vite, by decision.)
+- Drop `validate_item`'s placeholder checks for nested renderers once the
+  linter lints them; a teammate is adding that recursion to the linter.
+  Only `orphaned-widget` stays.
 - Limit which sites can embed the preview frame, with a
   `Content-Security-Policy: frame-ancestors` header on the frame's response
   (`'self'`, plus the MCP Apps host once there is one). Not needed for
