@@ -1,3 +1,4 @@
+import Switch from "@khanacademy/wonder-blocks-switch";
 import {useTimeout} from "@khanacademy/wonder-blocks-timing";
 import React, {useEffect, useId, useRef, useState} from "react";
 
@@ -16,6 +17,20 @@ import type {ChoiceType} from "./radio-widget";
 import type {PerseusStrings} from "../../strings";
 
 /**
+ * The cross-out tool's state and handlers, owned by the RadioWidget.
+ */
+export interface RadioCrossOutProps {
+    /** Whether the "Cross out answers" toggle is on. */
+    toggleOn: boolean;
+    /** Whether the toggle and the cross-out buttons are disabled (after Check). */
+    disabled: boolean;
+    onToggleChange: (toggleOn: boolean) => void;
+    /** The IDs of the choices the learner crossed out. */
+    crossedOutIds: ReadonlyArray<string>;
+    onCrossOutChange: (choiceId: string, crossedOut: boolean) => void;
+}
+
+/**
  * Props for the RadioComponent
  */
 export interface RadioComponentProps {
@@ -28,6 +43,11 @@ export interface RadioComponentProps {
     // and is now reviewing their answer.
     reviewMode: boolean;
     isRequired?: boolean;
+    /**
+     * The cross-out tool. Leave it out to render neither the "Cross out
+     * answers" toggle nor any cross-out button.
+     */
+    crossOut?: RadioCrossOutProps;
 }
 
 /**
@@ -76,9 +96,12 @@ const RadioComponent = ({
     onChoiceChange,
     reviewMode,
     isRequired = false,
+    crossOut,
 }: RadioComponentProps): React.ReactElement => {
     const {strings} = usePerseusI18n();
     const legendId = useId();
+    const crossOutSwitchId = `${legendId}-cross-out-switch`;
+    const crossOutDescriptionId = `${legendId}-cross-out-description`;
     const containerRef = useRef<HTMLFieldSetElement>(null);
     const [backgroundColor, setBackgroundColor] = useState("transparent");
 
@@ -121,10 +144,14 @@ const RadioComponent = ({
 
     const scrollId = useId() + "-scroll";
 
+    const containerClasses = crossOut
+        ? `${styles.container} ${styles.hasCrossOut}`
+        : styles.container;
+
     return (
         <>
             <fieldset
-                className={styles.container}
+                className={containerClasses}
                 ref={containerRef}
                 style={cssVariableDeclaration}
             >
@@ -140,7 +167,39 @@ const RadioComponent = ({
                         </span>
                     )}
                 </legend>
-                <ScrollableView id={scrollId} overflowX="auto">
+                {/* The toggle sits on the instructions line, but outside the
+                    <legend>: the legend is aria-hidden, so a control inside it
+                    couldn't be reached by screen readers. It comes before the
+                    choices in the DOM, so Tab goes from the toggle straight
+                    into the choices. */}
+                {crossOut && (
+                    <div className={styles.crossOutToggle}>
+                        <label
+                            className={styles.crossOutLabel}
+                            htmlFor={crossOutSwitchId}
+                        >
+                            {strings.crossOutAnswers}
+                        </label>
+                        <Switch
+                            aria-describedby={crossOutDescriptionId}
+                            checked={crossOut.toggleOn}
+                            disabled={crossOut.disabled}
+                            id={crossOutSwitchId}
+                            onChange={crossOut.onToggleChange}
+                        />
+                        <span
+                            className={a11yStyles.srOnly}
+                            id={crossOutDescriptionId}
+                        >
+                            {strings.crossOutAnswersDescription}
+                        </span>
+                    </div>
+                )}
+                <ScrollableView
+                    className={crossOut ? styles.clearFloats : undefined}
+                    id={scrollId}
+                    overflowX="auto"
+                >
                     {/* eslint-disable-next-line jsx-a11y/no-redundant-roles */}
                     <ul
                         data-widget="radio"
@@ -154,6 +213,7 @@ const RadioComponent = ({
                             onChoiceChange={onChoiceChange}
                             reviewMode={reviewMode}
                             multipleSelect={multipleSelect}
+                            crossOut={crossOut}
                         />
                     </ul>
                 </ScrollableView>
@@ -172,11 +232,18 @@ interface ChoiceListItemsProps {
     multipleSelect: boolean;
     onChoiceChange: (choiceId: string, newCheckedState: boolean) => void;
     reviewMode: boolean;
+    crossOut?: RadioCrossOutProps;
 }
 
 const ChoiceListItems = (props: ChoiceListItemsProps): React.ReactElement => {
-    const {choices, i18nStrings, multipleSelect, onChoiceChange, reviewMode} =
-        props;
+    const {
+        choices,
+        crossOut,
+        i18nStrings,
+        multipleSelect,
+        onChoiceChange,
+        reviewMode,
+    } = props;
     const listId = useId();
 
     const items = choices.map((choice, i) => {
@@ -185,10 +252,13 @@ const ChoiceListItems = (props: ChoiceListItemsProps): React.ReactElement => {
         };
         const contentId = `${listId}-choice-${i + 1}`;
         const choiceLetter = getChoiceLetter(i, i18nStrings);
+        const crossedOut = !!crossOut?.crossedOutIds.includes(choice.id);
         const srContent =
             reviewMode && choice.correct
                 ? i18nStrings.choiceCorrect
-                : i18nStrings.choice;
+                : crossedOut
+                  ? i18nStrings.choiceCrossedOut
+                  : i18nStrings.choice;
         const indicatorContent: IndicatorContent = {
             visible: choiceLetter,
             screenReader: srContent({letter: choiceLetter}),
@@ -225,6 +295,18 @@ const ChoiceListItems = (props: ChoiceListItemsProps): React.ReactElement => {
                 isMultiSelect={multipleSelect}
                 showCorrectness={showCorrectness}
                 updateChecked={updateChecked}
+                crossOut={
+                    crossOut && {
+                        crossedOut,
+                        disabled: crossOut.disabled,
+                        hidden: !crossOut.toggleOn,
+                        label: i18nStrings.crossOutChoice({
+                            letter: choiceLetter,
+                        }),
+                        onChange: (isCrossedOut: boolean) =>
+                            crossOut.onCrossOutChange(choice.id, isCrossedOut),
+                    }
+                }
             >
                 <div className={styles.content}>
                     <div id={contentId}>{content}</div>
