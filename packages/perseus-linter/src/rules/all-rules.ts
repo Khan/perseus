@@ -8,6 +8,7 @@ import {
     ExpressionWidgetButtons,
     ExpressionWidgetCorrectAnswer,
 } from "./expression-widget";
+import {FillInTheBlankRule} from "./fill-in-the-blank";
 import FreeResponseWidgetError from "./free-response-widget-error";
 import {GradedGroupWidgetRule} from "./graded-group";
 import {GradedGroupSetWidgetRule} from "./graded-group-set";
@@ -107,5 +108,6 @@ export function allRules(): Rule[] {
         GradedGroupWidgetRule,
         GradedGroupSetWidgetRule,
         GroupWidgetRule,
+        FillInTheBlankRule,
     ];
 }
