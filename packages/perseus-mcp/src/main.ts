@@ -18,6 +18,7 @@ import {StdioServerTransport} from "./adapters/mcp/sdk";
 import {createMcpServer} from "./adapters/mcp/server";
 import {createCatalog} from "./app/catalog";
 import {createDraftUseCases} from "./app/drafts";
+import {createReviewUseCases} from "./app/review";
 import {createScoringUseCases} from "./app/scoring";
 import {createWidgetUseCases} from "./app/widgets";
 
@@ -94,6 +95,7 @@ const useCases = {
     }),
     widgets: createWidgetUseCases({catalog, drafts: repository}),
     scoring: createScoringUseCases({drafts: repository}),
+    review: createReviewUseCases({drafts: repository}),
 };
 
 if (values.stdio) {

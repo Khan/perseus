@@ -1,11 +1,13 @@
 import {z} from "zod";
 
+import {CHECKLIST_URI} from "../../domain/review/checklist";
 import {libVersion} from "../../version";
 
 import {McpServer} from "./sdk";
 import {errorResult, jsonResult, runTool} from "./tool-results";
 
 import type {DraftUseCases} from "../../app/drafts";
+import type {ReviewUseCases} from "../../app/review";
 import type {ScoringUseCases} from "../../app/scoring";
 import type {WidgetUseCases} from "../../app/widgets";
 
@@ -27,7 +29,11 @@ list_widgets and get_widget_spec describe each widget's options; validate_item
 checks an item the way Perseus will. score_item scores an answer as Perseus
 does; to test an item, solve it yourself and give check_user_inputs correct
 answers (in several equivalent forms) and common mistakes, each with the
-outcome you expect.`;
+outcome you expect.
+
+Review every item you create or edit before returning it: the review_item
+prompt gives the procedure, and the review checklist resource describes each
+kind of defect.`;
 
 const notesSchema = z
     .string()
@@ -46,10 +52,12 @@ export function createMcpServer({
     drafts,
     widgets,
     scoring,
+    review,
 }: {
     drafts: DraftUseCases;
     widgets: WidgetUseCases;
     scoring: ScoringUseCases;
+    review: ReviewUseCases;
 }): McpServer {
     const server = new McpServer(
         {name: "perseus", version: libVersion},
@@ -495,6 +503,42 @@ export function createMcpServer({
         },
         (uri) => ({
             contents: [{uri: uri.href, text: widgets.dataSchema()}],
+        }),
+    );
+
+    server.registerResource(
+        "review-checklist",
+        CHECKLIST_URI,
+        {
+            title: "Perseus item review checklist",
+            description:
+                "Defects that have reached learners, with how to catch each " +
+                "one and a short example. validate_item issues link to " +
+                "their entry.",
+            mimeType: "text/markdown",
+        },
+        (uri) => ({
+            contents: [{uri: uri.href, text: review.checklist()}],
+        }),
+    );
+
+    server.registerPrompt(
+        "review_item",
+        {
+            title: "Review a Perseus item",
+            description:
+                "The procedure for reviewing a draft before it goes to " +
+                "learners: validate, solve it independently, test likely " +
+                "answers with check_user_inputs, and report findings.",
+            argsSchema: {itemId: z.string().describe("The draft to review.")},
+        },
+        ({itemId}) => ({
+            messages: [
+                {
+                    role: "user",
+                    content: {type: "text", text: review.reviewPrompt(itemId)},
+                },
+            ],
         }),
     );
 

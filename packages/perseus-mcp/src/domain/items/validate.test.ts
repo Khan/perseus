@@ -83,6 +83,19 @@ describe("validateItem", () => {
         });
     });
 
+    it("links an issue to the checklist entry that explains it", () => {
+        // Arrange, Act
+        const result = validateItem(itemWith("[[☃ radio 1]]", {}));
+
+        // Assert
+        expect(result.issues).toEqual([
+            expect.objectContaining({
+                code: "missing-widget",
+                see: "perseus://guides/review-checklist.md#placeholder-mismatch",
+            }),
+        ]);
+    });
+
     it("warns about a widget that isn't placed in the content", () => {
         // Arrange, Act
         const result = validateItem(

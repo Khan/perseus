@@ -4,6 +4,8 @@ import {
 } from "@khanacademy/perseus-core";
 import {lintPerseusItem} from "@khanacademy/perseus-linter";
 
+import {checklistLinkFor} from "../review/checklist";
+
 import {parseItem} from "./parse";
 
 import type {WidgetCatalog} from "./widgets";
@@ -19,6 +21,8 @@ export type Issue = {
     /** Where the problem is, e.g. `question.widgets["radio 1"]`. */
     path: string;
     message: string;
+    /** The review checklist entry that explains this kind of issue. */
+    see?: string;
 };
 
 export type ValidationResult = {
@@ -160,6 +164,11 @@ function lintIssues(item: PerseusItem): Issue[] {
     ];
 }
 
+function withChecklistLink(issue: Issue): Issue {
+    const see = checklistLinkFor(issue.code);
+    return see == null ? issue : {...issue, see};
+}
+
 /**
  * Checks an item (any Perseus version, as an object or JSON string): it must
  * parse, every widget placeholder must have a widget and vice versa, and the
@@ -190,7 +199,7 @@ export function validateItem(
             checkRenderer(renderer, widgets),
         ),
         ...lintIssues(parsed.item),
-    ];
+    ].map(withChecklistLink);
     return {
         valid: !issues.some((issue) => issue.severity === "error"),
         issues,

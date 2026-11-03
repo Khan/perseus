@@ -40,8 +40,9 @@ How the work is done. An agent resuming this plan follows these rules exactly.
 
 ## Status
 
-**Build order step 2 is under way.** The commits below are on `jer/perseus-mcp`, oldest first, and
-every tool was smoke-tested over stdio from outside the repo.
+**Build order step 2 is done; step 3 is next.** The commits below are on
+`jer/perseus-mcp`, oldest first, and every tool was smoke-tested over stdio
+from outside the repo.
 
 | Commit | What it adds |
 | --- | --- |
@@ -51,11 +52,11 @@ every tool was smoke-tested over stdio from outside the repo.
 | Add create_item to perseus-mcp | `create_item`: the question and hints as content plus a list of widgets. Each widget's options are merged over its type's defaults and parsed (`buildWidget`), then the item is validated; nothing is saved if anything has errors. |
 | Add add_widget to perseus-mcp | `add_widget`: adds a widget to the question or a hint, placing its placeholder right after the `after` text or at the end. The id defaults to the next free one (`nextWidgetId`); options are checked by the parser, as in `create_item`. |
 | Add score_item and check_user_inputs to perseus-mcp | `score_item` and `check_user_inputs`, and the `@khanacademy/perseus-score` dependency. User input is parsed with `parseAndMigrateUserInputMap`, and input for a widget the question doesn't have is rejected (`unknown-widget-id`). Each answer gets an outcome: `correct`, `incorrect`, or `invalid` when Perseus wouldn't score it. The locale defaults to `en`. |
+| Add review_item prompt and checklist to perseus-mcp | The `review_item` prompt (the review procedure for a draft) and the review checklist resource, built from one list of entries in `src/domain/review/`. `validate_item` issues the checklist explains carry a `see` link to their entry. |
 
 Remaining, in order:
 
-1. The `review_item` prompt and checklist resource (see Item review).
-2. Then build order steps 3 to 7.
+1. Build order steps 3 to 7, starting with the hosted preview page.
 
 ## Notes for whoever picks this up
 
@@ -138,8 +139,9 @@ without touching the core.
   access.
 - **Ports** (`src/ports/`): the interfaces the core needs, such as
   `DraftRepository`, `ItemFileReader` and `SchemaSource`.
-- **Application** (`src/app/`): the use cases behind the tools (drafts,
-  widgets, scoring), written against the ports only.
+- **Application** (`src/app/`): the use cases behind the tools, prompts and
+  resources (drafts, widgets, scoring, review), written against the ports
+  only.
 - **Adapters** (`src/adapters/`): inbound `mcp/` (tool registration, zod
   input schemas, tool results, `INSTRUCTIONS`) and `http/` (Fastify,
   transports); outbound `fs/` (the file draft repository, the item file
@@ -219,8 +221,12 @@ an optional thin skill can point Claude Code users at the server.
 | `preview_item(itemId)` | Return the local preview URL; also linked to the embedded MCP Apps page. |
 | `create_graphie(spec)` | Build a Graphie image from a declarative spec (see its section). |
 
-The `data-schema.ts` text is also served as the resource
-`perseus://schema/data-schema.ts`.
+Resources and prompts:
+
+- `perseus://schema/data-schema.ts`: perseus-core's `data-schema.ts` text.
+- `perseus://guides/review-checklist.md`: the review checklist (see Item
+  review).
+- The `review_item(itemId)` prompt: the review procedure for a draft.
 
 `check_user_inputs` is for authors testing an item ("give me 5 correct and 5
 incorrect guesses"):
@@ -256,7 +262,7 @@ in `validate_item`, and judgment calls go in the agent's review procedure.
 | Untranslatable `https://ka-perseus-graphie…/X.png` image | Suggest `web+graphie://…/X` | linter: new image rule, like `legacy-gif-url` | new |
 | Key contradicts the hints (hints say 11 cm, key says 16 cm) | Score the numbers and math in the last hint; warn if none score correct | `validate_item`: needs the question's widgets and the scorer, which a lint rule doesn't have | new, warning only |
 | Placeholder with no widget, widget never placed, placeholder used twice, widget id that won't render | Compare the content's placeholders with the widgets map | linter: new rules, built on this branch in build step 4; `validate_item` until then | new |
-| free-response, or an avoid-if-possible widget | Notes from `get_widget_spec` | `validate_item` | planned |
+| free-response, or an avoid-if-possible widget | Notes from `get_widget_spec` | `validate_item` | exists |
 
 **Review procedure** (the agent's judgment):
 
@@ -276,15 +282,18 @@ in `validate_item`, and judgment calls go in the agent's review procedure.
 7. If the author's intent is unclear, ask or report. Don't guess.
 
 The review returns `{guesses, findings: [{widget, kind, witness, note}]}`,
-the same shape as the eval's check-inputs report. Finding kinds:
-`correct-rejected`, `incorrect-accepted`, `no-correct-answer`,
-`duplicate-choices`, `key-contradicts-hints`,
-`wording-invites-rejected-answer`, `unanswerable`.
+the same shape as the eval's check-inputs report. Finding kinds are the
+checklist's entry ids (`no-correct-answer`, `duplicate-choices`,
+`key-contradicts-hints`, `wording-invites-rejected-answer`,
+`correct-rejected`, `incorrect-accepted`, `unanswerable`, ...).
 
-The procedure ships once, as a `review_item` MCP prompt plus a checklist
-resource with a short example per pattern. `validate_item` warnings link to
-their checklist entry. The optional Claude Code skill only points to these,
-so the two can't drift apart.
+The procedure ships once, as the `review_item` MCP prompt plus the checklist
+resource, with a check and a short example per entry. Both are built from
+one list (`CHECKLIST` in `src/domain/review/checklist.ts`), which also maps
+`validate_item` issue codes to entries: an issue the checklist explains
+carries a `see` link to it. `INSTRUCTIONS` tells agents to review every item
+they create or edit. The optional Claude Code skill only points to these, so
+the two can't drift apart.
 
 ## Preview
 
