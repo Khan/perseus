@@ -285,13 +285,14 @@
     text-decoration-thickness: var(--perseus-cross-out-strike-width);
 }
 
-/* Crossed-out math stays dark instead of taking the lighter grey of
-   crossed-out text, so it keeps 4.5:1 contrast against the hatch lines that
-   cross it (below). Colored math turns dark too; MathJax sets its color
-   inline, hence !important.
+/* Crossed-out math and graph labels stay dark instead of taking the lighter
+   grey of crossed-out text, so they keep 4.5:1 contrast against the hatch
+   lines that cross them (below). Colored math and labels turn dark too;
+   their colors are set inline, hence !important.
  */
-.is-crossed-out :global(.mathjax-wrapper):not(:global(.graphie-label) *) {
-    color: var(--wb-semanticColor-core-foreground-neutral-strong);
+.is-crossed-out :global(.mathjax-wrapper):not(:global(.graphie-label) *),
+.is-crossed-out :global(.graphie-label) {
+    color: var(--wb-semanticColor-core-foreground-neutral-strong) !important;
 
     & [style*="color"] {
         color: inherit !important;
