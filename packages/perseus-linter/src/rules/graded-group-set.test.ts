@@ -75,4 +75,41 @@ describe("the graded-group-set linter", () => {
             },
         );
     });
+
+    it("lints the hint of each group", () => {
+        const expressionWithNoAnswers = generateExpressionWidget({
+            options: generateExpressionOptions({
+                answerForms: [],
+            }),
+        });
+
+        const gradedGroupWithLintyExpression = generateGradedGroupOptions({
+            hint: {
+                content: "[[☃ expression 1]]",
+                images: {},
+                widgets: {
+                    "expression 1": expressionWithNoAnswers,
+                },
+            },
+        });
+
+        expectIssue(
+            GradedGroupSetWidgetRule,
+            "[[☃ graded-group-set 1]]",
+            {
+                widgets: {
+                    "graded-group-set 1": generateGradedGroupSetWidget({
+                        options: {
+                            gradedGroups: [gradedGroupWithLintyExpression],
+                        },
+                    }),
+                },
+            },
+            {
+                messages: [
+                    "graded-group-set 1: group 1: (in hint) expression 1: No answers specified.",
+                ],
+            },
+        );
+    });
 });
