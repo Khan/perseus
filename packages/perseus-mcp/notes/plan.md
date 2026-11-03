@@ -40,7 +40,7 @@ How the work is done. An agent resuming this plan follows these rules exactly.
 
 ## Status
 
-**Build order step 2 is done; step 3 is next.** The commits below are on
+**Build order step 3 is under way.** The commits below are on
 `jer/perseus-mcp`, oldest first, and every tool was smoke-tested over stdio
 from outside the repo.
 
@@ -53,24 +53,33 @@ from outside the repo.
 | Add add_widget to perseus-mcp | `add_widget`: adds a widget to the question or a hint, placing its placeholder right after the `after` text or at the end. The id defaults to the next free one (`nextWidgetId`); options are checked by the parser, as in `create_item`. |
 | Add score_item and check_user_inputs to perseus-mcp | `score_item` and `check_user_inputs`, and the `@khanacademy/perseus-score` dependency. User input is parsed with `parseAndMigrateUserInputMap`, and input for a widget the question doesn't have is rejected (`unknown-widget-id`). Each answer gets an outcome: `correct`, `incorrect`, or `invalid` when Perseus wouldn't score it. The locale defaults to `en`. |
 | Add review_item prompt and checklist to perseus-mcp | The `review_item` prompt (the review procedure for a draft) and the review checklist resource, built from one list of entries in `src/domain/review/`. `validate_item` issues the checklist explains carry a `see` link to their entry. |
+| Add a draft change feed to perseus-mcp | `/drafts/<itemId>/events`: a server-sent event stream of a draft, sent on connect and after every change (`withDraftFeed` wraps the repository, so every save is announced; `watchItem` use case). In stdio mode HTTP runs too, on a free port the OS picks unless `--port` is given, and the process exits when stdin closes. |
 
 Remaining, in order:
 
-1. Build order steps 3 to 7, starting with the hosted preview page.
+1. The preview page, rendering the question: Vite in middleware mode inside
+   Fastify (through `@fastify/middie`, so there's no build step), a shell
+   that follows the draft's event stream and runs `usePreviewController`,
+   and a same-origin iframe that runs `usePreviewPresenter`.
+2. Hints, check answer and `preview_item`, which returns the page's URL.
+3. Then build order steps 4 to 7.
 
 ## Notes for whoever picks this up
 
 - **Run it:** `pnpm start-mcp` (HTTP) or `pnpm start-mcp:stdio` from the repo
   root, or `node packages/perseus-mcp/bin/perseus-mcp.mjs` with `--stdio`,
-  `--port`, `--data-dir`. Default port 4567; drafts in `.perseus-mcp/` at the
-  repo root.
+  `--port`, `--data-dir`. HTTP always runs: on port 4567 with `--http`, and
+  with `--stdio` on a free port the OS picks (so several sessions can each
+  run one), logged to stderr. Drafts are in `.perseus-mcp/` at the repo root.
+- **Stdio sessions end when stdin closes:** `main.ts` exits then, because the
+  HTTP server would otherwise keep the process alive.
 - **The launcher** registers swc itself
   (`register("@swc-node/register/esm", import.meta.url)`), so the server runs
   from TypeScript source in any working directory. A `node -r` or `--import`
   shebang would look swc up from the host's working directory and fail.
 - **Code layout:** hexagonal; see Architecture. Ports and other behaviour
-  types (`DraftRepository`, `ItemFileReader`, `SchemaSource`, `SchemaIndex`,
-  `WidgetCatalog`, `Catalog`) are `interface`s; data shapes stay `type`.
+  types (`DraftRepository`, `DraftFeed`, `ItemFileReader`, `SchemaSource`,
+  `SchemaIndex`, `WidgetCatalog`, `Catalog`) are `interface`s; data shapes stay `type`.
 - **The package** has no `index.ts` or `exports`, and each dependency arrives
   with the commit that first uses it. `package.json` keys follow
   `utils/format-package-json.sh`'s order, but don't run the script on this
@@ -104,7 +113,11 @@ Remaining, in order:
   generators. Use-case tests use `in-memory-draft-repository.testutils.ts`.
   Tests that need widget data use the real perseus-core schema through
   `createCatalog(createPerseusCoreSchemaSource())`, and call
-  `CoreWidgetRegistry.registerCoreWidgets()` first.
+  `CoreWidgetRegistry.registerCoreWidgets()` first. The shared Jest setup
+  turns on fake timers before every test, which stalls real network I/O, so
+  tests that listen on a port call `jest.useRealTimers()` first. Fastify's
+  `inject` can't load under Jest (its `cookie` dependency is ESM-only); use a
+  real `listen({port: 0})` and `fetch`.
 - **Smoke-test over stdio** from outside the repo before each commit: pipe
   JSON-RPC lines into
   `node packages/perseus-mcp/bin/perseus-mcp.mjs --stdio --data-dir <temp dir>`.
@@ -138,15 +151,15 @@ without touching the core.
   validation, editing, scoring, ...). No file system, network or process
   access.
 - **Ports** (`src/ports/`): the interfaces the core needs, such as
-  `DraftRepository`, `ItemFileReader` and `SchemaSource`.
+  `DraftRepository`, `DraftFeed`, `ItemFileReader` and `SchemaSource`.
 - **Application** (`src/app/`): the use cases behind the tools, prompts and
   resources (drafts, widgets, scoring, review), written against the ports
-  only.
+  only, and `withDraftFeed`, which announces every save on the draft feed.
 - **Adapters** (`src/adapters/`): inbound `mcp/` (tool registration, zod
   input schemas, tool results, `INSTRUCTIONS`) and `http/` (Fastify,
-  transports); outbound `fs/` (the file draft repository, the item file
-  reader, the `data-schema.ts` reader). Later: a hosted draft store and the
-  preview's SSE feed.
+  transports, the drafts' event streams); outbound `fs/` (the file draft
+  repository, the item file reader, the `data-schema.ts` reader). Later: the
+  preview page and a hosted draft store.
 - **Composition root** (`src/main.ts`): parses arguments, picks the data
   directory default, registers widgets, wires adapters to use cases and
   writes user-facing error messages.
@@ -162,7 +175,7 @@ them.
 
 | Topic | Decision |
 | --- | --- |
-| Where it runs | Local first: stdio or local HTTP, with the preview page served locally. A hosted service later. |
+| Where it runs | Local first: MCP over stdio or local HTTP, with HTTP always running for the preview page. A hosted service later. |
 | Architecture | Hexagonal (ports and adapters); see Architecture. |
 | Where the code lives | `packages/perseus-mcp` in this monorepo, a private package; run with `pnpm start-mcp`. npm publishing later. |
 | Stack | Official TypeScript MCP SDK (`@modelcontextprotocol/sdk`) with Fastify. |
@@ -201,9 +214,10 @@ Drafts and the disk:
 ## MCP server and tools
 
 One Fastify process serves MCP over Streamable HTTP on `/mcp` (stateless at
-the protocol level; the state is in the draft store) plus, later, the preview
-page. `--stdio` serves MCP over stdio instead; HTTP alongside stdio returns
-with the preview page. Authoring guidance ships as MCP resources and prompts
+the protocol level; the state is in the draft store), each draft's event
+stream on `/drafts/<itemId>/events` and, later, the preview page. `--stdio`
+serves MCP over stdio; HTTP still runs alongside it, on a free port, for the
+previews. Authoring guidance ships as MCP resources and prompts
 and in `INSTRUCTIONS` (the `instructions` field of the MCP initialize result);
 an optional thin skill can point Claude Code users at the server.
 
@@ -304,6 +318,10 @@ the host supports MCP Apps.
 **Hosted preview page.** A Vite/React app served by Fastify at
 `http://localhost:<port>/preview/<itemId>`, built just for this MCP.
 
+- Fastify runs Vite in middleware mode (through `@fastify/middie`), which
+  compiles the page from source on request, like the server itself: no
+  build step to forget, at the cost of a slower first load. A prebuilt
+  bundle was rejected because every change would need a rebuild.
 - A top-level shell follows the draft over SSE and runs
   `usePreviewController`; an iframe on the same origin runs
   `usePreviewPresenter` and renders with ServerItemRenderer. Same origin

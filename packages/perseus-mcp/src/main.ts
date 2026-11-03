@@ -17,6 +17,7 @@ import {createHttpServer} from "./adapters/http/server";
 import {StdioServerTransport} from "./adapters/mcp/sdk";
 import {createMcpServer} from "./adapters/mcp/server";
 import {createCatalog} from "./app/catalog";
+import {withDraftFeed} from "./app/draft-feed";
 import {createDraftUseCases} from "./app/drafts";
 import {createReviewUseCases} from "./app/review";
 import {createScoringUseCases} from "./app/scoring";
@@ -32,8 +33,9 @@ const USAGE = `\
 Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <dir>]
 
   --http        Serve MCP on http://<host>:<port>/mcp (the default).
-  --stdio       Serve MCP over stdin/stdout.
-  --port        HTTP port (default 4567).
+  --stdio       Serve MCP over stdin/stdout. HTTP still runs, for previews.
+  --port        HTTP port (default 4567 with --http; with --stdio, a free
+                port the OS picks, so several stdio servers can run at once).
   --host        HTTP host (default 127.0.0.1).
   --data-dir    Where drafts are saved (default $PERSEUS_MCP_DATA_DIR, else
                 .perseus-mcp/ at the repo root).
@@ -43,7 +45,7 @@ const {values} = parseArgs({
     options: {
         http: {type: "boolean"},
         stdio: {type: "boolean"},
-        port: {type: "string", default: "4567"},
+        port: {type: "string"},
         host: {type: "string", default: "127.0.0.1"},
         "data-dir": {type: "string"},
         help: {type: "boolean"},
@@ -64,11 +66,11 @@ function log(message: string) {
 // Parsing, migration and every other widget lookup go through this registry.
 CoreWidgetRegistry.registerCoreWidgets();
 
-const repository = new FileDraftRepository(
+const fileRepository = new FileDraftRepository(
     values["data-dir"] ?? DEFAULT_DATA_DIR,
 );
 try {
-    repository.init();
+    fileRepository.init();
 } catch (e) {
     if (e instanceof DataDirNotWritableError) {
         log(
@@ -80,14 +82,17 @@ try {
     }
     throw e;
 }
-for (const {location, reason} of repository.skipped()) {
+for (const {location, reason} of fileRepository.skipped()) {
     log(`perseus-mcp: skipped ${location}: ${reason}`);
 }
+// Every save goes through the feed, so open previews hear about it.
+const {drafts: repository, feed} = withDraftFeed(fileRepository);
 
 const catalog = createCatalog(createPerseusCoreSchemaSource());
 const useCases = {
     drafts: createDraftUseCases({
         drafts: repository,
+        feed,
         files: nodeItemFileReader,
         catalog,
         now: () => new Date(),
@@ -98,20 +103,28 @@ const useCases = {
     review: createReviewUseCases({drafts: repository}),
 };
 
-if (values.stdio) {
-    await createMcpServer(useCases).connect(new StdioServerTransport());
-} else {
-    const port = Number(values.port);
-    const host = values.host;
-    const baseUrl = `http://${host === "127.0.0.1" ? "localhost" : host}:${port}`;
-    try {
-        await createHttpServer(() => createMcpServer(useCases)).listen({
-            port,
-            host,
-        });
-    } catch (e) {
-        log(`perseus-mcp: couldn't listen on ${host}:${port}: ${String(e)}`);
+const host = values.host;
+// Port 0 asks the OS for a free port.
+const port = Number(values.port ?? (values.stdio ? 0 : 4567));
+const httpServer = createHttpServer({
+    createMcpServer: () => createMcpServer(useCases),
+    drafts: useCases.drafts,
+});
+try {
+    const address = new URL(await httpServer.listen({port, host}));
+    const baseUrl = `http://${host === "127.0.0.1" ? "localhost" : host}:${address.port}`;
+    log(`perseus-mcp: HTTP on ${baseUrl} (MCP on ${baseUrl}/mcp)`);
+} catch (e) {
+    log(`perseus-mcp: couldn't listen on ${host}:${port}: ${String(e)}`);
+    // Over stdio, MCP still works without HTTP; only previews are lost.
+    if (!values.stdio) {
         process.exit(1);
     }
-    log(`perseus-mcp: MCP on ${baseUrl}/mcp`);
+}
+
+if (values.stdio) {
+    // The host ends a stdio session by closing stdin. The HTTP server would
+    // otherwise keep the process running after it.
+    process.stdin.on("end", () => process.exit(0));
+    await createMcpServer(useCases).connect(new StdioServerTransport());
 }

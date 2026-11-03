@@ -12,11 +12,13 @@ import type {AddWidgetInput} from "../domain/items/add-widget";
 import type {ItemInput} from "../domain/items/build";
 import type {PatchOperation} from "../domain/items/edit";
 import type {Issue} from "../domain/items/validate";
+import type {DraftFeed, DraftListener} from "../ports/draft-feed";
 import type {DraftRepository, SkippedDraft} from "../ports/draft-repository";
 import type {ItemFileReader} from "../ports/item-file-reader";
 
 export type DraftDependencies = {
     drafts: DraftRepository;
+    feed: DraftFeed;
     files: ItemFileReader;
     catalog: Catalog;
     now: () => Date;
@@ -165,6 +167,19 @@ export function createDraftUseCases(deps: DraftDependencies) {
 
         listItems(): {drafts: Draft[]; skipped: SkippedDraft[]} {
             return {drafts: drafts.list(), skipped: drafts.skipped()};
+        },
+
+        /**
+         * Calls `listener` with the draft now, then again after every change,
+         * until the returned function is called.
+         *
+         * @throws DraftNotFoundError
+         */
+        watchItem(itemId: string, listener: DraftListener): () => void {
+            const draft = getDraft(itemId);
+            const unsubscribe = deps.feed.subscribe(itemId, listener);
+            listener(draft);
+            return unsubscribe;
         },
     };
 }

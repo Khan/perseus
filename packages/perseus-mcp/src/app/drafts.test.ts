@@ -10,6 +10,7 @@ import {
 import {createPerseusCoreSchemaSource} from "../adapters/fs/perseus-core-schema-source";
 
 import {createCatalog} from "./catalog";
+import {withDraftFeed} from "./draft-feed";
 import {createDraftUseCases} from "./drafts";
 import {DraftNotFoundError, InvalidItemError} from "./errors";
 import {inMemoryRepository} from "./in-memory-draft-repository.testutils";
@@ -20,9 +21,10 @@ import type {ItemFileReader} from "../ports/item-file-reader";
 function setUp(
     options: {files?: ItemFileReader; skipped?: SkippedDraft[]} = {},
 ) {
-    const drafts = inMemoryRepository(options.skipped);
+    const {drafts, feed} = withDraftFeed(inMemoryRepository(options.skipped));
     const useCases = createDraftUseCases({
         drafts,
+        feed,
         files: options.files ?? {read: () => Promise.reject(new Error())},
         catalog: createCatalog(createPerseusCoreSchemaSource()),
         now: () => new Date("2026-01-01T00:00:00Z"),
@@ -274,6 +276,49 @@ describe("draft use cases", () => {
 
             // Act, Assert
             expect(() => useCases.exportItem("nope")).toThrow(
+                DraftNotFoundError,
+            );
+        });
+    });
+
+    describe("watchItem", () => {
+        it("calls the listener with the draft now and after each change", async () => {
+            // Arrange
+            const {useCases} = setUp();
+            await useCases.openItem({item: generateTestPerseusItem()});
+            const listener = jest.fn();
+
+            // Act
+            useCases.watchItem("abc", listener);
+            useCases.editItem("abc", {notes: "Changed"});
+
+            // Assert
+            expect(
+                listener.mock.calls.map(([draft]) => draft.revision),
+            ).toEqual([1, 2]);
+        });
+
+        it("stops calling the listener once unsubscribed", async () => {
+            // Arrange
+            const {useCases} = setUp();
+            await useCases.openItem({item: generateTestPerseusItem()});
+            const listener = jest.fn();
+            const unsubscribe = useCases.watchItem("abc", listener);
+
+            // Act
+            unsubscribe();
+            useCases.editItem("abc", {notes: "Changed"});
+
+            // Assert
+            expect(listener).toHaveBeenCalledTimes(1);
+        });
+
+        it("throws DraftNotFoundError for an unknown itemId", () => {
+            // Arrange
+            const {useCases} = setUp();
+
+            // Act, Assert
+            expect(() => useCases.watchItem("nope", jest.fn())).toThrow(
                 DraftNotFoundError,
             );
         });
