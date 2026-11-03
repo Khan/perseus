@@ -121,6 +121,7 @@ export const MathContent: Story = {
         choices: [
             generateRadioChoice("$x = 4$", {correct: true}),
             generateRadioChoice("$x = 5$"),
+            generateRadioChoice("$\\blueD{3} + \\redD{4}$"),
             generateRadioChoice(
                 "Text with inline math, $y = 2x + 1$, that runs long enough to wrap onto a second line on narrow screens, and then $z = \\frac{3}{4}$ at the end.",
             ),

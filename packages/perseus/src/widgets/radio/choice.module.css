@@ -285,6 +285,19 @@
     text-decoration-thickness: var(--perseus-cross-out-strike-width);
 }
 
+/* Crossed-out math stays dark instead of taking the lighter grey of
+   crossed-out text, so it keeps 4.5:1 contrast against the hatch lines that
+   cross it (below). Colored math turns dark too; MathJax sets its color
+   inline, hence !important.
+ */
+.is-crossed-out :global(.mathjax-wrapper):not(:global(.graphie-label) *) {
+    color: var(--wb-semanticColor-core-foreground-neutral-strong);
+
+    & [style*="color"] {
+        color: inherit !important;
+    }
+}
+
 /* Images and graphs are dimmed. Their labels are text, so they stay at
    full strength to keep their contrast.
    A markdown image renders as a bare <img>, which can't hold the hatching
