@@ -1,4 +1,5 @@
 import AbsoluteUrl from "./absolute-url";
+import {ExplanationWidgetRule} from "./explanation";
 import {
     ExplanationInGradedGroup,
     ExplanationInGradedGroupSet,
@@ -61,6 +62,7 @@ export function allRules(): Rule[] {
         AbsoluteUrl,
         ExplanationInGradedGroup,
         ExplanationInGradedGroupSet,
+        ExplanationWidgetRule,
         ExpressionWidgetAnswerForms,
         ExpressionWidgetButtons,
         ExpressionWidgetCorrectAnswer,
