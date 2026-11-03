@@ -147,19 +147,20 @@
         text-align: center;
         font-size: var(--wb-font-heading-size-medium);
     }
+}
 
-    /**************
-     * Exceptions *
-     **************/
-    .perseus-in-wb-popover p {
-        font-size: initial;
-        margin: 0;
-    }
+/* These stay in the main "Shared" layer because they need to override base styles */
 
-    /* TODO: Remove the selector with deprecated-perseus-container once it is removed from the renderer. */
-    .perseus-in-wb-popover .perseus-renderer
-        > .deprecated-perseus-container > *,
-    .perseus-in-wb-popover .perseus-renderer > * {
-        margin-block: 0;
-    }
+/**************
+ * Exceptions *
+ **************/
+.perseus-in-wb-popover p {
+    font-size: initial;
+    margin: 0;
+}
+
+/* TODO: Remove the selector with deprecated-perseus-container once it is removed from the renderer. */
+.perseus-in-wb-popover .perseus-renderer > .deprecated-perseus-container > *,
+.perseus-in-wb-popover .perseus-renderer > * {
+    margin-block: 0;
 }
