@@ -16,6 +16,7 @@ import {nodeItemFileReader} from "./adapters/fs/node-item-file-reader";
 import {createPerseusCoreSchemaSource} from "./adapters/fs/perseus-core-schema-source";
 import {createHttpServer, previewLinks} from "./adapters/http/server";
 import {createMcpServer} from "./adapters/mcp/server";
+import {createViteAppPage} from "./adapters/preview/vite-app-page";
 import {createVitePreviewPages} from "./adapters/preview/vite-preview-pages";
 import {createCatalog} from "./app/catalog";
 import {withDraftFeed} from "./app/draft-feed";
@@ -112,11 +113,17 @@ const useCases = {
     }),
 };
 
+// Shown in the chat by hosts that support MCP Apps.
+const previewApp = {
+    html: createViteAppPage().html,
+    frameOrigin: () => baseUrl,
+};
+
 const host = values.host;
 // Port 0 asks the OS for a free port.
 const port = Number(values.port ?? (values.stdio ? 0 : 4567));
 const httpServer = await createHttpServer({
-    createMcpServer: () => createMcpServer(useCases),
+    createMcpServer: () => createMcpServer({...useCases, previewApp}),
     drafts: useCases.drafts,
     createPreview: createVitePreviewPages,
 });
@@ -136,5 +143,5 @@ if (values.stdio) {
     // The host ends a stdio session by closing stdin. The HTTP server would
     // otherwise keep the process running after it.
     process.stdin.on("end", () => process.exit(0));
-    serveStdio(() => createMcpServer(useCases));
+    serveStdio(() => createMcpServer({...useCases, previewApp}));
 }

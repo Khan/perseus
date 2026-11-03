@@ -65,14 +65,14 @@ from outside the repo.
 | Build the preview shell with Wonder Blocks | The shell uses Wonder Blocks (`View`, `Heading`, `BodyText`, `Button`, `CheckboxGroup`, `SingleSelect` in a `LabeledField`) and the page setup from `@internal/perseus-environment`, with layout in `shell.module.css`; preview options now come before hints. Vite no longer inlines SVGs, as in Storybook: inlined, Wonder Blocks' icons break their CSS and show as squares. |
 | Add lint rules for placeholders, choices and Graphie | perseus-linter (minor changeset `calm-rivers-check`): `duplicate-choices` (radio and dropdown, ignoring `$` and spacing), `graphie-image-url` (suggests a `web+graphie://` URL in place of a Graphie PNG), and `widget-placeholder-missing-widget`, `-duplicate` and `-unrenderable`. `validate_item` keeps its own placeholder checks only for renderers nested in widgets, which the linter doesn't visit, plus `orphaned-widget`: a widget that's never placed has no node in the content for a lint rule to report on. The review checklist links the new codes. |
 | Move perseus-mcp to the v2 MCP SDK | `@modelcontextprotocol/server` and `@modelcontextprotocol/node` replace `@modelcontextprotocol/sdk` 1.x, as MCP Apps' `ext-apps` 2.x needs. HTTP serves MCP through `createMcpHandler` (stateless, a fresh server per request; it also answers GET and DELETE), stdio through `serveStdio`, and tool and prompt schemas are `z.object(...)`. The `sdk.ts` shim is gone: v2's import paths pass the lint rules. Migrated by hand (the SDK's codemod runs through `npx`). Smoke-tested over stdio from outside the repo and over HTTP. |
+| Add an MCP Apps spike that frames the preview | `preview_item` links (`_meta.ui.resourceUri`, plus the deprecated `ui/resourceUri`) to `ui://perseus/preview.html` (`text/html;profile=mcp-app`), whose CSP declares the local server in `frameDomains`. The page (`adapters/preview/app/`) connects with ext-apps' `App`, waits for the tool result and frames its URL, with a status line saying what happened. `createViteAppPage` builds it with Vite on the first request into one document (the script inlined, minified) and caches it; the real page will reuse this. |
 
 Remaining, in order:
 
 1. Step 5, the embedded MCP Apps page, with `@modelcontextprotocol/ext-apps`
    2.x:
-   1. A spike: the smallest app page that frames `http://localhost`
-      (declared in `_meta.ui.csp.frameDomains`), tried in Claude Desktop.
-      Nobody has confirmed that hosts allow it.
+   1. Try the spike in Claude Desktop: nobody has confirmed that hosts let
+      an app page frame `http://localhost`.
    2. If it works, the real page: the controller (`usePreviewController`)
       in the chat, framing our presenter cross-origin, with hints, options
       and Check answer through `app.callServerTool`, and context sent to the
@@ -105,6 +105,11 @@ migration steps, and they're updated separately.
   package: it would drop `private` and `bin`. Knip finds the entry point by
   following `bin`; `knip.config.ts` only drops the default `src/index.*`
   pattern, which matches nothing here.
+- **The MCP Apps page** is built by `createViteAppPage` when a host first
+  reads `ui://perseus/preview.html`: an app build with the script as its only
+  input (a library build isn't minified and leaks local paths in comments),
+  inlined into `app/preview-app.html` with a replacer function (the bundle
+  contains `$&`, which a replacement string would expand).
 - **The MCP SDK** is v2: `McpServer`, `createMcpHandler` and types from
   `@modelcontextprotocol/server`, `serveStdio` from
   `@modelcontextprotocol/server/stdio`, `toNodeHandler` from

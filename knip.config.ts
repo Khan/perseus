@@ -106,6 +106,8 @@ const config: KnipConfig = {
                 // The preview pages' scripts, loaded by their HTML through
                 // Vite.
                 "src/adapters/preview/page/{shell,frame}.tsx!",
+                // The MCP Apps page's script, built when a host asks for it.
+                "src/adapters/preview/app/preview-app.ts!",
             ],
         },
         "packages/perseus-core": {

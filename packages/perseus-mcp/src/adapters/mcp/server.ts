@@ -53,18 +53,33 @@ const notesSchema = z
  * server is created per request (stateless transport), so it holds no state
  * of its own.
  */
+/** The MCP Apps page that shows a draft's preview inside the chat. */
+export type PreviewApp = {
+    /** The page's HTML: one self-contained document, as MCP Apps requires. */
+    html(): Promise<string>;
+    /** The origin the page frames the preview from; null if none is served. */
+    frameOrigin(): string | null;
+};
+
+// MCP Apps (the `ui://` extension): the host shows this resource in the
+// chat when preview_item is called.
+const PREVIEW_APP_URI = "ui://perseus/preview.html";
+const MCP_APP_MIME_TYPE = "text/html;profile=mcp-app";
+
 export function createMcpServer({
     drafts,
     widgets,
     scoring,
     review,
     preview,
+    previewApp,
 }: {
     drafts: DraftUseCases;
     widgets: WidgetUseCases;
     scoring: ScoringUseCases;
     review: ReviewUseCases;
     preview: PreviewUseCases;
+    previewApp?: PreviewApp;
 }): McpServer {
     const server = new McpServer(
         {name: "perseus", version: libVersion},
@@ -339,10 +354,56 @@ export function createMcpServer({
                 "changes. Give the URL to the person you're working with.",
             inputSchema: z.object({itemId: z.string()}),
             annotations: {readOnlyHint: true},
+            // Hosts that support MCP Apps show the preview in the chat. The
+            // older key is deprecated but still read by some hosts.
+            ...(previewApp != null && {
+                _meta: {
+                    ui: {resourceUri: PREVIEW_APP_URI},
+                    "ui/resourceUri": PREVIEW_APP_URI,
+                },
+            }),
         },
         ({itemId}) =>
             runTool(() => jsonResult({url: preview.previewUrl(itemId)})),
     );
+
+    if (previewApp != null) {
+        server.registerResource(
+            "preview-app",
+            PREVIEW_APP_URI,
+            {
+                title: "Perseus draft preview",
+                description:
+                    "The page MCP Apps hosts show in the chat for " +
+                    "preview_item.",
+                mimeType: MCP_APP_MIME_TYPE,
+            },
+            async (uri) => {
+                const origin = previewApp.frameOrigin();
+                return {
+                    contents: [
+                        {
+                            uri: uri.href,
+                            mimeType: MCP_APP_MIME_TYPE,
+                            text: await previewApp.html(),
+                            _meta: {
+                                ui: {
+                                    // The page frames the preview from our
+                                    // local server; hosts block any frame
+                                    // origin not declared here.
+                                    csp: {
+                                        frameDomains:
+                                            origin == null ? [] : [origin],
+                                    },
+                                    prefersBorder: true,
+                                },
+                            },
+                        },
+                    ],
+                };
+            },
+        );
+    }
 
     server.registerTool(
         "list_items",
