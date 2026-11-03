@@ -128,6 +128,7 @@ export type PerseusStrings = {
         num: number;
     }) => string;
     choiceRestoredAndSelected: ({letter}: {letter: string}) => string;
+    choicesCrossedOut: ({num}: {num: number}) => string;
     letters: string;
     scrollAnswers: string;
     scrollStart: string;
@@ -1117,6 +1118,10 @@ export const strings = {
             "Screen reader announcement when the learner selects a multiple choice option they had crossed out, which restores it.",
         message: "Choice %(letter)s restored and selected.",
     },
+    choicesCrossedOut: {
+        one: "%(num)s choice crossed out.",
+        other: "%(num)s choices crossed out.",
+    },
     letters: {
         context:
             "This is a list of single-character labels that will appear in front of multiple-choice options. For instance, a multiple-choice question with three options would display (A) first option (B) second option (C) third option. There must be spaces between each of the different characters. The characters will show up next to options in the order that they are listed here. Most multiple choice questions have 5 or fewer options.",
@@ -2076,6 +2081,10 @@ export const mockStrings: PerseusStrings = {
             : `Choice ${letter} restored. ${num} choices left.`,
     choiceRestoredAndSelected: ({letter}) =>
         `Choice ${letter} restored and selected.`,
+    choicesCrossedOut: ({num}) =>
+        num === 1
+            ? `${num} choice crossed out.`
+            : `${num} choices crossed out.`,
     letters: "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z",
     scrollAnswers: "Scroll Answers",
     scrollStart: "Scroll to view start of the content",

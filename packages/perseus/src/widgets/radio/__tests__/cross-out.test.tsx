@@ -244,6 +244,67 @@ describe("Radio cross-out", () => {
         expect(getCrossOutButton("B")).toHaveAttribute("aria-pressed", "true");
     });
 
+    it("announces how many choices are crossed out when the toggle is turned back on", async () => {
+        // Arrange
+        renderQuestion(generateQuestion(), {apiOptions: crossOutOn});
+        await userEvent.click(getToggle());
+        await userEvent.click(getCrossOutButton("B"));
+        await userEvent.click(getCrossOutButton("C"));
+        await userEvent.click(getToggle());
+        jest.mocked(announceMessage).mockClear();
+
+        // Act
+        await userEvent.click(getToggle());
+
+        // Assert
+        expect(announceMessage).toHaveBeenCalledTimes(1);
+        expect(announceMessage).toHaveBeenCalledWith({
+            message: "2 choices crossed out.",
+        });
+    });
+
+    it("announces a single crossed-out choice when the toggle is turned back on", async () => {
+        // Arrange
+        renderQuestion(generateQuestion(), {apiOptions: crossOutOn});
+        await userEvent.click(getToggle());
+        await userEvent.click(getCrossOutButton("B"));
+        await userEvent.click(getToggle());
+        jest.mocked(announceMessage).mockClear();
+
+        // Act
+        await userEvent.click(getToggle());
+
+        // Assert
+        expect(announceMessage).toHaveBeenCalledWith({
+            message: "1 choice crossed out.",
+        });
+    });
+
+    it("doesn't announce anything when the toggle is turned on with no cross-outs", async () => {
+        // Arrange
+        renderQuestion(generateQuestion(), {apiOptions: crossOutOn});
+
+        // Act
+        await userEvent.click(getToggle());
+
+        // Assert
+        expect(announceMessage).not.toHaveBeenCalled();
+    });
+
+    it("doesn't announce the cross-outs when the toggle is turned off", async () => {
+        // Arrange
+        renderQuestion(generateQuestion(), {apiOptions: crossOutOn});
+        await userEvent.click(getToggle());
+        await userEvent.click(getCrossOutButton("B"));
+        jest.mocked(announceMessage).mockClear();
+
+        // Act
+        await userEvent.click(getToggle());
+
+        // Assert
+        expect(announceMessage).not.toHaveBeenCalled();
+    });
+
     it("forgets a cross-out when its choice is selected while the toggle is off", async () => {
         // Arrange
         renderQuestion(generateQuestion(), {apiOptions: crossOutOn});

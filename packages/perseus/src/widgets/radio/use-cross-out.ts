@@ -145,6 +145,16 @@ export function useCrossOut({
     const handleToggleChange = (newToggleOn: boolean): void => {
         setLocalToggleOn(newToggleOn);
         options?.onToggleChange?.(newToggleOn);
+
+        // Turning the toggle back on shows the remembered cross-outs again,
+        // so say how many there are. Nothing changes when there are none.
+        if (newToggleOn && crossedOutIds.length > 0) {
+            announceMessage({
+                message: strings.choicesCrossedOut({
+                    num: crossedOutIds.length,
+                }),
+            });
+        }
     };
 
     // Cross-out is hidden in review mode, and can't be changed after Check.
