@@ -19,6 +19,20 @@ export type A11yReport = {
     needsReview: A11yIssue[];
 };
 
+/**
+ * The origin of the page the iframe is showing: messages to the iframe go
+ * only to it, and only messages from it are accepted. Null while the iframe
+ * has no URL, or one with an opaque origin (`about:blank`), which can't be
+ * sent to.
+ */
+function iframeOrigin(iframe: HTMLIFrameElement | null): string | null {
+    if (iframe == null || iframe.src === "") {
+        return null;
+    }
+    const {origin} = new URL(iframe.src, window.location.href);
+    return origin === "null" ? null : origin;
+}
+
 type UsePreviewControllerResult = {
     /**
      * Send preview content data to the iframe
@@ -91,10 +105,14 @@ export function usePreviewController(
     const currentA11yScanningEnabledRef = React.useRef(false);
 
     // Sends a message to the iframe, dropping it if the iframe isn't
-    // currently mounted (eg. during a reload/remount).
+    // currently mounted (eg. during a reload/remount) or has no URL yet.
     const postToIframe = React.useCallback(
         (message: ParentToIframeMessage) => {
-            iframeRef.current?.contentWindow?.postMessage(message, "/");
+            const iframe = iframeRef.current;
+            const origin = iframeOrigin(iframe);
+            if (origin != null) {
+                iframe?.contentWindow?.postMessage(message, origin);
+            }
         },
         [iframeRef],
     );
@@ -108,10 +126,11 @@ export function usePreviewController(
     // Listen for messages from iframe
     React.useEffect(() => {
         const handleMessage = (event: MessageEvent) => {
-            // Filter by source window - only messages from OUR iframe
+            // Only messages from OUR iframe, showing the page we loaded in it
             if (
                 iframeRef.current?.contentWindow == null ||
-                event.source !== iframeRef.current?.contentWindow
+                event.source !== iframeRef.current?.contentWindow ||
+                event.origin !== iframeOrigin(iframeRef.current)
             ) {
                 return;
             }

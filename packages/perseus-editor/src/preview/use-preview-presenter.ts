@@ -16,14 +16,6 @@ import type {
     PreviewContent,
 } from "./message-types";
 
-/**
- * Sends a message up to the parent editor. The "/" target origin keeps preview
- * messages same-origin.
- */
-function postToParent(message: IframeToParentMessage): void {
-    window.parent.postMessage(message, "/");
-}
-
 type UsePreviewPresenterOptions = {
     /**
      * Ref to the element containing the rendered preview content. Used as
@@ -108,6 +100,17 @@ export function usePreviewPresenter(
         throw new Error("usePreviewPresenter must be used within an iframe");
     }
 
+    // The parent's origin, learned from its first message (its reply to
+    // iframe-ready). Every later message goes only there, so nothing the
+    // preview reports reaches any other page.
+    const parentOriginRef = React.useRef<string | null>(null);
+    const postToParent = React.useCallback((message: IframeToParentMessage) => {
+        const origin = parentOriginRef.current;
+        if (origin != null) {
+            window.parent.postMessage(message, origin);
+        }
+    }, []);
+
     // Listen for data from parent
     React.useEffect(() => {
         const handleMessage = (event: MessageEvent<ParentToIframeMessage>) => {
@@ -121,6 +124,13 @@ export function usePreviewPresenter(
             // Ignore messages that aren't from Perseus preview system
             if (!isParentToIframeMessage(message)) {
                 return;
+            }
+
+            // The parent window can't change origin while it contains this
+            // iframe (navigating it away would remove the iframe), so its
+            // first message's origin is the one to reply to.
+            if (parentOriginRef.current == null) {
+                parentOriginRef.current = event.origin;
             }
 
             switch (message.type) {
@@ -165,8 +175,9 @@ export function usePreviewPresenter(
 
         window.addEventListener("message", handleMessage);
 
-        // Tell parent we're ready for data.
-        postToParent(createPreviewIframeReadyMessage());
+        // Tell parent we're ready for data. Its origin isn't known until it
+        // replies, so this goes to any origin; it carries no data.
+        window.parent.postMessage(createPreviewIframeReadyMessage(), "*");
 
         return () => {
             window.removeEventListener("message", handleMessage);
@@ -274,7 +285,7 @@ export function usePreviewPresenter(
                 startScan();
             }
         });
-    }, [contentContainerRef]);
+    }, [contentContainerRef, postToParent]);
 
     // Run an axe-core scan (debounced) whenever content changes and
     // scanning is enabled.
@@ -297,17 +308,20 @@ export function usePreviewPresenter(
     ]);
 
     // Memoized callback to report height
-    const reportHeight = React.useCallback((height: number) => {
-        if (window.parent == null) {
-            return;
-        }
+    const reportHeight = React.useCallback(
+        (height: number) => {
+            if (window.parent == null) {
+                return;
+            }
 
-        postToParent({
-            source: PREVIEW_MESSAGE_SOURCE,
-            type: "height-update",
-            height,
-        });
-    }, []);
+            postToParent({
+                source: PREVIEW_MESSAGE_SOURCE,
+                type: "height-update",
+                height,
+            });
+        },
+        [postToParent],
+    );
 
     return {
         content,

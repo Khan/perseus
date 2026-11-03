@@ -1,6 +1,9 @@
 import {renderHook, act, waitFor} from "@testing-library/react";
 
-import {PREVIEW_MESSAGE_SOURCE} from "./message-types";
+import {
+    createPreviewIframeInitMessage,
+    PREVIEW_MESSAGE_SOURCE,
+} from "./message-types";
 import {usePreviewPresenter} from "./use-preview-presenter";
 
 import type {ParentToIframeMessage, PreviewContent} from "./message-types";
@@ -26,6 +29,9 @@ const scanQuestionContent: PreviewContent = {
         linterContext: {contentType: "exercise", highlightLint: false},
     },
 };
+
+// The origin of the page the mock parent window shows.
+const PARENT_ORIGIN = "https://editor.example";
 
 describe("usePreviewPresenter", () => {
     let mockIframeElement: {dataset: {[key: string]: string | undefined}};
@@ -62,6 +68,7 @@ describe("usePreviewPresenter", () => {
             new MessageEvent("message", {
                 data,
                 source: mockParentWindow,
+                origin: PARENT_ORIGIN,
             }),
         );
     }
@@ -89,7 +96,7 @@ describe("usePreviewPresenter", () => {
         await waitFor(() => {
             expect(mockPostMessage).toHaveBeenCalledWith(
                 expect.objectContaining({type: "a11y-report"}),
-                "/",
+                PARENT_ORIGIN,
             );
         });
         const reportCall = mockPostMessage.mock.calls.find(
@@ -128,7 +135,8 @@ describe("usePreviewPresenter", () => {
                         source: PREVIEW_MESSAGE_SOURCE,
                         type: "iframe-ready",
                     },
-                    "/",
+                    // The parent's origin isn't known yet.
+                    "*",
                 );
             });
         });
@@ -205,6 +213,7 @@ describe("usePreviewPresenter", () => {
                     new MessageEvent("message", {
                         data: message,
                         source: mockParentWindow,
+                        origin: PARENT_ORIGIN,
                     }),
                 );
             });
@@ -239,6 +248,7 @@ describe("usePreviewPresenter", () => {
                     new MessageEvent("message", {
                         data: message,
                         source: mockParentWindow,
+                        origin: PARENT_ORIGIN,
                     }),
                 );
             });
@@ -272,6 +282,7 @@ describe("usePreviewPresenter", () => {
                     new MessageEvent("message", {
                         data: message,
                         source: mockParentWindow,
+                        origin: PARENT_ORIGIN,
                     }),
                 );
             });
@@ -300,6 +311,7 @@ describe("usePreviewPresenter", () => {
                     new MessageEvent("message", {
                         data: message,
                         source: mockParentWindow,
+                        origin: PARENT_ORIGIN,
                     }),
                 );
             });
@@ -331,6 +343,7 @@ describe("usePreviewPresenter", () => {
                     new MessageEvent("message", {
                         data: message,
                         source: mockOtherWindow,
+                        origin: PARENT_ORIGIN,
                     }),
                 );
             });
@@ -363,6 +376,7 @@ describe("usePreviewPresenter", () => {
                     new MessageEvent("message", {
                         data: createContentDataMessage(content1),
                         source: mockParentWindow,
+                        origin: PARENT_ORIGIN,
                     }),
                 );
             });
@@ -387,6 +401,7 @@ describe("usePreviewPresenter", () => {
                     new MessageEvent("message", {
                         data: createContentDataMessage(content2),
                         source: mockParentWindow,
+                        origin: PARENT_ORIGIN,
                     }),
                 );
             });
@@ -426,6 +441,7 @@ describe("usePreviewPresenter", () => {
                             contentVersion: 1,
                         },
                         source: mockParentWindow,
+                        origin: PARENT_ORIGIN,
                     }),
                 );
             });
@@ -448,6 +464,7 @@ describe("usePreviewPresenter", () => {
                             contentVersion: 0,
                         },
                         source: mockParentWindow,
+                        origin: PARENT_ORIGIN,
                     }),
                 );
             });
@@ -472,6 +489,7 @@ describe("usePreviewPresenter", () => {
                             enabled: true,
                         },
                         source: mockParentWindow,
+                        origin: PARENT_ORIGIN,
                     }),
                 );
             });
@@ -490,6 +508,7 @@ describe("usePreviewPresenter", () => {
                         enabled: true,
                     },
                     source: mockParentWindow,
+                    origin: PARENT_ORIGIN,
                 }),
             );
         };
@@ -504,6 +523,7 @@ describe("usePreviewPresenter", () => {
                         contentVersion,
                     },
                     source: mockParentWindow,
+                    origin: PARENT_ORIGIN,
                 }),
             );
         };
@@ -611,7 +631,7 @@ describe("usePreviewPresenter", () => {
 
             expect(mockParentWindow.postMessage).toHaveBeenCalledWith(
                 expect.objectContaining({type: "a11y-report"}),
-                "/",
+                PARENT_ORIGIN,
             );
         });
     });
@@ -657,6 +677,7 @@ describe("usePreviewPresenter", () => {
                             enabled: true,
                         },
                         source: mockParentWindow,
+                        origin: PARENT_ORIGIN,
                     }),
                 );
                 window.dispatchEvent(
@@ -682,6 +703,7 @@ describe("usePreviewPresenter", () => {
                             contentVersion: 1,
                         },
                         source: mockParentWindow,
+                        origin: PARENT_ORIGIN,
                     }),
                 );
             });
@@ -693,7 +715,7 @@ describe("usePreviewPresenter", () => {
             await waitFor(() => {
                 expect(mockParentWindow.postMessage).toHaveBeenCalledWith(
                     expect.objectContaining({type: "a11y-report"}),
-                    "/",
+                    PARENT_ORIGIN,
                 );
             });
 
@@ -713,6 +735,7 @@ describe("usePreviewPresenter", () => {
                             contentVersion: 1,
                         },
                         source: mockParentWindow,
+                        origin: PARENT_ORIGIN,
                     }),
                 );
             });
@@ -807,6 +830,7 @@ describe("usePreviewPresenter", () => {
                             enabled: true,
                         },
                         source: mockParentWindow,
+                        origin: PARENT_ORIGIN,
                     }),
                 );
                 window.dispatchEvent(
@@ -832,6 +856,7 @@ describe("usePreviewPresenter", () => {
                             contentVersion: 1,
                         },
                         source: mockParentWindow,
+                        origin: PARENT_ORIGIN,
                     }),
                 );
             });
@@ -843,7 +868,7 @@ describe("usePreviewPresenter", () => {
             await waitFor(() => {
                 expect(mockParentWindow.postMessage).toHaveBeenCalledWith(
                     expect.objectContaining({type: "a11y-report"}),
-                    "/",
+                    PARENT_ORIGIN,
                 );
             });
 
@@ -862,6 +887,7 @@ describe("usePreviewPresenter", () => {
                             contentVersion: 1,
                         },
                         source: mockParentWindow,
+                        origin: PARENT_ORIGIN,
                     }),
                 );
             });
@@ -877,6 +903,7 @@ describe("usePreviewPresenter", () => {
                             type: "clear-highlights",
                         },
                         source: mockParentWindow,
+                        origin: PARENT_ORIGIN,
                     }),
                 );
             });
@@ -942,54 +969,59 @@ describe("usePreviewPresenter", () => {
     });
 
     describe("reportHeight", () => {
-        it("sends height-update message", () => {
+        it("sends height-update messages to the parent's origin", () => {
+            // Arrange
+            const {result} = renderHook(() => usePreviewPresenter());
+            act(() => {
+                dispatchToPresenter(
+                    createPreviewIframeInitMessage(null, false, 0),
+                );
+            });
+
+            // Act
+            act(() => {
+                result.current.reportHeight(300);
+                result.current.reportHeight(600);
+            });
+
+            // Assert
+            const heightUpdates = mockPostMessage.mock.calls.filter(
+                ([message]) => message.type === "height-update",
+            );
+            expect(heightUpdates).toEqual([
+                [
+                    {
+                        source: PREVIEW_MESSAGE_SOURCE,
+                        type: "height-update",
+                        height: 300,
+                    },
+                    PARENT_ORIGIN,
+                ],
+                [
+                    {
+                        source: PREVIEW_MESSAGE_SOURCE,
+                        type: "height-update",
+                        height: 600,
+                    },
+                    PARENT_ORIGIN,
+                ],
+            ]);
+        });
+
+        it("drops height updates until the parent has sent a message", () => {
+            // Arrange
             const {result} = renderHook(() => usePreviewPresenter());
 
+            // Act
             act(() => {
                 result.current.reportHeight(500);
             });
 
-            expect(mockParentWindow.postMessage).toHaveBeenCalledWith(
-                {
-                    source: PREVIEW_MESSAGE_SOURCE,
-                    type: "height-update",
-
-                    height: 500,
-                },
-                "/",
+            // Assert
+            expect(mockParentWindow.postMessage).not.toHaveBeenCalledWith(
+                expect.objectContaining({type: "height-update"}),
+                expect.anything(),
             );
-        });
-
-        it("sends multiple height updates", () => {
-            const {result} = renderHook(() => usePreviewPresenter());
-
-            act(() => {
-                result.current.reportHeight(300);
-            });
-
-            act(() => {
-                result.current.reportHeight(600);
-            });
-
-            // 1 iframe-ready + 2 height-updates
-            expect(mockParentWindow.postMessage).toHaveBeenCalledTimes(3);
-
-            // Check the height update calls
-            // eslint-disable-next-line no-restricted-syntax
-            const calls = (mockParentWindow.postMessage as jest.Mock).mock
-                .calls;
-            expect(calls[1][0]).toEqual({
-                source: PREVIEW_MESSAGE_SOURCE,
-                type: "height-update",
-
-                height: 300,
-            });
-            expect(calls[2][0]).toEqual({
-                source: PREVIEW_MESSAGE_SOURCE,
-                type: "height-update",
-
-                height: 600,
-            });
         });
 
         it("reportHeight function reference remains stable", () => {
@@ -1048,6 +1080,7 @@ describe("usePreviewPresenter", () => {
                             content: {},
                         },
                         source: mockParentWindow,
+                        origin: PARENT_ORIGIN,
                     }),
                 );
             });
@@ -1067,6 +1100,7 @@ describe("usePreviewPresenter", () => {
                             payload: "data",
                         },
                         source: mockParentWindow,
+                        origin: PARENT_ORIGIN,
                     }),
                 );
             });
@@ -1083,6 +1117,7 @@ describe("usePreviewPresenter", () => {
                     new MessageEvent("message", {
                         data: null,
                         source: mockParentWindow,
+                        origin: PARENT_ORIGIN,
                     }),
                 );
             });
@@ -1094,6 +1129,7 @@ describe("usePreviewPresenter", () => {
                     new MessageEvent("message", {
                         data: "string-data",
                         source: mockParentWindow,
+                        origin: PARENT_ORIGIN,
                     }),
                 );
             });
@@ -1166,7 +1202,7 @@ describe("usePreviewPresenter", () => {
                     expect.objectContaining({
                         type: "iframe-ready",
                     }),
-                    "/",
+                    "*",
                 );
             });
 
@@ -1193,13 +1229,14 @@ describe("usePreviewPresenter", () => {
                             contentVersion: 1,
                         },
                         source: mockParentWindow,
+                        origin: PARENT_ORIGIN,
                     }),
                 );
             });
 
             expect(result.current.content).toEqual(content);
 
-            // 3. Report height
+            // 3. Report height, now that the parent's origin is known
             act(() => {
                 result.current.reportHeight(350);
             });
@@ -1209,7 +1246,7 @@ describe("usePreviewPresenter", () => {
                     type: "height-update",
                     height: 350,
                 }),
-                "/",
+                PARENT_ORIGIN,
             );
         });
 
@@ -1265,6 +1302,7 @@ describe("usePreviewPresenter", () => {
                                 contentVersion: index + 1,
                             },
                             source: mockParentWindow,
+                            origin: PARENT_ORIGIN,
                         }),
                     );
                 });

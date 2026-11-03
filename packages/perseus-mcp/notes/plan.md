@@ -40,7 +40,7 @@ How the work is done. An agent resuming this plan follows these rules exactly.
 
 ## Status
 
-**Build order steps 1 to 3 are done.** The commits below are on
+**Build order steps 1 to 3 are done, and step 4 is under way.** The commits below are on
 `jer/perseus-mcp`, oldest first, and every tool was smoke-tested over stdio
 from outside the repo.
 
@@ -57,12 +57,25 @@ from outside the repo.
 | Add @internal/perseus-environment for page setup | `config/environment`, a private package holding the page setup Perseus expects from the sites that host it: the styles Storybook had in `.storybook/styles`, the Lato and Plus Jakarta Sans fonts from `static/`, and the CSS-layer Vite plugin from Storybook's config. Storybook now loads them from it, and the preview will too, so the MCP uses no Storybook code. |
 | Add the draft preview page to perseus-mcp | `/drafts/<itemId>/preview`: a shell that follows the draft's event stream and sends the question to a same-origin iframe (`/preview/frame`) through `usePreviewController` and `usePreviewPresenter`; the frame renders it with `Renderer` and MathJax, in the page setup from `@internal/perseus-environment`, and the iframe resizes to fit. Fastify serves the pages with Vite in middleware mode (`@fastify/middie`), so there's no build step; `createHttpServer` takes the pages as an optional `PreviewPages`, faked in the tests. |
 | Add preview_item, hints and answer checks | `preview_item`: the URL of a draft's preview page (`PreviewLinks` port, implemented by the HTTP adapter once it's listening; `PreviewUnavailableError` if it never does). The frame renders the whole item with `ServerItemRenderer`, with a "Check answer" button that scores with the same `scoreItem` as `score_item` and shows Perseus's message for the learner, and hints revealed one at a time ("Hide hints" remounts the item, since Perseus can't hide them). |
+| Send preview messages to the iframe's origin | perseus-editor (major changeset `steady-harbors-listen`, which the next two commits add to): `usePreviewController` posts to the origin of its iframe's `src` instead of `"/"` and accepts messages only from it; `usePreviewPresenter` sends `iframe-ready` to `"*"`, then replies only to the origin of the parent's first message. A cross-origin parent still can't use the presenter until the next commit, because it reads `window.frameElement`. |
 
 Remaining, in order:
 
-1. Build order steps 4 to 8. The preview's `renderDone` and `renderError`
-   markers (see Preview) aren't built yet; they can come with step 4's
-   preview options.
+1. Step 4, in five more commits:
+   1. Preview options in messages: `previewOptions` in `iframe-init` and a
+      `set-preview-options` message, replacing `set-a11y-scanning-enabled`
+      and the iframe's `data-*` attributes.
+   2. `reveal-hint` and `hints-state`.
+   3. perseus-mcp's shell drives hints and options through them.
+   4. The duplicate-choices, graphie-URL and placeholder lint rules (minor
+      changeset).
+   5. `validate_item` drops its own placeholder checks.
+2. The preview's `renderDone` and `renderError` markers (see Preview); they
+   can come with the preview options.
+3. Build order steps 5 to 8.
+
+Consuming applications aren't in this repo: the changesets carry the
+migration steps, and they're updated separately.
 
 ## Notes for whoever picks this up
 
@@ -386,10 +399,13 @@ All preview communication uses the existing hooks, `usePreviewController`
 and `usePreviewPresenter` in `packages/perseus-editor/src/preview/`. Three
 Perseus changes make them work across origins and add hint control.
 
-1. **Configurable target origin.** Today both hooks post to `"/"`, which
-   means same-origin only. The presenter accepts messages from any origin
-   (the content is public JSON); the controller targets the iframe's actual
-   origin.
+1. **Configurable target origin** (done). The controller posts to the
+   origin of the iframe's `src` and accepts messages only from it. The
+   presenter accepts messages only from `window.parent` (the content is
+   public JSON, so any origin may send it), sends `iframe-ready` to `"*"`,
+   and replies only to the origin of the parent's first message. A parent
+   that navigates to another origin removes the iframe, so that origin
+   can't change while the preview runs.
 2. **Configuration always comes from messages.** The presenter stops reading
    `window.frameElement.dataset`, which is null when the parent is on
    another origin.

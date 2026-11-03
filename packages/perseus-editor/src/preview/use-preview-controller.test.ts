@@ -11,6 +11,9 @@ import type {Issue} from "../components/issues-panel";
 import type {APIOptions} from "@khanacademy/perseus";
 import type * as React from "react";
 
+// The origin of the page the mock iframe shows.
+const IFRAME_ORIGIN = "https://preview.example";
+
 const issue = (id: string): Issue => ({
     id,
     description: `description ${id}`,
@@ -21,7 +24,7 @@ const issue = (id: string): Issue => ({
 });
 
 describe("usePreviewController", () => {
-    let mockIframe: {contentWindow: Window | null; dataset: any};
+    let mockIframe: {contentWindow: Window | null; dataset: any; src: string};
     let mockContentWindow: Window;
     let iframeRef: React.RefObject<HTMLIFrameElement>;
 
@@ -36,6 +39,7 @@ describe("usePreviewController", () => {
         mockIframe = {
             contentWindow: mockContentWindow,
             dataset: {},
+            src: `${IFRAME_ORIGIN}/preview/frame`,
         };
 
         // Create ref pointing to mock iframe
@@ -49,6 +53,7 @@ describe("usePreviewController", () => {
                 new MessageEvent("message", {
                     data: createPreviewIframeReadyMessage(),
                     source: mockContentWindow,
+                    origin: IFRAME_ORIGIN,
                 }),
             );
         });
@@ -60,6 +65,50 @@ describe("usePreviewController", () => {
             .map(([msg]) => msg)
             .filter((msg) => msg.type === type);
     }
+
+    describe("origins", () => {
+        it("ignores messages from its iframe showing another origin", () => {
+            // Arrange
+            renderHook(() => usePreviewController(iframeRef));
+
+            // Act
+            act(() => {
+                window.dispatchEvent(
+                    new MessageEvent("message", {
+                        data: createPreviewIframeReadyMessage(),
+                        source: mockContentWindow,
+                        origin: "https://elsewhere.example",
+                    }),
+                );
+            });
+
+            // Assert
+            expect(mockContentWindow.postMessage).not.toHaveBeenCalled();
+        });
+
+        it("resolves a relative iframe URL against the page's origin", () => {
+            // Arrange
+            mockIframe.src = "/preview/frame";
+            renderHook(() => usePreviewController(iframeRef));
+
+            // Act
+            act(() => {
+                window.dispatchEvent(
+                    new MessageEvent("message", {
+                        data: createPreviewIframeReadyMessage(),
+                        source: mockContentWindow,
+                        origin: window.location.origin,
+                    }),
+                );
+            });
+
+            // Assert
+            expect(mockContentWindow.postMessage).toHaveBeenCalledWith(
+                expect.objectContaining({type: "iframe-init"}),
+                window.location.origin,
+            );
+        });
+    });
 
     describe("initialization", () => {
         it("initializes with null height", () => {
@@ -112,7 +161,7 @@ describe("usePreviewController", () => {
                     type: "set-a11y-scanning-enabled",
                     enabled: true,
                 },
-                "/",
+                IFRAME_ORIGIN,
             );
         });
 
@@ -142,7 +191,7 @@ describe("usePreviewController", () => {
                     instanceIds: ["violation-1", "incomplete-2"],
                     contentVersion: 0,
                 },
-                "/",
+                IFRAME_ORIGIN,
             );
         });
     });
@@ -160,7 +209,7 @@ describe("usePreviewController", () => {
                     source: PREVIEW_MESSAGE_SOURCE,
                     type: "clear-highlights",
                 },
-                "/",
+                IFRAME_ORIGIN,
             );
         });
     });
@@ -206,7 +255,7 @@ describe("usePreviewController", () => {
                     type: "iframe-init",
                     content: expect.objectContaining({type: "question"}),
                 }),
-                "/",
+                IFRAME_ORIGIN,
             );
         });
 
@@ -236,7 +285,7 @@ describe("usePreviewController", () => {
                         }),
                     }),
                 }),
-                "/",
+                IFRAME_ORIGIN,
             );
         });
 
@@ -260,7 +309,7 @@ describe("usePreviewController", () => {
                         type: "question",
                     }),
                 }),
-                "/",
+                IFRAME_ORIGIN,
             );
         });
 
@@ -349,7 +398,7 @@ describe("usePreviewController", () => {
                         type: "question",
                     }),
                 }),
-                "/",
+                IFRAME_ORIGIN,
             );
         });
     });
@@ -368,7 +417,7 @@ describe("usePreviewController", () => {
                     a11yScanningEnabled: false,
                     contentVersion: 0,
                 },
-                "/",
+                IFRAME_ORIGIN,
             );
         });
 
@@ -449,6 +498,7 @@ describe("usePreviewController", () => {
                             contentVersion,
                         },
                         source: mockContentWindow,
+                        origin: IFRAME_ORIGIN,
                     }),
                 );
             });
@@ -502,6 +552,7 @@ describe("usePreviewController", () => {
                             height: 500,
                         },
                         source: mockContentWindow,
+                        origin: IFRAME_ORIGIN,
                     }),
                 );
             });
@@ -521,6 +572,7 @@ describe("usePreviewController", () => {
                             height: 300,
                         },
                         source: mockContentWindow,
+                        origin: IFRAME_ORIGIN,
                     }),
                 );
             });
@@ -536,6 +588,7 @@ describe("usePreviewController", () => {
                             height: 600,
                         },
                         source: mockContentWindow,
+                        origin: IFRAME_ORIGIN,
                     }),
                 );
             });
@@ -560,6 +613,7 @@ describe("usePreviewController", () => {
                             height: 999,
                         },
                         source: differentWindow,
+                        origin: IFRAME_ORIGIN,
                     }),
                 );
             });
@@ -580,6 +634,7 @@ describe("usePreviewController", () => {
                             height: 999,
                         },
                         source: mockContentWindow,
+                        origin: IFRAME_ORIGIN,
                     }),
                 );
             });
@@ -599,6 +654,7 @@ describe("usePreviewController", () => {
                             payload: "data",
                         },
                         source: mockContentWindow,
+                        origin: IFRAME_ORIGIN,
                     }),
                 );
             });
@@ -620,6 +676,7 @@ describe("usePreviewController", () => {
                             height: 999,
                         },
                         source: mockContentWindow,
+                        origin: IFRAME_ORIGIN,
                     }),
                 );
             });
@@ -656,6 +713,7 @@ describe("usePreviewController", () => {
                             height: 450,
                         },
                         source: mockContentWindow,
+                        origin: IFRAME_ORIGIN,
                     }),
                 );
             });
