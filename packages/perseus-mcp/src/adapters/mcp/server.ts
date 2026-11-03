@@ -38,7 +38,8 @@ kind of defect.
 
 preview_item returns a URL where a person can see a draft as learners will,
 answer it and reveal its hints; the page follows the draft's changes, so give
-it to them once and keep editing.`;
+it to them once and keep editing. Hosts that support MCP Apps also show the
+preview in the chat.`;
 
 const notesSchema = z
     .string()
@@ -57,14 +58,17 @@ const notesSchema = z
 export type PreviewApp = {
     /** The page's HTML: one self-contained document, as MCP Apps requires. */
     html(): Promise<string>;
-    /** The origin the page frames the preview from; null if none is served. */
-    frameOrigin(): string | null;
 };
 
 // MCP Apps (the `ui://` extension): the host shows this resource in the
 // chat when preview_item is called.
 const PREVIEW_APP_URI = "ui://perseus/preview.html";
 const MCP_APP_MIME_TYPE = "text/html;profile=mcp-app";
+const RESOURCE_DOMAINS = [
+    "https://cdn.kastatic.org",
+    "https://ka-perseus-images.s3.amazonaws.com",
+    "https://ka-perseus-graphie.s3.amazonaws.com",
+];
 
 export function createMcpServer({
     drafts,
@@ -364,10 +368,45 @@ export function createMcpServer({
             }),
         },
         ({itemId}) =>
-            runTool(() => jsonResult({url: preview.previewUrl(itemId)})),
+            runTool(() =>
+                jsonResult({itemId, url: preview.previewUrl(itemId)}),
+            ),
     );
 
     if (previewApp != null) {
+        // Only the app page calls this: it follows the draft through the
+        // host, since hosts don't let app pages reach the local server.
+        server.registerTool(
+            "get_preview_draft",
+            {
+                title: "Get a draft for its preview",
+                description:
+                    "For the preview shown in the chat: the draft's item and " +
+                    "revision, or `changed: false` when its revision is still " +
+                    "`sinceRevision`.",
+                inputSchema: z.object({
+                    itemId: z.string(),
+                    sinceRevision: z.number().int().optional(),
+                }),
+                annotations: {readOnlyHint: true},
+                _meta: {
+                    ui: {resourceUri: PREVIEW_APP_URI, visibility: ["app"]},
+                },
+            },
+            ({itemId, sinceRevision}) =>
+                runTool(() => {
+                    const {draft} = drafts.exportItem(itemId);
+                    if (draft.revision === sinceRevision) {
+                        return jsonResult({changed: false});
+                    }
+                    return jsonResult({
+                        changed: true,
+                        revision: draft.revision,
+                        item: draft.item,
+                    });
+                }),
+        );
+
         server.registerResource(
             "preview-app",
             PREVIEW_APP_URI,
@@ -379,7 +418,6 @@ export function createMcpServer({
                 mimeType: MCP_APP_MIME_TYPE,
             },
             async (uri) => {
-                const origin = previewApp.frameOrigin();
                 return {
                     contents: [
                         {
@@ -388,13 +426,10 @@ export function createMcpServer({
                             text: await previewApp.html(),
                             _meta: {
                                 ui: {
-                                    // The page frames the preview from our
-                                    // local server; hosts block any frame
-                                    // origin not declared here.
-                                    csp: {
-                                        frameDomains:
-                                            origin == null ? [] : [origin],
-                                    },
+                                    // Hosts block any outside host not
+                                    // declared here: MathJax's fonts and the
+                                    // hosts Perseus images come from.
+                                    csp: {resourceDomains: RESOURCE_DOMAINS},
                                     prefersBorder: true,
                                 },
                             },

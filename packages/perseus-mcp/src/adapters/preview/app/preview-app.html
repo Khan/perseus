@@ -4,24 +4,20 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Perseus draft preview</title>
+        <!-- The page's styles are inlined here when the page is built. -->
         <style>
+            /* The host sizes the page to fit, so it never scrolls. */
             body {
-                margin: 0;
-                font-family: system-ui, sans-serif;
+                height: auto;
+                overflow: hidden;
             }
-            #status {
-                margin: 0.8rem;
-            }
-            iframe {
-                display: block;
-                width: 100%;
-                height: 48rem;
-                border: 0;
+            #root {
+                padding: 1.6rem;
             }
         </style>
     </head>
     <body>
-        <p id="status">Starting…</p>
+        <div id="root"></div>
         <!-- The page's script is inlined here when the page is built. -->
     </body>
 </html>

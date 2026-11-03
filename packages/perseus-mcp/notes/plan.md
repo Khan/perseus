@@ -67,16 +67,14 @@ from outside the repo.
 | Move perseus-mcp to the v2 MCP SDK | `@modelcontextprotocol/server` and `@modelcontextprotocol/node` replace `@modelcontextprotocol/sdk` 1.x, as MCP Apps' `ext-apps` 2.x needs. HTTP serves MCP through `createMcpHandler` (stateless, a fresh server per request; it also answers GET and DELETE), stdio through `serveStdio`, and tool and prompt schemas are `z.object(...)`. The `sdk.ts` shim is gone: v2's import paths pass the lint rules. Migrated by hand (the SDK's codemod runs through `npx`). Smoke-tested over stdio from outside the repo and over HTTP. |
 | Add an MCP Apps spike that frames the preview | `preview_item` links (`_meta.ui.resourceUri`, plus the deprecated `ui/resourceUri`) to `ui://perseus/preview.html` (`text/html;profile=mcp-app`), whose CSP declares the local server in `frameDomains`. The page (`adapters/preview/app/`) connects with ext-apps' `App`, waits for the tool result and frames its URL, with a status line saying what happened. `createViteAppPage` builds it with Vite on the first request into one document (the script inlined, minified) and caches it; the real page will reuse this. |
 | Share the preview's controls with the app page | No change in behavior. The browser preview's option and hint controls move to `page/controls.tsx`, and perseus-editor exports its hint rules (`revealHints`, `describeHints`, `INITIAL_HINTS_REVEAL`), so the MCP Apps page can reuse both. Plan: Claude Desktop refused to let the spike frame `http://localhost`, so the app page renders the item itself; a hosted deployment is now build order step 9. |
+| Render the preview inside the MCP Apps page | The app page renders the draft itself: Perseus, MathJax, the shared styles and fonts, Wonder Blocks and the shared controls and `Exercise`, all inlined into one 7.6 MB document. It follows the draft by polling `get_preview_draft`, an app-only tool (`visibility: ["app"]`) that returns the draft or `changed: false`, and keeps hint state with perseus-editor's rules; `preview_item` now also returns the `itemId`. The resource's CSP declares `cdn.kastatic.org` and the Perseus image hosts in `resourceDomains`. Checked in a stand-in host built on ext-apps' `AppBridge` (outside the repo): it renders, follows a new revision, reveals hints and checks answers. |
 
 Remaining, in order:
 
-1. Step 5, the embedded MCP Apps page, with `@modelcontextprotocol/ext-apps`
-   2.x. The spike showed that Claude Desktop won't let an app page frame
-   the local server (see Embedded MCP Apps page), so the page renders the
-   item itself:
-   1. The page: Perseus bundled into the single HTML file, the draft fetched
-      and followed through an app-only tool, hints, options and Check answer
-      in the page.
+1. Step 5: try the in-chat preview in Claude Desktop. Possible follow-ups:
+   send what the learner did (answers, scores) to the chat as model context
+   (`app.updateModelContext`), and shrink the page (most of its 7.6 MB is
+   MathJax and its speech engine).
 2. The preview's `renderDone` and `renderError` markers (see Preview).
 3. Build order steps 6 to 9.
 
@@ -106,10 +104,21 @@ migration steps, and they're updated separately.
   following `bin`; `knip.config.ts` only drops the default `src/index.*`
   pattern, which matches nothing here.
 - **The MCP Apps page** is built by `createViteAppPage` when a host first
-  reads `ui://perseus/preview.html`: an app build with the script as its only
-  input (a library build isn't minified and leaks local paths in comments),
-  inlined into `app/preview-app.html` with a replacer function (the bundle
-  contains `$&`, which a replacement string would expand).
+  reads `ui://perseus/preview.html`, and cached:
+  - an app build with the script as its only input (a library build isn't
+    minified and leaks local paths in comments);
+  - with `NODE_ENV` set to `production` for the build, since the browser
+    preview's Vite dev server in the same process sets it to `development`,
+    which makes any build a development one (React's development
+    transform, which names local files);
+  - with fonts and images inlined (the page can load only from the hosts it
+    declares) and SVGs inlined as base64 (Vite's own inlining keeps the
+    SVG's quotes, which break Wonder Blocks' unquoted `url(...)`);
+  - inlined into `app/preview-app.html` with replacer functions (the bundle
+    contains `$&`, which a replacement string would expand).
+  To check it without Claude, build a small host page on ext-apps'
+  `AppBridge` that loads the built page in an iframe and answers its tool
+  calls.
 - **The MCP SDK** is v2: `McpServer`, `createMcpHandler` and types from
   `@modelcontextprotocol/server`, `serveStdio` from
   `@modelcontextprotocol/server/stdio`, `toNodeHandler` from

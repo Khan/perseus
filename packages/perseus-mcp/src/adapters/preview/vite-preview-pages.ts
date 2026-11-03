@@ -1,15 +1,14 @@
 import {readFile} from "node:fs/promises";
 import path from "node:path";
 
-import {cssWrapper} from "@internal/perseus-environment/wrap-css-in-layer";
 import {createServer} from "vite";
+
+import {CACHE_DIR, PERSEUS_VITE_CONFIG} from "./vite-shared";
 
 import type {PreviewPage, PreviewPages} from "../http/server";
 import type {Server} from "node:http";
 
 const PAGE_DIR = path.join(import.meta.dirname, "page");
-const PACKAGE_DIR = path.resolve(import.meta.dirname, "../../..");
-const REPO_ROOT = path.resolve(PACKAGE_DIR, "../..");
 
 /**
  * Serves the preview pages with Vite in middleware mode: it compiles the
@@ -23,15 +22,11 @@ export async function createVitePreviewPages(
     server: Server,
 ): Promise<PreviewPages> {
     const vite = await createServer({
-        // The repo's config, which Storybook uses too: React, and the
-        // aphrodite alias Perseus's styles rely on.
-        configFile: path.join(REPO_ROOT, "vite.config.mts"),
+        ...PERSEUS_VITE_CONFIG,
         root: PAGE_DIR,
         base: "/preview/",
-        cacheDir: path.join(PACKAGE_DIR, "node_modules/.vite"),
+        cacheDir: CACHE_DIR,
         appType: "custom",
-        // Puts Perseus's CSS in the cascade layers it has in production.
-        plugins: [cssWrapper],
         server: {middlewareMode: true, hmr: {server}},
         // Vite inlines small SVGs as `url(data:...)` without quoting them, and
         // the quotes inside Wonder Blocks' icons then break the CSS: icons
@@ -40,12 +35,6 @@ export async function createVitePreviewPages(
             assetsInlineLimit: (file) =>
                 file.endsWith(".svg") ? false : undefined,
         },
-        // Perseus and math-input fall back to their English strings in
-        // Storybook. The preview is the same kind of dev environment.
-        define: {"process.env.STORYBOOK": "true"},
-        // Vite writes info to stdout, which carries MCP over stdio; warnings
-        // and errors go to stderr.
-        logLevel: "warn",
     });
 
     return {

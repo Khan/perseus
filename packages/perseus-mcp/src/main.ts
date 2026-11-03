@@ -114,10 +114,7 @@ const useCases = {
 };
 
 // Shown in the chat by hosts that support MCP Apps.
-const previewApp = {
-    html: createViteAppPage().html,
-    frameOrigin: () => baseUrl,
-};
+const previewApp = createViteAppPage();
 
 const host = values.host;
 // Port 0 asks the OS for a free port.

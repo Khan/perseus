@@ -1,0 +1,4 @@
+/* TODO(LEMS-3686): Remove the !important once Wonder Blocks is in the shared layer. */
+.page {
+    gap: var(--wb-sizing-size_240) !important;
+}
