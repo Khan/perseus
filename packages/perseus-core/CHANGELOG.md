@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 42.2.0
+
+### Minor Changes
+
+-   [#4472](https://github.com/Khan/perseus/pull/4472) [`d477ac6`](https://github.com/Khan/perseus/commit/d477ac65fcd6b05ee9d538c015134a97573e0f85) Thanks [@benchristel](https://github.com/benchristel)! - The PerseusWidgetOptions type now includes all widget options types. The following widgets were previously not included by mistake: Grapher, Group, and Python Program.
+
 ## 42.1.1
 
 ### Patch Changes
