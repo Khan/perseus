@@ -41,7 +41,7 @@ const storybookTestDependencies: PerseusDependencies = {
 
 // This will bring in the shared styles from prod so that the components can
 // have the same styles as prod when viewed within Storybook.
-import "./styles/shared.css";
+import "../config/environment/styles/shared.css";
 
 // Wonder Blocks components read their built-in strings (e.g. accessible
 // labels) from this config. Storybook only renders in English, so we use the

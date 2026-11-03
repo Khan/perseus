@@ -69,6 +69,10 @@ const config: KnipConfig = {
             // Cypress loads this file through its supportFile setting.
             entry: ["support.ts"],
         },
+        "config/environment": {
+            // Imported by styles/shared.css, which Knip doesn't read.
+            ignoreDependencies: ["@khanacademy/wonder-blocks-tokens"],
+        },
         "config/eslint-plugin": {
             project: [
                 "**/*.{ts,tsx,js,jsx}",

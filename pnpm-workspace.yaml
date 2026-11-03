@@ -43,6 +43,7 @@ packages:
     - __docs__
     - config/build
     - config/cypress
+    - config/environment
     - config/eslint-plugin
     - data
     - dev

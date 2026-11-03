@@ -1,8 +1,8 @@
 /**
  * This file contains styles that are used in prod that ultimately
- * get passed onto Perseus components. This file is imported in the
- * .storybook/preview.tsx file so that the components can have the same
- * styles as prod when viewed within Storybook.
+ * get passed onto Perseus components. Pages that render Perseus outside
+ * production (Storybook, the perseus-mcp preview) import it so that the
+ * components have the same styles as prod.
  */
 
 /* A CSS reset. Needed for every page. */

@@ -3,39 +3,7 @@ import {configureSort} from "storybook-multilevel-sort";
 import type {StorybookConfig} from "@storybook/react-vite";
 
 import {cssTarget, jsTarget} from "../config/build/browser-targets";
-
-const excludedCssFiles = ["lato.css", "protractor.css", "mafs-styles.css"];
-// This is a temporary plugin option to mimic what is in PROD in regard to cascade layers.
-// Perseus CSS files are wrapped in the 'shared' layer in khan/frontend.
-// To get the same ordering of precedence in Storybook, the imported CSS files need to be wrapped accordingly.
-// Once the CSS files have cascade layers included (LEMS-2801),
-//     then the following plugin option should be removed.
-const cssWrapper = {
-    name: "wrap-css-in-layer",
-    transform: (code: string, pathname: string) => {
-        if (pathname.endsWith(".css")) {
-            // Exclude the CSS files that are not part of the shared layer.
-            if (!excludedCssFiles.some((file) => pathname.endsWith(file))) {
-                // Exclude any CSS file that already has a layer statement,
-                //    unless it is specifying a sub-layer.
-                // This runs on every CSS file, including the ~150KB
-                // inlined token sheet, so it must stay linear-time.
-                if (
-                    !code.includes("@layer") ||
-                    /\bperseus-legacy\b/.test(code) ||
-                    /\bperseus-base\b/.test(code)
-                ) {
-                    const layerStatements =
-                        "@layer reset, shared, shared.base, legacy;\n@layer shared";
-                    return {
-                        code: `${layerStatements} { ${code} }`,
-                        map: null,
-                    };
-                }
-            }
-        }
-    },
-};
+import {cssWrapper} from "../config/environment/wrap-css-in-layer";
 
 // This is used to sort the stories in the Storybook sidebar navigation.
 // See https://storybook.js.org/addons/storybook-multilevel-sort
@@ -153,6 +121,9 @@ const config: StorybookConfig = {
     },
     staticDirs: [
         "../static",
+        // Fonts, and the stylesheets that declare them, shared with other
+        // pages that render Perseus.
+        "../config/environment/static",
         // This pulls in the API docs built by typedoc (`pnpm build:docs`) so
         // that we can serve them through the Storybook setup.
         {from: "../docs", to: "/api-docs"},
