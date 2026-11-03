@@ -3,12 +3,15 @@ import path from "node:path";
 
 import {createServer} from "vite";
 
-import {CACHE_DIR, PERSEUS_VITE_CONFIG} from "./vite-shared";
+import {
+    CACHE_DIR,
+    inlineAssetsExceptSvg,
+    PAGE_DIR,
+    PERSEUS_VITE_CONFIG,
+} from "./vite-shared";
 
 import type {PreviewPage, PreviewPages} from "../http/server";
 import type {Server} from "node:http";
-
-const PAGE_DIR = path.join(import.meta.dirname, "page");
 
 /**
  * Serves the preview pages with Vite in middleware mode: it compiles the
@@ -28,13 +31,7 @@ export async function createVitePreviewPages(
         cacheDir: CACHE_DIR,
         appType: "custom",
         server: {middlewareMode: true, hmr: {server}},
-        // Vite inlines small SVGs as `url(data:...)` without quoting them, and
-        // the quotes inside Wonder Blocks' icons then break the CSS: icons
-        // show as solid squares. Storybook turns this off the same way.
-        build: {
-            assetsInlineLimit: (file) =>
-                file.endsWith(".svg") ? false : undefined,
-        },
+        build: {assetsInlineLimit: inlineAssetsExceptSvg},
     });
 
     return {

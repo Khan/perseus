@@ -70,6 +70,7 @@ from outside the repo.
 | Render the preview inside the MCP Apps page | The app page renders the draft itself: Perseus, MathJax, the shared styles and fonts, Wonder Blocks and the shared controls and `Exercise`, all inlined into one 7.6 MB document. It follows the draft by polling `get_preview_draft`, an app-only tool (`visibility: ["app"]`) that returns the draft or `changed: false`, and keeps hint state with perseus-editor's rules; `preview_item` now also returns the `itemId`. The resource's CSP declares `cdn.kastatic.org` and the Perseus image hosts in `resourceDomains`. Checked in a stand-in host built on ext-apps' `AppBridge` (outside the repo): it renders, follows a new revision, reveals hints and checks answers. |
 | Plan packaging perseus-mcp as a .mcpb | Plan only: build order step 6 packages the server as a Claude Desktop extension for testers; the later steps move down one. |
 | Find runtime files through RuntimePaths | `RuntimePaths` names the files the server reads at runtime that the installed extension must find too: perseus-core's type definitions (now passed to `createPerseusCoreSchemaSource`) and the default data directory. `checkoutPaths()` gives the repo's; the packaged layout comes with the packaged entry point. The Vite adapters keep finding their sources next to them: they only run from the checkout. |
+| Prebuild the preview pages for serving without Vite | `pnpm --filter @khanacademy/perseus-mcp build:pages` builds the browser preview's shell and frame (scripts, styles, fonts under `preview/assets/`) and the MCP Apps page into `dist/pages`; `perseus-mcp --pages <dir>` serves them with `createStaticPreviewPages` and `createStaticAppPage` instead of Vite. The build lives in `scripts/` (tooling, not the server); `productionBuild`, the page folders and the SVG setting move into `vite-shared.ts`. |
 
 Remaining, in order:
 
@@ -107,6 +108,12 @@ migration steps, and they're updated separately.
   package: it would drop `private` and `bin`. Knip finds the entry point by
   following `bin`; `knip.config.ts` only drops the default `src/index.*`
   pattern, which matches nothing here.
+- **Prebuilt pages:** `build:pages` writes `dist/pages/preview/` (the
+  shell, the frame and `assets/`) and `dist/pages/preview-app.html`
+  (`src/adapters/preview/prebuilt-layout.ts`, kept free of Vite so serving
+  doesn't load it). Run `perseus-mcp --pages packages/perseus-mcp/dist/pages`
+  to try exactly what the extension will ship. Builds run in production
+  mode through `productionBuild` (see below).
 - **The MCP Apps page** is built by `createViteAppPage` when a host first
   reads `ui://perseus/preview.html`, and cached:
   - an app build with the script as its only input (a library build isn't
@@ -583,15 +590,18 @@ Steps 1–3 need no Perseus changes, so building can start there.
       packaged layout (`packagedPaths()`) comes with the packaged entry
       point in commit 4. The Vite adapters keep their own paths, since only
       the checkout runs them.
-   2. **Drafts in the user's data directory** when installed:
+   2. **Drafts in the user's data directory** (folded into commit 4, with
+      the packaged entry point that uses it) when installed:
       `~/Library/Application Support/perseus-mcp` on macOS,
       `$XDG_DATA_HOME/perseus-mcp` (default `~/.local/share/perseus-mcp`) on
       Linux, `%LOCALAPPDATA%\perseus-mcp` on Windows. Runs from the repo keep
       `.perseus-mcp/` at its root.
-   3. **Prebuilt pages:** the browser preview's shell and frame built once
-      by Vite into static files, served by Fastify in place of Vite's dev
-      middleware; the MCP Apps page built at packaging time and shipped as a
-      file; the fonts (with their OFL licenses) and shared styles included.
+   3. **Prebuilt pages** (done): `build:pages` builds the shell, the frame
+      and the MCP Apps page into `dist/pages`; `--pages <dir>` serves them
+      without Vite. The pages keep Vite's default browser targets:
+      `config/build/browser-targets.ts` has no package export, and importing
+      it across packages breaks the lint rules. The fonts' OFL licenses go
+      in with the pack script (commit 5).
    4. **One bundled server file:** a packaged entry point
       (`packagedPaths()`, no Vite) bundled with all its dependencies into
       `server/index.mjs` (Vite's server-side build for Node, with

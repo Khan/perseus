@@ -1,13 +1,10 @@
 import {readFile} from "node:fs/promises";
 import path from "node:path";
 
-import {build} from "vite";
-
-import {PERSEUS_VITE_CONFIG} from "./vite-shared";
+import {APP_DIR, PERSEUS_VITE_CONFIG, productionBuild} from "./vite-shared";
 
 import type {Plugin, Rolldown} from "vite";
 
-const APP_DIR = path.join(import.meta.dirname, "app");
 const STYLE_SLOT =
     "<!-- The page's styles are inlined here when the page is built. -->";
 const SCRIPT_SLOT =
@@ -34,33 +31,13 @@ function svgAsBase64(): Plugin {
 }
 
 /**
- * Runs a production build. The browser preview's Vite dev server, in this same
- * process, sets NODE_ENV to "development", and Vite then treats any build as
- * a development one (React's development transform, which also names local
- * source files), whatever its `mode`.
+ * Builds the MCP Apps page into one self-contained HTML document: its script,
+ * styles, fonts and icons inlined.
  */
-async function productionBuild(
-    config: Parameters<typeof build>[0],
-): ReturnType<typeof build> {
-    const nodeEnv = process.env.NODE_ENV;
-    process.env.NODE_ENV = "production";
-    try {
-        return await build(config);
-    } finally {
-        // Assigning undefined would store the string "undefined".
-        if (nodeEnv == null) {
-            delete process.env.NODE_ENV;
-        } else {
-            process.env.NODE_ENV = nodeEnv;
-        }
-    }
-}
-
-async function buildPage(): Promise<string> {
+export async function buildAppPage(): Promise<string> {
     const result = await productionBuild({
         ...PERSEUS_VITE_CONFIG,
         root: APP_DIR,
-        mode: "production",
         plugins: [...PERSEUS_VITE_CONFIG.plugins, svgAsBase64()],
         build: {
             write: false,
@@ -119,7 +96,7 @@ export function createViteAppPage(): {html(): Promise<string>} {
         html() {
             if (built == null) {
                 // A failed build is retried on the next request.
-                built = buildPage().catch((error: unknown) => {
+                built = buildAppPage().catch((error: unknown) => {
                     built = null;
                     throw error;
                 });

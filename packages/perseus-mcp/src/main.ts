@@ -15,6 +15,10 @@ import {nodeItemFileReader} from "./adapters/fs/node-item-file-reader";
 import {createPerseusCoreSchemaSource} from "./adapters/fs/perseus-core-schema-source";
 import {createHttpServer, previewLinks} from "./adapters/http/server";
 import {createMcpServer} from "./adapters/mcp/server";
+import {
+    createStaticAppPage,
+    createStaticPreviewPages,
+} from "./adapters/preview/static-preview-pages";
 import {createViteAppPage} from "./adapters/preview/vite-app-page";
 import {createVitePreviewPages} from "./adapters/preview/vite-preview-pages";
 import {createCatalog} from "./app/catalog";
@@ -32,6 +36,7 @@ const DEFAULT_DATA_DIR =
 
 const USAGE = `\
 Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <dir>]
+                   [--pages <dir>]
 
   --http        Serve MCP on http://<host>:<port>/mcp (the default).
   --stdio       Serve MCP over stdin/stdout. HTTP still runs, for previews.
@@ -40,6 +45,9 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
   --host        HTTP host (default 127.0.0.1).
   --data-dir    Where drafts are saved (default $PERSEUS_MCP_DATA_DIR, else
                 .perseus-mcp/ at the repo root).
+  --pages       Serve the preview pages prebuilt in <dir> (by
+                \`pnpm --filter @khanacademy/perseus-mcp build:pages\`)
+                instead of compiling them with Vite.
 `;
 
 const {values} = parseArgs({
@@ -49,6 +57,7 @@ const {values} = parseArgs({
         port: {type: "string"},
         host: {type: "string", default: "127.0.0.1"},
         "data-dir": {type: "string"},
+        pages: {type: "string"},
         help: {type: "boolean"},
     },
     strict: true,
@@ -114,7 +123,11 @@ const useCases = {
 };
 
 // Shown in the chat by hosts that support MCP Apps.
-const previewApp = createViteAppPage();
+const prebuiltPages = values.pages;
+const previewApp =
+    prebuiltPages == null
+        ? createViteAppPage()
+        : createStaticAppPage(prebuiltPages);
 
 const host = values.host;
 // Port 0 asks the OS for a free port.
@@ -122,7 +135,10 @@ const port = Number(values.port ?? (values.stdio ? 0 : 4567));
 const httpServer = await createHttpServer({
     createMcpServer: () => createMcpServer({...useCases, previewApp}),
     drafts: useCases.drafts,
-    createPreview: createVitePreviewPages,
+    createPreview:
+        prebuiltPages == null
+            ? createVitePreviewPages
+            : async () => createStaticPreviewPages(prebuiltPages),
 });
 try {
     const address = new URL(await httpServer.listen({port, host}));

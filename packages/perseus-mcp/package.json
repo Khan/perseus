@@ -17,7 +17,9 @@
     "bin": {
         "perseus-mcp": "./bin/perseus-mcp.mjs"
     },
-    "scripts": {},
+    "scripts": {
+        "build:pages": "node scripts/build-pages.mjs"
+    },
     "dependencies": {
         "@fastify/middie": "^9.3.6",
         "@khanacademy/mathjax-renderer": "catalog:devDeps",
