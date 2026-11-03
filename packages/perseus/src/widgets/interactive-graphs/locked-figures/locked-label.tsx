@@ -11,6 +11,8 @@ import LabelStrokeFilter from "../label-stroke-filter";
 import useGraphConfig from "../reducer/use-graph-config";
 import {replaceOutsideTeX} from "../utils";
 
+import styles from "./locked-label.module.css";
+
 // The new font tokens split sizing into separate `body` and `heading` scales.
 // The body scale only goes up to `medium`, so `large` labels map to the
 // equivalent `heading` token.
@@ -20,8 +22,17 @@ const labelFontSize: Record<LockedLabelType["size"], string> = {
     large: font.heading.size.medium,
 };
 
-export default function LockedLabel(props: LockedLabelType) {
-    const {coord, text, color, size} = props;
+type Props = LockedLabelType & {
+    /**
+     * Whether `coord` was chosen automatically (by `getAutoLabelCoordinates`)
+     * rather than authored. Auto-placed coordinates mark where the label's
+     * center should sit, so the label is shifted to center on them.
+     */
+    autoPlaced?: boolean;
+};
+
+export default function LockedLabel(props: Props) {
+    const {coord, text, color, size, autoPlaced} = props;
 
     const [x, y] = pointToPixel(coord, useGraphConfig());
 
@@ -32,7 +43,11 @@ export default function LockedLabel(props: LockedLabelType) {
         <>
             <LabelStrokeFilter />
             <span
-                className="locked-label"
+                className={
+                    autoPlaced
+                        ? `locked-label ${styles.autoPlacedLabel}`
+                        : "locked-label"
+                }
                 style={{
                     position: "absolute",
                     // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: authored LTR coordinate (math/graph/image); content doesn't flip with page direction, so converting to logical insets would misplace/misalign it in RTL

@@ -2,7 +2,9 @@ import * as React from "react";
 
 import LockedLabel from "./locked-figures/locked-label";
 
-import type {LockedFigure} from "@khanacademy/perseus-core";
+import type {LockedFigure, LockedLabelType} from "@khanacademy/perseus-core";
+import {getAutoLabelCoordinates} from "./locked-figures/label-placement-utils";
+import useGraphConfig from "./reducer/use-graph-config";
 
 type Props = {
     lockedFigures: ReadonlyArray<LockedFigure>;
@@ -10,6 +12,16 @@ type Props = {
 
 export default function GraphLockedLabelsLayer(props: Props) {
     const {lockedFigures} = props;
+
+    // The graph's range and pixel size both feed label placement, and this
+    // layer renders inside the graph config provider, so read them from
+    // context rather than threading them down from MafsGraph.
+    const graphInfo = useGraphConfig();
+
+    const setLabelPlacement = (figure: LockedLabelType, label: LockedLabelType): LockedLabelType => {
+        const coord = getAutoLabelCoordinates(figure, graphInfo);
+        return {...label, coord};
+    };
 
     return lockedFigures.map((figure, i) => {
         if (figure.type === "label") {
@@ -19,7 +31,11 @@ export default function GraphLockedLabelsLayer(props: Props) {
         return (
             <React.Fragment key={i}>
                 {figure.labels.map((label, j) => (
-                    <LockedLabel key={`${i}-label-${j}`} {...label} />
+                    <LockedLabel
+                        key={`${i}-label-${j}`}
+                        {...setLabelPlacement(figure, label)}
+                        autoPlaced={true}
+                    />
                 ))}
 
                 {/* Account for the labels within the lines' defining points */}
