@@ -36,6 +36,10 @@ export {default as Categorizer} from "./widgets/categorizer";
 /** @hidden */
 export {default as InteractiveGraphWidget} from "./widgets/interactive-graphs/interactive-graph";
 /** @hidden */
+export {default as PolarGraphWidget} from "./widgets/polar-graph/polar-graph";
+/** @hidden */
+export {PolarGraphView} from "./widgets/polar-graph/polar-graph-view";
+/** @hidden */
 export {default as MatrixWidget} from "./widgets/matrix";
 /** @hidden */
 export {default as TableWidget} from "./widgets/table";
@@ -231,6 +235,7 @@ export type {GrapherPromptJSON} from "./widget-ai-utils/grapher/grapher-ai-utils
 export type {GroupPromptJSON} from "./widget-ai-utils/group/group-ai-utils";
 export type {ImagePromptJSON} from "./widget-ai-utils/image/image-ai-utils";
 export type {InteractiveGraphPromptJSON} from "./widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
+export type {PolarGraphPromptJSON} from "./widget-ai-utils/polar-graph/polar-graph-ai-utils";
 export type {LabelImagePromptJSON} from "./widget-ai-utils/label-image/label-image-ai-utils";
 export type {MatcherPromptJSON} from "./widget-ai-utils/matcher/matcher-ai-utils";
 export type {MatrixPromptJSON} from "./widget-ai-utils/matrix/matrix-ai-utils";

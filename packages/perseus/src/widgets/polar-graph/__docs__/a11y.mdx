@@ -1,0 +1,74 @@
+import {Meta} from "@storybook/addon-docs/blocks";
+
+<Meta title="Widgets/Polar Graph/Accessibility" tags={["!manifest"]} />
+
+# Polar Graph Accessibility
+
+The Polar Graph widget reuses Interactive Graph's movable point, drag hook
+and hitbox layer, and wraps them in the same figure structure, so keyboard
+and screen-reader behavior match for the parts the two widgets share.
+
+## Keyboard Navigation
+
+-   Each point is a focusable button in the tab order, in the order the points
+    are numbered.
+-   `Up` and `Down` move the focused point one grid circle outward or inward
+    along its spoke. Movement stops at the outer circle and at the pole.
+-   `Left` and `Right` turn the focused point one spoke counterclockwise or
+    clockwise.
+-   Dragging with a mouse or finger snaps to the nearest circle and spoke, and
+    gives the dragged point focus so keyboard adjustments can follow.
+
+## Screen Reader Support
+
+-   The graph is a `figure` named by the author's `fullGraphAriaLabel`, or
+    "A polar graph." when none is set.
+-   The figure is a tab stop, as on interactive graph, so a screen reader
+    user hears the instructions before reaching the first handle.
+-   Its description reads the keyboard instructions first, then the author's
+    `fullGraphAriaDescription`, then a live list of every point.
+-   Each handle announces its role and position in polar form: "Point 1 at
+    radius 3, angle 45 degrees." or "Far tip of the limaçon at radius 4, angle
+    0 degrees." In radians the angle is a fraction of π, such as "π/4".
+-   The group holding the figure names the sub-type, for example "A rose
+    curve with k equal to 3 on a polar graph." The rose's k is changed with
+    two labeled buttons under the graph, and the new value is announced.
+    When the author fixes k, the buttons and the sentence about them in
+    the instructions are left out; the value still shows. The point
+    sub-type has no group name, as on interactive graph: each point names
+    itself and the figure already says "polar graph".
+-   For an angle the group name carries the measure, "An angle at the pole
+    measuring 5π/6 radians.", and updates as either side moves. The two
+    handles are named "Initial side of the angle" and "Terminal side of the
+    angle".
+-   The grid lines and labels are hidden from screen readers because the
+    figure and the points already describe them.
+-   Author-drawn locked figures follow interactive graph: each is an image
+    named by the author's aria label, and a figure with no label is hidden
+    from screen readers. The editor can generate a label from the figure's
+    name, measurements and appearance. Authors should also describe locked
+    figures in the graph description.
+-   TeX labels on the graph are hidden from screen readers, as on interactive
+    graph; a figure's labels are spoken as part of its generated aria label.
+-   When the author labels points, the label becomes the point's name, "Point
+    A at radius 3, angle 0 degrees." The visible label is hidden from screen
+    readers so it is not read twice, and a static graph does not draw it, as
+    on interactive graph.
+-   A graded graph the learner must answer ends its instructions with
+    "Required", as interactive graph does.
+-   An ungraded graph reads "Use this graph to check your thinking, but it
+    does not count as your answer." before everything else, the same sentence
+    interactive graph uses.
+
+## Visible Labels and Markings
+
+-   Circles are labeled with their radius along the polar axis.
+-   Spokes are labeled with their angle, in degrees or radians, every 30° or
+    at every spoke when spokes are further apart.
+-   A focused point shows the same focus ring as Interactive Graph.
+
+## Best Practices
+
+-   Always provide a `fullGraphAriaLabel` that says what the graph is for.
+-   Keep spokes at least 15° apart on small screens so snap targets stay
+    larger than a fingertip.

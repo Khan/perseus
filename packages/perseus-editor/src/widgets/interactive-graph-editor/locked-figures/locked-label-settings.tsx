@@ -21,6 +21,7 @@ import PerseusEditorAccordion from "../../../components/perseus-editor-accordion
 import {TypedSingleSelect} from "../../../components/typed-single-select";
 
 import ColorSelect from "./color-select";
+import {labelSizeOptions} from "./line-stroke-select";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import styles from "./locked-label-settings.module.css";
 
@@ -173,11 +174,7 @@ export default function LockedLabelSettings(props: Props) {
                         selectedValue={size}
                         disabled={editingDisabled}
                         onChange={(newValue) => onChangeProps({size: newValue})}
-                        options={{
-                            small: "small",
-                            medium: "medium",
-                            large: "large",
-                        }}
+                        options={labelSizeOptions}
                     />
                 </BodyText>
             </View>

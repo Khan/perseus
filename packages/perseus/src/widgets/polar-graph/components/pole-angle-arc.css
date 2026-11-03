@@ -1,0 +1,11 @@
+/* Mafs styles every path inside .MafsView, so the angle arc needs a class
+   of its own to win back its color. */
+.MafsView .polar-angle-arc {
+    fill: none;
+    stroke: var(--mafs-blue);
+    stroke-width: 2px;
+}
+
+.MafsView .polar-angle-arc--static {
+    stroke: var(--static-gray);
+}
