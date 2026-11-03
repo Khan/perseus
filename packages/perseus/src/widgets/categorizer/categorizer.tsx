@@ -168,6 +168,7 @@ const Categorizer = forwardRef<Widget, Props>(function Categorizer(props, ref) {
                                                             sharedStyles.responsiveRadioInputStatic,
                                                     )}
                                                     checked={selected}
+                                                    disabled={isDisabled}
                                                     onChange={() =>
                                                         _handleUserInput(
                                                             itemNum,
