@@ -12,9 +12,10 @@ import {dependenciesV2} from "./perseus-environment";
 
 function Frame() {
     const containerRef = React.useRef<HTMLDivElement>(null);
-    const {content, reportHeight} = usePreviewPresenter({
-        contentContainerRef: containerRef,
-    });
+    const {content, previewOptions, hintsState, reportHeight} =
+        usePreviewPresenter({
+            contentContainerRef: containerRef,
+        });
 
     // The shell sizes the iframe to fit, so it never scrolls on its own.
     React.useEffect(() => {
@@ -37,7 +38,11 @@ function Frame() {
             className="framework-perseus box-sizing-border-box-reset"
         >
             {content?.type === "exercise" ? (
-                <Exercise data={content.data} />
+                <Exercise
+                    data={content.data}
+                    previewOptions={previewOptions}
+                    hintsState={hintsState}
+                />
             ) : (
                 <p>Waiting for the item…</p>
             )}

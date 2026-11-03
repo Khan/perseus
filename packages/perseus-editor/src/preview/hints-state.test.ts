@@ -1,6 +1,11 @@
 import {generateTestPerseusRenderer} from "@khanacademy/perseus-core";
 
-import {describeHints, INITIAL_HINTS_REVEAL, revealHints} from "./hints-state";
+import {
+    describeHints,
+    INITIAL_HINTS_REVEAL,
+    revealHints,
+    shownHintPositions,
+} from "./hints-state";
 
 import type {HintsReveal} from "./hints-state";
 import type {Hint} from "@khanacademy/perseus-core";
@@ -123,5 +128,35 @@ describe("describeHints", () => {
 
         // Assert
         expect(state).toMatchObject({hintsVisible: 1, visibleCount: 1});
+    });
+});
+
+describe("shownHintPositions", () => {
+    it("puts a replacing hint in place of the one before it", () => {
+        // Arrange
+        const hints = [hint(), hint(true), hint()];
+
+        // Act
+        const shown = shownHintPositions(hints, {
+            hintsVisible: 3,
+            isFinalHelpPage: false,
+        });
+
+        // Assert
+        expect(shown).toEqual([1, 2]);
+    });
+
+    it("shows every revealed hint on the final help page", () => {
+        // Arrange
+        const hints = [hint(), hint(true), hint()];
+
+        // Act
+        const shown = shownHintPositions(hints, {
+            hintsVisible: 3,
+            isFinalHelpPage: true,
+        });
+
+        // Assert
+        expect(shown).toEqual([0, 1, 2]);
     });
 });

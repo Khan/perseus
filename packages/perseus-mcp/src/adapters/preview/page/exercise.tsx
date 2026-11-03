@@ -1,5 +1,6 @@
 // An item as learners see it in an exercise: the question, a "Check answer"
-// button, and its hints revealed one at a time.
+// button, and the hints the shell has revealed, rendered with the preview
+// options the shell has set.
 import {
     ApiOptions,
     HintRenderer,
@@ -7,6 +8,8 @@ import {
     usePerseusI18n,
 } from "@khanacademy/perseus";
 import {mapErrorToString} from "@khanacademy/perseus/strings";
+import {splitPerseusItem} from "@khanacademy/perseus-core";
+import {shownHintPositions} from "@khanacademy/perseus-editor";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 
@@ -18,7 +21,11 @@ import type {ItemScore} from "../../../domain/items/score";
 import type {ServerItemRendererComponent} from "@khanacademy/perseus";
 import type {PerseusStrings} from "@khanacademy/perseus/strings";
 import type {Hint} from "@khanacademy/perseus-core";
-import type {PreviewContent} from "@khanacademy/perseus-editor";
+import type {
+    HintsState,
+    PreviewContent,
+    PreviewOptions,
+} from "@khanacademy/perseus-editor";
 
 type ExerciseData = Extract<PreviewContent, {type: "exercise"}>["data"];
 
@@ -40,42 +47,22 @@ function describeScore(
 }
 
 /**
- * The positions of the hints on screen when the first `hintsVisible` are
- * revealed: as in Perseus, a hint with `replace` takes the place of the one
- * before it.
- */
-function shownHintPositions(
-    hints: ReadonlyArray<Hint>,
-    hintsVisible: number,
-): number[] {
-    const shown: number[] = [];
-    hints.slice(0, hintsVisible).forEach((hint, pos) => {
-        if (hint.replace && shown.length > 0) {
-            shown[shown.length - 1] = pos;
-        } else {
-            shown.push(pos);
-        }
-    });
-    return shown;
-}
-
-/**
  * The revealed hints, in their own section below the question, each under
  * its number. ServerItemRenderer would put them straight after the question,
  * with nothing between.
  */
 function Hints({
     hints,
-    hintsVisible,
+    hintsState,
     apiOptions,
 }: {
     hints: ReadonlyArray<Hint>;
-    hintsVisible: number;
+    hintsState: HintsState;
     apiOptions: ExerciseData["apiOptions"];
 }) {
     const {strings} = usePerseusI18n();
     const headingId = React.useId();
-    const shown = shownHintPositions(hints, hintsVisible);
+    const shown = shownHintPositions(hints, hintsState);
     if (shown.length === 0) {
         return null;
     }
@@ -104,7 +91,7 @@ function Hints({
                             pos === hints.length - 1 &&
                             !/\*\*/.test(hints[pos].content)
                         }
-                        lastRendered={pos === hintsVisible - 1}
+                        lastRendered={pos === hintsState.hintsVisible - 1}
                         apiOptions={hintApiOptions}
                         linterContext={linterContextDefault}
                         dependencies={dependenciesV2}
@@ -115,26 +102,43 @@ function Hints({
     );
 }
 
-export function Exercise({data}: {data: ExerciseData}) {
-    const {item, apiOptions} = data;
+export function Exercise({
+    data,
+    previewOptions,
+    hintsState,
+}: {
+    data: ExerciseData;
+    previewOptions: PreviewOptions;
+    hintsState: HintsState;
+}) {
+    const {item} = data;
+    const {reviewMode, showSolutions, answerless, readOnly} = previewOptions;
     const {strings} = usePerseusI18n();
     const rendererRef = React.useRef<ServerItemRendererComponent>(null);
-    const [hintsVisible, setHintsVisible] = React.useState(0);
     const [result, setResult] = React.useState<string | null>(null);
 
     // A new revision of the draft may change the answer, so an old result no
     // longer applies.
     React.useEffect(() => setResult(null), [item]);
 
-    const hintCount = item.hints.length;
-    // A revision may have fewer hints than are showing.
-    const shownHints = Math.min(hintsVisible, hintCount);
+    // Learners get the item without its answers. Showing the answers needs
+    // them, so the options that do override answerless.
+    const renderedItem = React.useMemo(
+        () =>
+            answerless && !reviewMode && showSolutions === "none"
+                ? splitPerseusItem(item)
+                : item,
+        [item, answerless, reviewMode, showSolutions],
+    );
+    const apiOptions = {...data.apiOptions, readOnly};
 
     function checkAnswer() {
         const renderer = rendererRef.current;
         if (renderer == null) {
             return;
         }
+        // Scored against the full item, as the server scores learners'
+        // answers.
         const scored = scoreItem(item, renderer.getUserInput(), "en");
         setResult(
             scored.ok
@@ -148,29 +152,18 @@ export function Exercise({data}: {data: ExerciseData}) {
             {/* The hints are rendered below, by Hints. */}
             <ServerItemRenderer
                 ref={rendererRef}
-                item={item}
+                item={renderedItem}
                 apiOptions={apiOptions}
+                reviewMode={reviewMode}
+                showSolutions={showSolutions}
                 dependencies={dependenciesV2}
                 problemNum={0}
                 hintsVisible={0}
             />
-            <p style={{display: "flex", gap: "0.8rem"}}>
+            <p>
                 <button type="button" onClick={checkAnswer}>
                     Check answer
                 </button>
-                {shownHints < hintCount && (
-                    <button
-                        type="button"
-                        onClick={() => setHintsVisible(shownHints + 1)}
-                    >
-                        {`Show hint ${shownHints + 1} of ${hintCount}`}
-                    </button>
-                )}
-                {shownHints > 0 && (
-                    <button type="button" onClick={() => setHintsVisible(0)}>
-                        Hide hints
-                    </button>
-                )}
             </p>
             {/* An <output> is announced when its text changes, so a
                 screen reader hears the result of each check. */}
@@ -179,7 +172,7 @@ export function Exercise({data}: {data: ExerciseData}) {
             </p>
             <Hints
                 hints={item.hints}
-                hintsVisible={shownHints}
+                hintsState={hintsState}
                 apiOptions={apiOptions}
             />
         </>

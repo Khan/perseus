@@ -61,14 +61,14 @@ from outside the repo.
 | Send preview options to the iframe in messages | `PreviewOptions` and `DEFAULT_PREVIEW_OPTIONS`: `iframe-init` carries `previewOptions`, and `set-preview-options` (some of the options) replaces `set-a11y-scanning-enabled`. The controller's `setPreviewOptions` replaces `setA11yScanningEnabled`; the presenter returns `previewOptions` in place of `isMobile`, `hasLintGutter` and `a11yScanningEnabled`, no longer reads the iframe's `data-*` attributes (`PreviewWithIframe` sends them as options), and checks it's in a frame with `window.parent === window`, so a cross-origin parent works. Checked in Chrome with a frame from `127.0.0.1` inside a page on `localhost`. |
 | Add reveal-hint and hints-state to the preview | `reveal-hint` (`hintsVisible?`: a count, -1 for all, left out for the next) and the `hints-state` reply (`HintsState`). The presenter mirrors HintsRenderer's rules in `hints-state.ts` (`revealHints`, `describeHints`): a jump of more than one enters final-help-page mode, `replace` counts only outside it, and hiding hints bumps `renderKey` so the page remounts. It returns `hintsVisible` and `renderKey`; the controller returns `revealHint` and `hintsState`. |
 | Show preview hints under their own headings | The frame renders the question with `ServerItemRenderer` and the revealed hints itself, one `HintRenderer` each, in a section below the buttons with a "Hints" heading and a "Hint #n" heading per hint (Perseus's own strings). `replace` still decides which hints show. Hiding hints no longer remounts the item, so the answer survives. |
+| Drive preview hints and options from the shell | The shell has hint controls (show next, show all, hide, with the reported `hints-state` and a notice on the final help page) and preview options (review mode, answerless, read only, show solutions), sent with `revealHint` and `setPreviewOptions`. The frame renders what the presenter reports: hints picked with perseus-editor's new `shownHintPositions` (so the rules live in one place), the item split with `splitPerseusItem` when answerless (unless review mode or solutions need the answers), and the other options passed to `ServerItemRenderer`. Check answer stays in the frame. Mobile, locale, color scheme and rationales aren't offered yet. |
 
 Remaining, in order:
 
-1. Step 4, in three more commits:
-   1. perseus-mcp's shell drives hints and options through them.
-   2. The duplicate-choices, graphie-URL and placeholder lint rules (minor
+1. Step 4, in two more commits:
+   1. The duplicate-choices, graphie-URL and placeholder lint rules (minor
       changeset).
-   3. `validate_item` drops its own placeholder checks.
+   2. `validate_item` drops its own placeholder checks.
 2. The preview's `renderDone` and `renderError` markers (see Preview); they
    can come with the preview options.
 3. Build order steps 5 to 8.

@@ -74,6 +74,27 @@ export function revealHints(
     };
 }
 
+/**
+ * The positions of the hints on screen, as HintsRenderer lays them out: a
+ * hint with `replace` takes the place of the one before it, except on the
+ * final help page, which shows every revealed hint. For pages that render
+ * hints themselves.
+ */
+export function shownHintPositions(
+    hints: ReadonlyArray<Hint>,
+    {hintsVisible, isFinalHelpPage}: Omit<HintsState, "total" | "visibleCount">,
+): number[] {
+    const shown: number[] = [];
+    hints.slice(0, hintsVisible).forEach((hint, pos) => {
+        if (!isFinalHelpPage && hint.replace && shown.length > 0) {
+            shown[shown.length - 1] = pos;
+        } else {
+            shown.push(pos);
+        }
+    });
+    return shown;
+}
+
 /** Describes which hints are on screen, as HintsRenderer lays them out. */
 export function describeHints(
     hints: ReadonlyArray<Hint>,
@@ -81,18 +102,12 @@ export function describeHints(
 ): HintsState {
     // A newer revision of the item may have fewer hints than are revealed.
     const hintsVisible = Math.min(reveal.hintsVisible, hints.length);
-    let visibleCount = 0;
-    for (const hint of hints.slice(0, hintsVisible)) {
-        const replacesPrevious =
-            !reveal.isFinalHelpPage && hint.replace && visibleCount > 0;
-        if (!replacesPrevious) {
-            visibleCount += 1;
-        }
-    }
+    const {isFinalHelpPage} = reveal;
     return {
         hintsVisible,
         total: hints.length,
-        visibleCount,
-        isFinalHelpPage: reveal.isFinalHelpPage,
+        visibleCount: shownHintPositions(hints, {hintsVisible, isFinalHelpPage})
+            .length,
+        isFinalHelpPage,
     };
 }

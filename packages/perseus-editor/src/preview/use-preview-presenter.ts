@@ -13,6 +13,7 @@ import {
 } from "./message-types";
 import {isParentToIframeMessage} from "./message-validators";
 
+import type {HintsState} from "./hints-state";
 import type {
     IframeToParentMessage,
     ParentToIframeMessage,
@@ -54,6 +55,11 @@ type UsePreviewPresenterResult = {
      * `reveal-hint`: pass it to the renderer's `hintsVisible` prop.
      */
     hintsVisible: number;
+    /**
+     * Which hints show, as reported to the parent. A page that renders hints
+     * itself picks them with `shownHintPositions(hints, hintsState)`.
+     */
+    hintsState: HintsState;
     /**
      * Changes when the parent hides hints. Use it as the `key` of the
      * rendered content: HintsRenderer can't hide a hint once it's shown, so
@@ -390,6 +396,7 @@ export function usePreviewPresenter(
         reportHeight,
         highlightTargets,
         hintsVisible,
+        hintsState,
         renderKey: hintsReveal.renderKey,
     };
 }
