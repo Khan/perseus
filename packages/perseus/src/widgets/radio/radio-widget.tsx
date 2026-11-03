@@ -10,6 +10,7 @@ import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 
 import RadioComponent from "./radio-component";
+import {useCrossOut} from "./use-cross-out";
 import {choiceTransform} from "./util";
 import {getChoiceStates} from "./utils/general-utils";
 
@@ -94,6 +95,12 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
         const {strings} = usePerseusI18n();
         const {analytics} = useDependencies();
 
+        // This is strange, but currently we're showing the same view for both
+        // reviewMode, and showSolutions === "all". We may wish to
+        // differentiate between the two in the future, depending on the outcomes
+        // of the Perseus GUTC project.
+        const isReviewMode = reviewMode || showSolutions === "all";
+
         const randomSeed = (props.problemNum ?? 0) + (props.widgetIndex ?? 0);
         const choices = useMemo(() => {
             return [
@@ -105,6 +112,18 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
                 ),
             ];
         }, [options.choices, options.randomize, strings, randomSeed]);
+
+        const {crossOut, restoreSelectedChoice} = useCrossOut({
+            choices,
+            selectedChoiceIds: props.userInput?.selectedChoiceIds ?? [],
+            isReviewMode,
+            isStatic: !!props.static,
+            readOnly: !!apiOptions.readOnly,
+            onUnselect: (selectedChoiceIds) => {
+                handleUserInput({selectedChoiceIds});
+                trackInteraction();
+            },
+        });
 
         useOnMountEffect(() => {
             analytics.onAnalyticsEvent({
@@ -263,7 +282,13 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
             });
 
             trackInteraction();
-            announceChoiceChange(checkedChoiceIds.length);
+            // Selecting a crossed-out choice restores it. When it was shown
+            // as crossed out, that's announced instead of the usual message.
+            const announcedRestore =
+                newCheckedState && restoreSelectedChoice(choiceId);
+            if (!announcedRestore) {
+                announceChoiceChange(checkedChoiceIds.length);
+            }
         };
 
         const announceChoiceChange = (newCheckedCount: number) => {
@@ -363,12 +388,6 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
         const choicesProps = prepareChoicesProps();
         const numCorrect = options.numCorrect;
 
-        // This is strange, but currently we're showing the same view for both
-        // reviewMode, and showSolutions === "all". We may wish to
-        // differentiate between the two in the future, depending on the outcomes
-        // of the Perseus GUTC project.
-        const isReviewMode = reviewMode || showSolutions === "all";
-
         const onChoiceChange =
             apiOptions.readOnly || isReviewMode ? () => {} : handleChoiceChange;
 
@@ -387,6 +406,7 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
                 numCorrect={numCorrect}
                 choices={choicesProps}
                 onChoiceChange={onChoiceChange}
+                crossOut={crossOut}
             />
         );
     },

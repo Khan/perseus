@@ -77,6 +77,7 @@ export * as Dependencies from "./dependencies";
 /** @hidden */
 export {Log} from "./logging/log";
 export {default as JiptParagraphs} from "./jipt-paragraphs";
+export {default as CrossOutContext} from "./widgets/radio/cross-out-context";
 export {default as LoadingContext} from "./loading-context";
 export {default as MathRenderingContext} from "./math-rendering-context";
 export {default as PerseusMarkdown} from "./perseus-markdown";
@@ -180,6 +181,7 @@ export type {
     APIOptions,
     /** @hidden */
     APIOptionsWithDefaults,
+    CrossOutOptions,
     /** @hidden */
     ChangeHandler,
     /** @hidden */

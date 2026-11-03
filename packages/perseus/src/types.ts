@@ -232,6 +232,36 @@ export type APIOptions = Readonly<{
     flags?: Record<(typeof PerseusFeatureFlags)[number], boolean>;
 }>;
 
+/**
+ * Settings for the cross-out tool in multiple choice (Radio) widgets.
+ *
+ * Hosts provide them with `CrossOutContext`; without a provider, cross-out is
+ * off. Cross-outs are display-only: they are never part of the learner's
+ * answer and never affect scoring.
+ */
+export type CrossOutOptions = Readonly<{
+    /**
+     * Whether learners can use cross-out. When false, neither the "Cross out
+     * answers" toggle nor any cross-out button renders.
+     */
+    enabled: boolean;
+    /**
+     * The state of the "Cross out answers" toggle, for hosts that keep it
+     * themselves (for example, to remember it between questions). When left
+     * out, each widget keeps its own toggle state, starting off.
+     */
+    toggleOn?: boolean;
+    /**
+     * Called when the learner turns the "Cross out answers" toggle on or off.
+     */
+    onToggleChange?: (toggleOn: boolean) => void;
+    /**
+     * Changing this value clears every cross-out. Hosts change it each time
+     * the learner checks an answer.
+     */
+    resetKey?: number | string;
+}>;
+
 type TeXProps = {
     children: string;
     onClick?: () => unknown;
