@@ -18,6 +18,7 @@ import {StdioServerTransport} from "./adapters/mcp/sdk";
 import {createMcpServer} from "./adapters/mcp/server";
 import {createCatalog} from "./app/catalog";
 import {createDraftUseCases} from "./app/drafts";
+import {createScoringUseCases} from "./app/scoring";
 import {createWidgetUseCases} from "./app/widgets";
 
 // Drafts are local work, so by default they live in the checkout (each
@@ -92,6 +93,7 @@ const useCases = {
         newId: () => randomUUID().slice(0, 8),
     }),
     widgets: createWidgetUseCases({catalog, drafts: repository}),
+    scoring: createScoringUseCases({drafts: repository}),
 };
 
 if (values.stdio) {

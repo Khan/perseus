@@ -6,6 +6,7 @@ import {McpServer} from "./sdk";
 import {errorResult, jsonResult, runTool} from "./tool-results";
 
 import type {DraftUseCases} from "../../app/drafts";
+import type {ScoringUseCases} from "../../app/scoring";
 import type {WidgetUseCases} from "../../app/widgets";
 
 // Sent to the agent when it connects (the `instructions` field of the MCP
@@ -23,7 +24,10 @@ returned fully migrated to the latest schema. export_item returns the finished
 JSON.
 
 list_widgets and get_widget_spec describe each widget's options; validate_item
-checks an item the way Perseus will.`;
+checks an item the way Perseus will. score_item scores an answer as Perseus
+does; to test an item, solve it yourself and give check_user_inputs correct
+answers (in several equivalent forms) and common mistakes, each with the
+outcome you expect.`;
 
 const notesSchema = z
     .string()
@@ -41,9 +45,11 @@ const notesSchema = z
 export function createMcpServer({
     drafts,
     widgets,
+    scoring,
 }: {
     drafts: DraftUseCases;
     widgets: WidgetUseCases;
+    scoring: ScoringUseCases;
 }): McpServer {
     const server = new McpServer(
         {name: "perseus", version: libVersion},
@@ -392,6 +398,89 @@ export function createMcpServer({
                     widgets.validateItem(itemId != null ? {itemId} : {item}),
                 );
             }),
+    );
+
+    const userInputSchema = z
+        .record(z.string(), z.unknown())
+        .describe(
+            "The learner's input for each widget, by widget id, e.g. " +
+                '{"numeric-input 1": {"currentValue": "3/4"}}. ' +
+                "get_widget_spec gives each widget's user input shape.",
+        );
+    const localeSchema = z
+        .string()
+        .optional()
+        .describe(
+            'How numbers are written, e.g. "de" for 1.000,5; default "en".',
+        );
+
+    server.registerTool(
+        "score_item",
+        {
+            title: "Score an answer",
+            description:
+                "Score a learner's answer to a draft's question as Perseus " +
+                'does on "Check". Returns the outcome ("correct", ' +
+                '"incorrect", or "invalid" when the answer isn\'t scored, ' +
+                "e.g. a widget is empty) with Perseus's score and each " +
+                "widget's score.",
+            inputSchema: {
+                itemId: z.string(),
+                userInput: userInputSchema,
+                locale: localeSchema,
+            },
+            annotations: {readOnlyHint: true},
+        },
+        ({itemId, userInput, locale}) =>
+            runTool(() => {
+                const result = scoring.scoreItem(itemId, userInput, locale);
+                if (!result.ok) {
+                    return errorResult("The answer couldn't be scored.", {
+                        issues: result.issues,
+                    });
+                }
+                return jsonResult(result.score);
+            }),
+    );
+
+    server.registerTool(
+        "check_user_inputs",
+        {
+            title: "Check answers against expectations",
+            description:
+                "Score a batch of answers to a draft's question and compare " +
+                "each outcome with the expected one. Write the answers by " +
+                "solving the question yourself, not from the answer key: " +
+                "correct answers in several equivalent forms (0.75, 3/4) " +
+                "and common mistakes. A mismatch points to a wrong key or " +
+                "a misconfigured widget. Returns the number of mismatches " +
+                "and each answer's result.",
+            inputSchema: {
+                itemId: z.string(),
+                inputs: z
+                    .array(
+                        z.object({
+                            label: z
+                                .string()
+                                .optional()
+                                .describe('e.g. "3/4 as a fraction".'),
+                            userInput: userInputSchema,
+                            expected: z.enum([
+                                "correct",
+                                "incorrect",
+                                "invalid",
+                            ]),
+                        }),
+                    )
+                    .min(1),
+                locale: localeSchema,
+            },
+            annotations: {readOnlyHint: true},
+        },
+        ({itemId, inputs, locale}) =>
+            runTool(() =>
+                jsonResult(scoring.checkUserInputs(itemId, inputs, locale)),
+            ),
     );
 
     server.registerResource(

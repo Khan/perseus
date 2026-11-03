@@ -50,12 +50,12 @@ every tool was smoke-tested over stdio from outside the repo.
 | Add edit_item to perseus-mcp | `edit_item`: a JSON Patch, new notes or both. Rejected, leaving the draft unchanged, if an operation fails or the result has errors. |
 | Add create_item to perseus-mcp | `create_item`: the question and hints as content plus a list of widgets. Each widget's options are merged over its type's defaults and parsed (`buildWidget`), then the item is validated; nothing is saved if anything has errors. |
 | Add add_widget to perseus-mcp | `add_widget`: adds a widget to the question or a hint, placing its placeholder right after the `after` text or at the end. The id defaults to the next free one (`nextWidgetId`); options are checked by the parser, as in `create_item`. |
+| Add score_item and check_user_inputs to perseus-mcp | `score_item` and `check_user_inputs`, and the `@khanacademy/perseus-score` dependency. User input is parsed with `parseAndMigrateUserInputMap`, and input for a widget the question doesn't have is rejected (`unknown-widget-id`). Each answer gets an outcome: `correct`, `incorrect`, or `invalid` when Perseus wouldn't score it. The locale defaults to `en`. |
 
 Remaining, in order:
 
-1. `score_item` and `check_user_inputs`. `@khanacademy/perseus-score` is added here, where it's first used.
-2. The `review_item` prompt and checklist resource (see Item review).
-3. Then build order steps 3 to 7.
+1. The `review_item` prompt and checklist resource (see Item review).
+2. Then build order steps 3 to 7.
 
 ## Notes for whoever picks this up
 
