@@ -1,6 +1,6 @@
 import {DraftNotFoundError} from "../../app/errors";
 
-import type {CallToolResult} from "./sdk";
+import type {CallToolResult} from "@modelcontextprotocol/server";
 
 /** A successful tool result carrying `value` as pretty-printed JSON. */
 export function jsonResult(value: unknown): CallToolResult {

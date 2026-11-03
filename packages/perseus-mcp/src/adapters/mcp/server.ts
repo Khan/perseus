@@ -1,9 +1,9 @@
+import {McpServer} from "@modelcontextprotocol/server";
 import {z} from "zod";
 
 import {CHECKLIST_URI} from "../../domain/review/checklist";
 import {libVersion} from "../../version";
 
-import {McpServer} from "./sdk";
 import {errorResult, jsonResult, runTool} from "./tool-results";
 
 import type {DraftUseCases} from "../../app/drafts";
@@ -79,7 +79,7 @@ export function createMcpServer({
                 "Start a draft from an existing PerseusItem, given as a JSON " +
                 "object or string (any Perseus version), or as the path of a " +
                 "JSON file. Returns the new itemId and the migrated item.",
-            inputSchema: {
+            inputSchema: z.object({
                 item: z
                     .unknown()
                     .optional()
@@ -89,7 +89,7 @@ export function createMcpServer({
                     .optional()
                     .describe("Path to a JSON file holding a PerseusItem."),
                 notes: notesSchema,
-            },
+            }),
         },
         ({item, path, notes}) =>
             runTool(async () => {
@@ -146,7 +146,7 @@ export function createMcpServer({
                 "anything has errors, nothing is saved and the issues are " +
                 "returned. Returns the new itemId and any warnings; use " +
                 "export_item to read the item.",
-            inputSchema: {
+            inputSchema: z.object({
                 question: z.object(rendererShape),
                 hints: z
                     .array(
@@ -169,7 +169,7 @@ export function createMcpServer({
                         "Tools offered with the item, e.g. a calculator.",
                     ),
                 notes: notesSchema,
-            },
+            }),
         },
         ({notes, ...input}) =>
             runTool(() => {
@@ -200,7 +200,7 @@ export function createMcpServer({
                 "Perseus parser checks them. If the widget or the item has " +
                 "errors, nothing is saved and the issues are returned. " +
                 "Returns the widget's id, the new revision and any warnings.",
-            inputSchema: {
+            inputSchema: z.object({
                 itemId: z.string(),
                 ...widgetInputSchema.shape,
                 id: widgetInputSchema.shape.id
@@ -224,7 +224,7 @@ export function createMcpServer({
                         "Text already in the content; the placeholder goes " +
                             "right after its first occurrence.",
                     ),
-            },
+            }),
         },
         ({itemId, ...input}) =>
             runTool(() => {
@@ -259,7 +259,7 @@ export function createMcpServer({
                 "retry. Use a `test` operation to check a value before " +
                 "changing it. Returns the new revision and any warnings; use " +
                 "export_item to read the item.",
-            inputSchema: {
+            inputSchema: z.object({
                 itemId: z.string(),
                 patch: z
                     .array(
@@ -283,7 +283,7 @@ export function createMcpServer({
                         "such as where the item came from, what it's for or " +
                         "what's left to do.",
                 ),
-            },
+            }),
         },
         ({itemId, patch, notes}) =>
             runTool(() => {
@@ -312,7 +312,7 @@ export function createMcpServer({
             description:
                 "Return a draft's PerseusItem JSON (fully migrated), its " +
                 "notes and the path of the file it's saved in.",
-            inputSchema: {itemId: z.string()},
+            inputSchema: z.object({itemId: z.string()}),
             annotations: {readOnlyHint: true},
         },
         ({itemId}) =>
@@ -337,7 +337,7 @@ export function createMcpServer({
                 "see it, where a person can answer it, check their answer " +
                 "and reveal the hints. The page updates as the draft " +
                 "changes. Give the URL to the person you're working with.",
-            inputSchema: {itemId: z.string()},
+            inputSchema: z.object({itemId: z.string()}),
             annotations: {readOnlyHint: true},
         },
         ({itemId}) =>
@@ -351,7 +351,7 @@ export function createMcpServer({
             description:
                 "List saved drafts, most recently changed first, with their " +
                 "notes. Also lists saved files that couldn't be loaded.",
-            inputSchema: {},
+            inputSchema: z.object({}),
             annotations: {readOnlyHint: true},
         },
         () =>
@@ -380,7 +380,7 @@ export function createMcpServer({
                 '("supported", "avoid" for deprecated widgets, "do-not-use" ' +
                 "for unfinished ones), whether it's accessible, and notes. " +
                 "Use get_widget_spec for a widget's full options.",
-            inputSchema: {},
+            inputSchema: z.object({}),
             annotations: {readOnlyHint: true},
         },
         () => runTool(() => jsonResult(widgets.listWidgets())),
@@ -394,7 +394,7 @@ export function createMcpServer({
                 "Return a widget type's status and notes, its default " +
                 "options, and the documented TypeScript definitions of its " +
                 "options and user input, taken from Perseus's own schema.",
-            inputSchema: {type: z.string().describe('e.g. "radio"')},
+            inputSchema: z.object({type: z.string().describe('e.g. "radio"')}),
             annotations: {readOnlyHint: true},
         },
         ({type}) => runTool(() => jsonResult(widgets.getWidgetSpec(type))),
@@ -409,13 +409,13 @@ export function createMcpServer({
                 "must parse, every [[☃ widget-id]] placeholder must have a " +
                 "widget and vice versa, and the content is linted. Returns " +
                 "`valid` plus issues with JSON paths.",
-            inputSchema: {
+            inputSchema: z.object({
                 itemId: z.string().optional(),
                 item: z
                     .unknown()
                     .optional()
                     .describe("A PerseusItem as an object or JSON string."),
-            },
+            }),
             annotations: {readOnlyHint: true},
         },
         ({itemId, item}) =>
@@ -455,11 +455,11 @@ export function createMcpServer({
                 '"incorrect", or "invalid" when the answer isn\'t scored, ' +
                 "e.g. a widget is empty) with Perseus's score and each " +
                 "widget's score.",
-            inputSchema: {
+            inputSchema: z.object({
                 itemId: z.string(),
                 userInput: userInputSchema,
                 locale: localeSchema,
-            },
+            }),
             annotations: {readOnlyHint: true},
         },
         ({itemId, userInput, locale}) =>
@@ -486,7 +486,7 @@ export function createMcpServer({
                 "and common mistakes. A mismatch points to a wrong key or " +
                 "a misconfigured widget. Returns the number of mismatches " +
                 "and each answer's result.",
-            inputSchema: {
+            inputSchema: z.object({
                 itemId: z.string(),
                 inputs: z
                     .array(
@@ -505,7 +505,7 @@ export function createMcpServer({
                     )
                     .min(1),
                 locale: localeSchema,
-            },
+            }),
             annotations: {readOnlyHint: true},
         },
         ({itemId, inputs, locale}) =>
@@ -553,7 +553,9 @@ export function createMcpServer({
                 "The procedure for reviewing a draft before it goes to " +
                 "learners: validate, solve it independently, test likely " +
                 "answers with check_user_inputs, and report findings.",
-            argsSchema: {itemId: z.string().describe("The draft to review.")},
+            argsSchema: z.object({
+                itemId: z.string().describe("The draft to review."),
+            }),
         },
         ({itemId}) => ({
             messages: [

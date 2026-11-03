@@ -40,7 +40,7 @@ How the work is done. An agent resuming this plan follows these rules exactly.
 
 ## Status
 
-**Build order steps 1 to 4 are done.** The commits below are on
+**Build order steps 1 to 4 are done, and step 5 is under way.** The commits below are on
 `jer/perseus-mcp`, oldest first, and every tool was smoke-tested over stdio
 from outside the repo.
 
@@ -64,11 +64,21 @@ from outside the repo.
 | Drive preview hints and options from the shell | The shell has hint controls (show next, show all, hide, with the reported `hints-state` and a notice on the final help page) and preview options (review mode, answerless, read only, show solutions), sent with `revealHint` and `setPreviewOptions`. The frame renders what the presenter reports: hints picked with perseus-editor's new `shownHintPositions` (so the rules live in one place), the item split with `splitPerseusItem` when answerless (unless review mode or solutions need the answers), and the other options passed to `ServerItemRenderer`. Check answer stays in the frame. Mobile, locale, color scheme and rationales aren't offered yet. |
 | Build the preview shell with Wonder Blocks | The shell uses Wonder Blocks (`View`, `Heading`, `BodyText`, `Button`, `CheckboxGroup`, `SingleSelect` in a `LabeledField`) and the page setup from `@internal/perseus-environment`, with layout in `shell.module.css`; preview options now come before hints. Vite no longer inlines SVGs, as in Storybook: inlined, Wonder Blocks' icons break their CSS and show as squares. |
 | Add lint rules for placeholders, choices and Graphie | perseus-linter (minor changeset `calm-rivers-check`): `duplicate-choices` (radio and dropdown, ignoring `$` and spacing), `graphie-image-url` (suggests a `web+graphie://` URL in place of a Graphie PNG), and `widget-placeholder-missing-widget`, `-duplicate` and `-unrenderable`. `validate_item` keeps its own placeholder checks only for renderers nested in widgets, which the linter doesn't visit, plus `orphaned-widget`: a widget that's never placed has no node in the content for a lint rule to report on. The review checklist links the new codes. |
+| Move perseus-mcp to the v2 MCP SDK | `@modelcontextprotocol/server` and `@modelcontextprotocol/node` replace `@modelcontextprotocol/sdk` 1.x, as MCP Apps' `ext-apps` 2.x needs. HTTP serves MCP through `createMcpHandler` (stateless, a fresh server per request; it also answers GET and DELETE), stdio through `serveStdio`, and tool and prompt schemas are `z.object(...)`. The `sdk.ts` shim is gone: v2's import paths pass the lint rules. Migrated by hand (the SDK's codemod runs through `npx`). Smoke-tested over stdio from outside the repo and over HTTP. |
 
 Remaining, in order:
 
-1. The preview's `renderDone` and `renderError` markers (see Preview).
-2. Build order steps 5 to 8.
+1. Step 5, the embedded MCP Apps page, with `@modelcontextprotocol/ext-apps`
+   2.x:
+   1. A spike: the smallest app page that frames `http://localhost`
+      (declared in `_meta.ui.csp.frameDomains`), tried in Claude Desktop.
+      Nobody has confirmed that hosts allow it.
+   2. If it works, the real page: the controller (`usePreviewController`)
+      in the chat, framing our presenter cross-origin, with hints, options
+      and Check answer through `app.callServerTool`, and context sent to the
+      chat.
+2. The preview's `renderDone` and `renderError` markers (see Preview).
+3. Build order steps 6 to 8.
 
 Consuming applications aren't in this repo: the changesets carry the
 migration steps, and they're updated separately.
@@ -95,8 +105,12 @@ migration steps, and they're updated separately.
   package: it would drop `private` and `bin`. Knip finds the entry point by
   following `bin`; `knip.config.ts` only drops the default `src/index.*`
   pattern, which matches nothing here.
-- **SDK imports** go through `src/adapters/mcp/sdk.ts`, because the SDK only
-  publishes `.js` subpaths, which the lint rules ban.
+- **The MCP SDK** is v2: `McpServer`, `createMcpHandler` and types from
+  `@modelcontextprotocol/server`, `serveStdio` from
+  `@modelcontextprotocol/server/stdio`, `toNodeHandler` from
+  `@modelcontextprotocol/node`. Tool and prompt schemas are `z.object(...)`
+  (raw shapes are deprecated). v2's Fastify helper, which checks `Host`
+  headers, isn't used: `createHttpServer` builds its own Fastify app.
 - **CommonJS dependencies:** Node's ESM loader can't see `fast-json-patch`'s
   named exports, so `edit.ts` uses its default export.
 - **Errors:** the repo's TypeScript `lib` has no `Error` `cause`, so errors
@@ -200,7 +214,7 @@ them.
 | Where it runs | Local first: MCP over stdio or local HTTP, with HTTP always running for the preview page. A hosted service later. |
 | Architecture | Hexagonal (ports and adapters); see Architecture. |
 | Where the code lives | `packages/perseus-mcp` in this monorepo, a private package; run with `pnpm start-mcp`. Published to npm as `@khanacademy/perseus-mcp` once it has been tested in use (build order step 8). |
-| Stack | Official TypeScript MCP SDK (`@modelcontextprotocol/sdk`) with Fastify. |
+| Stack | Official TypeScript MCP SDK, v2 (`@modelcontextprotocol/server`, `@modelcontextprotocol/node`), with Fastify. |
 | Data in and out | Raw PerseusItem JSON. Any older Perseus version is accepted; tools always return fully migrated, latest-schema items. Content-backend API access is out of scope. |
 | Auth and limits | None. Tools are pure functions over JSON the caller supplies. |
 | State | Server-held drafts under an `itemId`; several at once, each with any number of live previews. Saved to disk, one JSON file per draft. Each draft can carry `notes`: context the agent keeps with it. `open_item` and `create_item` take notes, `edit_item` can replace them, and `list_items` shows them. |
@@ -616,6 +630,15 @@ interactive-graph.
   (`'self'`, plus the MCP Apps host once there is one). Not needed for
   safety: the presenter only talks to the window that embeds it, so another
   site embedding the frame can only preview content it sends itself.
+
+- Revisit the `graphie-image-url` lint rule's scope, which may overshoot:
+  - It checks only image widgets (not markdown images), and only `.png`s on
+    the `ka-perseus-graphie` host. Which of Perseus's image forms should it
+    cover?
+  - It warns on every such image, but labels only need translating when the
+    image has text labels; for many images a clear alt text is enough.
+    Should it apply only to images with labels, or be a guideline rather
+    than a warning?
 
 ## Open questions
 

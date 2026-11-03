@@ -1,14 +1,15 @@
 import middie from "@fastify/middie";
+import {toNodeHandler} from "@modelcontextprotocol/node";
+import {createMcpHandler} from "@modelcontextprotocol/server";
 import Fastify from "fastify";
 
 import {DraftNotFoundError} from "../../app/errors";
-import {StreamableHTTPServerTransport} from "../mcp/sdk";
 
 import type {DraftUseCases} from "../../app/drafts";
 import type {Draft} from "../../domain/draft";
 import type {PreviewLinks} from "../../ports/preview-links";
-import type {McpServer} from "../mcp/sdk";
-import type {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
+import type {McpServer} from "@modelcontextprotocol/server";
+import type {FastifyInstance} from "fastify";
 import type {IncomingMessage, Server, ServerResponse} from "node:http";
 
 /**
@@ -60,8 +61,8 @@ export function previewLinks(baseUrl: () => string | null): PreviewLinks {
 /**
  * Creates the HTTP server:
  *
- * - MCP (Streamable HTTP) on `/mcp`. MCP runs stateless: each request gets a
- *   fresh MCP server from `createMcpServer` and a fresh transport.
+ * - MCP (Streamable HTTP) on `/mcp`, through the SDK's `createMcpHandler`:
+ *   stateless, with a fresh MCP server from `createMcpServer` per request.
  * - `/drafts/<itemId>/events`: a server-sent event stream of a draft, sent
  *   once on connect and again after every change. Previews follow it.
  * - With `createPreview`, `/drafts/<itemId>/preview`: a page that shows the
@@ -106,33 +107,14 @@ export async function createHttpServer({
         });
     }
 
-    app.post("/mcp", async (request, reply) => {
-        const server = createMcpServer();
-        const transport = new StreamableHTTPServerTransport({
-            sessionIdGenerator: undefined,
-        });
-        // The transport writes the response itself.
+    // A fresh MCP server per request; the handler also answers the methods
+    // a stateless server doesn't support.
+    const mcp = toNodeHandler(createMcpHandler(() => createMcpServer()));
+    app.all("/mcp", async (request, reply) => {
+        // The handler writes the response itself.
         reply.hijack();
-        reply.raw.on("close", () => {
-            void transport.close();
-            void server.close();
-        });
-        await server.connect(transport);
-        await transport.handleRequest(request.raw, reply.raw, request.body);
+        await mcp(request.raw, reply.raw, request.body);
     });
-
-    // Stateless servers have no sessions to stream to or tear down.
-    const methodNotAllowed = async (
-        _request: FastifyRequest,
-        reply: FastifyReply,
-    ) =>
-        reply.code(405).send({
-            jsonrpc: "2.0",
-            error: {code: -32000, message: "Method not allowed."},
-            id: null,
-        });
-    app.get("/mcp", methodNotAllowed);
-    app.delete("/mcp", methodNotAllowed);
 
     app.get<{Params: {itemId: string}}>(
         "/drafts/:itemId/events",

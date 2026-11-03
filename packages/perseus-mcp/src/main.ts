@@ -6,6 +6,7 @@ import path from "node:path";
 import {parseArgs} from "node:util";
 
 import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
+import {serveStdio} from "@modelcontextprotocol/server/stdio";
 
 import {
     DataDirNotWritableError,
@@ -14,7 +15,6 @@ import {
 import {nodeItemFileReader} from "./adapters/fs/node-item-file-reader";
 import {createPerseusCoreSchemaSource} from "./adapters/fs/perseus-core-schema-source";
 import {createHttpServer, previewLinks} from "./adapters/http/server";
-import {StdioServerTransport} from "./adapters/mcp/sdk";
 import {createMcpServer} from "./adapters/mcp/server";
 import {createVitePreviewPages} from "./adapters/preview/vite-preview-pages";
 import {createCatalog} from "./app/catalog";
@@ -136,5 +136,5 @@ if (values.stdio) {
     // The host ends a stdio session by closing stdin. The HTTP server would
     // otherwise keep the process running after it.
     process.stdin.on("end", () => process.exit(0));
-    await createMcpServer(useCases).connect(new StdioServerTransport());
+    serveStdio(() => createMcpServer(useCases));
 }
