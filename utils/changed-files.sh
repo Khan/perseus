@@ -8,7 +8,7 @@ set -e
 #      own commits (an in-place `git rebase -i HEAD~N`)
 #   3. the point where the branch, plus any in-progress merge, forked from
 #      its upstream
-#   4. the point where the branch forked from main
+#   4. the point where the branch forked from origin/main
 #
 # Untracked files are listed too.
 #
@@ -80,11 +80,11 @@ set -e
 #
 #   other branch         X1--X2 (CHERRY_PICK_HEAD)
 #
-# No upstream: diff against the merge-base with main (M2). On a stacked
+# No upstream: diff against the merge-base with origin/main (M2). On a stacked
 # branch with no upstream this also lists the parent branch's files (P1);
 # set UPSTREAM=<parent> to be exact.
 #
-#   main                 M1--M2*-M3
+#   origin/main          M1--M2*-M3
 #                             \
 #   parent                     P1
 #                               \
@@ -136,7 +136,7 @@ if [ -z "${UPSTREAM}" ]; then
             # shellcheck disable=SC2086
             UPSTREAM="$(git merge-base "$upstream" "$tip" $merging)"
         else
-            UPSTREAM="$(git merge-base "$tip" main)"
+            UPSTREAM="$(git merge-base "$tip" origin/main)"
         fi
     fi
 fi
