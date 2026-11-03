@@ -115,7 +115,6 @@ class Group extends React.Component<Props> implements Widget {
                     findExternalWidgets={this.props.findWidgets}
                     reviewMode={this.props.reviewMode}
                     showSolutions={this.props.showSolutions}
-                    linterContext={this.props.linterContext}
                     strings={this.context.strings}
                 />
             </div>
