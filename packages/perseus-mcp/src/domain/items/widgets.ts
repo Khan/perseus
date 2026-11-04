@@ -103,7 +103,10 @@ export type WidgetSpec = WidgetSummary & {
     defaultOptions: unknown;
     /** The documented TypeScript definition of the options. */
     optionsType: string | null;
-    /** The documented TypeScript definition of the user input, if any. */
+    /**
+     * The documented TypeScript definition of the user input, if any,
+     * without the declarations `optionsType` already shows.
+     */
     userInputType: string | null;
 };
 
@@ -146,8 +149,7 @@ export function createWidgetCatalog(schema: SchemaIndex): WidgetCatalog {
         spec: (type) => ({
             ...summary(type),
             defaultOptions: CoreWidgetRegistry.getDefaultWidgetOptions(type),
-            optionsType: schema.widgetOptionsSource(type),
-            userInputType: schema.userInputSource(type),
+            ...schema.widgetSources(type),
         }),
     };
 }

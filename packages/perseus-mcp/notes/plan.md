@@ -133,8 +133,11 @@ Remaining, in order:
       content and as a JSON string, both checked by tests.
    6. The largest responses: `check_user_inputs` (2.2 KB a call, repeating
       every score even when it matched) and `get_widget_spec` for
-      interactive-graph (29 KB). Report matches compactly and details only
-      for mismatches; trim the spec.
+      interactive-graph (29 KB). Done: `check_user_inputs` gives Perseus's
+      full score only for mismatches, and a widget spec's `userInputType`
+      leaves out the declarations `optionsType` already shows, naming them
+      instead (interactive-graph's is now 19 KB; its user input is its
+      options' graph types).
 3. Build order steps 10 (the upload) to 16.
 
 Consuming applications aren't in this repo: the changesets carry the

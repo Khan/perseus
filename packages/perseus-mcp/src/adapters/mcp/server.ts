@@ -750,7 +750,8 @@ export function createMcpServer({
                 "correct answers in several equivalent forms (0.75, 3/4) " +
                 "and common mistakes. A mismatch points to a wrong key or " +
                 "a misconfigured widget. Returns the number of mismatches " +
-                "and each answer's result.",
+                "and each answer's outcome, with Perseus's full score only " +
+                "for the mismatches.",
             inputSchema: z.object({
                 itemId: z.string(),
                 inputs: z

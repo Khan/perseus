@@ -16,10 +16,16 @@ export interface SchemaIndex {
      * members of the `PerseusWidgetTypes` interface.
      */
     widgetTypes(): string[];
-    /** The definition of a widget's options, with its helper types. */
-    widgetOptionsSource(widgetType: string): string | null;
-    /** The definition of a widget's user input; null if it takes none. */
-    userInputSource(widgetType: string): string | null;
+    /**
+     * The definitions of a widget's options and of its user input (null if
+     * it takes none), each with its helper types. The user input leaves out
+     * the declarations the options already show (interactive-graph's user
+     * input is its options' graph types), naming them in a closing comment.
+     */
+    widgetSources(widgetType: string): {
+        optionsType: string | null;
+        userInputType: string | null;
+    };
 }
 
 type Declaration =
@@ -48,21 +54,45 @@ export function createSchemaIndex(texts: {
         dataSchemaText: texts.dataSchema,
         widgetTypes: () =>
             interfaceMemberNames(dataSchema.get("PerseusWidgetTypes")),
-        widgetOptionsSource(widgetType) {
-            const name = optionsTypeNames[widgetType];
-            return name == null
-                ? null
-                : collectDeclarations(name, [dataSchema]);
-        },
-        userInputSource(widgetType) {
-            const name = userInputTypeNames[widgetType];
-            // User input types refer to data-schema types (e.g. graph
-            // coordinates), so look in both files.
-            return name == null
-                ? null
-                : collectDeclarations(name, [validationTypes, dataSchema]);
+        widgetSources(widgetType) {
+            const optionsSource = options(widgetType);
+            const userInputSource = userInput(
+                widgetType,
+                optionsSource?.names ?? new Set(),
+            );
+            if (userInputSource == null) {
+                return {
+                    optionsType: optionsSource?.text ?? null,
+                    userInputType: null,
+                };
+            }
+            const shown = [...userInputSource.omitted];
+            return {
+                optionsType: optionsSource?.text ?? null,
+                userInputType:
+                    shown.length === 0
+                        ? userInputSource.text
+                        : `${userInputSource.text}\n\n// Also uses ` +
+                          `${shown.join(", ")}, declared in optionsType.`,
+            };
         },
     };
+
+    function options(widgetType: string) {
+        const name = optionsTypeNames[widgetType];
+        return name == null
+            ? null
+            : collectDeclarations(name, [dataSchema], new Set());
+    }
+
+    function userInput(widgetType: string, omit: ReadonlySet<string>) {
+        const name = userInputTypeNames[widgetType];
+        // User input types refer to data-schema types (e.g. graph
+        // coordinates), so look in both files.
+        return name == null
+            ? null
+            : collectDeclarations(name, [validationTypes, dataSchema], omit);
+    }
 }
 
 function parseDeclarations(fileName: string, text: string): Declarations {
@@ -194,18 +224,23 @@ function declarationText(declaration: Declaration): string {
 
 /**
  * Returns the declarations of `rootName` and of every type it refers to that's
- * declared in `searchIn`, so the result reads on its own.
+ * declared in `searchIn`, so the result reads on its own, with the names
+ * declared. Names in `omit` (and what only they refer to) are left out and
+ * returned as `omitted`.
  */
 function collectDeclarations(
     rootName: string,
     searchIn: ReadonlyArray<Declarations>,
-): string {
+    omit: ReadonlySet<string>,
+): {text: string; names: Set<string>; omitted: Set<string>} {
     const find = (name: string) =>
         searchIn
             .map((declarations) => declarations.get(name))
             .find((declaration) => declaration != null);
 
     const seen = new Set<string>();
+    const names = new Set<string>();
+    const omitted = new Set<string>();
     const out: string[] = [];
     const queue = [rootName];
     while (queue.length > 0) {
@@ -218,8 +253,13 @@ function collectDeclarations(
         if (declaration == null) {
             continue;
         }
+        if (name !== rootName && omit.has(name)) {
+            omitted.add(name);
+            continue;
+        }
+        names.add(name);
         out.push(declarationText(declaration));
         queue.push(...referencedNames(declaration));
     }
-    return out.join("\n\n");
+    return {text: out.join("\n\n"), names, omitted};
 }

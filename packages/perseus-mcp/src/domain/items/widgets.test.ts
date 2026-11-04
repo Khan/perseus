@@ -110,4 +110,28 @@ describe("WidgetCatalog", () => {
             expect(status).toBe("supported");
         });
     });
+
+    describe("spec", () => {
+        it("doesn't repeat in the user input what the options show", () => {
+            // Arrange, Act
+            const spec = widgets.spec("interactive-graph");
+
+            // Assert
+            expect({
+                optionsHasGraphTypes: spec.optionsType?.includes(
+                    "export type PerseusGraphTypeAngle",
+                ),
+                userInputHasGraphTypes: spec.userInputType?.includes(
+                    "export type PerseusGraphTypeAngle",
+                ),
+                userInputNamesThem: spec.userInputType?.includes(
+                    "// Also uses PerseusGraphType",
+                ),
+            }).toEqual({
+                optionsHasGraphTypes: true,
+                userInputHasGraphTypes: false,
+                userInputNamesThem: true,
+            });
+        });
+    });
 });

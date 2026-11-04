@@ -22,6 +22,7 @@ export type GuessResult = {
     /** Null if the user input couldn't be scored; see `issues`. */
     outcome: Outcome | null;
     matches: boolean;
+    /** Only for a mismatch: Perseus's full score, to see why. */
     score?: ItemScore;
     issues?: Issue[];
 };
@@ -56,7 +57,9 @@ export function createScoringUseCases(deps: ScoringDependencies) {
         /**
          * Scores each guess and compares the outcome with the expected one.
          * A guess that can't be scored doesn't match, and its issues are
-         * returned with it rather than failing the whole batch.
+         * returned with it rather than failing the whole batch. Only
+         * mismatches carry the full score: a match needs no explaining, and
+         * agents send many guesses at once.
          *
          * @throws DraftNotFoundError
          */
@@ -78,12 +81,13 @@ export function createScoringUseCases(deps: ScoringDependencies) {
                         };
                     }
                     const {outcome} = result.score;
+                    const matches = outcome === expected;
                     return {
                         label,
                         expected,
                         outcome,
-                        matches: outcome === expected,
-                        score: result.score,
+                        matches,
+                        ...(matches ? {} : {score: result.score}),
                     };
                 },
             );

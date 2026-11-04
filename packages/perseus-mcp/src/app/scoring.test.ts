@@ -77,6 +77,23 @@ describe("scoring use cases", () => {
             });
         });
 
+        it("gives the full score only for mismatches", () => {
+            // Arrange
+            const scoring = setUp();
+
+            // Act
+            const result = scoring.checkUserInputs("abc", [
+                {userInput: answer("0.75"), expected: "correct"},
+                {userInput: answer("4/3"), expected: "correct"},
+            ]);
+
+            // Assert
+            expect(result.results.map((r) => r.score != null)).toEqual([
+                false,
+                true,
+            ]);
+        });
+
         it("returns the issues of a guess that can't be scored", () => {
             // Arrange
             const scoring = setUp();
