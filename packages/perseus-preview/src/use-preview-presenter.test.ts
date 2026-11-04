@@ -1033,6 +1033,41 @@ describe("usePreviewPresenter", () => {
         });
     });
 
+    describe("reportRenderState", () => {
+        it("reports the render state for the content version it rendered", () => {
+            // Arrange
+            const {result} = renderHook(() => usePreviewPresenter());
+            act(() => {
+                dispatchToPresenter(
+                    createPreviewIframeInitMessage(
+                        scanQuestionContent,
+                        DEFAULT_PREVIEW_OPTIONS,
+                        3,
+                    ),
+                );
+            });
+
+            // Act
+            result.current.reportRenderState({status: "done"});
+
+            // Assert
+            const reports = mockPostMessage.mock.calls.filter(
+                ([message]) => message.type === "render-state",
+            );
+            expect(reports).toEqual([
+                [
+                    {
+                        source: PREVIEW_MESSAGE_SOURCE,
+                        type: "render-state",
+                        renderState: {status: "done"},
+                        contentVersion: 3,
+                    },
+                    PARENT_ORIGIN,
+                ],
+            ]);
+        });
+    });
+
     describe("message filtering", () => {
         it("ignores messages from different source window", () => {
             const {result} = renderHook(() => usePreviewPresenter());

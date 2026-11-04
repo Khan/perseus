@@ -19,6 +19,7 @@ import type {
     ParentToIframeMessage,
     PreviewContent,
     PreviewOptions,
+    RenderState,
 } from "./message-types";
 
 export type A11yReport = {
@@ -76,6 +77,12 @@ type UsePreviewControllerResult = {
      * Which hints the iframe last reported showing (null until it reports).
      */
     hintsState: HintsState | null;
+    /**
+     * How the iframe's render of the latest content went: "rendering" from
+     * the moment content is sent (or resent to a reloaded iframe) until the
+     * iframe reports "done" or "error" for it. Null until content is sent.
+     */
+    renderState: RenderState | null;
 };
 
 /**
@@ -114,6 +121,9 @@ export function usePreviewController(
     const [isIframeReady, setIsIframeReady] = React.useState(false);
     const [a11yReport, setA11yReport] = React.useState<A11yReport | null>(null);
     const [hintsState, setHintsState] = React.useState<HintsState | null>(null);
+    const [renderState, setRenderState] = React.useState<RenderState | null>(
+        null,
+    );
 
     // The current desired preview state, resent in full as an `iframe-init`
     // reply whenever the iframe announces `iframe-ready` — including on a
@@ -166,6 +176,10 @@ export function usePreviewController(
             // Handle the message
             switch (message.type) {
                 case "iframe-ready": {
+                    // A (re)loaded iframe renders the current content anew.
+                    if (currentContentRef.current != null) {
+                        setRenderState({status: "rendering"});
+                    }
                     postToIframe(
                         createPreviewIframeInitMessage(
                             currentContentRef.current
@@ -199,6 +213,15 @@ export function usePreviewController(
                     setHintsState(message.hintsState);
                     break;
 
+                case "render-state":
+                    // Discard a report about content a newer edit has since
+                    // superseded.
+                    if (message.contentVersion !== contentVersionRef.current) {
+                        break;
+                    }
+                    setRenderState(message.renderState);
+                    break;
+
                 default:
                     throw new UnreachableCaseError(message);
             }
@@ -216,6 +239,7 @@ export function usePreviewController(
         (data: PreviewContent) => {
             currentContentRef.current = data;
             contentVersionRef.current += 1;
+            setRenderState({status: "rendering"});
 
             // We can safely bail here. We'll send a full init message later
             // once the iframe sends it's 'iframe-ready' message.
@@ -290,5 +314,6 @@ export function usePreviewController(
         a11yReport,
         revealHint,
         hintsState,
+        renderState,
     };
 }

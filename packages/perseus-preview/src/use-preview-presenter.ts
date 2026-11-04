@@ -8,6 +8,7 @@ import {
     createPreviewA11yReportMessage,
     createPreviewHintsStateMessage,
     createPreviewIframeReadyMessage,
+    createPreviewRenderStateMessage,
     DEFAULT_PREVIEW_OPTIONS,
     PREVIEW_MESSAGE_SOURCE,
 } from "./message-types";
@@ -19,6 +20,7 @@ import type {
     ParentToIframeMessage,
     PreviewContent,
     PreviewOptions,
+    RenderState,
 } from "./message-types";
 import type {Hint} from "@khanacademy/perseus-core";
 
@@ -44,6 +46,13 @@ type UsePreviewPresenterResult = {
      * Function to report the current height of the iframe content to the parent
      */
     reportHeight: (height: number) => void;
+    /**
+     * Report how the render of the current content went: "done" once it and
+     * its images and math have rendered (ServerItemRenderer reports this
+     * through `LoadingContext`), or "error". The parent counts any new
+     * content as "rendering" until then.
+     */
+    reportRenderState: (renderState: RenderState) => void;
     /**
      * Elements to draw "Show Me" highlight overlays over, resolved from the
      * latest scan's element map via the instanceIds in a highlight-issues
@@ -390,10 +399,22 @@ export function usePreviewPresenter(
         [postToParent],
     );
 
+    // Tagged with the version of the content in this render, not the ref:
+    // a renderer can report before the effect that updates the ref runs.
+    const reportRenderState = React.useCallback(
+        (renderState: RenderState) => {
+            postToParent(
+                createPreviewRenderStateMessage(renderState, contentVersion),
+            );
+        },
+        [contentVersion, postToParent],
+    );
+
     return {
         content,
         previewOptions,
         reportHeight,
+        reportRenderState,
         highlightTargets,
         hintsVisible,
         hintsState,

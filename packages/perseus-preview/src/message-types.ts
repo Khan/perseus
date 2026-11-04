@@ -344,13 +344,45 @@ export function createPreviewHintsStateMessage(
 }
 
 /**
+ * How the iframe's render of the content went. The parent starts each new
+ * content at "rendering"; the iframe reports "done" once the content and its
+ * images and math have finished rendering, or "error" if it couldn't render.
+ */
+export type RenderState =
+    | {status: "rendering"}
+    | {status: "done"}
+    | {status: "error"; message: string};
+
+/**
+ * Message from iframe reporting how its render of the content went, for the
+ * content version it rendered.
+ */
+interface PreviewRenderStateMessage extends PreviewMessageVersioned {
+    type: "render-state";
+    renderState: RenderState;
+}
+
+export function createPreviewRenderStateMessage(
+    renderState: RenderState,
+    contentVersion: number,
+): PreviewRenderStateMessage {
+    return {
+        source: PREVIEW_MESSAGE_SOURCE,
+        type: "render-state",
+        renderState,
+        contentVersion,
+    };
+}
+
+/**
  * Union of all messages sent from iframe to parent
  */
 export type IframeToParentMessage =
     | PreviewIframeReadyMessage
     | PreviewHeightUpdateMessage
     | PreviewA11yReportMessage
-    | PreviewHintsStateMessage;
+    | PreviewHintsStateMessage
+    | PreviewRenderStateMessage;
 
 export function createPreviewIframeReadyMessage(): PreviewIframeReadyMessage {
     return {

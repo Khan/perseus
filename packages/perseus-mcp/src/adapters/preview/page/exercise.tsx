@@ -4,6 +4,7 @@
 import {
     ApiOptions,
     HintRenderer,
+    LoadingContext,
     ServerItemRenderer,
     usePerseusI18n,
 } from "@khanacademy/perseus";
@@ -25,6 +26,7 @@ import type {
     HintsState,
     PreviewContent,
     PreviewOptions,
+    RenderState,
 } from "@khanacademy/perseus-preview";
 
 type ExerciseData = Extract<PreviewContent, {type: "exercise"}>["data"];
@@ -107,7 +109,96 @@ function Hints({
     );
 }
 
-export function Exercise({
+// A key per item, so each new item (a new revision of the draft) mounts a
+// new renderer: ServerItemRenderer reports that it has rendered only once
+// per mount.
+const itemKeys = new WeakMap<object, number>();
+let nextItemKey = 0;
+
+function keyOf(item: object): number {
+    let key = itemKeys.get(item);
+    if (key == null) {
+        key = nextItemKey++;
+        itemKeys.set(item, key);
+    }
+    return key;
+}
+
+type RenderErrorBoundaryProps = {
+    onError: (error: Error) => void;
+    children: React.ReactNode;
+};
+
+/**
+ * Shows why the item couldn't render, in place of the item, and reports it.
+ * Perseus already contains the errors of single widgets.
+ */
+type RenderErrorBoundaryState = {error: Error | null};
+
+class RenderErrorBoundary extends React.Component<
+    RenderErrorBoundaryProps,
+    RenderErrorBoundaryState
+> {
+    state: RenderErrorBoundaryState = {error: null};
+
+    static getDerivedStateFromError(error: Error) {
+        return {error};
+    }
+
+    componentDidCatch(error: Error) {
+        this.props.onError(error);
+    }
+
+    render() {
+        const {error} = this.state;
+        return error == null ? (
+            this.props.children
+        ) : (
+            <p role="alert">{`Perseus couldn't render this item: ${error.message}`}</p>
+        );
+    }
+}
+
+/**
+ * The item as learners see it. Reports "done" through `onRenderState` once
+ * Perseus has rendered it, images and math included, or "error" if it can't
+ * render; a new item is "rendering" until then, which the shell's controller
+ * assumes for new content without being told.
+ */
+export function Exercise(props: {
+    data: ExerciseData;
+    previewOptions: PreviewOptions;
+    hintsState: HintsState;
+    /** Called with the answer and its result each time one is checked. */
+    onCheck?: (userInput: unknown, result: string) => void;
+    onRenderState?: (renderState: RenderState) => void;
+}) {
+    const {onRenderState} = props;
+    const loading = React.useMemo(
+        () => ({
+            onRendered: (isRendered: boolean) => {
+                if (isRendered) {
+                    onRenderState?.({status: "done"});
+                }
+            },
+        }),
+        [onRenderState],
+    );
+    return (
+        <RenderErrorBoundary
+            key={keyOf(props.data.item)}
+            onError={(error) =>
+                onRenderState?.({status: "error", message: error.message})
+            }
+        >
+            <LoadingContext.Provider value={loading}>
+                <ExerciseItem {...props} />
+            </LoadingContext.Provider>
+        </RenderErrorBoundary>
+    );
+}
+
+function ExerciseItem({
     data,
     previewOptions,
     hintsState,
@@ -116,7 +207,6 @@ export function Exercise({
     data: ExerciseData;
     previewOptions: PreviewOptions;
     hintsState: HintsState;
-    /** Called with the answer and its result each time one is checked. */
     onCheck?: (userInput: unknown, result: string) => void;
 }) {
     const {item} = data;
@@ -124,10 +214,6 @@ export function Exercise({
     const {strings} = usePerseusI18n();
     const rendererRef = React.useRef<ServerItemRendererComponent>(null);
     const [result, setResult] = React.useState<string | null>(null);
-
-    // A new revision of the draft may change the answer, so an old result no
-    // longer applies.
-    React.useEffect(() => setResult(null), [item]);
 
     // Learners get the item without its answers. Showing the answers needs
     // them, so the options that do override answerless.

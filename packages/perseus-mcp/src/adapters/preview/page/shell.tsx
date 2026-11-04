@@ -12,6 +12,7 @@ import {
     HintControls,
     OptionControls,
 } from "./controls";
+import {useRenderMarkers} from "./render-markers";
 import styles from "./shell.module.css";
 
 // The page setup Wonder Blocks expects: its tokens, fonts and base styles.
@@ -59,8 +60,17 @@ function useDraftEvents(itemId: string) {
 
 function Shell({itemId}: {itemId: string}) {
     const iframeRef = React.useRef<HTMLIFrameElement>(null);
-    const {sendData, height, revealHint, hintsState, setPreviewOptions} =
-        usePreviewController(iframeRef);
+    const {
+        sendData,
+        height,
+        revealHint,
+        hintsState,
+        setPreviewOptions,
+        renderState,
+    } = usePreviewController(iframeRef);
+    // On this page's body, so a tool that opens the page's URL can tell when
+    // the frame has rendered the draft.
+    useRenderMarkers(renderState);
     const [options, setOptions] = React.useState<OfferedOptions>(
         DEFAULT_OFFERED_OPTIONS,
     );

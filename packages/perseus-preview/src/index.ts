@@ -16,6 +16,7 @@ export type {
     PreviewContent,
     PreviewOptions,
     QuestionPreviewData,
+    RenderState,
 } from "./message-types";
 export {
     describeHints,

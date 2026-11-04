@@ -3,6 +3,7 @@ import {renderHook, act, waitFor} from "@testing-library/react";
 import {
     createPreviewHintsStateMessage,
     createPreviewIframeReadyMessage,
+    createPreviewRenderStateMessage,
     DEFAULT_PREVIEW_OPTIONS,
     PREVIEW_MESSAGE_SOURCE,
 } from "./message-types";
@@ -602,6 +603,101 @@ describe("usePreviewController", () => {
             dispatchA11yReport([issue("v1")], [issue("i1")], 1);
 
             expect(result.current.a11yReport).toBeNull();
+        });
+    });
+
+    describe("render state", () => {
+        function dispatchRenderState(
+            renderState: Parameters<typeof createPreviewRenderStateMessage>[0],
+            contentVersion: number,
+        ) {
+            act(() => {
+                window.dispatchEvent(
+                    new MessageEvent("message", {
+                        data: createPreviewRenderStateMessage(
+                            renderState,
+                            contentVersion,
+                        ),
+                        source: mockContentWindow,
+                        origin: IFRAME_ORIGIN,
+                    }),
+                );
+            });
+        }
+
+        it("is null until content is sent", () => {
+            // Arrange, Act
+            const {result} = renderHook(() => usePreviewController(iframeRef));
+
+            // Assert
+            expect(result.current.renderState).toBeNull();
+        });
+
+        it("is rendering once content is sent", () => {
+            // Arrange
+            const {result} = renderHook(() => usePreviewController(iframeRef));
+
+            // Act
+            act(() => result.current.sendData(createQuestionPreview()));
+
+            // Assert
+            expect(result.current.renderState).toEqual({status: "rendering"});
+        });
+
+        it("returns the state the iframe reports for the current content", () => {
+            // Arrange
+            const {result} = renderHook(() => usePreviewController(iframeRef));
+            act(() => result.current.sendData(createQuestionPreview()));
+
+            // Act
+            dispatchRenderState({status: "error", message: "Boom"}, 1);
+
+            // Assert
+            expect(result.current.renderState).toEqual({
+                status: "error",
+                message: "Boom",
+            });
+        });
+
+        it("ignores a report about superseded content", () => {
+            // Arrange
+            const {result} = renderHook(() => usePreviewController(iframeRef));
+            act(() => {
+                result.current.sendData(createQuestionPreview());
+                result.current.sendData(createQuestionPreview());
+            });
+
+            // Act
+            dispatchRenderState({status: "done"}, 1);
+
+            // Assert
+            expect(result.current.renderState).toEqual({status: "rendering"});
+        });
+
+        it("is rendering again when new content is sent", () => {
+            // Arrange
+            const {result} = renderHook(() => usePreviewController(iframeRef));
+            act(() => result.current.sendData(createQuestionPreview()));
+            dispatchRenderState({status: "done"}, 1);
+
+            // Act
+            act(() => result.current.sendData(createQuestionPreview()));
+
+            // Assert
+            expect(result.current.renderState).toEqual({status: "rendering"});
+        });
+
+        it("is rendering again when a reloaded iframe gets the content", () => {
+            // Arrange
+            const {result} = renderHook(() => usePreviewController(iframeRef));
+            act(() => result.current.sendData(createQuestionPreview()));
+            dispatchRenderState({status: "done"}, 1);
+
+            // Act
+            sendIframeReadyMessage();
+
+            // Assert
+            expect(result.current.renderState).toEqual({status: "rendering"});
         });
     });
 
