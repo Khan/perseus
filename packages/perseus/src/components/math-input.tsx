@@ -324,8 +324,9 @@ class InnerMathInput extends React.Component<InnerProps, State> {
     }
 
     // Runs in the capture phase so that the event is stopped before it reaches
-    // MathQuill's listeners on the textarea. Tab is let through so that
-    // keyboard users can still move past the input.
+    // MathQuill's listeners, which would otherwise edit the value or, on
+    // mousedown, place a blinking cursor. Tab is let through so that keyboard
+    // users can still move past the input.
     blockEditWhenDisabled: (e: React.SyntheticEvent) => void = (e) => {
         if (!this.props.disabled) {
             return;
@@ -342,6 +343,11 @@ class InnerMathInput extends React.Component<InnerProps, State> {
 
     focus: () => void = () => {
         if (this.props.disabled) {
+            // MathQuill's own focus listener on the textarea shows a blinking
+            // cursor, which would suggest the input can be edited. It runs
+            // before this React handler, so hiding the cursor here removes
+            // it and stops the blink.
+            this.mathField()?.cursor().hide();
             // Still track focus so that keyboard users get a focus
             // indicator, but don't focus the MathQuill field.
             this.setState({focused: true});
@@ -419,9 +425,6 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                         display: "flex",
                         alignItems: "center",
                         padding: 1,
-                        // Keep MathQuill from placing a cursor or starting a
-                        // selection when a disabled input is clicked.
-                        pointerEvents: this.props.disabled ? "none" : undefined,
                     }}
                     onClick={(e) => {
                         // Prevent the click into the input from registering
@@ -449,6 +452,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                         onPasteCapture={this.blockEditWhenDisabled}
                         onCutCapture={this.blockEditWhenDisabled}
                         onDropCapture={this.blockEditWhenDisabled}
+                        onMouseDownCapture={this.blockEditWhenDisabled}
                     />
                     <Popover
                         opened={this.state.keypadOpen}

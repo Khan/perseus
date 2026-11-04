@@ -841,6 +841,21 @@ describe("disabled state", () => {
         );
     });
 
+    it("shows the MathQuill cursor when the interactive input is focused", async () => {
+        // Arrange
+        renderQuestion(generateRenderer(false), {
+            apiOptions: {readOnly: false},
+        });
+
+        // Act
+        await userEvent.tab();
+
+        // Assert
+        // MathQuill's cursor has no role or accessible name to query by.
+        // eslint-disable-next-line testing-library/no-node-access
+        expect(document.querySelector(".mq-cursor")).toBeInTheDocument();
+    });
+
     describe.each([
         {name: "static", isStatic: true, readOnly: false},
         {name: "read-only", isStatic: false, readOnly: true},
@@ -870,6 +885,49 @@ describe("disabled state", () => {
             // Assert
             expect(screen.getByRole("textbox")).toHaveFocus();
         });
+
+        it("does not show the MathQuill cursor when focused", async () => {
+            // Arrange
+            renderQuestion(generateRenderer(isStatic), {
+                apiOptions: {readOnly},
+            });
+
+            // Act
+            await userEvent.tab();
+
+            // Assert
+            // MathQuill's cursor has no role or accessible name to query by.
+            // eslint-disable-next-line testing-library/no-node-access
+            const cursor = document.querySelector(".mq-cursor");
+            expect(cursor).not.toBeInTheDocument();
+        });
+
+        it.each([
+            {device: "desktop", customKeypad: false},
+            {device: "mobile", customKeypad: true},
+        ])(
+            "does not show the MathQuill cursor when the $device input is clicked",
+            async ({customKeypad}) => {
+                // Arrange
+                renderQuestion(generateRenderer(isStatic), {
+                    apiOptions: {readOnly, customKeypad},
+                });
+                // Click MathQuill's rendered math, which is where a real
+                // click lands and where MathQuill listens for mousedown.
+                // MathQuill's elements have no role or accessible name to
+                // query by.
+                // eslint-disable-next-line testing-library/no-node-access
+                const mathContent = document.querySelector(".mq-root-block");
+
+                // Act
+                await userEvent.click(mathContent!);
+
+                // Assert
+                // eslint-disable-next-line testing-library/no-node-access
+                const cursor = document.querySelector(".mq-cursor");
+                expect(cursor).not.toBeInTheDocument();
+            },
+        );
 
         it("does not change user input when keys are pressed while focused", async () => {
             // Arrange

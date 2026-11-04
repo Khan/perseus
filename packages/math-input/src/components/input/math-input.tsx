@@ -1017,6 +1017,16 @@ class MathInput extends React.Component<Props, State> {
                             }}
                             onBlur={this.blur}
                             onKeyUp={this.handleKeyUp}
+                            onMouseDownCapture={(e) => {
+                                // MathQuill listens for mousedown on its
+                                // container to place a blinking cursor, which
+                                // would suggest that a disabled input can be
+                                // edited. Stopping the event in the capture
+                                // phase keeps it from reaching MathQuill.
+                                if (disabled) {
+                                    e.stopPropagation();
+                                }
+                            }}
                         >
                             {/* NOTE(charlie): This element must be styled with inline
                     styles rather than with Aphrodite classes, as MathQuill
