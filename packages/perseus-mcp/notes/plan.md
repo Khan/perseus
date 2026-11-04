@@ -77,13 +77,44 @@ from outside the repo.
 | Ship perseus-mcp to testers as a macOS zip | The organization's extension allowlist keeps Claude Desktop from installing a `.mcpb` that an owner hasn't approved, so testers run the server from a `claude_desktop_config.json` entry instead, and the `.mcpb` (manifest, icon, `@anthropic-ai/mcpb`) is gone. `build:bundle` (renamed from `build:mcpb`) builds `dist/perseus-mcp-macos-arm64.zip`: a `perseus-mcp/` folder with the server, the Node that ran the build (it must be an official macOS arm64 build, 20.11 or later; signed by the Node.js Foundation, so Gatekeeper takes it), Node's license and `INSTALL.md` with the config entry. Only macOS on Apple silicon is supported. Tested in Claude Desktop from `~/Applications/perseus-mcp`: the tools, validation and answer checks, the in-chat preview following edits, and the browser preview. |
 | Plan a gutter for the preview's hint labels | Plan only. |
 | Show the preview's hint labels | Perseus styles hints only inside an exercise page's `.bibliotron-exercise` container (`perseus-renderer-part-2.css`), as Storybook's hints decorator does: without it, a hint has no border, padding or `position: relative`, and its "n / total" label (`position: absolute; right: 100%`) lands off the page. The preview's hints are now in that container, and both pages leave a 6.4rem gutter at their inline start for the label. Checked in the browser preview. |
+| Tell the model what happens in the in-chat preview | The MCP Apps page sends the host a description of the preview whenever it changes (`app.updateModelContext`, when the host supports it): the draft and revision, the last answer checked (Perseus's user input) and its result, the hints revealed and the preview options on. Hosts keep the latest and send it with the person's next message, so they can ask about what they did without Claude calling a tool. `describePreview` (`app/model-context.ts`) writes it; `Exercise` reports each check through `onCheck`. Tested in Claude Desktop: asked what was answered and how many hints were open, Claude knew. |
 
 Remaining, in order:
 
-1. Step 5 follow-ups, once testing in Claude Desktop says what's needed:
-   send what the learner did (answers, scores) to the chat as model context
-   (`app.updateModelContext`), and shrink the in-chat page (most of its
-   7.6 MB is MathJax and its speech engine).
+1. Step 5 follow-up: shrink the in-chat page. (What the learner did now
+   reaches the model through `app.updateModelContext`.) Measured, its
+   7.6 MB is 4.8 MB of script (`mathjax-full` 1.4 MB, `katex` 0.98 MB,
+   perseus 0.90 MB, perseus-editor 0.64 MB, `speech-rule-engine`
+   0.59 MB, MCP client 0.28 MB) and 2.5 MB of base64 fonts (Symbola
+   1.5 MB in four formats, Lato 0.8 MB in 12 weights). KaTeX comes only
+   from perseus-editor (`util/tex-error-detector.ts`), which the page
+   imports for the hint rules alone. Two commits:
+   1. **`@khanacademy/perseus-preview`**, a new published package for the
+      preview, which isn't the editor's alone: the page that hosts the
+      iframe and the iframe both use it, and perseus-mcp uses both ends.
+      It takes perseus-editor's `src/preview/` (the message types,
+      validators and sanitizers, `usePreviewController`,
+      `usePreviewPresenter`, the hint rules in `hints-state.ts`, and the
+      `a11y/` scan, which loads `axe-core` only when it runs) and
+      `PreviewWithIframe` (which needs only React and the preview code).
+      The `A11yIssue` type moves from the editor's `issues-panel` into it,
+      and the issues panel imports it from there. Its dependencies: React,
+      perseus-core, wonder-stuff-core, wonder-blocks-timing and
+      `axe-core`, plus types from perseus (`APIOptions`). perseus-editor
+      depends on it and doesn't re-export it: a breaking change, in the
+      same major release as `steady-harbors-listen`, so its changeset says
+      what to import from where. perseus-mcp's pages import from it and
+      drop perseus-editor, which takes KaTeX and the editor out of the
+      in-chat page (about 1.6 MB).
+   2. **Symbola in woff2 only** in the in-chat page (about 1.1 MB): every
+      browser that runs an MCP Apps host reads woff2, so the woff, ttf
+      and eot copies are dead weight. Measured before and after with the
+      same per-package breakdown, and checked: math, hints and answer
+      checks still render.
+
+   Not planned: fewer Lato weights (which ones Perseus uses would need
+   checking), or dropping the speech rule engine, which reads math to
+   screen readers.
 2. The preview's `renderDone` and `renderError` markers (see Preview).
 3. Build order steps 7 to 10.
 

@@ -23,8 +23,10 @@ import {
 import {Exercise} from "../page/exercise";
 import {dependenciesV2} from "../page/perseus-environment";
 
+import {describePreview} from "./model-context";
 import styles from "./preview-app.module.css";
 
+import type {AnswerCheck} from "./model-context";
 import type {OfferedOptions} from "../page/controls";
 import type {PerseusItem} from "@khanacademy/perseus-core";
 
@@ -139,13 +141,44 @@ function useDraft(id: string | null): {draft: Draft | null; error: string} {
     return {draft, error};
 }
 
-function Preview({draft}: {draft: Draft}) {
+/**
+ * Tells the model what the person is doing in the preview, when the host
+ * accepts it. The host sends the latest description with the person's next
+ * message, without prompting a reply, so they can ask about what they did.
+ */
+function useModelContext(text: string) {
+    React.useEffect(() => {
+        if (app.getHostCapabilities()?.updateModelContext == null) {
+            return;
+        }
+        app.updateModelContext({content: [{type: "text", text}]}).catch(
+            // The preview works without it; the model just knows less.
+            () => {},
+        );
+    }, [text]);
+}
+
+function Preview({itemId: id, draft}: {itemId: string; draft: Draft}) {
     const {item} = draft;
     const [options, setOptions] = React.useState<OfferedOptions>(
         DEFAULT_OFFERED_OPTIONS,
     );
     const [reveal, setReveal] = React.useState(INITIAL_HINTS_REVEAL);
     const hintsState = describeHints(item.hints, reveal);
+    const [lastCheck, setLastCheck] = React.useState<AnswerCheck | null>(null);
+    // A new revision may change the answer, so an old check no longer
+    // applies (Exercise clears its result too).
+    React.useEffect(() => setLastCheck(null), [item]);
+
+    useModelContext(
+        describePreview({
+            itemId: id,
+            revision: draft.revision,
+            options,
+            hintsState,
+            lastCheck,
+        }),
+    );
 
     return (
         <View className={styles.page}>
@@ -168,6 +201,9 @@ function Preview({draft}: {draft: Draft}) {
                     data={{item, apiOptions: {}, showRationales: false}}
                     previewOptions={{...DEFAULT_PREVIEW_OPTIONS, ...options}}
                     hintsState={hintsState}
+                    onCheck={(userInput, result) =>
+                        setLastCheck({userInput, result})
+                    }
                 />
             </View>
         </View>
@@ -193,7 +229,9 @@ function PreviewApp() {
     return (
         <View className={styles.page}>
             <BodyText>{status}</BodyText>
-            {draft != null && <Preview draft={draft} />}
+            {id != null && draft != null && (
+                <Preview itemId={id} draft={draft} />
+            )}
         </View>
     );
 }

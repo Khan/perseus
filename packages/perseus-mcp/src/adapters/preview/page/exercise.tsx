@@ -111,10 +111,13 @@ export function Exercise({
     data,
     previewOptions,
     hintsState,
+    onCheck,
 }: {
     data: ExerciseData;
     previewOptions: PreviewOptions;
     hintsState: HintsState;
+    /** Called with the answer and its result each time one is checked. */
+    onCheck?: (userInput: unknown, result: string) => void;
 }) {
     const {item} = data;
     const {reviewMode, showSolutions, answerless, readOnly} = previewOptions;
@@ -144,12 +147,13 @@ export function Exercise({
         }
         // Scored against the full item, as the server scores learners'
         // answers.
-        const scored = scoreItem(item, renderer.getUserInput(), "en");
-        setResult(
-            scored.ok
-                ? describeScore(scored.score, strings)
-                : scored.issues.map((issue) => issue.message).join(" "),
-        );
+        const userInput = renderer.getUserInput();
+        const scored = scoreItem(item, userInput, "en");
+        const described = scored.ok
+            ? describeScore(scored.score, strings)
+            : scored.issues.map((issue) => issue.message).join(" ");
+        setResult(described);
+        onCheck?.(userInput, described);
     }
 
     return (
