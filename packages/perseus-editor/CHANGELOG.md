@@ -1,5 +1,19 @@
 # @khanacademy/perseus-editor
 
+## 45.0.7
+
+### Patch Changes
+
+-   [#4473](https://github.com/Khan/perseus/pull/4473) [`c5af770`](https://github.com/Khan/perseus/commit/c5af770a0d201230568e47677d6a300c885efab4) Thanks [@benchristel](https://github.com/benchristel)! - Add a lint rule that runs the markdown and widget linters on the content of each group in a Graded Group Set.
+
+-   Updated dependencies [[`d477ac6`](https://github.com/Khan/perseus/commit/d477ac65fcd6b05ee9d538c015134a97573e0f85), [`ab4be27`](https://github.com/Khan/perseus/commit/ab4be2718fe891ff4485623f67675e25ebff07ea), [`a410c69`](https://github.com/Khan/perseus/commit/a410c692a8acdd512fa6bdee20ba1ff9abff79ba), [`d0a30fd`](https://github.com/Khan/perseus/commit/d0a30fd32b2be0a9b7e56f3439acb78c997045dd), [`cb3f878`](https://github.com/Khan/perseus/commit/cb3f878314870df2299fab42ee772e73127ca218), [`e183904`](https://github.com/Khan/perseus/commit/e183904fe87a41c5a3f878893258ffbb3047d63e), [`c5af770`](https://github.com/Khan/perseus/commit/c5af770a0d201230568e47677d6a300c885efab4), [`3f65aa5`](https://github.com/Khan/perseus/commit/3f65aa58c10ce4594fbd72cd3d6f1fed63a47d9e), [`3cc554f`](https://github.com/Khan/perseus/commit/3cc554f63495651b9181aee97216c4bf73e80111), [`c5e9fd8`](https://github.com/Khan/perseus/commit/c5e9fd8c9ac031e536c6d610ad91ff103601e124)]:
+    -   @khanacademy/perseus-core@42.2.0
+    -   @khanacademy/perseus-linter@8.0.0
+    -   @khanacademy/perseus@93.0.3
+    -   @khanacademy/keypad-context@6.0.12
+    -   @khanacademy/kmath@3.1.5
+    -   @khanacademy/math-input@30.2.2
+
 ## 45.0.6
 
 ### Patch Changes
