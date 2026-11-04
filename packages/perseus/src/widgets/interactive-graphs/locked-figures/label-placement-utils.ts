@@ -53,7 +53,7 @@ const labelHeightPx = 19;
  * before the label's text has been typeset, so it starts from this and is
  * recomputed once a real measurement arrives.
  */
-const assumedLabelSize: LabelSize = {width: 24, height: labelHeightPx};
+export const assumedLabelSize: LabelSize = {width: 24, height: labelHeightPx};
 
 function rectsOverlap(a: Rect, b: Rect): boolean {
     return (
@@ -63,6 +63,54 @@ function rectsOverlap(a: Rect, b: Rect): boolean {
         a.top < b.bottom
     );
 }
+
+/** Half the diagonal of a label, the clearance it demands around itself. */
+function halfDiagonal(size: LabelSize): number {
+    return Math.hypot(size.width, size.height) / 2;
+}
+
+function inflateRect(rect: Rect, by: number): Rect {
+    return {
+        left: rect.left - by,
+        top: rect.top - by,
+        right: rect.right + by,
+        bottom: rect.bottom + by,
+    };
+}
+
+/** Area the two rectangles share; zero when they don't overlap. */
+function overlapArea(a: Rect, b: Rect): number {
+    const width = Math.min(a.right, b.right) - Math.max(a.left, b.left);
+    const height = Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top);
+
+    if (width <= 0 || height <= 0) {
+        return 0;
+    }
+    return width * height;
+}
+
+/**
+ * Distance from a rectangle to a circle: positive when they're clear of each
+ * other, negative when they overlap (the depth of the overlap).
+ */
+function rectToCircleGap(
+    rect: Rect,
+    centerPx: [number, number],
+    radius: number,
+): number {
+    // Distance from the circle's center to the nearest point of the rect,
+    // zero on an axis where the center lies within the rect's span.
+    const dx = Math.max(rect.left - centerPx[X], 0, centerPx[X] - rect.right);
+    const dy = Math.max(rect.top - centerPx[Y], 0, centerPx[Y] - rect.bottom);
+
+    return Math.hypot(dx, dy) - radius;
+}
+
+/** Which horizontal edge of the label sits on the placement coordinate. */
+type LabelAnchorX = "left" | "right";
+
+/** Which vertical edge of the label sits on the placement coordinate. */
+type LabelAnchorY = "above" | "below";
 
 /**
  * The box a label would occupy, given where its anchored corner sits and which
@@ -271,51 +319,6 @@ function getAnchorX(horizontalOffsetPx: number): LabelAnchorX {
 }
 
 /**
- * Pushes a label out of the tick zones it overlaps, perpendicular to each.
- *
- * Both axes are resolved in one step rather than one after the other: a label
- * near the origin can sit inside both zones at once, and since each zone runs
- * the full extent of the graph, escaping one by moving along it never leaves
- * the other. Moving away from both at once clears the corner they form.
- *
- * Returns the adjusted corner position.
- */
-function nudgeOutOfTickZones(
-    cornerPx: [number, number],
-    anchorX: LabelAnchorX,
-    anchorY: LabelAnchorY,
-    size: LabelSize,
-    zones: Rect[],
-): [number, number] {
-    const labelRect = getLabelRect(cornerPx, anchorX, anchorY, size);
-
-    let shiftX = 0;
-    let shiftY = 0;
-
-    for (const zone of zones) {
-        if (!rectsOverlap(labelRect, zone)) {
-            continue;
-        }
-
-        // A zone spanning the full width blocks vertically; one spanning the
-        // full height blocks horizontally. Escape perpendicular to the zone,
-        // in whichever direction is shorter.
-        const spansWidth = zone.left <= 0 && zone.right >= labelRect.right;
-        if (spansWidth) {
-            const up = zone.top - labelRect.bottom;
-            const down = zone.bottom - labelRect.top;
-            shiftY = Math.abs(up) <= Math.abs(down) ? up : down;
-        } else {
-            const left = zone.left - labelRect.right;
-            const right = zone.right - labelRect.left;
-            shiftX = Math.abs(left) <= Math.abs(right) ? left : right;
-        }
-    }
-
-    return [cornerPx[X] + shiftX, cornerPx[Y] + shiftY];
-}
-
-/**
  * Moves a label to the other side of its point on whichever axes would
  * otherwise run past a graph edge.
  *
@@ -367,7 +370,7 @@ function keepLabelInBounds(
 
 /**
  * The graph information label placement needs: its range and pixel size, plus
- * enough of the markings config to know whether x-axis tick labels are on
+ * enough of the markings config to know whether axis tick labels are on
  * screen. The marking fields are optional so callers that only have a
  * `GraphDimensions` can still place labels.
  */
@@ -377,138 +380,311 @@ export type AutoLabelGraphInfo = GraphDimensions & {
     tickStep?: vec.Vector2;
 };
 
-/** Which horizontal edge of the label sits on the placement coordinate. */
-export type LabelAnchorX = "left" | "right";
-
-/** Which vertical edge of the label sits on the placement coordinate. */
-export type LabelAnchorY = "above" | "below";
+/**
+ * Radius, in pixels, of a rendered locked point: mafs draws the circle at 6px
+ * and Perseus strokes it at 2px, half of which falls outside.
+ */
+const pointRadiusPx = 7;
 
 /**
- * Where to draw a label: the coordinate to position it at, and which of its
- * own corners that coordinate refers to.
- *
- * The coordinate is a point on the conceptual line out from the graph's
- * center, and the anchors say which corner of the label to pin there — the
- * corner facing its point. Anchoring by a corner rather than the label's
- * center keeps the gap between point and label the same no matter how wide
- * the text renders, which can't be known ahead of time because labels may
- * contain TeX.
- *
- * `anchorX` of "right" means the label extends rightward from the coordinate
- * (its left edge is pinned); "left" means it extends leftward. Likewise
- * `anchorY` of "below" extends downward and "above" extends upward.
+ * Multiples of `labelOffsetPx` to try when the ideal position is blocked.
+ * Each step trades proximity for room, so a label only travels as far as it
+ * needs to.
  */
+const candidateRadiusScales = [1, 1.5, 2, 3];
+
+/**
+ * How much each kind of problem counts against a candidate position.
+ *
+ * Collisions outrank distance: a label that sits a long way from its point
+ * still reads correctly, whereas one overlapping a point or another label does
+ * not. `deviation` tops out around 4 (the furthest candidate), so any real
+ * overlap outweighs every distance difference.
+ *
+ * Within the collisions: running off the graph is worst, since the label is
+ * then partly unreadable. Covering a point destroys the figure's meaning,
+ * while clipping a tick number is merely untidy.
+ *
+ * These are the knob for tuning how tightly labels pack.
+ */
+const weightDeviation = 1;
+const weightLabelOverlap = 60;
+const weightPointOverlap = 40;
+const weightTickOverlap = 25;
+const weightOutOfBounds = 100;
+
+/** A label to place, and the point it belongs to. */
+export type LabelPlacementItem = {
+    /** Identifies this label in the returned map. */
+    key: string;
+    /** The owning point, in graph units. */
+    anchorCoord: Coord;
+    /** Measured size, or `assumedLabelSize` if it hasn't been measured yet. */
+    size: LabelSize;
+};
+
+/** Where to draw a label: the top-left corner of its box, in pixels. */
 export type LabelPlacement = {
-    coord: Coord;
-    anchorX: LabelAnchorX;
-    anchorY: LabelAnchorY;
+    cornerPx: [number, number];
+};
+
+/** A position being considered for a label, with the box it would occupy. */
+type Candidate = {
+    rect: Rect;
+};
+
+/** A point that labels have to stay clear of. */
+type PointObstacle = {
+    centerPx: [number, number];
+    /** Which label owns this point, so it can skip its own. */
+    ownerKeys: ReadonlySet<string>;
 };
 
 /**
- * Picks where to draw a point's label: `labelOffsetPx` along the line running
- * from the graph's reference point — the origin when it's visible, otherwise
- * the middle of the graph — out through the point.
+ * Positions to consider for a label: its ideal spot on the conceptual line
+ * first, then the eight compass directions at increasing distances.
  *
- * Three adjustments then apply, in order:
- *
- * 1. The anchors flip if the label's box would extend past a graph edge, so it
- *    grows inward instead. This keeps the label on its conceptual line rather
- *    than moving it.
- * 2. If the label would land on the tick numbers along either axis, it is
- *    mirrored to the other side of its point — which usually clears them while
- *    keeping the label on the same line.
- * 3. If mirroring isn't enough, the label is nudged perpendicular to whichever
- *    zones it still overlaps until it is clear.
- *
- * `labelSize` is the label's measured dimensions. Placement runs before the
- * text has been typeset, so it falls back to an assumed size and is recomputed
- * once a measurement arrives.
- *
- * The returned coordinate is a corner of the label rather than its center; the
- * anchors say which one, and the label element has to be positioned to match
- * (see `locked-label.module.css`).
+ * The ideal comes first so that an exact tie in scoring resolves towards the
+ * conceptual line, which keeps placement stable and predictable.
  */
-export function getAutoLabelCoordinates(
-    lockedFigure: LockedPointType,
+function getCandidates(
+    pointPx: [number, number],
+    size: LabelSize,
+    referencePx: [number, number],
     graphInfo: AutoLabelGraphInfo,
-    labelSize: LabelSize = assumedLabelSize,
-): LabelPlacement {
-    const coord = lockedFigure.coord;
-
-    // Without a measured graph there's no meaningful pixel distance to offset
-    // by; leave the label on its point until layout gives the graph a size.
-    if (!graphInfo.width || !graphInfo.height) {
-        return {coord, anchorX: "right", anchorY: "below"};
-    }
-
-    // The direction has to be worked out in pixel space: the graph isn't drawn
-    // with a preserved aspect ratio, so the on-screen angle from the reference
-    // differs from the angle in graph units.
-    const pointPx = pointToPixel(coord, graphInfo);
-    const referencePx = getReferencePointInPixels(graphInfo);
-
-    const offsetPx = getLabelOffsetInPixels(pointPx, referencePx);
-
-    // Keep the label inside the graph, moving it to the other side of its
-    // point rather than letting it grow back across the point.
-    const placed = keepLabelInBounds(pointPx, offsetPx, labelSize, graphInfo);
-    let cornerPx = placed.cornerPx;
-    let {anchorX, anchorY} = placed;
-
-    const zones = getTickZones(graphInfo);
-    const overlapsZones = (
-        corner: [number, number],
-        ax: LabelAnchorX,
-        ay: LabelAnchorY,
-    ) => {
-        const rect = getLabelRect(corner, ax, ay, labelSize);
-        return zones.some((zone) => rectsOverlap(rect, zone));
+): Candidate[] {
+    const toCandidate = (offsetPx: [number, number]): Candidate => {
+        // Run every candidate through the bounds check, so a position that
+        // would hang off an edge is moved to the point's other side first.
+        const placed = keepLabelInBounds(pointPx, offsetPx, size, graphInfo);
+        return {
+            rect: getLabelRect(
+                placed.cornerPx,
+                placed.anchorX,
+                placed.anchorY,
+                size,
+            ),
+        };
     };
 
-    if (zones.length > 0 && overlapsZones(cornerPx, anchorX, anchorY)) {
-        // Mirroring across the point keeps the label on its conceptual line,
-        // so try that before moving it off the line. Run it back through the
-        // bounds check, since the other side may not fit either.
-        const mirrored = keepLabelInBounds(
-            pointPx,
-            [-offsetPx[X], -offsetPx[Y]],
-            labelSize,
-            graphInfo,
-        );
+    const candidates = [
+        toCandidate(getLabelOffsetInPixels(pointPx, referencePx)),
+    ];
 
-        const flipped: LabelAnchorY = anchorY === "above" ? "below" : "above";
+    for (const scale of candidateRadiusScales) {
+        const distance = labelOffsetPx * scale;
 
-        if (
-            !overlapsZones(
-                mirrored.cornerPx,
-                mirrored.anchorX,
-                mirrored.anchorY,
-            )
-        ) {
-            cornerPx = mirrored.cornerPx;
-            anchorX = mirrored.anchorX;
-            anchorY = mirrored.anchorY;
-        } else if (!overlapsZones(cornerPx, anchorX, flipped)) {
-            // A label level with its reference has a flat offset, so mirroring
-            // lands in the same place. Growing the box the other way from that
-            // position can still clear the zone — which is what puts a label
-            // on the x-axis above the numbers rather than among them.
-            anchorY = flipped;
-        } else {
-            // Still blocked every way, so push the label out of the zone.
-            cornerPx = nudgeOutOfTickZones(
-                cornerPx,
-                anchorX,
-                anchorY,
-                labelSize,
-                zones,
-            );
+        for (const dx of [-1, 0, 1]) {
+            for (const dy of [-1, 0, 1]) {
+                if (dx === 0 && dy === 0) {
+                    continue;
+                }
+                const length = Math.hypot(dx, dy);
+                candidates.push(
+                    toCandidate([
+                        (dx / length) * distance,
+                        (dy / length) * distance,
+                    ]),
+                );
+            }
         }
     }
 
-    return {
-        coord: pixelsToVectors([cornerPx], graphInfo)[0],
-        anchorX,
-        anchorY,
+    return candidates;
+}
+
+/**
+ * How poor a position is for a label — lower is better.
+ *
+ * Distance from the ideal position is measured in offset-steps so that it
+ * stays on a comparable scale to the overlap terms, all of which are
+ * normalized by the same area.
+ */
+function scoreCandidate(
+    candidate: Candidate,
+    item: LabelPlacementItem,
+    idealRect: Rect,
+    placed: ReadonlyArray<{rect: Rect; size: LabelSize}>,
+    points: ReadonlyArray<PointObstacle>,
+    tickZones: ReadonlyArray<Rect>,
+    graphInfo: AutoLabelGraphInfo,
+): number {
+    const {rect} = candidate;
+    const normalizeArea = labelOffsetPx * labelOffsetPx;
+    const ownHalfDiagonal = halfDiagonal(item.size);
+
+    const centerOf = (r: Rect) => [
+        (r.left + r.right) / 2,
+        (r.top + r.bottom) / 2,
+    ];
+    const [cx, cy] = centerOf(rect);
+    const [idealX, idealY] = centerOf(idealRect);
+    const deviation = Math.hypot(cx - idealX, cy - idealY) / labelOffsetPx;
+
+    let labelPenalty = 0;
+    for (const other of placed) {
+        // The gap the pair needs is set by whichever label is larger. Only
+        // this candidate is inflated — inflating both would double the gap.
+        const required = Math.max(
+            halfDiagonal(item.size),
+            halfDiagonal(other.size),
+        );
+        labelPenalty +=
+            overlapArea(inflateRect(rect, required), other.rect) /
+            normalizeArea;
+    }
+
+    let pointPenalty = 0;
+    for (const point of points) {
+        // A label sits close to its own point by design, so it only has to
+        // clear the others.
+        if (point.ownerKeys.has(item.key)) {
+            continue;
+        }
+        const gap = rectToCircleGap(
+            inflateRect(rect, ownHalfDiagonal),
+            point.centerPx,
+            pointRadiusPx,
+        );
+        if (gap < 0) {
+            // Penetration depth rather than area: it pushes the label out
+            // along the shortest way clear.
+            pointPenalty += -gap / labelOffsetPx;
+        }
+    }
+
+    let tickPenalty = 0;
+    for (const zone of tickZones) {
+        tickPenalty += overlapArea(rect, zone) / normalizeArea;
+    }
+
+    const graphRect: Rect = {
+        left: 0,
+        top: 0,
+        right: graphInfo.width,
+        bottom: graphInfo.height,
     };
+    const rectArea =
+        (rect.right - rect.left) * (rect.bottom - rect.top);
+    const outOfBounds =
+        (rectArea - overlapArea(rect, graphRect)) / normalizeArea;
+
+    return (
+        weightDeviation * deviation +
+        weightLabelOverlap * labelPenalty +
+        weightPointOverlap * pointPenalty +
+        weightTickOverlap * tickPenalty +
+        weightOutOfBounds * outOfBounds
+    );
+}
+
+/**
+ * Picks where to draw every point label on a graph, so that labels avoid each
+ * other, the points, the axis tick numbers, and the graph's edges.
+ *
+ * Each label is placed once, against the labels already placed, so the pass
+ * always terminates — there's no settling or iteration to converge. Labels are
+ * placed from the outside in: a label near an edge has fewer directions open
+ * to it, so it picks first, while labels nearer the middle have room to give
+ * way.
+ *
+ * Every label still starts from its ideal spot on the conceptual line out
+ * through its point, and only moves when something is in the way.
+ *
+ * Positions are returned as the top-left corner of the label's box, keyed by
+ * `LabelPlacementItem.key`.
+ */
+export function getAutoLabelPlacements(
+    items: ReadonlyArray<LabelPlacementItem>,
+    graphInfo: AutoLabelGraphInfo,
+): ReadonlyMap<string, LabelPlacement> {
+    const placements = new Map<string, LabelPlacement>();
+
+    // Without a measured graph there's no pixel geometry to reason about, so
+    // leave every label on its own point until layout gives the graph a size.
+    if (!graphInfo.width || !graphInfo.height) {
+        for (const item of items) {
+            placements.set(item.key, {
+                cornerPx: pointToPixel(item.anchorCoord, graphInfo),
+            });
+        }
+        return placements;
+    }
+
+    const referencePx = getReferencePointInPixels(graphInfo);
+    const tickZones = getTickZones(graphInfo);
+
+    // One obstacle per distinct point, since several labels can share a point.
+    const pointsByCoord = new Map<string, PointObstacle>();
+    for (const item of items) {
+        const coordKey = `${item.anchorCoord[X]},${item.anchorCoord[Y]}`;
+        const existing = pointsByCoord.get(coordKey);
+        if (existing) {
+            (existing.ownerKeys as Set<string>).add(item.key);
+        } else {
+            pointsByCoord.set(coordKey, {
+                centerPx: pointToPixel(item.anchorCoord, graphInfo),
+                ownerKeys: new Set([item.key]),
+            });
+        }
+    }
+    const points = [...pointsByCoord.values()];
+
+    // Outermost first. Ties break on key so the order is total, and placement
+    // doesn't shift when figures are reordered.
+    const ordered = [...items].sort((a, b) => {
+        const distance = (item: LabelPlacementItem) => {
+            const px = pointToPixel(item.anchorCoord, graphInfo);
+            return Math.hypot(px[X] - referencePx[X], px[Y] - referencePx[Y]);
+        };
+        return distance(b) - distance(a) || a.key.localeCompare(b.key);
+    });
+
+    const placed: Array<{rect: Rect; size: LabelSize}> = [];
+
+    for (const item of ordered) {
+        const pointPx = pointToPixel(item.anchorCoord, graphInfo);
+        const candidates = getCandidates(
+            pointPx,
+            item.size,
+            referencePx,
+            graphInfo,
+        );
+        const idealRect = candidates[0].rect;
+
+        let best = candidates[0];
+        let bestScore = scoreCandidate(
+            best,
+            item,
+            idealRect,
+            placed,
+            points,
+            tickZones,
+            graphInfo,
+        );
+
+        for (const candidate of candidates.slice(1)) {
+            const score = scoreCandidate(
+                candidate,
+                item,
+                idealRect,
+                placed,
+                points,
+                tickZones,
+                graphInfo,
+            );
+            // Strictly better, so ties keep the earlier (more ideal) position.
+            if (score < bestScore) {
+                best = candidate;
+                bestScore = score;
+            }
+        }
+
+        placements.set(item.key, {
+            cornerPx: [best.rect.left, best.rect.top],
+        });
+        placed.push({rect: best.rect, size: item.size});
+    }
+
+    return placements;
 }

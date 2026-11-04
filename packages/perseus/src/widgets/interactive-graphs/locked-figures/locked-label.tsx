@@ -15,8 +15,7 @@ import {replaceOutsideTeX} from "../utils";
 import styles from "./locked-label.module.css";
 
 import type {
-    LabelAnchorX,
-    LabelAnchorY,
+    LabelPlacement,
     LabelSize,
 } from "./label-placement-utils";
 
@@ -29,29 +28,17 @@ const labelFontSize: Record<LockedLabelType["size"], string> = {
     large: font.heading.size.medium,
 };
 
-/**
- * How long a wait for `document.fonts.ready` has to exceed before the label
- * fades in rather than appearing instantly. A warm load resolves in a few
- * milliseconds; anything longer means fonts were actually fetched, and the
- * label would otherwise pop in well after the rest of the graph.
- */
-const fadeThresholdMs = 75;
-
-/**
- * Longest the label stays hidden waiting to be measured. If the measurement
- * never arrives — a TeX implementation that doesn't settle, say — the label is
- * revealed at its estimated position rather than staying invisible.
- */
-const measureTimeoutMs = 1000;
-
 type Props = LockedLabelType & {
     /**
-     * Which corner of the label `coord` refers to, when the coordinate was
-     * chosen automatically by `getAutoLabelCoordinates`. Absent for
-     * author-placed labels, whose coordinates mean the top-left corner.
+     * Where to draw the label, when its position was chosen automatically by
+     * `getAutoLabelPlacements`. Absent for author-placed labels, which are
+     * drawn at their own `coord`.
      */
-    anchorX?: LabelAnchorX;
-    anchorY?: LabelAnchorY;
+    placement?: LabelPlacement;
+    /** Whether to hold the label back until the whole batch is measured. */
+    hidden?: boolean;
+    /** Whether to ease the label in rather than showing it instantly. */
+    fading?: boolean;
     /**
      * Called with the label's rendered size once its text has been typeset and
      * its fonts have loaded, so placement can be recomputed against the real
@@ -61,35 +48,24 @@ type Props = LockedLabelType & {
 };
 
 export default function LockedLabel(props: Props) {
-    const {coord, text, color, size, anchorX, anchorY, onMeasure} = props;
+    const {coord, text, color, size, placement, hidden, fading, onMeasure} =
+        props;
 
-    // Both anchors arrive together, from an auto-placed coordinate.
-    const autoPlaced = !!anchorX && !!anchorY;
-
-    const [x, y] = pointToPixel(coord, useGraphConfig());
+    const authoredPx = pointToPixel(coord, useGraphConfig());
+    // An auto-placed label is positioned by the layer, which works in pixels
+    // and already knows the label's size. Author-placed ones are drawn at
+    // their own coordinate, which means their top-left corner.
+    const [x, y] = placement ? placement.cornerPx : authoredPx;
 
     const {TeX} = getDependencies();
 
     const labelRef = React.useRef<HTMLSpanElement>(null);
-    // Auto-placed labels start hidden: their position is computed from an
-    // assumed size, so revealing them before measuring would show the label
-    // jumping once the real size arrives.
-    const [measured, setMeasured] = React.useState(!autoPlaced);
-    const [shouldFade, setShouldFade] = React.useState(false);
 
     React.useEffect(() => {
+        if (!onMeasure) {
+            return;
+        }
         let cancelled = false;
-
-        const reveal = () => {
-            if (!cancelled) {
-                setMeasured(true);
-            }
-        };
-
-        // However the wait turns out, don't leave the label hidden forever.
-        const timeout = setTimeout(reveal, measureTimeoutMs);
-
-        const startedAt = performance.now();
 
         // `fonts.ready` only waits for fonts the browser has already been
         // asked for. Reading layout first makes it request the math fonts, so
@@ -103,15 +79,11 @@ export default function LockedLabel(props: Props) {
             }
 
             const rect = labelRef.current.getBoundingClientRect();
-            onMeasure?.({width: rect.width, height: rect.height});
-
-            setShouldFade(performance.now() - startedAt > fadeThresholdMs);
-            reveal();
-        }, reveal);
+            onMeasure({width: rect.width, height: rect.height});
+        });
 
         return () => {
             cancelled = true;
-            clearTimeout(timeout);
         };
     }, [text, size, onMeasure]);
 
@@ -122,11 +94,8 @@ export default function LockedLabel(props: Props) {
             <span
                 ref={labelRef}
                 className={classNames("locked-label", {
-                    [styles.autoPlacedLabel]: autoPlaced,
-                    [styles.anchorLeft]: anchorX === "left",
-                    [styles.anchorAbove]: anchorY === "above",
-                    [styles.measuring]: !measured,
-                    [styles.fadeIn]: shouldFade,
+                    [styles.measuring]: hidden,
+                    [styles.fadeIn]: fading,
                 })}
                 style={{
                     position: "absolute",
