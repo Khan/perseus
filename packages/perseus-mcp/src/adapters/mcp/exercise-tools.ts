@@ -5,15 +5,18 @@ import {z} from "zod";
 import {jsonResult} from "./tool-results";
 
 import type {ExerciseUseCases} from "../../app/exercises";
+import type {PreviewUseCases} from "../../app/preview";
 import type {CallToolResult, McpServer} from "@modelcontextprotocol/server";
 
 export function registerExerciseTools(
     server: McpServer,
     {
         exercises,
+        preview,
         run,
     }: {
         exercises: ExerciseUseCases;
+        preview: PreviewUseCases;
         /** Runs a tool's handler, recording its errors under its name. */
         run: (
             tool: string,
@@ -207,6 +210,27 @@ export function registerExerciseTools(
                     withIssues: results.filter((r) => r.issues.length > 0),
                 });
             }),
+    );
+
+    server.registerTool(
+        "preview_exercise",
+        {
+            title: "Preview an exercise",
+            description:
+                "Return the URL of a browser page showing an exercise: its " +
+                "problem types and items as a tree, each with its change " +
+                "since import (new, edited, unchanged) and its validation " +
+                "issues, and a preview of the selected item. The page " +
+                "updates as the exercise and its drafts change, and can " +
+                "copy the exercise for the exercise editor's bulk import. " +
+                "Give the URL to the person you're working with.",
+            inputSchema: z.object({exerciseId: z.string()}),
+            annotations: {readOnlyHint: true},
+        },
+        ({exerciseId}) =>
+            run("preview_exercise", () =>
+                jsonResult({exerciseId, url: preview.exerciseUrl(exerciseId)}),
+            ),
     );
 
     server.registerTool(

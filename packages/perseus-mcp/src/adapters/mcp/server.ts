@@ -57,7 +57,9 @@ kind of defect.
 preview_item returns a URL where a person can see a draft as learners will,
 answer it and reveal its hints; the page follows the draft's changes, so give
 it to them once and keep editing. Hosts that support MCP Apps also show the
-preview in the chat.`;
+preview in the chat. preview_exercise returns the URL of an exercise's page:
+its items as a tree, each with its change since import and its validation
+issues, and a preview of the one selected.`;
 
 // A JSON Patch (RFC 6902) against a PerseusItem's JSON.
 const patchSchema = z
@@ -450,7 +452,7 @@ export function createMcpServer({
             ),
     );
 
-    registerExerciseTools(server, {exercises, run});
+    registerExerciseTools(server, {exercises, preview, run});
 
     server.registerTool(
         "list_revisions",

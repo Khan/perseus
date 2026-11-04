@@ -5,7 +5,11 @@ import Fastify from "fastify";
 
 import {DraftNotFoundError} from "../../app/errors";
 
+import {streamEvents} from "./event-stream";
+import {registerExerciseRoutes} from "./exercise-routes";
+
 import type {DraftUseCases} from "../../app/drafts";
+import type {ExerciseUseCases} from "../../app/exercises";
 import type {Draft} from "../../domain/draft";
 import type {PreviewLinks} from "../../ports/preview-links";
 import type {McpServer} from "@modelcontextprotocol/server";
@@ -13,10 +17,11 @@ import type {FastifyInstance} from "fastify";
 import type {IncomingMessage, Server, ServerResponse} from "node:http";
 
 /**
- * The preview's two pages: the shell for one draft, and the frame inside it
- * that renders the item.
+ * The preview's pages: the shell for one draft, the frame inside it that
+ * renders the item, and the exercise pages (the list, and one exercise with
+ * its tree and a preview of the selected item).
  */
-export type PreviewPage = "shell" | "frame";
+export type PreviewPage = "shell" | "frame" | "exercise-list" | "exercise-page";
 
 export type PreviewPages = {
     /** Serves the pages' scripts, styles and other assets. */
@@ -30,17 +35,13 @@ export type PreviewPages = {
     close(): Promise<void>;
 };
 
-// Proxies and browsers drop an idle stream; a comment line keeps it open.
-const KEEP_ALIVE_MS = 25_000;
-
-function draftEvent(draft: Draft): string {
-    const data = {
+function draftEventData(draft: Draft) {
+    return {
         itemId: draft.itemId,
         revision: draft.revision,
         updatedAt: draft.updatedAt,
         item: draft.item,
     };
-    return `event: draft\ndata: ${JSON.stringify(data)}\n\n`;
 }
 
 /**
@@ -54,6 +55,12 @@ export function previewLinks(baseUrl: () => string | null): PreviewLinks {
             return base == null
                 ? null
                 : `${base}/drafts/${encodeURIComponent(itemId)}/preview`;
+        },
+        exerciseUrlFor(exerciseId) {
+            const base = baseUrl();
+            return base == null
+                ? null
+                : `${base}/exercises/${encodeURIComponent(exerciseId)}`;
         },
     };
 }
@@ -102,12 +109,15 @@ export type TlsFiles = {cert: string; key: string};
 export async function createHttpServer({
     createMcpServer,
     drafts,
+    exercises,
     createPreview,
     allowedHostnames,
     tls,
 }: {
     createMcpServer: () => McpServer;
     drafts: DraftUseCases;
+    /** Serves the exercise pages' data, and the pages with `createPreview`. */
+    exercises?: ExerciseUseCases;
     createPreview?: (server: Server) => Promise<PreviewPages>;
     allowedHostnames: string[];
     /** Serve HTTPS with this certificate instead of HTTP. */
@@ -125,8 +135,10 @@ export async function createHttpServer({
         }
     });
 
+    let previewPages: PreviewPages | null = null;
     if (createPreview != null) {
         const preview = await createPreview(app.server);
+        previewPages = preview;
         app.addHook("onClose", () => preview.close());
         await app.register(middie);
         app.use(preview.middleware);
@@ -163,41 +175,25 @@ export async function createHttpServer({
 
     app.get<{Params: {itemId: string}}>(
         "/drafts/:itemId/events",
-        async (request, reply) => {
-            const res = reply.raw;
-            let unsubscribe: () => void;
-            try {
-                // watchItem sends the current draft straight away, so the
-                // stream starts with the first event.
-                unsubscribe = drafts.watchItem(request.params.itemId, (d) => {
-                    if (!res.headersSent) {
-                        // The stream stays open, so it's written directly
-                        // rather than through Fastify's reply.
-                        reply.hijack();
-                        res.writeHead(200, {
-                            "Content-Type": "text/event-stream",
-                            "Cache-Control": "no-cache",
-                            Connection: "keep-alive",
-                        });
+        async (request, reply) =>
+            streamEvents(request, reply, {
+                event: "draft",
+                watch: (send) =>
+                    drafts.watchItem(request.params.itemId, (draft) =>
+                        send(draftEventData(draft)),
+                    ),
+                onError(e) {
+                    if (e instanceof DraftNotFoundError) {
+                        return reply.code(404).send({error: e.message});
                     }
-                    res.write(draftEvent(d));
-                });
-            } catch (e) {
-                if (e instanceof DraftNotFoundError) {
-                    return reply.code(404).send({error: e.message});
-                }
-                throw e;
-            }
-            const keepAlive = setInterval(
-                () => res.write(": keep-alive\n\n"),
-                KEEP_ALIVE_MS,
-            );
-            request.raw.on("close", () => {
-                clearInterval(keepAlive);
-                unsubscribe();
-            });
-        },
+                    throw e;
+                },
+            }),
     );
+
+    if (exercises != null) {
+        registerExerciseRoutes(app, {exercises, pages: previewPages});
+    }
 
     return app;
 }

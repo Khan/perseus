@@ -17,7 +17,9 @@ import type {Exercise, ExerciseItem} from "../domain/exercises/exercise";
 import type {ImportShape} from "../domain/exercises/import-shapes";
 import type {Issue} from "../domain/items/validate";
 import type {Clipboard} from "../ports/clipboard";
+import type {DraftFeed} from "../ports/draft-feed";
 import type {DraftRepository} from "../ports/draft-repository";
+import type {ExerciseFeed} from "../ports/exercise-feed";
 import type {ExerciseRepository} from "../ports/exercise-repository";
 import type {ExportFileWriter} from "../ports/export-file-writer";
 import type {ItemFileReader} from "../ports/item-file-reader";
@@ -25,6 +27,10 @@ import type {ItemFileReader} from "../ports/item-file-reader";
 export type ExerciseDependencies = {
     exercises: ExerciseRepository;
     drafts: DraftRepository;
+    /** Announces exercise saves, for watchExercise. */
+    exerciseFeed: ExerciseFeed;
+    /** Announces draft saves, for watchExercise. */
+    draftFeed: DraftFeed;
     files: ItemFileReader;
     exports: ExportFileWriter;
     /** Where an export is copied, for pasting into the exercise editor. */
@@ -44,7 +50,10 @@ export type SkippedItem = {
     reason: string;
 };
 
-/** One problem type of an exercise, with each draft's state. */
+/** What the exercise editor's import would make of an exported item. */
+export type ImportChange = "new" | "edited" | "unchanged";
+
+/** An exercise's problem types, with each draft's state. */
 export type ExerciseTree = {
     exerciseId: string;
     name: string;
@@ -59,10 +68,25 @@ export type ExerciseTree = {
             revision?: number;
             /** The start of the question, to tell items apart. */
             summary?: string;
+            /** What the exercise editor's import would make of it. */
+            change?: ImportChange;
             /** Set when the draft is gone. */
             missing?: true;
         }>;
     }>;
+};
+
+/** The tree with each draft's validation issues, as the exercise page shows it. */
+export type ExerciseView = Omit<ExerciseTree, "problemTypes"> & {
+    problemTypes: Array<
+        Omit<ExerciseTree["problemTypes"][number], "items"> & {
+            items: Array<
+                ExerciseTree["problemTypes"][number]["items"][number] & {
+                    issues?: Issue[];
+                }
+            >;
+        }
+    >;
 };
 
 /**
@@ -70,9 +94,6 @@ export type ExerciseTree = {
  * one pass; unchanged items don't count.
  */
 const REVIEW_LIMIT = 50;
-
-/** What the exercise editor's import would make of an exported item. */
-export type ImportChange = "new" | "edited" | "unchanged";
 
 /** The format the exercise editor's bulk JSON import reads. */
 type BulkProblemType = {
@@ -113,6 +134,98 @@ export function createExerciseUseCases(deps: ExerciseDependencies) {
             JSON.stringify(imported.item) === JSON.stringify(draft.item)
             ? "unchanged"
             : "edited";
+    }
+
+    // Validating every item each time an exercise page updates would redo
+    // the same work: a revision's item never changes.
+    const issueCache = new Map<string, Issue[]>();
+    function issuesOf(draft: Draft): Issue[] {
+        const key = `${draft.itemId}@${draft.revision}`;
+        let issues = issueCache.get(key);
+        if (issues == null) {
+            issues = validateItem(draft.item, deps.catalog.widgets()).issues;
+            issueCache.set(key, issues);
+        }
+        return issues;
+    }
+
+    function treeOf(exercise: Exercise, withIssues: boolean): ExerciseView {
+        return {
+            exerciseId: exercise.exerciseId,
+            name: exercise.name,
+            notes: exercise.notes,
+            editorUrl: exercise.editorUrl,
+            problemTypes: exercise.problemTypes.map((problemType) => ({
+                name: problemType.name,
+                contentId: problemType.contentId,
+                items: problemType.items.map((item) => {
+                    const draft = drafts.get(item.itemId);
+                    if (draft == null) {
+                        return {...item, missing: true as const};
+                    }
+                    return {
+                        ...item,
+                        revision: draft.revision,
+                        summary: draft.item.question.content.slice(0, 80),
+                        change: changeSinceImport(item, draft),
+                        ...(withIssues ? {issues: issuesOf(draft)} : {}),
+                    };
+                }),
+            })),
+        };
+    }
+
+    /**
+     * The exercise in the exercise editor's bulk JSON format, with what
+     * its import would make of each item.
+     */
+    function bulkExport(exercise: Exercise, onlyChanged: boolean) {
+        const counts: Record<ImportChange, number> = {
+            new: 0,
+            edited: 0,
+            unchanged: 0,
+        };
+        const missing: string[] = [];
+        const payload: BulkProblemType[] = exercise.problemTypes
+            .map((problemType) => ({
+                // The bulk format needs a name; items with no problem type
+                // go under an empty one, which its import routes to
+                // Unassigned.
+                problemType: problemType.name ?? "",
+                ...(problemType.contentId != null
+                    ? {contentId: problemType.contentId}
+                    : {}),
+                assessmentItems: problemType.items.flatMap((item) => {
+                    const draft = drafts.get(item.itemId);
+                    if (draft == null) {
+                        missing.push(item.itemId);
+                        return [];
+                    }
+                    const change = changeSinceImport(item, draft);
+                    counts[change]++;
+                    if (onlyChanged && change === "unchanged") {
+                        return [];
+                    }
+                    return [
+                        {
+                            ...(item.contentId != null
+                                ? {contentId: item.contentId}
+                                : {}),
+                            itemData: JSON.stringify(draft.item),
+                        },
+                    ];
+                }),
+            }))
+            .filter(
+                (problemType) =>
+                    !onlyChanged || problemType.assessmentItems.length > 0,
+            );
+        return {
+            json: JSON.stringify(payload, null, 2),
+            payload,
+            counts,
+            missing,
+        };
     }
 
     function getDraft(itemId: string): Draft {
@@ -213,30 +326,69 @@ export function createExerciseUseCases(deps: ExerciseDependencies) {
 
         /** @throws ExerciseNotFoundError */
         getExercise(exerciseId: string): ExerciseTree {
-            const exercise = getExercise(exerciseId);
-            return {
+            return treeOf(getExercise(exerciseId), false);
+        },
+
+        /**
+         * Calls `listener` with the exercise's tree, its drafts' issues
+         * included, straight away and again after the exercise or any of
+         * its drafts changes (once for changes made together, such as
+         * edit_items), until the returned function is called.
+         *
+         * @throws ExerciseNotFoundError
+         */
+        watchExercise(
+            exerciseId: string,
+            listener: (view: ExerciseView) => void,
+        ): () => void {
+            let exercise = getExercise(exerciseId);
+            let closed = false;
+            let pending = false;
+            let draftSubscriptions: Array<() => void> = [];
+
+            function followDrafts() {
+                draftSubscriptions.forEach((unsubscribe) => unsubscribe());
+                draftSubscriptions = itemIdsOf(exercise).map((itemId) =>
+                    deps.draftFeed.subscribe(itemId, schedule),
+                );
+            }
+            function schedule() {
+                if (pending) {
+                    return;
+                }
+                pending = true;
+                queueMicrotask(() => {
+                    pending = false;
+                    if (closed) {
+                        return;
+                    }
+                    exercise = getExercise(exerciseId);
+                    followDrafts();
+                    listener(treeOf(exercise, true));
+                });
+            }
+
+            const unsubscribeExercise = deps.exerciseFeed.subscribe(
                 exerciseId,
-                name: exercise.name,
-                notes: exercise.notes,
-                editorUrl: exercise.editorUrl,
-                problemTypes: exercise.problemTypes.map((problemType) => ({
-                    name: problemType.name,
-                    contentId: problemType.contentId,
-                    items: problemType.items.map((item) => {
-                        const draft = drafts.get(item.itemId);
-                        return draft == null
-                            ? {...item, missing: true as const}
-                            : {
-                                  ...item,
-                                  revision: draft.revision,
-                                  summary: draft.item.question.content.slice(
-                                      0,
-                                      80,
-                                  ),
-                              };
-                    }),
-                })),
+                schedule,
+            );
+            followDrafts();
+            listener(treeOf(exercise, true));
+            return () => {
+                closed = true;
+                unsubscribeExercise();
+                draftSubscriptions.forEach((unsubscribe) => unsubscribe());
             };
+        },
+
+        /**
+         * The exercise in the exercise editor's bulk JSON format, as
+         * exportExercise writes it, for the exercise page's copy button.
+         *
+         * @throws ExerciseNotFoundError
+         */
+        bulkJson(exerciseId: string, onlyChanged = false): string {
+            return bulkExport(getExercise(exerciseId), onlyChanged).json;
         },
 
         listExercises(): Array<{
@@ -375,51 +527,10 @@ export function createExerciseUseCases(deps: ExerciseDependencies) {
             if (input.overwrite !== true && deps.exports.exists(target)) {
                 throw new ExportExistsError(target);
             }
-            const counts: Record<ImportChange, number> = {
-                new: 0,
-                edited: 0,
-                unchanged: 0,
-            };
-            const missing: string[] = [];
-            const payload: BulkProblemType[] = exercise.problemTypes
-                .map((problemType) => ({
-                    // The bulk format needs a name; items with no problem
-                    // type go under an empty one, which its import routes
-                    // to Unassigned.
-                    problemType: problemType.name ?? "",
-                    ...(problemType.contentId != null
-                        ? {contentId: problemType.contentId}
-                        : {}),
-                    assessmentItems: problemType.items.flatMap((item) => {
-                        const draft = drafts.get(item.itemId);
-                        if (draft == null) {
-                            missing.push(item.itemId);
-                            return [];
-                        }
-                        const change = changeSinceImport(item, draft);
-                        counts[change]++;
-                        if (
-                            input.onlyChanged === true &&
-                            change === "unchanged"
-                        ) {
-                            return [];
-                        }
-                        return [
-                            {
-                                ...(item.contentId != null
-                                    ? {contentId: item.contentId}
-                                    : {}),
-                                itemData: JSON.stringify(draft.item),
-                            },
-                        ];
-                    }),
-                }))
-                .filter(
-                    (problemType) =>
-                        input.onlyChanged !== true ||
-                        problemType.assessmentItems.length > 0,
-                );
-            const json = JSON.stringify(payload, null, 2);
+            const {json, payload, counts, missing} = bulkExport(
+                exercise,
+                input.onlyChanged === true,
+            );
             const written = deps.exports.write(target, json);
             const copied = input.copy !== false && deps.clipboard.copy(json);
             const toReview = counts.new + counts.edited;

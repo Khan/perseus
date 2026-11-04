@@ -30,6 +30,7 @@ import {systemClipboard} from "./adapters/os/system-clipboard";
 import {createCatalog} from "./app/catalog";
 import {withDraftFeed} from "./app/draft-feed";
 import {createDraftUseCases} from "./app/drafts";
+import {withExerciseFeed} from "./app/exercise-feed";
 import {createExerciseUseCases} from "./app/exercises";
 import {createPreviewUseCases} from "./app/preview";
 import {createReviewUseCases} from "./app/review";
@@ -158,8 +159,11 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
     }
     const exerciseRepository = new FileExerciseRepository(dataDir);
     exerciseRepository.init();
-    // Every save goes through the feed, so open previews hear about it.
+    // Every save goes through a feed, so open previews and exercise pages
+    // hear about it.
     const {drafts: repository, feed} = withDraftFeed(fileRepository);
+    const {exercises, feed: exerciseFeed} =
+        withExerciseFeed(exerciseRepository);
 
     // Set once the HTTP server is listening.
     let baseUrl: string | null = null;
@@ -180,8 +184,10 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
         scoring: createScoringUseCases({drafts: repository}),
         review: createReviewUseCases({drafts: repository}),
         exercises: createExerciseUseCases({
-            exercises: exerciseRepository,
+            exercises,
             drafts: repository,
+            exerciseFeed,
+            draftFeed: feed,
             files: nodeItemFileReader,
             exports: nodeExportFileWriter,
             clipboard: systemClipboard,
@@ -197,6 +203,7 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
         }),
         preview: createPreviewUseCases({
             drafts: repository,
+            exercises,
             links: previewLinks(() => baseUrl),
         }),
     };
@@ -258,6 +265,7 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
     const httpServer = await createHttpServer({
         createMcpServer: mcpServer,
         drafts: useCases.drafts,
+        exercises: useCases.exercises,
         createPreview,
         allowedHostnames: allowedHostnames(host, publicHost),
         tls,

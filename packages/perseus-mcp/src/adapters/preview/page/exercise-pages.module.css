@@ -1,0 +1,92 @@
+/* TODO(LEMS-3686): Remove the !important once Wonder Blocks is in the shared layer. */
+.columns {
+    display: grid !important;
+    grid-template-columns: minmax(24rem, 32rem) minmax(0, 1fr);
+    align-items: start;
+    gap: var(--wb-sizing-size_320) !important;
+}
+
+/* Below 800px, the tree goes above the preview. Media queries measure rem
+   from the browser default, not the page root, so this is in px. */
+@media (max-width: 800px) {
+    .columns {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+.tree {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_240);
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_080);
+    margin: var(--wb-sizing-size_080) 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_040);
+    padding: var(--wb-sizing-size_080) var(--wb-sizing-size_120);
+    border: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+    border-radius: var(--wb-border-radius-radius_080);
+    color: var(--wb-semanticColor-core-foreground-neutral-strong);
+    text-decoration: none;
+}
+
+.item:hover {
+    border-color: var(--wb-semanticColor-core-border-instructive-default);
+}
+
+.item:focus-visible {
+    outline: var(--wb-border-width-thick) solid
+        var(--wb-semanticColor-core-border-instructive-default);
+    outline-offset: var(--wb-sizing-size_020);
+}
+
+.selected {
+    border-color: var(--wb-semanticColor-core-border-instructive-default);
+    background: var(--wb-semanticColor-core-background-instructive-subtle);
+}
+
+.problem {
+    color: var(--wb-semanticColor-core-foreground-critical-default);
+}
+
+.preview {
+    gap: var(--wb-sizing-size_160) !important;
+    min-inline-size: 0;
+}
+
+.issues {
+    margin: 0;
+    padding-inline-start: var(--wb-sizing-size_240);
+}
+
+.link {
+    color: var(--wb-semanticColor-core-foreground-instructive-default);
+}
+
+.row {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: var(--wb-sizing-size_160) !important;
+}
+
+/* For screen readers only. */
+.hidden {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}

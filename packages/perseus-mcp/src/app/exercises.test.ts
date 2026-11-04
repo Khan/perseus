@@ -11,7 +11,9 @@ import {createPerseusCoreSchemaSource} from "../adapters/fs/perseus-core-schema-
 import {checkoutPaths} from "../runtime-paths";
 
 import {createCatalog} from "./catalog";
+import {withDraftFeed} from "./draft-feed";
 import {ExportExistsError, InvalidImportError} from "./errors";
+import {withExerciseFeed} from "./exercise-feed";
 import {createExerciseUseCases} from "./exercises";
 import {inMemoryRepository} from "./in-memory-draft-repository.testutils";
 
@@ -34,13 +36,17 @@ function itemWith(content: string) {
 }
 
 function setUp(fileContents: unknown) {
-    const drafts = inMemoryRepository();
+    const {drafts, feed: draftFeed} = withDraftFeed(inMemoryRepository());
+    const {exercises, feed: exerciseFeed} =
+        withExerciseFeed(inMemoryExercises());
     const written = new Map<string, string>();
     const copied: string[] = [];
     let nextId = 0;
     const useCases = createExerciseUseCases({
-        exercises: inMemoryExercises(),
+        exercises,
         drafts,
+        exerciseFeed,
+        draftFeed,
         files: {read: async () => JSON.stringify(fileContents)},
         exports: {
             exists: (path) => written.has(path),
@@ -335,5 +341,64 @@ describe("exercise use cases", () => {
             imported: exercise.editorUrl,
             after: useCases.getExercise(exercise.exerciseId).editorUrl,
         }).toEqual({imported: "https://example.org/edit/1", after: undefined});
+    });
+
+    it("sends an exercise's view again, once, after its drafts change together", async () => {
+        // Arrange
+        const {drafts, useCases} = setUp(bulkExport);
+        const {exercise} = await useCases.importExercise({path: "in.json"});
+        const views: Array<Array<string | undefined>> = [];
+        useCases.watchExercise(exercise.exerciseId, (view) =>
+            views.push(
+                view.problemTypes.flatMap((problemType) =>
+                    problemType.items.map((item) => item.change),
+                ),
+            ),
+        );
+
+        // Act
+        for (const itemId of exercise.problemTypes[0].items.map(
+            (item) => item.itemId,
+        )) {
+            const draft = drafts.get(itemId)!;
+            drafts.save({
+                ...draft,
+                revision: draft.revision + 1,
+                item: {
+                    ...draft.item,
+                    question: {...draft.item.question, content: "Edited"},
+                },
+            });
+        }
+        // Jest fakes queueMicrotask here, as it does timers.
+        jest.runAllTicks();
+
+        // Assert
+        expect(views).toEqual([
+            ["unchanged", "unchanged", "new"],
+            ["edited", "edited", "new"],
+        ]);
+    });
+
+    it("includes each draft's validation issues in the exercise's view", async () => {
+        // Arrange
+        const {useCases} = setUp([
+            {
+                problemType: "Type 1",
+                assessmentItems: [
+                    {itemData: JSON.stringify(itemWith("[[☃ radio 1]]"))},
+                ],
+            },
+        ]);
+        const {exercise} = await useCases.importExercise({path: "in.json"});
+        let issues: unknown[] | undefined;
+
+        // Act
+        useCases.watchExercise(exercise.exerciseId, (view) => {
+            issues = view.problemTypes[0].items[0].issues;
+        });
+
+        // Assert
+        expect(issues?.length).toBeGreaterThan(0);
     });
 });

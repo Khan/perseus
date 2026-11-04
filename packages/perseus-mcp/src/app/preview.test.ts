@@ -11,7 +11,7 @@ import {createPreviewUseCases} from "./preview";
 
 import type {PreviewLinks} from "../ports/preview-links";
 
-function setUp(links: PreviewLinks) {
+function setUp(links: Partial<PreviewLinks>) {
     const drafts = inMemoryRepository();
     drafts.save(
         newDraft({
@@ -20,7 +20,11 @@ function setUp(links: PreviewLinks) {
             now: new Date("2026-01-01T00:00:00Z"),
         }),
     );
-    return createPreviewUseCases({drafts, links});
+    return createPreviewUseCases({
+        drafts,
+        exercises: {get: () => undefined, list: () => [], save: () => {}},
+        links: {urlFor: () => null, exerciseUrlFor: () => null, ...links},
+    });
 }
 
 describe("preview use cases", () => {

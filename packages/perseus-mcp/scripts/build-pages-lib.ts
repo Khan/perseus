@@ -15,7 +15,7 @@ import {
 
 /**
  * Builds every preview page into `outDir`, to serve without Vite (see
- * src/adapters/preview/static-preview-pages.ts): the browser preview's shell and frame, with
+ * src/adapters/preview/static-preview-pages.ts): the browser preview's shell, frame and exercise pages, with
  * their scripts, styles and fonts, and the MCP Apps page as one file.
  */
 export async function buildPages(outDir: string): Promise<void> {
@@ -32,6 +32,8 @@ export async function buildPages(outDir: string): Promise<void> {
                 input: {
                     shell: path.join(PAGE_DIR, "shell.html"),
                     frame: path.join(PAGE_DIR, "frame.html"),
+                    "exercise-list": path.join(PAGE_DIR, "exercise-list.html"),
+                    "exercise-page": path.join(PAGE_DIR, "exercise-page.html"),
                 },
             },
         },

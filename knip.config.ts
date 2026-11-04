@@ -105,7 +105,7 @@ const config: KnipConfig = {
                 ),
                 // The preview pages' scripts, loaded by their HTML through
                 // Vite.
-                "src/adapters/preview/page/{shell,frame}.tsx!",
+                "src/adapters/preview/page/{shell,frame,exercise-list,exercise-page}.tsx!",
                 // The packaged server's entry point, which scripts/build-bundle
                 // bundles.
                 "src/main-packaged.ts!",
