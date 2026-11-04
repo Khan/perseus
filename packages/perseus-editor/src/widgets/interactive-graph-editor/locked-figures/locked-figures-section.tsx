@@ -15,8 +15,8 @@ import LockedFigureSelect from "./locked-figure-select";
 import LockedFigureSettings from "./locked-figure-settings";
 import styles from "./locked-figures-section.module.css";
 
-import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
 import type {Props as InteractiveGraphEditorProps} from "../interactive-graph-editor";
+import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {LockedFigure, LockedFigureType} from "@khanacademy/perseus-core";
 

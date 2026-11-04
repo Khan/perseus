@@ -1,18 +1,18 @@
 ---
 name: wonder-blocks
 description: >
-  Implements user interfaces using the Wonder Blocks (WB) design system — Khan Academy's
-  React component library. Use this skill whenever the user asks you to build, modify,
-  or review UI components in a project that uses Wonder Blocks, even when similar
-  usage patterns already exist in the codebase; mentions any WB package
-  (e.g. wonder-blocks-button, wonder-blocks-modal, wonder-blocks-tokens); wants to use
-  or map WB tokens for colors/spacing/typography (including translating Figma designs to
-  WB components and tokens); or asks how to do something "the Wonder Blocks way".
-  If the user is building any kind of form, layout, modal, button, dropdown, or
-  typography treatment in a WB-enabled codebase, this skill applies — even if
-  they don't explicitly say "Wonder Blocks". Do NOT trigger for debugging
-  TypeScript errors, writing tests, setting up Storybook stories, or fixing
-  CI/lint issues in WB packages.
+    Implements user interfaces using the Wonder Blocks (WB) design system — Khan Academy's
+    React component library. Use this skill whenever the user asks you to build, modify,
+    or review UI components in a project that uses Wonder Blocks, even when similar
+    usage patterns already exist in the codebase; mentions any WB package
+    (e.g. wonder-blocks-button, wonder-blocks-modal, wonder-blocks-tokens); wants to use
+    or map WB tokens for colors/spacing/typography (including translating Figma designs to
+    WB components and tokens); or asks how to do something "the Wonder Blocks way".
+    If the user is building any kind of form, layout, modal, button, dropdown, or
+    typography treatment in a WB-enabled codebase, this skill applies — even if
+    they don't explicitly say "Wonder Blocks". Do NOT trigger for debugging
+    TypeScript errors, writing tests, setting up Storybook stories, or fixing
+    CI/lint issues in WB packages.
 ---
 
 # Wonder Blocks UI Implementation
@@ -39,29 +39,29 @@ to learn more about the API.
 
 ## Package quick-reference
 
-| Package | Key exports |
-| --- | --- |
-| `wonder-blocks-core` | `View` |
-| `wonder-blocks-tokens` | `semanticColor`, `sizing`, `border`, `boxShadow`, `font`, `breakpoint` |
-| `wonder-blocks-typography` | `BodyText`, `Heading` |
-| `wonder-blocks-button` | `Button`, `ActivityButton` |
-| `wonder-blocks-link` | `Link` |
-| `wonder-blocks-clickable` | `Clickable`, `ClickableBehavior` |
-| `wonder-blocks-icon-button` | `IconButton`, `ActivityIconButton`, `ConversationIconButton` |
-| `wonder-blocks-icon` | `Icon`, `PhosphorIcon` |
-| `wonder-blocks-form` | `TextField`, `TextArea`, `Checkbox`, `CheckboxGroup`, `Choice`, `RadioGroup` |
-| `wonder-blocks-labeled-field` | `LabeledField` |
-| `wonder-blocks-dropdown` | `SingleSelect`, `MultiSelect`, `ActionMenu`, `Combobox`, `OptionItem`, `ActionItem`, `SeparatorItem` |
-| `wonder-blocks-modal` | `ModalLauncher`, `OnePaneDialog`, `FlexibleDialog`, `DrawerLauncher`, `DrawerDialog` |
-| `wonder-blocks-accordion` | `Accordion`, `AccordionSection` |
-| `wonder-blocks-badge` | `Badge`, `StatusBadge`, `GemBadge`, `StreakBadge`, `DueBadge`, `NeutralBadge` |
-| `wonder-blocks-banner` | `Banner` |
-| `wonder-blocks-popover` | `Popover`, `PopoverContent`, `PopoverContentCore` |
-| `wonder-blocks-progress-spinner` | `CircularSpinner` |
-| `wonder-blocks-switch` | `Switch` |
-| `wonder-blocks-tabs` | `ResponsiveTabs`, `ResponsiveNavigationTabs` |
-| `wonder-blocks-tooltip` | `Tooltip`, `TooltipContent` |
-| `wonder-blocks-theming` | Theme providers |
+| Package                          | Key exports                                                                                          |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `wonder-blocks-core`             | `View`                                                                                               |
+| `wonder-blocks-tokens`           | `semanticColor`, `sizing`, `border`, `boxShadow`, `font`, `breakpoint`                               |
+| `wonder-blocks-typography`       | `BodyText`, `Heading`                                                                                |
+| `wonder-blocks-button`           | `Button`, `ActivityButton`                                                                           |
+| `wonder-blocks-link`             | `Link`                                                                                               |
+| `wonder-blocks-clickable`        | `Clickable`, `ClickableBehavior`                                                                     |
+| `wonder-blocks-icon-button`      | `IconButton`, `ActivityIconButton`, `ConversationIconButton`                                         |
+| `wonder-blocks-icon`             | `Icon`, `PhosphorIcon`                                                                               |
+| `wonder-blocks-form`             | `TextField`, `TextArea`, `Checkbox`, `CheckboxGroup`, `Choice`, `RadioGroup`                         |
+| `wonder-blocks-labeled-field`    | `LabeledField`                                                                                       |
+| `wonder-blocks-dropdown`         | `SingleSelect`, `MultiSelect`, `ActionMenu`, `Combobox`, `OptionItem`, `ActionItem`, `SeparatorItem` |
+| `wonder-blocks-modal`            | `ModalLauncher`, `OnePaneDialog`, `FlexibleDialog`, `DrawerLauncher`, `DrawerDialog`                 |
+| `wonder-blocks-accordion`        | `Accordion`, `AccordionSection`                                                                      |
+| `wonder-blocks-badge`            | `Badge`, `StatusBadge`, `GemBadge`, `StreakBadge`, `DueBadge`, `NeutralBadge`                        |
+| `wonder-blocks-banner`           | `Banner`                                                                                             |
+| `wonder-blocks-popover`          | `Popover`, `PopoverContent`, `PopoverContentCore`                                                    |
+| `wonder-blocks-progress-spinner` | `CircularSpinner`                                                                                    |
+| `wonder-blocks-switch`           | `Switch`                                                                                             |
+| `wonder-blocks-tabs`             | `ResponsiveTabs`, `ResponsiveNavigationTabs`                                                         |
+| `wonder-blocks-tooltip`          | `Tooltip`, `TooltipContent`                                                                          |
+| `wonder-blocks-theming`          | Theme providers                                                                                      |
 
 ## Styling with CSS modules
 
@@ -99,9 +99,9 @@ const MyComponent = () => <View className={styles.container}>...</View>;
 - When Perseus upgrades to a Wonder Blocks version that ships CSS-module styles,
   update the two points above (LEMS-3686).
 - Avoid applying too many custom styles to a Wonder Blocks component. Layout related properties
-are okay like `margin`, but prefer using props for choosing supported variants.
+  are okay like `margin`, but prefer using props for choosing supported variants.
 - Prompt the user to reach out to the Wonder Blocks team if many styles need to
-be overridden. This may mean there is a limitation with the component.
+  be overridden. This may mean there is a limitation with the component.
 
 ## Design tokens
 
@@ -126,7 +126,8 @@ they scale with the font size. 1rem = 10px
 
 ```css
 /* ✅ correct */
-border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-default);
+border: var(--wb-border-width-thin) solid
+    var(--wb-semanticColor-core-border-neutral-default);
 border-radius: var(--wb-border-radius-radius_040);
 
 /* ❌ avoid */
@@ -177,7 +178,7 @@ comment.
 
 Use `Heading` and `BodyText` components from `@khanacademy/wonder-blocks-typography`. Use the `tag` prop to make sure it is using the correct semantics. `Heading` defaults to `h2` and `BodyText` defaults to `p`.
 
-Use heading sizes to establish visual hierarchy — a page title should be visually larger than a section heading, which should be larger than a subsection heading. Match the `size` prop to the heading's place in the hierarchy, not just its semantic level.  The `tag` prop can create an accessible heading hierarchy in order regardless of style.
+Use heading sizes to establish visual hierarchy — a page title should be visually larger than a section heading, which should be larger than a subsection heading. Match the `size` prop to the heading's place in the hierarchy, not just its semantic level. The `tag` prop can create an accessible heading hierarchy in order regardless of style.
 
 ```tsx
 import {Heading, BodyText} from "@khanacademy/wonder-blocks-typography";
@@ -202,8 +203,7 @@ import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 // Import specific icon assets from @phosphor-icons/core
 import magnifyingGlassIcon from "@phosphor-icons/core/regular/magnifying-glass.svg";
 
-<PhosphorIcon icon={magnifyingGlassIcon} size="medium" />
-
+<PhosphorIcon icon={magnifyingGlassIcon} size="medium" />;
 ```
 
 For custom svg icons or specific icon components from the `@khanacademy/wonder-blocks-icon`
@@ -228,18 +228,20 @@ Use `View` from `@khanacademy/wonder-blocks-core` instead of plain `div` for fle
 import {View} from "@khanacademy/wonder-blocks-core";
 
 <View style={styles.container}>
-  <View tag="header" style={styles.header}>...</View>
-  <View tag="main">...</View>
-</View>
+    <View tag="header" style={styles.header}>
+        ...
+    </View>
+    <View tag="main">...</View>
+</View>;
 ```
 
 ## Components
 
 - Use components from Wonder Blocks as much as possible and prefer them over native browser elements or custom components.
 - Avoid using these components:
-  - Strut, Spring, MediaLayout
-  - LabelXSmall, LabelSmall, LabelMedium, LabelLarge, HeadingXSmall, HeadingSmall, HeadingMedium, HeadingLarge, Body, BodySerif, BodySerifBlock, BodyMonospace, Tagline, Title, Caption, Footnote
-  - LabeledTextField
+    - Strut, Spring, MediaLayout
+    - LabelXSmall, LabelSmall, LabelMedium, LabelLarge, HeadingXSmall, HeadingSmall, HeadingMedium, HeadingLarge, Body, BodySerif, BodySerifBlock, BodyMonospace, Tagline, Title, Caption, Footnote
+    - LabeledTextField
 - When using Wonder Blocks components, prioritize using props rather than using custom styles to override behaviours. Custom styles for layout purposes such as `margin`, `padding` or `gap` are acceptable.
 - If there is something that the Wonder Blocks component does not currently support, pause and prompt the user to reach out to the #wonder-blocks team to let them know of this limitation. Do this instead of implementing a custom component by default.
 
@@ -268,22 +270,22 @@ Apply the `accessibility` skill alongside this one.
 
 - Always use logical CSS properties to support RTL languages. Nothing checks `.module.css` files for this yet (ESLint only checks older aphrodite styles).
 
-  | Physical (avoid) | Logical (use) |
-  | --- | --- |
-  | `margin-left` / `margin-right` | `margin-inline-start` / `margin-inline-end` |
-  | `padding-left` / `padding-right` | `padding-inline-start` / `padding-inline-end` |
-  | `margin-top` / `margin-bottom` | `margin-block-start` / `margin-block-end` |
-  | `padding-top` / `padding-bottom` | `padding-block-start` / `padding-block-end` |
-  | `border-top` / `border-bottom` | `border-block-start` / `border-block-end` |
-  | `border-left` / `border-right` | `border-inline-start` / `border-inline-end` |
-  | `max-width` / `min-width` | `max-inline-size` / `min-inline-size` |
-  | `max-height` / `min-height` | `max-block-size` / `min-block-size` |
-  | `width` / `height` (when directional) | `inline-size` / `block-size` |
+    | Physical (avoid)                      | Logical (use)                                 |
+    | ------------------------------------- | --------------------------------------------- |
+    | `margin-left` / `margin-right`        | `margin-inline-start` / `margin-inline-end`   |
+    | `padding-left` / `padding-right`      | `padding-inline-start` / `padding-inline-end` |
+    | `margin-top` / `margin-bottom`        | `margin-block-start` / `margin-block-end`     |
+    | `padding-top` / `padding-bottom`      | `padding-block-start` / `padding-block-end`   |
+    | `border-top` / `border-bottom`        | `border-block-start` / `border-block-end`     |
+    | `border-left` / `border-right`        | `border-inline-start` / `border-inline-end`   |
+    | `max-width` / `min-width`             | `max-inline-size` / `min-inline-size`         |
+    | `max-height` / `min-height`           | `max-block-size` / `min-block-size`           |
+    | `width` / `height` (when directional) | `inline-size` / `block-size`                  |
 
 - Pass translated strings into the `labels` prop for components that support it.
 
 ## Patterns
 
 - Form fields and validation: When implementing form fields (text inputs, textareas, checkboxes, radio groups,
-or selects), read the reference file before writing any form code:
-`./references/forms.md`
+  or selects), read the reference file before writing any form code:
+  `./references/forms.md`

@@ -1,8 +1,8 @@
 import {getTablePublicWidgetOptions} from "./table-util";
 
-import type {TablePublicWidgetOptions} from "./table-util";
 import type {PerseusTableWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
+import type {TablePublicWidgetOptions} from "./table-util";
 
 const defaultRows = 4;
 const defaultColumns = 1;

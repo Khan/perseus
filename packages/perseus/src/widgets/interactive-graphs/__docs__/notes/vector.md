@@ -15,46 +15,46 @@ the mathematical model and scoring were designed fresh.
   — built across a multi-PR series (`vector-pr3` rendering & accessibility (#3441), `vector-pr4`
   congruent scoring, etc.).
 - **Follow-ups:**
-  - [LEMS-4231](https://khanacademy.atlassian.net/browse/LEMS-4231) (#3721) — removed the tail dot
-    and increased arrowhead/line sizing (switched to Wonder Blocks sizing tokens).
-  - [LEMS-4353](https://khanacademy.atlassian.net/browse/LEMS-4353) — extended the HTML hitbox to
-    the vector's draggables so touch drags don't scroll the page (Safari).
-  - Vector graph description polish (#3799) — richer screen-reader description
-    (magnitude + direction).
-  - [LEMS-3976](https://khanacademy.atlassian.net/browse/LEMS-3976) — removed the
-    `interactive-graph-vector` feature flag; the type is now available unconditionally.
+    - [LEMS-4231](https://khanacademy.atlassian.net/browse/LEMS-4231) (#3721) — removed the tail dot
+      and increased arrowhead/line sizing (switched to Wonder Blocks sizing tokens).
+    - [LEMS-4353](https://khanacademy.atlassian.net/browse/LEMS-4353) — extended the HTML hitbox to
+      the vector's draggables so touch drags don't scroll the page (Safari).
+    - Vector graph description polish (#3799) — richer screen-reader description
+      (magnitude + direction).
+    - [LEMS-3976](https://khanacademy.atlassian.net/browse/LEMS-3976) — removed the
+      `interactive-graph-vector` feature flag; the type is now available unconditionally.
 
 ## Architecture Overview
 
 ### File Map
 
-| File | Purpose |
-|------|---------|
-| `graphs/vector.tsx` | Main rendering component: vector body (grab handle), tip arrowhead, hairlines, SR description; `getVectorTipKeyboardConstraint` |
-| `graphs/components/use-control-arrowhead.tsx` | `useControlArrowhead` — draggable arrowhead control (mirrors `useControlPoint`, renders `MovableArrowheadView`) |
-| `graphs/components/movable-arrowhead-view.tsx` | `MovableArrowheadView` — the visible arrowhead + focus ring |
-| `graphs/components/movable-pill-handle.tsx` | Pill-shaped SVG drag handle (shared with exp/log asymptotes) — the vector body's grab handle |
-| `graphs/components/hitbox.tsx` | `useHitbox` — HTML hitbox for pointer/touch drags (line shape for the body, box shape for the tip) |
-| `graphs/components/hairlines.tsx` | `Hairlines` — crosshairs shown while the tip is dragged/focused |
-| `graphs/components/vector.tsx` | `Vector` — shared **presentational** vector (line + arrowhead, no interaction); used by locked figures, angle rays, and ray/linear extension arrows, **but not** the interactive *vector* graph body (see [Shared `Vector` component](#shared-vector-presentational-component)) |
-| `graphs/strings/vector.ts` | `describeVectorGraph()` + `srVectorPointLabel()` — SR strings |
-| `reducer/interactive-graph-action.ts` | `actions.vector.moveTip` / `actions.vector.moveVector` |
-| `reducer/interactive-graph-reducer.ts` | Tip move (shared `ray`/`linear`/`vector` `MOVE_POINT` case) and body translation (shared `MOVE_LINE` case) |
-| `reducer/initialize-graph-state.ts` | `getVectorCoords()` — default coords |
-| `reducer/interactive-graph-state.ts` | `getGradableGraph` serialization for vector |
-| `mafs-state-to-interactive-graph.ts` | Vector state → persisted data conversion |
-| `mafs-graph.tsx` | Registers the vector graph type (`renderVectorGraph` in the `renderGraphElements` switch) |
-| `get-equation-string.ts` | `getVectorEquationString()` — component-form `⟨dx, dy⟩` display string |
-| `types.ts` | `VectorGraphState` (`coords: PairOfPoints`) |
-| `interactive-graph.testdata.ts` | `vectorQuestion` fixture (built via `generateIGVectorGraph` + `generateInteractiveGraphQuestion`) |
-| `@khanacademy/perseus-core` `data-schema.ts` | `PerseusGraphTypeVector`, `VectorGraphCorrect` |
-| `@khanacademy/perseus-core` `parse-perseus-json/.../interactive-graph-widget.ts` | `parsePerseusGraphTypeVector` parser branch |
-| `@khanacademy/perseus-core` generators | `generateIGVectorGraph()` |
-| `@khanacademy/perseus-score` `sub-scorers/score-vector.ts` | `scoreVector()` (`score-interactive-graph.ts` dispatches to it) |
-| `@khanacademy/perseus-editor` `components/vector-answer-options.tsx` | "Student answer must" match selector (exact / congruent) |
-| `@khanacademy/perseus-editor` `start-coords/start-coords-vector.tsx` | Editor start coords UI |
-| `@khanacademy/perseus-editor` `graph-type-selector.tsx` | "Vector" option |
-| `widget-ai-utils/interactive-graph/interactive-graph-ai-utils.ts` | `VectorGraphOptions` / `VectorUserInput` + `getGraphOptionsForProps`/`getUserInput` cases |
+| File                                                                             | Purpose                                                                                                                                                                                                                                                                         |
+| -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `graphs/vector.tsx`                                                              | Main rendering component: vector body (grab handle), tip arrowhead, hairlines, SR description; `getVectorTipKeyboardConstraint`                                                                                                                                                 |
+| `graphs/components/use-control-arrowhead.tsx`                                    | `useControlArrowhead` — draggable arrowhead control (mirrors `useControlPoint`, renders `MovableArrowheadView`)                                                                                                                                                                 |
+| `graphs/components/movable-arrowhead-view.tsx`                                   | `MovableArrowheadView` — the visible arrowhead + focus ring                                                                                                                                                                                                                     |
+| `graphs/components/movable-pill-handle.tsx`                                      | Pill-shaped SVG drag handle (shared with exp/log asymptotes) — the vector body's grab handle                                                                                                                                                                                    |
+| `graphs/components/hitbox.tsx`                                                   | `useHitbox` — HTML hitbox for pointer/touch drags (line shape for the body, box shape for the tip)                                                                                                                                                                              |
+| `graphs/components/hairlines.tsx`                                                | `Hairlines` — crosshairs shown while the tip is dragged/focused                                                                                                                                                                                                                 |
+| `graphs/components/vector.tsx`                                                   | `Vector` — shared **presentational** vector (line + arrowhead, no interaction); used by locked figures, angle rays, and ray/linear extension arrows, **but not** the interactive _vector_ graph body (see [Shared `Vector` component](#shared-vector-presentational-component)) |
+| `graphs/strings/vector.ts`                                                       | `describeVectorGraph()` + `srVectorPointLabel()` — SR strings                                                                                                                                                                                                                   |
+| `reducer/interactive-graph-action.ts`                                            | `actions.vector.moveTip` / `actions.vector.moveVector`                                                                                                                                                                                                                          |
+| `reducer/interactive-graph-reducer.ts`                                           | Tip move (shared `ray`/`linear`/`vector` `MOVE_POINT` case) and body translation (shared `MOVE_LINE` case)                                                                                                                                                                      |
+| `reducer/initialize-graph-state.ts`                                              | `getVectorCoords()` — default coords                                                                                                                                                                                                                                            |
+| `reducer/interactive-graph-state.ts`                                             | `getGradableGraph` serialization for vector                                                                                                                                                                                                                                     |
+| `mafs-state-to-interactive-graph.ts`                                             | Vector state → persisted data conversion                                                                                                                                                                                                                                        |
+| `mafs-graph.tsx`                                                                 | Registers the vector graph type (`renderVectorGraph` in the `renderGraphElements` switch)                                                                                                                                                                                       |
+| `get-equation-string.ts`                                                         | `getVectorEquationString()` — component-form `⟨dx, dy⟩` display string                                                                                                                                                                                                          |
+| `types.ts`                                                                       | `VectorGraphState` (`coords: PairOfPoints`)                                                                                                                                                                                                                                     |
+| `interactive-graph.testdata.ts`                                                  | `vectorQuestion` fixture (built via `generateIGVectorGraph` + `generateInteractiveGraphQuestion`)                                                                                                                                                                               |
+| `@khanacademy/perseus-core` `data-schema.ts`                                     | `PerseusGraphTypeVector`, `VectorGraphCorrect`                                                                                                                                                                                                                                  |
+| `@khanacademy/perseus-core` `parse-perseus-json/.../interactive-graph-widget.ts` | `parsePerseusGraphTypeVector` parser branch                                                                                                                                                                                                                                     |
+| `@khanacademy/perseus-core` generators                                           | `generateIGVectorGraph()`                                                                                                                                                                                                                                                       |
+| `@khanacademy/perseus-score` `sub-scorers/score-vector.ts`                       | `scoreVector()` (`score-interactive-graph.ts` dispatches to it)                                                                                                                                                                                                                 |
+| `@khanacademy/perseus-editor` `components/vector-answer-options.tsx`             | "Student answer must" match selector (exact / congruent)                                                                                                                                                                                                                        |
+| `@khanacademy/perseus-editor` `start-coords/start-coords-vector.tsx`             | Editor start coords UI                                                                                                                                                                                                                                                          |
+| `@khanacademy/perseus-editor` `graph-type-selector.tsx`                          | "Vector" option                                                                                                                                                                                                                                                                 |
+| `widget-ai-utils/interactive-graph/interactive-graph-ai-utils.ts`                | `VectorGraphOptions` / `VectorUserInput` + `getGraphOptionsForProps`/`getUserInput` cases                                                                                                                                                                                       |
 
 ### Data Flow
 
@@ -118,11 +118,11 @@ There is no independent tail handle; the tail moves only via the body translatio
 ### Overlap constraint
 
 - The tail and tip can **never overlap** (a zero-length vector has no defined direction).
-  - **Pointer/keyboard tip moves:** the reducer rejects any move where `coordsOverlap(newCoords)`
-    is true (the shared `ray`/`linear`/`vector` `MOVE_POINT` case), leaving the state unchanged.
-  - **Keyboard tip moves:** `getVectorTipKeyboardConstraint` additionally skips one extra snap step
-    in the direction of travel if a step would land the tip exactly on the tail.
-  - **Body translation** preserves the shape, so it can't create an overlap.
+    - **Pointer/keyboard tip moves:** the reducer rejects any move where `coordsOverlap(newCoords)`
+      is true (the shared `ray`/`linear`/`vector` `MOVE_POINT` case), leaving the state unchanged.
+    - **Keyboard tip moves:** `getVectorTipKeyboardConstraint` additionally skips one extra snap step
+      in the direction of travel if a step would land the tip exactly on the tail.
+    - **Body translation** preserves the shape, so it can't create an overlap.
 
 ### Keyboard navigation
 
@@ -159,9 +159,9 @@ The graph `<g>` renders children in this back-to-front order:
 
 - `aria-label` on the graph container (`srVectorGraph`, "A vector on a coordinate plane.").
 - The graph description (`describeVectorGraph` → `srVectorDescription`) combines:
-  - `srVectorPoints` — tail and head coordinates, and
-  - `srVectorMagnitudeDirection` — the vector's **magnitude** (length) and **direction** (angle
-    measured counterclockwise from the positive x-axis, normalized to `[0, 360)` degrees).
+    - `srVectorPoints` — tail and head coordinates, and
+    - `srVectorMagnitudeDirection` — the vector's **magnitude** (length) and **direction** (angle
+      measured counterclockwise from the positive x-axis, normalized to `[0, 360)` degrees).
 - Element labels: the body grab handle uses `srVectorGrabHandle`; the tip uses `srVectorHeadPoint`
   ("Vector head at X comma Y."). `srVectorPointLabel` maps point index 0 → generic
   `srPointAtCoordinates` (tail) and index 1 → `srVectorHeadPoint` (tip).
@@ -286,22 +286,22 @@ x/y offsets give a true 45° angle on a square grid.
 
 ### vs. Ray / Linear / Segment (the other two-point line types)
 
-| Aspect | Vector | Ray / Linear / Segment |
-|--------|--------|------------------------|
-| Endpoints | `[tail, tip]` | two points |
-| Direction matters | **Yes** (tail → tip) | No (a line/segment is undirected) |
-| Tip affordance | Arrowhead (`MovableArrowheadView`) | Movable point |
-| Body handle | Pill handle at midpoint (on hover/focus/drag) | Draggable line |
-| Reducer cases | Shares `MOVE_POINT`/`MOVE_LINE` with ray/linear | same |
-| Scoring | Exact (endpoints) or congruent (component form) | Type-specific (e.g. collinearity, endpoints) |
+| Aspect            | Vector                                          | Ray / Linear / Segment                       |
+| ----------------- | ----------------------------------------------- | -------------------------------------------- |
+| Endpoints         | `[tail, tip]`                                   | two points                                   |
+| Direction matters | **Yes** (tail → tip)                            | No (a line/segment is undirected)            |
+| Tip affordance    | Arrowhead (`MovableArrowheadView`)              | Movable point                                |
+| Body handle       | Pill handle at midpoint (on hover/focus/drag)   | Draggable line                               |
+| Reducer cases     | Shares `MOVE_POINT`/`MOVE_LINE` with ray/linear | same                                         |
+| Scoring           | Exact (endpoints) or congruent (component form) | Type-specific (e.g. collinearity, endpoints) |
 
 ### vs. the function graphs (sinusoid, exponential, logarithm, tangent, absolute value)
 
-| Aspect | Vector | Function graphs |
-|--------|--------|-----------------|
-| What's drawn | A directed segment with an arrowhead | A curve `f(x)` |
-| Coefficients | None (stored as endpoints) | Derived coefficients |
-| Asymptotes | None | Some (exp/log/tangent) |
+| Aspect                              | Vector                                    | Function graphs              |
+| ----------------------------------- | ----------------------------------------- | ---------------------------- |
+| What's drawn                        | A directed segment with an arrowhead      | A curve `f(x)`               |
+| Coefficients                        | None (stored as endpoints)                | Derived coefficients         |
+| Asymptotes                          | None                                      | Some (exp/log/tangent)       |
 | Canonical normalization for scoring | No (component-form compare for congruent) | Sometimes (sinusoid/tangent) |
 
 ## Shared `Vector` presentational component
@@ -309,7 +309,7 @@ x/y offsets give a true 45° angle on a square grid.
 `graphs/components/vector.tsx` exports a **presentational** `Vector` (a line + `Arrowhead`, with no
 drag interaction of its own). It renders vectors for **locked figures**
 (`locked-figures/locked-vector.tsx`, `locked-line.tsx`), **angle rays** (`angle.tsx`), and the
-**ray/linear extension arrows** (`graphs/components/movable-line/line.tsx`). It is used *inside*
+**ray/linear extension arrows** (`graphs/components/movable-line/line.tsx`). It is used _inside_
 those interactive ray/linear graphs, but the interactive **vector** graph body does **not** use it —
 `graphs/vector.tsx` draws its own `SVGLine` + `MovableArrowheadView` so it can wire up dragging.
 Don't confuse the two: `components/vector.tsx` is a non-interactive drawing primitive; the

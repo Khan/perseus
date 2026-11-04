@@ -140,7 +140,9 @@ export default function ExploreImageModalContent({
                                     : undefined
                             }
                             gifFrames={
-                                imageIsGif ? gifFrames ?? undefined : undefined
+                                imageIsGif
+                                    ? (gifFrames ?? undefined)
+                                    : undefined
                             }
                         />
                     )}

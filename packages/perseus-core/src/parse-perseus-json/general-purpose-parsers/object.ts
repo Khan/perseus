@@ -2,8 +2,8 @@ import {failure, isSuccess} from "../result";
 
 import {isPlainObject} from "./is-plain-object";
 
-import type {OptionalizeProperties} from "./object-types";
 import type {Mismatch, ParsedValue, Parser} from "../parser-types";
+import type {OptionalizeProperties} from "./object-types";
 
 type ObjectSchema = Record<keyof any, Parser<any>>;
 

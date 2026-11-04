@@ -34,17 +34,17 @@ scoring time.
 
 ### File map
 
-| File | Role |
-|------|------|
-| `perseus-core/src/data-schema.ts` | `WidgetOptions.graded` field + JSDoc (ungraded sketchpad use case) |
-| `perseus/src/types.ts` | `graded?: boolean \| null` on `WidgetProps`; `supportsUngraded?: boolean` on `WidgetExports` |
-| `perseus/src/renderer.new.tsx` / `renderer.old.tsx` | `getWidgetProps()` passes `graded: widgetInfo?.graded`; default widget info sets `graded: true` (`renderer.tsx` is a feature-flag shim that delegates to these) |
-| `perseus/src/widgets.ts` | `supportsUngraded(type)` — reads the explicit `supportsUngraded === true` flag off the widget export |
-| `perseus/src/widgets/interactive-graphs/interactive-graph.tsx` | Sets `supportsUngraded: true` on the IG export; renders the "not graded" indicator; forwards `graded` + `ungradedDescriptionId` to `StatefulMafsGraph` |
-| `perseus/src/widgets/interactive-graphs/stateful-mafs-graph.tsx` | Guards the correct-answer reveal with `graded !== false` |
-| `perseus-editor/src/components/widget-editor.tsx` | `_setGraded` handler; checks `Widgets.supportsUngraded(...)`; passes the toggle state down |
-| `perseus-editor/src/components/widget-editor-settings.tsx` | Renders the "Interactive but ungraded" `LabeledSwitch` |
-| `perseus-editor/src/widgets/interactive-graph-editor/interactive-graph-editor.tsx` | Accepts a `graded?: boolean` prop (see [Known gap](#known-gap)) |
+| File                                                                               | Role                                                                                                                                                            |
+| ---------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `perseus-core/src/data-schema.ts`                                                  | `WidgetOptions.graded` field + JSDoc (ungraded sketchpad use case)                                                                                              |
+| `perseus/src/types.ts`                                                             | `graded?: boolean \| null` on `WidgetProps`; `supportsUngraded?: boolean` on `WidgetExports`                                                                    |
+| `perseus/src/renderer.new.tsx` / `renderer.old.tsx`                                | `getWidgetProps()` passes `graded: widgetInfo?.graded`; default widget info sets `graded: true` (`renderer.tsx` is a feature-flag shim that delegates to these) |
+| `perseus/src/widgets.ts`                                                           | `supportsUngraded(type)` — reads the explicit `supportsUngraded === true` flag off the widget export                                                            |
+| `perseus/src/widgets/interactive-graphs/interactive-graph.tsx`                     | Sets `supportsUngraded: true` on the IG export; renders the "not graded" indicator; forwards `graded` + `ungradedDescriptionId` to `StatefulMafsGraph`          |
+| `perseus/src/widgets/interactive-graphs/stateful-mafs-graph.tsx`                   | Guards the correct-answer reveal with `graded !== false`                                                                                                        |
+| `perseus-editor/src/components/widget-editor.tsx`                                  | `_setGraded` handler; checks `Widgets.supportsUngraded(...)`; passes the toggle state down                                                                      |
+| `perseus-editor/src/components/widget-editor-settings.tsx`                         | Renders the "Interactive but ungraded" `LabeledSwitch`                                                                                                          |
+| `perseus-editor/src/widgets/interactive-graph-editor/interactive-graph-editor.tsx` | Accepts a `graded?: boolean` prop (see [Known gap](#known-gap))                                                                                                 |
 
 ### Naming
 

@@ -64,9 +64,9 @@ import InteractiveUtil from "./interactive-util";
 import MovablePointOptions from "./movable-point-options";
 import WrappedEllipse, {wrappedEllipseShadow} from "./wrapped-ellipse";
 
+import type {Graphie} from "../util/graphie";
 import type {Movable} from "./movable";
 import type {Constraint, ConstraintCallbacks, Coord} from "./types";
-import type {Graphie} from "../util/graphie";
 
 const assert = InteractiveUtil.assert;
 const normalizeOptions = InteractiveUtil.normalizeOptions;

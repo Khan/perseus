@@ -398,12 +398,9 @@ export const parseInteractiveGraphWidget = parseWidget(
         // NOTE(benchristel): I copied the default graph from
         // interactive-graph.tsx. See the parse-perseus-json/README.md for
         // an explanation of why we want to duplicate the default here.
-        graph: defaulted(
-            parsePerseusGraphType,
-            (): PerseusGraphTypeLinear => ({
-                type: "linear" as const,
-            }),
-        ),
+        graph: defaulted(parsePerseusGraphType, (): PerseusGraphTypeLinear => ({
+            type: "linear" as const,
+        })),
         correct: defaulted(
             parsePerseusGraphType,
             (): PerseusGraphTypeLinear => ({

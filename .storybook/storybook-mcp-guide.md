@@ -40,8 +40,8 @@ storybook-mcp: http://localhost:6006/mcp (HTTP) - Connected
 
 When writing or modifying UI components, Claude Code now has two tools it can use:
 
-| Tool                               | What it does                                                       | When it's useful                                   |
-| ---------------------------------- | ------------------------------------------------------------------ | -------------------------------------------------- |
+| Tool                               | What it does                                                       | When it's useful                                    |
+| ---------------------------------- | ------------------------------------------------------------------ | --------------------------------------------------- |
 | `get-storybook-story-instructions` | Returns story authoring guidelines specific to our Storybook setup | Before creating or editing any `.stories.tsx` file  |
 | `preview-stories`                  | Returns live Storybook URLs for specific stories                   | After making UI changes, to visually verify results |
 
@@ -56,7 +56,7 @@ When writing or modifying UI components, Claude Code now has two tools it can us
 
 - **Storybook must be running** on port 6006 for the MCP tools to work. If it's not running, Claude Code will still function normally — it just won't have access to the Storybook tools.
 - **This is local only.** The MCP server registration is per-developer and doesn't affect CI, builds, or other developers.
-- **It doesn't replace testing.** AI assistants should write tests for any feature they implement, not just stories. Continue using `pnpm test` for unit tests, Cypress for interaction tests, and the a11y addon for accessibility checks. The MCP tools help the AI write *better* code and stories — they don't run tests.
+- **It doesn't replace testing.** AI assistants should write tests for any feature they implement, not just stories. Continue using `pnpm test` for unit tests, Cypress for interaction tests, and the a11y addon for accessibility checks. The MCP tools help the AI write _better_ code and stories — they don't run tests.
 
 ---
 
@@ -105,6 +105,7 @@ MCP (Model Context Protocol) is a standard way for AI assistants to connect to e
 ```
 
 **The flow:**
+
 1. You give Claude Code a prompt (e.g., "Create stories for the dropdown widget")
 2. Claude Code calls the MCP tools on the running Storybook server
 3. Storybook returns story authoring guidelines and live preview URLs
@@ -114,6 +115,7 @@ MCP (Model Context Protocol) is a standard way for AI assistants to connect to e
 ### What happens without MCP vs. with MCP
 
 **Without MCP**, when you ask Claude Code to write a story for a widget:
+
 1. It reads your source files to understand the component
 2. It guesses at story patterns based on its general Storybook knowledge
 3. It might use outdated import paths (e.g., `@storybook/test` instead of `storybook/test`)
@@ -121,6 +123,7 @@ MCP (Model Context Protocol) is a standard way for AI assistants to connect to e
 5. You manually navigate to Storybook to check if the result looks right
 
 **With MCP**, the same request goes like this:
+
 1. Claude Code calls `get-storybook-story-instructions` to learn this project's specific conventions
 2. It reads your source files to understand the component
 3. It writes the story following the correct patterns, imports, and data conventions
@@ -139,17 +142,18 @@ that aren't actual components. The `!manifest` tag excludes them.
 
 **When to add `!manifest` to a story:**
 
-| Story type | Example | Needs `!manifest`? |
-| --- | --- | --- |
-| Documentation/overview pages | Introduction, Getting Started, a11y docs | Yes |
-| Visual regression test stories | `*-regression.stories.tsx` for Chromatic | Yes |
-| Dev utilities | `preview.stories.tsx` | Yes |
-| Actual widget/component stories | `dropdown.stories.tsx` | No |
-| Internal sub-component stories | `choice-indicator.stories.tsx` | No |
+| Story type                      | Example                                  | Needs `!manifest`? |
+| ------------------------------- | ---------------------------------------- | ------------------ |
+| Documentation/overview pages    | Introduction, Getting Started, a11y docs | Yes                |
+| Visual regression test stories  | `*-regression.stories.tsx` for Chromatic | Yes                |
+| Dev utilities                   | `preview.stories.tsx`                    | Yes                |
+| Actual widget/component stories | `dropdown.stories.tsx`                   | No                 |
+| Internal sub-component stories  | `choice-indicator.stories.tsx`           | No                 |
 
 **How to add it:**
 
 In `.stories.tsx` files, add `"!manifest"` to the existing tags array:
+
 ```typescript
 export default {
     title: "Widgets/Definition/Visual Regression Tests/Initial State",
@@ -159,6 +163,7 @@ export default {
 ```
 
 In `.mdx` files, add the `tags` prop to the `<Meta>` component:
+
 ```mdx
 <Meta title="Widgets/Definition/Accessibility" tags={["!manifest"]} />
 ```
@@ -166,6 +171,7 @@ In `.mdx` files, add the `tags` prop to the `<Meta>` component:
 ### Why does Perseus benefit from this?
 
 Perseus has specific patterns that are easy to get wrong:
+
 - **Widget generators** in `packages/perseus-core/src/utils/generators` should be used for test data — not hand-rolled props
 - **New stories go in `__docs__/` directories** within each widget/component folder. Some older stories are colocated directly (e.g., `matrix/matrix.stories.tsx`) but haven't been migrated yet.
 - **The widget data schema is versioned and strict** — inventing props that don't exist will cause type errors or runtime failures

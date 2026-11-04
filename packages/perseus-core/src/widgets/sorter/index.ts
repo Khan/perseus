@@ -1,8 +1,8 @@
 import {getSorterPublicWidgetOptions} from "./sorter-util";
 
-import type {SorterPublicWidgetOptions} from "./sorter-util";
 import type {PerseusSorterWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
+import type {SorterPublicWidgetOptions} from "./sorter-util";
 
 const defaultWidgetOptions: PerseusSorterWidgetOptions = {
     correct: ["$x$", "$y$", "$z$"],

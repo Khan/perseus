@@ -8,39 +8,39 @@ The new Radio widget is designed to be accessible for all users, including those
 
 ## Keyboard Navigation
 
--   Users can navigate to each radio option using the `Tab` key.
--   Once focused, options can be selected with `Space` or `Enter`.
--   Only one option can be selected at a time in single-select mode
-    -   Options are automatically deselected when another option is chosen.
--   Multiple options can be selected when multi-select mode is enabled.
+- Users can navigate to each radio option using the `Tab` key.
+- Once focused, options can be selected with `Space` or `Enter`.
+- Only one option can be selected at a time in single-select mode
+    - Options are automatically deselected when another option is chosen.
+- Multiple options can be selected when multi-select mode is enabled.
 
 ## Screen Reader Support
 
--   Choices are rendered as a list, allowing screen readers to communicate the number of options to the user.
--   Choice buttons are identified as toggle buttons, in order to convey their state (selected or unselected).
-    -   Buttons of type `radio` have specific expectations for interaction which do not apply to this widget.
--   Enhanced screen reader announcements:
-    -   With a Single Select instance, the toggle state of the current choice is important,
-        since there will only ever be one choice selected.
-        -   When toggling a choice, VoiceOver announces when it is selected, but not when it is deselected.
-        -   When toggling a choice, NVDA announces both states ("pressed" and "not pressed").
-        -   Therefore, we add an announcement (via `aria-live`) when a choice is deselected in order to avoid the
-            possibility that a deselection of a choice goes unnoticed by VoiceOver users.
-    -   With a Multi Select instance, the number of choices selected is important.
-        -   When toggling a choice, we add an announcement (via `aria-live`) stating the number of choices selected.
-        -   No deselect announcement is made when toggling within a Multi Select instance.
-        -   The choices selected announcement after every interaction (toggling "on" or "off") suffices as a
-            substitute for a deselect announcement.
--   Choices are labelled in the following manner: "(Choice \<letter\>) \<choice-text\>".
-    -   For example, "(Choice A) Paris, France".
--   When in review mode, choices are marked as disabled,
-    but learners can still navigate to them to have the screen reader review the choices and their rationales.
-    -   Only correct choices are labelled as such (i.e. "Choice A, Correct").
-    -   If rationale exists, it is included via `aria-describedby`,
-        letting learners access that additional information in a familiar manner for expanded content.
-        (content in `aria-describedby` is presented differently by different screen readers)
+- Choices are rendered as a list, allowing screen readers to communicate the number of options to the user.
+- Choice buttons are identified as toggle buttons, in order to convey their state (selected or unselected).
+    - Buttons of type `radio` have specific expectations for interaction which do not apply to this widget.
+- Enhanced screen reader announcements:
+    - With a Single Select instance, the toggle state of the current choice is important,
+      since there will only ever be one choice selected.
+        - When toggling a choice, VoiceOver announces when it is selected, but not when it is deselected.
+        - When toggling a choice, NVDA announces both states ("pressed" and "not pressed").
+        - Therefore, we add an announcement (via `aria-live`) when a choice is deselected in order to avoid the
+          possibility that a deselection of a choice goes unnoticed by VoiceOver users.
+    - With a Multi Select instance, the number of choices selected is important.
+        - When toggling a choice, we add an announcement (via `aria-live`) stating the number of choices selected.
+        - No deselect announcement is made when toggling within a Multi Select instance.
+        - The choices selected announcement after every interaction (toggling "on" or "off") suffices as a
+          substitute for a deselect announcement.
+- Choices are labelled in the following manner: "(Choice \<letter\>) \<choice-text\>".
+    - For example, "(Choice A) Paris, France".
+- When in review mode, choices are marked as disabled,
+  but learners can still navigate to them to have the screen reader review the choices and their rationales.
+    - Only correct choices are labelled as such (i.e. "Choice A, Correct").
+    - If rationale exists, it is included via `aria-describedby`,
+      letting learners access that additional information in a familiar manner for expanded content.
+      (content in `aria-describedby` is presented differently by different screen readers)
 
 ## Additional Notes
 
--   The widget leverages accessible patterns and is tested for compatibility with major screen readers and browsers.
--   If you encounter any accessibility issues, please report them to the team.
+- The widget leverages accessible patterns and is tested for compatibility with major screen readers and browsers.
+- If you encounter any accessibility issues, please report them to the team.

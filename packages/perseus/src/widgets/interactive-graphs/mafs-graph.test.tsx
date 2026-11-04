@@ -21,9 +21,9 @@ import {
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 import {calculateNestedSVGCoords} from "./utils";
 
+import type {PerseusDependenciesV2} from "../../types";
 import type {MafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState} from "./types";
-import type {PerseusDependenciesV2} from "../../types";
 import type {GraphRange, LockedFigure} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 

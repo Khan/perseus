@@ -5,19 +5,18 @@ import NavigationPad from "./navigation-pad";
 import styles from "./render-keypad-panel.module.css";
 import SharedKeys from "./shared-keys";
 
-import type {KeypadProps} from "./keypad";
 import type {KeypadPageType} from "../../types";
+import type {KeypadProps} from "./keypad";
 
-export interface RenderKeyPadPanelProps
-    extends Pick<
-        KeypadProps,
-        | "fractionsOnly"
-        | "onClickKey"
-        | "cursorContext"
-        | "convertDotToTimes"
-        | "divisionKey"
-        | "expandedView"
-    > {
+export interface RenderKeyPadPanelProps extends Pick<
+    KeypadProps,
+    | "fractionsOnly"
+    | "onClickKey"
+    | "cursorContext"
+    | "convertDotToTimes"
+    | "divisionKey"
+    | "expandedView"
+> {
     selectedPage: KeypadPageType;
     children: React.ReactNode;
 }

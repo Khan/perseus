@@ -35,14 +35,14 @@ import tableWidgetLogic from "./table";
 import videoWidgetLogic from "./video";
 
 import type {
-    PublicWidgetOptionsFunction,
-    WidgetLogic,
-} from "./logic-export.types";
-import type {
     PerseusWidgetOptions,
     PerseusWidget,
     Alignment,
 } from "../data-schema";
+import type {
+    PublicWidgetOptionsFunction,
+    WidgetLogic,
+} from "./logic-export.types";
 
 const widgets = new Registry<WidgetLogic<any, any>>("Core widget registry");
 

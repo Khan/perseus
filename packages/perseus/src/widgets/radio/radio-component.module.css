@@ -142,22 +142,23 @@
         (
                 var(--perseus-multiple-choice-indicator-size) -
                     var(--perseus-content-line-height)
-            ) * 0.5
+            ) *
+            0.5
     );
 }
 
 .content:has(
-        :global(.perseus-renderer > .deprecated-perseus-container:first-child)
-            :is(
-                img,
-                mjx-mfrac,
-                mjx-msqrt,
-                mjx-mroot,
-                mjx-munder,
-                mjx-mover,
-                mjx-munderover
-            )
-    ) {
+    :global(.perseus-renderer > .deprecated-perseus-container:first-child)
+        :is(
+            img,
+            mjx-mfrac,
+            mjx-msqrt,
+            mjx-mroot,
+            mjx-munder,
+            mjx-mover,
+            mjx-munderover
+        )
+) {
     margin-block-start: 0;
 }
 

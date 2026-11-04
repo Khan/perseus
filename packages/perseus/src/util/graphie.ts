@@ -10,7 +10,6 @@ import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {entries} from "@khanacademy/wonder-stuff-core";
 import $ from "jquery";
 import Raphael from "raphael";
-
 // Minify Raphael ourselves because IE8 has a problem with the 1.5.2 minified
 // release
 // http://groups.google.com/group/raphaeljs/browse_thread/thread/c34c75ad8d431544
@@ -22,10 +21,10 @@ import {DrawingTransform} from "./drawing-transform";
 import {GraphBounds} from "./graph-bounds";
 import Tex from "./tex";
 
-import type {MouseHandler} from "./interactive";
-import type {Interval} from "./interval";
 import type {Coord} from "../interactive2/types";
 import type {GraphieLabelElement} from "../types";
+import type {MouseHandler} from "./interactive";
+import type {Interval} from "./interval";
 
 const {processMath} = Tex;
 

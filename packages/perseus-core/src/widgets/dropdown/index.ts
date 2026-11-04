@@ -1,8 +1,8 @@
 import {getDropdownPublicWidgetOptions} from "./dropdown-util";
 
-import type {DropdownPublicWidgetOptions} from "./dropdown-util";
 import type {PerseusDropdownWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
+import type {DropdownPublicWidgetOptions} from "./dropdown-util";
 
 const defaultWidgetOptions: PerseusDropdownWidgetOptions = {
     placeholder: "",

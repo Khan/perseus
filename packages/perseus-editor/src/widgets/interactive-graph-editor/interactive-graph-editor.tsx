@@ -29,8 +29,8 @@ import StartCoordsSettings from "./start-coords/start-coords-settings";
 import {shouldShowStartCoordsUI} from "./start-coords/util";
 import {reshapePointLabelsForGraphType} from "./utils/reshape-point-labels";
 
-import type {InteractiveGraphSettingsData} from "./components/interactive-graph-settings";
 import type {WidgetEditorProps} from "../widget-editor-props";
+import type {InteractiveGraphSettingsData} from "./components/interactive-graph-settings";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
     PerseusGraphType,

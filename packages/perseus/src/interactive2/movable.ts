@@ -16,8 +16,8 @@ import _ from "underscore";
 
 import InteractiveUtil from "./interactive-util";
 
-import type {Constraint, ConstraintCallbacks, Coord} from "./types";
 import type {Graphie} from "../util/graphie";
+import type {Constraint, ConstraintCallbacks, Coord} from "./types";
 
 const normalizeOptions = InteractiveUtil.normalizeOptions;
 

@@ -1,9 +1,9 @@
 import * as React from "react";
 import {addons, types} from "storybook/manager-api";
-import darkTheme from "./dark-theme";
-import lightTheme from "./lightTheme";
 
+import darkTheme from "./dark-theme";
 import {FeatureFlagsToolbar} from "./feature-flags-toolbar";
+import lightTheme from "./lightTheme";
 
 addons.setConfig({
     sidebar: {

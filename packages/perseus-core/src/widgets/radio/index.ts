@@ -1,8 +1,8 @@
 import {getRadioPublicWidgetOptions} from "./radio-util";
 
-import type {RadioPublicWidgetOptions} from "./radio-util";
 import type {PerseusRadioWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
+import type {RadioPublicWidgetOptions} from "./radio-util";
 
 const currentVersion = {major: 3, minor: 0};
 

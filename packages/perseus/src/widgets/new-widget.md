@@ -7,6 +7,7 @@ widget needs `__docs__/a11y.mdx` documenting its accessibility, even though
 many older widgets don't have one yet.
 
 Then register it, in dependency order:
+
 1. `perseus-core`: options type in `data-schema.ts` (`PerseusWidgetTypes`),
    user input type in `validation.types.ts` (`UserInputRegistry`), parsers in
    `perseus-parsers/widgets-map.ts` and `user-input-map.ts`, widget logic in

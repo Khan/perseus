@@ -3,8 +3,8 @@ import SimpleMarkdown from "@khanacademy/simple-markdown";
 
 import {clamp, clampToBox, inset, MIN, size, snap, X, Y} from "./math";
 
-import type {InteractiveGraphState, UnlimitedGraphState} from "./types";
 import type {Coord} from "../../interactive2/types";
+import type {InteractiveGraphState, UnlimitedGraphState} from "./types";
 import type {PerseusInteractiveGraphWidgetOptions} from "@khanacademy/perseus-core";
 import type {Interval, vec} from "mafs";
 

@@ -9,9 +9,9 @@ import _ from "underscore";
 
 import {getAbsoluteValueCoefficients} from "./graphs/utils";
 
+import type {Coord} from "../../interactive2/types";
 import type {Props} from "./interactive-graph";
 import type {QuadraticGraphState} from "./types";
-import type {Coord} from "../../interactive2/types";
 import type {
     QuadraticCoefficient,
     SineCoefficient,

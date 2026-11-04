@@ -45,13 +45,13 @@ shortcut, the "Focus mode" warning sentence in the instruction copy, `role="figu
 Interactive graphs are tested against this desktop matrix. "Verified" means golden path plus edge
 cases per phase, confirmed by the SR tester (Darrell).
 
-| Screen reader | Browser | OS |
-|---------------|---------|----|
-| NVDA | Chrome | Windows |
-| NVDA | Firefox | Windows |
-| JAWS | Chrome | Windows |
-| JAWS | Edge | Windows |
-| VoiceOver | Chrome | macOS |
+| Screen reader | Browser | OS      |
+| ------------- | ------- | ------- |
+| NVDA          | Chrome  | Windows |
+| NVDA          | Firefox | Windows |
+| JAWS          | Chrome  | Windows |
+| JAWS          | Edge    | Windows |
+| VoiceOver     | Chrome  | macOS   |
 
 Mobile screen readers (VoiceOver on iOS, TalkBack on Android) are **not supported** — gesture
 conflicts need a separate spike, deferred under
@@ -64,20 +64,20 @@ conflicts need a separate spike, deferred under
 `mafs-graph.tsx` renders an sr-only instruction `<View>` (`className="mafs-sr-only"`) as the first
 child of the graph figure (rendered only for non-`none` graphs — the instructions View is omitted
 for `type: "none"` display-only graphs), and references it early in the container's `aria-describedby`
-order (ahead of the graph description, and only when interaction is enabled) so SR users hear *how to
-interact* before the content description. The string is chosen by graph capability:
+order (ahead of the graph description, and only when interaction is enabled) so SR users hear _how to
+interact_ before the content description. The string is chosen by graph capability:
 
-- **Standard graphs — `srGraphInstructions`:** *"Enable Forms or Focus mode and use the Tab key to
+- **Standard graphs — `srGraphInstructions`:** _"Enable Forms or Focus mode and use the Tab key to
   move through the interactive elements in the graph. When an interactive element has focus, use
-  Arrow keys to move it."*
-- **Unlimited (add/remove) graphs — `srUnlimitedGraphInstructions`:** *"Press Shift + Enter to
+  Arrow keys to move it."_
+- **Unlimited (add/remove) graphs — `srUnlimitedGraphInstructions`:** _"Press Shift + Enter to
   interact with the graph. Enable Forms or Focus mode and use the Tab key to move through the
   interactive elements in the graph and access the graph Action Bar. When an interactive element
   has focus, use Arrow keys to move it or use the Delete key to remove it from the graph. Use the
-  buttons in the Action Bar to add or adjust elements within the graph."*
+  buttons in the Action Bar to add or adjust elements within the graph."_
 
-A **visible** on-screen prompt (`graphKeyboardPrompt`, not sr-only) reads *"Press Shift + Enter to
-interact with the graph"* on unlimited graphs (gated by `state.showKeyboardInteractionInvitation`).
+A **visible** on-screen prompt (`graphKeyboardPrompt`, not sr-only) reads _"Press Shift + Enter to
+interact with the graph"_ on unlimited graphs (gated by `state.showKeyboardInteractionInvitation`).
 
 ### Keyboard interaction
 
@@ -129,15 +129,15 @@ author label. Examples of shipped copy:
 
 ## Keyboard Commands
 
-| Command | Scope | Effect | Source |
-|---------|-------|--------|--------|
-| **Tab** | all graphs | Move between interactive elements (requires the SR's Forms/Focus mode) | native |
-| **Arrow keys** (← → ↑ ↓) | focused element | Move the focused element (default step = span/50) | `use-draggable.ts` |
-| **Shift + Arrow** | focused element | Move in **larger** steps (span/10) | `use-draggable.ts` |
-| **Alt / Meta (⌘) + Arrow** | focused element | Move in **finer** steps (span/200) | `use-draggable.ts` |
-| **Shift + Enter** | unlimited graphs | Enter keyboard interaction mode (`changeInteractionMode("keyboard")`) | `mafs-graph.tsx` |
-| **A** | unlimited graphs, keyboard mode only | Add a point at the origin `(0, 0)` (`addPoint([0, 0])`) | `mafs-graph.tsx` |
-| **Delete / Backspace** | unlimited graphs | Remove the focused point / open-polygon vertex (`deleteIntent()`), then blur the handle | `mafs-graph.tsx` |
+| Command                    | Scope                                | Effect                                                                                  | Source             |
+| -------------------------- | ------------------------------------ | --------------------------------------------------------------------------------------- | ------------------ |
+| **Tab**                    | all graphs                           | Move between interactive elements (requires the SR's Forms/Focus mode)                  | native             |
+| **Arrow keys** (← → ↑ ↓)   | focused element                      | Move the focused element (default step = span/50)                                       | `use-draggable.ts` |
+| **Shift + Arrow**          | focused element                      | Move in **larger** steps (span/10)                                                      | `use-draggable.ts` |
+| **Alt / Meta (⌘) + Arrow** | focused element                      | Move in **finer** steps (span/200)                                                      | `use-draggable.ts` |
+| **Shift + Enter**          | unlimited graphs                     | Enter keyboard interaction mode (`changeInteractionMode("keyboard")`)                   | `mafs-graph.tsx`   |
+| **A**                      | unlimited graphs, keyboard mode only | Add a point at the origin `(0, 0)` (`addPoint([0, 0])`)                                 | `mafs-graph.tsx`   |
+| **Delete / Backspace**     | unlimited graphs                     | Remove the focused point / open-polygon vertex (`deleteIntent()`), then blur the handle | `mafs-graph.tsx`   |
 
 There is **no** shipped handler for Escape, Insert + I, Fn + Enter + I, or Ctrl + Shift + Arrow;
 the arrow-move handler does not treat Ctrl specially, and there is no `navigator.platform`
@@ -147,20 +147,20 @@ the handlers are defined in `reducer/interactive-graph-action.ts` (`MOVE_POINT`,
 
 ## Key Files
 
-| File | Role |
-|------|------|
-| `mafs-graph.tsx` | Renders the graph figure, sr-only instructions (first child, early in `aria-describedby`), and the visible keyboard prompt; hosts the graph-level keyboard handler (`handleKeyboardEvent`, Shift + Enter / `a` / Delete) for unlimited graphs |
-| `stateful-mafs-graph.tsx` | `useEffect` watching `state.stateAnnouncement`; builds the localized message and calls `announceMessage` (WB Announcer) |
-| `graphs/use-draggable.ts` | Per-element keyboard move handler — arrow-to-direction mapping (`directionForKey`), step-size modifiers, constrained-destination handling |
-| `graphs/strings/announcement.ts` | `getAnnouncementText` — maps each move-event type to its per-graph announcement string |
-| `graphs/strings/format-number.ts` | `srFormatNumber` — locale-aware number/π formatting for all SR copy |
-| `graphs/strings/*.ts` | Per-graph label/description assembly (`circle.ts`, `polygon.ts`, `quadratic.ts`, `vector.ts`, …), including `pointLabels` precedence |
-| `packages/perseus/src/strings.ts` | The `sr…` string catalog (instructions + every per-graph label/description) |
-| `types.ts` | `InteractiveGraphStateAnnouncement` union; `stateAnnouncement?` on `InteractiveGraphStateCommon` |
-| `reducer/interactive-graph-reducer.ts` | Sets `stateAnnouncement` on move/add/remove actions |
-| `reducer/interactive-graph-action.ts` | Move/add/remove action creators the keyboard handlers dispatch |
-| `packages/perseus-core/src/data-schema.ts` | `pointLabels?: string[]` on the point/polygon (and most other) graph types |
-| `__docs__/a11y.mdx` | User-facing a11y summary story (keep in sync with this doc) |
+| File                                       | Role                                                                                                                                                                                                                                          |
+| ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mafs-graph.tsx`                           | Renders the graph figure, sr-only instructions (first child, early in `aria-describedby`), and the visible keyboard prompt; hosts the graph-level keyboard handler (`handleKeyboardEvent`, Shift + Enter / `a` / Delete) for unlimited graphs |
+| `stateful-mafs-graph.tsx`                  | `useEffect` watching `state.stateAnnouncement`; builds the localized message and calls `announceMessage` (WB Announcer)                                                                                                                       |
+| `graphs/use-draggable.ts`                  | Per-element keyboard move handler — arrow-to-direction mapping (`directionForKey`), step-size modifiers, constrained-destination handling                                                                                                     |
+| `graphs/strings/announcement.ts`           | `getAnnouncementText` — maps each move-event type to its per-graph announcement string                                                                                                                                                        |
+| `graphs/strings/format-number.ts`          | `srFormatNumber` — locale-aware number/π formatting for all SR copy                                                                                                                                                                           |
+| `graphs/strings/*.ts`                      | Per-graph label/description assembly (`circle.ts`, `polygon.ts`, `quadratic.ts`, `vector.ts`, …), including `pointLabels` precedence                                                                                                          |
+| `packages/perseus/src/strings.ts`          | The `sr…` string catalog (instructions + every per-graph label/description)                                                                                                                                                                   |
+| `types.ts`                                 | `InteractiveGraphStateAnnouncement` union; `stateAnnouncement?` on `InteractiveGraphStateCommon`                                                                                                                                              |
+| `reducer/interactive-graph-reducer.ts`     | Sets `stateAnnouncement` on move/add/remove actions                                                                                                                                                                                           |
+| `reducer/interactive-graph-action.ts`      | Move/add/remove action creators the keyboard handlers dispatch                                                                                                                                                                                |
+| `packages/perseus-core/src/data-schema.ts` | `pointLabels?: string[]` on the point/polygon (and most other) graph types                                                                                                                                                                    |
+| `__docs__/a11y.mdx`                        | User-facing a11y summary story (keep in sync with this doc)                                                                                                                                                                                   |
 
 ## Decision Record
 
@@ -168,7 +168,7 @@ Decisions embodied in the current architecture. One-line restatements of the ful
 [`screen-reader-research.md`](./screen-reader-research.md) (referenced there as OQ1–OQ7); consult
 that doc for the complete rationale and options considered.
 
-### 1. Central Announcer pipeline (raw data in reducers, localization in the component)  — OQ3
+### 1. Central Announcer pipeline (raw data in reducers, localization in the component) — OQ3
 
 **Context:** SR change-announcements were previously driven by toggling `aria-live="polite"` on
 elements, which is fragile (double-reads, timing) and scattered per graph. A single mechanism was
@@ -181,7 +181,7 @@ intercept, radius).
 via `getAnnouncementText`, which dispatches by event type to per-graph label helpers
 (`srQuadraticPointLabel`, `srPolygonLabel`, etc.). Routing is **fully centralized** — there is one
 handler and no per-graph escape hatch. (The `screen-reader-research.md` OQ3 write-up proposed a
-*hybrid* with a `useGraphAnnouncer` per-graph escape hatch; the shipped implementation is the
+_hybrid_ with a `useGraphAnnouncer` per-graph escape hatch; the shipped implementation is the
 simpler fully-central form and `useGraphAnnouncer` does not exist.)
 
 **Consequences:** Reducers stay locale-free and pure; there is one live region for the page.
@@ -192,7 +192,7 @@ reference change, so reducers must always produce a **new** `stateAnnouncement` 
 
 ---
 
-### 2. Two instruction strings (standard vs. unlimited)  — OQ2a
+### 2. Two instruction strings (standard vs. unlimited) — OQ2a
 
 **Context:** Unlimited graphs (add/remove elements, Action Bar) need more guidance than standard
 graphs, but a single combined string would be long and partly irrelevant for standard graphs.
@@ -206,7 +206,7 @@ when they land.
 
 ---
 
-### 3. Instructions rendered first  — OQ4
+### 3. Instructions rendered first — OQ4
 
 **Context:** SR users encountered the content description before learning how to interact, so they
 didn't know the graph was interactive until after hearing a long description.
@@ -219,7 +219,7 @@ graph container's `aria-describedby` order.
 
 ---
 
-### 4. Localized numbers via `srFormatNumber`  — cross-cutting
+### 4. Localized numbers via `srFormatNumber` — cross-cutting
 
 **Context:** Coordinates, radii, angles, and intercepts appear throughout SR copy and must read
 naturally per locale (decimals, π-multiples, math-character labeling) and screen-reader-friendly
@@ -236,7 +236,7 @@ pair for any count-dependent phrasing.
 
 ---
 
-### 5. Optional `pointLabels` with per-index fallback  — OQ5
+### 5. Optional `pointLabels` with per-index fallback — OQ5
 
 **Context:** Authors sometimes name points in prose ("Point T"), but the graph announced generic
 "Point N" labels, creating a mismatch for SR users.
@@ -253,7 +253,7 @@ authors are trained (Phase 3).
 
 ---
 
-### 6. Keep Ctrl + Shift + Arrow (do not remap)  — OQ2b
+### 6. Keep Ctrl + Shift + Arrow (do not remap) — OQ2b
 
 **Context:** Ctrl + Shift + Arrow can be intercepted by JAWS/NVDA in Browse/Virtual Cursor mode
 ([LEMS-4003](https://khanacademy.atlassian.net/browse/LEMS-4003)). Remapping was considered.
@@ -283,23 +283,23 @@ the structural pieces of Phases 2–3 are largely reflected in the shipped behav
 remaining items are not yet in the code. Each row's rationale and detailed step breakdown live in
 [`screen-reader-research.md`](./screen-reader-research.md) and this doc's git history.
 
-| # | Phase | Focus | Key remaining (not shipped) items |
-|---|-------|-------|-----------------------------------|
-| 1 | WB Announcer Foundation | `stateAnnouncement` pipeline; migrate graphs off `aria-live` | Audit any remaining `aria-live` toggles |
-| 2 | Graph Instructions & Structure | Instruction copy, container role, DOM order | `role="figure"` (fallback `role="application"`); "Focus mode" warning sentence; **Insert + I / Fn + Enter + I** repeat shortcut; none-type "nothing to move" + locked-figure traversability copy |
-| 3 | Editor & Linter | `pointLabels`; authoring guardrails | Editor UI behind `perseus-editor-point-labels` flag; linter rule requiring a graph description when locked figures are present |
-| 4 | Trap Focus | Enter/exit + Action Bar (behind a proposed flag, `interactive-graphs-sr-phase-4`) | **Escape** to exit + generalized Shift + Enter entry on all graphs; graph-entered/exited announcements; Action Bar `role="group"`; Add Point disable rule (`lastAddedPointIndex`) |
-| 5 | Per-Graph Copy | UXR-derived per-type wording | Type-aware "moved" copy (linear slope/intercept, segment length, circle center vs. radius); circle drag-handle vs. boundary-point; linear-system intersection phrasing; polygon group-focus summary; sinusoid extremum/midline labels (pending design) |
+| #   | Phase                          | Focus                                                                             | Key remaining (not shipped) items                                                                                                                                                                                                                      |
+| --- | ------------------------------ | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1   | WB Announcer Foundation        | `stateAnnouncement` pipeline; migrate graphs off `aria-live`                      | Audit any remaining `aria-live` toggles                                                                                                                                                                                                                |
+| 2   | Graph Instructions & Structure | Instruction copy, container role, DOM order                                       | `role="figure"` (fallback `role="application"`); "Focus mode" warning sentence; **Insert + I / Fn + Enter + I** repeat shortcut; none-type "nothing to move" + locked-figure traversability copy                                                       |
+| 3   | Editor & Linter                | `pointLabels`; authoring guardrails                                               | Editor UI behind `perseus-editor-point-labels` flag; linter rule requiring a graph description when locked figures are present                                                                                                                         |
+| 4   | Trap Focus                     | Enter/exit + Action Bar (behind a proposed flag, `interactive-graphs-sr-phase-4`) | **Escape** to exit + generalized Shift + Enter entry on all graphs; graph-entered/exited announcements; Action Bar `role="group"`; Add Point disable rule (`lastAddedPointIndex`)                                                                      |
+| 5   | Per-Graph Copy                 | UXR-derived per-type wording                                                      | Type-aware "moved" copy (linear slope/intercept, segment length, circle center vs. radius); circle drag-handle vs. boundary-point; linear-system intersection phrasing; polygon group-focus summary; sinusoid extremum/midline labels (pending design) |
 
 ### Feature flags
 
 Both flag names below are **proposed** — they do not exist in the codebase yet; final names are
 confirmed with the platform team when the phase is implemented.
 
-| Flag (proposed) | Phase | Default | Purpose |
-|------|-------|---------|---------|
-| `interactive-graphs-sr-phase-4` | 4 | off | Focus trap + graph enter/exit announcements + Action Bar grouping + Add Point disable ship together |
-| `perseus-editor-point-labels` | 3 (editor only) | off | Author-facing `pointLabels` UI while authors are trained; renderer side is unflagged and backwards-compatible |
+| Flag (proposed)                 | Phase           | Default | Purpose                                                                                                       |
+| ------------------------------- | --------------- | ------- | ------------------------------------------------------------------------------------------------------------- |
+| `interactive-graphs-sr-phase-4` | 4               | off     | Focus trap + graph enter/exit announcements + Action Bar grouping + Add Point disable ship together           |
+| `perseus-editor-point-labels`   | 3 (editor only) | off     | Author-facing `pointLabels` UI while authors are trained; renderer side is unflagged and backwards-compatible |
 
 ### Copy review process
 
@@ -309,24 +309,24 @@ so he signs off on final-form copy against the integrated build rather than roun
 
 ## Ticket Map
 
-| Ticket | Scope | Phase |
-|--------|-------|-------|
-| [LEMS-3946](https://khanacademy.atlassian.net/browse/LEMS-3946) | Spike / research (companion `screen-reader-research.md`) | — |
-| [LEMS-3943](https://khanacademy.atlassian.net/browse/LEMS-3943) | WB Announcer integration ([#3619](https://github.com/Khan/perseus/pull/3619)) | 1 |
-| [LEMS-4119](https://khanacademy.atlassian.net/browse/LEMS-4119) | `role="figure"` on graph | 2 |
-| [LEMS-4120](https://khanacademy.atlassian.net/browse/LEMS-4120) | Instruction copy + Insert + I repeat shortcut | 2 |
-| [LEMS-4121](https://khanacademy.atlassian.net/browse/LEMS-4121) | Reorder instructions first in DOM | 2 |
-| [LEMS-3205](https://khanacademy.atlassian.net/browse/LEMS-3205) | None-type / locked-figure messaging | 2 |
-| [LEMS-4003](https://khanacademy.atlassian.net/browse/LEMS-4003) | Keyboard-command conflict guidance | 2 |
-| [LEMS-4122](https://khanacademy.atlassian.net/browse/LEMS-4122) / [LEMS-4123](https://khanacademy.atlassian.net/browse/LEMS-4123) / [LEMS-4124](https://khanacademy.atlassian.net/browse/LEMS-4124) | Per-graph instruction polish (Exponent / Logarithm / Vector) | 2 |
-| [LEMS-4424](https://khanacademy.atlassian.net/browse/LEMS-4424) | User-facing SR support article | 2 (docs) |
-| [LEMS-4125](https://khanacademy.atlassian.net/browse/LEMS-4125) | Locked-figure description linter rule | 3 |
-| [LEMS-3995](https://khanacademy.atlassian.net/browse/LEMS-3995) | `pointLabels` editor feature | 3 |
-| [LEMS-3206](https://khanacademy.atlassian.net/browse/LEMS-3206) | Focus trap + Action Bar grouping | 4 |
-| [LEMS-2681](https://khanacademy.atlassian.net/browse/LEMS-2681) | Focus jump on Shift + Enter (unlimited polygon) | 4 |
-| [LEMS-4097](https://khanacademy.atlassian.net/browse/LEMS-4097) | Add Point disable rule | 4 |
-| [LEMS-2971](https://khanacademy.atlassian.net/browse/LEMS-2971) | Umbrella (UXR per-graph copy); impl in LEMS-4092–4096 | 5 |
-| [LEMS-4092](https://khanacademy.atlassian.net/browse/LEMS-4092)–[LEMS-4096](https://khanacademy.atlassian.net/browse/LEMS-4096) | Per-graph "moved"/label copy (linear/segment/circle, circle handles, linear-system, polygon, sinusoid) | 5 |
+| Ticket                                                                                                                                                                                              | Scope                                                                                                  | Phase    |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | -------- |
+| [LEMS-3946](https://khanacademy.atlassian.net/browse/LEMS-3946)                                                                                                                                     | Spike / research (companion `screen-reader-research.md`)                                               | —        |
+| [LEMS-3943](https://khanacademy.atlassian.net/browse/LEMS-3943)                                                                                                                                     | WB Announcer integration ([#3619](https://github.com/Khan/perseus/pull/3619))                          | 1        |
+| [LEMS-4119](https://khanacademy.atlassian.net/browse/LEMS-4119)                                                                                                                                     | `role="figure"` on graph                                                                               | 2        |
+| [LEMS-4120](https://khanacademy.atlassian.net/browse/LEMS-4120)                                                                                                                                     | Instruction copy + Insert + I repeat shortcut                                                          | 2        |
+| [LEMS-4121](https://khanacademy.atlassian.net/browse/LEMS-4121)                                                                                                                                     | Reorder instructions first in DOM                                                                      | 2        |
+| [LEMS-3205](https://khanacademy.atlassian.net/browse/LEMS-3205)                                                                                                                                     | None-type / locked-figure messaging                                                                    | 2        |
+| [LEMS-4003](https://khanacademy.atlassian.net/browse/LEMS-4003)                                                                                                                                     | Keyboard-command conflict guidance                                                                     | 2        |
+| [LEMS-4122](https://khanacademy.atlassian.net/browse/LEMS-4122) / [LEMS-4123](https://khanacademy.atlassian.net/browse/LEMS-4123) / [LEMS-4124](https://khanacademy.atlassian.net/browse/LEMS-4124) | Per-graph instruction polish (Exponent / Logarithm / Vector)                                           | 2        |
+| [LEMS-4424](https://khanacademy.atlassian.net/browse/LEMS-4424)                                                                                                                                     | User-facing SR support article                                                                         | 2 (docs) |
+| [LEMS-4125](https://khanacademy.atlassian.net/browse/LEMS-4125)                                                                                                                                     | Locked-figure description linter rule                                                                  | 3        |
+| [LEMS-3995](https://khanacademy.atlassian.net/browse/LEMS-3995)                                                                                                                                     | `pointLabels` editor feature                                                                           | 3        |
+| [LEMS-3206](https://khanacademy.atlassian.net/browse/LEMS-3206)                                                                                                                                     | Focus trap + Action Bar grouping                                                                       | 4        |
+| [LEMS-2681](https://khanacademy.atlassian.net/browse/LEMS-2681)                                                                                                                                     | Focus jump on Shift + Enter (unlimited polygon)                                                        | 4        |
+| [LEMS-4097](https://khanacademy.atlassian.net/browse/LEMS-4097)                                                                                                                                     | Add Point disable rule                                                                                 | 4        |
+| [LEMS-2971](https://khanacademy.atlassian.net/browse/LEMS-2971)                                                                                                                                     | Umbrella (UXR per-graph copy); impl in LEMS-4092–4096                                                  | 5        |
+| [LEMS-4092](https://khanacademy.atlassian.net/browse/LEMS-4092)–[LEMS-4096](https://khanacademy.atlassian.net/browse/LEMS-4096)                                                                     | Per-graph "moved"/label copy (linear/segment/circle, circle handles, linear-system, polygon, sinusoid) | 5        |
 
 ## Deferred / Out of Scope
 

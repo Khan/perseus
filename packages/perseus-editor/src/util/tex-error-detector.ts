@@ -1,5 +1,6 @@
 import {preprocessTex, PerseusMarkdown} from "@khanacademy/perseus";
 import katex from "katex";
+
 // ./katex-mhchem is imported for side effects. It adds the mhchem extension
 // to KaTeX, which is needed to render chemistry expressions. This prevents
 // spurious KaTeX errors from displaying in the editor for every chemistry

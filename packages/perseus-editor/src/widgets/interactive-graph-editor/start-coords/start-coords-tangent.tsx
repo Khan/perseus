@@ -21,8 +21,8 @@ const StartCoordsTangent = (props: StartCoordsTangentProps) => {
     const {startCoords, onChange, pointLabels, onChangePointLabels} = props;
     const updatePointLabel = (index: number, newLabel: string) => {
         const next: [string, string] = [
-            index === 0 ? newLabel : pointLabels[0] ?? "",
-            index === 1 ? newLabel : pointLabels[1] ?? "",
+            index === 0 ? newLabel : (pointLabels[0] ?? ""),
+            index === 1 ? newLabel : (pointLabels[1] ?? ""),
         ];
         onChangePointLabels(next);
     };

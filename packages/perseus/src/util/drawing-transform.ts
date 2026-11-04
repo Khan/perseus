@@ -1,5 +1,5 @@
-import type {GraphBounds} from "./graph-bounds";
 import type {Coord} from "../interactive2/types";
+import type {GraphBounds} from "./graph-bounds";
 
 interface Raphael {
     setSize(width: number, height: number);

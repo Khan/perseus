@@ -1,5 +1,3 @@
 {
-    "testFileMatch": [
-        "packages/**/*.typetest.ts"
-    ]
+    "testFileMatch": ["packages/**/*.typetest.ts"]
 }

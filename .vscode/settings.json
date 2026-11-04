@@ -6,13 +6,11 @@
     "editor.formatOnSave": false,
     "[javascript][javascriptreact][typescript][typescriptreact][json][jsonc][markdown][css][yaml]": {
         "editor.defaultFormatter": "oxc.oxc-vscode",
-        "editor.formatOnSave": true,
+        "editor.formatOnSave": true
     },
     "eslint.codeActionsOnSave.mode": "all",
     "files.trimTrailingWhitespace": true,
-    "todo-tree.filtering.excludeGlobs": [
-        "**/dist/**",
-    ],
+    "todo-tree.filtering.excludeGlobs": ["**/dist/**"],
     "js/ts.format.enabled": false,
     "js/ts.validate.enabled": true,
     "js/ts.tsdk.path": "node_modules/typescript/lib",
@@ -25,5 +23,5 @@
     "js/ts.inlayHints.parameterNames.enabled": "all",
     "js/ts.inlayHints.parameterTypes.enabled": true,
     "js/ts.inlayHints.propertyDeclarationTypes.enabled": true,
-    "js/ts.inlayHints.variableTypes.enabled": true,
+    "js/ts.inlayHints.variableTypes.enabled": true
 }

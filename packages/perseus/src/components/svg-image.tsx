@@ -15,9 +15,9 @@ import {PerseusI18nContext} from "./i18n-context";
 import ImageLoader from "./image-loader";
 import {ZoomImageButton} from "./zoom-image-button";
 
-import type {ImageProps} from "./image-loader";
 import type {Coord} from "../interactive2/types";
 import type {APIOptions} from "../types";
+import type {ImageProps} from "./image-loader";
 import type {Alignment, Size} from "@khanacademy/perseus-core";
 import type {ParsedFrame} from "gifuct-js";
 

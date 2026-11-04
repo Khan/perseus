@@ -4,8 +4,8 @@ import _ from "underscore";
 import {getClipPoint} from "./get-clip-point";
 import WrappedPath from "./wrapped-path";
 
-import type {Coord} from "./types";
 import type {Graphie} from "../util/graphie";
+import type {Coord} from "./types";
 
 export class Arrowhead extends WrappedPath {
     private static scale = 1.4;

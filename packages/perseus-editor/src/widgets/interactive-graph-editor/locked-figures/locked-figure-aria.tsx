@@ -60,7 +60,7 @@ function LockedFigureAria(props: Props) {
             </BodyText>
             <TextArea
                 id={ariaLabelId}
-                value={loading ? "Loading..." : ariaLabel ?? ""}
+                value={loading ? "Loading..." : (ariaLabel ?? "")}
                 disabled={editingDisabled}
                 onChange={(newValue) => {
                     onChangeProps({

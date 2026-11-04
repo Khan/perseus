@@ -44,6 +44,6 @@
         // We use Vite to compile our bundles so we
         // only need tsc to output .d.ts files
         "declaration": true,
-        "emitDeclarationOnly": true,
-    },
+        "emitDeclarationOnly": true
+    }
 }

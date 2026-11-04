@@ -3,6 +3,7 @@
 Perseus is Khan Academy's educational content rendering system that powers all exercises and articles. It's a TypeScript monorepo that extends Markdown with interactive widgets and beautiful math rendering.
 
 **Core Architecture:**
+
 - **Renderers**: Display content (ServerItemRenderer for exercises, ArticleRenderer for articles)
 - **Widgets**: Interactive components (radio, numeric-input, interactive-graph, etc.)
 - **Editors**: Authoring interfaces for content creators
@@ -15,12 +16,14 @@ Perseus is Khan Academy's educational content rendering system that powers all e
 ## Quick Start Commands
 
 ### Development
+
 ```bash
 pnpm storybook             # Launch Storybook documentation
 pnpm tesc                  # Run tests for changed files
 ```
 
 ### Code Quality
+
 ```bash
 pnpm fixc                  # Run linter and autofix formatting
 pnpm tsc                   # Type-check all packages
@@ -76,6 +79,7 @@ utils/                   # Repo scripts (changed-files, lint, publishing)
 ## Testing Guidelines
 
 ### Test Structure
+
 1. Model new widget tests on
    `packages/perseus/src/widgets/dropdown/dropdown.test.ts` and its
    `dropdown.testdata.ts`.
@@ -95,6 +99,7 @@ utils/                   # Repo scripts (changed-files, lint, publishing)
    tests use `renderArticle` from `render-article.tsx` in the same directory.
 
 ### Writing Tests
+
 - Test titles should describe the requirement or observable outcome, not the implementation.
   Prefer verbs like `returns`, `renders`, `disables`, `throws` over vague phrases like "should handle".
   A failing test title should tell you which requirement broke without reading the test body.
@@ -113,6 +118,7 @@ For any UI work, apply the `accessibility` skill (`.agents/skills/accessibility/
 ## Commit Messages
 
 Focus on what changed and why — write for someone reading git log in 5 years.
+
 - Describe the behavior change, not the implementation steps
 - Explain the motivation (the "why")
 - Note anything surprising or non-obvious
@@ -121,6 +127,7 @@ Focus on what changed and why — write for someone reading git log in 5 years.
 ## Deployment Notes
 
 ### Before Submitting PR
+
 1. Run tests: `pnpm tesc`
 2. Check types: `pnpm tsc`
 3. Lint and format: `pnpm fixc`
@@ -132,6 +139,7 @@ CI runs more checks than the steps above (see `.github/workflows/node-ci.yml`).
 When CI fails, run only the failing step's command locally.
 
 ### Changesets
+
 CI's `changeset` job (`.github/workflows/node-ci.yml`) fails a PR that changes
 package code without a changeset. Write it by hand as
 `.changeset/<three-random-words>.md` (e.g. `quiet-maples-drift.md`):

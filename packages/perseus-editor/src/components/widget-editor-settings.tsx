@@ -5,7 +5,6 @@ import * as React from "react";
 
 import {AlignmentSelect} from "./alignment-select";
 import LabeledSwitch from "./labeled-switch";
-
 import "./widget-editor-settings.css";
 
 import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";

@@ -19,12 +19,14 @@ export default {
 ## Common Issues & Solutions
 
 ### Widget State Management
+
 - Use `useState` or `useReducer` for local UI state that doesn't represent user input
 - User input state must not be stored locally — emit changes via `handleUserInput` and receive state via the `userInput` prop
 - The props type should be derived from `WidgetProps<...>` and the widget options type in `data-schema.ts`
 - `getSerializedState` is deprecated
 
 ### Mobile Considerations
+
 - All widgets must work on mobile devices
 - Support touch interactions
 - Consider on-screen keypad for math inputs
@@ -33,6 +35,7 @@ export default {
 ## Development Tips
 
 ### Storybook Development
+
 - Use Storybook for isolated component development
 - Test different props combinations
 - Verify accessibility with Storybook a11y addon
@@ -41,5 +44,6 @@ export default {
   and `*-interactions-regression.stories.tsx`) with `"!autodocs"` and `"!manifest"` tags for Chromatic
 
 ### Error Boundaries
+
 - Widgets are wrapped in error boundaries by their parent component (`WidgetContainer`)
 - Check browser console for widget-specific errors

@@ -1,8 +1,8 @@
 import {getBlankPublicWidgetOptions} from "./blank-util";
 
-import type {BlankPublicWidgetOptions} from "./blank-util";
 import type {PerseusBlankWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
+import type {BlankPublicWidgetOptions} from "./blank-util";
 
 const defaultWidgetOptions: PerseusBlankWidgetOptions = {
     displayType: "normal",
