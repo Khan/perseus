@@ -8,6 +8,8 @@ import {simpleTexQuestion} from "../../sorter.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
+// See LEMS-4701: this needs to be in an article
+// because the regression was only in Articles
 function SorterArticle() {
     const apiOptions = useStorybookApiOptions();
     return (
