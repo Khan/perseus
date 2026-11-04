@@ -28,7 +28,6 @@ const widgetsNeedingOverlay: string[] = [
     "group",
     "iframe",
     "input-number",
-    "label-image",
     "matcher",
     "matrix",
     "number-line",
