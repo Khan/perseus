@@ -40,7 +40,7 @@ How the work is done. An agent resuming this plan follows these rules exactly.
 
 ## Status
 
-**Build order steps 1 to 6 are done; step 7 is next.** The commits below are on
+**Build order steps 1 to 7 are done; step 8 is next.** The commits below are on
 `jer/perseus-mcp`, oldest first, and every tool was smoke-tested over stdio
 from outside the repo.
 
@@ -82,6 +82,7 @@ from outside the repo.
 | Inline only woff2 fonts in the in-chat page | `keepWoff2Fonts` (`adapters/preview/woff2-fonts.ts`) removes every source but woff2 from the `@font-face` rules that offer woff2, in the MCP Apps page's built CSS: MathQuill's Symbola came in four inlined formats (woff2, woff, TrueType, IE's eot). The page goes from 6.83 MB to 5.48 MB, and its fonts are all woff2. Checked in the stand-in host: math renders, the woff2 Symbola loads, an answer checks as correct, hints and their labels show, and the model context follows. The browser preview is unchanged: it loads font files, and browsers fetch only the woff2. |
 | Mark the preview page when the draft has rendered | perseus-preview (minor changeset `gentle-signals-report`): a `render-state` message from the iframe (`RenderState`: rendering, done, or error with its message, tagged with the content version), `reportRenderState` from the presenter, and the latest `renderState` from the controller, "rendering" from each send until the iframe reports on that content. `Exercise` reports "done" when ServerItemRenderer calls `LoadingContext.onRendered` (images and math settled), remounting the renderer for each item since it reports once per mount, and "error" from an error boundary that shows the message. The shell sets `data-render-done` and `data-render-error` on its body from `renderState` (`page/render-markers.ts`), so a screenshot tool needs only the page's URL; the frame and the in-chat page have no markers, since what drives them already gets the state. Checked in Chrome: the shell is marked done once the math has rendered, and an edit clears the marker until the new revision renders. |
 | Build Windows bundles of perseus-mcp for testers | `build:bundle` builds one zip per platform, all by default or the ones named: `perseus-mcp-macos-arm64.zip`, `-windows-x64.zip` and `-windows-arm64.zip`, sharing one build of the server, pages and type files. Every bundle ships the Node version that runs the build: on macOS that binary, and for Windows `node.exe` from Node's official zip for that version, downloaded once into `dist/node-downloads` with curl (which goes through a proxy, unlike Node's fetch) and checked against Node's `SHASUMS256.txt`. Windows install notes give the `%APPDATA%\Claude` config path and the doubled backslashes JSON needs. Checked: each zip's contents (no macOS metadata), `node.exe` is x86-64 or Arm64 and signed by the OpenJS Foundation, and the macOS bundle still runs. Not run on Windows. Plan: the steps from revision history to alt text added before `create_graphie` (now step 12), and the alt-text checks after the build order. |
+| Keep every revision of a draft | Build order step 7. Each save also writes `<dataDir>/history/<itemId>/<revision>.json` (revision first, then the draft, each written then renamed), read only when asked for; drafts saved before keep their history from their next revision. Each revision records what made it (`change`: "Created", "Opened from …", "edit_item: 2 operations", "add_widget: radio 1", "Reverted to revision 3"). `DraftRepository` gains `getRevision` and `revisions`; the file adapter reads history only for drafts it knows, so an `itemId` can't name a path outside it. Tools: `list_revisions`, `export_item` with a `revision`, and `revert_item`, which saves an earlier revision's item as the newest revision (keeping the current notes), so a revert can be reverted. Checked over MCP against a dev server. |
 
 Remaining, in order:
 
@@ -93,7 +94,7 @@ Remaining, in order:
    Not planned: fewer Lato weights (which ones Perseus uses would need
    checking), or dropping the speech rule engine, which reads math to
    screen readers.
-2. Build order steps 7 to 15.
+2. Build order steps 8 to 15.
 
 Consuming applications aren't in this repo: the changesets carry the
 migration steps, and they're updated separately.
@@ -649,10 +650,10 @@ Steps 1–3 need no Perseus changes, so building can start there.
    - **Windows** (x64 and Arm) bundles are built too, with Node's
      official `node.exe`, but haven't been run on Windows yet.
    - **Not done:** a Linux bundle, and a CI job that builds the zips.
-7. **Revision history:** every revision of a draft is kept (storage
-   efficiency can come later). A tool reads a draft at a given revision,
-   and `revert_item` makes an earlier revision the newest. Step 10 needs
-   it.
+7. **Revision history** (done): every revision of a draft is kept in
+   `<dataDir>/history/` (storage efficiency can come later);
+   `list_revisions`, `export_item` with a `revision`, and `revert_item`.
+   Step 10 needs it.
 8. **Collections, with import and export:**
    - A collection groups drafts by problem type, keeping each item's
      source (a `contentId`) so an export writes it back to the same place.

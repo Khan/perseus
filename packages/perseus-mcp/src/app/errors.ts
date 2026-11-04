@@ -8,6 +8,21 @@ export class DraftNotFoundError extends Error {
     }
 }
 
+export class RevisionNotFoundError extends Error {
+    readonly itemId: string;
+    readonly revision: number;
+
+    constructor(itemId: string, revision: number, kept: ReadonlyArray<number>) {
+        super(
+            `Draft "${itemId}" has no revision ${revision}. Kept revisions: ` +
+                `${kept.join(", ")}.`,
+        );
+        this.name = "RevisionNotFoundError";
+        this.itemId = itemId;
+        this.revision = revision;
+    }
+}
+
 export class UnknownWidgetTypeError extends Error {
     readonly type: string;
 

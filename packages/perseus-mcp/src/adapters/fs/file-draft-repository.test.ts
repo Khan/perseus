@@ -10,7 +10,7 @@ import {
     generateTestPerseusItem,
 } from "@khanacademy/perseus-core";
 
-import {newDraft} from "../../domain/draft";
+import {newDraft, reviseDraft} from "../../domain/draft";
 
 import {
     DataDirNotWritableError,
@@ -65,6 +65,64 @@ describe("FileDraftRepository", () => {
             fs.readFileSync(path.join(dataDir, "drafts", "abc.json"), "utf8"),
         );
         expect(saved).toEqual(draft);
+    });
+
+    it("keeps every revision, readable after a restart", () => {
+        // Arrange
+        const first = draftWith("abc", "2026-01-01T00:00:00Z");
+        const second = reviseDraft(first, {
+            change: "edit_item: 1 operation",
+            now: new Date("2026-01-02T00:00:00Z"),
+        });
+        const before = initRepository();
+        before.save(first);
+        before.save(second);
+
+        // Act
+        const after = initRepository();
+
+        // Assert
+        expect({
+            revisions: after.revisions("abc"),
+            first: after.getRevision("abc", 1),
+        }).toEqual({
+            revisions: [
+                {revision: 1, updatedAt: first.updatedAt, change: undefined},
+                {
+                    revision: 2,
+                    updatedAt: second.updatedAt,
+                    change: "edit_item: 1 operation",
+                },
+            ],
+            first,
+        });
+    });
+
+    it("lists only the current revision of a draft saved before history", () => {
+        // Arrange
+        const draft = {
+            ...draftWith("abc", "2026-01-01T00:00:00Z"),
+            revision: 7,
+        };
+        initRepository();
+        writeDraftFile("abc.json", JSON.stringify(draft));
+
+        // Act
+        const revisions = initRepository().revisions("abc");
+
+        // Assert
+        expect(revisions.map((r) => r.revision)).toEqual([7]);
+    });
+
+    it("reads no history for a draft it doesn't know", () => {
+        // Arrange
+        const repository = initRepository();
+
+        // Act
+        const revision = repository.getRevision("../drafts/abc", 1);
+
+        // Assert
+        expect(revision).toBeUndefined();
     });
 
     it("loads saved drafts when a new repository starts", () => {

@@ -16,6 +16,12 @@ export type Draft = {
      * own memory of them.
      */
     notes?: string;
+    /**
+     * What made this revision, e.g. "Created" or "edit_item: 2 operations",
+     * to tell revisions apart. Missing on drafts saved before revisions were
+     * kept.
+     */
+    change?: string;
     item: PerseusItem;
 };
 
@@ -23,6 +29,7 @@ export function newDraft(args: {
     itemId: string;
     item: PerseusItem;
     notes?: string;
+    change?: string;
     now: Date;
 }): Draft {
     const timestamp = args.now.toISOString();
@@ -32,6 +39,7 @@ export function newDraft(args: {
         createdAt: timestamp,
         updatedAt: timestamp,
         notes: args.notes,
+        change: args.change,
         item: args.item,
     };
 }
@@ -39,7 +47,7 @@ export function newDraft(args: {
 /** The draft after a change: the new values, a new revision and timestamp. */
 export function reviseDraft(
     draft: Draft,
-    changes: {item?: PerseusItem; notes?: string; now: Date},
+    changes: {item?: PerseusItem; notes?: string; change: string; now: Date},
 ): Draft {
     return {
         ...draft,
@@ -47,5 +55,6 @@ export function reviseDraft(
         updatedAt: changes.now.toISOString(),
         item: changes.item ?? draft.item,
         notes: changes.notes ?? draft.notes,
+        change: changes.change,
     };
 }

@@ -6,7 +6,11 @@ import {z} from "zod";
 import {parseItem} from "../../domain/items/parse";
 
 import type {Draft} from "../../domain/draft";
-import type {DraftRepository, SkippedDraft} from "../../ports/draft-repository";
+import type {
+    DraftRepository,
+    RevisionSummary,
+    SkippedDraft,
+} from "../../ports/draft-repository";
 
 export class DataDirNotWritableError extends Error {
     readonly dir: string;
@@ -23,15 +27,19 @@ export class DataDirNotWritableError extends Error {
 
 /**
  * Keeps drafts in memory and saves each one as `<dataDir>/drafts/<itemId>.json`,
- * so drafts survive restarts. It only ever writes inside `dataDir`.
+ * so drafts survive restarts, and every revision as
+ * `<dataDir>/history/<itemId>/<revision>.json`, read only when asked for. It
+ * only ever writes inside `dataDir`.
  */
 export class FileDraftRepository implements DraftRepository {
     private readonly draftsDir: string;
+    private readonly historyDir: string;
     private readonly drafts = new Map<string, Draft>();
     private readonly skippedDrafts: SkippedDraft[] = [];
 
     constructor(dataDir: string) {
         this.draftsDir = path.join(path.resolve(dataDir), "drafts");
+        this.historyDir = path.join(path.resolve(dataDir), "history");
     }
 
     /**
@@ -46,6 +54,8 @@ export class FileDraftRepository implements DraftRepository {
         try {
             fs.mkdirSync(this.draftsDir, {recursive: true});
             fs.accessSync(this.draftsDir, fs.constants.W_OK);
+            fs.mkdirSync(this.historyDir, {recursive: true});
+            fs.accessSync(this.historyDir, fs.constants.W_OK);
         } catch (e) {
             throw new DataDirNotWritableError(this.draftsDir, e);
         }
@@ -68,17 +78,75 @@ export class FileDraftRepository implements DraftRepository {
     }
 
     save(draft: Draft): void {
-        // Write then rename, so a crash mid-write never leaves a half-written
-        // draft behind.
-        const file = this.locationOf(draft.itemId);
-        const tmp = `${file}.tmp`;
-        fs.writeFileSync(tmp, JSON.stringify(draft, null, 4));
-        fs.renameSync(tmp, file);
+        const json = JSON.stringify(draft, null, 4);
+        // The revision first: a crash between the two writes leaves a kept
+        // revision that isn't the draft yet, never a draft without its
+        // revision.
+        const revisionsDir = this.revisionsDirOf(draft.itemId);
+        fs.mkdirSync(revisionsDir, {recursive: true});
+        writeAtomically(
+            path.join(revisionsDir, `${draft.revision}.json`),
+            json,
+        );
+        writeAtomically(this.locationOf(draft.itemId), json);
         this.drafts.set(draft.itemId, draft);
+    }
+
+    getRevision(itemId: string, revision: number): Draft | undefined {
+        // Only known drafts: an unknown itemId could name a path outside
+        // the history directory.
+        const current = this.drafts.get(itemId);
+        if (current == null) {
+            return undefined;
+        }
+        if (current.revision === revision) {
+            return current;
+        }
+        const file = path.join(this.revisionsDirOf(itemId), `${revision}.json`);
+        if (!Number.isInteger(revision) || !fs.existsSync(file)) {
+            return undefined;
+        }
+        const read = readDraft(file);
+        return read.ok ? read.draft : undefined;
+    }
+
+    revisions(itemId: string): RevisionSummary[] {
+        const current = this.drafts.get(itemId);
+        if (current == null) {
+            return [];
+        }
+        const dir = this.revisionsDirOf(itemId);
+        const kept = fs.existsSync(dir)
+            ? fs
+                  .readdirSync(dir)
+                  .map((file) => /^(\d+)\.json$/.exec(file)?.[1])
+                  .filter((n): n is string => n != null)
+                  .map(Number)
+            : [];
+        // A draft saved before revisions were kept has only its current one.
+        const numbers = [...new Set([...kept, current.revision])].sort(
+            (a, b) => a - b,
+        );
+        return numbers.flatMap((revision) => {
+            const draft = this.getRevision(itemId, revision);
+            return draft == null
+                ? []
+                : [
+                      {
+                          revision,
+                          updatedAt: draft.updatedAt,
+                          change: draft.change,
+                      },
+                  ];
+        });
     }
 
     locationOf(itemId: string): string {
         return path.join(this.draftsDir, `${itemId}.json`);
+    }
+
+    private revisionsDirOf(itemId: string): string {
+        return path.join(this.historyDir, itemId);
     }
 
     skipped(): SkippedDraft[] {
@@ -86,28 +154,47 @@ export class FileDraftRepository implements DraftRepository {
     }
 
     private load(file: string): void {
-        const skip = (reason: string) =>
-            this.skippedDrafts.push({location: file, reason});
-
-        let saved: unknown;
-        try {
-            saved = JSON.parse(fs.readFileSync(file, "utf8"));
-        } catch (e) {
-            skip(`Not valid JSON: ${String(e)}`);
-            return;
+        const read = readDraft(file);
+        if (read.ok) {
+            this.drafts.set(read.draft.itemId, read.draft);
+        } else {
+            this.skippedDrafts.push({location: file, reason: read.reason});
         }
-        const draft = SavedDraft.safeParse(saved);
-        if (!draft.success) {
-            skip(`Not a draft: ${z.prettifyError(draft.error)}`);
-            return;
-        }
-        const parsed = parseItem(draft.data.item);
-        if (!parsed.ok) {
-            skip(`Its item isn't a valid PerseusItem: ${parsed.error}`);
-            return;
-        }
-        this.drafts.set(draft.data.itemId, {...draft.data, item: parsed.item});
     }
+}
+
+/** Writes then renames, so a crash mid-write never leaves half a file. */
+function writeAtomically(file: string, contents: string): void {
+    const tmp = `${file}.tmp`;
+    fs.writeFileSync(tmp, contents);
+    fs.renameSync(tmp, file);
+}
+
+/** Reads a saved draft, parsing and migrating its item. */
+function readDraft(
+    file: string,
+): {ok: true; draft: Draft} | {ok: false; reason: string} {
+    let saved: unknown;
+    try {
+        saved = JSON.parse(fs.readFileSync(file, "utf8"));
+    } catch (e) {
+        return {ok: false, reason: `Not valid JSON: ${String(e)}`};
+    }
+    const draft = SavedDraft.safeParse(saved);
+    if (!draft.success) {
+        return {
+            ok: false,
+            reason: `Not a draft: ${z.prettifyError(draft.error)}`,
+        };
+    }
+    const parsed = parseItem(draft.data.item);
+    if (!parsed.ok) {
+        return {
+            ok: false,
+            reason: `Its item isn't a valid PerseusItem: ${parsed.error}`,
+        };
+    }
+    return {ok: true, draft: {...draft.data, item: parsed.item}};
 }
 
 // Everything but the item, which parseItem checks (and migrates).
@@ -117,5 +204,6 @@ const SavedDraft = z.object({
     createdAt: z.string(),
     updatedAt: z.string(),
     notes: z.string().optional(),
+    change: z.string().optional(),
     item: z.unknown(),
 });

@@ -4,7 +4,11 @@ import {buildItem} from "../domain/items/build";
 import {editItem as applyItemPatch} from "../domain/items/edit";
 import {parseItem} from "../domain/items/parse";
 
-import {DraftNotFoundError, InvalidItemError} from "./errors";
+import {
+    DraftNotFoundError,
+    InvalidItemError,
+    RevisionNotFoundError,
+} from "./errors";
 
 import type {Catalog} from "./catalog";
 import type {Draft} from "../domain/draft";
@@ -13,7 +17,11 @@ import type {ItemInput} from "../domain/items/build";
 import type {PatchOperation} from "../domain/items/edit";
 import type {Issue} from "../domain/items/validate";
 import type {DraftFeed, DraftListener} from "../ports/draft-feed";
-import type {DraftRepository, SkippedDraft} from "../ports/draft-repository";
+import type {
+    DraftRepository,
+    RevisionSummary,
+    SkippedDraft,
+} from "../ports/draft-repository";
 import type {ItemFileReader} from "../ports/item-file-reader";
 
 export type DraftDependencies = {
@@ -51,6 +59,30 @@ export function createDraftUseCases(deps: DraftDependencies) {
         return draft;
     }
 
+    function getRevision(itemId: string, revision: number): Draft {
+        getDraft(itemId);
+        const draft = drafts.getRevision(itemId, revision);
+        if (draft == null) {
+            throw new RevisionNotFoundError(
+                itemId,
+                revision,
+                drafts.revisions(itemId).map((kept) => kept.revision),
+            );
+        }
+        return draft;
+    }
+
+    /** Describes an edit, for the revision it makes. */
+    function describeEdit(edit: DraftEdit): string {
+        const operations = edit.patch?.length ?? 0;
+        const parts = [
+            operations > 0 &&
+                `${operations} operation${operations === 1 ? "" : "s"}`,
+            edit.notes != null && "new notes",
+        ].filter((part): part is string => typeof part === "string");
+        return `edit_item: ${parts.join(", ")}`;
+    }
+
     return {
         /**
          * Starts a draft from an existing item, migrated to the latest
@@ -71,6 +103,10 @@ export function createDraftUseCases(deps: DraftDependencies) {
                 itemId: deps.newId(),
                 item: parsed.item,
                 notes,
+                change:
+                    "path" in source
+                        ? `Opened from ${source.path}`
+                        : "Opened from an item",
                 now: deps.now(),
             });
             drafts.save(draft);
@@ -90,6 +126,7 @@ export function createDraftUseCases(deps: DraftDependencies) {
                 itemId: deps.newId(),
                 item: result.item,
                 notes,
+                change: "Created",
                 now: deps.now(),
             });
             drafts.save(draft);
@@ -121,6 +158,7 @@ export function createDraftUseCases(deps: DraftDependencies) {
             const revised = reviseDraft(draft, {
                 item,
                 notes: edit.notes,
+                change: describeEdit(edit),
                 now: deps.now(),
             });
             drafts.save(revised);
@@ -146,6 +184,7 @@ export function createDraftUseCases(deps: DraftDependencies) {
             }
             const revised = reviseDraft(draft, {
                 item: result.item,
+                change: `add_widget: ${result.widgetId}`,
                 now: deps.now(),
             });
             drafts.save(revised);
@@ -157,12 +196,52 @@ export function createDraftUseCases(deps: DraftDependencies) {
             };
         },
 
-        /** @throws DraftNotFoundError */
-        exportItem(itemId: string): {draft: Draft; location: string} {
+        /**
+         * The draft, or the draft as it was at `revision`.
+         *
+         * @throws DraftNotFoundError
+         * @throws RevisionNotFoundError
+         */
+        exportItem(
+            itemId: string,
+            revision?: number,
+        ): {draft: Draft; location: string} {
             return {
-                draft: getDraft(itemId),
+                draft:
+                    revision == null
+                        ? getDraft(itemId)
+                        : getRevision(itemId, revision),
                 location: drafts.locationOf(itemId),
             };
+        },
+
+        /**
+         * The draft's kept revisions, oldest first.
+         *
+         * @throws DraftNotFoundError
+         */
+        listRevisions(itemId: string): RevisionSummary[] {
+            getDraft(itemId);
+            return drafts.revisions(itemId);
+        },
+
+        /**
+         * Saves the item of an earlier revision as a new revision, so the
+         * revisions in between stay kept. The draft keeps its current notes.
+         *
+         * @throws DraftNotFoundError
+         * @throws RevisionNotFoundError
+         */
+        revertItem(itemId: string, revision: number): Draft {
+            const current = getDraft(itemId);
+            const earlier = getRevision(itemId, revision);
+            const reverted = reviseDraft(current, {
+                item: earlier.item,
+                change: `Reverted to revision ${revision}`,
+                now: deps.now(),
+            });
+            drafts.save(reverted);
+            return reverted;
         },
 
         listItems(): {drafts: Draft[]; skipped: SkippedDraft[]} {

@@ -26,6 +26,11 @@ list_items. Items from any Perseus version are accepted; items are always
 returned fully migrated to the latest schema. export_item returns the finished
 JSON.
 
+Every change makes a new revision, and every revision is kept:
+list_revisions lists them with what made each one, export_item with a
+revision reads an earlier one, and revert_item makes an earlier revision's
+item the newest (the revisions in between stay kept).
+
 list_widgets and get_widget_spec describe each widget's options; validate_item
 checks an item the way Perseus will. score_item scores an answer as Perseus
 does; to test an item, solve it yourself and give check_user_inputs correct
@@ -330,19 +335,75 @@ export function createMcpServer({
             title: "Export a Perseus item",
             description:
                 "Return a draft's PerseusItem JSON (fully migrated), its " +
-                "notes and the path of the file it's saved in.",
-            inputSchema: z.object({itemId: z.string()}),
+                "notes and the path of the file it's saved in; with " +
+                "`revision`, the draft as it was at that revision " +
+                "(list_revisions lists them).",
+            inputSchema: z.object({
+                itemId: z.string(),
+                revision: z
+                    .number()
+                    .int()
+                    .positive()
+                    .optional()
+                    .describe("An earlier revision to read instead."),
+            }),
             annotations: {readOnlyHint: true},
         },
-        ({itemId}) =>
+        ({itemId, revision}) =>
             runTool(() => {
-                const {draft, location} = drafts.exportItem(itemId);
+                const {draft, location} = drafts.exportItem(itemId, revision);
                 return jsonResult({
                     itemId,
                     revision: draft.revision,
                     notes: draft.notes,
                     path: location,
                     item: draft.item,
+                });
+            }),
+    );
+
+    server.registerTool(
+        "list_revisions",
+        {
+            title: "List a draft's revisions",
+            description:
+                "List every kept revision of a draft, oldest first, with " +
+                'when it was made and what made it (e.g. "edit_item: 2 ' +
+                'operations"). Drafts saved before revisions were kept ' +
+                "start their history at that revision.",
+            inputSchema: z.object({itemId: z.string()}),
+            annotations: {readOnlyHint: true},
+        },
+        ({itemId}) =>
+            runTool(() =>
+                jsonResult({
+                    itemId,
+                    revisions: drafts.listRevisions(itemId),
+                }),
+            ),
+    );
+
+    server.registerTool(
+        "revert_item",
+        {
+            title: "Revert a draft to an earlier revision",
+            description:
+                "Save the item of an earlier revision as the draft's newest " +
+                "revision. Nothing is lost: the revisions in between stay " +
+                "kept, so a revert can itself be reverted. The draft keeps " +
+                "its current notes.",
+            inputSchema: z.object({
+                itemId: z.string(),
+                revision: z.number().int().positive(),
+            }),
+        },
+        ({itemId, revision}) =>
+            runTool(() => {
+                const draft = drafts.revertItem(itemId, revision);
+                return jsonResult({
+                    itemId,
+                    revision: draft.revision,
+                    revertedTo: revision,
                 });
             }),
     );

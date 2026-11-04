@@ -13,7 +13,11 @@ import {checkoutPaths} from "../runtime-paths";
 import {createCatalog} from "./catalog";
 import {withDraftFeed} from "./draft-feed";
 import {createDraftUseCases} from "./drafts";
-import {DraftNotFoundError, InvalidItemError} from "./errors";
+import {
+    DraftNotFoundError,
+    InvalidItemError,
+    RevisionNotFoundError,
+} from "./errors";
 import {inMemoryRepository} from "./in-memory-draft-repository.testutils";
 
 import type {SkippedDraft} from "../ports/draft-repository";
@@ -281,6 +285,88 @@ describe("draft use cases", () => {
             expect(() => useCases.exportItem("nope")).toThrow(
                 DraftNotFoundError,
             );
+        });
+    });
+
+    describe("revisions", () => {
+        async function draftWithTwoEdits() {
+            const setup = setUp();
+            await setup.useCases.openItem({
+                item: generateTestPerseusItem({
+                    question: generateTestPerseusRenderer({content: "First"}),
+                }),
+            });
+            for (const content of ["Second", "Third"]) {
+                setup.useCases.editItem("abc", {
+                    patch: [
+                        {
+                            op: "replace",
+                            path: "/question/content",
+                            value: content,
+                        },
+                    ],
+                });
+            }
+            return setup;
+        }
+
+        it("lists every revision with what made it", async () => {
+            // Arrange
+            const {useCases} = await draftWithTwoEdits();
+
+            // Act
+            const revisions = useCases.listRevisions("abc");
+
+            // Assert
+            expect(
+                revisions.map(({revision, change}) => [revision, change]),
+            ).toEqual([
+                [1, "Opened from an item"],
+                [2, "edit_item: 1 operation"],
+                [3, "edit_item: 1 operation"],
+            ]);
+        });
+
+        it("exports the item as it was at an earlier revision", async () => {
+            // Arrange
+            const {useCases} = await draftWithTwoEdits();
+
+            // Act
+            const {draft} = useCases.exportItem("abc", 1);
+
+            // Assert
+            expect(draft.item.question.content).toBe("First");
+        });
+
+        it("throws for a revision that wasn't kept", async () => {
+            // Arrange
+            const {useCases} = await draftWithTwoEdits();
+
+            // Act, Assert
+            expect(() => useCases.exportItem("abc", 9)).toThrow(
+                RevisionNotFoundError,
+            );
+        });
+
+        it("reverts by saving the earlier item as a new revision", async () => {
+            // Arrange
+            const {drafts, useCases} = await draftWithTwoEdits();
+
+            // Act
+            useCases.revertItem("abc", 1);
+
+            // Assert
+            expect({
+                current: drafts.get("abc"),
+                kept: useCases.listRevisions("abc").map((r) => r.revision),
+            }).toMatchObject({
+                current: {
+                    revision: 4,
+                    change: "Reverted to revision 1",
+                    item: {question: {content: "First"}},
+                },
+                kept: [1, 2, 3, 4],
+            });
         });
     });
 

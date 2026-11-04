@@ -17,6 +17,9 @@ export function withDraftFeed(repository: DraftRepository): {
         list: () => repository.list(),
         locationOf: (itemId) => repository.locationOf(itemId),
         skipped: () => repository.skipped(),
+        getRevision: (itemId, revision) =>
+            repository.getRevision(itemId, revision),
+        revisions: (itemId) => repository.revisions(itemId),
         save(draft) {
             repository.save(draft);
             for (const listener of listeners.get(draft.itemId) ?? []) {
