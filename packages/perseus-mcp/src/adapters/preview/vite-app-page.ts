@@ -2,6 +2,7 @@ import {readFile} from "node:fs/promises";
 import path from "node:path";
 
 import {APP_DIR, PERSEUS_VITE_CONFIG, productionBuild} from "./vite-shared";
+import {keepWoff2Fonts} from "./woff2-fonts";
 
 import type {Plugin, Rolldown} from "vite";
 
@@ -76,7 +77,7 @@ export async function buildAppPage(): Promise<string> {
     const html = await readFile(path.join(APP_DIR, "preview-app.html"), "utf8");
     // A literal "</script" or "</style" would end the inline element early.
     const code = entry.code.replace(/<\/script/gi, "<\\/script");
-    const styles = css.replace(/<\/style/gi, "<\\/style");
+    const styles = keepWoff2Fonts(css).replace(/<\/style/gi, "<\\/style");
     // Functions, so "$&" and the like in the code aren't read as replacement
     // patterns.
     return html
