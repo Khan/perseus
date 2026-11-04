@@ -27,12 +27,19 @@ export function errorResult(
  */
 export async function runTool(
     handler: () => CallToolResult | Promise<CallToolResult>,
+    onError?: (message: string) => void,
 ): Promise<CallToolResult> {
+    let result: CallToolResult;
     try {
-        return await handler();
+        result = await handler();
     } catch (e) {
-        return errorResult(describeError(e));
+        result = errorResult(describeError(e));
     }
+    if (result.isError === true && onError != null) {
+        const first = result.content[0];
+        onError(first?.type === "text" ? first.text : "(no message)");
+    }
+    return result;
 }
 
 function describeError(e: unknown): string {

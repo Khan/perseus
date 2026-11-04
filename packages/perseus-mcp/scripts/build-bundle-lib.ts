@@ -13,6 +13,7 @@ import {
 import path from "node:path";
 
 import {productionBuild} from "../src/adapters/preview/vite-shared";
+import {gitCommit} from "../src/build-info";
 
 import {buildPages} from "./build-pages-lib";
 
@@ -44,6 +45,14 @@ const COPIED_FILES: Record<string, string> = {
  * external. (Rolldown gives bundled CommonJS a require() of its own.)
  */
 async function buildServer(outDir: string): Promise<void> {
+    const packageJson = JSON.parse(
+        await readFile(path.join(PACKAGE_DIR, "package.json"), "utf8"),
+    );
+    // What get_server_info reports as this bundle's version and commit.
+    const build = {
+        version: packageJson.version,
+        commit: gitCommit(PACKAGE_DIR),
+    };
     await productionBuild({
         configFile: false,
         logLevel: "warn",
@@ -53,6 +62,7 @@ async function buildServer(outDir: string): Promise<void> {
         define: {
             __filename: "import.meta.filename",
             __dirname: "import.meta.dirname",
+            __PERSEUS_MCP_BUILD__: JSON.stringify(build),
         },
         build: {
             ssr: path.join(PACKAGE_DIR, "src/main-packaged.ts"),
@@ -233,6 +243,18 @@ Drafts are saved in \`~/Library/Application Support/perseus-mcp\`. Claude
 Desktop's log for the server is
 \`~/Library/Logs/Claude/mcp-server-perseus.log\`.
 
+## If something goes wrong
+
+- **It runs but misbehaves** (a tool fails, the preview doesn't load): ask
+  Claude to "get perseus-mcp's server info" and send the result to whoever
+  sent you perseus-mcp. It holds nothing of your items.
+- **It doesn't start** (Claude Desktop shows it as failed): open Terminal,
+  paste this line, press Return, and send what it copies to your clipboard:
+
+  \`\`\`sh
+{ echo "== chip: $(/usr/bin/uname -m), macOS $(/usr/bin/sw_vers -productVersion)"; echo "== folder"; /bin/ls -la ~/perseus-mcp 2>&1 | /usr/bin/head -15; echo "== node"; ~/perseus-mcp/node --version 2>&1; /usr/bin/xattr ~/perseus-mcp/node 2>&1; echo "== server"; ~/perseus-mcp/node ~/perseus-mcp/server/index.mjs --stdio </dev/null 2>&1 | /usr/bin/head -20; echo "== config"; /usr/bin/grep -A6 '"perseus"' ~/Library/Application\\ Support/Claude/claude_desktop_config.json 2>&1; echo "== log"; /usr/bin/tail -30 ~/Library/Logs/Claude/mcp-server-perseus.log 2>&1; } | /usr/bin/pbcopy; echo "Copied."
+  \`\`\`
+
 To update, replace the folder with the new one and restart Claude Desktop.
 `;
 }
@@ -271,6 +293,19 @@ included.
 
 Drafts are saved in \`%LOCALAPPDATA%\\perseus-mcp\`. Claude Desktop's log
 for the server is \`%APPDATA%\\Claude\\logs\\mcp-server-perseus.log\`.
+
+## If something goes wrong
+
+- **It runs but misbehaves** (a tool fails, the preview doesn't load): ask
+  Claude to "get perseus-mcp's server info" and send the result to whoever
+  sent you perseus-mcp. It holds nothing of your items.
+- **It doesn't start** (Claude Desktop shows it as failed): open PowerShell
+  (Start menu → type PowerShell → Enter), paste this line, press Enter, and
+  send what it copies to your clipboard:
+
+  \`\`\`powershell
+& { "== arch: $env:PROCESSOR_ARCHITECTURE, $((Get-CimInstance Win32_OperatingSystem).Caption)"; "== folder"; Get-ChildItem "$HOME\\perseus-mcp" 2>&1 | Out-String; "== node"; & "$HOME\\perseus-mcp\\node.exe" --version 2>&1; "signature: $((Get-AuthenticodeSignature "$HOME\\perseus-mcp\\node.exe").Status)"; "blocked as downloaded: $([bool](Get-Item "$HOME\\perseus-mcp\\node.exe" -Stream Zone.Identifier -ErrorAction SilentlyContinue))"; "== server"; $null | & "$HOME\\perseus-mcp\\node.exe" "$HOME\\perseus-mcp\\server\\index.mjs" --stdio 2>&1 | Select-Object -First 20; "== config"; Select-String -Path "$env:APPDATA\\Claude\\claude_desktop_config.json" -Pattern '"perseus"' -Context 0,6 | Out-String; "== log"; Get-Content "$env:APPDATA\\Claude\\logs\\mcp-server-perseus.log" -Tail 30 } *>&1 | Out-String | Set-Clipboard; "Copied."
+  \`\`\`
 
 To update, replace the folder with the new one and restart Claude Desktop.
 `;

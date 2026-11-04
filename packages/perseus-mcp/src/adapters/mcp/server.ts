@@ -11,7 +11,9 @@ import type {DraftUseCases} from "../../app/drafts";
 import type {PreviewUseCases} from "../../app/preview";
 import type {ReviewUseCases} from "../../app/review";
 import type {ScoringUseCases} from "../../app/scoring";
+import type {ErrorLog, ServerInfo} from "../../app/server-info";
 import type {WidgetUseCases} from "../../app/widgets";
+import type {CallToolResult} from "@modelcontextprotocol/server";
 
 // Sent to the agent when it connects (the `instructions` field of the MCP
 // initialize result); hosts may add it to the agent's system prompt.
@@ -104,9 +106,15 @@ export function createMcpServer({
     preview,
     previewApp,
     collections,
+    serverInfo,
+    errors,
 }: {
     drafts: DraftUseCases;
     collections: CollectionUseCases;
+    /** What get_server_info reports. */
+    serverInfo?: () => ServerInfo;
+    /** Where tool errors are recorded, for get_server_info. */
+    errors?: ErrorLog;
     widgets: WidgetUseCases;
     scoring: ScoringUseCases;
     review: ReviewUseCases;
@@ -117,6 +125,35 @@ export function createMcpServer({
         {name: "perseus", version: libVersion},
         {instructions: INSTRUCTIONS},
     );
+
+    // Every tool's errors are recorded under its name.
+    function run(
+        tool: string,
+        handler: () => CallToolResult | Promise<CallToolResult>,
+    ): Promise<CallToolResult> {
+        return runTool(handler, (message) => errors?.record(tool, message));
+    }
+
+    if (serverInfo != null) {
+        server.registerTool(
+            "get_server_info",
+            {
+                title: "Get perseus-mcp's diagnostic information",
+                description:
+                    "When a person reports a problem with perseus-mcp, call " +
+                    "this and give them the result to send to whoever " +
+                    "supports them: perseus-mcp's version and commit, whether " +
+                    "it runs from the testers' bundle or the repo, the " +
+                    "transport, Node, the operating system, the data folder " +
+                    "and how many drafts it holds, whether previews are " +
+                    "served, and the last errors. It holds nothing of the " +
+                    "person's items.",
+                inputSchema: z.object({}),
+                annotations: {readOnlyHint: true},
+            },
+            () => run("get_server_info", () => jsonResult(serverInfo())),
+        );
+    }
 
     server.registerTool(
         "open_item",
@@ -139,7 +176,7 @@ export function createMcpServer({
             }),
         },
         ({item, path, notes}) =>
-            runTool(async () => {
+            run("open_item", async () => {
                 if ((item == null) === (path == null)) {
                     return errorResult("Pass exactly one of `item` or `path`.");
                 }
@@ -219,7 +256,7 @@ export function createMcpServer({
             }),
         },
         ({notes, ...input}) =>
-            runTool(() => {
+            run("create_item", () => {
                 const result = drafts.createItem(input, notes);
                 if (!result.ok) {
                     return errorResult(
@@ -274,7 +311,7 @@ export function createMcpServer({
             }),
         },
         ({itemId, ...input}) =>
-            runTool(() => {
+            run("add_widget", () => {
                 const result = drafts.addWidget(itemId, input);
                 if (!result.ok) {
                     return errorResult(
@@ -317,7 +354,7 @@ export function createMcpServer({
             }),
         },
         ({itemId, patch, notes}) =>
-            runTool(() => {
+            run("edit_item", () => {
                 if ((patch == null || patch.length === 0) && notes == null) {
                     return errorResult("Pass a `patch`, `notes` or both.");
                 }
@@ -357,7 +394,7 @@ export function createMcpServer({
             annotations: {readOnlyHint: true},
         },
         ({itemId, revision}) =>
-            runTool(() => {
+            run("export_item", () => {
                 const {draft, location} = drafts.exportItem(itemId, revision);
                 return jsonResult({
                     itemId,
@@ -391,7 +428,7 @@ export function createMcpServer({
             }),
         },
         ({edits}) =>
-            runTool(() =>
+            run("edit_items", () =>
                 jsonResult({
                     results: drafts.editItems(edits).map((result) =>
                         result.ok
@@ -439,7 +476,7 @@ export function createMcpServer({
             }),
         },
         (input) =>
-            runTool(async () => {
+            run("import_items", async () => {
                 const result = await collections.importItems(input);
                 return jsonResult({
                     collectionId: result.collection.collectionId,
@@ -467,7 +504,7 @@ export function createMcpServer({
             annotations: {readOnlyHint: true},
         },
         () =>
-            runTool(() =>
+            run("list_collections", () =>
                 jsonResult({collections: collections.listCollections()}),
             ),
     );
@@ -484,7 +521,9 @@ export function createMcpServer({
             annotations: {readOnlyHint: true},
         },
         ({collectionId}) =>
-            runTool(() => jsonResult(collections.getCollection(collectionId))),
+            run("get_collection", () =>
+                jsonResult(collections.getCollection(collectionId)),
+            ),
     );
 
     const problemTypeSchema = z
@@ -510,7 +549,7 @@ export function createMcpServer({
             }),
         },
         ({collectionId, itemIds, problemType}) =>
-            runTool(() => {
+            run("move_items", () => {
                 collections.placeItems(collectionId, itemIds, problemType);
                 return jsonResult(collections.getCollection(collectionId));
             }),
@@ -531,7 +570,7 @@ export function createMcpServer({
             }),
         },
         ({collectionId, itemId, problemType}) =>
-            runTool(() => {
+            run("add_to_collection", () => {
                 collections.placeItems(collectionId, [itemId], problemType);
                 return jsonResult(collections.getCollection(collectionId));
             }),
@@ -549,7 +588,7 @@ export function createMcpServer({
             annotations: {readOnlyHint: true},
         },
         ({collectionId}) =>
-            runTool(() => {
+            run("validate_collection", () => {
                 const results = collections.validateCollection(collectionId);
                 return jsonResult({
                     items: results.length,
@@ -587,7 +626,9 @@ export function createMcpServer({
             }),
         },
         (input) =>
-            runTool(() => jsonResult(collections.exportCollection(input))),
+            run("export_collection", () =>
+                jsonResult(collections.exportCollection(input)),
+            ),
     );
 
     server.registerTool(
@@ -603,7 +644,7 @@ export function createMcpServer({
             annotations: {readOnlyHint: true},
         },
         ({itemId}) =>
-            runTool(() =>
+            run("list_revisions", () =>
                 jsonResult({
                     itemId,
                     revisions: drafts.listRevisions(itemId),
@@ -626,7 +667,7 @@ export function createMcpServer({
             }),
         },
         ({itemId, revision}) =>
-            runTool(() => {
+            run("revert_item", () => {
                 const draft = drafts.revertItem(itemId, revision);
                 return jsonResult({
                     itemId,
@@ -657,7 +698,7 @@ export function createMcpServer({
             }),
         },
         ({itemId}) =>
-            runTool(() =>
+            run("preview_item", () =>
                 jsonResult({itemId, url: preview.previewUrl(itemId)}),
             ),
     );
@@ -683,7 +724,7 @@ export function createMcpServer({
                 },
             },
             ({itemId, sinceRevision}) =>
-                runTool(() => {
+                run("get_preview_draft", () => {
                     const {draft} = drafts.exportItem(itemId);
                     if (draft.revision === sinceRevision) {
                         return jsonResult({changed: false});
@@ -740,7 +781,7 @@ export function createMcpServer({
             annotations: {readOnlyHint: true},
         },
         () =>
-            runTool(() => {
+            run("list_items", () => {
                 const {drafts: saved, skipped} = drafts.listItems();
                 return jsonResult({
                     drafts: saved.map((draft) => ({
@@ -768,7 +809,7 @@ export function createMcpServer({
             inputSchema: z.object({}),
             annotations: {readOnlyHint: true},
         },
-        () => runTool(() => jsonResult(widgets.listWidgets())),
+        () => run("list_widgets", () => jsonResult(widgets.listWidgets())),
     );
 
     server.registerTool(
@@ -782,7 +823,10 @@ export function createMcpServer({
             inputSchema: z.object({type: z.string().describe('e.g. "radio"')}),
             annotations: {readOnlyHint: true},
         },
-        ({type}) => runTool(() => jsonResult(widgets.getWidgetSpec(type))),
+        ({type}) =>
+            run("get_widget_spec", () =>
+                jsonResult(widgets.getWidgetSpec(type)),
+            ),
     );
 
     server.registerTool(
@@ -804,7 +848,7 @@ export function createMcpServer({
             annotations: {readOnlyHint: true},
         },
         ({itemId, item}) =>
-            runTool(() => {
+            run("validate_item", () => {
                 if ((itemId == null) === (item == null)) {
                     return errorResult(
                         "Pass exactly one of `itemId` or `item`.",
@@ -848,7 +892,7 @@ export function createMcpServer({
             annotations: {readOnlyHint: true},
         },
         ({itemId, userInput, locale}) =>
-            runTool(() => {
+            run("score_item", () => {
                 const result = scoring.scoreItem(itemId, userInput, locale);
                 if (!result.ok) {
                     return errorResult("The answer couldn't be scored.", {
@@ -894,7 +938,7 @@ export function createMcpServer({
             annotations: {readOnlyHint: true},
         },
         ({itemId, inputs, locale}) =>
-            runTool(() =>
+            run("check_user_inputs", () =>
                 jsonResult(scoring.checkUserInputs(itemId, inputs, locale)),
             ),
     );

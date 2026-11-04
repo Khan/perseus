@@ -40,7 +40,7 @@ How the work is done. An agent resuming this plan follows these rules exactly.
 
 ## Status
 
-**Build order steps 1 to 7 and 9 are done; step 8 is next.** The commits below are on
+**Build order steps 1 to 9 are done; step 10 is next.** The commits below are on
 `jer/perseus-mcp`, oldest first, and every tool was smoke-tested over stdio
 from outside the repo.
 
@@ -84,6 +84,7 @@ from outside the repo.
 | Build Windows bundles of perseus-mcp for testers | `build:bundle` builds one zip per platform, all by default or the ones named: `perseus-mcp-macos-arm64.zip`, `-windows-x64.zip` and `-windows-arm64.zip`, sharing one build of the server, pages and type files. Every bundle ships the Node version that runs the build: on macOS that binary, and for Windows `node.exe` from Node's official zip for that version, downloaded once into `dist/node-downloads` with curl (which goes through a proxy, unlike Node's fetch) and checked against Node's `SHASUMS256.txt`. Windows install notes give the `%APPDATA%\Claude` config path and the doubled backslashes JSON needs. Checked: each zip's contents (no macOS metadata), `node.exe` is x86-64 or Arm64 and signed by the OpenJS Foundation, and the macOS bundle still runs. Not run on Windows. Plan: the steps from revision history to alt text added before `create_graphie` (now step 12), and the alt-text checks after the build order. |
 | Keep every revision of a draft | Build order step 7. Each save also writes `<dataDir>/history/<itemId>/<revision>.json` (revision first, then the draft, each written then renamed), read only when asked for; drafts saved before keep their history from their next revision. Each revision records what made it (`change`: "Created", "Opened from …", "edit_item: 2 operations", "add_widget: radio 1", "Reverted to revision 3"). `DraftRepository` gains `getRevision` and `revisions`; the file adapter reads history only for drafts it knows, so an `itemId` can't name a path outside it. Tools: `list_revisions`, `export_item` with a `revision`, and `revert_item`, which saves an earlier revision's item as the newest revision (keeping the current notes), so a revert can be reverted. Checked over MCP against a dev server. |
 | Group drafts into collections, with import and export | Build order step 9. A collection (`domain/collections/`, `<dataDir>/collections/<collectionId>.json` through a `CollectionRepository` port) groups drafts by problem type and holds their ids with the `contentId`s they came with. `import_items` reads a file in any of four shapes (`readImport`): the exercise editor's bulk JSON format, an exercise export (names become notes), items, or a bare renderer; a draft per item that parses, the rest skipped and listed. `export_collection` writes the bulk format through an `ExportFileWriter` port (default `<dataDir>/exports/`, no overwrite unless asked), each item's latest revision as a JSON string. `get_collection`, `list_collections`, `move_items`, `add_to_collection`, `validate_collection`, and `edit_items` (several drafts, each saved or not on its own). Plan: `get_server_info` added as step 8; the later steps move down one. Checked over MCP: perseus-renderer's sample imported, organized into two problem types, exported, and the export re-imported with the same tree. |
+| Add get_server_info for diagnosing testers' problems | Build order step 8. `get_server_info` reports perseus-mcp's version and commit (from the repo, read from `package.json` and git at startup; in the bundle, written in by `build:bundle` as `__PERSEUS_MCP_BUILD__`), whether it runs from the bundle or the repo, the transport, Node, the OS and processor, the data folder with its draft, skipped-draft and collection counts, the preview's URL and whether its pages are prebuilt or compiled by Vite, and the last 20 errors. Errors are kept in memory (`createErrorLog`): every tool's error results, under the tool's name (each handler runs through `run(tool, …)`), and startup problems (skipped drafts, a failed listen), each cut to 300 characters so none carries an item. The install notes gain "If something goes wrong": ask Claude for the server info when it runs, or paste a one-line command (Terminal on macOS, PowerShell on Windows) that copies the folder, Node's version and signature, a test start of the server, the config entry and Claude Desktop's log to the clipboard when it doesn't. Checked from the unpacked macOS bundle and from the repo. The Windows command and its log path (`%APPDATA%\Claude\logs`) haven't been run on Windows. |
 
 Remaining, in order:
 
@@ -95,7 +96,7 @@ Remaining, in order:
    Not planned: fewer Lato weights (which ones Perseus uses would need
    checking), or dropping the speech rule engine, which reads math to
    screen readers.
-2. Build order step 8, then steps 10 to 16.
+2. Build order steps 10 to 16.
 
 Consuming applications aren't in this repo: the changesets carry the
 migration steps, and they're updated separately.
@@ -655,7 +656,7 @@ Steps 1–3 need no Perseus changes, so building can start there.
    `<dataDir>/history/` (storage efficiency can come later);
    `list_revisions`, `export_item` with a `revision`, and `revert_item`.
    Step 11 needs it.
-8. **`get_server_info`:** a tool Claude calls when a person reports a
+8. **`get_server_info`** (done): a tool Claude calls when a person reports a
    problem, returning what we need to diagnose it, for them to send on:
    perseus-mcp's version and the commit it was built from, whether it runs
    from the bundle or the repo and over stdio or HTTP, Node's version, the

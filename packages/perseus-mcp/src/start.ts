@@ -4,6 +4,7 @@
 // (main.ts, main-packaged.ts) say where its files are and which preview
 // pages it serves.
 import {randomUUID} from "node:crypto";
+import os from "node:os";
 import path from "node:path";
 import {parseArgs} from "node:util";
 
@@ -31,10 +32,12 @@ import {createDraftUseCases} from "./app/drafts";
 import {createPreviewUseCases} from "./app/preview";
 import {createReviewUseCases} from "./app/review";
 import {createScoringUseCases} from "./app/scoring";
+import {createErrorLog, describeServer} from "./app/server-info";
 import {createWidgetUseCases} from "./app/widgets";
 
 import type {PreviewPages} from "./adapters/http/server";
 import type {PreviewApp} from "./adapters/mcp/server";
+import type {BuildInfo} from "./build-info";
 import type {RuntimePaths} from "./runtime-paths";
 import type {Server} from "node:http";
 
@@ -46,6 +49,8 @@ export type PreviewSource = {
 
 export type StartOptions = {
     paths: RuntimePaths;
+    /** Which perseus-mcp this is, for get_server_info. */
+    build: BuildInfo;
     /** Picks the preview pages, given the `--pages` option if there is one. */
     previewSource: (pagesOption: string | undefined) => PreviewSource;
 };
@@ -63,8 +68,12 @@ function slug(name: string): string {
 
 export async function start({
     paths,
+    build,
     previewSource,
 }: StartOptions): Promise<void> {
+    const startedAt = new Date().toISOString();
+    // The last errors, for get_server_info.
+    const errors = createErrorLog(20, () => new Date());
     const defaultDataDir =
         process.env.PERSEUS_MCP_DATA_DIR ?? paths.defaultDataDir;
 
@@ -107,6 +116,12 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
         process.stderr.write(`${message}\n`);
     }
 
+    /** Logs a problem, and keeps it for get_server_info. */
+    function logProblem(message: string) {
+        log(`perseus-mcp: ${message}`);
+        errors.record("server", message);
+    }
+
     // Parsing, migration and every other widget lookup go through this registry.
     CoreWidgetRegistry.registerCoreWidgets();
 
@@ -127,7 +142,7 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
     }
     log(`perseus-mcp: drafts in ${dataDir}`);
     for (const {location, reason} of fileRepository.skipped()) {
-        log(`perseus-mcp: skipped ${location}: ${reason}`);
+        logProblem(`skipped ${location}: ${reason}`);
     }
     const collectionRepository = new FileCollectionRepository(dataDir);
     collectionRepository.init();
@@ -176,11 +191,36 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
     // The browser preview's pages, and the page MCP Apps hosts show in the chat.
     const {createPreview, previewApp} = previewSource(values.pages);
 
+    const serverInfo = () =>
+        describeServer({
+            build,
+            transport: values.stdio ? "stdio" : "http",
+            startedAt,
+            node: process.version,
+            os: {
+                platform: os.platform(),
+                release: os.release(),
+                arch: os.arch(),
+            },
+            dataDir: path.resolve(dataDir),
+            drafts: fileRepository.list().length,
+            skippedDrafts: fileRepository.skipped().length,
+            collections: collectionRepository.list().length,
+            httpUrl: baseUrl,
+            previewPages:
+                values.pages != null || build.source === "bundle"
+                    ? "prebuilt"
+                    : "compiled by Vite",
+            errors: errors.recent(),
+        });
+    const mcpServer = () =>
+        createMcpServer({...useCases, previewApp, serverInfo, errors});
+
     const host = values.host;
     // Port 0 asks the OS for a free port.
     const port = Number(values.port ?? (values.stdio ? 0 : 4567));
     const httpServer = await createHttpServer({
-        createMcpServer: () => createMcpServer({...useCases, previewApp}),
+        createMcpServer: mcpServer,
         drafts: useCases.drafts,
         createPreview,
         allowedHostnames: allowedHostnames(host),
@@ -190,7 +230,7 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
         baseUrl = `http://${host === "127.0.0.1" ? "localhost" : host}:${address.port}`;
         log(`perseus-mcp: HTTP on ${baseUrl} (MCP on ${baseUrl}/mcp)`);
     } catch (e) {
-        log(`perseus-mcp: couldn't listen on ${host}:${port}: ${String(e)}`);
+        logProblem(`couldn't listen on ${host}:${port}: ${String(e)}`);
         // Over stdio, MCP still works without HTTP; only previews are lost.
         if (!values.stdio) {
             process.exit(1);
@@ -201,6 +241,6 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
         // The host ends a stdio session by closing stdin. The HTTP server would
         // otherwise keep the process running after it.
         process.stdin.on("end", () => process.exit(0));
-        serveStdio(() => createMcpServer({...useCases, previewApp}));
+        serveStdio(mcpServer);
     }
 }
