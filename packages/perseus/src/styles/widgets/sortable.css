@@ -76,3 +76,9 @@
 .perseus-sortable :is(div, p).deprecated-perseus-container {
     margin: 0;
 }
+
+.perseus-sortable .perseus-block-math,
+.perseus-sortable .perseus-block-math-inner {
+    margin: 0 !important;
+    padding: 0 !important;
+}

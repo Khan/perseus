@@ -2,7 +2,8 @@ import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import WrappedServerItemRenderer from "../../../server-item-renderer";
 import {storybookDependenciesV2} from "../../../testing/test-dependencies";
-import {texQuestion} from "../sorter.testdata";
+import {articleDecorator} from "../../__testutils__/story-decorators";
+import {simpleTexQuestion, texQuestion} from "../sorter.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -35,5 +36,13 @@ export const Question1: Story = {
 export const AnswerlessQuestion1: Story = {
     args: {
         item: generateTestPerseusItem({question: texQuestion}),
+    },
+};
+
+export const SimpleTexInArticle: Story = {
+    decorators: [articleDecorator],
+    tags: ["dev"],
+    args: {
+        item: generateTestPerseusItem({question: simpleTexQuestion}),
     },
 };

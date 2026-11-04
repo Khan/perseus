@@ -2,8 +2,10 @@ import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
+import {articleDecorator} from "../../__testutils__/story-decorators";
 import {
     basicQuestion,
+    simpleTexQuestion,
     texQuestion,
     twoCardVerticalQuestion,
 } from "../sorter.testdata";
@@ -51,5 +53,12 @@ export const TextCards: Story = {
 export const VerticalLayout: Story = {
     args: {
         item: generateTestPerseusItem({question: twoCardVerticalQuestion}),
+    },
+};
+
+export const SimpleTexInArticle: Story = {
+    decorators: [articleDecorator],
+    args: {
+        item: generateTestPerseusItem({question: simpleTexQuestion}),
     },
 };

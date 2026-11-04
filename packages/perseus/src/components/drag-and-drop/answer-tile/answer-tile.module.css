@@ -179,3 +179,9 @@
     font: inherit;
     color: inherit;
 }
+
+.tile .content :global(.perseus-block-math),
+.tile .content :global(.perseus-block-math-inner) {
+    margin: 0 !important;
+    padding: 0 !important;
+}
