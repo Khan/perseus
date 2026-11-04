@@ -1,27 +1,32 @@
 /**
  * A set of drafts grouped by problem type, as an exercise groups its items:
- * what import_items makes from a file and export_collection writes back.
+ * what import_exercise makes from a file and export_exercise writes back.
  * It holds the drafts' ids, not their items, so editing a draft changes what
- * the collection exports.
+ * the exercise exports.
  */
-export type Collection = {
-    collectionId: string;
+export type Exercise = {
+    exerciseId: string;
     name: string;
     notes?: string;
+    /**
+     * Where the exercise is edited on the site, as the author gave it, for
+     * linking to it.
+     */
+    editorUrl?: string;
     createdAt: string;
     updatedAt: string;
-    problemTypes: CollectionProblemType[];
+    problemTypes: ExerciseProblemType[];
 };
 
-export type CollectionProblemType = {
+export type ExerciseProblemType = {
     /** Null for items no problem type was given for. */
     name: string | null;
     /** The problem type's id where it came from, for writing it back. */
     contentId?: string;
-    items: CollectionItem[];
+    items: ExerciseItem[];
 };
 
-export type CollectionItem = {
+export type ExerciseItem = {
     itemId: string;
     /** The item's id where it came from, for writing it back. */
     contentId?: string;
@@ -32,33 +37,33 @@ export type CollectionItem = {
     importedRevision?: number;
 };
 
-/** Every draft in the collection, in order. */
-export function itemIdsOf(collection: Collection): string[] {
-    return collection.problemTypes.flatMap((problemType) =>
+/** Every draft in the exercise, in order. */
+export function itemIdsOf(exercise: Exercise): string[] {
+    return exercise.problemTypes.flatMap((problemType) =>
         problemType.items.map((item) => item.itemId),
     );
 }
 
 /**
- * The collection with `itemIds` moved to the end of the problem type named
+ * The exercise with `itemIds` moved to the end of the problem type named
  * `problemType` (null for no problem type), which is added if it's new.
- * Items not in the collection are added. A problem type left empty is
+ * Items not in the exercise are added. A problem type left empty is
  * removed.
  */
 export function placeItems(
-    collection: Collection,
+    exercise: Exercise,
     itemIds: ReadonlyArray<string>,
     problemType: string | null,
     now: Date,
-): Collection {
+): Exercise {
     const moving = new Set(itemIds);
     const existing = new Map(
-        collection.problemTypes.flatMap((type) =>
+        exercise.problemTypes.flatMap((type) =>
             type.items.map((item) => [item.itemId, item] as const),
         ),
     );
     const placed = itemIds.map((itemId) => existing.get(itemId) ?? {itemId});
-    let problemTypes = collection.problemTypes.map((type) => ({
+    let problemTypes = exercise.problemTypes.map((type) => ({
         ...type,
         items: type.items.filter((item) => !moving.has(item.itemId)),
     }));
@@ -72,5 +77,5 @@ export function placeItems(
         };
     }
     problemTypes = problemTypes.filter((type) => type.items.length > 0);
-    return {...collection, problemTypes, updatedAt: now.toISOString()};
+    return {...exercise, problemTypes, updatedAt: now.toISOString()};
 }

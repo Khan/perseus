@@ -46,7 +46,7 @@ export type ServerFacts = {
     dataDir: string;
     drafts: number;
     skippedDrafts: number;
-    collections: number;
+    exercises: number;
     /** Null when the HTTP server isn't listening. */
     httpUrl: string | null;
     previewPages: "prebuilt" | "compiled by Vite";
@@ -72,7 +72,7 @@ export function describeServer(facts: ServerFacts) {
             dir: facts.dataDir,
             drafts: facts.drafts,
             skippedDrafts: facts.skippedDrafts,
-            collections: facts.collections,
+            exercises: facts.exercises,
         },
         preview:
             facts.httpUrl == null

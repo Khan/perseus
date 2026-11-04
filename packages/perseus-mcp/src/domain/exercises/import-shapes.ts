@@ -135,7 +135,7 @@ export function readImport(data: unknown): ReadImport {
     return {
         ok: false,
         error:
-            "The file isn't in a shape import_items reads: a problem-type " +
+            "The file isn't in a shape import_exercise reads: a problem-type " +
             "export (an array of {problemType, assessmentItems}), an " +
             "exercise export ({items: [{item_data}]}), an item or array of " +
             "items, or a bare renderer ({content, widgets, images}).",

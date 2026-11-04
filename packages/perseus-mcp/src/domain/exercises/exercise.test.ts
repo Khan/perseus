@@ -1,12 +1,12 @@
-import {placeItems} from "./collection";
+import {placeItems} from "./exercise";
 
-import type {Collection} from "./collection";
+import type {Exercise} from "./exercise";
 
 const NOW = new Date("2026-01-02T00:00:00Z");
 
-function collectionOf(problemTypes: Collection["problemTypes"]): Collection {
+function exerciseOf(problemTypes: Exercise["problemTypes"]): Exercise {
     return {
-        collectionId: "c",
+        exerciseId: "c",
         name: "Test",
         createdAt: "2026-01-01T00:00:00Z",
         updatedAt: "2026-01-01T00:00:00Z",
@@ -17,13 +17,13 @@ function collectionOf(problemTypes: Collection["problemTypes"]): Collection {
 describe("placeItems", () => {
     it("moves items to the end of another problem type, keeping contentIds", () => {
         // Arrange
-        const collection = collectionOf([
+        const exercise = exerciseOf([
             {name: "A", items: [{itemId: "1", contentId: "x"}, {itemId: "2"}]},
             {name: "B", items: [{itemId: "3"}]},
         ]);
 
         // Act
-        const placed = placeItems(collection, ["1"], "B", NOW);
+        const placed = placeItems(exercise, ["1"], "B", NOW);
 
         // Assert
         expect(placed.problemTypes).toEqual([
@@ -34,10 +34,10 @@ describe("placeItems", () => {
 
     it("adds a new problem type and removes one left empty", () => {
         // Arrange
-        const collection = collectionOf([{name: "A", items: [{itemId: "1"}]}]);
+        const exercise = exerciseOf([{name: "A", items: [{itemId: "1"}]}]);
 
         // Act
-        const placed = placeItems(collection, ["1"], "New", NOW);
+        const placed = placeItems(exercise, ["1"], "New", NOW);
 
         // Assert
         expect(placed.problemTypes).toEqual([
@@ -45,12 +45,12 @@ describe("placeItems", () => {
         ]);
     });
 
-    it("adds items that weren't in the collection", () => {
+    it("adds items that weren't in the exercise", () => {
         // Arrange
-        const collection = collectionOf([{name: "A", items: [{itemId: "1"}]}]);
+        const exercise = exerciseOf([{name: "A", items: [{itemId: "1"}]}]);
 
         // Act
-        const placed = placeItems(collection, ["9"], "A", NOW);
+        const placed = placeItems(exercise, ["9"], "A", NOW);
 
         // Assert
         expect(placed.problemTypes[0].items).toEqual([

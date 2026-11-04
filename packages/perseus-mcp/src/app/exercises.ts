@@ -1,40 +1,37 @@
-import {itemIdsOf, placeItems} from "../domain/collections/collection";
-import {readImport} from "../domain/collections/import-shapes";
 import {newDraft} from "../domain/draft";
+import {itemIdsOf, placeItems} from "../domain/exercises/exercise";
+import {readImport} from "../domain/exercises/import-shapes";
 import {parseItem} from "../domain/items/parse";
 import {validateItem} from "../domain/items/validate";
 
 import {
-    CollectionNotFoundError,
+    ExerciseNotFoundError,
     DraftNotFoundError,
     ExportExistsError,
     InvalidImportError,
 } from "./errors";
 
 import type {Catalog} from "./catalog";
-import type {
-    Collection,
-    CollectionItem,
-} from "../domain/collections/collection";
-import type {ImportShape} from "../domain/collections/import-shapes";
 import type {Draft} from "../domain/draft";
+import type {Exercise, ExerciseItem} from "../domain/exercises/exercise";
+import type {ImportShape} from "../domain/exercises/import-shapes";
 import type {Issue} from "../domain/items/validate";
 import type {Clipboard} from "../ports/clipboard";
-import type {CollectionRepository} from "../ports/collection-repository";
 import type {DraftRepository} from "../ports/draft-repository";
+import type {ExerciseRepository} from "../ports/exercise-repository";
 import type {ExportFileWriter} from "../ports/export-file-writer";
 import type {ItemFileReader} from "../ports/item-file-reader";
 
-export type CollectionDependencies = {
-    collections: CollectionRepository;
+export type ExerciseDependencies = {
+    exercises: ExerciseRepository;
     drafts: DraftRepository;
     files: ItemFileReader;
     exports: ExportFileWriter;
     /** Where an export is copied, for pasting into the exercise editor. */
     clipboard: Clipboard;
     catalog: Catalog;
-    /** Where export_collection writes when it isn't given a path. */
-    defaultExportPath: (collection: Collection) => string;
+    /** Where export_exercise writes when it isn't given a path. */
+    defaultExportPath: (exercise: Exercise) => string;
     now: () => Date;
     newId: () => string;
 };
@@ -47,11 +44,12 @@ export type SkippedItem = {
     reason: string;
 };
 
-/** One problem type of a collection, with each draft's state. */
-export type CollectionTree = {
-    collectionId: string;
+/** One problem type of an exercise, with each draft's state. */
+export type ExerciseTree = {
+    exerciseId: string;
     name: string;
     notes?: string;
+    editorUrl?: string;
     problemTypes: Array<{
         name: string | null;
         contentId?: string;
@@ -85,28 +83,25 @@ type BulkProblemType = {
 
 /**
  * The use cases for groups of drafts: importing a file of items as a
- * collection, organizing it, checking it, and exporting it in the exercise
+ * exercise, organizing it, checking it, and exporting it in the exercise
  * editor's bulk JSON format.
  */
-export function createCollectionUseCases(deps: CollectionDependencies) {
-    const {collections, drafts} = deps;
+export function createExerciseUseCases(deps: ExerciseDependencies) {
+    const {exercises, drafts} = deps;
 
-    function getCollection(collectionId: string): Collection {
-        const collection = collections.get(collectionId);
-        if (collection == null) {
-            throw new CollectionNotFoundError(collectionId);
+    function getExercise(exerciseId: string): Exercise {
+        const exercise = exercises.get(exerciseId);
+        if (exercise == null) {
+            throw new ExerciseNotFoundError(exerciseId);
         }
-        return collection;
+        return exercise;
     }
 
     /**
      * New if it has no contentId (the import creates it); edited if its item
      * differs from the revision it was imported at; unchanged otherwise.
      */
-    function changeSinceImport(
-        item: CollectionItem,
-        draft: Draft,
-    ): ImportChange {
+    function changeSinceImport(item: ExerciseItem, draft: Draft): ImportChange {
         if (item.contentId == null) {
             return "new";
         }
@@ -130,19 +125,20 @@ export function createCollectionUseCases(deps: CollectionDependencies) {
 
     return {
         /**
-         * Reads a file of items into a new collection: a draft per item
+         * Reads a file of items into a new exercise: a draft per item
          * that parses (migrated to the latest schema), grouped as the file
          * groups them. Items that don't parse are skipped and reported.
          *
          * @throws InvalidImportError if the file isn't JSON or isn't in a
          * shape import reads.
          */
-        async importItems(input: {
+        async importExercise(input: {
             path: string;
             name?: string;
             notes?: string;
+            editorUrl?: string;
         }): Promise<{
-            collection: Collection;
+            exercise: Exercise;
             shape: ImportShape;
             imported: number;
             skipped: SkippedItem[];
@@ -195,33 +191,35 @@ export function createCollectionUseCases(deps: CollectionDependencies) {
                 }),
             }));
 
-            const collection: Collection = {
-                collectionId: deps.newId(),
+            const exercise: Exercise = {
+                exerciseId: deps.newId(),
                 name: input.name ?? input.path,
                 notes: input.notes,
+                editorUrl: input.editorUrl,
                 createdAt: now.toISOString(),
                 updatedAt: now.toISOString(),
                 problemTypes: problemTypes.filter(
                     (problemType) => problemType.items.length > 0,
                 ),
             };
-            collections.save(collection);
+            exercises.save(exercise);
             return {
-                collection,
+                exercise,
                 shape: read.shape,
-                imported: itemIdsOf(collection).length,
+                imported: itemIdsOf(exercise).length,
                 skipped,
             };
         },
 
-        /** @throws CollectionNotFoundError */
-        getCollection(collectionId: string): CollectionTree {
-            const collection = getCollection(collectionId);
+        /** @throws ExerciseNotFoundError */
+        getExercise(exerciseId: string): ExerciseTree {
+            const exercise = getExercise(exerciseId);
             return {
-                collectionId,
-                name: collection.name,
-                notes: collection.notes,
-                problemTypes: collection.problemTypes.map((problemType) => ({
+                exerciseId,
+                name: exercise.name,
+                notes: exercise.notes,
+                editorUrl: exercise.editorUrl,
+                problemTypes: exercise.problemTypes.map((problemType) => ({
                     name: problemType.name,
                     contentId: problemType.contentId,
                     items: problemType.items.map((item) => {
@@ -241,58 +239,84 @@ export function createCollectionUseCases(deps: CollectionDependencies) {
             };
         },
 
-        listCollections(): Array<{
-            collectionId: string;
+        listExercises(): Array<{
+            exerciseId: string;
             name: string;
             notes?: string;
+            editorUrl?: string;
             updatedAt: string;
             items: number;
         }> {
-            return collections.list().map((collection) => ({
-                collectionId: collection.collectionId,
-                name: collection.name,
-                notes: collection.notes,
-                updatedAt: collection.updatedAt,
-                items: itemIdsOf(collection).length,
+            return exercises.list().map((exercise) => ({
+                exerciseId: exercise.exerciseId,
+                name: exercise.name,
+                notes: exercise.notes,
+                editorUrl: exercise.editorUrl,
+                updatedAt: exercise.updatedAt,
+                items: itemIdsOf(exercise).length,
             }));
         },
 
         /**
+         * Changes an exercise's name, notes or editor URL; an empty string
+         * clears the notes or the URL.
+         *
+         * @throws ExerciseNotFoundError
+         */
+        updateExercise(
+            exerciseId: string,
+            changes: {name?: string; notes?: string; editorUrl?: string},
+        ): Exercise {
+            const exercise = getExercise(exerciseId);
+            const cleared = (value: string | undefined, current?: string) =>
+                value == null ? current : value === "" ? undefined : value;
+            const updated: Exercise = {
+                ...exercise,
+                name: changes.name ?? exercise.name,
+                notes: cleared(changes.notes, exercise.notes),
+                editorUrl: cleared(changes.editorUrl, exercise.editorUrl),
+                updatedAt: deps.now().toISOString(),
+            };
+            exercises.save(updated);
+            return updated;
+        },
+
+        /**
          * Puts drafts at the end of a problem type (null for none), adding
-         * the problem type if it's new; drafts not yet in the collection are
+         * the problem type if it's new; drafts not yet in the exercise are
          * added. A problem type left empty is removed.
          *
-         * @throws CollectionNotFoundError
+         * @throws ExerciseNotFoundError
          * @throws DraftNotFoundError
          */
         placeItems(
-            collectionId: string,
+            exerciseId: string,
             itemIds: ReadonlyArray<string>,
             problemType: string | null,
-        ): Collection {
-            const collection = getCollection(collectionId);
+        ): Exercise {
+            const exercise = getExercise(exerciseId);
             itemIds.forEach(getDraft);
             const placed = placeItems(
-                collection,
+                exercise,
                 itemIds,
                 problemType,
                 deps.now(),
             );
-            collections.save(placed);
+            exercises.save(placed);
             return placed;
         },
 
         /**
-         * Validates every draft in the collection, as validate_item does.
+         * Validates every draft in the exercise, as validate_item does.
          *
-         * @throws CollectionNotFoundError
+         * @throws ExerciseNotFoundError
          */
-        validateCollection(collectionId: string): Array<{
+        validateExercise(exerciseId: string): Array<{
             itemId: string;
             valid: boolean;
             issues: Issue[];
         }> {
-            return itemIdsOf(getCollection(collectionId)).map((itemId) => {
+            return itemIdsOf(getExercise(exerciseId)).map((itemId) => {
                 const draft = drafts.get(itemId);
                 if (draft == null) {
                     return {
@@ -317,7 +341,7 @@ export function createCollectionUseCases(deps: CollectionDependencies) {
         },
 
         /**
-         * Writes the collection in the exercise editor's bulk JSON format:
+         * Writes the exercise in the exercise editor's bulk JSON format:
          * its problem types and their items, each item's data as a JSON
          * string of its latest revision, with the contentIds it was
          * imported with. With `onlyChanged`, only the items that are new
@@ -326,12 +350,12 @@ export function createCollectionUseCases(deps: CollectionDependencies) {
          * the import takes a paste, unless `copy` is false. Drafts that are
          * gone are left out and reported.
          *
-         * @throws CollectionNotFoundError
+         * @throws ExerciseNotFoundError
          * @throws ExportExistsError if the file exists and `overwrite` isn't
          * set.
          */
-        exportCollection(input: {
-            collectionId: string;
+        exportExercise(input: {
+            exerciseId: string;
             path?: string;
             overwrite?: boolean;
             onlyChanged?: boolean;
@@ -346,8 +370,8 @@ export function createCollectionUseCases(deps: CollectionDependencies) {
             overReviewLimit?: string;
             missing: string[];
         } {
-            const collection = getCollection(input.collectionId);
-            const target = input.path ?? deps.defaultExportPath(collection);
+            const exercise = getExercise(input.exerciseId);
+            const target = input.path ?? deps.defaultExportPath(exercise);
             if (input.overwrite !== true && deps.exports.exists(target)) {
                 throw new ExportExistsError(target);
             }
@@ -357,7 +381,7 @@ export function createCollectionUseCases(deps: CollectionDependencies) {
                 unchanged: 0,
             };
             const missing: string[] = [];
-            const payload: BulkProblemType[] = collection.problemTypes
+            const payload: BulkProblemType[] = exercise.problemTypes
                 .map((problemType) => ({
                     // The bulk format needs a name; items with no problem
                     // type go under an empty one, which its import routes
@@ -416,7 +440,7 @@ export function createCollectionUseCases(deps: CollectionDependencies) {
                               `exercise editor's import reviews at most ` +
                               `${REVIEW_LIMIT} at a time. Import in ` +
                               `batches: move some items to another ` +
-                              `collection, or paste this export in parts.`,
+                              `exercise, or paste this export in parts.`,
                       }
                     : {}),
                 missing,
@@ -425,4 +449,4 @@ export function createCollectionUseCases(deps: CollectionDependencies) {
     };
 }
 
-export type CollectionUseCases = ReturnType<typeof createCollectionUseCases>;
+export type ExerciseUseCases = ReturnType<typeof createExerciseUseCases>;

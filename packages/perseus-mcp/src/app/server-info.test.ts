@@ -13,7 +13,7 @@ const facts: ServerFacts = {
     dataDir: "/data",
     drafts: 3,
     skippedDrafts: 0,
-    collections: 1,
+    exercises: 1,
     httpUrl: "http://localhost:4567",
     previewPages: "prebuilt",
     errors: [],

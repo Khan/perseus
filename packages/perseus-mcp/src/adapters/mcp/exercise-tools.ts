@@ -1,19 +1,19 @@
-// The tools for collections: importing a file of items, organizing and
+// The tools for exercises: importing a file of items, organizing and
 // checking them, and exporting them for the exercise editor's bulk import.
 import {z} from "zod";
 
 import {jsonResult} from "./tool-results";
 
-import type {CollectionUseCases} from "../../app/collections";
+import type {ExerciseUseCases} from "../../app/exercises";
 import type {CallToolResult, McpServer} from "@modelcontextprotocol/server";
 
-export function registerCollectionTools(
+export function registerExerciseTools(
     server: McpServer,
     {
-        collections,
+        exercises,
         run,
     }: {
-        collections: CollectionUseCases;
+        exercises: ExerciseUseCases;
         /** Runs a tool's handler, recording its errors under its name. */
         run: (
             tool: string,
@@ -21,17 +21,26 @@ export function registerCollectionTools(
         ) => Promise<CallToolResult>;
     },
 ): void {
+    const editorUrlSchema = z
+        .string()
+        .url()
+        .optional()
+        .describe(
+            "The exercise's page in the exercise editor, if the person gave " +
+                "it, so the exercise page can link to it.",
+        );
+
     server.registerTool(
-        "import_items",
+        "import_exercise",
         {
             title: "Import a file of Perseus items",
             description:
-                "Read a JSON file of items into a new collection: a draft per " +
+                "Read a JSON file of items into a new exercise: a draft per " +
                 "item (migrated to the latest schema), grouped by problem " +
                 "type. Reads an exercise's bulk JSON export (an array of " +
                 "{problemType, contentId?, assessmentItems: [{contentId?, " +
                 "itemData}]}), keeping its problem types and contentIds so " +
-                "export_collection can write it back; an exercise export " +
+                "export_exercise can write it back; an exercise export " +
                 "({items: [{name, item_data}]}), whose names become the " +
                 "drafts' notes; or an item, an array of items or a bare " +
                 "renderer, under no problem type. Items that don't parse are " +
@@ -41,22 +50,23 @@ export function registerCollectionTools(
                 name: z
                     .string()
                     .optional()
-                    .describe("The collection's name; the path if left out."),
+                    .describe("The exercise's name; the path if left out."),
                 notes: z
                     .string()
                     .optional()
-                    .describe("Context to keep with the collection."),
+                    .describe("Context to keep with the exercise."),
+                editorUrl: editorUrlSchema,
             }),
         },
         (input) =>
-            run("import_items", async () => {
-                const result = await collections.importItems(input);
+            run("import_exercise", async () => {
+                const result = await exercises.importExercise(input);
                 return jsonResult({
-                    collectionId: result.collection.collectionId,
+                    exerciseId: result.exercise.exerciseId,
                     shape: result.shape,
                     imported: result.imported,
                     skipped: result.skipped,
-                    problemTypes: result.collection.problemTypes.map(
+                    problemTypes: result.exercise.problemTypes.map(
                         (problemType) => ({
                             name: problemType.name,
                             items: problemType.items.map((item) => item.itemId),
@@ -67,36 +77,64 @@ export function registerCollectionTools(
     );
 
     server.registerTool(
-        "list_collections",
+        "list_exercises",
         {
-            title: "List collections",
+            title: "List exercises",
             description:
-                "List saved collections, most recently changed first, with " +
+                "List saved exercises, most recently changed first, with " +
                 "how many items each holds.",
             inputSchema: z.object({}),
             annotations: {readOnlyHint: true},
         },
         () =>
-            run("list_collections", () =>
-                jsonResult({collections: collections.listCollections()}),
+            run("list_exercises", () =>
+                jsonResult({exercises: exercises.listExercises()}),
             ),
     );
 
     server.registerTool(
-        "get_collection",
+        "get_exercise",
         {
-            title: "Show a collection",
+            title: "Show an exercise",
             description:
-                "Show a collection's problem types and, under each, its " +
+                "Show an exercise's problem types and, under each, its " +
                 "drafts' itemIds, revisions, imported contentIds and the " +
                 "start of each question. Read an item with export_item.",
-            inputSchema: z.object({collectionId: z.string()}),
+            inputSchema: z.object({exerciseId: z.string()}),
             annotations: {readOnlyHint: true},
         },
-        ({collectionId}) =>
-            run("get_collection", () =>
-                jsonResult(collections.getCollection(collectionId)),
+        ({exerciseId}) =>
+            run("get_exercise", () =>
+                jsonResult(exercises.getExercise(exerciseId)),
             ),
+    );
+
+    server.registerTool(
+        "update_exercise",
+        {
+            title: "Change an exercise's details",
+            description:
+                "Change an exercise's name, notes or editor URL (its page " +
+                "in the exercise editor, when the person gives it). An " +
+                "empty string clears the notes or the URL.",
+            inputSchema: z.object({
+                exerciseId: z.string(),
+                name: z.string().min(1).optional(),
+                notes: z.string().optional(),
+                editorUrl: z
+                    .union([z.string().url(), z.literal("")])
+                    .optional()
+                    .describe(
+                        "The exercise's page in the exercise editor; empty " +
+                            "to clear it.",
+                    ),
+            }),
+        },
+        ({exerciseId, ...changes}) =>
+            run("update_exercise", () => {
+                exercises.updateExercise(exerciseId, changes);
+                return jsonResult(exercises.getExercise(exerciseId));
+            }),
     );
 
     const problemTypeSchema = z
@@ -112,57 +150,57 @@ export function registerCollectionTools(
         {
             title: "Move items to a problem type",
             description:
-                "Move drafts in a collection to the end of a problem type, " +
+                "Move drafts in an exercise to the end of a problem type, " +
                 "adding the problem type if it's new. A problem type left " +
                 "empty is removed.",
             inputSchema: z.object({
-                collectionId: z.string(),
+                exerciseId: z.string(),
                 itemIds: z.array(z.string()).min(1),
                 problemType: problemTypeSchema,
             }),
         },
-        ({collectionId, itemIds, problemType}) =>
+        ({exerciseId, itemIds, problemType}) =>
             run("move_items", () => {
-                collections.placeItems(collectionId, itemIds, problemType);
-                return jsonResult(collections.getCollection(collectionId));
+                exercises.placeItems(exerciseId, itemIds, problemType);
+                return jsonResult(exercises.getExercise(exerciseId));
             }),
     );
 
     server.registerTool(
-        "add_to_collection",
+        "add_to_exercise",
         {
-            title: "Add an item to a collection",
+            title: "Add an item to an exercise",
             description:
                 "Add a draft (such as one made with create_item) to the end " +
-                "of a problem type in a collection, adding the problem type " +
-                "if it's new. A draft already in the collection moves there.",
+                "of a problem type in an exercise, adding the problem type " +
+                "if it's new. A draft already in the exercise moves there.",
             inputSchema: z.object({
-                collectionId: z.string(),
+                exerciseId: z.string(),
                 itemId: z.string(),
                 problemType: problemTypeSchema,
             }),
         },
-        ({collectionId, itemId, problemType}) =>
-            run("add_to_collection", () => {
-                collections.placeItems(collectionId, [itemId], problemType);
-                return jsonResult(collections.getCollection(collectionId));
+        ({exerciseId, itemId, problemType}) =>
+            run("add_to_exercise", () => {
+                exercises.placeItems(exerciseId, [itemId], problemType);
+                return jsonResult(exercises.getExercise(exerciseId));
             }),
     );
 
     server.registerTool(
-        "validate_collection",
+        "validate_exercise",
         {
-            title: "Validate a collection",
+            title: "Validate an exercise",
             description:
-                "Validate every draft in a collection, as validate_item " +
+                "Validate every draft in an exercise, as validate_item " +
                 "does. Lists the items with errors or warnings, and how many " +
                 "passed clean.",
-            inputSchema: z.object({collectionId: z.string()}),
+            inputSchema: z.object({exerciseId: z.string()}),
             annotations: {readOnlyHint: true},
         },
-        ({collectionId}) =>
-            run("validate_collection", () => {
-                const results = collections.validateCollection(collectionId);
+        ({exerciseId}) =>
+            run("validate_exercise", () => {
+                const results = exercises.validateExercise(exerciseId);
                 return jsonResult({
                     items: results.length,
                     clean: results.filter((r) => r.issues.length === 0).length,
@@ -172,11 +210,11 @@ export function registerCollectionTools(
     );
 
     server.registerTool(
-        "export_collection",
+        "export_exercise",
         {
-            title: "Export a collection",
+            title: "Export an exercise",
             description:
-                "Write a collection to a JSON file in the exercise editor's " +
+                "Write an exercise to a JSON file in the exercise editor's " +
                 "bulk JSON format, which its import reads: an array of " +
                 "{problemType, contentId?, assessmentItems: [{contentId?, " +
                 "itemData}]}, each item's data its latest revision as a JSON " +
@@ -189,7 +227,7 @@ export function registerCollectionTools(
                 "and unchanged; the import reviews at most 50 new or edited " +
                 "items at a time, so pass the warning on if it's over.",
             inputSchema: z.object({
-                collectionId: z.string(),
+                exerciseId: z.string(),
                 path: z
                     .string()
                     .optional()
@@ -218,8 +256,8 @@ export function registerCollectionTools(
             }),
         },
         (input) =>
-            run("export_collection", () =>
-                jsonResult(collections.exportCollection(input)),
+            run("export_exercise", () =>
+                jsonResult(exercises.exportExercise(input)),
             ),
     );
 }

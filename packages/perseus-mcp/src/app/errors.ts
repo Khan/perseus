@@ -23,13 +23,13 @@ export class RevisionNotFoundError extends Error {
     }
 }
 
-export class CollectionNotFoundError extends Error {
-    readonly collectionId: string;
+export class ExerciseNotFoundError extends Error {
+    readonly exerciseId: string;
 
-    constructor(collectionId: string) {
-        super(`No collection with collectionId "${collectionId}".`);
-        this.name = "CollectionNotFoundError";
-        this.collectionId = collectionId;
+    constructor(exerciseId: string) {
+        super(`No exercise with exerciseId "${exerciseId}".`);
+        this.name = "ExerciseNotFoundError";
+        this.exerciseId = exerciseId;
     }
 }
 

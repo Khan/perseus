@@ -12,11 +12,11 @@ import {parseArgs} from "node:util";
 import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
 import {serveStdio} from "@modelcontextprotocol/server/stdio";
 
-import {FileCollectionRepository} from "./adapters/fs/file-collection-repository";
 import {
     DataDirNotWritableError,
     FileDraftRepository,
 } from "./adapters/fs/file-draft-repository";
+import {FileExerciseRepository} from "./adapters/fs/file-exercise-repository";
 import {nodeExportFileWriter} from "./adapters/fs/node-export-file-writer";
 import {nodeItemFileReader} from "./adapters/fs/node-item-file-reader";
 import {createPerseusCoreSchemaSource} from "./adapters/fs/perseus-core-schema-source";
@@ -28,9 +28,9 @@ import {
 import {createMcpServer} from "./adapters/mcp/server";
 import {systemClipboard} from "./adapters/os/system-clipboard";
 import {createCatalog} from "./app/catalog";
-import {createCollectionUseCases} from "./app/collections";
 import {withDraftFeed} from "./app/draft-feed";
 import {createDraftUseCases} from "./app/drafts";
+import {createExerciseUseCases} from "./app/exercises";
 import {createPreviewUseCases} from "./app/preview";
 import {createReviewUseCases} from "./app/review";
 import {createScoringUseCases} from "./app/scoring";
@@ -57,7 +57,7 @@ export type StartOptions = {
     previewSource: (pagesOption: string | undefined) => PreviewSource;
 };
 
-/** A file-name-safe form of a collection's name. */
+/** A file-name-safe form of an exercise's name. */
 function slug(name: string): string {
     const cleaned = path
         .basename(name)
@@ -65,7 +65,7 @@ function slug(name: string): string {
         .replace(/[^A-Za-z0-9]+/g, "-")
         .replace(/^-+|-+$/g, "")
         .slice(0, 40);
-    return cleaned === "" ? "collection" : cleaned;
+    return cleaned === "" ? "exercise" : cleaned;
 }
 
 export async function start({
@@ -156,8 +156,8 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
     for (const {location, reason} of fileRepository.skipped()) {
         logProblem(`skipped ${location}: ${reason}`);
     }
-    const collectionRepository = new FileCollectionRepository(dataDir);
-    collectionRepository.init();
+    const exerciseRepository = new FileExerciseRepository(dataDir);
+    exerciseRepository.init();
     // Every save goes through the feed, so open previews hear about it.
     const {drafts: repository, feed} = withDraftFeed(fileRepository);
 
@@ -179,18 +179,18 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
         widgets: createWidgetUseCases({catalog, drafts: repository}),
         scoring: createScoringUseCases({drafts: repository}),
         review: createReviewUseCases({drafts: repository}),
-        collections: createCollectionUseCases({
-            collections: collectionRepository,
+        exercises: createExerciseUseCases({
+            exercises: exerciseRepository,
             drafts: repository,
             files: nodeItemFileReader,
             exports: nodeExportFileWriter,
             clipboard: systemClipboard,
             catalog,
-            defaultExportPath: (collection) =>
+            defaultExportPath: (exercise) =>
                 path.join(
                     dataDir,
                     "exports",
-                    `${slug(collection.name)}-${collection.collectionId}.json`,
+                    `${slug(exercise.name)}-${exercise.exerciseId}.json`,
                 ),
             now: () => new Date(),
             newId: () => randomUUID().slice(0, 8),
@@ -218,7 +218,7 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
             dataDir: path.resolve(dataDir),
             drafts: fileRepository.list().length,
             skippedDrafts: fileRepository.skipped().length,
-            collections: collectionRepository.list().length,
+            exercises: exerciseRepository.list().length,
             httpUrl: baseUrl,
             previewPages:
                 values.pages != null || build.source === "bundle"

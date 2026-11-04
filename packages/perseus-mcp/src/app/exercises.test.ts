@@ -11,20 +11,19 @@ import {createPerseusCoreSchemaSource} from "../adapters/fs/perseus-core-schema-
 import {checkoutPaths} from "../runtime-paths";
 
 import {createCatalog} from "./catalog";
-import {createCollectionUseCases} from "./collections";
 import {ExportExistsError, InvalidImportError} from "./errors";
+import {createExerciseUseCases} from "./exercises";
 import {inMemoryRepository} from "./in-memory-draft-repository.testutils";
 
-import type {Collection} from "../domain/collections/collection";
-import type {CollectionRepository} from "../ports/collection-repository";
+import type {Exercise} from "../domain/exercises/exercise";
+import type {ExerciseRepository} from "../ports/exercise-repository";
 
-function inMemoryCollections(): CollectionRepository {
-    const collections = new Map<string, Collection>();
+function inMemoryExercises(): ExerciseRepository {
+    const exercises = new Map<string, Exercise>();
     return {
-        get: (id) => collections.get(id),
-        list: () => [...collections.values()],
-        save: (collection) =>
-            void collections.set(collection.collectionId, collection),
+        get: (id) => exercises.get(id),
+        list: () => [...exercises.values()],
+        save: (exercise) => void exercises.set(exercise.exerciseId, exercise),
     };
 }
 
@@ -39,8 +38,8 @@ function setUp(fileContents: unknown) {
     const written = new Map<string, string>();
     const copied: string[] = [];
     let nextId = 0;
-    const useCases = createCollectionUseCases({
-        collections: inMemoryCollections(),
+    const useCases = createExerciseUseCases({
+        exercises: inMemoryExercises(),
         drafts,
         files: {read: async () => JSON.stringify(fileContents)},
         exports: {
@@ -59,8 +58,7 @@ function setUp(fileContents: unknown) {
         catalog: createCatalog(
             createPerseusCoreSchemaSource(checkoutPaths().perseusCoreTypesDir),
         ),
-        defaultExportPath: (collection) =>
-            `exports/${collection.collectionId}.json`,
+        defaultExportPath: (exercise) => `exports/${exercise.exerciseId}.json`,
         now: () => new Date("2026-01-01T00:00:00Z"),
         newId: () => `id${++nextId}`,
     });
@@ -83,7 +81,7 @@ const bulkExport = [
     },
 ];
 
-describe("collection use cases", () => {
+describe("exercise use cases", () => {
     beforeAll(() => {
         CoreWidgetRegistry.registerCoreWidgets();
     });
@@ -93,12 +91,12 @@ describe("collection use cases", () => {
         const {useCases} = setUp(bulkExport);
 
         // Act
-        const {collection} = await useCases.importItems({path: "in.json"});
+        const {exercise} = await useCases.importExercise({path: "in.json"});
 
         // Assert
         expect(
             useCases
-                .getCollection(collection.collectionId)
+                .getExercise(exercise.exerciseId)
                 .problemTypes.map((problemType) => [
                     problemType.name,
                     problemType.items.map((item) => item.summary),
@@ -122,7 +120,7 @@ describe("collection use cases", () => {
         ]);
 
         // Act
-        const result = await useCases.importItems({path: "in.json"});
+        const result = await useCases.importExercise({path: "in.json"});
 
         // Assert
         expect({
@@ -142,16 +140,16 @@ describe("collection use cases", () => {
         const {useCases} = setUp({something: "else"});
 
         // Act, Assert
-        await expect(useCases.importItems({path: "in.json"})).rejects.toThrow(
-            InvalidImportError,
-        );
+        await expect(
+            useCases.importExercise({path: "in.json"}),
+        ).rejects.toThrow(InvalidImportError);
     });
 
     it("exports the latest revisions in the bulk format, keeping contentIds", async () => {
         // Arrange
         const {drafts, written, useCases} = setUp(bulkExport);
-        const {collection} = await useCases.importItems({path: "in.json"});
-        const [firstId] = collection.problemTypes[0].items.map(
+        const {exercise} = await useCases.importExercise({path: "in.json"});
+        const [firstId] = exercise.problemTypes[0].items.map(
             (item) => item.itemId,
         );
         const first = drafts.get(firstId)!;
@@ -165,8 +163,8 @@ describe("collection use cases", () => {
         });
 
         // Act
-        const result = useCases.exportCollection({
-            collectionId: collection.collectionId,
+        const result = useCases.exportExercise({
+            exerciseId: exercise.exerciseId,
         });
 
         // Assert
@@ -200,8 +198,8 @@ describe("collection use cases", () => {
     it("counts new, edited and unchanged items, and copies the export", async () => {
         // Arrange
         const {drafts, written, copied, useCases} = setUp(bulkExport);
-        const {collection} = await useCases.importItems({path: "in.json"});
-        const [firstId] = collection.problemTypes[0].items.map(
+        const {exercise} = await useCases.importExercise({path: "in.json"});
+        const [firstId] = exercise.problemTypes[0].items.map(
             (item) => item.itemId,
         );
         const first = drafts.get(firstId)!;
@@ -215,8 +213,8 @@ describe("collection use cases", () => {
         });
 
         // Act
-        const result = useCases.exportCollection({
-            collectionId: collection.collectionId,
+        const result = useCases.exportExercise({
+            exerciseId: exercise.exerciseId,
         });
 
         // Assert
@@ -234,11 +232,11 @@ describe("collection use cases", () => {
     it("exports only new and edited items with onlyChanged", async () => {
         // Arrange
         const {written, useCases} = setUp(bulkExport);
-        const {collection} = await useCases.importItems({path: "in.json"});
+        const {exercise} = await useCases.importExercise({path: "in.json"});
 
         // Act
-        const result = useCases.exportCollection({
-            collectionId: collection.collectionId,
+        const result = useCases.exportExercise({
+            exerciseId: exercise.exerciseId,
             onlyChanged: true,
         });
 
@@ -263,11 +261,11 @@ describe("collection use cases", () => {
             },
         ];
         const {useCases} = setUp(many);
-        const {collection} = await useCases.importItems({path: "in.json"});
+        const {exercise} = await useCases.importExercise({path: "in.json"});
 
         // Act
-        const result = useCases.exportCollection({
-            collectionId: collection.collectionId,
+        const result = useCases.exportExercise({
+            exerciseId: exercise.exerciseId,
         });
 
         // Assert
@@ -277,41 +275,41 @@ describe("collection use cases", () => {
     it("doesn't overwrite an export unless asked to", async () => {
         // Arrange
         const {useCases} = setUp(bulkExport);
-        const {collection} = await useCases.importItems({path: "in.json"});
-        useCases.exportCollection({collectionId: collection.collectionId});
+        const {exercise} = await useCases.importExercise({path: "in.json"});
+        useCases.exportExercise({exerciseId: exercise.exerciseId});
 
         // Act, Assert
         expect(() =>
-            useCases.exportCollection({collectionId: collection.collectionId}),
+            useCases.exportExercise({exerciseId: exercise.exerciseId}),
         ).toThrow(ExportExistsError);
     });
 
     it("moves an item to a new problem type", async () => {
         // Arrange
         const {useCases} = setUp(bulkExport);
-        const {collection} = await useCases.importItems({path: "in.json"});
-        const [, secondId] = collection.problemTypes[0].items.map(
+        const {exercise} = await useCases.importExercise({path: "in.json"});
+        const [, secondId] = exercise.problemTypes[0].items.map(
             (item) => item.itemId,
         );
 
         // Act
-        useCases.placeItems(collection.collectionId, [secondId], "Type 3");
+        useCases.placeItems(exercise.exerciseId, [secondId], "Type 3");
 
         // Assert
         expect(
             useCases
-                .getCollection(collection.collectionId)
+                .getExercise(exercise.exerciseId)
                 .problemTypes.map((problemType) => problemType.name),
         ).toEqual(["Type 1", "Type 2", "Type 3"]);
     });
 
-    it("validates every item in the collection", async () => {
+    it("validates every item in the exercise", async () => {
         // Arrange
         const {useCases} = setUp(bulkExport);
-        const {collection} = await useCases.importItems({path: "in.json"});
+        const {exercise} = await useCases.importExercise({path: "in.json"});
 
         // Act
-        const results = useCases.validateCollection(collection.collectionId);
+        const results = useCases.validateExercise(exercise.exerciseId);
 
         // Assert
         expect(results.map((result) => result.valid)).toEqual([
@@ -319,5 +317,23 @@ describe("collection use cases", () => {
             true,
             true,
         ]);
+    });
+
+    it("sets and clears an exercise's editor URL", async () => {
+        // Arrange
+        const {useCases} = setUp(bulkExport);
+        const {exercise} = await useCases.importExercise({
+            path: "in.json",
+            editorUrl: "https://example.org/edit/1",
+        });
+
+        // Act
+        useCases.updateExercise(exercise.exerciseId, {editorUrl: ""});
+
+        // Assert
+        expect({
+            imported: exercise.editorUrl,
+            after: useCases.getExercise(exercise.exerciseId).editorUrl,
+        }).toEqual({imported: "https://example.org/edit/1", after: undefined});
     });
 });

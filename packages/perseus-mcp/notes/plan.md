@@ -88,6 +88,7 @@ from outside the repo.
 | Hand a collection to the exercise editor's bulk import by paste | That import takes only a paste, and reviews at most 50 new or edited items at a time. `export_collection` also copies the JSON to the clipboard (a `Clipboard` port: `pbcopy` on macOS, PowerShell's `Set-Clipboard` on Windows, since `clip` garbles the UTF-8 every item's "☃" needs, `xclip` on Linux) unless `copy: false`, and says whether it did. It counts each item as new (no `contentId`), edited (its item differs from the revision it was imported at, which collections now record as `importedRevision`) or unchanged, warns when more than 50 need review, and with `onlyChanged` exports only the new and edited ones. The collection tools move to `adapters/mcp/collection-tools.ts`, keeping `server.ts` under the 1000-line limit. The clipboard couldn't be checked here (the sandbox blocks it), nor the paste into the exercise editor. |
 | Serve perseus-mcp over HTTPS on a public hostname | `--tls-cert` and `--tls-key` (or `PERSEUS_MCP_TLS_CERT` and `PERSEUS_MCP_TLS_KEY`) serve HTTPS with a certificate, such as a development one made with mkcert, and `--public-host` (or `PERSEUS_MCP_PUBLIC_HOST`) names the host preview links use, such as a development domain that resolves to this machine and the certificate covers. The public host joins the allowed `Host` names; Vite's own host check is off, since ours runs first. Also notes the auth wording for "Toward production". Checked: over HTTPS on such a domain the preview page is a secure context, follows its draft and renders; plain HTTP and a foreign `Host` are refused. |
 | Fall back to a free port when a stdio server's is taken | Claude Desktop starts each stdio server twice, so with a fixed `--port` the second start couldn't listen and ran without previews. Over stdio, a port that's taken now falls back to a free one, logged. Checked with two stdio servers on one port: the second took another and served its preview page. Plan: in-chat framing is out for local connectors. Tried over HTTPS on a public host, with that origin (port included) in `frameDomains`: Claude Desktop reads it but frames only the sites Claude allows that connector, and a local connector has none (its `frame-src` is `blob: data:`); for a connector in the Claude directory, the site is added to its listing. The in-chat page keeps rendering the item itself. |
+| Call collections exercises, and keep an exercise editor link | Authors think in exercises, and an export targets exactly one. Every name follows: `import_exercise`, `list_exercises`, `get_exercise`, `add_to_exercise`, `validate_exercise`, `export_exercise`, the domain, port and adapter, and `<dataDir>/exercises/`, into which a `collections/` folder is moved on startup (`collectionId` becoming `exerciseId`). An exercise keeps an optional `editorUrl`, its page in the exercise editor as the author gives it, since neither the bulk export nor a paste says where it came from; `import_exercise` takes it and the new `update_exercise` changes it, the name and the notes. Plan: step 10's design. |
 
 Remaining, in order:
 
@@ -679,26 +680,35 @@ Steps 1–3 need no Perseus changes, so building can start there.
    the server won't start; for that, testers run a diagnostic command from
    the install notes (drafts of a macOS and a Windows command exist, from
    the session that proposed this step; the Windows one is untested).
-9. **Collections, with import and export** (done):
-   - A collection (`<dataDir>/collections/`) groups drafts by problem type,
+9. **Exercises, with import and export** (done; first called collections):
+   - An exercise (`<dataDir>/exercises/`) groups drafts by problem type,
      keeping each item's and problem type's `contentId` so an export writes
      it back to the same place. It holds draft ids, not items.
-   - `import_items` reads a file path in any of four shapes: a single item
+   - `import_exercise` reads a file path in any of four shapes: a single item
      (or an array), a bare renderer, an exercise export
      (`items[].item_data`), or the exercise editor's bulk JSON format
      (`[{problemType, contentId?, assessmentItems: [{contentId?,
      itemData}]}]`, `itemData` a JSON string or an object). No pasted JSON:
      Claude would have to read all of it.
-   - `export_collection` writes that bulk format to a file (never
+   - `export_exercise` writes that bulk format to a file (never
      overwriting unless asked), each item its latest revision as a JSON
      string, keeping the imported `contentId`s so the exercise editor's
      import treats them as edits.
-   - `get_collection`, `list_collections`, `move_items`,
-     `add_to_collection`, `edit_items` (many drafts in one call, each saved
-     or not on its own) and `validate_collection`. Review stays per item.
-10. **The collection page (browser):** the problem types and their items as
-   a tree on the left, the selected item's preview on the right, and a file
-   upload for loading a collection. Claude edits; the page shows.
+   - `get_exercise`, `list_exercises`, `move_items`, `add_to_exercise`,
+     `edit_items` (many drafts in one call, each saved or not on its own),
+     `validate_exercise`, and `update_exercise` (name, notes, and the
+     exercise editor URL the author gives). Review stays per item.
+10. **The exercise page (browser):** `/exercises` lists them, with an upload
+    for importing one; `/exercises/<id>` shows the problem types and their
+    items as a tree on the left and the selected item's preview on the right
+    (`?item=<itemId>`). The tree follows an event stream (the exercise and
+    its drafts' revisions) and shows each item's change since import (new,
+    edited, unchanged) and its validation issues, worked out in the server.
+    "Copy for bulk import" copies the export, and "Open in the exercise
+    editor" links to the `editorUrl` when set. Upload requires a same-origin
+    `Origin` header, since the `Host` check doesn't stop a cross-site form
+    POST. `preview_exercise` returns the page's URL. No dragging: Claude
+    organizes, the page shows.
 11. **Side-by-side comparison:** two drafts, or two revisions of one, next
     to each other in the browser and in the chat, both rendered as on
     mobile (which needs the preview to apply `PreviewOptions.isMobile`).
@@ -807,8 +817,8 @@ for each author and hands work over by paste:
   replaces the paste, and works from a hosted perseus-mcp (build order step
   16), which can't reach the author's clipboard.
 - **Loading an exercise's items by its ID** with the editor's own query
-  (`exerciseRevisionById`, whose problem types and items, with full
-  `itemData`, map onto a collection), so authors needn't export first.
+  (whose problem types and items, with full `itemData`, map onto an
+  exercise), so authors needn't export first.
   Running it against a local backend with a local datastore would avoid
   most of the auth questions while prototyping.
 - **Authentication** for both: perseus-mcp acting as the signed-in author,

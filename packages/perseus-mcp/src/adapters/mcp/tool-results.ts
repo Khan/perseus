@@ -1,4 +1,4 @@
-import {CollectionNotFoundError, DraftNotFoundError} from "../../app/errors";
+import {ExerciseNotFoundError, DraftNotFoundError} from "../../app/errors";
 
 import type {CallToolResult} from "@modelcontextprotocol/server";
 
@@ -49,8 +49,8 @@ function describeError(e: unknown): string {
             `list_items to see the saved ones.`
         );
     }
-    if (e instanceof CollectionNotFoundError) {
-        return `${e.message} Use list_collections to see the saved ones.`;
+    if (e instanceof ExerciseNotFoundError) {
+        return `${e.message} Use list_exercises to see the saved ones.`;
     }
     return e instanceof Error ? e.message : String(e);
 }

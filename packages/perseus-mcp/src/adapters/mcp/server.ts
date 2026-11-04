@@ -4,11 +4,11 @@ import {z} from "zod";
 import {CHECKLIST_URI} from "../../domain/review/checklist";
 import {libVersion} from "../../version";
 
-import {registerCollectionTools} from "./collection-tools";
+import {registerExerciseTools} from "./exercise-tools";
 import {errorResult, jsonResult, runTool} from "./tool-results";
 
-import type {CollectionUseCases} from "../../app/collections";
 import type {DraftUseCases} from "../../app/drafts";
+import type {ExerciseUseCases} from "../../app/exercises";
 import type {PreviewUseCases} from "../../app/preview";
 import type {ReviewUseCases} from "../../app/review";
 import type {ScoringUseCases} from "../../app/scoring";
@@ -35,13 +35,14 @@ list_revisions lists them with what made each one, export_item with a
 revision reads an earlier one, and revert_item makes an earlier revision's
 item the newest (the revisions in between stay kept).
 
-Work on many items at once as a collection: import_items reads a file of
-items (an exercise's bulk JSON export, an exercise export, or items) into a
-draft per item, grouped by problem type, and export_collection writes the
-collection back in the exercise editor's bulk JSON format, to a file.
-get_collection shows the tree, move_items and add_to_collection organize it,
-edit_items changes many drafts in one call, and validate_collection checks
-them all. Read files by path; don't paste their contents into a call.
+Work on a whole exercise: import_exercise reads a file of items (an
+exercise's bulk JSON export, an exercise export, or items) into a draft per
+item, grouped by problem type, and export_exercise writes it back in the
+exercise editor's bulk JSON format, to a file. get_exercise shows the tree,
+move_items and add_to_exercise organize it, edit_items changes many drafts in
+one call, and validate_exercise checks them all. update_exercise changes its
+name and notes, and keeps its exercise editor URL when the person gives it.
+Read files by path; don't paste their contents into a call.
 
 list_widgets and get_widget_spec describe each widget's options; validate_item
 checks an item the way Perseus will. score_item scores an answer as Perseus
@@ -106,12 +107,12 @@ export function createMcpServer({
     review,
     preview,
     previewApp,
-    collections,
+    exercises,
     serverInfo,
     errors,
 }: {
     drafts: DraftUseCases;
-    collections: CollectionUseCases;
+    exercises: ExerciseUseCases;
     /** What get_server_info reports. */
     serverInfo?: () => ServerInfo;
     /** Where tool errors are recorded, for get_server_info. */
@@ -449,7 +450,7 @@ export function createMcpServer({
             ),
     );
 
-    registerCollectionTools(server, {collections, run});
+    registerExerciseTools(server, {exercises, run});
 
     server.registerTool(
         "list_revisions",
