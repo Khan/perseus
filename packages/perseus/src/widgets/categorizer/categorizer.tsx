@@ -269,8 +269,6 @@ const styles = StyleSheet.create({
         paddingInlineEnd: 3,
     },
 
-    // Only applied when the widget isn't static or read-only, so that a
-    // disabled Categorizer doesn't look clickable on hover.
     interactiveRadioSpan: {
         cursor: "pointer",
 
