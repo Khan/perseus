@@ -25,6 +25,11 @@ export type CollectionItem = {
     itemId: string;
     /** The item's id where it came from, for writing it back. */
     contentId?: string;
+    /**
+     * The draft's revision when it was imported, to tell whether it has
+     * changed since: an export counts the items that have.
+     */
+    importedRevision?: number;
 };
 
 /** Every draft in the collection, in order. */

@@ -20,6 +20,7 @@ const SavedCollection = z.object({
                 z.object({
                     itemId: z.string(),
                     contentId: z.string().optional(),
+                    importedRevision: z.number().optional(),
                 }),
             ),
         }),

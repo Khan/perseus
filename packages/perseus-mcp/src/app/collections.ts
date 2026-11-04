@@ -12,10 +12,14 @@ import {
 } from "./errors";
 
 import type {Catalog} from "./catalog";
-import type {Collection} from "../domain/collections/collection";
+import type {
+    Collection,
+    CollectionItem,
+} from "../domain/collections/collection";
 import type {ImportShape} from "../domain/collections/import-shapes";
 import type {Draft} from "../domain/draft";
 import type {Issue} from "../domain/items/validate";
+import type {Clipboard} from "../ports/clipboard";
 import type {CollectionRepository} from "../ports/collection-repository";
 import type {DraftRepository} from "../ports/draft-repository";
 import type {ExportFileWriter} from "../ports/export-file-writer";
@@ -26,6 +30,8 @@ export type CollectionDependencies = {
     drafts: DraftRepository;
     files: ItemFileReader;
     exports: ExportFileWriter;
+    /** Where an export is copied, for pasting into the exercise editor. */
+    clipboard: Clipboard;
     catalog: Catalog;
     /** Where export_collection writes when it isn't given a path. */
     defaultExportPath: (collection: Collection) => string;
@@ -61,6 +67,15 @@ export type CollectionTree = {
     }>;
 };
 
+/**
+ * How many new or edited items the exercise editor's bulk import reviews in
+ * one pass; unchanged items don't count.
+ */
+const REVIEW_LIMIT = 50;
+
+/** What the exercise editor's import would make of an exported item. */
+export type ImportChange = "new" | "edited" | "unchanged";
+
 /** The format the exercise editor's bulk JSON import reads. */
 type BulkProblemType = {
     problemType: string;
@@ -82,6 +97,27 @@ export function createCollectionUseCases(deps: CollectionDependencies) {
             throw new CollectionNotFoundError(collectionId);
         }
         return collection;
+    }
+
+    /**
+     * New if it has no contentId (the import creates it); edited if its item
+     * differs from the revision it was imported at; unchanged otherwise.
+     */
+    function changeSinceImport(
+        item: CollectionItem,
+        draft: Draft,
+    ): ImportChange {
+        if (item.contentId == null) {
+            return "new";
+        }
+        const imported = drafts.getRevision(
+            item.itemId,
+            item.importedRevision ?? 1,
+        );
+        return imported != null &&
+            JSON.stringify(imported.item) === JSON.stringify(draft.item)
+            ? "unchanged"
+            : "edited";
     }
 
     function getDraft(itemId: string): Draft {
@@ -149,7 +185,13 @@ export function createCollectionUseCases(deps: CollectionDependencies) {
                         now,
                     });
                     drafts.save(draft);
-                    return [{itemId: draft.itemId, contentId: item.contentId}];
+                    return [
+                        {
+                            itemId: draft.itemId,
+                            contentId: item.contentId,
+                            importedRevision: draft.revision,
+                        },
+                    ];
                 }),
             }));
 
@@ -278,7 +320,11 @@ export function createCollectionUseCases(deps: CollectionDependencies) {
          * Writes the collection in the exercise editor's bulk JSON format:
          * its problem types and their items, each item's data as a JSON
          * string of its latest revision, with the contentIds it was
-         * imported with. Drafts that are gone are left out and reported.
+         * imported with. With `onlyChanged`, only the items that are new
+         * (no contentId) or edited since import, which are what that
+         * import reviews. The JSON is also copied to the clipboard, since
+         * the import takes a paste, unless `copy` is false. Drafts that are
+         * gone are left out and reported.
          *
          * @throws CollectionNotFoundError
          * @throws ExportExistsError if the file exists and `overwrite` isn't
@@ -288,10 +334,16 @@ export function createCollectionUseCases(deps: CollectionDependencies) {
             collectionId: string;
             path?: string;
             overwrite?: boolean;
+            onlyChanged?: boolean;
+            copy?: boolean;
         }): {
             path: string;
+            copied: boolean;
             problemTypes: number;
             items: number;
+            counts: Record<ImportChange, number>;
+            /** Set when more items need review than the import takes. */
+            overReviewLimit?: string;
             missing: string[];
         } {
             const collection = getCollection(input.collectionId);
@@ -299,9 +351,14 @@ export function createCollectionUseCases(deps: CollectionDependencies) {
             if (input.overwrite !== true && deps.exports.exists(target)) {
                 throw new ExportExistsError(target);
             }
+            const counts: Record<ImportChange, number> = {
+                new: 0,
+                edited: 0,
+                unchanged: 0,
+            };
             const missing: string[] = [];
-            const payload: BulkProblemType[] = collection.problemTypes.map(
-                (problemType) => ({
+            const payload: BulkProblemType[] = collection.problemTypes
+                .map((problemType) => ({
                     // The bulk format needs a name; items with no problem
                     // type go under an empty one, which its import routes
                     // to Unassigned.
@@ -315,6 +372,14 @@ export function createCollectionUseCases(deps: CollectionDependencies) {
                             missing.push(item.itemId);
                             return [];
                         }
+                        const change = changeSinceImport(item, draft);
+                        counts[change]++;
+                        if (
+                            input.onlyChanged === true &&
+                            change === "unchanged"
+                        ) {
+                            return [];
+                        }
                         return [
                             {
                                 ...(item.contentId != null
@@ -324,20 +389,36 @@ export function createCollectionUseCases(deps: CollectionDependencies) {
                             },
                         ];
                     }),
-                }),
-            );
-            const written = deps.exports.write(
-                target,
-                JSON.stringify(payload, null, 2),
-            );
+                }))
+                .filter(
+                    (problemType) =>
+                        input.onlyChanged !== true ||
+                        problemType.assessmentItems.length > 0,
+                );
+            const json = JSON.stringify(payload, null, 2);
+            const written = deps.exports.write(target, json);
+            const copied = input.copy !== false && deps.clipboard.copy(json);
+            const toReview = counts.new + counts.edited;
             return {
                 path: written,
+                copied,
                 problemTypes: payload.length,
                 items: payload.reduce(
                     (count, problemType) =>
                         count + problemType.assessmentItems.length,
                     0,
                 ),
+                counts,
+                ...(toReview > REVIEW_LIMIT
+                    ? {
+                          overReviewLimit:
+                              `${toReview} items are new or edited, and the ` +
+                              `exercise editor's import reviews at most ` +
+                              `${REVIEW_LIMIT} at a time. Import in ` +
+                              `batches: move some items to another ` +
+                              `collection, or paste this export in parts.`,
+                      }
+                    : {}),
                 missing,
             };
         },

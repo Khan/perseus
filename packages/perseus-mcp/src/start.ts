@@ -25,6 +25,7 @@ import {
     previewLinks,
 } from "./adapters/http/server";
 import {createMcpServer} from "./adapters/mcp/server";
+import {systemClipboard} from "./adapters/os/system-clipboard";
 import {createCatalog} from "./app/catalog";
 import {createCollectionUseCases} from "./app/collections";
 import {withDraftFeed} from "./app/draft-feed";
@@ -172,6 +173,7 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
             drafts: repository,
             files: nodeItemFileReader,
             exports: nodeExportFileWriter,
+            clipboard: systemClipboard,
             catalog,
             defaultExportPath: (collection) =>
                 path.join(

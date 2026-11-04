@@ -37,6 +37,7 @@ function itemWith(content: string) {
 function setUp(fileContents: unknown) {
     const drafts = inMemoryRepository();
     const written = new Map<string, string>();
+    const copied: string[] = [];
     let nextId = 0;
     const useCases = createCollectionUseCases({
         collections: inMemoryCollections(),
@@ -49,6 +50,12 @@ function setUp(fileContents: unknown) {
                 return path;
             },
         },
+        clipboard: {
+            copy(text) {
+                copied.push(text);
+                return true;
+            },
+        },
         catalog: createCatalog(
             createPerseusCoreSchemaSource(checkoutPaths().perseusCoreTypesDir),
         ),
@@ -57,7 +64,7 @@ function setUp(fileContents: unknown) {
         now: () => new Date("2026-01-01T00:00:00Z"),
         newId: () => `id${++nextId}`,
     });
-    return {drafts, written, useCases};
+    return {drafts, written, copied, useCases};
 }
 
 // The exercise editor's bulk JSON format, with item data as JSON strings.
@@ -188,6 +195,83 @@ describe("collection use cases", () => {
                 items: [[undefined, "Three"]],
             },
         ]);
+    });
+
+    it("counts new, edited and unchanged items, and copies the export", async () => {
+        // Arrange
+        const {drafts, written, copied, useCases} = setUp(bulkExport);
+        const {collection} = await useCases.importItems({path: "in.json"});
+        const [firstId] = collection.problemTypes[0].items.map(
+            (item) => item.itemId,
+        );
+        const first = drafts.get(firstId)!;
+        drafts.save({
+            ...first,
+            revision: 2,
+            item: {
+                ...first.item,
+                question: {...first.item.question, content: "Edited"},
+            },
+        });
+
+        // Act
+        const result = useCases.exportCollection({
+            collectionId: collection.collectionId,
+        });
+
+        // Assert
+        expect({
+            counts: result.counts,
+            copied: result.copied,
+            pasted: copied[0] === written.get(result.path),
+        }).toEqual({
+            counts: {new: 1, edited: 1, unchanged: 1},
+            copied: true,
+            pasted: true,
+        });
+    });
+
+    it("exports only new and edited items with onlyChanged", async () => {
+        // Arrange
+        const {written, useCases} = setUp(bulkExport);
+        const {collection} = await useCases.importItems({path: "in.json"});
+
+        // Act
+        const result = useCases.exportCollection({
+            collectionId: collection.collectionId,
+            onlyChanged: true,
+        });
+
+        // Assert
+        const payload = JSON.parse(written.get(result.path)!);
+        expect(
+            payload.map((problemType: any) => [
+                problemType.problemType,
+                problemType.assessmentItems.length,
+            ]),
+        ).toEqual([["Type 2", 1]]);
+    });
+
+    it("warns when more items need review than the import takes", async () => {
+        // Arrange
+        const many = [
+            {
+                problemType: "Big",
+                assessmentItems: Array.from({length: 51}, (_, i) => ({
+                    itemData: JSON.stringify(itemWith(`Item ${i}`)),
+                })),
+            },
+        ];
+        const {useCases} = setUp(many);
+        const {collection} = await useCases.importItems({path: "in.json"});
+
+        // Act
+        const result = useCases.exportCollection({
+            collectionId: collection.collectionId,
+        });
+
+        // Assert
+        expect(result.overReviewLimit).toContain("51 items are new or edited");
     });
 
     it("doesn't overwrite an export unless asked to", async () => {
