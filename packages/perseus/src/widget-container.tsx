@@ -24,7 +24,6 @@ const widgetsNeedingOverlay: string[] = [
     "free-response",
     "graded-group",
     "graded-group-set",
-    "grapher",
     "group",
     "iframe",
     "input-number",
