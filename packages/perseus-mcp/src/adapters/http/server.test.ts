@@ -278,6 +278,19 @@ describe("createHttpServer", () => {
 });
 
 describe("allowedHostnames", () => {
+    it("adds the public host links use", () => {
+        // Arrange, Act
+        const names = allowedHostnames("127.0.0.1", "khanacademy.dev");
+
+        // Assert
+        expect(names).toEqual([
+            "localhost",
+            "127.0.0.1",
+            "[::1]",
+            "khanacademy.dev",
+        ]);
+    });
+
     it("allows only localhost's names for a loopback address", () => {
         // Arrange, Act
         const names = allowedHostnames("127.0.0.1");

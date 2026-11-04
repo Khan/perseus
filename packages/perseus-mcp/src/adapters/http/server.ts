@@ -63,17 +63,25 @@ const WILDCARD_HOSTS = new Set(["0.0.0.0", "::", "[::]"]);
 
 /**
  * The hostnames a request's `Host` header may name, for a server listening on
- * `host`: localhost's names, and `host` itself unless it's a wildcard
- * address (any of the machine's addresses), which allows only localhost.
+ * `host`: localhost's names, `host` itself unless it's a wildcard address
+ * (any of the machine's addresses), and `publicHost`, the name links use
+ * (such as a development domain that resolves to this machine).
  */
-export function allowedHostnames(host: string): string[] {
+export function allowedHostnames(host: string, publicHost?: string): string[] {
     // Host headers put IPv6 addresses in brackets.
     const name =
         host.includes(":") && !host.startsWith("[") ? `[${host}]` : host;
-    return WILDCARD_HOSTS.has(name) || LOCALHOST_NAMES.includes(name)
-        ? LOCALHOST_NAMES
-        : [...LOCALHOST_NAMES, name];
+    const names =
+        WILDCARD_HOSTS.has(name) || LOCALHOST_NAMES.includes(name)
+            ? LOCALHOST_NAMES
+            : [...LOCALHOST_NAMES, name];
+    return publicHost == null || names.includes(publicHost)
+        ? names
+        : [...names, publicHost];
 }
+
+/** A certificate and its key, in PEM, for serving HTTPS. */
+export type TlsFiles = {cert: string; key: string};
 
 /**
  * Creates the HTTP server:
@@ -96,13 +104,16 @@ export async function createHttpServer({
     drafts,
     createPreview,
     allowedHostnames,
+    tls,
 }: {
     createMcpServer: () => McpServer;
     drafts: DraftUseCases;
     createPreview?: (server: Server) => Promise<PreviewPages>;
     allowedHostnames: string[];
+    /** Serve HTTPS with this certificate instead of HTTP. */
+    tls?: TlsFiles;
 }): Promise<FastifyInstance> {
-    const app = Fastify({logger: false});
+    const app = Fastify({logger: false, ...(tls != null ? {https: tls} : {})});
 
     const validateHost = hostHeaderValidation(allowedHostnames);
     app.addHook("onRequest", async (request, reply) => {

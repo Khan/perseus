@@ -4,6 +4,7 @@
 // (main.ts, main-packaged.ts) say where its files are and which preview
 // pages it serves.
 import {randomUUID} from "node:crypto";
+import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import {parseArgs} from "node:util";
@@ -36,7 +37,7 @@ import {createScoringUseCases} from "./app/scoring";
 import {createErrorLog, describeServer} from "./app/server-info";
 import {createWidgetUseCases} from "./app/widgets";
 
-import type {PreviewPages} from "./adapters/http/server";
+import type {PreviewPages, TlsFiles} from "./adapters/http/server";
 import type {PreviewApp} from "./adapters/mcp/server";
 import type {BuildInfo} from "./build-info";
 import type {RuntimePaths} from "./runtime-paths";
@@ -80,7 +81,8 @@ export async function start({
 
     const USAGE = `\
 Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <dir>]
-                   [--pages <dir>]
+                   [--pages <dir>] [--tls-cert <file> --tls-key <file>]
+                   [--public-host <name>]
 
   --http        Serve MCP on http://<host>:<port>/mcp (the default).
   --stdio       Serve MCP over stdin/stdout. HTTP still runs, for previews.
@@ -92,6 +94,12 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
   --pages       Serve the preview pages prebuilt in <dir> (by
                 \`pnpm --filter @khanacademy/perseus-mcp build:pages\`)
                 instead of compiling them with Vite.
+  --tls-cert    Serve HTTPS with this certificate (PEM), and --tls-key its
+  --tls-key     key, such as a development certificate made with mkcert.
+                Default $PERSEUS_MCP_TLS_CERT and $PERSEUS_MCP_TLS_KEY.
+  --public-host The hostname preview links use, such as a development domain
+                that resolves to this machine and the certificate names
+                (default $PERSEUS_MCP_PUBLIC_HOST, else localhost).
 `;
 
     const {values} = parseArgs({
@@ -102,6 +110,9 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
             host: {type: "string", default: "127.0.0.1"},
             "data-dir": {type: "string"},
             pages: {type: "string"},
+            "tls-cert": {type: "string"},
+            "tls-key": {type: "string"},
+            "public-host": {type: "string"},
             help: {type: "boolean"},
         },
         strict: true,
@@ -219,17 +230,42 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
         createMcpServer({...useCases, previewApp, serverInfo, errors});
 
     const host = values.host;
+    const publicHost =
+        values["public-host"] ?? process.env.PERSEUS_MCP_PUBLIC_HOST;
+    const tlsCert = values["tls-cert"] ?? process.env.PERSEUS_MCP_TLS_CERT;
+    const tlsKey = values["tls-key"] ?? process.env.PERSEUS_MCP_TLS_KEY;
+    let tls: TlsFiles | undefined;
+    if (tlsCert != null || tlsKey != null) {
+        if (tlsCert == null || tlsKey == null) {
+            logProblem("HTTPS needs both --tls-cert and --tls-key.");
+            process.exit(1);
+        }
+        try {
+            tls = {
+                cert: fs.readFileSync(tlsCert, "utf8"),
+                key: fs.readFileSync(tlsKey, "utf8"),
+            };
+        } catch (e) {
+            logProblem(
+                `couldn't read the TLS certificate or key: ${String(e)}`,
+            );
+            process.exit(1);
+        }
+    }
     // Port 0 asks the OS for a free port.
     const port = Number(values.port ?? (values.stdio ? 0 : 4567));
     const httpServer = await createHttpServer({
         createMcpServer: mcpServer,
         drafts: useCases.drafts,
         createPreview,
-        allowedHostnames: allowedHostnames(host),
+        allowedHostnames: allowedHostnames(host, publicHost),
+        tls,
     });
     try {
         const address = new URL(await httpServer.listen({port, host}));
-        baseUrl = `http://${host === "127.0.0.1" ? "localhost" : host}:${address.port}`;
+        const linkHost =
+            publicHost ?? (host === "127.0.0.1" ? "localhost" : host);
+        baseUrl = `${tls != null ? "https" : "http"}://${linkHost}:${address.port}`;
         log(`perseus-mcp: HTTP on ${baseUrl} (MCP on ${baseUrl}/mcp)`);
     } catch (e) {
         logProblem(`couldn't listen on ${host}:${port}: ${String(e)}`);

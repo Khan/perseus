@@ -86,6 +86,7 @@ from outside the repo.
 | Group drafts into collections, with import and export | Build order step 9. A collection (`domain/collections/`, `<dataDir>/collections/<collectionId>.json` through a `CollectionRepository` port) groups drafts by problem type and holds their ids with the `contentId`s they came with. `import_items` reads a file in any of four shapes (`readImport`): the exercise editor's bulk JSON format, an exercise export (names become notes), items, or a bare renderer; a draft per item that parses, the rest skipped and listed. `export_collection` writes the bulk format through an `ExportFileWriter` port (default `<dataDir>/exports/`, no overwrite unless asked), each item's latest revision as a JSON string. `get_collection`, `list_collections`, `move_items`, `add_to_collection`, `validate_collection`, and `edit_items` (several drafts, each saved or not on its own). Plan: `get_server_info` added as step 8; the later steps move down one. Checked over MCP: perseus-renderer's sample imported, organized into two problem types, exported, and the export re-imported with the same tree. |
 | Add get_server_info for diagnosing testers' problems | Build order step 8. `get_server_info` reports perseus-mcp's version and commit (from the repo, read from `package.json` and git at startup; in the bundle, written in by `build:bundle` as `__PERSEUS_MCP_BUILD__`), whether it runs from the bundle or the repo, the transport, Node, the OS and processor, the data folder with its draft, skipped-draft and collection counts, the preview's URL and whether its pages are prebuilt or compiled by Vite, and the last 20 errors. Errors are kept in memory (`createErrorLog`): every tool's error results, under the tool's name (each handler runs through `run(tool, …)`), and startup problems (skipped drafts, a failed listen), each cut to 300 characters so none carries an item. The install notes gain "If something goes wrong": ask Claude for the server info when it runs, or paste a one-line command (Terminal on macOS, PowerShell on Windows) that copies the folder, Node's version and signature, a test start of the server, the config entry and Claude Desktop's log to the clipboard when it doesn't. Checked from the unpacked macOS bundle and from the repo. The Windows command and its log path (`%APPDATA%\Claude\logs`) haven't been run on Windows. |
 | Hand a collection to the exercise editor's bulk import by paste | That import takes only a paste, and reviews at most 50 new or edited items at a time. `export_collection` also copies the JSON to the clipboard (a `Clipboard` port: `pbcopy` on macOS, PowerShell's `Set-Clipboard` on Windows, since `clip` garbles the UTF-8 every item's "☃" needs, `xclip` on Linux) unless `copy: false`, and says whether it did. It counts each item as new (no `contentId`), edited (its item differs from the revision it was imported at, which collections now record as `importedRevision`) or unchanged, warns when more than 50 need review, and with `onlyChanged` exports only the new and edited ones. The collection tools move to `adapters/mcp/collection-tools.ts`, keeping `server.ts` under the 1000-line limit. The clipboard couldn't be checked here (the sandbox blocks it), nor the paste into the exercise editor. |
+| Serve perseus-mcp over HTTPS on a public hostname | `--tls-cert` and `--tls-key` (or `PERSEUS_MCP_TLS_CERT` and `PERSEUS_MCP_TLS_KEY`) serve HTTPS with a certificate, such as a development one made with mkcert, and `--public-host` (or `PERSEUS_MCP_PUBLIC_HOST`) names the host preview links use, such as a development domain that resolves to this machine and the certificate covers. The public host joins the allowed `Host` names; Vite's own host check is off, since ours runs first. Also notes the auth wording for "Toward production". Checked: over HTTPS on such a domain the preview page is a secure context, follows its draft and renders; plain HTTP and a foreign `Host` are refused. |
 
 Remaining, in order:
 
@@ -97,13 +98,23 @@ Remaining, in order:
    Not planned: fewer Lato weights (which ones Perseus uses would need
    checking), or dropping the speech rule engine, which reads math to
    screen readers.
-2. Build order steps 10 to 16.
+2. Frame the live preview in the chat. Claude Desktop refused to frame
+   `http://localhost` (MCP Apps' `frameDomains` takes only https origins
+   with a dotted hostname); over HTTPS on a public host, the MCP Apps page
+   could frame the browser preview instead of bundling Perseus (5.48 MB).
+   To check first: whether Claude Desktop accepts an origin with a port.
+3. Build order steps 10 to 16.
 
 Consuming applications aren't in this repo: the changesets carry the
 migration steps, and they're updated separately.
 
 ## Notes for whoever picks this up
 
+- **HTTPS:** add `--tls-cert <pem> --tls-key <pem> --public-host <name>`
+  (or the `PERSEUS_MCP_TLS_*` and `PERSEUS_MCP_PUBLIC_HOST` variables, for
+  a Claude Desktop config entry) to serve the preview at
+  `https://<name>:<port>`; the certificate has to cover the name, and the
+  name has to resolve to this machine.
 - **Run it:** `pnpm start-mcp` (HTTP) or `pnpm start-mcp:stdio` from the repo
   root, or `node packages/perseus-mcp/bin/perseus-mcp.mjs` with `--stdio`,
   `--port`, `--data-dir`. HTTP always runs: on port 4567 with `--http`, and
@@ -800,7 +811,11 @@ for each author and hands work over by paste:
   Running it against a local backend with a local datastore would avoid
   most of the auth questions while prototyping.
 - **Authentication** for both: perseus-mcp acting as the signed-in author,
-  with that author's permissions, never a shared account.
+  with that author's permissions, never a shared account. OAuth through the
+  organisation's identity provider (the MCP's built-in authorization flow),
+  with a token that names the author, marks the caller as an agent, and is
+  limited to approved operations; the backend has to accept such tokens
+  first.
 - **Hosting** (build order step 16), with drafts kept per user.
 
 ## Later work

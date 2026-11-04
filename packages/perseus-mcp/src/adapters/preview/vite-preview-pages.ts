@@ -30,7 +30,10 @@ export async function createVitePreviewPages(
         base: "/preview/",
         cacheDir: CACHE_DIR,
         appType: "custom",
-        server: {middlewareMode: true, hmr: {server}},
+        // The HTTP server checks every request's Host header before Vite
+        // sees it (allowedHostnames, which includes a --public-host), so
+        // Vite's own check would only block that public host.
+        server: {middlewareMode: true, hmr: {server}, allowedHosts: true},
         build: {assetsInlineLimit: inlineAssetsExceptSvg},
     });
 
