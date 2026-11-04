@@ -9,4 +9,7 @@ export const parseGroupWidget = parseWidget(
     // The anonymous function below ensures that we don't try to access
     // parsePerseusRenderer before it's defined.
     (rawVal, ctx) => parsePerseusRenderer(rawVal, ctx),
+    // Graded Group Set is a container for other widgets - it can't be
+    // set as static or readonly itself.
+    {supportsStatic: false},
 );
