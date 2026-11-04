@@ -237,7 +237,7 @@ export class MovablePoint {
 
         if (state.static && state.mouseTarget) {
             // If state.static was specified, remove any previously
-            // existing mousetarget (from a previous modify in the editor)
+            // existing mousetarget (from a previous update in the editor)
             state.mouseTarget.remove();
             state.mouseTarget = null;
         }
