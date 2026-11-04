@@ -106,7 +106,32 @@ Remaining, in order:
    Not planned: fewer Lato weights (which ones Perseus uses would need
    checking), or dropping the speech rule engine, which reads math to
    screen readers.
-2. Build order steps 10 to 16.
+2. Fixes from a review of how agents used perseus-mcp in four past sessions
+   (19 items, about 120 tool calls):
+   1. Reviews never ran: the instructions pointed at a prompt and a
+      resource, which only a person can open. Done: the `review_item` tool.
+   2. No way to make an exercise from existing drafts (five failed calls
+      and a duplicated draft). Done: `create_exercise`.
+   3. Drafts saved in different folders depending on how the server
+      started. Done: one data folder, and "not found" names it.
+   4. Preview links stop working when the server restarts (each start
+      takes a new port), yet the instructions say to give the link once.
+      Correct the instructions (a link lasts as long as its server; after a
+      restart, call preview_item again), and have a page whose server is
+      gone say so. A stable port isn't enough on its own: several servers
+      share the data folder, and one serving a link would need to load
+      drafts another saved, and follow their changes, so it's later work.
+   5. The same lint warnings on agents' first tries: numeric-input's
+      missing `labelText`, and align blocks' line breaks (the message
+      doesn't say whether to count backslashes in the content or in the
+      escaped JSON). Agents also guessed wrong how numeric-input's
+      `simplify` scores an unsimplified answer. Say all three in the widget
+      notes and the align warning.
+   6. The largest responses: `check_user_inputs` (2.2 KB a call, repeating
+      every score even when it matched) and `get_widget_spec` for
+      interactive-graph (29 KB). Report matches compactly and details only
+      for mismatches; trim the spec.
+3. Build order steps 10 (the upload) to 16.
 
 Consuming applications aren't in this repo: the changesets carry the
 migration steps, and they're updated separately.
