@@ -789,6 +789,7 @@ table: [[☃ table 1]]
                                 style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                               >
                                 <div
+                                  aria-disabled="false"
                                   aria-label="Fruits"
                                   role="button"
                                 >
@@ -817,6 +818,7 @@ table: [[☃ table 1]]
                                 style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                               >
                                 <div
+                                  aria-disabled="false"
                                   aria-label="Vegetables"
                                   role="button"
                                 >
@@ -862,6 +864,7 @@ table: [[☃ table 1]]
                                 style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                               >
                                 <div
+                                  aria-disabled="false"
                                   aria-label="Fruits"
                                   role="button"
                                 >
@@ -890,6 +893,7 @@ table: [[☃ table 1]]
                                 style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                               >
                                 <div
+                                  aria-disabled="false"
                                   aria-label="Vegetables"
                                   role="button"
                                 >
@@ -935,6 +939,7 @@ table: [[☃ table 1]]
                                 style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                               >
                                 <div
+                                  aria-disabled="false"
                                   aria-label="Fruits"
                                   role="button"
                                 >
@@ -963,6 +968,7 @@ table: [[☃ table 1]]
                                 style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                               >
                                 <div
+                                  aria-disabled="false"
                                   aria-label="Vegetables"
                                   role="button"
                                 >
