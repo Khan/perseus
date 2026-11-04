@@ -1,14 +1,56 @@
 /*
- * Auto-placed labels are positioned at a coordinate offset from their figure
- * (see `getAutoLabelCoordinates`), and that coordinate is meant to be the
- * label's center, not its top-left corner. Shifting by half the element's own
- * size centers it without anyone having to measure the rendered text, which
- * can't be known ahead of time because labels may contain TeX.
+ * Auto-placed labels sit at a coordinate on the conceptual line running out
+ * from the graph's center through their point (see `getAutoLabelCoordinates`).
+ * That coordinate is a *corner* of the label — the one facing its point — so
+ * the element is shifted to pin that corner there.
  *
- * Author-placed labels don't get this class: their coordinates were authored
- * against the default top-left anchoring, so re-anchoring them would move
- * every label in existing content.
+ * Anchoring by a corner rather than the label's center keeps the gap between
+ * point and label constant no matter how wide the text renders, which can't be
+ * known ahead of time because labels may contain TeX. Each axis shifts by a
+ * whole label width or height, or not at all, so the browser does the
+ * measuring and no one has to.
+ *
+ * Author-placed labels don't get these classes: their coordinates were
+ * authored against the default top-left anchoring, so re-anchoring them would
+ * move every label in existing content.
  */
 .auto-placed-label {
-    transform: translate(-50%, -50%);
+    /* Defaults pin the top-left corner: the label extends right and down. */
+    --locked-label-shift-x: 0;
+    --locked-label-shift-y: 0;
+
+    transform: translate(
+        var(--locked-label-shift-x),
+        var(--locked-label-shift-y)
+    );
+}
+
+/* Extend leftward from the coordinate instead, pinning the right edge. */
+.anchor-left {
+    --locked-label-shift-x: -100%;
+}
+
+/* Extend upward from the coordinate instead, pinning the bottom edge. */
+.anchor-above {
+    --locked-label-shift-y: -100%;
+}
+
+/*
+ * Auto-placed labels are positioned from an assumed size until their text has
+ * been typeset and their fonts have loaded. Hiding them until then avoids
+ * showing the label jump when the real measurement arrives. Opacity rather
+ * than `visibility` or `display`, so the element still has dimensions to
+ * measure.
+ */
+.measuring {
+    opacity: 0;
+}
+
+/*
+ * Only applied when the wait for fonts was long enough to suggest they were
+ * actually fetched. On a warm load the label appears instantly; on a cold one
+ * it eases in rather than popping in after the rest of the graph.
+ */
+.fade-in {
+    transition: opacity 150ms ease-out;
 }
