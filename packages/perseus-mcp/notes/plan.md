@@ -40,7 +40,8 @@ How the work is done. An agent resuming this plan follows these rules exactly.
 
 ## Status
 
-**Build order steps 1 to 9 are done; step 10 is next.** The commits below are on
+**Build order steps 1 to 9 are done, and step 10 but for its upload; step 11
+(`create_graphie`) is next, then 10's upload.** The commits below are on
 `jer/perseus-mcp`, oldest first, and every tool was smoke-tested over stdio
 from outside the repo.
 
@@ -138,7 +139,8 @@ Remaining, in order:
       leaves out the declarations `optionsType` already shows, naming them
       instead (interactive-graph's is now 19 KB; its user input is its
       options' graph types).
-3. Build order steps 10 (the upload) to 16.
+3. Build order step 11 (`create_graphie`), then step 10's upload, then
+   steps 12 to 15.
 
 Consuming applications aren't in this repo: the changesets carry the
 migration steps, and they're updated separately.
@@ -512,7 +514,7 @@ that the chat app shows inside the conversation.
 - It can't frame the browser preview from a local connector: Claude
   Desktop frames only the sites Claude allows a connector, and a local one
   has none, whatever its `frameDomains` (tried over HTTPS on a public
-  host). A hosted connector in the Claude directory (build order step 16)
+  host). A hosted connector in the Claude directory (build order step 15)
   could have its site added to its listing, so the page could frame it
   instead.
 - Confirmed host: Claude Desktop.
@@ -630,7 +632,8 @@ Metrics:
 
 ## Build order
 
-Steps 1–3 need no Perseus changes, so building can start there.
+Steps 1–3 need no Perseus changes, so building can start there. Step 10's
+upload comes after step 11.
 
 1. **Scaffold `packages/perseus-mcp`:** the SDK plus Fastify, a stdio entry
    point and local HTTP on `/mcp`, the on-disk draft store and
@@ -690,7 +693,7 @@ Steps 1–3 need no Perseus changes, so building can start there.
       removed): the MIT `LICENSE` and the fonts' OFL texts go in the bundle.
    6. **`Host` header check** (done) on HTTP requests, so a web page can't
       reach a tester's local server through DNS rebinding. A wildcard
-      `--host` allows only localhost's names; a hosted deployment (step 16)
+      `--host` allows only localhost's names; a hosted deployment (step 15)
       will need its own allowed names.
    7. **The macOS zip, tested** (done): `build:bundle` adds Node, its
       license and `INSTALL.md`, and zips the folder with `ditto` (which keeps
@@ -749,10 +752,8 @@ Steps 1–3 need no Perseus changes, so building can start there.
     `Origin` header, since the `Host` check doesn't stop a cross-site form
     POST. `preview_exercise` returns the page's URL. No dragging: Claude
     organizes, the page shows.
-11. **Side-by-side comparison:** two drafts, or two revisions of one, next
-    to each other in the browser and in the chat, both rendered as on
-    mobile (which needs the preview to apply `PreviewOptions.isMobile`).
-    A visual comparison first; marking the differences can come later.
+11. **`create_graphie`:** declarative spec to Graphie image, served locally,
+    with alt text (step 12's rules come after it).
 12. **Alt text and long descriptions:** Claude infers each image's purpose
     (assessment, instruction, decorative) from the item, writes `alt` and,
     when needed, `longDescription`, or sets `decorative`, and lists the
@@ -770,12 +771,21 @@ Steps 1–3 need no Perseus changes, so building can start there.
     Guidelines for Assessments (2021). Its licence reserves all rights, so
     nothing from it is copied into the repo; even summarising it is
     undecided.
-13. **`create_graphie`:** declarative spec to Graphie image, served locally,
-    with alt text written by step 12's rules.
-14. **Eval harness** on the Claude Agent SDK with a few smoke tasks, until the
-    real task set is ready.
-15. **Publish to npm** as `@khanacademy/perseus-mcp`, for Khan Academy
-   content authors, once steps 4 to 14 are done and the server has been
+    Design proposed, not yet approved: a `describe_images(itemId)` tool
+    returning each image (its place, URL, current `alt`, `longDescription`
+    and `decorative`), the image itself as image content so Claude can see
+    it, the item's question, answer and hints, the rules in our own words,
+    and the procedure; `validate_item` checks for over 125 characters,
+    dashes, "x-axis" and "The diagram shows" (brought forward from the
+    checks after the build order); alt-text entries in `review_item`'s
+    checklist. Open: rasterizing Graphie SVGs so Claude can see them (a
+    dependency such as `@resvg/resvg-js`), saving the assumed purpose with
+    the draft for the exercise page to flag, and images inside other
+    widgets.
+13. **Eval harness** on the Claude Agent SDK with a few smoke tasks, until the
+    real task set is ready (written in a separate session).
+14. **Publish to npm** as `@khanacademy/perseus-mcp`, for Khan Academy
+   content authors, once steps 4 to 13 are done and the server has been
    tested in use. It installs and runs with `npx @khanacademy/perseus-mcp
    --stdio` in an MCP host's config. The build, the data directory and the
    `Host` check come from step 6; what's left:
@@ -788,7 +798,7 @@ Steps 1–3 need no Perseus changes, so building can start there.
      `config/build`'s `getPackageNames`, whose library build is wrong for
      it. Either `build-packages.ts` hands a package to its own build script,
      or perseus-mcp stays private and is published from its built output.
-16. **Hosted deployment**, after publishing: run the server as a hosted
+15. **Hosted deployment**, after publishing: run the server as a hosted
     service on an https origin. It needs a shared draft store (a new
     `DraftRepository` adapter), live updates across instances (one
     instance, a pub/sub layer, or polling), OAuth for remote MCP connectors,
@@ -867,11 +877,22 @@ for each author and hands work over by paste:
   with a token that names the author, marks the caller as an agent, and is
   limited to approved operations; the backend has to accept such tokens
   first.
-- **Hosting** (build order step 16), with drafts kept per user.
+- **Hosting** (build order step 15), with drafts kept per user.
+- **Limit which sites can embed the preview frame,** with a
+  `Content-Security-Policy: frame-ancestors` header on the frame's response
+  (`'self'`, plus the MCP Apps host once there is one). Not needed for
+  safety: the presenter only talks to the window that embeds it, so another
+  site embedding the frame can only preview content it sends itself.
 
 ## Later work
 
-- Write the real eval task set (separate session).
+Not needed for production (that's "Toward production" above):
+
+- **Side-by-side comparison** (was build order step 11, put off): two
+  drafts, or two revisions of one, next to each other in the browser and in
+  the chat, both rendered as on mobile (which needs the preview to apply
+  `PreviewOptions.isMobile`). A visual comparison first; marking the
+  differences can come later.
 - Lint in the context of articles (low value).
 - Share the SVG inlining setting. Vite inlines small SVGs as an unquoted
   `url(data:...)`, which the quotes in Wonder Blocks' icons break, so the
@@ -882,12 +903,6 @@ for each author and hands work over by paste:
 - Drop `validate_item`'s placeholder checks for nested renderers once the
   linter lints them; a teammate is adding that recursion to the linter.
   Only `orphaned-widget` stays.
-- Limit which sites can embed the preview frame, with a
-  `Content-Security-Policy: frame-ancestors` header on the frame's response
-  (`'self'`, plus the MCP Apps host once there is one). Not needed for
-  safety: the presenter only talks to the window that embeds it, so another
-  site embedding the frame can only preview content it sends itself.
-
 - Revisit the `graphie-image-url` lint rule's scope, which may overshoot:
   - It checks only image widgets (not markdown images), and only `.png`s on
     the `ka-perseus-graphie` host. Which of Perseus's image forms should it
