@@ -1,7 +1,7 @@
 /* TODO(LEMS-3686): Remove the !important once Wonder Blocks is in the shared layer. */
 .columns {
     display: grid !important;
-    grid-template-columns: minmax(24rem, 32rem) minmax(0, 1fr);
+    grid-template-columns: minmax(22rem, 30rem) minmax(0, 1fr);
     align-items: start;
     gap: var(--wb-sizing-size_320) !important;
 }
@@ -31,6 +31,7 @@
 
 .item {
     display: flex;
+    min-inline-size: 0;
     flex-direction: column;
     gap: var(--wb-sizing-size_040);
     padding: var(--wb-sizing-size_080) var(--wb-sizing-size_120);
@@ -58,6 +59,68 @@
 
 .problem {
     color: var(--wb-semanticColor-core-foreground-critical-default);
+}
+
+/* A line of an item's cell: the number and question, or the status and id. */
+.itemRow {
+    display: flex;
+    align-items: baseline;
+    gap: var(--wb-sizing-size_080);
+    min-inline-size: 0;
+}
+
+/* The question's first line, cut off where the cell ends. */
+.clip {
+    flex: 1;
+    min-inline-size: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: var(--wb-semanticColor-core-foreground-neutral-subtle);
+}
+
+/* The status and the id: the id goes under the status when both don't fit. */
+.statusRow {
+    flex-wrap: wrap;
+    column-gap: var(--wb-sizing-size_160);
+}
+
+/* The item's id, at the end of the status line. */
+.itemId {
+    margin-inline-start: auto !important;
+    white-space: nowrap;
+    color: var(--wb-semanticColor-core-foreground-neutral-subtle);
+}
+
+/*
+ * Inline, not a flex box, so the line's baseline is its text's and the id
+ * beside it lines up; the icons sit in the line.
+ */
+.status {
+    white-space: nowrap;
+}
+
+.icon {
+    vertical-align: text-bottom;
+    margin-inline-end: var(--wb-sizing-size_040);
+}
+
+/*
+ * The status icons' colors. Only the icons are colored: the warning color
+ * that reads as "edited" is too light for text (3.3:1 at its strongest), but
+ * enough for an icon (3:1), and the status word beside each icon says the
+ * same thing.
+ */
+.new {
+    color: var(--wb-semanticColor-core-foreground-instructive-default);
+}
+
+.edited {
+    color: var(--wb-semanticColor-core-foreground-warning-strong);
+}
+
+.unchanged {
+    color: var(--wb-semanticColor-core-foreground-neutral-subtle);
 }
 
 .preview {

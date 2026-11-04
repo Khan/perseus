@@ -102,7 +102,7 @@ export function registerExerciseTools(
             description:
                 "Show an exercise's problem types and, under each, its " +
                 "drafts' itemIds, revisions, imported contentIds and the " +
-                "start of each question. Read an item with export_item.",
+                "first line of each question. Read an item with export_item.",
             inputSchema: z.object({exerciseId: z.string()}),
             annotations: {readOnlyHint: true},
         },

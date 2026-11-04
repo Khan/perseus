@@ -4,7 +4,12 @@
 // exercise's event stream, so it shows Claude's changes as they're made.
 import Button from "@khanacademy/wonder-blocks-button";
 import {RenderStateRoot, View} from "@khanacademy/wonder-blocks-core";
+import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import {BodyText, Heading} from "@khanacademy/wonder-blocks-typography";
+import checkCircleIcon from "@phosphor-icons/core/regular/check-circle.svg";
+import pencilSimpleIcon from "@phosphor-icons/core/regular/pencil-simple.svg";
+import plusCircleIcon from "@phosphor-icons/core/regular/plus-circle.svg";
+import warningCircleIcon from "@phosphor-icons/core/regular/warning-circle.svg";
 import * as React from "react";
 import {createRoot} from "react-dom/client";
 
@@ -25,6 +30,8 @@ type Issue = {
 
 type ItemView = {
     itemId: string;
+    /** The item's id on the site, as the exercise editor shows it. */
+    contentId?: string;
     revision?: number;
     summary?: string;
     change?: "new" | "edited" | "unchanged";
@@ -43,10 +50,14 @@ type ExerciseView = {
 /** How many new or edited items the exercise editor's import reviews at once. */
 const REVIEW_LIMIT = 50;
 
-const CHANGE_TEXT = {
-    new: "New",
-    edited: "Edited",
-    unchanged: "Unchanged",
+const CHANGES = {
+    new: {text: "New", icon: plusCircleIcon, className: styles.new},
+    edited: {text: "Edited", icon: pencilSimpleIcon, className: styles.edited},
+    unchanged: {
+        text: "Unchanged",
+        icon: checkCircleIcon,
+        className: styles.unchanged,
+    },
 } as const;
 
 function useExerciseEvents(exerciseId: string) {
@@ -177,26 +188,64 @@ function CopyButton({exerciseId}: {exerciseId: string}) {
     );
 }
 
+function ItemStatus({item}: {item: ItemView}) {
+    if (item.missing) {
+        return (
+            <span className={`${styles.status} ${styles.problem}`}>
+                <PhosphorIcon
+                    icon={warningCircleIcon}
+                    className={styles.icon}
+                    aria-hidden={true}
+                />
+                Draft missing
+            </span>
+        );
+    }
+    const change = item.change != null ? CHANGES[item.change] : null;
+    const issues = countIssues(item.issues);
+    const hasErrors = item.issues?.some((i) => i.severity === "error");
+    return (
+        <span className={styles.status}>
+            {change != null && (
+                <span className={styles.status}>
+                    <PhosphorIcon
+                        icon={change.icon}
+                        className={`${styles.icon} ${change.className}`}
+                        aria-hidden={true}
+                    />
+                    {change.text}
+                </span>
+            )}
+            {` · revision ${item.revision}`}
+            {issues != null && (
+                <span
+                    className={`${styles.status} ${hasErrors ? styles.problem : ""}`}
+                >
+                    {" · "}
+                    <PhosphorIcon
+                        icon={warningCircleIcon}
+                        className={styles.icon}
+                        aria-hidden={true}
+                    />
+                    {issues}
+                </span>
+            )}
+        </span>
+    );
+}
+
 function ItemLink({
     item,
-    position,
+    number,
     selected,
     onSelect,
 }: {
     item: ItemView;
-    position: number;
+    /** As the exercise editor numbers it: problem type, then item. */
+    number: string;
     selected: boolean;
     onSelect: (itemId: string) => void;
 }) {
-    const details = item.missing
-        ? "Draft missing"
-        : [
-              item.change != null ? CHANGE_TEXT[item.change] : null,
-              `revision ${item.revision}`,
-              countIssues(item.issues),
-          ]
-              .filter((part) => part != null)
-              .join(" · ");
     return (
         <a
             className={`${styles.item} ${selected ? styles.selected : ""}`}
@@ -216,21 +265,24 @@ function ItemLink({
                 onSelect(item.itemId);
             }}
         >
-            <BodyText tag="span" weight="semi">
-                {`${position}. ${item.summary?.trim() || item.itemId}`}
-            </BodyText>
-            <BodyText
-                tag="span"
-                size="small"
-                className={
-                    item.missing ||
-                    item.issues?.some((i) => i.severity === "error")
-                        ? styles.problem
-                        : undefined
-                }
-            >
-                {details}
-            </BodyText>
+            <span className={styles.itemRow}>
+                <BodyText tag="span" weight="semi">
+                    {number}
+                </BodyText>
+                {item.summary != null && item.summary !== "" && (
+                    <BodyText tag="span" className={styles.clip}>
+                        {item.summary}
+                    </BodyText>
+                )}
+            </span>
+            <span className={`${styles.itemRow} ${styles.statusRow}`}>
+                <BodyText tag="span" size="xsmall">
+                    <ItemStatus item={item} />
+                </BodyText>
+                <BodyText tag="span" size="xsmall" className={styles.itemId}>
+                    {item.contentId ?? `Draft ${item.itemId}`}
+                </BodyText>
+            </span>
         </a>
     );
 }
@@ -249,14 +301,14 @@ function Tree({
             {view.problemTypes.map((problemType, index) => (
                 <View key={problemType.name ?? `none-${index}`}>
                     <Heading tag="h2" size="medium">
-                        {problemType.name ?? "No problem type"}
+                        {`${index + 1}. ${problemType.name ?? "Unassigned"}`}
                     </Heading>
                     <ol className={styles.list}>
                         {problemType.items.map((item, position) => (
                             <li key={item.itemId}>
                                 <ItemLink
                                     item={item}
-                                    position={position + 1}
+                                    number={`${index + 1}.${position + 1}`}
                                     selected={item.itemId === selected}
                                     onSelect={onSelect}
                                 />

@@ -66,7 +66,10 @@ export type ExerciseTree = {
             itemId: string;
             contentId?: string;
             revision?: number;
-            /** The start of the question, to tell items apart. */
+            /**
+             * The question's first non-blank line, as written (Markdown,
+             * TeX and widget placeholders included), to tell items apart.
+             */
             summary?: string;
             /** What the exercise editor's import would make of it. */
             change?: ImportChange;
@@ -94,6 +97,12 @@ export type ExerciseView = Omit<ExerciseTree, "problemTypes"> & {
  * one pass; unchanged items don't count.
  */
 const REVIEW_LIMIT = 50;
+
+/** The first non-blank line of `content`, cut at 200 characters. */
+function firstLine(content: string): string {
+    const line = content.split("\n").find((l) => l.trim() !== "") ?? "";
+    return line.trim().slice(0, 200);
+}
 
 /** The format the exercise editor's bulk JSON import reads. */
 type BulkProblemType = {
@@ -166,7 +175,7 @@ export function createExerciseUseCases(deps: ExerciseDependencies) {
                     return {
                         ...item,
                         revision: draft.revision,
-                        summary: draft.item.question.content.slice(0, 80),
+                        summary: firstLine(draft.item.question.content),
                         change: changeSinceImport(item, draft),
                         ...(withIssues ? {issues: issuesOf(draft)} : {}),
                     };
