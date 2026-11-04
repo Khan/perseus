@@ -106,6 +106,7 @@
 }
 
 .fillsBlank .content {
+    max-inline-size: none;
     justify-content: flex-start;
 }
 
