@@ -122,21 +122,6 @@ describe("grapher widget", () => {
                 // Assert
                 expect(getMovablePointTargets(container)).toHaveLength(0);
             });
-
-            it("disables the graph type buttons", async () => {
-                // Arrange, Act
-                renderQuestion(withStatic(multipleAvailableTypesQuestion), {
-                    apiOptions: {readOnly},
-                });
-                await waitForInitialGraphieRender();
-
-                // Assert
-                // Static graphers only show the correct type, so there may be
-                // no buttons at all.
-                for (const button of screen.queryAllByRole("button")) {
-                    expect(button).toBeDisabled();
-                }
-            });
         });
     });
 

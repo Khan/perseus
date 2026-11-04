@@ -134,7 +134,6 @@ describe("MovablePoint", () => {
 
         function getMouseTargets(graphieDiv: HTMLElement) {
             // Mouse targets are bare SVG elements with no accessible role.
-
             return graphieDiv.querySelectorAll(
                 "[data-interactive-kind-for-testing='movable-point']",
             );
