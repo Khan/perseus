@@ -116,9 +116,10 @@ Remaining, in order:
       started. Done: one data folder, and "not found" names it.
    4. Preview links stop working when the server restarts (each start
       takes a new port), yet the instructions say to give the link once.
-      Correct the instructions (a link lasts as long as its server; after a
-      restart, call preview_item again), and have a page whose server is
-      gone say so. A stable port isn't enough on its own: several servers
+      Done: the instructions and preview_item's description say a link
+      lasts as long as its server, and to call preview_item again when a
+      person says one stopped working; a page whose server is gone says to
+      ask for a new link. Later: a stable port isn't enough on its own: several servers
       share the data folder, and one serving a link would need to load
       drafts another saved, and follow their changes, so it's later work.
    5. The same lint warnings on agents' first tries: numeric-input's

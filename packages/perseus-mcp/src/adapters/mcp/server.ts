@@ -60,7 +60,10 @@ answer it and reveal its hints; the page follows the draft's changes, so give
 it to them once and keep editing. Hosts that support MCP Apps also show the
 preview in the chat. preview_exercise returns the URL of an exercise's page:
 its items as a tree, each with its change since import and its validation
-issues, and a preview of the one selected.`;
+issues, and a preview of the one selected. A URL works while this server
+runs, and each start of the server gives new ones: when a person says a
+preview link stopped working, call preview_item (or preview_exercise) again
+for the same draft and give them the new URL.`;
 
 // A JSON Patch (RFC 6902) against a PerseusItem's JSON.
 const patchSchema = z
@@ -516,7 +519,9 @@ export function createMcpServer({
                 "Return the URL of a page showing a draft as learners will " +
                 "see it, where a person can answer it, check their answer " +
                 "and reveal the hints. The page updates as the draft " +
-                "changes. Give the URL to the person you're working with.",
+                "changes. Give the URL to the person you're working with. " +
+                "It works while this server runs; if they say it stopped " +
+                "working, call this again for a new one.",
             inputSchema: z.object({itemId: z.string()}),
             annotations: {readOnlyHint: true},
             // Hosts that support MCP Apps show the preview in the chat. The

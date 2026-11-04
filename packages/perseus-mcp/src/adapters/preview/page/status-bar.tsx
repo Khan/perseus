@@ -30,7 +30,10 @@ const CONNECTIONS = {
     // EventSource reconnects by itself.
     lost: {
         icon: dataUrl(wifiSlashSvg),
-        text: "Lost the connection to perseus-mcp. Reconnecting…",
+        // A restarted server is on another port, so this page can't find it.
+        text:
+            "Lost the connection to perseus-mcp. Reconnecting… If it " +
+            "restarted, ask Claude for a new preview link.",
     },
 } as const;
 
