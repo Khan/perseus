@@ -38,7 +38,8 @@ item the newest (the revisions in between stay kept).
 Work on a whole exercise: import_exercise reads a file of items (an
 exercise's bulk JSON export, an exercise export, or items) into a draft per
 item, grouped by problem type, and export_exercise writes it back in the
-exercise editor's bulk JSON format, to a file. get_exercise shows the tree,
+exercise editor's bulk JSON format, to a file. create_exercise starts one
+from drafts you already have. get_exercise shows the tree,
 move_items and add_to_exercise organize it, edit_items changes many drafts in
 one call, and validate_exercise checks them all. update_exercise changes its
 name and notes, and keeps its exercise editor URL when the person gives it.

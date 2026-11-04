@@ -12,7 +12,11 @@ import {checkoutPaths} from "../runtime-paths";
 
 import {createCatalog} from "./catalog";
 import {withDraftFeed} from "./draft-feed";
-import {ExportExistsError, InvalidImportError} from "./errors";
+import {
+    DraftNotFoundError,
+    ExportExistsError,
+    InvalidImportError,
+} from "./errors";
 import {withExerciseFeed} from "./exercise-feed";
 import {createExerciseUseCases} from "./exercises";
 import {inMemoryRepository} from "./in-memory-draft-repository.testutils";
@@ -400,5 +404,58 @@ describe("exercise use cases", () => {
 
         // Assert
         expect(issues?.length).toBeGreaterThan(0);
+    });
+
+    it("creates an exercise holding existing drafts, not copies", async () => {
+        // Arrange
+        const {drafts, useCases} = setUp(bulkExport);
+        const {exercise: imported} = await useCases.importExercise({
+            path: "in.json",
+        });
+        const itemIds = imported.problemTypes[0].items.map(
+            (item) => item.itemId,
+        );
+        const draftsBefore = drafts.list().length;
+
+        // Act
+        const created = useCases.createExercise({
+            name: "Regrouped",
+            itemIds,
+            problemType: "Type A",
+        });
+
+        // Assert
+        expect({
+            tree: useCases
+                .getExercise(created.exerciseId)
+                .problemTypes.map((problemType) => [
+                    problemType.name,
+                    problemType.items.map((item) => item.itemId),
+                ]),
+            newDrafts: drafts.list().length - draftsBefore,
+        }).toEqual({tree: [["Type A", itemIds]], newDrafts: 0});
+    });
+
+    it("creates an empty exercise", () => {
+        // Arrange
+        const {useCases} = setUp(bulkExport);
+
+        // Act
+        const created = useCases.createExercise({name: "New"});
+
+        // Assert
+        expect(useCases.getExercise(created.exerciseId).problemTypes).toEqual(
+            [],
+        );
+    });
+
+    it("refuses to create an exercise with a draft that doesn't exist", () => {
+        // Arrange
+        const {useCases} = setUp(bulkExport);
+
+        // Act, Assert
+        expect(() =>
+            useCases.createExercise({name: "New", itemIds: ["nope"]}),
+        ).toThrow(DraftNotFoundError);
     });
 });

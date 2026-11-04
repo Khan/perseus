@@ -112,6 +112,50 @@ export function registerExerciseTools(
             ),
     );
 
+    const problemTypeSchema = z
+        .string()
+        .nullable()
+        .describe(
+            "The problem type's name, a new one to add it, or null for no " +
+                "problem type.",
+        );
+
+    server.registerTool(
+        "create_exercise",
+        {
+            title: "Create an exercise",
+            description:
+                "Make a new exercise, empty or holding existing drafts (such " +
+                "as ones made with create_item) under one problem type. The " +
+                "drafts are the same drafts, not copies: editing one changes " +
+                "what the exercise exports. Add more with add_to_exercise and " +
+                "organize them with move_items. To start from a file, use " +
+                "import_exercise instead.",
+            inputSchema: z.object({
+                name: z.string().min(1),
+                notes: z
+                    .string()
+                    .optional()
+                    .describe("Context to keep with the exercise."),
+                editorUrl: editorUrlSchema,
+                itemIds: z
+                    .array(z.string())
+                    .optional()
+                    .describe("Drafts to put in it, in order."),
+                problemType: problemTypeSchema
+                    .optional()
+                    .describe(
+                        "The problem type for itemIds; none if left out.",
+                    ),
+            }),
+        },
+        (input) =>
+            run("create_exercise", () => {
+                const exercise = exercises.createExercise(input);
+                return jsonResult(exercises.getExercise(exercise.exerciseId));
+            }),
+    );
+
     server.registerTool(
         "update_exercise",
         {
@@ -139,14 +183,6 @@ export function registerExerciseTools(
                 return jsonResult(exercises.getExercise(exerciseId));
             }),
     );
-
-    const problemTypeSchema = z
-        .string()
-        .nullable()
-        .describe(
-            "The problem type's name, a new one to add it, or null for no " +
-                "problem type.",
-        );
 
     server.registerTool(
         "move_items",

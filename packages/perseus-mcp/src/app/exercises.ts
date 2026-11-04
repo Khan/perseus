@@ -419,6 +419,44 @@ export function createExerciseUseCases(deps: ExerciseDependencies) {
         },
 
         /**
+         * Makes a new exercise, empty or holding `itemIds` (existing drafts,
+         * not copies) under `problemType` (null for none).
+         *
+         * @throws DraftNotFoundError
+         */
+        createExercise(input: {
+            name: string;
+            notes?: string;
+            editorUrl?: string;
+            itemIds?: ReadonlyArray<string>;
+            problemType?: string | null;
+        }): Exercise {
+            const itemIds = input.itemIds ?? [];
+            itemIds.forEach(getDraft);
+            const now = deps.now();
+            const empty: Exercise = {
+                exerciseId: deps.newId(),
+                name: input.name,
+                notes: input.notes,
+                editorUrl: input.editorUrl,
+                createdAt: now.toISOString(),
+                updatedAt: now.toISOString(),
+                problemTypes: [],
+            };
+            const exercise =
+                itemIds.length === 0
+                    ? empty
+                    : placeItems(
+                          empty,
+                          itemIds,
+                          input.problemType ?? null,
+                          now,
+                      );
+            exercises.save(exercise);
+            return exercise;
+        },
+
+        /**
          * Changes an exercise's name, notes or editor URL; an empty string
          * clears the notes or the URL.
          *
