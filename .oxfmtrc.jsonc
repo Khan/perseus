@@ -30,6 +30,14 @@
         "pnpm-workspace.yaml",
         "__genfiles__/",
 
+        // Frozen parser regression fixtures. CI fails a PR that changes them
+        // (see .github/workflows/protect-regression-data.yml), so a formatter
+        // update must never touch them.
+        "packages/perseus-core/src/parse-perseus-json/regression-tests/item-data/",
+        "packages/perseus-core/src/parse-perseus-json/regression-tests/article-data/",
+        "packages/perseus-core/src/parse-perseus-json/regression-tests/renderer-data/",
+        "packages/perseus-core/src/parse-perseus-json/regression-tests/user-input-data/",
+
         // Third-party code and data
         "vendor/",
         "packages/perseus/src/jquery.mobile.vmouse.js",
