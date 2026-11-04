@@ -17,6 +17,7 @@ export const basicQuestion: PerseusRenderer = {
             options: {
                 padding: true,
                 layout: "horizontal",
+                variant: "scale",
                 correct: ["First", "Second", "Third", "Fourth", "Fifth"],
             },
         },
@@ -35,6 +36,7 @@ export const texQuestion: PerseusRenderer = {
             options: {
                 padding: true,
                 layout: "horizontal",
+                variant: "scale",
                 correct: [
                     "$20000$ micrograms",
                     "$15$ grams",

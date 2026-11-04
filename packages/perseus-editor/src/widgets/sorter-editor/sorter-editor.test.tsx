@@ -483,6 +483,31 @@ describe("sorter-editor", () => {
         expect(screen.getByDisplayValue("Emu")).toHaveAccessibleName("Card 2");
     });
 
+    it("does not drop the legend when another option is edited", async () => {
+        // Arrange
+        const onChange = jest.fn();
+        const legend: PerseusSorterWidgetOptions["legend"] = {
+            startCap: "arrow",
+            endCap: "bar",
+            startLabel: "Lowest",
+            endLabel: "Highest",
+            ariaLabel: "Interest rates from lowest to highest",
+            position: "above",
+        };
+        renderControlled(
+            generateSorterOptions({correct: ["Cat", "Dog"], legend}),
+            onChange,
+        );
+
+        // Act
+        await userEvent.type(screen.getByDisplayValue("Dog"), "s");
+
+        // Assert
+        expect(onChange).toHaveBeenLastCalledWith(
+            expect.objectContaining({legend}),
+        );
+    });
+
     // The editor page reads the default options off the component itself to
     // seed a newly inserted sorter, so they're part of its public surface, not
     // implementation detail.
