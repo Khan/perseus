@@ -14,8 +14,6 @@ import {createDeviceApiOptionsDeriver} from "./util/derive-device-api-options";
 import {gatherLinterIssues} from "./util/gather-linter-issues";
 import {ItemEditorContext} from "./util/item-editor-context";
 
-import type {A11yIssue, Issue} from "./components/issues-panel";
-import type {A11yReport} from "./preview/use-preview-controller";
 import type {
     APIOptions,
     DeviceType,
@@ -28,6 +26,7 @@ import type {
     PerseusItem,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
+import type {A11yIssue, Issue, A11yReport} from "@khanacademy/perseus-preview";
 
 const {HUD} = components;
 

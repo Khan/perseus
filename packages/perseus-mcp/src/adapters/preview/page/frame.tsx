@@ -2,7 +2,7 @@
 // Perseus renders it for learners. It runs in an iframe so the item's styles
 // and scripts can't touch the shell.
 import {DependenciesContext} from "@khanacademy/perseus";
-import {usePreviewPresenter} from "@khanacademy/perseus-editor";
+import {usePreviewPresenter} from "@khanacademy/perseus-preview";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {createRoot} from "react-dom/client";

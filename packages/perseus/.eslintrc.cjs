@@ -9,7 +9,11 @@ module.exports = {
         "@typescript-eslint/no-restricted-imports": [
             "error",
             {
-                paths: ["@khanacademy/perseus", "@khanacademy/perseus-editor"],
+                paths: [
+                    "@khanacademy/perseus",
+                    "@khanacademy/perseus-editor",
+                    "@khanacademy/perseus-preview",
+                ],
             },
         ],
     },

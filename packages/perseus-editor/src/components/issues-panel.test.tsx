@@ -1,4 +1,5 @@
 import {generateTestPerseusRenderer} from "@khanacademy/perseus-core";
+import {getIssueKey} from "@khanacademy/perseus-preview";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -6,9 +7,9 @@ import * as React from "react";
 import {ItemEditorContext} from "../util/item-editor-context";
 
 import {A11yContext, createA11yContextValue} from "./a11y-context";
-import IssuesPanel, {getIssueKey} from "./issues-panel";
+import IssuesPanel from "./issues-panel";
 
-import type {A11yIssue, Issue, IssueImpact} from "./issues-panel";
+import type {A11yIssue, Issue, IssueImpact} from "@khanacademy/perseus-preview";
 
 const makeIssue = (id: string, impact: IssueImpact = "medium") => ({
     id,

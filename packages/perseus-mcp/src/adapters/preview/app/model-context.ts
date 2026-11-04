@@ -2,7 +2,7 @@
 // Hosts keep only the latest description and send it with the person's next
 // message, so it describes the whole state, not what changed.
 import type {OfferedOptions} from "../page/controls";
-import type {HintsState} from "@khanacademy/perseus-editor";
+import type {HintsState} from "@khanacademy/perseus-preview";
 
 /** The answer the person last checked, and what Perseus made of it. */
 export type AnswerCheck = {

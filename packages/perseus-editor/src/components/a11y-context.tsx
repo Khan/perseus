@@ -1,7 +1,6 @@
 import * as React from "react";
 
-import type {A11yIssue} from "./issues-panel";
-import type {A11yReport} from "../preview/use-preview-controller";
+import type {A11yIssue, A11yReport} from "@khanacademy/perseus-preview";
 
 export type A11yContextValue = {
     /** Turns one issue's highlight on or off. */

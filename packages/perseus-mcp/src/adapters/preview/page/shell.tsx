@@ -1,7 +1,7 @@
 // The preview page for one draft (`/drafts/<itemId>/preview`). It follows the
 // draft's event stream and sends each revision to the preview frame, so the
 // page shows the draft's latest state without reloading.
-import {usePreviewController} from "@khanacademy/perseus-editor";
+import {usePreviewController} from "@khanacademy/perseus-preview";
 import {RenderStateRoot, View} from "@khanacademy/wonder-blocks-core";
 import {BodyText, Heading} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";

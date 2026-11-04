@@ -9,8 +9,8 @@ import {
 } from "@khanacademy/perseus";
 import {mapErrorToString} from "@khanacademy/perseus/strings";
 import {splitPerseusItem} from "@khanacademy/perseus-core";
-import {shownHintPositions} from "@khanacademy/perseus-editor";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import {shownHintPositions} from "@khanacademy/perseus-preview";
 import * as React from "react";
 
 import {scoreItem} from "../../../domain/items/score";
@@ -25,7 +25,7 @@ import type {
     HintsState,
     PreviewContent,
     PreviewOptions,
-} from "@khanacademy/perseus-editor";
+} from "@khanacademy/perseus-preview";
 
 type ExerciseData = Extract<PreviewContent, {type: "exercise"}>["data"];
 

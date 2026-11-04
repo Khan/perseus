@@ -1,10 +1,8 @@
+import {A11yOverlays, usePreviewPresenter} from "@khanacademy/perseus-preview";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-
-import {A11yOverlays} from "../../preview/a11y/overlays";
-import {usePreviewPresenter} from "../../preview/use-preview-presenter";
 
 import {PreviewRenderer} from "./preview-renderer";
 

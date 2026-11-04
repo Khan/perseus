@@ -9,22 +9,6 @@ export {default as EditorPage} from "./editor-page";
 export {default as Editor} from "./editor";
 export {default as ContentPreview} from "./content-preview";
 export {default as IssuesPanel} from "./components/issues-panel";
-export type {Issue} from "./components/issues-panel";
-
-// Preview system hooks and utilities
-export {usePreviewController} from "./preview/use-preview-controller";
-export {usePreviewPresenter} from "./preview/use-preview-presenter";
-export {A11yOverlays} from "./preview/a11y/overlays";
-export {default as PreviewWithIframe} from "./preview-with-iframe";
-export {DEFAULT_PREVIEW_OPTIONS} from "./preview/message-types";
-export type {PreviewContent, PreviewOptions} from "./preview/message-types";
-export {
-    describeHints,
-    INITIAL_HINTS_REVEAL,
-    revealHints,
-    shownHintPositions,
-} from "./preview/hints-state";
-export type {HintsReveal, HintsState} from "./preview/hints-state";
 
 import "./styles/perseus-editor.css";
 

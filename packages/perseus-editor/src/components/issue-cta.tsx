@@ -5,7 +5,7 @@ import * as React from "react";
 import {getCtaForIssueId} from "../util/issue-ctas-utils";
 import useItemEditorContext from "../util/item-editor-context";
 
-import type {Issue} from "./issues-panel";
+import type {Issue} from "@khanacademy/perseus-preview";
 
 interface Props {
     issue: Issue;

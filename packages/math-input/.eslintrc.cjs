@@ -13,6 +13,7 @@ module.exports = {
             "@khanacademy/math-input",
             "@khanacademy/perseus",
             "@khanacademy/perseus-editor",
+            "@khanacademy/perseus-preview",
             "@khanacademy/perseus-linter",
             "@khanacademy/perseus-score",
             "@khanacademy/pure-markdown",

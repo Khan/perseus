@@ -1,17 +1,17 @@
+import {DEFAULT_PREVIEW_OPTIONS} from "@khanacademy/perseus-preview";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
-import {DEFAULT_PREVIEW_OPTIONS} from "../../preview/message-types";
-
 import ExercisePreviewPage from "./exercise-preview-page";
 
-import type {PreviewContent} from "../../preview/message-types";
+import type {PreviewContent} from "@khanacademy/perseus-preview";
 
 const mockReportHeight = jest.fn();
 let mockContent: PreviewContent | null = null;
 let mockHighlightTargets: Element[] = [];
 
-jest.mock("../../preview/use-preview-presenter", () => ({
+jest.mock("@khanacademy/perseus-preview", () => ({
+    ...jest.requireActual("@khanacademy/perseus-preview"),
     usePreviewPresenter: () => ({
         content: mockContent,
         previewOptions: DEFAULT_PREVIEW_OPTIONS,

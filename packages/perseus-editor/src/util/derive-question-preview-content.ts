@@ -1,8 +1,8 @@
 import {ApiOptions} from "@khanacademy/perseus";
 
-import type {PreviewContent} from "../preview/message-types";
 import type {APIOptions, DeviceType} from "@khanacademy/perseus";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {PreviewContent} from "@khanacademy/perseus-preview";
 
 type QuestionPreview = Extract<PreviewContent, {type: "question"}>;
 

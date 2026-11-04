@@ -8,7 +8,7 @@ import {
     describeHints,
     INITIAL_HINTS_REVEAL,
     revealHints,
-} from "@khanacademy/perseus-editor";
+} from "@khanacademy/perseus-preview";
 import {RenderStateRoot, View} from "@khanacademy/wonder-blocks-core";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {App} from "@modelcontextprotocol/ext-apps";

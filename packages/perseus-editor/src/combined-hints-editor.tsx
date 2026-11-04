@@ -3,6 +3,7 @@
  * hint editor boxes, and hint previews
  */
 import {ApiOptions} from "@khanacademy/perseus";
+import {PreviewWithIframe} from "@khanacademy/perseus-preview";
 import Button from "@khanacademy/wonder-blocks-button";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
@@ -16,7 +17,6 @@ import _ from "underscore";
 
 import DeviceFramer from "./components/device-framer";
 import Editor from "./editor";
-import PreviewWithIframe from "./preview-with-iframe";
 
 import type {
     APIOptions,

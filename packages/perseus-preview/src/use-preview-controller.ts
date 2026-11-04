@@ -14,12 +14,12 @@ import {isIframeToParentMessage} from "./message-validators";
 import {sanitizePreviewData} from "./preview-data-sanitizer";
 
 import type {HintsState} from "./hints-state";
+import type {A11yIssue} from "./issues";
 import type {
     ParentToIframeMessage,
     PreviewContent,
     PreviewOptions,
 } from "./message-types";
-import type {A11yIssue} from "../components/issues-panel";
 
 export type A11yReport = {
     violations: A11yIssue[];

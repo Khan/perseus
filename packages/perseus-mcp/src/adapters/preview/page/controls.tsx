@@ -11,7 +11,7 @@ import * as React from "react";
 import styles from "./controls.module.css";
 
 import type {ShowSolutions} from "@khanacademy/perseus-core";
-import type {HintsState, PreviewOptions} from "@khanacademy/perseus-editor";
+import type {HintsState, PreviewOptions} from "@khanacademy/perseus-preview";
 
 function describeHintsState({
     hintsVisible,

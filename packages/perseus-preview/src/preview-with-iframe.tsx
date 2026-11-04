@@ -1,9 +1,9 @@
 import * as React from "react";
 
-import {usePreviewController} from "./preview/use-preview-controller";
+import {usePreviewController} from "./use-preview-controller";
 
-import type {PreviewContent} from "./preview/message-types";
-import type {A11yReport} from "./preview/use-preview-controller";
+import type {PreviewContent} from "./message-types";
+import type {A11yReport} from "./use-preview-controller";
 
 type Props = {
     /**

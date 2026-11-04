@@ -78,39 +78,18 @@ from outside the repo.
 | Plan a gutter for the preview's hint labels | Plan only. |
 | Show the preview's hint labels | Perseus styles hints only inside an exercise page's `.bibliotron-exercise` container (`perseus-renderer-part-2.css`), as Storybook's hints decorator does: without it, a hint has no border, padding or `position: relative`, and its "n / total" label (`position: absolute; right: 100%`) lands off the page. The preview's hints are now in that container, and both pages leave a 6.4rem gutter at their inline start for the label. Checked in the browser preview. |
 | Tell the model what happens in the in-chat preview | The MCP Apps page sends the host a description of the preview whenever it changes (`app.updateModelContext`, when the host supports it): the draft and revision, the last answer checked (Perseus's user input) and its result, the hints revealed and the preview options on. Hosts keep the latest and send it with the person's next message, so they can ask about what they did without Claude calling a tool. `describePreview` (`app/model-context.ts`) writes it; `Exercise` reports each check through `onCheck`. Tested in Claude Desktop: asked what was answered and how many hints were open, Claude knew. |
+| Move the preview into @khanacademy/perseus-preview | A new published package (minor changeset `quiet-lanterns-move`) holds what was perseus-editor's `src/preview/` (the message types, validators and sanitizers, `usePreviewController`, `usePreviewPresenter`, the hint rules, the `a11y/` scan and `A11yOverlays`), `PreviewWithIframe`, and the issue types the scan produces (`Issue`, `IssueImpact`, `A11yIssue`, `getIssueKey`, from the editor's `issues-panel.tsx`). perseus-editor depends on it and exports none of it, `Issue` included (major changeset `bright-pebbles-shift`, which lists what to import from where); `axe-core` moves with the scan. It also exports `QuestionPreviewData` and the other `PreviewContent` variants, which the editor's declarations name. Every lower package's lint rules forbid importing it. perseus-mcp's pages import it instead of perseus-editor: the in-chat page goes from 7.59 MB to 6.83 MB. The KaTeX left in it (0.16.9) is mafs's. Also updates two editor snapshots that "Send preview options to the iframe in messages" left stale (the iframe's `data-*` attributes). |
 
 Remaining, in order:
 
-1. Step 5 follow-up: shrink the in-chat page. (What the learner did now
-   reaches the model through `app.updateModelContext`.) Measured, its
-   7.6 MB is 4.8 MB of script (`mathjax-full` 1.4 MB, `katex` 0.98 MB,
-   perseus 0.90 MB, perseus-editor 0.64 MB, `speech-rule-engine`
-   0.59 MB, MCP client 0.28 MB) and 2.5 MB of base64 fonts (Symbola
-   1.5 MB in four formats, Lato 0.8 MB in 12 weights). KaTeX comes only
-   from perseus-editor (`util/tex-error-detector.ts`), which the page
-   imports for the hint rules alone. Two commits:
-   1. **`@khanacademy/perseus-preview`**, a new published package for the
-      preview, which isn't the editor's alone: the page that hosts the
-      iframe and the iframe both use it, and perseus-mcp uses both ends.
-      It takes perseus-editor's `src/preview/` (the message types,
-      validators and sanitizers, `usePreviewController`,
-      `usePreviewPresenter`, the hint rules in `hints-state.ts`, and the
-      `a11y/` scan, which loads `axe-core` only when it runs) and
-      `PreviewWithIframe` (which needs only React and the preview code).
-      The `A11yIssue` type moves from the editor's `issues-panel` into it,
-      and the issues panel imports it from there. Its dependencies: React,
-      perseus-core, wonder-stuff-core, wonder-blocks-timing and
-      `axe-core`, plus types from perseus (`APIOptions`). perseus-editor
-      depends on it and doesn't re-export it: a breaking change, in the
-      same major release as `steady-harbors-listen`, so its changeset says
-      what to import from where. perseus-mcp's pages import from it and
-      drop perseus-editor, which takes KaTeX and the editor out of the
-      in-chat page (about 1.6 MB).
-   2. **Symbola in woff2 only** in the in-chat page (about 1.1 MB): every
-      browser that runs an MCP Apps host reads woff2, so the woff, ttf
-      and eot copies are dead weight. Measured before and after with the
-      same per-package breakdown, and checked: math, hints and answer
-      checks still render.
+1. Step 5 follow-up: shrink the in-chat page, now 6.83 MB (it was 7.6 MB:
+   4.8 MB of script and 2.5 MB of base64 fonts; moving the preview out of
+   perseus-editor took the editor and its KaTeX out of it). Next, **Symbola
+   in woff2 only** (about 1.1 MB): Symbola is 1.5 MB in four formats, and
+   every browser that runs an MCP Apps host reads woff2, so the woff, ttf
+   and eot copies are dead weight. Measured before and after with the same
+   per-package breakdown, and checked: math, hints and answer checks still
+   render.
 
    Not planned: fewer Lato weights (which ones Perseus uses would need
    checking), or dropping the speech rule engine, which reads math to

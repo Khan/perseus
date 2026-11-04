@@ -20,7 +20,7 @@ import * as React from "react";
 import {lintGutterWidth} from "../../styles/constants";
 import {storybookDependenciesV2} from "../test-dependencies";
 
-import type {PreviewContent} from "../../preview/message-types";
+import type {PreviewContent} from "@khanacademy/perseus-preview";
 
 type Props = {
     content: PreviewContent;

@@ -1,0 +1,54 @@
+{
+    "name": "@khanacademy/perseus-preview",
+    "description": "Preview Perseus content in an iframe",
+    "author": "Khan Academy",
+    "license": "MIT",
+    "version": "0.0.0",
+    "publishConfig": {
+        "access": "public",
+        "exports": {
+            ".": "./dist/index.js"
+        }
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Khan/perseus.git",
+        "directory": "packages/perseus-preview"
+    },
+    "bugs": {
+        "url": "https://github.com/Khan/perseus/issues"
+    },
+    "type": "module",
+    "exports": {
+        ".": "./src/index.ts"
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "prepublishOnly": "../../utils/package-pre-publish-check.sh"
+    },
+    "dependencies": {
+        "@khanacademy/perseus": "workspace:*",
+        "@khanacademy/perseus-core": "workspace:*",
+        "axe-core": "^4.11.0"
+    },
+    "devDependencies": {
+        "@internal/build-settings": "workspace:*",
+        "@khanacademy/wonder-blocks-timing": "catalog:devDeps",
+        "@khanacademy/wonder-stuff-core": "catalog:devDeps",
+        "react": "catalog:devDeps",
+        "react-dom": "catalog:devDeps",
+        "tiny-invariant": "catalog:devDeps"
+    },
+    "peerDependencies": {
+        "@khanacademy/wonder-blocks-timing": "catalog:peerDeps",
+        "@khanacademy/wonder-stuff-core": "catalog:peerDeps",
+        "react": "catalog:peerDeps",
+        "react-dom": "catalog:peerDeps"
+    },
+    "keywords": [],
+    "khan": {
+        "catalogHash": "ce58632f2c82eb3a"
+    }
+}

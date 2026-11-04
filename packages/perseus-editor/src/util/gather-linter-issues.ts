@@ -1,17 +1,17 @@
 import {PerseusMarkdown} from "@khanacademy/perseus";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
+import {getIssueKey} from "@khanacademy/perseus-preview";
 
-import {getIssueKey} from "../components/issues-panel";
 import {WARNINGS} from "../messages";
 
 import {detectTexErrors} from "./tex-error-detector";
 
-import type {Issue} from "../components/issues-panel";
 import type {
     Hint,
     PerseusRenderer,
     PerseusWidgetsMap,
 } from "@khanacademy/perseus-core";
+import type {Issue} from "@khanacademy/perseus-preview";
 
 function lintRenderer(content: string, widgets?: PerseusWidgetsMap): Issue[] {
     const parsed = PerseusMarkdown.parse(content, {});

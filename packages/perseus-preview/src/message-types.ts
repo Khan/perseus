@@ -4,8 +4,8 @@
  */
 
 import type {HintsState} from "./hints-state";
+import type {A11yIssue} from "./issues";
 import type {SerializableApiOptions} from "./sanitize-api-options";
-import type {A11yIssue} from "../components/issues-panel";
 import type {
     Hint,
     PerseusItem,

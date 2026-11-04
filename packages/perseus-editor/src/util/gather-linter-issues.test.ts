@@ -1,10 +1,9 @@
 import {generateCategorizerWidget} from "@khanacademy/perseus-core";
-
-import {getIssueKey} from "../components/issues-panel";
+import {getIssueKey} from "@khanacademy/perseus-preview";
 
 import {gatherLinterIssues} from "./gather-linter-issues";
 
-import type {Issue} from "../components/issues-panel";
+import type {Issue} from "@khanacademy/perseus-preview";
 
 const cleanQuestion = {content: "What is $2 + 2$?", images: {}, widgets: {}};
 const cleanHint = {content: "The answer is $4$.", images: {}, widgets: {}};

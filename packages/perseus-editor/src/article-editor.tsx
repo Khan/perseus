@@ -15,6 +15,7 @@ import {
     PerseusError,
 } from "@khanacademy/perseus-core";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
+import {PreviewWithIframe} from "@khanacademy/perseus-preview";
 import Button from "@khanacademy/wonder-blocks-button";
 import arrowCircleDownIcon from "@phosphor-icons/core/bold/arrow-circle-down-bold.svg";
 import arrowCircleUpIcon from "@phosphor-icons/core/bold/arrow-circle-up-bold.svg";
@@ -28,17 +29,18 @@ import JsonEditor from "./components/json-editor";
 import SectionControlButton from "./components/section-control-button";
 import Editor from "./editor";
 import {WARNINGS} from "./messages";
-import PreviewWithIframe from "./preview-with-iframe";
 import {detectTexErrors} from "./util/tex-error-detector";
 
-import type {Issue} from "./components/issues-panel";
-import type {ArticleSectionPreviewData} from "./preview/message-types";
 import type {
     APIOptions,
     ImageUploader,
     PerseusDependenciesV2,
 } from "@khanacademy/perseus";
 import type {PerseusArticle, PerseusRenderer} from "@khanacademy/perseus-core";
+import type {
+    Issue,
+    ArticleSectionPreviewData,
+} from "@khanacademy/perseus-preview";
 
 const {HUD} = components;
 

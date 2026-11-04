@@ -7,7 +7,7 @@ import IssueCta from "./issue-cta";
 import PerseusEditorAccordion from "./perseus-editor-accordion";
 import ShowMe from "./show-me-issue";
 
-import type {Issue} from "./issues-panel";
+import type {Issue} from "@khanacademy/perseus-preview";
 
 const impactStringMap = {
     high: "Error",

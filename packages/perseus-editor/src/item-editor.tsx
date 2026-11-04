@@ -1,3 +1,4 @@
+import {PreviewWithIframe} from "@khanacademy/perseus-preview";
 import * as React from "react";
 import _ from "underscore";
 
@@ -6,10 +7,8 @@ import {A11yContext} from "./components/a11y-context";
 import DeviceFramer from "./components/device-framer";
 import Editor from "./editor";
 import ExtrasEditor from "./extras-editor";
-import PreviewWithIframe from "./preview-with-iframe";
 import {createPreviewContentDeriver} from "./util/derive-question-preview-content";
 
-import type {A11yReport} from "./preview/use-preview-controller";
 import type {
     APIOptions,
     ImageUploader,
@@ -22,6 +21,7 @@ import type {
     PerseusItem,
     Hint,
 } from "@khanacademy/perseus-core";
+import type {A11yReport} from "@khanacademy/perseus-preview";
 
 type Props = {
     /** Additional templates that the host application would like to display

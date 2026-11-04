@@ -1,4 +1,4 @@
-import type {Issue} from "./components/issues-panel";
+import type {Issue} from "@khanacademy/perseus-preview";
 
 // Severities are defined in the perseus-linter package in `rule.ts`
 const SEVERITY_ERROR = 1;

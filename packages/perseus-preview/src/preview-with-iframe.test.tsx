@@ -3,11 +3,10 @@ import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
 import PreviewWithIframe from "./preview-with-iframe";
-import {clone} from "./testing/object-utils";
 
-import type {A11yIssue} from "./components/issues-panel";
-import type {PreviewContent} from "./preview/message-types";
-import type {A11yReport} from "./preview/use-preview-controller";
+import type {A11yIssue} from "./issues";
+import type {PreviewContent} from "./message-types";
+import type {A11yReport} from "./use-preview-controller";
 
 const mockSendData = jest.fn();
 const mockSetPreviewOptions = jest.fn();
@@ -16,7 +15,7 @@ const mockClearHighlights = jest.fn();
 let mockHeight: number | null = null;
 let mockA11yReport: A11yReport | null = null;
 
-jest.mock("./preview/use-preview-controller", () => ({
+jest.mock("./use-preview-controller", () => ({
     usePreviewController: () => ({
         sendData: mockSendData,
         height: mockHeight,
@@ -179,7 +178,9 @@ describe("PreviewWithIframe", () => {
             />,
         );
 
-        const modifiedContent = clone(content);
+        const modifiedContent: typeof content = JSON.parse(
+            JSON.stringify(content),
+        );
         modifiedContent.data.question.content = "Abc";
 
         // Act

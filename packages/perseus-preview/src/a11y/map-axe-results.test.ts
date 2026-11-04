@@ -1,4 +1,4 @@
-import {getIssueKey} from "../../components/issues-panel";
+import {getIssueKey} from "../issues";
 
 import {
     assistanceNeededMessage,
