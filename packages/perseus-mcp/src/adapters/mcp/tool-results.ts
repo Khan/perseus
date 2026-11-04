@@ -1,4 +1,4 @@
-import {DraftNotFoundError} from "../../app/errors";
+import {CollectionNotFoundError, DraftNotFoundError} from "../../app/errors";
 
 import type {CallToolResult} from "@modelcontextprotocol/server";
 
@@ -41,6 +41,9 @@ function describeError(e: unknown): string {
             `${e.message} Use create_item or open_item to start a draft, or ` +
             `list_items to see the saved ones.`
         );
+    }
+    if (e instanceof CollectionNotFoundError) {
+        return `${e.message} Use list_collections to see the saved ones.`;
     }
     return e instanceof Error ? e.message : String(e);
 }

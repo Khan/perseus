@@ -4,15 +4,18 @@
 // (main.ts, main-packaged.ts) say where its files are and which preview
 // pages it serves.
 import {randomUUID} from "node:crypto";
+import path from "node:path";
 import {parseArgs} from "node:util";
 
 import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
 import {serveStdio} from "@modelcontextprotocol/server/stdio";
 
+import {FileCollectionRepository} from "./adapters/fs/file-collection-repository";
 import {
     DataDirNotWritableError,
     FileDraftRepository,
 } from "./adapters/fs/file-draft-repository";
+import {nodeExportFileWriter} from "./adapters/fs/node-export-file-writer";
 import {nodeItemFileReader} from "./adapters/fs/node-item-file-reader";
 import {createPerseusCoreSchemaSource} from "./adapters/fs/perseus-core-schema-source";
 import {
@@ -22,6 +25,7 @@ import {
 } from "./adapters/http/server";
 import {createMcpServer} from "./adapters/mcp/server";
 import {createCatalog} from "./app/catalog";
+import {createCollectionUseCases} from "./app/collections";
 import {withDraftFeed} from "./app/draft-feed";
 import {createDraftUseCases} from "./app/drafts";
 import {createPreviewUseCases} from "./app/preview";
@@ -45,6 +49,17 @@ export type StartOptions = {
     /** Picks the preview pages, given the `--pages` option if there is one. */
     previewSource: (pagesOption: string | undefined) => PreviewSource;
 };
+
+/** A file-name-safe form of a collection's name. */
+function slug(name: string): string {
+    const cleaned = path
+        .basename(name)
+        .replace(/\.json$/i, "")
+        .replace(/[^A-Za-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "")
+        .slice(0, 40);
+    return cleaned === "" ? "collection" : cleaned;
+}
 
 export async function start({
     paths,
@@ -114,6 +129,8 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
     for (const {location, reason} of fileRepository.skipped()) {
         log(`perseus-mcp: skipped ${location}: ${reason}`);
     }
+    const collectionRepository = new FileCollectionRepository(dataDir);
+    collectionRepository.init();
     // Every save goes through the feed, so open previews hear about it.
     const {drafts: repository, feed} = withDraftFeed(fileRepository);
 
@@ -135,6 +152,21 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
         widgets: createWidgetUseCases({catalog, drafts: repository}),
         scoring: createScoringUseCases({drafts: repository}),
         review: createReviewUseCases({drafts: repository}),
+        collections: createCollectionUseCases({
+            collections: collectionRepository,
+            drafts: repository,
+            files: nodeItemFileReader,
+            exports: nodeExportFileWriter,
+            catalog,
+            defaultExportPath: (collection) =>
+                path.join(
+                    dataDir,
+                    "exports",
+                    `${slug(collection.name)}-${collection.collectionId}.json`,
+                ),
+            now: () => new Date(),
+            newId: () => randomUUID().slice(0, 8),
+        }),
         preview: createPreviewUseCases({
             drafts: repository,
             links: previewLinks(() => baseUrl),

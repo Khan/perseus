@@ -288,6 +288,45 @@ describe("draft use cases", () => {
         });
     });
 
+    describe("editItems", () => {
+        it("saves the edits that apply and reports the ones that don't", async () => {
+            // Arrange
+            const {drafts, useCases} = setUp();
+            await useCases.openItem({
+                item: generateTestPerseusItem({
+                    question: generateTestPerseusRenderer({content: "Before"}),
+                }),
+            });
+
+            // Act
+            const results = useCases.editItems([
+                {
+                    itemId: "abc",
+                    patch: [
+                        {
+                            op: "replace",
+                            path: "/question/content",
+                            value: "After",
+                        },
+                    ],
+                },
+                {itemId: "nope", notes: "Lost"},
+            ]);
+
+            // Assert
+            expect({
+                saved: results.map((result) => [result.itemId, result.ok]),
+                content: drafts.get("abc")?.item.question.content,
+            }).toEqual({
+                saved: [
+                    ["abc", true],
+                    ["nope", false],
+                ],
+                content: "After",
+            });
+        });
+    });
+
     describe("revisions", () => {
         async function draftWithTwoEdits() {
             const setup = setUp();

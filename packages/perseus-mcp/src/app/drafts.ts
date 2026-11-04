@@ -83,7 +83,7 @@ export function createDraftUseCases(deps: DraftDependencies) {
         return `edit_item: ${parts.join(", ")}`;
     }
 
-    return {
+    const useCases = {
         /**
          * Starts a draft from an existing item, migrated to the latest
          * schema.
@@ -163,6 +163,33 @@ export function createDraftUseCases(deps: DraftDependencies) {
             });
             drafts.save(revised);
             return {ok: true, draft: revised, issues};
+        },
+
+        /**
+         * Changes several drafts in one call, each as editItem does: each
+         * edit is validated and saved, or not, on its own, so one bad patch
+         * doesn't stop the others.
+         */
+        editItems(
+            edits: ReadonlyArray<DraftEdit & {itemId: string}>,
+        ): Array<{itemId: string} & DraftChangeResult> {
+            return edits.map(({itemId, ...edit}) => {
+                if (drafts.get(itemId) == null) {
+                    return {
+                        itemId,
+                        ok: false,
+                        issues: [
+                            {
+                                severity: "error",
+                                code: "missing-draft",
+                                path: "(root)",
+                                message: new DraftNotFoundError(itemId).message,
+                            },
+                        ],
+                    };
+                }
+                return {itemId, ...useCases.editItem(itemId, edit)};
+            });
         },
 
         /**
@@ -261,6 +288,7 @@ export function createDraftUseCases(deps: DraftDependencies) {
             return unsubscribe;
         },
     };
+    return useCases;
 }
 
 export type DraftUseCases = ReturnType<typeof createDraftUseCases>;

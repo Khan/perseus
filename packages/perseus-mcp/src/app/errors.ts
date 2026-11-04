@@ -23,6 +23,36 @@ export class RevisionNotFoundError extends Error {
     }
 }
 
+export class CollectionNotFoundError extends Error {
+    readonly collectionId: string;
+
+    constructor(collectionId: string) {
+        super(`No collection with collectionId "${collectionId}".`);
+        this.name = "CollectionNotFoundError";
+        this.collectionId = collectionId;
+    }
+}
+
+export class InvalidImportError extends Error {
+    constructor(message: string) {
+        super(message);
+        this.name = "InvalidImportError";
+    }
+}
+
+export class ExportExistsError extends Error {
+    readonly path: string;
+
+    constructor(path: string) {
+        super(
+            `${path} already exists. Pass overwrite: true to replace it, or ` +
+                `another path.`,
+        );
+        this.name = "ExportExistsError";
+        this.path = path;
+    }
+}
+
 export class UnknownWidgetTypeError extends Error {
     readonly type: string;
 

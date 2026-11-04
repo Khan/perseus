@@ -40,7 +40,7 @@ How the work is done. An agent resuming this plan follows these rules exactly.
 
 ## Status
 
-**Build order steps 1 to 7 are done; step 8 is next.** The commits below are on
+**Build order steps 1 to 7 and 9 are done; step 8 is next.** The commits below are on
 `jer/perseus-mcp`, oldest first, and every tool was smoke-tested over stdio
 from outside the repo.
 
@@ -83,6 +83,7 @@ from outside the repo.
 | Mark the preview page when the draft has rendered | perseus-preview (minor changeset `gentle-signals-report`): a `render-state` message from the iframe (`RenderState`: rendering, done, or error with its message, tagged with the content version), `reportRenderState` from the presenter, and the latest `renderState` from the controller, "rendering" from each send until the iframe reports on that content. `Exercise` reports "done" when ServerItemRenderer calls `LoadingContext.onRendered` (images and math settled), remounting the renderer for each item since it reports once per mount, and "error" from an error boundary that shows the message. The shell sets `data-render-done` and `data-render-error` on its body from `renderState` (`page/render-markers.ts`), so a screenshot tool needs only the page's URL; the frame and the in-chat page have no markers, since what drives them already gets the state. Checked in Chrome: the shell is marked done once the math has rendered, and an edit clears the marker until the new revision renders. |
 | Build Windows bundles of perseus-mcp for testers | `build:bundle` builds one zip per platform, all by default or the ones named: `perseus-mcp-macos-arm64.zip`, `-windows-x64.zip` and `-windows-arm64.zip`, sharing one build of the server, pages and type files. Every bundle ships the Node version that runs the build: on macOS that binary, and for Windows `node.exe` from Node's official zip for that version, downloaded once into `dist/node-downloads` with curl (which goes through a proxy, unlike Node's fetch) and checked against Node's `SHASUMS256.txt`. Windows install notes give the `%APPDATA%\Claude` config path and the doubled backslashes JSON needs. Checked: each zip's contents (no macOS metadata), `node.exe` is x86-64 or Arm64 and signed by the OpenJS Foundation, and the macOS bundle still runs. Not run on Windows. Plan: the steps from revision history to alt text added before `create_graphie` (now step 12), and the alt-text checks after the build order. |
 | Keep every revision of a draft | Build order step 7. Each save also writes `<dataDir>/history/<itemId>/<revision>.json` (revision first, then the draft, each written then renamed), read only when asked for; drafts saved before keep their history from their next revision. Each revision records what made it (`change`: "Created", "Opened from …", "edit_item: 2 operations", "add_widget: radio 1", "Reverted to revision 3"). `DraftRepository` gains `getRevision` and `revisions`; the file adapter reads history only for drafts it knows, so an `itemId` can't name a path outside it. Tools: `list_revisions`, `export_item` with a `revision`, and `revert_item`, which saves an earlier revision's item as the newest revision (keeping the current notes), so a revert can be reverted. Checked over MCP against a dev server. |
+| Group drafts into collections, with import and export | Build order step 9. A collection (`domain/collections/`, `<dataDir>/collections/<collectionId>.json` through a `CollectionRepository` port) groups drafts by problem type and holds their ids with the `contentId`s they came with. `import_items` reads a file in any of four shapes (`readImport`): the exercise editor's bulk JSON format, an exercise export (names become notes), items, or a bare renderer; a draft per item that parses, the rest skipped and listed. `export_collection` writes the bulk format through an `ExportFileWriter` port (default `<dataDir>/exports/`, no overwrite unless asked), each item's latest revision as a JSON string. `get_collection`, `list_collections`, `move_items`, `add_to_collection`, `validate_collection`, and `edit_items` (several drafts, each saved or not on its own). Plan: `get_server_info` added as step 8; the later steps move down one. Checked over MCP: perseus-renderer's sample imported, organized into two problem types, exported, and the export re-imported with the same tree. |
 
 Remaining, in order:
 
@@ -94,7 +95,7 @@ Remaining, in order:
    Not planned: fewer Lato weights (which ones Perseus uses would need
    checking), or dropping the speech rule engine, which reads math to
    screen readers.
-2. Build order steps 8 to 15.
+2. Build order step 8, then steps 10 to 16.
 
 Consuming applications aren't in this repo: the changesets carry the
 migration steps, and they're updated separately.
@@ -260,7 +261,7 @@ them.
 | --- | --- |
 | Where it runs | Local first: MCP over stdio or local HTTP, with HTTP always running for the preview page. A hosted service later. |
 | Architecture | Hexagonal (ports and adapters); see Architecture. |
-| Where the code lives | `packages/perseus-mcp` in this monorepo, a private package; run with `pnpm start-mcp`. Shared with testers as a macOS zip run from Claude Desktop's config (build order step 6), then published to npm as `@khanacademy/perseus-mcp` once it has been tested in use (step 14). |
+| Where the code lives | `packages/perseus-mcp` in this monorepo, a private package; run with `pnpm start-mcp`. Shared with testers as a macOS zip run from Claude Desktop's config (build order step 6), then published to npm as `@khanacademy/perseus-mcp` once it has been tested in use (step 15). |
 | Stack | Official TypeScript MCP SDK, v2 (`@modelcontextprotocol/server`, `@modelcontextprotocol/node`), with Fastify. |
 | Data in and out | Raw PerseusItem JSON. Any older Perseus version is accepted; tools always return fully migrated, latest-schema items. Content-backend API access is out of scope. |
 | Auth and limits | None. Tools are pure functions over JSON the caller supplies. |
@@ -459,7 +460,7 @@ that the chat app shows inside the conversation.
 - It declares the outside hosts it loads from in its CSP
   (`resourceDomains`): `cdn.kastatic.org` (MathJax fonts) and the Perseus
   image hosts.
-- A hosted deployment (build order step 15) would give the preview an https
+- A hosted deployment (build order step 16) would give the preview an https
   origin hosts accept, so the page could frame it instead.
 - Confirmed host: Claude Desktop.
 
@@ -636,7 +637,7 @@ Steps 1–3 need no Perseus changes, so building can start there.
       removed): the MIT `LICENSE` and the fonts' OFL texts go in the bundle.
    6. **`Host` header check** (done) on HTTP requests, so a web page can't
       reach a tester's local server through DNS rebinding. A wildcard
-      `--host` allows only localhost's names; a hosted deployment (step 15)
+      `--host` allows only localhost's names; a hosted deployment (step 16)
       will need its own allowed names.
    7. **The macOS zip, tested** (done): `build:bundle` adds Node, its
       license and `INSTALL.md`, and zips the folder with `ditto` (which keeps
@@ -653,27 +654,43 @@ Steps 1–3 need no Perseus changes, so building can start there.
 7. **Revision history** (done): every revision of a draft is kept in
    `<dataDir>/history/` (storage efficiency can come later);
    `list_revisions`, `export_item` with a `revision`, and `revert_item`.
-   Step 10 needs it.
-8. **Collections, with import and export:**
-   - A collection groups drafts by problem type, keeping each item's
-     source (a `contentId`) so an export writes it back to the same place.
-   - `import_items` reads a file path in any of four shapes: a single item,
-     a bare renderer, an exercise export (`items[].item_data`), or a
-     problem-type export (`[{problemType, contentId, assessmentItems:
-     [{contentId, itemData}]}]`, `itemData` a JSON string). No pasted JSON:
+   Step 11 needs it.
+8. **`get_server_info`:** a tool Claude calls when a person reports a
+   problem, returning what we need to diagnose it, for them to send on:
+   perseus-mcp's version and the commit it was built from, whether it runs
+   from the bundle or the repo and over stdio or HTTP, Node's version, the
+   operating system and processor, the drafts folder and how many drafts it
+   holds, the HTTP address and whether the preview pages are served, and
+   the last few errors (which the server would start keeping in memory,
+   perhaps in a commit of its own). No item content. It can't help when
+   the server won't start; for that, testers run a diagnostic command from
+   the install notes (drafts of a macOS and a Windows command exist, from
+   the session that proposed this step; the Windows one is untested).
+9. **Collections, with import and export** (done):
+   - A collection (`<dataDir>/collections/`) groups drafts by problem type,
+     keeping each item's and problem type's `contentId` so an export writes
+     it back to the same place. It holds draft ids, not items.
+   - `import_items` reads a file path in any of four shapes: a single item
+     (or an array), a bare renderer, an exercise export
+     (`items[].item_data`), or the exercise editor's bulk JSON format
+     (`[{problemType, contentId?, assessmentItems: [{contentId?,
+     itemData}]}]`, `itemData` a JSON string or an object). No pasted JSON:
      Claude would have to read all of it.
-   - `export_collection` writes migrated items in the shape the bulk import
-     of exercises takes (to be confirmed against that import).
-   - `edit_items` applies patches to many drafts in one call, and validation
-     and review run over a whole collection.
-9. **The collection page (browser):** the problem types and their items as
+   - `export_collection` writes that bulk format to a file (never
+     overwriting unless asked), each item its latest revision as a JSON
+     string, keeping the imported `contentId`s so the exercise editor's
+     import treats them as edits.
+   - `get_collection`, `list_collections`, `move_items`,
+     `add_to_collection`, `edit_items` (many drafts in one call, each saved
+     or not on its own) and `validate_collection`. Review stays per item.
+10. **The collection page (browser):** the problem types and their items as
    a tree on the left, the selected item's preview on the right, and a file
    upload for loading a collection. Claude edits; the page shows.
-10. **Side-by-side comparison:** two drafts, or two revisions of one, next
+11. **Side-by-side comparison:** two drafts, or two revisions of one, next
     to each other in the browser and in the chat, both rendered as on
     mobile (which needs the preview to apply `PreviewOptions.isMobile`).
     A visual comparison first; marking the differences can come later.
-11. **Alt text and long descriptions:** Claude infers each image's purpose
+12. **Alt text and long descriptions:** Claude infers each image's purpose
     (assessment, instruction, decorative) from the item, writes `alt` and,
     when needed, `longDescription`, or sets `decorative`, and lists the
     purpose it assumed with them for the author to review, without
@@ -690,12 +707,12 @@ Steps 1–3 need no Perseus changes, so building can start there.
     Guidelines for Assessments (2021). Its licence reserves all rights, so
     nothing from it is copied into the repo; even summarising it is
     undecided.
-12. **`create_graphie`:** declarative spec to Graphie image, served locally,
-    with alt text written by step 11's rules.
-13. **Eval harness** on the Claude Agent SDK with a few smoke tasks, until the
+13. **`create_graphie`:** declarative spec to Graphie image, served locally,
+    with alt text written by step 12's rules.
+14. **Eval harness** on the Claude Agent SDK with a few smoke tasks, until the
     real task set is ready.
-14. **Publish to npm** as `@khanacademy/perseus-mcp`, for Khan Academy
-   content authors, once steps 4 to 13 are done and the server has been
+15. **Publish to npm** as `@khanacademy/perseus-mcp`, for Khan Academy
+   content authors, once steps 4 to 14 are done and the server has been
    tested in use. It installs and runs with `npx @khanacademy/perseus-mcp
    --stdio` in an MCP host's config. The build, the data directory and the
    `Host` check come from step 6; what's left:
@@ -708,7 +725,7 @@ Steps 1–3 need no Perseus changes, so building can start there.
      `config/build`'s `getPackageNames`, whose library build is wrong for
      it. Either `build-packages.ts` hands a package to its own build script,
      or perseus-mcp stays private and is published from its built output.
-15. **Hosted deployment**, after publishing: run the server as a hosted
+16. **Hosted deployment**, after publishing: run the server as a hosted
     service on an https origin. It needs a shared draft store (a new
     `DraftRepository` adapter), live updates across instances (one
     instance, a pub/sub layer, or polling), OAuth for remote MCP connectors,
@@ -793,7 +810,7 @@ interactive-graph.
 
 ## Alt-text checks (after the build order)
 
-Checks code does better than Claude, for the alt text step 11 writes:
+Checks code does better than Claude, for the alt text step 12 writes:
 
 - Alt text of 125 characters or less, in `validate_item` and possibly as a
   perseus-linter rule.
