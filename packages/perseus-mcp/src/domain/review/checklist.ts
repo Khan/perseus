@@ -161,6 +161,22 @@ const ENTRY_BY_ISSUE_CODE: ReadonlyMap<string, ChecklistEntry> = new Map(
     ),
 );
 
+/**
+ * The entries a review of an item needs: those no validate_item issue
+ * explains (the judgment calls), and those explaining `issueCodes`, the
+ * item's issues.
+ */
+export function checklistFor(
+    issueCodes: ReadonlyArray<string>,
+): ChecklistEntry[] {
+    const codes = new Set(issueCodes);
+    return CHECKLIST.filter(
+        (entry) =>
+            entry.issueCodes.length === 0 ||
+            entry.issueCodes.some((code) => codes.has(code)),
+    );
+}
+
 /** The checklist entry explaining a validate_item issue code, as a URI. */
 export function checklistLinkFor(issueCode: string): string | undefined {
     const entry = ENTRY_BY_ISSUE_CODE.get(issueCode);

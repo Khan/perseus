@@ -51,9 +51,9 @@ does; to test an item, solve it yourself and give check_user_inputs correct
 answers (in several equivalent forms) and common mistakes, each with the
 outcome you expect.
 
-Review every item you create or edit before returning it: the review_item
-prompt gives the procedure, and the review checklist resource describes each
-kind of defect.
+Review every item you create or edit before returning it: call review_item,
+which gives the procedure, the draft's validation issues and the checklist
+entries to check it against, and follow it.
 
 preview_item returns a URL where a person can see a draft as learners will,
 answer it and reveal its hints; the page follows the draft's changes, so give
@@ -805,6 +805,26 @@ export function createMcpServer({
         }),
     );
 
+    server.registerTool(
+        "review_item",
+        {
+            title: "Review a draft",
+            description:
+                "Call before returning an item you created or edited. Returns " +
+                "the review procedure (solve it independently, test likely " +
+                "answers with check_user_inputs, check the last hint against " +
+                "the key, and report findings), the draft's validation issues, " +
+                "and the checklist entries to check it against: the judgment " +
+                "calls, and the entry for each issue. Follow the procedure.",
+            inputSchema: z.object({itemId: z.string()}),
+            annotations: {readOnlyHint: true},
+        },
+        ({itemId}) =>
+            run("review_item", () => jsonResult(review.reviewItem(itemId))),
+    );
+
+    // The same procedure, for a person to start (a prompt can't be started
+    // by the agent).
     server.registerPrompt(
         "review_item",
         {

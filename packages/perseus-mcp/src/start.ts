@@ -198,7 +198,7 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
         }),
         widgets: createWidgetUseCases({catalog, drafts: repository}),
         scoring: createScoringUseCases({drafts: repository}),
-        review: createReviewUseCases({drafts: repository}),
+        review: createReviewUseCases({drafts: repository, catalog}),
         exercises: createExerciseUseCases({
             exercises,
             drafts: repository,
