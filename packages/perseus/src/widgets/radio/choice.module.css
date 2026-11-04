@@ -269,11 +269,14 @@
 }
 
 .is-crossed-out {
+    /* The lines repeat every 25.456px (36px / √2), so they're a whole 36px
+       apart horizontally and every line is drawn the same width.
+     */
     --perseus-cross-out-hatch: repeating-linear-gradient(
         45deg,
         var(--wb-semanticColor-core-border-neutral-default) 0
-            var(--wb-border-width-thin),
-        transparent var(--wb-border-width-thin) var(--wb-sizing-size_100)
+            var(--wb-border-width-thick),
+        transparent var(--wb-border-width-thick) 25.456px
     );
     --perseus-cross-out-image-opacity: 0.7;
     --perseus-cross-out-strike-width: var(--wb-border-width-medium);
