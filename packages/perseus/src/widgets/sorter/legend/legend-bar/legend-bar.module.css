@@ -1,0 +1,82 @@
+/* The bar is drawn as a border so its stroke and color come from WB tokens.
+   Logical properties put a vertical bar on the start side, which is the
+   right side in RTL. */
+.horizontal,
+.vertical {
+    position: relative;
+    color: var(--wb-semanticColor-core-border-neutral-default);
+}
+
+.horizontal {
+    inline-size: 100%;
+    border-block-start: var(--wb-border-width-medium) solid currentColor;
+}
+
+.vertical {
+    align-self: stretch;
+    border-inline-start: var(--wb-border-width-medium) solid currentColor;
+}
+
+.arrow,
+.bar {
+    position: absolute;
+}
+
+.bar {
+    background-color: currentColor;
+}
+
+.horizontal .start {
+    inset-inline-start: 0;
+}
+
+.horizontal .end {
+    inset-inline-end: 0;
+}
+
+.vertical .start {
+    inset-block-start: 0;
+}
+
+.vertical .end {
+    inset-block-end: 0;
+}
+
+/* Caps are positioned from the inner edge of the line's border, so
+   centering them on the line also pulls them back by half the line's
+   width. 7px and 6px are half the arrow (14px) and bar (12px) lengths. */
+.horizontal .arrow {
+    inset-block-start: calc(var(--wb-border-width-medium) / -2 - 7px);
+}
+
+.horizontal .bar {
+    inline-size: var(--wb-border-width-medium);
+    block-size: 12px;
+    inset-block-start: calc(var(--wb-border-width-medium) / -2 - 6px);
+}
+
+.vertical .arrow {
+    inset-inline-start: calc(var(--wb-border-width-medium) / -2 - 7px);
+}
+
+.vertical .bar {
+    inline-size: 12px;
+    block-size: var(--wb-border-width-medium);
+    inset-inline-start: calc(var(--wb-border-width-medium) / -2 - 6px);
+}
+
+.horizontal .arrow.end {
+    transform: scaleX(-1);
+}
+
+.horizontal .arrow.start:dir(rtl) {
+    transform: scaleX(-1);
+}
+
+.horizontal .arrow.end:dir(rtl) {
+    transform: none;
+}
+
+.vertical .arrow.end {
+    transform: scaleY(-1);
+}
