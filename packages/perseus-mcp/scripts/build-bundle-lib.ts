@@ -1,7 +1,10 @@
 import {spawnSync} from "node:child_process";
+import {createHash} from "node:crypto";
+import {existsSync} from "node:fs";
 import {
     chmod,
     copyFile,
+    cp,
     mkdir,
     readFile,
     rm,
@@ -70,55 +73,156 @@ async function buildServer(outDir: string): Promise<void> {
 /** The oldest Node the server runs on: import.meta.dirname and filename. */
 const MIN_NODE = [20, 11];
 
+/** The platforms a bundle can be built for, by the name in its zip's name. */
+export const PLATFORMS = [
+    "macos-arm64",
+    "windows-x64",
+    "windows-arm64",
+] as const;
+export type Platform = (typeof PLATFORMS)[number];
+
+export function isPlatform(name: string): name is Platform {
+    return PLATFORMS.some((platform) => platform === name);
+}
+
+type BundledNode = {
+    /** The Node binary, copied into the bundle as `binaryName`. */
+    binary: string;
+    binaryName: string;
+    /** Node's license, which ships with it. */
+    license: string;
+};
+
 /**
- * The Node binary that runs this build, which the bundle ships so testers
- * needn't install Node. Only macOS on Apple silicon is supported, and the
- * binary must be an official build (Node's own layout, signed by the Node.js
- * Foundation, so Gatekeeper accepts it once downloaded) with its license
- * beside it, in `../LICENSE`.
+ * The Node that runs this build. Every bundle ships its version, so each
+ * platform's server runs on the Node the build was checked with.
  */
-function bundledNode(): {binary: string; license: string} {
-    if (process.platform !== "darwin" || process.arch !== "arm64") {
-        throw new Error(
-            "The bundle is for macOS on Apple silicon; build it there " +
-                `(this is ${process.platform}-${process.arch}).`,
-        );
-    }
-    const [major, minor] = process.versions.node.split(".").map(Number);
+function nodeVersion(): string {
+    const version = process.versions.node;
+    const [major, minor] = version.split(".").map(Number);
     if (major < MIN_NODE[0] || (major === MIN_NODE[0] && minor < MIN_NODE[1])) {
         throw new Error(
-            `The bundle needs Node ${MIN_NODE.join(".")} or later to ship; ` +
-                `this is ${process.versions.node}.`,
+            `The bundles need Node ${MIN_NODE.join(".")} or later to ship; ` +
+                `this is ${version}.`,
+        );
+    }
+    return version;
+}
+
+/**
+ * For macOS: the Node binary that runs this build, which must be an official
+ * Apple silicon build (Node's own layout, signed by the Node.js Foundation,
+ * so Gatekeeper accepts it once downloaded) with its license beside it, in
+ * `../LICENSE`.
+ */
+function macosNode(): BundledNode {
+    if (process.platform !== "darwin" || process.arch !== "arm64") {
+        throw new Error(
+            "The macOS bundle ships the Node that runs the build, so build it " +
+                `on macOS on Apple silicon (this is ${process.platform}-` +
+                `${process.arch}).`,
         );
     }
     return {
         binary: process.execPath,
+        binaryName: "node",
         license: path.resolve(path.dirname(process.execPath), "../LICENSE"),
     };
 }
 
-/** The tester's instructions, at the top of the unpacked folder. */
-function installNotes(version: string, nodeVersion: string): string {
+/**
+ * Downloads `url` into `file` with curl, which, unlike Node's fetch, goes
+ * through the proxy the environment names.
+ */
+function download(url: string, file: string): void {
+    run("curl", [
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--location",
+        "--output",
+        file,
+        url,
+    ]);
+}
+
+async function sha256Of(file: string): Promise<string> {
+    return createHash("sha256")
+        .update(await readFile(file))
+        .digest("hex");
+}
+
+/**
+ * For Windows: `node.exe` and its license from Node's official zip for
+ * `arch`, downloaded once into `cacheDir` and checked against the SHA-256
+ * Node publishes for it.
+ */
+async function windowsNode(
+    arch: "x64" | "arm64",
+    version: string,
+    cacheDir: string,
+): Promise<BundledNode> {
+    const name = `node-v${version}-win-${arch}`;
+    const base = `https://nodejs.org/dist/v${version}`;
+    const zip = path.join(cacheDir, `${name}.zip`);
+    await mkdir(cacheDir, {recursive: true});
+    const shasumsFile = path.join(cacheDir, `SHASUMS256-v${version}.txt`);
+    download(`${base}/SHASUMS256.txt`, shasumsFile);
+    const shasums = await readFile(shasumsFile, "utf8");
+    const expected = shasums
+        .split("\n")
+        .map((line) => line.trim().split(/\s+/))
+        .find(([, file]) => file === `${name}.zip`)?.[0];
+    if (expected == null) {
+        throw new Error(`Node's SHASUMS256.txt lists no ${name}.zip.`);
+    }
+    if (!existsSync(zip) || (await sha256Of(zip)) !== expected) {
+        download(`${base}/${name}.zip`, zip);
+        const actual = await sha256Of(zip);
+        if (actual !== expected) {
+            await rm(zip, {force: true});
+            throw new Error(
+                `${name}.zip doesn't match Node's SHA-256 (${actual}, ` +
+                    `expected ${expected}).`,
+            );
+        }
+    }
+    const unpacked = path.join(cacheDir, name);
+    await rm(unpacked, {recursive: true, force: true});
+    run("unzip", [
+        "-q",
+        "-j",
+        zip,
+        `${name}/node.exe`,
+        `${name}/LICENSE`,
+        "-d",
+        unpacked,
+    ]);
+    return {
+        binary: path.join(unpacked, "node.exe"),
+        binaryName: "node.exe",
+        license: path.join(unpacked, "LICENSE"),
+    };
+}
+
+/** The tester's instructions for macOS, at the top of the unpacked folder. */
+function macosInstallNotes(version: string, nodeVersion: string): string {
     return `# perseus-mcp ${version} for Claude Desktop (macOS, Apple silicon)
 
 An MCP server for authoring Perseus items, with Node ${nodeVersion}
 included.
 
-1. Move this \`perseus-mcp\` folder to where it will stay, for example
-   \`~/Applications/perseus-mcp\`.
+1. Move this \`perseus-mcp\` folder into your home folder (Finder: Go →
+   Home).
 2. Quit Claude Desktop (Cmd-Q).
 3. Open \`~/Library/Application Support/Claude/claude_desktop_config.json\`
    (Claude Desktop: Settings → Developer → Edit Config) and add this under
-   \`"mcpServers"\`, with \`/Users/you/Applications/perseus-mcp\` replaced by
-   the folder's full path:
+   \`"mcpServers"\`, with \`YOURNAME\` replaced by your home folder's name:
 
    \`\`\`json
    "perseus": {
-       "command": "/Users/you/Applications/perseus-mcp/node",
-       "args": [
-           "/Users/you/Applications/perseus-mcp/server/index.mjs",
-           "--stdio"
-       ]
+       "command": "/Users/YOURNAME/perseus-mcp/node",
+       "args": ["/Users/YOURNAME/perseus-mcp/server/index.mjs", "--stdio"]
    }
    \`\`\`
 
@@ -133,6 +237,45 @@ To update, replace the folder with the new one and restart Claude Desktop.
 `;
 }
 
+/** The tester's instructions for Windows, at the top of the unpacked folder. */
+function windowsInstallNotes(
+    version: string,
+    nodeVersion: string,
+    arch: string,
+): string {
+    return `# perseus-mcp ${version} for Claude Desktop (Windows, ${arch})
+
+An MCP server for authoring Perseus items, with Node ${nodeVersion}
+included.
+
+1. Extract the zip (right-click → Extract All…) and move the
+   \`perseus-mcp\` folder into your user folder, \`C:\\Users\\YOURNAME\`.
+2. Quit Claude Desktop (File → Exit).
+3. Open \`%APPDATA%\\Claude\\claude_desktop_config.json\` (Claude Desktop:
+   Settings → Developer → Edit Config) and add this under
+   \`"mcpServers"\`, with \`YOURNAME\` replaced by your user folder's name.
+   JSON needs each backslash doubled:
+
+   \`\`\`json
+   "perseus": {
+       "command": "C:\\\\Users\\\\YOURNAME\\\\perseus-mcp\\\\node.exe",
+       "args": [
+           "C:\\\\Users\\\\YOURNAME\\\\perseus-mcp\\\\server\\\\index.mjs",
+           "--stdio"
+       ]
+   }
+   \`\`\`
+
+4. Open Claude Desktop. The Perseus tools show under the tools menu in a
+   new chat.
+
+Drafts are saved in \`%LOCALAPPDATA%\\perseus-mcp\`. Claude Desktop's log
+for the server is \`%APPDATA%\\Claude\\logs\\mcp-server-perseus.log\`.
+
+To update, replace the folder with the new one and restart Claude Desktop.
+`;
+}
+
 /** Runs a command, failing if it fails. */
 function run(command: string, args: string[]): void {
     const result = spawnSync(command, args, {stdio: "inherit"});
@@ -142,42 +285,84 @@ function run(command: string, args: string[]): void {
 }
 
 /**
- * Builds the bundle testers install: a \`perseus-mcp\` folder in \`outDir\`,
- * laid out as \`packagedPaths()\` expects (the server in
- * \`server/index.mjs\`, perseus-core's type definitions in \`types/\`, the
- * prebuilt pages in \`pages/\`) with the Node that runs it, the licenses and
- * install notes, then zipped into \`zipFile\`.
+ * Builds the parts every platform's bundle shares, laid out as
+ * `packagedPaths()` expects: the server in `server/index.mjs`, perseus-core's
+ * type definitions in `types/`, the prebuilt pages in `pages/`, and the
+ * licenses.
  */
-export async function buildBundle(
+async function buildShared(dir: string): Promise<void> {
+    await rm(dir, {recursive: true, force: true});
+    await buildServer(path.join(dir, "server"));
+    for (const [to, from] of Object.entries(COPIED_FILES)) {
+        await mkdir(path.dirname(path.join(dir, to)), {recursive: true});
+        await copyFile(from, path.join(dir, to));
+    }
+    await buildPages(path.join(dir, "pages"));
+}
+
+/**
+ * Builds the bundles testers install, one per platform: a `perseus-mcp`
+ * folder in `outDir/<platform>` with the shared parts and that platform's
+ * Node and install notes, zipped into `perseus-mcp-<platform>.zip` next to
+ * `outDir`. Returns the zips.
+ */
+export async function buildBundles(
     outDir: string,
-    zipFile: string,
-): Promise<void> {
-    const node = bundledNode();
+    platforms: ReadonlyArray<Platform>,
+): Promise<Array<string>> {
+    const version = nodeVersion();
     const packageJson = JSON.parse(
         await readFile(path.join(PACKAGE_DIR, "package.json"), "utf8"),
     );
-    const bundleDir = path.join(outDir, "perseus-mcp");
+    const distDir = path.dirname(outDir);
+    const shared = path.join(outDir, "shared");
+    await buildShared(shared);
 
-    await rm(outDir, {recursive: true, force: true});
-    await buildServer(path.join(bundleDir, "server"));
-    const copied = {
-        ...COPIED_FILES,
-        node: node.binary,
-        "licenses/Node-LICENSE.txt": node.license,
-    };
-    for (const [to, from] of Object.entries(copied)) {
-        await mkdir(path.dirname(path.join(bundleDir, to)), {recursive: true});
-        await copyFile(from, path.join(bundleDir, to));
+    const zips: Array<string> = [];
+    for (const platform of platforms) {
+        const node =
+            platform === "macos-arm64"
+                ? macosNode()
+                : await windowsNode(
+                      platform === "windows-x64" ? "x64" : "arm64",
+                      version,
+                      path.join(distDir, "node-downloads"),
+                  );
+        const bundleDir = path.join(outDir, platform, "perseus-mcp");
+        await rm(path.dirname(bundleDir), {recursive: true, force: true});
+        await cp(shared, bundleDir, {recursive: true});
+        await copyFile(node.binary, path.join(bundleDir, node.binaryName));
+        await chmod(path.join(bundleDir, node.binaryName), 0o755);
+        await copyFile(
+            node.license,
+            path.join(bundleDir, "licenses/Node-LICENSE.txt"),
+        );
+        await writeFile(
+            path.join(bundleDir, "INSTALL.md"),
+            platform === "macos-arm64"
+                ? macosInstallNotes(packageJson.version, version)
+                : windowsInstallNotes(
+                      packageJson.version,
+                      version,
+                      platform === "windows-x64" ? "x64" : "Arm",
+                  ),
+        );
+
+        const zip = path.join(distDir, `perseus-mcp-${platform}.zip`);
+        await rm(zip, {force: true});
+        // ditto zips as Finder does and keeps the macOS binary's permissions
+        // and signature. Without resource forks and extended attributes, the
+        // zip holds nothing Windows doesn't expect.
+        run("ditto", [
+            "-c",
+            "-k",
+            "--norsrc",
+            "--noextattr",
+            "--keepParent",
+            bundleDir,
+            zip,
+        ]);
+        zips.push(zip);
     }
-    await chmod(path.join(bundleDir, "node"), 0o755);
-    await buildPages(path.join(bundleDir, "pages"));
-    await writeFile(
-        path.join(bundleDir, "INSTALL.md"),
-        installNotes(packageJson.version, process.versions.node),
-    );
-
-    await rm(zipFile, {force: true});
-    // ditto zips as Finder does: it keeps the binary's permissions and
-    // signature, and Archive Utility unpacks it with a double-click.
-    run("ditto", ["-c", "-k", "--keepParent", bundleDir, zipFile]);
+    return zips;
 }

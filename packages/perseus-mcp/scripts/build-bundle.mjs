@@ -1,7 +1,8 @@
-// Builds the bundle testers install in Claude Desktop: its folder (default
-// dist/bundle/perseus-mcp) and the zip of it (default
-// dist/perseus-mcp-macos-arm64.zip). Registers swc first, as
-// bin/perseus-mcp.mjs does, to run the TypeScript source.
+// Builds the bundles testers install in Claude Desktop, one per platform
+// (macos-arm64, windows-x64, windows-arm64; all by default, or the ones
+// named): dist/perseus-mcp-<platform>.zip, from folders in dist/bundle.
+// Registers swc first, as bin/perseus-mcp.mjs does, to run the TypeScript
+// source.
 import {register} from "node:module";
 import path from "node:path";
 
@@ -10,10 +11,20 @@ process.env.SWC_NODE_PROJECT ??= path.join(repoRoot, "tsconfig.json");
 register("@swc-node/register/esm", import.meta.url);
 
 // eslint-disable-next-line no-restricted-syntax
-const {buildBundle} = await import("./build-bundle-lib.ts");
-const outDir = path.resolve(process.argv[2] ?? "dist/bundle");
-const zipFile = path.resolve(
-    process.argv[3] ?? "dist/perseus-mcp-macos-arm64.zip",
+const {buildBundles, isPlatform, PLATFORMS} = await import(
+    "./build-bundle-lib.ts"
 );
-await buildBundle(outDir, zipFile);
-process.stdout.write(`Built the bundle into ${zipFile}\n`);
+const named = process.argv.slice(2);
+const unknown = named.filter((name) => !isPlatform(name));
+if (unknown.length > 0) {
+    process.stderr.write(
+        `Unknown platform: ${unknown.join(", ")}. ` +
+            `Use ${PLATFORMS.join(", ")}.\n`,
+    );
+    process.exit(1);
+}
+const zips = await buildBundles(
+    path.resolve("dist/bundle"),
+    named.length > 0 ? named : PLATFORMS,
+);
+process.stdout.write(`Built ${zips.join(", ")}\n`);

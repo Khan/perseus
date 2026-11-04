@@ -40,7 +40,7 @@ How the work is done. An agent resuming this plan follows these rules exactly.
 
 ## Status
 
-**Build order steps 1 to 4 are done; step 5 is being tested, and step 6 is under way.** The commits below are on
+**Build order steps 1 to 6 are done; step 7 is next.** The commits below are on
 `jer/perseus-mcp`, oldest first, and every tool was smoke-tested over stdio
 from outside the repo.
 
@@ -81,6 +81,7 @@ from outside the repo.
 | Move the preview into @khanacademy/perseus-preview | A new published package (minor changeset `quiet-lanterns-move`) holds what was perseus-editor's `src/preview/` (the message types, validators and sanitizers, `usePreviewController`, `usePreviewPresenter`, the hint rules, the `a11y/` scan and `A11yOverlays`), `PreviewWithIframe`, and the issue types the scan produces (`Issue`, `IssueImpact`, `A11yIssue`, `getIssueKey`, from the editor's `issues-panel.tsx`). perseus-editor depends on it and exports none of it, `Issue` included (major changeset `bright-pebbles-shift`, which lists what to import from where); `axe-core` moves with the scan. It also exports `QuestionPreviewData` and the other `PreviewContent` variants, which the editor's declarations name. Every lower package's lint rules forbid importing it. perseus-mcp's pages import it instead of perseus-editor: the in-chat page goes from 7.59 MB to 6.83 MB. The KaTeX left in it (0.16.9) is mafs's. Also updates two editor snapshots that "Send preview options to the iframe in messages" left stale (the iframe's `data-*` attributes). |
 | Inline only woff2 fonts in the in-chat page | `keepWoff2Fonts` (`adapters/preview/woff2-fonts.ts`) removes every source but woff2 from the `@font-face` rules that offer woff2, in the MCP Apps page's built CSS: MathQuill's Symbola came in four inlined formats (woff2, woff, TrueType, IE's eot). The page goes from 6.83 MB to 5.48 MB, and its fonts are all woff2. Checked in the stand-in host: math renders, the woff2 Symbola loads, an answer checks as correct, hints and their labels show, and the model context follows. The browser preview is unchanged: it loads font files, and browsers fetch only the woff2. |
 | Mark the preview page when the draft has rendered | perseus-preview (minor changeset `gentle-signals-report`): a `render-state` message from the iframe (`RenderState`: rendering, done, or error with its message, tagged with the content version), `reportRenderState` from the presenter, and the latest `renderState` from the controller, "rendering" from each send until the iframe reports on that content. `Exercise` reports "done" when ServerItemRenderer calls `LoadingContext.onRendered` (images and math settled), remounting the renderer for each item since it reports once per mount, and "error" from an error boundary that shows the message. The shell sets `data-render-done` and `data-render-error` on its body from `renderState` (`page/render-markers.ts`), so a screenshot tool needs only the page's URL; the frame and the in-chat page have no markers, since what drives them already gets the state. Checked in Chrome: the shell is marked done once the math has rendered, and an edit clears the marker until the new revision renders. |
+| Build Windows bundles of perseus-mcp for testers | `build:bundle` builds one zip per platform, all by default or the ones named: `perseus-mcp-macos-arm64.zip`, `-windows-x64.zip` and `-windows-arm64.zip`, sharing one build of the server, pages and type files. Every bundle ships the Node version that runs the build: on macOS that binary, and for Windows `node.exe` from Node's official zip for that version, downloaded once into `dist/node-downloads` with curl (which goes through a proxy, unlike Node's fetch) and checked against Node's `SHASUMS256.txt`. Windows install notes give the `%APPDATA%\Claude` config path and the doubled backslashes JSON needs. Checked: each zip's contents (no macOS metadata), `node.exe` is x86-64 or Arm64 and signed by the OpenJS Foundation, and the macOS bundle still runs. Not run on Windows. Plan: the steps from revision history to alt text added before `create_graphie` (now step 12), and the alt-text checks after the build order. |
 
 Remaining, in order:
 
@@ -92,7 +93,7 @@ Remaining, in order:
    Not planned: fewer Lato weights (which ones Perseus uses would need
    checking), or dropping the speech rule engine, which reads math to
    screen readers.
-2. Build order steps 7 to 10.
+2. Build order steps 7 to 15.
 
 Consuming applications aren't in this repo: the changesets carry the
 migration steps, and they're updated separately.
@@ -119,12 +120,15 @@ migration steps, and they're updated separately.
   package: it would drop `private` and `bin`. Knip finds the entry point by
   following `bin`; `knip.config.ts` only drops the default `src/index.*`
   pattern, which matches nothing here.
-- **The testers' bundle:** `pnpm build:bundle` (macOS on Apple silicon only)
-  builds `dist/bundle/perseus-mcp/` (`node`, `server/index.mjs`, `types/`,
-  `pages/`, licenses, `INSTALL.md`), laid out as `packagedPaths()` expects,
-  and zips it into `dist/perseus-mcp-macos-arm64.zip`. Try it from a copy
-  outside the repo with `<copy>/node <copy>/server/index.mjs --stdio`; set
-  `HOME` to a scratch folder to keep its drafts apart.
+- **The testers' bundles:** `pnpm build:bundle` (run on macOS on Apple
+  silicon; name `macos-arm64`, `windows-x64` or `windows-arm64` to build
+  only those) builds `dist/bundle/<platform>/perseus-mcp/` (Node,
+  `server/index.mjs`, `types/`, `pages/`, licenses, `INSTALL.md`), laid out
+  as `packagedPaths()` expects, and zips each into
+  `dist/perseus-mcp-<platform>.zip`. Windows builds download Node's zip once
+  into `dist/node-downloads`. Try the macOS one from a copy outside the repo
+  with `<copy>/node <copy>/server/index.mjs --stdio`; set `HOME` to a
+  scratch folder to keep its drafts apart.
 - **Prebuilt pages:** `build:pages` writes `dist/pages/preview/` (the
   shell, the frame and `assets/`) and `dist/pages/preview-app.html`
   (`src/adapters/preview/prebuilt-layout.ts`, kept free of Vite so serving
@@ -255,7 +259,7 @@ them.
 | --- | --- |
 | Where it runs | Local first: MCP over stdio or local HTTP, with HTTP always running for the preview page. A hosted service later. |
 | Architecture | Hexagonal (ports and adapters); see Architecture. |
-| Where the code lives | `packages/perseus-mcp` in this monorepo, a private package; run with `pnpm start-mcp`. Shared with testers as a macOS zip run from Claude Desktop's config (build order step 6), then published to npm as `@khanacademy/perseus-mcp` once it has been tested in use (step 9). |
+| Where the code lives | `packages/perseus-mcp` in this monorepo, a private package; run with `pnpm start-mcp`. Shared with testers as a macOS zip run from Claude Desktop's config (build order step 6), then published to npm as `@khanacademy/perseus-mcp` once it has been tested in use (step 14). |
 | Stack | Official TypeScript MCP SDK, v2 (`@modelcontextprotocol/server`, `@modelcontextprotocol/node`), with Fastify. |
 | Data in and out | Raw PerseusItem JSON. Any older Perseus version is accepted; tools always return fully migrated, latest-schema items. Content-backend API access is out of scope. |
 | Auth and limits | None. Tools are pure functions over JSON the caller supplies. |
@@ -454,7 +458,7 @@ that the chat app shows inside the conversation.
 - It declares the outside hosts it loads from in its CSP
   (`resourceDomains`): `cdn.kastatic.org` (MathJax fonts) and the Perseus
   image hosts.
-- A hosted deployment (build order step 10) would give the preview an https
+- A hosted deployment (build order step 15) would give the preview an https
   origin hosts accept, so the page could frame it instead.
 - Confirmed host: Claude Desktop.
 
@@ -631,7 +635,7 @@ Steps 1–3 need no Perseus changes, so building can start there.
       removed): the MIT `LICENSE` and the fonts' OFL texts go in the bundle.
    6. **`Host` header check** (done) on HTTP requests, so a web page can't
       reach a tester's local server through DNS rebinding. A wildcard
-      `--host` allows only localhost's names; a hosted deployment (step 10)
+      `--host` allows only localhost's names; a hosted deployment (step 15)
       will need its own allowed names.
    7. **The macOS zip, tested** (done): `build:bundle` adds Node, its
       license and `INSTALL.md`, and zips the folder with `ditto` (which keeps
@@ -642,13 +646,55 @@ Steps 1–3 need no Perseus changes, so building can start there.
      in a `build:bundle` script of perseus-mcp's own (`pnpm build:bundle` at
      the root). It isn't part of `pnpm build`, which builds what's published
      (as browser libraries with external dependencies) and runs in CI.
-   - **Not done:** Windows and Linux bundles (each would ship that
-     platform's Node), and a CI job that builds the zip.
-7. **`create_graphie`:** declarative spec to Graphie image, served locally.
-8. **Eval harness** on the Claude Agent SDK with a few smoke tasks, until the
-   real task set is ready.
-9. **Publish to npm** as `@khanacademy/perseus-mcp`, for Khan Academy
-   content authors, once steps 4 to 8 are done and the server has been
+   - **Windows** (x64 and Arm) bundles are built too, with Node's
+     official `node.exe`, but haven't been run on Windows yet.
+   - **Not done:** a Linux bundle, and a CI job that builds the zips.
+7. **Revision history:** every revision of a draft is kept (storage
+   efficiency can come later). A tool reads a draft at a given revision,
+   and `revert_item` makes an earlier revision the newest. Step 10 needs
+   it.
+8. **Collections, with import and export:**
+   - A collection groups drafts by problem type, keeping each item's
+     source (a `contentId`) so an export writes it back to the same place.
+   - `import_items` reads a file path in any of four shapes: a single item,
+     a bare renderer, an exercise export (`items[].item_data`), or a
+     problem-type export (`[{problemType, contentId, assessmentItems:
+     [{contentId, itemData}]}]`, `itemData` a JSON string). No pasted JSON:
+     Claude would have to read all of it.
+   - `export_collection` writes migrated items in the shape the bulk import
+     of exercises takes (to be confirmed against that import).
+   - `edit_items` applies patches to many drafts in one call, and validation
+     and review run over a whole collection.
+9. **The collection page (browser):** the problem types and their items as
+   a tree on the left, the selected item's preview on the right, and a file
+   upload for loading a collection. Claude edits; the page shows.
+10. **Side-by-side comparison:** two drafts, or two revisions of one, next
+    to each other in the browser and in the chat, both rendered as on
+    mobile (which needs the preview to apply `PreviewOptions.isMobile`).
+    A visual comparison first; marking the differences can come later.
+11. **Alt text and long descriptions:** Claude infers each image's purpose
+    (assessment, instruction, decorative) from the item, writes `alt` and,
+    when needed, `longDescription`, or sets `decorative`, and lists the
+    purpose it assumed with them for the author to review, without
+    stopping to ask while drafting. The rules are the team's alt-text
+    instructions (125-character alt text, no dashes, "x axis", no "The
+    diagram shows", math in plain English in alt text and in `$...$` in
+    long descriptions, `*` bullets, no invented titles, grade-appropriate
+    vocabulary, "a point" and "an open point"). The review checklist gains
+    the checks those rules imply: nothing that gives away the answer,
+    answer choices' descriptions consistent and distinct, and images that
+    can't be described without sight flagged. Grade-level vocabulary
+    follows the Common Core standards and mathematics glossary, linked,
+    not copied. Open: whether to draw on the NWEA Image Description
+    Guidelines for Assessments (2021). Its licence reserves all rights, so
+    nothing from it is copied into the repo; even summarising it is
+    undecided.
+12. **`create_graphie`:** declarative spec to Graphie image, served locally,
+    with alt text written by step 11's rules.
+13. **Eval harness** on the Claude Agent SDK with a few smoke tasks, until the
+    real task set is ready.
+14. **Publish to npm** as `@khanacademy/perseus-mcp`, for Khan Academy
+   content authors, once steps 4 to 13 are done and the server has been
    tested in use. It installs and runs with `npx @khanacademy/perseus-mcp
    --stdio` in an MCP host's config. The build, the data directory and the
    `Host` check come from step 6; what's left:
@@ -661,7 +707,7 @@ Steps 1–3 need no Perseus changes, so building can start there.
      `config/build`'s `getPackageNames`, whose library build is wrong for
      it. Either `build-packages.ts` hands a package to its own build script,
      or perseus-mcp stays private and is published from its built output.
-10. **Hosted deployment**, after publishing: run the server as a hosted
+15. **Hosted deployment**, after publishing: run the server as a hosted
     service on an https origin. It needs a shared draft store (a new
     `DraftRepository` adapter), live updates across instances (one
     instance, a pub/sub layer, or polling), OAuth for remote MCP connectors,
@@ -743,6 +789,17 @@ interactive-graph.
     image has text labels; for many images a clear alt text is enough.
     Should it apply only to images with labels, or be a guideline rather
     than a warning?
+
+## Alt-text checks (after the build order)
+
+Checks code does better than Claude, for the alt text step 11 writes:
+
+- Alt text of 125 characters or less, in `validate_item` and possibly as a
+  perseus-linter rule.
+- No dashes, "x axis" rather than "x-axis", and no opening "The diagram
+  shows" or "The diagram uses".
+- A `readability` tool that computes Flesch-Kincaid grade level, Gunning fog
+  and Coleman-Liau scores for a description, when the author asks for them.
 
 ## Open questions
 
