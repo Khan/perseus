@@ -9,3 +9,18 @@
     align-items: flex-start !important;
     gap: var(--wb-sizing-size_160) var(--wb-sizing-size_320) !important;
 }
+
+/* The hint controls as one row, for a bar pinned under the preview. */
+.bar {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: var(--wb-sizing-size_080) var(--wb-sizing-size_160) !important;
+}
+
+.bar > * {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: var(--wb-sizing-size_080) !important;
+}

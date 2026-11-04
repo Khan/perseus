@@ -1,0 +1,196 @@
+/*
+ * The browser pages' layout. On a wide window the page fills the window: a
+ * header, the panes, and the status bar at the bottom, with only the panes
+ * scrolling, so nothing scrolls under the status bar. Below 600px the panes
+ * stack and the page scrolls; the status bar sticks to the bottom of the
+ * window but keeps its own place at the end of the page, so the last of the
+ * content always scrolls clear of it.
+ *
+ * Media queries measure rem from the browser default, not the page root (10px
+ * here), so the breakpoint is in px.
+ *
+ * TODO(LEMS-3686): Remove the !important once Wonder Blocks is in the shared
+ * layer.
+ */
+.app {
+    display: flex;
+    flex-direction: column;
+    block-size: 100dvh;
+    max-inline-size: 160rem;
+    margin-inline: auto;
+}
+
+.header {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: baseline !important;
+    gap: var(--wb-sizing-size_080) var(--wb-sizing-size_240) !important;
+    padding: var(--wb-sizing-size_160) var(--wb-sizing-size_240) !important;
+    border-block-end: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+}
+
+.headerEnd {
+    margin-inline-start: auto !important;
+}
+
+.main {
+    flex: 1;
+    min-block-size: 0;
+    display: flex;
+}
+
+.statusBar {
+    position: sticky;
+    inset-block-end: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--wb-sizing-size_040) var(--wb-sizing-size_240);
+    padding: var(--wb-sizing-size_080) var(--wb-sizing-size_240);
+    border-block-start: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-default);
+    background: var(--wb-semanticColor-core-background-base-subtle);
+}
+
+.connection {
+    margin-inline-start: auto !important;
+}
+
+.lost {
+    color: var(--wb-semanticColor-core-foreground-critical-default);
+}
+
+.connectionIcon {
+    vertical-align: text-bottom;
+    margin-inline-end: var(--wb-sizing-size_040);
+}
+
+/* A pane: a bar pinned over it, what scrolls, and a bar pinned under it. */
+.pane {
+    flex: 1;
+    min-inline-size: 0;
+    min-block-size: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.paneScroll {
+    box-sizing: border-box;
+    background: var(--wb-semanticColor-core-background-base-subtle);
+    flex: 1;
+    min-block-size: 0;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_160);
+    padding: var(--wb-sizing-size_160) var(--wb-sizing-size_240);
+}
+
+/* Like the hint bar under it: the options are fixed, only the question scrolls. */
+.paneTop {
+    padding: var(--wb-sizing-size_040) var(--wb-sizing-size_160);
+    border-block-end: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+    background: var(--wb-semanticColor-core-background-base-subtle);
+}
+
+.paneBar {
+    padding: var(--wb-sizing-size_080) var(--wb-sizing-size_240);
+    border-block-start: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+    background: var(--wb-semanticColor-core-background-base-subtle);
+}
+
+.options {
+    border-radius: var(--wb-border-radius-radius_080);
+}
+
+.optionsSummary {
+    display: flex;
+    align-items: center;
+    gap: var(--wb-sizing-size_080);
+    padding: var(--wb-sizing-size_080);
+    border-radius: var(--wb-border-radius-radius_080);
+    cursor: pointer;
+    list-style: none;
+}
+
+.optionsSummary::-webkit-details-marker {
+    display: none;
+}
+
+.optionsSummary:hover {
+    background: var(--wb-semanticColor-core-background-neutral-subtle);
+}
+
+.optionsSummary:focus-visible {
+    outline: var(--wb-border-width-thick) solid
+        var(--wb-semanticColor-core-border-instructive-default);
+    outline-offset: var(--wb-sizing-size_020);
+}
+
+.caret {
+    transition: transform 0.15s;
+}
+
+.options[open] .caret {
+    transform: rotate(90deg);
+}
+
+.optionsSet {
+    color: var(--wb-semanticColor-core-foreground-neutral-subtle);
+}
+
+.optionsBody {
+    padding: var(--wb-sizing-size_040) var(--wb-sizing-size_080)
+        var(--wb-sizing-size_120);
+}
+
+/*
+ * The question, as a card on the pane. border-box, so its border doesn't
+ * make the pane scroll sideways.
+ */
+.frame {
+    box-sizing: border-box;
+    display: block;
+    flex: none;
+    inline-size: 100%;
+    min-block-size: 10rem;
+    border: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+    border-radius: var(--wb-border-radius-radius_120);
+    background: var(--wb-semanticColor-core-background-base-default);
+    box-shadow: var(--wb-boxShadow-low);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .caret {
+        transition: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .app {
+        block-size: auto;
+        min-block-size: 100dvh;
+    }
+
+    /* The pane keeps its flex: 1 so it takes the width it's given. */
+    .main,
+    .paneScroll {
+        flex: none;
+    }
+
+    .main,
+    .pane,
+    .paneScroll {
+        min-block-size: auto;
+        overflow: visible;
+    }
+
+    .main {
+        flex-direction: column;
+    }
+}

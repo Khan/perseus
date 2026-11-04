@@ -37,13 +37,20 @@ function describeHintsState({
     return revealed;
 }
 
+/**
+ * The hint buttons and what's revealed. As a `bar`, everything is on one row
+ * (wrapping when it must), for a bar pinned under the preview.
+ */
 export function HintControls({
     hintsState,
     revealHint,
+    layout = "section",
 }: {
     hintsState: HintsState | null;
     revealHint: (hintsVisible?: number) => void;
+    layout?: "section" | "bar";
 }) {
+    const bar = layout === "bar";
     const headingId = React.useId();
     const hintsVisible = hintsState?.hintsVisible ?? 0;
     const allRevealed =
@@ -52,9 +59,9 @@ export function HintControls({
         <View
             tag="section"
             aria-labelledby={headingId}
-            className={styles.group}
+            className={bar ? styles.bar : styles.group}
         >
-            <Heading id={headingId} tag="h2" size="medium">
+            <Heading id={headingId} tag="h2" size={bar ? "small" : "medium"}>
                 Hints
             </Heading>
             {hintsState?.total === 0 ? (
@@ -88,7 +95,9 @@ export function HintControls({
                         </Button>
                     </View>
                     {hintsState != null && (
-                        <BodyText>{describeHintsState(hintsState)}</BodyText>
+                        <BodyText size={bar ? "small" : "medium"}>
+                            {describeHintsState(hintsState)}
+                        </BodyText>
                     )}
                 </>
             )}
@@ -128,15 +137,18 @@ function isShowSolutions(value: string): value is ShowSolutions {
 export function OptionControls({
     options,
     onChange,
+    label = "Preview options",
 }: {
     options: OfferedOptions;
     onChange: (options: Partial<OfferedOptions>) => void;
+    /** The checkboxes' label; "Preview options" unless a heading says so. */
+    label?: string;
 }) {
     const toggles = Object.keys(TOGGLES).filter(isToggle);
     return (
         <View className={styles.row}>
             <CheckboxGroup
-                label="Preview options"
+                label={label}
                 groupName="preview-options"
                 selectedValues={toggles.filter((toggle) => options[toggle])}
                 onChange={(selected) =>
@@ -184,6 +196,20 @@ export function OptionControls({
             />
         </View>
     );
+}
+
+/** The options that differ from the defaults, for a collapsed options panel. */
+export function describeOptions(options: OfferedOptions): string {
+    const set = Object.keys(TOGGLES)
+        .filter(isToggle)
+        .filter((toggle) => options[toggle])
+        .map((toggle) => TOGGLES[toggle]);
+    if (options.showSolutions !== "none") {
+        set.push(
+            `Solutions: ${SHOW_SOLUTIONS_TEXT[options.showSolutions].toLowerCase()}`,
+        );
+    }
+    return set.length === 0 ? "Defaults" : set.join(" · ");
 }
 
 export const DEFAULT_OFFERED_OPTIONS: OfferedOptions = {

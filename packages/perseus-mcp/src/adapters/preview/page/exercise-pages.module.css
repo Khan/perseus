@@ -2,22 +2,71 @@
 .columns {
     display: grid !important;
     grid-template-columns: minmax(22rem, 30rem) minmax(0, 1fr);
-    align-items: start;
-    gap: var(--wb-sizing-size_320) !important;
 }
 
-/* Below 800px, the tree goes above the preview. Media queries measure rem
-   from the browser default, not the page root, so this is in px. */
-@media (max-width: 800px) {
+/* The tree, which scrolls, over the copy bar, which stays put. */
+.treePanel {
+    display: flex;
+    flex-direction: column;
+    min-inline-size: 0;
+    min-block-size: 0;
+    border-inline-end: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+}
+
+.previewPanel {
+    display: flex;
+    min-inline-size: 0;
+    min-block-size: 0;
+}
+
+.empty {
+    padding: var(--wb-sizing-size_240) !important;
+}
+
+.copyBar {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: var(--wb-sizing-size_080) var(--wb-sizing-size_160) !important;
+    padding: var(--wb-sizing-size_080) var(--wb-sizing-size_160) !important;
+    border-block-start: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle) !important;
+    background: var(--wb-semanticColor-core-background-base-subtle);
+}
+
+/* Below 600px, the tree goes above the preview, and the page scrolls. */
+@media (max-width: 600px) {
     .columns {
         grid-template-columns: minmax(0, 1fr);
+    }
+
+    .treePanel {
+        border-inline-end: none;
+        border-block-end: var(--wb-border-width-thin) solid
+            var(--wb-semanticColor-core-border-neutral-subtle);
+    }
+
+    .tree {
+        overflow: visible !important;
     }
 }
 
 .tree {
+    flex: 1;
+    min-block-size: 0;
+    overflow: hidden auto;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: var(--wb-sizing-size_240);
+    padding: var(--wb-sizing-size_160) var(--wb-sizing-size_080);
+    scrollbar-width: thin;
+}
+
+/* Scroll rather than squeeze the problem types into the panel. */
+.tree > * {
+    flex-shrink: 0 !important;
 }
 
 .list {
@@ -34,7 +83,7 @@
     min-inline-size: 0;
     flex-direction: column;
     gap: var(--wb-sizing-size_040);
-    padding: var(--wb-sizing-size_080) var(--wb-sizing-size_120);
+    padding: var(--wb-sizing-size_080);
     border: var(--wb-border-width-thin) solid
         var(--wb-semanticColor-core-border-neutral-subtle);
     border-radius: var(--wb-border-radius-radius_080);
@@ -82,7 +131,7 @@
 /* The status and the id: the id goes under the status when both don't fit. */
 .statusRow {
     flex-wrap: wrap;
-    column-gap: var(--wb-sizing-size_160);
+    column-gap: var(--wb-sizing-size_080);
 }
 
 /* The item's id, at the end of the status line. */
@@ -123,11 +172,6 @@
     color: var(--wb-semanticColor-core-foreground-neutral-subtle);
 }
 
-.preview {
-    gap: var(--wb-sizing-size_160) !important;
-    min-inline-size: 0;
-}
-
 .issues {
     margin: 0;
     padding-inline-start: var(--wb-sizing-size_240);
@@ -135,13 +179,6 @@
 
 .link {
     color: var(--wb-semanticColor-core-foreground-instructive-default);
-}
-
-.row {
-    flex-direction: row !important;
-    flex-wrap: wrap !important;
-    align-items: center !important;
-    gap: var(--wb-sizing-size_160) !important;
 }
 
 /* For screen readers only. */

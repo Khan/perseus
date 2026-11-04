@@ -1,20 +1,24 @@
 // A draft's live preview: it follows the draft's event stream and sends each
-// revision to the preview frame, with the preview's option and hint controls.
-// The draft page (shell.tsx) and the exercise page show it.
+// revision to the preview frame. The options fold into one row above the
+// frame, which scrolls in its own pane, and the hint controls sit in a bar
+// pinned under it. The draft page (shell.tsx) and the exercise page show it.
 import {usePreviewController} from "@khanacademy/perseus-preview";
-import {View} from "@khanacademy/wonder-blocks-core";
+import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
+import caretRightIcon from "@phosphor-icons/core/regular/caret-right.svg";
 import * as React from "react";
 
 import {
     DEFAULT_OFFERED_OPTIONS,
+    describeOptions,
     HintControls,
     OptionControls,
 } from "./controls";
-import styles from "./draft-preview.module.css";
+import styles from "./page-layout.module.css";
 import {useRenderMarkers} from "./render-markers";
 
 import type {OfferedOptions} from "./controls";
+import type {Connection} from "./status-bar";
 import type {PerseusItem} from "@khanacademy/perseus-core";
 
 type DraftEvent = {
@@ -24,14 +28,8 @@ type DraftEvent = {
     item: PerseusItem;
 };
 
-type Connection = "connecting" | "open" | "lost";
-
-const CONNECTION_TEXT: Record<Connection, string> = {
-    connecting: "Connecting…",
-    open: "Live: updates as the draft changes.",
-    // EventSource reconnects by itself.
-    lost: "Lost the connection to perseus-mcp. Reconnecting…",
-};
+/** What the page around the preview shows of it, in its status bar. */
+export type DraftStatus = {connection: Connection; revision: number | null};
 
 function useDraftEvents(itemId: string) {
     const [draft, setDraft] = React.useState<DraftEvent | null>(null);
@@ -54,7 +52,16 @@ function useDraftEvents(itemId: string) {
 }
 
 /** Remount it (with a `key`) to show another draft. */
-export function DraftPreview({itemId}: {itemId: string}) {
+export function DraftPreview({
+    itemId,
+    onStatus,
+    above,
+}: {
+    itemId: string;
+    onStatus: (status: DraftStatus) => void;
+    /** Shown above the preview, in its scrolling pane. */
+    above?: React.ReactNode;
+}) {
     const iframeRef = React.useRef<HTMLIFrameElement>(null);
     const {
         sendData,
@@ -74,10 +81,10 @@ export function DraftPreview({itemId}: {itemId: string}) {
         setPreviewOptions(options);
     }, [options, setPreviewOptions]);
     const {draft, connection} = useDraftEvents(itemId);
-    const status =
-        draft == null
-            ? CONNECTION_TEXT[connection]
-            : `Revision ${draft.revision}. ${CONNECTION_TEXT[connection]}`;
+    const revision = draft?.revision ?? null;
+    React.useEffect(() => {
+        onStatus({connection, revision});
+    }, [connection, revision, onStatus]);
 
     React.useEffect(() => {
         if (draft == null) {
@@ -90,22 +97,57 @@ export function DraftPreview({itemId}: {itemId: string}) {
     }, [draft, sendData]);
 
     return (
-        <View className={styles.preview}>
-            <BodyText>{status}</BodyText>
-            <OptionControls
-                options={options}
-                onChange={(changed) =>
-                    setOptions((current) => ({...current, ...changed}))
-                }
-            />
-            <HintControls hintsState={hintsState} revealHint={revealHint} />
-            <iframe
-                ref={iframeRef}
-                src="/preview/frame"
-                title={`Draft ${itemId}`}
-                className={styles.frame}
-                style={{blockSize: height ?? undefined}}
-            />
-        </View>
+        <div className={styles.pane}>
+            <div className={styles.paneTop}>
+                <details className={styles.options}>
+                    <summary className={styles.optionsSummary}>
+                        <PhosphorIcon
+                            icon={caretRightIcon}
+                            className={styles.caret}
+                            aria-hidden={true}
+                        />
+                        <BodyText tag="span" weight="semi">
+                            Preview options
+                        </BodyText>
+                        <BodyText
+                            tag="span"
+                            size="small"
+                            className={styles.optionsSet}
+                        >
+                            {describeOptions(options)}
+                        </BodyText>
+                    </summary>
+                    <div className={styles.optionsBody}>
+                        <OptionControls
+                            label="Modes"
+                            options={options}
+                            onChange={(changed) =>
+                                setOptions((current) => ({
+                                    ...current,
+                                    ...changed,
+                                }))
+                            }
+                        />
+                    </div>
+                </details>
+            </div>
+            <div className={styles.paneScroll}>
+                {above}
+                <iframe
+                    ref={iframeRef}
+                    src="/preview/frame"
+                    title={`Draft ${itemId}`}
+                    className={styles.frame}
+                    style={{blockSize: height ?? undefined}}
+                />
+            </div>
+            <div className={styles.paneBar}>
+                <HintControls
+                    hintsState={hintsState}
+                    revealHint={revealHint}
+                    layout="bar"
+                />
+            </div>
+        </div>
     );
 }

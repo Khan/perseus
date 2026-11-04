@@ -4,8 +4,8 @@ import {BodyText, Heading} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import {createRoot} from "react-dom/client";
 
+import shellStyles from "./exercise-list.module.css";
 import styles from "./exercise-pages.module.css";
-import shellStyles from "./shell.module.css";
 
 // The page setup Wonder Blocks expects: its tokens, fonts and base styles.
 import "@internal/perseus-environment/styles.css";

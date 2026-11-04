@@ -15,7 +15,11 @@ import {createRoot} from "react-dom/client";
 
 import {DraftPreview} from "./draft-preview";
 import styles from "./exercise-pages.module.css";
-import shellStyles from "./shell.module.css";
+import layout from "./page-layout.module.css";
+import {StatusBar, worstConnection} from "./status-bar";
+
+import type {DraftStatus} from "./draft-preview";
+import type {Connection} from "./status-bar";
 
 // The page setup Wonder Blocks expects: its tokens, fonts and base styles.
 import "@internal/perseus-environment/styles.css";
@@ -62,20 +66,21 @@ const CHANGES = {
 
 function useExerciseEvents(exerciseId: string) {
     const [view, setView] = React.useState<ExerciseView | null>(null);
-    const [lost, setLost] = React.useState(false);
+    const [connection, setConnection] =
+        React.useState<Connection>("connecting");
     React.useEffect(() => {
         const events = new EventSource(
             `/exercises/${encodeURIComponent(exerciseId)}/events`,
         );
         events.addEventListener("exercise", (event) => {
             setView(JSON.parse(event.data));
-            setLost(false);
+            setConnection("open");
         });
         // EventSource reconnects by itself.
-        events.addEventListener("error", () => setLost(true));
+        events.addEventListener("error", () => setConnection("lost"));
         return () => events.close();
     }, [exerciseId]);
-    return {view, lost};
+    return {view, connection};
 }
 
 /** The `?item=` of the page's URL, kept in step with Back and Forward. */
@@ -108,7 +113,8 @@ function countIssues(issues: Issue[] = []): string | null {
     return parts.length === 0 ? null : parts.join(", ");
 }
 
-function Summary({view}: {view: ExerciseView}) {
+/** The exercise's counts, for the status bar. */
+function summarize(view: ExerciseView): string {
     const items = view.problemTypes.flatMap((type) => type.items);
     const count = (change: ItemView["change"]) =>
         items.filter((item) => item.change === change).length;
@@ -118,19 +124,15 @@ function Summary({view}: {view: ExerciseView}) {
     const missing = items.filter((item) => item.missing).length;
     const toReview = count("new") + count("edited");
     return (
-        <BodyText>
-            {`${items.length} ${items.length === 1 ? "item" : "items"}: ` +
-                `${count("new")} new, ${count("edited")} edited, ` +
-                `${count("unchanged")} unchanged.` +
-                (withErrors > 0
-                    ? ` ${withErrors} with validation errors.`
-                    : "") +
-                (missing > 0 ? ` ${missing} missing.` : "") +
-                (toReview > REVIEW_LIMIT
-                    ? ` The exercise editor's import reviews at most ` +
-                      `${REVIEW_LIMIT} new or edited items at a time.`
-                    : "")}
-        </BodyText>
+        `${items.length} ${items.length === 1 ? "item" : "items"}: ` +
+        `${count("new")} new, ${count("edited")} edited, ` +
+        `${count("unchanged")} unchanged.` +
+        (withErrors > 0 ? ` ${withErrors} with validation errors.` : "") +
+        (missing > 0 ? ` ${missing} missing.` : "") +
+        (toReview > REVIEW_LIMIT
+            ? ` The exercise editor's import reviews at most ` +
+              `${REVIEW_LIMIT} new or edited items at a time.`
+            : "")
     );
 }
 
@@ -163,7 +165,7 @@ async function copyBulkJson(exerciseId: string): Promise<void> {
 function CopyButton({exerciseId}: {exerciseId: string}) {
     const [message, setMessage] = React.useState("");
     return (
-        <View className={styles.row}>
+        <View className={styles.copyBar}>
             <Button
                 kind="secondary"
                 size="small"
@@ -342,7 +344,10 @@ function IssueList({issues}: {issues: Issue[]}) {
 }
 
 function ExercisePage({exerciseId}: {exerciseId: string}) {
-    const {view, lost} = useExerciseEvents(exerciseId);
+    const {view, connection} = useExerciseEvents(exerciseId);
+    const [draftStatus, setDraftStatus] = React.useState<DraftStatus | null>(
+        null,
+    );
     const [selected, select] = useSelectedItem();
     const items = view?.problemTypes.flatMap((type) => type.items) ?? [];
     // With no item named (or one that's gone), show the first that has a
@@ -352,76 +357,72 @@ function ExercisePage({exerciseId}: {exerciseId: string}) {
         items.find((item) => !item.missing);
 
     return (
-        <View className={`${shellStyles.root} ${shellStyles.page}`}>
-            <View tag="header" className={shellStyles.header}>
+        <div className={layout.app}>
+            <View tag="header" className={layout.header}>
                 <BodyText size="small">
                     <a className={styles.link} href="/exercises">
                         All exercises
                     </a>
                 </BodyText>
-                <Heading tag="h1" size="xlarge">
+                <Heading tag="h1" size="large">
                     {view?.name ?? "Exercise"}
                 </Heading>
-                {view?.notes != null && <BodyText>{view.notes}</BodyText>}
-                {view == null ? (
-                    <BodyText>
-                        {lost
-                            ? "Couldn't connect to perseus-mcp. Retrying…"
-                            : "Connecting…"}
+                {view?.editorUrl != null && (
+                    <BodyText size="small" className={layout.headerEnd}>
+                        <a
+                            className={styles.link}
+                            href={view.editorUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Open in the exercise editor
+                            <span className={styles.hidden}>
+                                {" (opens in a new tab)"}
+                            </span>
+                        </a>
                     </BodyText>
-                ) : (
-                    <>
-                        <Summary view={view} />
-                        {lost && (
-                            <BodyText>
-                                Lost the connection to perseus-mcp.
-                                Reconnecting…
-                            </BodyText>
-                        )}
-                        <View className={styles.row}>
-                            {view.editorUrl != null && (
-                                <BodyText size="small">
-                                    <a
-                                        className={styles.link}
-                                        href={view.editorUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        Open in the exercise editor
-                                        <span className={styles.hidden}>
-                                            {" (opens in a new tab)"}
-                                        </span>
-                                    </a>
-                                </BodyText>
-                            )}
-                            <CopyButton exerciseId={exerciseId} />
-                        </View>
-                    </>
                 )}
             </View>
-            {view != null && (
-                <View className={styles.columns}>
-                    <Tree
-                        view={view}
-                        selected={current?.itemId ?? null}
-                        onSelect={select}
-                    />
-                    <View tag="main" className={styles.preview}>
-                        {current == null ? (
-                            <BodyText>This exercise has no items.</BodyText>
-                        ) : (
-                            <>
-                                <IssueList issues={current.issues ?? []} />
+            <div className={`${layout.main} ${styles.columns}`}>
+                {view != null && (
+                    <>
+                        <div className={styles.treePanel}>
+                            <Tree
+                                view={view}
+                                selected={current?.itemId ?? null}
+                                onSelect={select}
+                            />
+                            <CopyButton exerciseId={exerciseId} />
+                        </div>
+                        <main className={styles.previewPanel}>
+                            {current == null ? (
+                                <BodyText className={styles.empty}>
+                                    This exercise has no items.
+                                </BodyText>
+                            ) : (
                                 <DraftPreview
                                     key={current.itemId}
                                     itemId={current.itemId}
+                                    onStatus={setDraftStatus}
+                                    above={
+                                        <IssueList
+                                            issues={current.issues ?? []}
+                                        />
+                                    }
                                 />
-                            </>
-                        )}
-                    </View>
-                </View>
-            )}
-        </View>
+                            )}
+                        </main>
+                    </>
+                )}
+            </div>
+            <StatusBar
+                summary={view == null ? "" : summarize(view)}
+                connection={worstConnection(
+                    connection,
+                    ...(draftStatus != null ? [draftStatus.connection] : []),
+                )}
+            />
+        </div>
     );
 }
 
