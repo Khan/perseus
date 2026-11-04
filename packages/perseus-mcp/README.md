@@ -23,7 +23,7 @@ Options (`node packages/perseus-mcp/bin/perseus-mcp.mjs --help`):
 | `--http` / `--stdio` | `--http` | How MCP is served. |
 | `--port` | `4567` | HTTP port. |
 | `--host` | `127.0.0.1` | HTTP host. |
-| `--data-dir` | `$PERSEUS_MCP_DATA_DIR`, else `.perseus-mcp/` at the repo root | Where drafts are saved. |
+| `--data-dir` | `$PERSEUS_MCP_DATA_DIR`, else the user data folder (`~/Library/Application Support/perseus-mcp` on macOS, `%LOCALAPPDATA%\perseus-mcp` on Windows, `$XDG_DATA_HOME/perseus-mcp` elsewhere) | Where drafts are saved, whether the server runs from the repo or a bundle. Drafts an earlier version kept in `.perseus-mcp/` at the repo root are copied into the default folder once. |
 
 ## Connecting an agent
 

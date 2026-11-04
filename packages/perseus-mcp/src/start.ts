@@ -12,6 +12,7 @@ import {parseArgs} from "node:util";
 import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
 import {serveStdio} from "@modelcontextprotocol/server/stdio";
 
+import {copyPreviousData} from "./adapters/fs/copy-previous-data";
 import {
     DataDirNotWritableError,
     FileDraftRepository,
@@ -139,6 +140,21 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
     CoreWidgetRegistry.registerCoreWidgets();
 
     const dataDir = values["data-dir"] ?? defaultDataDir;
+    // Only into the default folder: a folder chosen on purpose gets nothing
+    // it didn't ask for.
+    if (
+        paths.previousDataDir != null &&
+        values["data-dir"] == null &&
+        process.env.PERSEUS_MCP_DATA_DIR == null
+    ) {
+        const copied = copyPreviousData(paths.previousDataDir, dataDir);
+        if (copied != null) {
+            log(
+                `perseus-mcp: copied ${copied} drafts from ` +
+                    `${paths.previousDataDir}, where earlier versions kept them`,
+            );
+        }
+    }
     const fileRepository = new FileDraftRepository(dataDir);
     try {
         fileRepository.init();
@@ -258,7 +274,13 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
         }
     }
     const mcpServer = () =>
-        createMcpServer({...useCases, previewApp, serverInfo, errors});
+        createMcpServer({
+            ...useCases,
+            previewApp,
+            serverInfo,
+            errors,
+            dataDir: path.resolve(dataDir),
+        });
 
     // Port 0 asks the OS for a free port.
     const port = Number(values.port ?? (values.stdio ? 0 : 4567));

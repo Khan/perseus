@@ -93,6 +93,7 @@ from outside the repo.
 | Number the exercise tree as the exercise editor does | Problem types are numbered ("1. Expression", items with none under "Unassigned", as the editor's import names them) and items sub-numbered ("1.1") with their `contentId`, as the exercise editor shows them, in two lines a cell: the number beside the question's first non-blank line, as written, clipped to the cell by CSS (`summary` is now that line, for `get_exercise` too); then the status, with the `contentId` (or "Draft <itemId>" for a new item) dimmed at the end of the line. The status has a Phosphor icon beside its word (new, edited, unchanged; a warning icon for issues and missing drafts). Only the icons take the status colours: the warning colour is too light for text (3.3:1 at its strongest) but enough for an icon. Adds `@khanacademy/wonder-blocks-icon` and `@phosphor-icons/core`. Checked in Chrome. |
 | Give the browser pages a fixed status bar and pinned controls | Both the exercise page and the draft page fill the window on a wide screen: a one-line header (the exercise page's with "Open in the exercise editor" at its end), the panes, and a status bar at the bottom with the counts (or the draft and its revision) on the left and the connection on the right, with a Phosphor icon. Only the tree and the question scroll: the tree over a bar with "Copy for bulk import", and the question, a card on a tinted pane, between a bar with the preview options, which fold into a `<details>` row that says which are set (`describeOptions`), and a bar with the hint controls (`HintControls` gains a one-row `bar` layout). The question's pane scrolls sideways only when the question is wider than it (the frame is `border-box`). The preview's "Revision n. Live" line goes: the cell shows the revision and the status bar the connection, the worst of the exercise's and the draft's streams. Below 600px the panes stack and the page scrolls, with the status bar sticky at the bottom but keeping its own place, so the end of the content scrolls clear of it. The connection icons are base64 data URLs in the script (`?raw`), since the lost connection's icon file would be fetched only once the server is gone. Checked in Chrome: both pages at 1200, 700 (still two columns) and 420px, the tree and preview scrolling within their panes, and the lost connection. |
 | Add create_exercise | Grouping drafts into an exercise took agents five failed calls and a duplicated draft: `add_to_exercise` needs an exercise, and `import_exercise` refuses an empty file. `create_exercise` makes one, empty or holding existing drafts (the same drafts, not copies) under one problem type, refusing a draft that doesn't exist. Explicit, not created by `add_to_exercise` on an unknown id, so a mistyped id fails instead of starting a stray exercise. Checked over MCP. |
+| Keep drafts in one folder however the server starts | From the repo, drafts were saved in `.perseus-mcp/` at its root; from the bundle, in the user data folder, so switching between them hid each set from the other (an agent couldn't say where the day before's drafts went). Both now use the user data folder. On the first start from the repo, `copyPreviousData` copies `.perseus-mcp/` into it, keeping any file already there and leaving the old folder as it was, then leaves a note so later starts don't copy again; only into the default folder, not one chosen with `--data-dir` or `PERSEUS_MCP_DATA_DIR`. A draft that isn't found now names the folder searched. |
 
 Remaining, in order:
 
@@ -120,7 +121,8 @@ migration steps, and they're updated separately.
   root, or `node packages/perseus-mcp/bin/perseus-mcp.mjs` with `--stdio`,
   `--port`, `--data-dir`. HTTP always runs: on port 4567 with `--http`, and
   with `--stdio` on a free port the OS picks (so several sessions can each
-  run one), logged to stderr. Drafts are in `.perseus-mcp/` at the repo root.
+  run one), logged to stderr. Drafts are in the user data folder
+  (`~/Library/Application Support/perseus-mcp` on macOS), as for the bundle.
 - **Stdio sessions end when stdin closes:** `main.ts` exits then, because the
   HTTP server would otherwise keep the process alive.
 - **The launcher** registers swc itself
@@ -231,7 +233,7 @@ each change to every open preview, hosted or embedded.
 ```mermaid
 flowchart LR
     agent[Authoring agent] -- "MCP: stdio or HTTP /mcp" --> server[perseus-mcp]
-    server -- "one JSON file per draft" --> disk[(.perseus-mcp/)]
+    server -- "one JSON file per draft" --> disk[(user data folder)]
     server -- SSE --> hosted[Hosted preview page]
     server -- "MCP Apps ui:// page" --> embedded[Embedded preview in the chat]
 ```
@@ -292,8 +294,8 @@ them.
 
 Drafts and the disk:
 
-- Drafts live in a data directory, by default `.perseus-mcp/` at the repo
-  root (gitignored; each worktree has its own), overridable with
+- Drafts live in a data directory, by default the user data folder (until
+  then `.perseus-mcp/` at the repo root, copied from once), overridable with
   `PERSEUS_MCP_DATA_DIR` or `--data-dir` and created on start. The default is
   chosen in the composition root, not the draft store. If the directory
   isn't writable, startup fails loudly: the repository throws
@@ -635,8 +637,8 @@ Steps 1–3 need no Perseus changes, so building can start there.
       packaged entry point that uses it) when installed:
       `~/Library/Application Support/perseus-mcp` on macOS,
       `$XDG_DATA_HOME/perseus-mcp` (default `~/.local/share/perseus-mcp`) on
-      Linux, `%LOCALAPPDATA%\perseus-mcp` on Windows. Runs from the repo keep
-      `.perseus-mcp/` at its root.
+      Linux, `%LOCALAPPDATA%\perseus-mcp` on Windows. Runs from the repo use it
+      too (they used `.perseus-mcp/` at its root until then).
    3. **Prebuilt pages** (done): `build:pages` builds the shell, the frame
       and the MCP Apps page into `dist/pages`; `--pages <dir>` serves them
       without Vite. The pages keep Vite's default browser targets:

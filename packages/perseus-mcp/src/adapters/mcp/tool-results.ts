@@ -28,12 +28,14 @@ export function errorResult(
 export async function runTool(
     handler: () => CallToolResult | Promise<CallToolResult>,
     onError?: (message: string) => void,
+    /** Where drafts are saved, named when a draft isn't found. */
+    dataDir?: string,
 ): Promise<CallToolResult> {
     let result: CallToolResult;
     try {
         result = await handler();
     } catch (e) {
-        result = errorResult(describeError(e));
+        result = errorResult(describeError(e, dataDir));
     }
     if (result.isError === true && onError != null) {
         const first = result.content[0];
@@ -42,11 +44,13 @@ export async function runTool(
     return result;
 }
 
-function describeError(e: unknown): string {
+function describeError(e: unknown, dataDir?: string): string {
     if (e instanceof DraftNotFoundError) {
         return (
-            `${e.message} Use create_item or open_item to start a draft, or ` +
-            `list_items to see the saved ones.`
+            `${e.message}` +
+            (dataDir != null ? ` Drafts are saved in ${dataDir}.` : "") +
+            ` Use create_item or open_item to start a draft, or list_items ` +
+            `to see the saved ones.`
         );
     }
     if (e instanceof ExerciseNotFoundError) {

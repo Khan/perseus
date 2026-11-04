@@ -10,6 +10,11 @@ export type RuntimePaths = {
     perseusCoreTypesDir: string;
     /** Where drafts are saved unless the command line says otherwise. */
     defaultDataDir: string;
+    /**
+     * Where drafts were saved before they moved to `defaultDataDir`, to copy
+     * them from once.
+     */
+    previousDataDir?: string;
 };
 
 /** Running from this monorepo's sources, as `bin/perseus-mcp.mjs` does. */
@@ -17,9 +22,16 @@ export function checkoutPaths(): RuntimePaths {
     const repoRoot = path.resolve(import.meta.dirname, "../../..");
     return {
         perseusCoreTypesDir: path.join(repoRoot, "packages/perseus-core/src"),
-        // Drafts are local work, so they live in the checkout (each worktree
-        // gets its own); `.perseus-mcp/` is gitignored.
-        defaultDataDir: path.join(repoRoot, ".perseus-mcp"),
+        // The same folder the bundle uses, so drafts don't depend on how the
+        // server was started.
+        defaultDataDir: userDataDir(
+            process.platform,
+            process.env,
+            os.homedir(),
+        ),
+        // Drafts were kept in the checkout (`.perseus-mcp/`, gitignored)
+        // until then.
+        previousDataDir: path.join(repoRoot, ".perseus-mcp"),
     };
 }
 

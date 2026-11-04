@@ -113,6 +113,7 @@ export function createMcpServer({
     exercises,
     serverInfo,
     errors,
+    dataDir,
 }: {
     drafts: DraftUseCases;
     exercises: ExerciseUseCases;
@@ -120,6 +121,8 @@ export function createMcpServer({
     serverInfo?: () => ServerInfo;
     /** Where tool errors are recorded, for get_server_info. */
     errors?: ErrorLog;
+    /** Where drafts are saved, named when a draft isn't found. */
+    dataDir?: string;
     widgets: WidgetUseCases;
     scoring: ScoringUseCases;
     review: ReviewUseCases;
@@ -136,7 +139,11 @@ export function createMcpServer({
         tool: string,
         handler: () => CallToolResult | Promise<CallToolResult>,
     ): Promise<CallToolResult> {
-        return runTool(handler, (message) => errors?.record(tool, message));
+        return runTool(
+            handler,
+            (message) => errors?.record(tool, message),
+            dataDir,
+        );
     }
 
     if (serverInfo != null) {
