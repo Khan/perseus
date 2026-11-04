@@ -1,10 +1,11 @@
 import {
     generateSorterOptions,
     generateSorterWidget,
+    generateTestPerseusItem,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
 
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {PerseusItem, PerseusRenderer} from "@khanacademy/perseus-core";
 
 export const basicQuestion: PerseusRenderer = {
     content: "[[\u2603 sorter 1]]",
@@ -68,3 +69,29 @@ export const twoCardVerticalQuestion: PerseusRenderer =
             }),
         },
     });
+
+export const longTextWithTeX: PerseusItem = generateTestPerseusItem({
+    question: generateTestPerseusRenderer({
+        content: "[[☃ sorter 1]]",
+        widgets: {
+            "sorter 1": generateSorterWidget({
+                options: generateSorterOptions({
+                    correct: [
+                        "Locate points $A$ and $B$ on the baseline, making " +
+                            "sure they are exactly $3\\text{ cm}$ apart.",
+                        "Place a protractor at vertex $A$ and draw a line " +
+                            "extending upwards at an angle of $70^\\circ$.",
+                        "Construct a parallel baseline exactly " +
+                            "$4\\text{ cm}$ vertically above the original " +
+                            "baseline.",
+                        "Mark intersection points $D$ and $C$ where the " +
+                            "slanted lines cross the upper parallel " +
+                            "baseline to complete the figure.",
+                    ],
+                    layout: "vertical",
+                    padding: true,
+                }),
+            }),
+        },
+    }),
+});
