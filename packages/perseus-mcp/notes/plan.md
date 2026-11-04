@@ -87,6 +87,7 @@ from outside the repo.
 | Add get_server_info for diagnosing testers' problems | Build order step 8. `get_server_info` reports perseus-mcp's version and commit (from the repo, read from `package.json` and git at startup; in the bundle, written in by `build:bundle` as `__PERSEUS_MCP_BUILD__`), whether it runs from the bundle or the repo, the transport, Node, the OS and processor, the data folder with its draft, skipped-draft and collection counts, the preview's URL and whether its pages are prebuilt or compiled by Vite, and the last 20 errors. Errors are kept in memory (`createErrorLog`): every tool's error results, under the tool's name (each handler runs through `run(tool, …)`), and startup problems (skipped drafts, a failed listen), each cut to 300 characters so none carries an item. The install notes gain "If something goes wrong": ask Claude for the server info when it runs, or paste a one-line command (Terminal on macOS, PowerShell on Windows) that copies the folder, Node's version and signature, a test start of the server, the config entry and Claude Desktop's log to the clipboard when it doesn't. Checked from the unpacked macOS bundle and from the repo. The Windows command and its log path (`%APPDATA%\Claude\logs`) haven't been run on Windows. |
 | Hand a collection to the exercise editor's bulk import by paste | That import takes only a paste, and reviews at most 50 new or edited items at a time. `export_collection` also copies the JSON to the clipboard (a `Clipboard` port: `pbcopy` on macOS, PowerShell's `Set-Clipboard` on Windows, since `clip` garbles the UTF-8 every item's "☃" needs, `xclip` on Linux) unless `copy: false`, and says whether it did. It counts each item as new (no `contentId`), edited (its item differs from the revision it was imported at, which collections now record as `importedRevision`) or unchanged, warns when more than 50 need review, and with `onlyChanged` exports only the new and edited ones. The collection tools move to `adapters/mcp/collection-tools.ts`, keeping `server.ts` under the 1000-line limit. The clipboard couldn't be checked here (the sandbox blocks it), nor the paste into the exercise editor. |
 | Serve perseus-mcp over HTTPS on a public hostname | `--tls-cert` and `--tls-key` (or `PERSEUS_MCP_TLS_CERT` and `PERSEUS_MCP_TLS_KEY`) serve HTTPS with a certificate, such as a development one made with mkcert, and `--public-host` (or `PERSEUS_MCP_PUBLIC_HOST`) names the host preview links use, such as a development domain that resolves to this machine and the certificate covers. The public host joins the allowed `Host` names; Vite's own host check is off, since ours runs first. Also notes the auth wording for "Toward production". Checked: over HTTPS on such a domain the preview page is a secure context, follows its draft and renders; plain HTTP and a foreign `Host` are refused. |
+| Fall back to a free port when a stdio server's is taken | Claude Desktop starts each stdio server twice, so with a fixed `--port` the second start couldn't listen and ran without previews. Over stdio, a port that's taken now falls back to a free one, logged. Checked with two stdio servers on one port: the second took another and served its preview page. Plan: in-chat framing is out for local connectors. Tried over HTTPS on a public host, with that origin (port included) in `frameDomains`: Claude Desktop reads it but frames only the sites Claude allows that connector, and a local connector has none (its `frame-src` is `blob: data:`); for a connector in the Claude directory, the site is added to its listing. The in-chat page keeps rendering the item itself. |
 
 Remaining, in order:
 
@@ -98,12 +99,7 @@ Remaining, in order:
    Not planned: fewer Lato weights (which ones Perseus uses would need
    checking), or dropping the speech rule engine, which reads math to
    screen readers.
-2. Frame the live preview in the chat. Claude Desktop refused to frame
-   `http://localhost` (MCP Apps' `frameDomains` takes only https origins
-   with a dotted hostname); over HTTPS on a public host, the MCP Apps page
-   could frame the browser preview instead of bundling Perseus (5.48 MB).
-   To check first: whether Claude Desktop accepts an origin with a port.
-3. Build order steps 10 to 16.
+2. Build order steps 10 to 16.
 
 Consuming applications aren't in this repo: the changesets carry the
 migration steps, and they're updated separately.
@@ -473,8 +469,12 @@ that the chat app shows inside the conversation.
 - It declares the outside hosts it loads from in its CSP
   (`resourceDomains`): `cdn.kastatic.org` (MathJax fonts) and the Perseus
   image hosts.
-- A hosted deployment (build order step 16) would give the preview an https
-  origin hosts accept, so the page could frame it instead.
+- It can't frame the browser preview from a local connector: Claude
+  Desktop frames only the sites Claude allows a connector, and a local one
+  has none, whatever its `frameDomains` (tried over HTTPS on a public
+  host). A hosted connector in the Claude directory (build order step 16)
+  could have its site added to its listing, so the page could frame it
+  instead.
 - Confirmed host: Claude Desktop.
 
 ## Preview messaging (Perseus hook changes)
@@ -743,7 +743,8 @@ Steps 1–3 need no Perseus changes, so building can start there.
     `DraftRepository` adapter), live updates across instances (one
     instance, a pub/sub layer, or polling), OAuth for remote MCP connectors,
     a decision on storing unpublished drafts, and the prebuilt bundles from
-    step 6. It would also let the embedded page frame the hosted preview.
+    step 6. Listed in the Claude directory with its site, it would also let
+    the embedded page frame the hosted preview.
 
 ## Graphie images
 

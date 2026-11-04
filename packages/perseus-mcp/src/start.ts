@@ -226,8 +226,6 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
                     : "compiled by Vite",
             errors: errors.recent(),
         });
-    const mcpServer = () =>
-        createMcpServer({...useCases, previewApp, serverInfo, errors});
 
     const host = values.host;
     const publicHost =
@@ -252,6 +250,9 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
             process.exit(1);
         }
     }
+    const mcpServer = () =>
+        createMcpServer({...useCases, previewApp, serverInfo, errors});
+
     // Port 0 asks the OS for a free port.
     const port = Number(values.port ?? (values.stdio ? 0 : 4567));
     const httpServer = await createHttpServer({
@@ -261,8 +262,27 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
         allowedHostnames: allowedHostnames(host, publicHost),
         tls,
     });
+    /**
+     * Listens on `port`. Over stdio, a port that's taken falls back to a
+     * free one: hosts may start the server more than once at a time (Claude
+     * Desktop starts it twice), and only the first gets a fixed port.
+     */
+    async function listen(): Promise<string> {
+        try {
+            return await httpServer.listen({port, host});
+        } catch (e) {
+            const inUse =
+                e instanceof Error && "code" in e && e.code === "EADDRINUSE";
+            if (!values.stdio || port === 0 || !inUse) {
+                throw e;
+            }
+            log(`perseus-mcp: port ${port} is in use; using a free one`);
+            return httpServer.listen({port: 0, host});
+        }
+    }
+
     try {
-        const address = new URL(await httpServer.listen({port, host}));
+        const address = new URL(await listen());
         const linkHost =
             publicHost ?? (host === "127.0.0.1" ? "localhost" : host);
         baseUrl = `${tls != null ? "https" : "http"}://${linkHost}:${address.port}`;
