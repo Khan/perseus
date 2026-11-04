@@ -5,13 +5,27 @@ import {
     getAutoLabelPlacements,
 } from "./locked-figures/label-placement-utils";
 import LockedLabel from "./locked-figures/locked-label";
+import {strokeWeights} from "./locked-figures/utils";
 import useGraphConfig from "./reducer/use-graph-config";
 
 import type {
     LabelPlacementItem,
     LabelSize,
+    SegmentObstacle,
 } from "./locked-figures/label-placement-utils";
-import type {LockedFigure} from "@khanacademy/perseus-core";
+import type {
+    LockedFigure,
+    LockedLabelType,
+} from "@khanacademy/perseus-core";
+
+/** Keys joining a label to its measurement and its computed placement. */
+const pointLabelKey = (figureIndex: number, labelIndex: number) =>
+    `${figureIndex}-label-${labelIndex}`;
+const endpointLabelKey = (
+    figureIndex: number,
+    pointIndex: number,
+    labelIndex: number,
+) => `${figureIndex}-point-${pointIndex}-label-${labelIndex}`;
 
 /**
  * How long a wait for the labels to be measured has to exceed before they fade
@@ -92,31 +106,81 @@ export default function GraphLockedLabelsLayer(props: Props) {
         return handler;
     };
 
-    // Only points carry a coordinate to anchor a label to. Labels on the other
-    // figure types keep their authored positions for now.
+    // Standalone points and the endpoints of lines both carry a coordinate to
+    // anchor a label to. Labels on the other figure types — and a line's own
+    // labels — keep their authored positions for now.
     const items: LabelPlacementItem[] = React.useMemo(() => {
         const collected: LabelPlacementItem[] = [];
+        const sized = (key: string) => labelSizes.get(key) ?? assumedLabelSize;
 
         lockedFigures.forEach((figure, i) => {
-            if (figure.type !== "point") {
-                return;
-            }
-            figure.labels.forEach((label, j) => {
-                const key = `${i}-label-${j}`;
-                collected.push({
-                    key,
-                    anchorCoord: figure.coord,
-                    size: labelSizes.get(key) ?? assumedLabelSize,
+            if (figure.type === "point") {
+                figure.labels.forEach((label, j) => {
+                    const key = pointLabelKey(i, j);
+                    collected.push({
+                        key,
+                        anchorCoord: figure.coord,
+                        size: sized(key),
+                    });
                 });
-            });
+            }
+
+            if (figure.type === "line") {
+                figure.points.forEach((point, pointIndex) => {
+                    const isVisible =
+                        pointIndex === 0 ? figure.showPoint1 : figure.showPoint2;
+
+                    point.labels.forEach((label, k) => {
+                        const key = endpointLabelKey(i, pointIndex, k);
+                        collected.push({
+                            key,
+                            anchorCoord: point.coord,
+                            size: sized(key),
+                            pointIsVisible: isVisible,
+                        });
+                    });
+                });
+            }
         });
 
         return collected;
     }, [lockedFigures, labelSizes]);
 
+    // Every drawn line repels labels, including those belonging to other
+    // figures — a label lying across a line hides what it was drawn to show.
+    const segments: SegmentObstacle[] = React.useMemo(
+        () =>
+            lockedFigures.flatMap((figure) =>
+                figure.type === "line"
+                    ? [
+                          {
+                              from: figure.points[0].coord,
+                              to: figure.points[1].coord,
+                              strokeWidth: strokeWeights[figure.weight],
+                          },
+                      ]
+                    : [],
+            ),
+        [lockedFigures],
+    );
+
     const placements = React.useMemo(
-        () => getAutoLabelPlacements(items, {range, width, height, markings, showAxisTicks, tickStep}),
-        [items, range, width, height, markings, showAxisTicks, tickStep],
+        () =>
+            getAutoLabelPlacements(
+                items,
+                {range, width, height, markings, showAxisTicks, tickStep},
+                segments,
+            ),
+        [
+            items,
+            segments,
+            range,
+            width,
+            height,
+            markings,
+            showAxisTicks,
+            tickStep,
+        ],
     );
 
     // Hold the labels back until they've all been measured, so none is seen
@@ -150,6 +214,20 @@ export default function GraphLockedLabelsLayer(props: Props) {
         return () => clearTimeout(timeout);
     }, [itemSignature, items, labelSizes]);
 
+    const renderLabel = (label: LockedLabelType, key: string) => {
+        const placement = placements.get(key);
+        return (
+            <LockedLabel
+                key={key}
+                {...label}
+                placement={placement}
+                hidden={!!placement && !revealed}
+                fading={fadeSignature === itemSignature}
+                onMeasure={placement ? getMeasureHandler(key) : undefined}
+            />
+        );
+    };
+
     return lockedFigures.map((figure, i) => {
         if (figure.type === "label") {
             return <LockedLabel key={`label-${i}`} {...figure} />;
@@ -157,42 +235,21 @@ export default function GraphLockedLabelsLayer(props: Props) {
 
         return (
             <React.Fragment key={i}>
-                {figure.labels.map((label, j) => {
-                    const key = `${i}-label-${j}`;
-                    const placement = placements.get(key);
-                    return (
-                        <LockedLabel
-                            key={key}
-                            {...label}
-                            placement={placement}
-                            hidden={!!placement && !revealed}
-                            fading={fadeSignature === itemSignature}
-                            onMeasure={
-                                placement ? getMeasureHandler(key) : undefined
-                            }
-                        />
-                    );
-                })}
-
-                {/* Account for the labels within the lines' defining points */}
-                {figure.type === "line" && (
-                    <>
-                        {/* Point 1 labels */}
-                        {figure.points[0].labels.map((label, k) => (
-                            <LockedLabel
-                                key={`locked-figure-${i}-point-1-label-${k}`}
-                                {...label}
-                            />
-                        ))}
-                        {/* Point 2 labels */}
-                        {figure.points[1].labels.map((label, k) => (
-                            <LockedLabel
-                                key={`locked-figure-${i}-point-2-label-${k}`}
-                                {...label}
-                            />
-                        ))}
-                    </>
+                {figure.labels.map((label, j) =>
+                    renderLabel(label, pointLabelKey(i, j)),
                 )}
+
+                {/* A line's endpoints are points in their own right, so their
+                    labels are placed like any other point's. */}
+                {figure.type === "line" &&
+                    figure.points.map((point, pointIndex) =>
+                        point.labels.map((label, k) =>
+                            renderLabel(
+                                label,
+                                endpointLabelKey(i, pointIndex, k),
+                            ),
+                        ),
+                    )}
             </React.Fragment>
         );
     });

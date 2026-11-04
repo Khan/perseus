@@ -106,6 +106,115 @@ function rectToCircleGap(
     return Math.hypot(dx, dy) - radius;
 }
 
+/** Shortest distance from a point to a line segment. */
+function pointToSegmentDistance(
+    point: [number, number],
+    a: [number, number],
+    b: [number, number],
+): number {
+    const vx = b[X] - a[X];
+    const vy = b[Y] - a[Y];
+    const lengthSquared = vx * vx + vy * vy;
+
+    // How far along the segment the nearest point lies, clamped to its ends so
+    // a degenerate (zero-length) segment just measures to its single point.
+    const t =
+        lengthSquared === 0
+            ? 0
+            : Math.max(
+                  0,
+                  Math.min(
+                      1,
+                      ((point[X] - a[X]) * vx + (point[Y] - a[Y]) * vy) /
+                          lengthSquared,
+                  ),
+              );
+
+    return Math.hypot(point[X] - (a[X] + t * vx), point[Y] - (a[Y] + t * vy));
+}
+
+/** Whether two line segments cross. */
+function segmentsIntersect(
+    a: [number, number],
+    b: [number, number],
+    c: [number, number],
+    d: [number, number],
+): boolean {
+    const cross = (
+        o: [number, number],
+        p: [number, number],
+        q: [number, number],
+    ) => (p[X] - o[X]) * (q[Y] - o[Y]) - (p[Y] - o[Y]) * (q[X] - o[X]);
+
+    const d1 = cross(c, d, a);
+    const d2 = cross(c, d, b);
+    const d3 = cross(a, b, c);
+    const d4 = cross(a, b, d);
+
+    // Each segment must straddle the other's infinite line.
+    return (
+        ((d1 > 0 && d2 < 0) || (d1 < 0 && d2 > 0)) &&
+        ((d3 > 0 && d4 < 0) || (d3 < 0 && d4 > 0))
+    );
+}
+
+/**
+ * Shortest distance from a line segment to a rectangle; zero when they touch.
+ *
+ * A line is the only obstacle here that isn't axis-aligned, so its bounding
+ * box is a poor stand-in: for a 45-degree segment the box reaches far past the
+ * stroke, and a label comfortably clear of the line would read as overlapping
+ * it. This measures the segment itself.
+ */
+function segmentToRectDistance(
+    a: [number, number],
+    b: [number, number],
+    rect: Rect,
+): number {
+    const isInside = (p: [number, number]) =>
+        p[X] >= rect.left &&
+        p[X] <= rect.right &&
+        p[Y] >= rect.top &&
+        p[Y] <= rect.bottom;
+
+    if (isInside(a) || isInside(b)) {
+        return 0;
+    }
+
+    const corners: Array<[number, number]> = [
+        [rect.left, rect.top],
+        [rect.right, rect.top],
+        [rect.right, rect.bottom],
+        [rect.left, rect.bottom],
+    ];
+    const edges = corners.map(
+        (corner, i): [[number, number], [number, number]] => [
+            corner,
+            corners[(i + 1) % corners.length],
+        ],
+    );
+
+    for (const [c, d] of edges) {
+        if (segmentsIntersect(a, b, c, d)) {
+            return 0;
+        }
+    }
+
+    // Disjoint, so the closest approach is between an endpoint of one and the
+    // body of the other.
+    let shortest = Infinity;
+    for (const [c, d] of edges) {
+        shortest = Math.min(
+            shortest,
+            pointToSegmentDistance(c, a, b),
+            pointToSegmentDistance(d, a, b),
+            pointToSegmentDistance(a, c, d),
+            pointToSegmentDistance(b, c, d),
+        );
+    }
+    return shortest;
+}
+
 /** Which horizontal edge of the label sits on the placement coordinate. */
 type LabelAnchorX = "left" | "right";
 
@@ -412,6 +521,9 @@ const weightLabelOverlap = 60;
 const weightPointOverlap = 40;
 const weightTickOverlap = 25;
 const weightOutOfBounds = 100;
+// A line is as much a part of a figure as a point is, and a label lying across
+// either one destroys what it was drawn to show, so they count the same.
+const weightSegmentOverlap = 40;
 
 /** A label to place, and the point it belongs to. */
 export type LabelPlacementItem = {
@@ -421,6 +533,21 @@ export type LabelPlacementItem = {
     anchorCoord: Coord;
     /** Measured size, or `assumedLabelSize` if it hasn't been measured yet. */
     size: LabelSize;
+    /**
+     * Whether a circle is drawn at `anchorCoord`. A hidden point reserves no
+     * space — nothing is there to collide with — though its label still
+     * radiates from it as usual. Defaults to visible.
+     */
+    pointIsVisible?: boolean;
+};
+
+/** A drawn line that labels have to stay clear of. */
+export type SegmentObstacle = {
+    /** The segment's ends, in graph units. */
+    from: Coord;
+    to: Coord;
+    /** Stroke width in pixels; the stroke straddles the segment. */
+    strokeWidth: number;
 };
 
 /** Where to draw a label: the top-left corner of its box, in pixels. */
@@ -431,6 +558,13 @@ export type LabelPlacement = {
 /** A position being considered for a label, with the box it would occupy. */
 type Candidate = {
     rect: Rect;
+};
+
+/** A drawn line in pixel space, ready to measure against. */
+type PixelSegment = {
+    a: [number, number];
+    b: [number, number];
+    strokeWidth: number;
 };
 
 /** A point that labels have to stay clear of. */
@@ -507,6 +641,7 @@ function scoreCandidate(
     placed: ReadonlyArray<{rect: Rect; size: LabelSize}>,
     points: ReadonlyArray<PointObstacle>,
     tickZones: ReadonlyArray<Rect>,
+    segments: ReadonlyArray<PixelSegment>,
     graphInfo: AutoLabelGraphInfo,
 ): number {
     const {rect} = candidate;
@@ -558,6 +693,17 @@ function scoreCandidate(
         tickPenalty += overlapArea(rect, zone) / normalizeArea;
     }
 
+    let segmentPenalty = 0;
+    for (const segment of segments) {
+        // Same rule as for points: the label's inflated box must not reach the
+        // drawn edge of the stroke, which straddles the segment.
+        const required = ownHalfDiagonal + segment.strokeWidth / 2;
+        const distance = segmentToRectDistance(segment.a, segment.b, rect);
+        if (distance < required) {
+            segmentPenalty += (required - distance) / labelOffsetPx;
+        }
+    }
+
     const graphRect: Rect = {
         left: 0,
         top: 0,
@@ -574,6 +720,7 @@ function scoreCandidate(
         weightLabelOverlap * labelPenalty +
         weightPointOverlap * pointPenalty +
         weightTickOverlap * tickPenalty +
+        weightSegmentOverlap * segmentPenalty +
         weightOutOfBounds * outOfBounds
     );
 }
@@ -597,6 +744,7 @@ function scoreCandidate(
 export function getAutoLabelPlacements(
     items: ReadonlyArray<LabelPlacementItem>,
     graphInfo: AutoLabelGraphInfo,
+    segments: ReadonlyArray<SegmentObstacle> = [],
 ): ReadonlyMap<string, LabelPlacement> {
     const placements = new Map<string, LabelPlacement>();
 
@@ -613,10 +761,20 @@ export function getAutoLabelPlacements(
 
     const referencePx = getReferencePointInPixels(graphInfo);
     const tickZones = getTickZones(graphInfo);
+    const segmentsPx: PixelSegment[] = segments.map((segment) => ({
+        a: pointToPixel(segment.from, graphInfo),
+        b: pointToPixel(segment.to, graphInfo),
+        strokeWidth: segment.strokeWidth,
+    }));
 
     // One obstacle per distinct point, since several labels can share a point.
     const pointsByCoord = new Map<string, PointObstacle>();
     for (const item of items) {
+        // Nothing is drawn at a hidden point, so it reserves no space. The
+        // label still radiates from it; it just doesn't have to clear it.
+        if (item.pointIsVisible === false) {
+            continue;
+        }
         const coordKey = `${item.anchorCoord[X]},${item.anchorCoord[Y]}`;
         const existing = pointsByCoord.get(coordKey);
         if (existing) {
@@ -660,6 +818,7 @@ export function getAutoLabelPlacements(
             placed,
             points,
             tickZones,
+            segmentsPx,
             graphInfo,
         );
 
@@ -671,6 +830,7 @@ export function getAutoLabelPlacements(
                 placed,
                 points,
                 tickZones,
+                segmentsPx,
                 graphInfo,
             );
             // Strictly better, so ties keep the earlier (more ideal) position.
