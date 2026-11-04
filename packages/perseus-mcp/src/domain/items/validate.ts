@@ -163,6 +163,19 @@ function checkRenderer(
     return issues;
 }
 
+/**
+ * What a lint message leaves an agent to guess, keyed by rule. The linter's
+ * messages are written for the exercise editor, where content is typed as is.
+ */
+const LINT_ADVICE: Record<string, string> = {
+    "math-align-linebreaks":
+        "That's four backslashes in the content itself, as in " +
+        "\\begin{align}a&=b\\\\\\\\c&=d\\end{align}, so eight in a " +
+        'JSON string: "\\\\begin{align}a&=b\\\\\\\\\\\\\\\\c&=d\\\\end{align}".',
+    "numeric-input-missing-label":
+        'Set the widget\'s `labelText`, e.g. "Area, in square centimeters".',
+};
+
 function lintIssues(item: PerseusItem): Issue[] {
     const lint = lintPerseusItem(item);
     const toIssue =
@@ -173,7 +186,11 @@ function lintIssues(item: PerseusItem): Issue[] {
             severity: issue.severity === 1 ? "error" : "warning",
             code: `lint:${issue.rule}`,
             path: `${path}.content`,
-            message: issue.message,
+            message:
+                issue.message +
+                (LINT_ADVICE[issue.rule] != null
+                    ? ` ${LINT_ADVICE[issue.rule]}`
+                    : ""),
         });
     return [
         ...lint.question.map(toIssue("question")),

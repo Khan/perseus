@@ -206,4 +206,42 @@ describe("validateItem", () => {
             }),
         );
     });
+
+    describe("the align-block advice", () => {
+        function alignIssue(content: string) {
+            return validateItem(itemWith(content, {})).issues.find(
+                (issue) => issue.code === "lint:math-align-linebreaks",
+            );
+        }
+
+        // The advice's two examples: the content, and its JSON string.
+        function examples() {
+            const message = alignIssue(
+                "$\\begin{align}a&=b\\\\c&=d\\end{align}$",
+            )!.message;
+            const [, content, json] = message.match(
+                /as in (.+), so eight in a JSON string: (".+")\.$/,
+            )!;
+            return {content, json};
+        }
+
+        it("gives an example the linter accepts", () => {
+            // Arrange
+            const {content} = examples();
+
+            // Act
+            const issue = alignIssue(`$${content}$`);
+
+            // Assert
+            expect(issue).toBeUndefined();
+        });
+
+        it("gives the same example as a JSON string", () => {
+            // Arrange, Act
+            const {content, json} = examples();
+
+            // Assert
+            expect(JSON.parse(json)).toBe(content);
+        });
+    });
 });

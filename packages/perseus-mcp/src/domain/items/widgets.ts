@@ -30,7 +30,13 @@ const WIDGET_NOTES: Record<string, WidgetNotes> = {
             'match decides, so list `status: "correct"` answers (and any ' +
             '"wrong" ones with feedback) carefully. `answerForms` plus ' +
             "`strict: true` restricts which formats (e.g. decimal, proper " +
-            "fraction) are accepted. User input: " +
+            "fraction) are accepted. Each correct answer's `simplify` says " +
+            'how an unsimplified fraction such as 48/2 scores: "required" ' +
+            "makes it invalid (the learner is asked to try again; " +
+            'check_user_inputs reports outcome "invalid", not "incorrect"), ' +
+            '"enforced" makes it incorrect, and "optional" accepts it. Set ' +
+            "`labelText`, which screen readers announce (the linter warns " +
+            'without it), e.g. "Area, in square centimeters". User input: ' +
             '`{"currentValue": "3/4"}`.',
     },
     expression: {

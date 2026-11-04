@@ -126,8 +126,11 @@ Remaining, in order:
       missing `labelText`, and align blocks' line breaks (the message
       doesn't say whether to count backslashes in the content or in the
       escaped JSON). Agents also guessed wrong how numeric-input's
-      `simplify` scores an unsimplified answer. Say all three in the widget
-      notes and the align warning.
+      `simplify` scores an unsimplified answer. Done: numeric-input's notes
+      say how each `simplify` scores 48/2 (outcome "invalid" for
+      "required") and to set `labelText`; both lint warnings gain advice
+      (`LINT_ADVICE` in validate.ts), the align one with an example in the
+      content and as a JSON string, both checked by tests.
    6. The largest responses: `check_user_inputs` (2.2 KB a call, repeating
       every score even when it matched) and `get_widget_spec` for
       interactive-graph (29 KB). Report matches compactly and details only
