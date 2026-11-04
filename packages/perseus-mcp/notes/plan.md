@@ -96,7 +96,19 @@ Remaining, in order:
    Not planned: fewer Lato weights (which ones Perseus uses would need
    checking), or dropping the speech rule engine, which reads math to
    screen readers.
-2. Build order steps 10 to 16.
+2. Hand a collection to the exercise editor's bulk import by paste. Its
+   Import tab takes only pasted JSON (one text box), and then does the
+   review itself: validation, matching by `contentId`, a side-by-side diff
+   for each edit, and placing new items. So:
+   - `export_collection` also copies the JSON to the clipboard (`pbcopy` on
+     macOS, `clip` on Windows), besides writing the file, and says so; the
+     author opens the exercise's import and pastes.
+   - The import reviews at most 50 new or edited items at a time
+     (unchanged items don't count). `export_collection` counts the items
+     that are new (no `contentId`) or edited since import (a revision past
+     the imported one), warns when they're over 50, and can export only
+     those (`onlyChanged`), so a large collection goes in batches.
+3. Build order steps 10 to 16.
 
 Consuming applications aren't in this repo: the changesets carry the
 migration steps, and they're updated separately.
@@ -780,6 +792,27 @@ interactive-graph.
 | Linting | `lintPerseusItem` (perseus-linter) |
 | Preview messaging | `usePreviewController`, `usePreviewPresenter`, `perseus-editor/src/preview/*` |
 | Preview dependencies | `perseus/src/testing/test-dependencies.tsx` |
+
+## Toward production
+
+What a production version needs beyond this prototype, which runs locally
+for each author and hands work over by paste:
+
+- **A staged import through the backend's GraphQL API.** perseus-mcp
+  saves a pending bulk import against an exercise with a mutation, and the
+  exercise editor offers it for review in its bulk import UI, the same
+  review a paste gets. It needs a new type and storage for pending imports,
+  a schema change, and perseus-mcp calling the API as the author. It
+  replaces the paste, and works from a hosted perseus-mcp (build order step
+  16), which can't reach the author's clipboard.
+- **Loading an exercise's items by its ID** with the editor's own query
+  (`exerciseRevisionById`, whose problem types and items, with full
+  `itemData`, map onto a collection), so authors needn't export first.
+  Running it against a local backend with a local datastore would avoid
+  most of the auth questions while prototyping.
+- **Authentication** for both: perseus-mcp acting as the signed-in author,
+  with that author's permissions, never a shared account.
+- **Hosting** (build order step 16), with drafts kept per user.
 
 ## Later work
 
