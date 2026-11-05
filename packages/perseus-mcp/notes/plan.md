@@ -40,8 +40,9 @@ How the work is done. An agent resuming this plan follows these rules exactly.
 
 ## Status
 
-**Build order steps 1 to 12 are done; step 13 (alt text) is next.** The
-commits below are on
+**Build order steps 1 to 12 are done. Next are the Graffiti tasks in
+"Next: diagrams that follow the guidelines" below, then step 13 (alt
+text).** The commits below are on
 `jer/perseus-mcp`, oldest first, and every tool was smoke-tested over stdio
 from outside the repo.
 
@@ -157,6 +158,73 @@ Remaining, in order:
 
 Consuming applications aren't in this repo: the changesets carry the
 migration steps, and they're updated separately.
+
+## Next: diagrams that follow the guidelines
+
+The immediate next tasks, in order. They come from a usage test (an agent
+drawing a parallelogram with congruence marks, graffiti `5b689200`, went to
+read Graffiti's source for what the tools don't say) and from the
+`math-images` guideline topic. Content authors won't have Graffiti's or
+perseus-mcp's source on their machines, so an agent must never need it:
+the tools have to say everything, and what Graffiti lacks is noted under
+"Graffiti upstream requests" below to send to its project.
+
+Graffiti builds Graphie images, so the guidelines' Graphie rules apply to
+Graffiti diagrams as far as Graffiti can follow them.
+
+1. **A Graffiti reference for agents.** The script contract names only
+   some of the API. Give agents every export with its signature, generated
+   from Graffiti's type definitions so it can't drift (the bundle ships
+   them), plus the behavior the types don't show: which way `arcBetween`
+   sweeps and whether it ever draws the larger arc, the style object's
+   property names and defaults, label alignments and options
+   (`typesetAsMath`), and which shapes need a uniform canvas. As a tool or
+   resource the instructions point to, saying not to look for the source.
+2. **Khan's palette and sizes baked in.** A palette built from where the
+   colors are defined, not copied from documents: the TeX color macros in
+   `@khanacademy/mathjax-renderer` (`tex-input-config.ts`; every shade name
+   of a family, `\blueA` to `\blueE`, renders as one text-safe color),
+   Wonder Blocks tokens for text and contrast, and Perseus's own graph
+   colors. Scripts get it with the library (`g.khan`, say: colors by name,
+   and size presets by where the image goes: question, answer choice,
+   widget background, graph). Unstyled shapes draw in the palette's
+   defaults, not black.
+3. **Conforming by construction.** The runner refuses, with the fix, what
+   the guidelines rule out where code can tell: colors outside the palette,
+   text and lines that fail contrast, text drawn as shapes instead of
+   labels, labels using `\frac` or a number from 10,000 up without `{,}`,
+   sizes outside the presets. Only what needs judgment (one-word labels,
+   too much detail) comes back as warnings, which `review_item` repeats for
+   an item's diagrams.
+4. **Let the agent see what it drew.** `create_graffiti` and
+   `update_graffiti` return the drawing as an image, labels included, so
+   the agent can catch an arc on the wrong side, overlapping labels or
+   clipping. A PNG is most useful (needs a rasterizer, and TeX labels
+   rendered); at the least, the SVG and each label's position in pixels.
+5. **Geometry marks.** Helpers for tick marks on segments, parallel
+   chevrons, and angle marks with several arcs, which proofs need and the
+   agent built by hand. Given to scripts with the palette for now, and
+   requested upstream.
+6. **The guideline topic** (outside the repo): `math-images` keeps its
+   Graphie section and says how each rule applies to Graffiti, using the
+   palette, presets and marks above.
+7. **Redraw the examples** (cylinder, triangle, rainfall and the
+   parallelogram `5b689200`) with all of the above, and check them in the
+   preview.
+
+### Graffiti upstream requests
+
+What Graffiti itself could do, for its project to consider; perseus-mcp
+works around each for now:
+
+- An API reference covering every export, with the behavior above
+  (`arcBetween`'s sweep, style names and defaults, label options, uniform
+  canvas requirements).
+- A theme: a palette and default styles, so unstyled shapes needn't be
+  black.
+- Geometry marks: segment ticks, parallel chevrons, multi-arc angle marks.
+- A rendered preview of a diagram with its labels (PNG), for checking
+  without a browser.
 
 ## Notes for whoever picks this up
 
