@@ -19,8 +19,12 @@ export function toSpokenText(
     return mathOnlyParser(content)
         .map((piece) => {
             switch (piece.type) {
+                // Screen readers would read raw TeX, so speak it as math
+                // e.g. `$x^{2}$` -> "x Superscript 2"
                 case "math":
                     return texToSpeech(piece.content);
+                // Speak the character the author meant, not its escape
+                // e.g. `\$` -> "$"
                 case "specialCharacter":
                     return piece.content.length > 1
                         ? piece.content.slice(1)
@@ -35,7 +39,10 @@ export function toSpokenText(
 /**
  * Hook that transforms strings that might contain TeX
  * into screen reader friendly strings by pulling out TeX
- * and using SpeechRuleEngine to convert it to plan language
+ * and using SpeechRuleEngine to convert it to plan language.
+ *
+ * SpeechRuleEngine is async, so it needs to be loaded before using it.
+ * Default to the TeX while loading the SpeechRuleEngine.
  */
 export function useSpokenLabels(contents: string[]): string[] {
     const {locale} = usePerseusI18n();
