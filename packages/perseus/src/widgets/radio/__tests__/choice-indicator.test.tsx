@@ -198,6 +198,24 @@ describe("Radio widget choice indicator", () => {
             const classes = Array.from(screen.getByRole("button").classList);
             expect(classes).toContain(`${shape}-shape`);
         });
+
+        it.each([
+            {crossedOut: true, outcome: "is styled as crossed out"},
+            {crossedOut: false, outcome: "isn't styled as crossed out"},
+        ])("$outcome when crossedOut is $crossedOut", ({crossedOut}) => {
+            render(
+                <Indicator
+                    buttonRef={buttonRef}
+                    checked={false}
+                    crossedOut={crossedOut}
+                    shape="circle"
+                    content={indicatorContent}
+                    updateChecked={mockClickHandler}
+                />,
+            );
+            const classes = Array.from(screen.getByRole("button").classList);
+            expect(classes.includes("is-crossed-out")).toBe(crossedOut);
+        });
     });
 
     describe("click handling", () => {

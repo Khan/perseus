@@ -138,3 +138,30 @@
         var(--wb-sizing-size_040) + var(--wb-border-width-medium)
     );
 }
+
+/* A crossed-out choice's letter gets the same hatching as its crossed-out
+       math and images, using the --perseus-cross-out-hatch set on the choice
+       in choice.module.css.
+   The hatching covers the border too, and border-radius clips it to the
+       indicator's shape. Centering it matches the content, and puts a line
+       across the letter.
+   The letter turns dark so it keeps 4.5:1 contrast against the hatch lines
+       that cross it.
+   A selected indicator isn't hatched. Selecting a crossed-out choice
+       restores it, so this shouldn't happen, but the hatch lines and letter
+       wouldn't have enough contrast against the selected background.
+ */
+.is-crossed-out:not([aria-pressed="true"]) {
+    color: var(--wb-semanticColor-core-foreground-neutral-strong);
+}
+
+.is-crossed-out:not([aria-pressed="true"]):after {
+    background-image: var(--perseus-cross-out-hatch);
+    background-position: center;
+    background-size: 36px 36px;
+    border-radius: inherit;
+    content: "";
+    inset: calc(0px - var(--wb-border-width-medium));
+    pointer-events: none;
+    position: absolute;
+}

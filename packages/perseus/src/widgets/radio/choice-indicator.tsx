@@ -16,6 +16,7 @@ export interface IndicatorProps {
     buttonRef: React.Ref<HTMLButtonElement>;
     checked: boolean;
     content: IndicatorContent;
+    crossedOut?: boolean;
     shape: "circle" | "square";
     showCorrectness?: "correct" | "wrong";
     updateChecked: (isChecked: boolean) => void;
@@ -44,6 +45,9 @@ const Indicator = (props: IndicatorProps) => {
     const classes = [styles.base, styles[props.shape + "-shape"]];
     if (showCorrectness) {
         classes.push(styles["is-" + showCorrectness]);
+    }
+    if (props.crossedOut) {
+        classes.push(styles["is-crossed-out"]);
     }
     const handleClick = showCorrectness
         ? undefined // Don't register anything when showing answers
