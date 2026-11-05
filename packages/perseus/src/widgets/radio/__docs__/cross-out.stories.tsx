@@ -134,3 +134,54 @@ export const MathContent: Story = {
     parameters: {chromatic},
     play: crossOutAllButFirst,
 };
+
+export const Table: Story = {
+    args: {
+        choices: [
+            generateRadioChoice(
+                "| Animal | Legs |\n| --- | --- |\n| Dog | 4 |\n| Spider | 8 |",
+                {correct: true},
+            ),
+            generateRadioChoice(
+                "| Animal | Legs |\n| --- | --- |\n| Cat | 4 |\n| Ant | 6 |",
+            ),
+            generateRadioChoice("A choice with plain text"),
+        ],
+    },
+    parameters: {chromatic},
+    play: crossOutAllButFirst,
+};
+
+// 380 x 600 and 352 x 429: tall, but narrow enough not to scroll sideways.
+const tallPhoto =
+    "![A child holding a football](https://cdn.kastatic.org/ka-content-images/339d80b3e1b39872e391c232a0edacdff0b0b66d.png)";
+const tallDiagram =
+    "![A compass needle on a stand](https://ka-perseus-images.s3.amazonaws.com/88526ae51e43ccf8a96bbdb602d9397d073479e1.svg)";
+
+export const TallImages: Story = {
+    args: {
+        choices: [
+            generateRadioChoice(tallPhoto, {correct: true}),
+            generateRadioChoice(tallDiagram),
+            generateRadioChoice(tallPhoto),
+        ],
+    },
+    parameters: {chromatic},
+    play: crossOutAllButFirst,
+};
+
+// The "None of the above" text comes from Perseus strings rather than from
+// the choice's content.
+export const NoneOfTheAbove: Story = {
+    args: {
+        hasNoneOfTheAbove: true,
+        choices: [
+            generateRadioChoice("Apple", {correct: true}),
+            generateRadioChoice("Brick"),
+            generateRadioChoice("Chair"),
+            generateRadioChoice("None of the above", {isNoneOfTheAbove: true}),
+        ],
+    },
+    parameters: {chromatic},
+    play: crossOutAllButFirst,
+};
