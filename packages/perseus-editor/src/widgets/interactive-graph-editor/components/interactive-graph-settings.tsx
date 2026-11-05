@@ -131,8 +131,6 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
     _isMounted = false;
 
     bgUrlRef = React.createRef<HTMLInputElement>();
-    labelXRef = React.createRef<HTMLInputElement>();
-    labelYRef = React.createRef<HTMLInputElement>();
 
     static stateFromProps(props: Props) {
         return {
@@ -250,6 +248,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
             );
         };
 
+        // TODO(benchristel): We shouldn't need to use a ref for this.
         const url = this.bgUrlRef.current?.value;
         if (url) {
             Util.getImageSize(url, (width, height) => {
@@ -586,7 +585,6 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         <input
                                             type="text"
                                             className="graph-settings-axis-label"
-                                            ref={this.labelXRef}
                                             onChange={(e) =>
                                                 this.changeLabel(0, e)
                                             }
@@ -602,7 +600,6 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         <input
                                             type="text"
                                             className="graph-settings-axis-label"
-                                            ref={this.labelYRef}
                                             onChange={(e) =>
                                                 this.changeLabel(1, e)
                                             }

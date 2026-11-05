@@ -119,14 +119,8 @@ export function PreviewRenderer({content, isMobile, hasLintGutter}: Props) {
     const i18n = usePerseusI18n();
 
     if (content.type === "question") {
-        const {
-            question,
-            apiOptions,
-            linterContext,
-            reviewMode,
-            legacyPerseusLint,
-            problemNum,
-        } = content.data;
+        const {question, apiOptions, linterContext, reviewMode, problemNum} =
+            content.data;
 
         return (
             <PreviewWithKeypad
@@ -154,7 +148,6 @@ export function PreviewRenderer({content, isMobile, hasLintGutter}: Props) {
                                 initializeUserInput={initializeUserInput}
                                 keypadElement={keypadElement}
                                 reviewMode={reviewMode}
-                                legacyPerseusLint={legacyPerseusLint}
                                 problemNum={problemNum}
                                 linterContext={pushContextStack(
                                     linterContext,
@@ -193,8 +186,7 @@ export function PreviewRenderer({content, isMobile, hasLintGutter}: Props) {
     }
 
     if (content.type === "article-section") {
-        const {article, apiOptions, legacyPerseusLint, linterContext} =
-            content.data;
+        const {article, apiOptions, linterContext} = content.data;
 
         return (
             <PreviewWithKeypad
@@ -207,7 +199,6 @@ export function PreviewRenderer({content, isMobile, hasLintGutter}: Props) {
                         seed={0}
                         apiOptions={{...apiOptions, isMobile}}
                         keypadElement={keypadElement}
-                        legacyPerseusLint={legacyPerseusLint}
                         linterContext={pushContextStack(
                             linterContext,
                             "article",

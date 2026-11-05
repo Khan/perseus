@@ -12,15 +12,7 @@ export type DerivePreviewContentInputs = {
     deviceType: DeviceType;
     highlightLint: boolean;
     problemNum: number | undefined;
-    legacyPerseusLint: ReadonlyArray<string>;
 };
-
-function legacyPerseusLintEqual(
-    a: ReadonlyArray<string>,
-    b: ReadonlyArray<string>,
-): boolean {
-    return a.length === b.length && a.every((warning, i) => warning === b[i]);
-}
 
 function inputsEqual(
     a: DerivePreviewContentInputs,
@@ -31,8 +23,7 @@ function inputsEqual(
         a.apiOptions === b.apiOptions &&
         a.deviceType === b.deviceType &&
         a.highlightLint === b.highlightLint &&
-        a.problemNum === b.problemNum &&
-        legacyPerseusLintEqual(a.legacyPerseusLint, b.legacyPerseusLint)
+        a.problemNum === b.problemNum
     );
 }
 
@@ -53,7 +44,6 @@ function buildContent(inputs: DerivePreviewContentInputs): QuestionPreview {
                 highlightLint: inputs.highlightLint,
             },
             reviewMode: true,
-            legacyPerseusLint: inputs.legacyPerseusLint,
             problemNum: inputs.problemNum,
         },
     };
@@ -62,9 +52,6 @@ function buildContent(inputs: DerivePreviewContentInputs): QuestionPreview {
 /**
  * Returns a `derivePreviewContent` function that returns the same object
  * reference across calls when none of its inputs have actually changed.
- * `legacyPerseusLint` is rebuilt as a fresh array by the underlying editor on
- * every call, so it's compared by value rather than by reference — otherwise
- * every call would look "changed" and defeat the memoization.
  */
 export function createPreviewContentDeriver(): (
     inputs: DerivePreviewContentInputs,

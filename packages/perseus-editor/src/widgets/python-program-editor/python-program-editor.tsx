@@ -41,14 +41,6 @@ class PythonProgramEditor extends React.Component<Props> {
         });
     }
 
-    // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
-    // the new linter rules for save warnings.
-    // Remove `validateOptions` since it's already being tested
-    // within the linter code.
-    getSaveWarnings: () => ReadonlyArray<string> = () => {
-        return validateOptions(this.props.height, this.props.programID);
-    };
-
     render(): React.ReactNode {
         return (
             <div>
