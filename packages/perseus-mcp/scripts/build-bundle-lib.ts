@@ -369,8 +369,8 @@ async function copyGuidance(dir: string): Promise<void> {
 
 /**
  * Graffiti, linked in from its own checkout, built there with `npm run
- * build`: its `dist/` (without source maps and type definitions), and the
- * runner.
+ * build`: its `dist/` (without source maps; with the type definitions, which
+ * get_graffiti_reference reads), and the runner.
  */
 async function copyGraffiti(dir: string): Promise<void> {
     const dist = path.join(PACKAGE_DIR, "node_modules/graffiti/dist");
@@ -383,7 +383,8 @@ async function copyGraffiti(dir: string): Promise<void> {
     await cp(dist, path.join(dir, "lib"), {
         recursive: true,
         dereference: true,
-        filter: (file) => !/\.(map|d\.ts)$/.test(file),
+        // The type definitions stay: get_graffiti_reference reads them.
+        filter: (file) => !/\.map$/.test(file),
     });
     // Graffiti's .js files are ES modules, which Node knows from the nearest
     // package.json.

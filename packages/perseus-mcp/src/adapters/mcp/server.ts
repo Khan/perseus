@@ -74,8 +74,10 @@ move_items and add_to_exercise organize it, edit_items changes many drafts in
 one call, and validate_exercise checks them all. update_exercise changes its
 name and notes, and keeps its exercise editor URL when the person gives it.
 
-Draw illustrations with Graffiti: create_graffiti keeps a diagram drawn by a
-Graffiti script under a stable graffitiId, update_graffiti makes a new
+Draw illustrations with Graffiti: read get_graffiti_reference before writing
+a script (it's the whole API; there's no Graffiti source to read).
+create_graffiti keeps a diagram drawn by a Graffiti script under a stable
+graffitiId, update_graffiti makes a new
 revision of it, and an image widget shows its latest revision, so an item
 needn't change when its diagram does. preview_graffiti returns the URL of a
 page showing a diagram, which follows its changes.

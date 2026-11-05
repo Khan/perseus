@@ -20,7 +20,10 @@ const SCRIPT_CONTRACT =
     "circle(…), polygon(…), plot(…), rightAngle(…), …), and labels made " +
     'with label(point(x, y), "text", "above right", {typesetAsMath}), ' +
     "placed in plane coordinates. It runs in a process of its own with no " +
-    "file, network or process access, for at most 10 seconds.";
+    "file, network or process access, for at most 10 seconds. Read " +
+    "get_graffiti_reference first: it has the whole API and how it " +
+    "behaves (arc direction, style keys, labels). Graffiti's source isn't " +
+    "available to read, so don't look for it.";
 
 const EMBED =
     "To show a diagram in an item, give an image widget " +
@@ -55,6 +58,26 @@ export function registerGraffitiTools(
         ) => Promise<CallToolResult>;
     },
 ): void {
+    server.registerTool(
+        "get_graffiti_reference",
+        {
+            title: "Read the Graffiti reference",
+            description:
+                "Everything there is to know about writing a Graffiti " +
+                "script: what a script exports, coordinates and canvases, " +
+                "every shape, which way arcs and angle marks go, the style " +
+                "keys and defaults, labels, and how to draw marks there are " +
+                "no helpers for; then the library's API as its type " +
+                "definitions. Read it before writing or changing a script.",
+            inputSchema: z.object({}),
+            annotations: {readOnlyHint: true},
+        },
+        () =>
+            run("get_graffiti_reference", async () => ({
+                content: [{type: "text", text: await graffiti.reference()}],
+            })),
+    );
+
     server.registerTool(
         "create_graffiti",
         {

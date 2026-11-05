@@ -20,6 +20,7 @@ import {
 } from "./adapters/fs/file-draft-repository";
 import {FileExerciseRepository} from "./adapters/fs/file-exercise-repository";
 import {FileGraffitiRepository} from "./adapters/fs/file-graffiti-repository";
+import {fileGraffitiTypes} from "./adapters/fs/file-graffiti-types";
 import {fileGuidelinesSource} from "./adapters/fs/file-guidelines-source";
 import {nodeExportFileWriter} from "./adapters/fs/node-export-file-writer";
 import {nodeItemFileReader} from "./adapters/fs/node-item-file-reader";
@@ -92,6 +93,7 @@ function graffitiUseCases(
         diagrams,
         feed,
         renderer: createNodeGraffitiRenderer(graffitiPaths),
+        types: fileGraffitiTypes(path.dirname(graffitiPaths.module)),
         now: () => new Date(),
         newId: () => randomUUID().slice(0, 8),
     });

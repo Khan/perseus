@@ -1,4 +1,5 @@
 import {graphieUrlFor} from "../domain/graffiti/diagram";
+import {graffitiReference} from "../domain/graffiti/reference";
 
 import {GraffitiNotFoundError} from "./errors";
 
@@ -6,10 +7,13 @@ import type {Diagram, RenderedDiagram} from "../domain/graffiti/diagram";
 import type {GraffitiFeed} from "../ports/graffiti-feed";
 import type {GraffitiRenderer} from "../ports/graffiti-renderer";
 import type {GraffitiRepository} from "../ports/graffiti-repository";
+import type {GraffitiTypesSource} from "../ports/graffiti-types";
 
 export type GraffitiDependencies = {
     diagrams: GraffitiRepository;
     renderer: GraffitiRenderer;
+    /** The library's type definitions, for the reference agents read. */
+    types?: GraffitiTypesSource;
     /** Announces new revisions, for previews that follow diagrams. */
     feed?: GraffitiFeed;
     now: () => Date;
@@ -102,6 +106,14 @@ export function createGraffitiUseCases(deps: GraffitiDependencies) {
     }
 
     return {
+        /**
+         * How Graffiti behaves and its API, for writing a script: all an
+         * agent needs, since an author has no Graffiti source to read.
+         */
+        async reference(): Promise<string> {
+            return graffitiReference((await deps.types?.read()) ?? []);
+        },
+
         /**
          * Draws a new diagram from its script, and keeps it only if it
          * draws.
