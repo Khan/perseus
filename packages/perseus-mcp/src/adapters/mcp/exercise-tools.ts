@@ -2,10 +2,13 @@
 // checking them, and exporting them for the exercise editor's bulk import.
 import {z} from "zod";
 
+import {DEFAULT_PATHS, MAX_READ} from "../../app/read-items";
+
 import {jsonResult} from "./tool-results";
 
 import type {ExerciseUseCases} from "../../app/exercises";
 import type {PreviewUseCases} from "../../app/preview";
+import type {ReadItemsUseCase} from "../../app/read-items";
 import type {CallToolResult, McpServer} from "@modelcontextprotocol/server";
 
 export function registerExerciseTools(
@@ -13,10 +16,12 @@ export function registerExerciseTools(
     {
         exercises,
         preview,
+        readItems,
         run,
     }: {
         exercises: ExerciseUseCases;
         preview: PreviewUseCases;
+        readItems: ReadItemsUseCase;
         /** Runs a tool's handler, recording its errors under its name. */
         run: (
             tool: string,
@@ -32,6 +37,53 @@ export function registerExerciseTools(
             "The exercise's page in the exercise editor, if the person gave " +
                 "it, so the exercise page can link to it.",
         );
+
+    server.registerTool(
+        "read_items",
+        {
+            title: "Read parts of many drafts",
+            description:
+                "Read the parts of many drafts at once, by JSON Pointer: " +
+                "the drafts named, an exercise's (in its order, with each " +
+                "one's problem type), or every draft (most recently changed " +
+                "first). Filter them by text the question or hints contain " +
+                "and by widget type. Returns how many matched and, for up " +
+                `to ${MAX_READ}, each one's itemId, revision, notes and ` +
+                "parts (long parts cut). Use it to look over or check many " +
+                "drafts, such as every question's first line or every " +
+                "radio's choices; the drafts' files are the server's, so " +
+                "don't read or script over them.",
+            inputSchema: z.object({
+                itemIds: z.array(z.string()).min(1).optional(),
+                exerciseId: z.string().optional(),
+                paths: z
+                    .array(z.string().regex(/^(\/.*)?$/))
+                    .min(1)
+                    .optional()
+                    .describe(
+                        "JSON Pointers into each item, migrated to the " +
+                            'latest schema: "/question/content", "/hints", ' +
+                            '"/question/widgets/radio 1/options/choices". ' +
+                            `Default ${JSON.stringify(DEFAULT_PATHS)}.`,
+                    ),
+                contains: z
+                    .string()
+                    .optional()
+                    .describe(
+                        "Only drafts whose question or hints contain this, " +
+                            "any case, as written (Markdown and TeX).",
+                    ),
+                widgetType: z
+                    .string()
+                    .optional()
+                    .describe('Only drafts using this widget ("radio").'),
+                limit: z.number().int().min(1).max(MAX_READ).default(50),
+            }),
+            annotations: {readOnlyHint: true},
+        },
+        (input) =>
+            run("read_items", () => jsonResult(readItems.readItems(input))),
+    );
 
     server.registerTool(
         "import_exercise",

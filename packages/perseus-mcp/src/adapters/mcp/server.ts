@@ -18,6 +18,7 @@ import type {FixUseCases} from "../../app/fixes";
 import type {GraffitiUseCases} from "../../app/graffiti";
 import type {GuidelineUseCases} from "../../app/guidelines";
 import type {PreviewUseCases} from "../../app/preview";
+import type {ReadItemsUseCase} from "../../app/read-items";
 import type {ReviewUseCases} from "../../app/review";
 import type {ScoringUseCases} from "../../app/scoring";
 import type {SearchUseCases} from "../../app/search";
@@ -161,6 +162,7 @@ export function createMcpServer({
     preview,
     previewApp,
     exercises,
+    readItems,
     graffiti,
     search,
     guidelines,
@@ -171,6 +173,7 @@ export function createMcpServer({
 }: {
     drafts: DraftUseCases;
     exercises: ExerciseUseCases;
+    readItems: ReadItemsUseCase;
     /** Graffiti diagrams; their tools are left out when it's missing. */
     graffiti?: GraffitiUseCases;
     /** Content search; its tools are left out when it's missing. */
@@ -459,7 +462,8 @@ export function createMcpServer({
                 "Return a draft's PerseusItem JSON (fully migrated), its " +
                 "notes and the path of the file it's saved in; with " +
                 "`revision`, the draft as it was at that revision " +
-                "(list_revisions lists them). This is how to read a draft: " +
+                "(list_revisions lists them). For many drafts, read_items " +
+                "reads their parts in one call. This is how to read a draft: " +
                 "the file is the server's, so don't open, script over or " +
                 "change it.",
             inputSchema: z.object({
@@ -530,7 +534,7 @@ export function createMcpServer({
             ),
     );
 
-    registerExerciseTools(server, {exercises, preview, run});
+    registerExerciseTools(server, {exercises, preview, readItems, run});
     if (graffiti != null) {
         registerGraffitiTools(server, {graffiti, preview, run});
     }

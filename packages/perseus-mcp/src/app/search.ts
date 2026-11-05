@@ -1,10 +1,10 @@
 import {parseItem} from "../domain/items/parse";
+import {partsAt} from "../domain/items/parts";
 import {
     contentIdFilter,
     EXTRA_FIELDS,
     extraAttributes,
     filterExpression,
-    partsAt,
     shortenField,
     toHit,
     topValues,

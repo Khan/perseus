@@ -45,6 +45,7 @@ import {createGraffitiUseCases} from "./app/graffiti";
 import {withGraffitiFeed} from "./app/graffiti-feed";
 import {createGuidelineUseCases} from "./app/guidelines";
 import {createPreviewUseCases} from "./app/preview";
+import {createReadItemsUseCase} from "./app/read-items";
 import {createReviewUseCases} from "./app/review";
 import {createScoringUseCases} from "./app/scoring";
 import {createSearchUseCases} from "./app/search";
@@ -271,6 +272,10 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
         }),
         graffiti,
     };
+    const readItems = createReadItemsUseCase({
+        drafts: repository,
+        exercises: useCases.exercises,
+    });
     // Content search runs in a local Meilisearch (see the README); its tools
     // say how to start it when it isn't running. Only from the repo for now:
     // the testers' bundle leaves it out, tools and all.
@@ -344,6 +349,7 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
     const mcpServer = () =>
         createMcpServer({
             ...useCases,
+            readItems,
             search,
             guidelines,
             fixes,

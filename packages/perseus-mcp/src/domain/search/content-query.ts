@@ -1,6 +1,3 @@
-// fast-json-patch is CommonJS, so its default export is the module.
-import jsonpatch from "fast-json-patch";
-
 import type {ContentDocument} from "./content-document";
 
 /**
@@ -264,12 +261,10 @@ export function extraAttributes(
     return [...attributes];
 }
 
-/** Longest string a field or item part returns before it's cut. */
+/** Longest string a field returns before it's cut. */
 const MAX_TEXT = 1000;
 /** Most entries of a list a field returns before it's cut. */
 const MAX_LIST = 40;
-/** Longest an item part's JSON is before it's cut. */
-const MAX_JSON = 3000;
 
 function cut(text: string, max: number): string {
     return text.length > max ? `${text.slice(0, max)}…` : text;
@@ -287,18 +282,6 @@ export function shortenField(value: unknown): unknown {
             : shown;
     }
     return value;
-}
-
-/**
- * A part of an item as a hit carries it: as it is when its JSON is short,
- * else that JSON cut, marked so.
- */
-export function shortenPart(value: unknown): unknown {
-    const json = JSON.stringify(value);
-    if (json == null || json.length <= MAX_JSON) {
-        return value;
-    }
-    return {cut: true, json: cut(json, MAX_JSON)};
 }
 
 /**
@@ -344,25 +327,4 @@ export function topValues(
                 : a.value.localeCompare(b.value),
         );
     return {values: values.slice(0, top), distinctValues: values.length};
-}
-
-/**
- * The parts of a value at JSON Pointers ("/question/widgets", "/hints/0"),
- * each shortened; null where there's nothing.
- */
-export function partsAt(
-    value: unknown,
-    pointers: ReadonlyArray<string>,
-): Record<string, unknown> {
-    const parts: Record<string, unknown> = {};
-    for (const pointer of pointers) {
-        let part: unknown;
-        try {
-            part = jsonpatch.getValueByPointer(value, pointer);
-        } catch {
-            // A pointer that doesn't resolve reads as nothing.
-        }
-        parts[pointer] = part === undefined ? null : shortenPart(part);
-    }
-    return parts;
 }
