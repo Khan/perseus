@@ -34,9 +34,14 @@ import {
 } from "./adapters/http/server";
 import {createMcpServer} from "./adapters/mcp/server";
 import {systemClipboard} from "./adapters/os/system-clipboard";
-import {createMeilisearchContentSearch} from "./adapters/search/meilisearch-content-search";
+import {
+    createMeilisearchContentSearch,
+    createMeilisearchDraftIndex,
+} from "./adapters/search/meilisearch-content-search";
+import {createSreMathSpeech} from "./adapters/search/sre-math-speech";
 import {createCatalog} from "./app/catalog";
 import {withDraftFeed} from "./app/draft-feed";
+import {createDraftIndexing, withDraftIndexing} from "./app/draft-index";
 import {createDraftUseCases} from "./app/drafts";
 import {withExerciseFeed} from "./app/exercise-feed";
 import {createExerciseUseCases} from "./app/exercises";
@@ -217,11 +222,52 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
     }
     const exerciseRepository = new FileExerciseRepository(dataDir);
     exerciseRepository.init();
+    // Content search runs in a local Meilisearch (see the README); its tools
+    // say how to start it when it isn't running. Only from the repo for now:
+    // the testers' bundle leaves it out, tools, draft indexing and all.
+    const searchConfig = {
+        url: process.env.PERSEUS_MCP_SEARCH_URL ?? "http://localhost:7700",
+        apiKey: process.env.PERSEUS_MCP_SEARCH_KEY,
+    };
+    const contentSearch =
+        build.source === "bundle"
+            ? undefined
+            : createMeilisearchContentSearch(searchConfig);
+    // Drafts are searched as published content is: every save is indexed.
+    let indexingWarned = false;
+    const draftIndexing =
+        contentSearch == null
+            ? undefined
+            : createDraftIndexing({
+                  drafts: fileRepository,
+                  exercises: exerciseRepository,
+                  index: createMeilisearchDraftIndex(searchConfig),
+                  placementOf: (contentId) =>
+                      contentSearch.placementOf(contentId),
+                  speak: createSreMathSpeech,
+                  // Once for get_server_info: with Meilisearch stopped,
+                  // every save would fail the same way.
+                  log: (message) => {
+                      if (indexingWarned) {
+                          log(`perseus-mcp: ${message}`);
+                      } else {
+                          indexingWarned = true;
+                          logProblem(message);
+                      }
+                  },
+              });
+    const indexed =
+        draftIndexing == null
+            ? {drafts: fileRepository, exercises: exerciseRepository}
+            : withDraftIndexing(
+                  fileRepository,
+                  exerciseRepository,
+                  draftIndexing,
+              );
     // Every save goes through a feed, so open previews and exercise pages
     // hear about it.
-    const {drafts: repository, feed} = withDraftFeed(fileRepository);
-    const {exercises, feed: exerciseFeed} =
-        withExerciseFeed(exerciseRepository);
+    const {drafts: repository, feed} = withDraftFeed(indexed.drafts);
+    const {exercises, feed: exerciseFeed} = withExerciseFeed(indexed.exercises);
     const graffiti = graffitiUseCases(
         paths.graffiti,
         paths.wonderBlocksTokensCss,
@@ -276,23 +322,18 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
         drafts: repository,
         exercises: useCases.exercises,
     });
-    // Content search runs in a local Meilisearch (see the README); its tools
-    // say how to start it when it isn't running. Only from the repo for now:
-    // the testers' bundle leaves it out, tools and all.
     const search =
-        build.source === "bundle"
+        contentSearch == null
             ? undefined
             : createSearchUseCases({
-                  search: createMeilisearchContentSearch({
-                      url:
-                          process.env.PERSEUS_MCP_SEARCH_URL ??
-                          "http://localhost:7700",
-                      apiKey: process.env.PERSEUS_MCP_SEARCH_KEY,
-                  }),
+                  search: contentSearch,
                   content: createSnapshotContentSource(),
                   exercises: useCases.exercises,
                   snapshotDir: process.env.PERSEUS_MCP_CONTENT_SNAPSHOT,
+                  drafts: repository,
               });
+    // Brings the drafts' index up to date, in the background.
+    void draftIndexing?.syncAll();
     // The guidelines' text is the organization's, kept in a local folder.
     const guidanceDir =
         process.env.PERSEUS_MCP_GUIDANCE_DIR ??

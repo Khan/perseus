@@ -181,6 +181,11 @@ export type ContentHit = {
      * the query matched it there.
      */
     snippet?: string;
+    /**
+     * "draft" for one of the person's drafts (its contentId is the draft's
+     * itemId); left out for published content.
+     */
+    source?: "draft";
     /** The index fields asked for with `fields`, cut if long. */
     fields?: Partial<Record<ExtraField, unknown>>;
     /**

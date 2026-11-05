@@ -115,6 +115,7 @@ from outside the repo.
 | Give agents a Graffiti reference | An agent drawing a diagram read Graffiti's source three times for what the tools didn't say; authors won't have it. `get_graffiti_reference` returns notes on how Graffiti behaves (what a script exports; coordinates and canvases, and which shapes need a uniform one; every shape and its defaults; that `arc` and `arcBetween` run counterclockwise, so the wrong order marks the reflex angle; the only style keys, `fill`, `stroke`, `strokeWidth` and `strokeDashArray`, with no opacity and other keys silently ignored; labels' alignments and options; how to draw tick, parallel and multi-arc marks by hand), then the API as the type definitions of the library the scripts run with (`fileGraffitiTypes` follows `index.d.ts`'s re-exports), so it can't drift; a test checks that each function the notes name is exported. The script contract and the instructions say to read it first and not to look for the source. The bundle now ships Graffiti's `.d.ts` files. Checked over MCP with a stand-in client on throwaway data: the reference is 15 KB. Bundle not rebuilt. |
 | Give diagram scripts Khan's colors | A script can import "khan-style" besides "graffiti": `colors` (Wonder Blocks' math colors, `semanticColor.learning.math.foreground`, which are what TeX's color commands render as: a test checks them against mathjax-renderer's `\blueD` and the rest), `ui` (ink, the interactive blue, line and grid-line colors Perseus's graphs use) and `tints` (Wonder Blocks' subtle backgrounds, for regions, since there's no opacity). No sizes: the reference says to size the canvas from the guidelines' image dimensions (`math-images`). The values come from Wonder Blocks' stylesheet when the server starts (its JavaScript tokens are only the variables' names); the bundle ships the stylesheet. The runner serves the module from a `data:` URL, so the sandbox reads no more files, and swaps Graffiti's default black, grays and white for ink, Perseus's line colors and the background. `create_graffiti` and `update_graffiti` warn about any color outside the palette (fill and stroke in the SVG, CSS colors in label styles), with where each is used. The reference gains a section with the values and how TeX's colors map onto them. Adds `@khanacademy/wonder-blocks-tokens` to perseus-mcp's dependencies. Checked over MCP with a stand-in client on throwaway data: a triangle drawn with `tints.blue` and `colors.blue` has no warnings, one with `#ff0000` gets one. |
 | Read parts of many drafts with read_items | Agents read many drafts by running jq over the drafts folder, which authors' machines don't let them reach. `read_items` reads them in the server (the draft repository, plain Node): the drafts named, an exercise's (in its order, with problem types), or every draft (most recently changed first), filtered by text in the question or hints (any case, as written) and by widget type (nested widgets too), returning each one's itemId, revision, notes and its parts at JSON Pointers (default the question's content; long parts cut; up to 200 drafts, all counted). The pointer code (`partsAt`, `shortenPart`) moves to `domain/items/parts.ts`, shared with search's `itemPaths`. export_item's description points at it. Checked over MCP: three drafts created, read by widget type (just the radio's choices) and by text. |
+| Search drafts as published content is searched | Drafts get the same search as published content: the same document builder (`draftDocument`, speech included) puts each in a `perseus-drafts` index, with its exercises' names and problem types as its titles, and the tree placement of the published item it was imported from (`placementOf`). `withDraftIndexing` wraps the draft and exercise repositories, as `withDraftFeed` does, so every draft save upserts its document and every exercise save its drafts'; updates run one at a time in the background, never hold up a save, and log a failure once to get_server_info; every start replaces the index's documents with the data folder's drafts (`syncAll`). The search tools take `source` (published, the default; drafts; or all, through Meilisearch's federated multi-search with merged facets); a draft hit says `source: "draft"`, and its `itemPaths` read the draft as it is now. Drafts skip the listed-only default. get_server_info counts draft documents. From the repo only, as search is. Checked over MCP on throwaway drafts: a created draft found by speech, imported ones by course title, all sources together, facets of drafts. The first update waits a few seconds for the speech engine; updates pending when the server exits are caught up at the next start. |
 
 Remaining, in order:
 
@@ -172,9 +173,9 @@ Remaining, in order:
       repository, plain Node, no jq or file globbing), selecting parts by
       JSON Pointer over named drafts, an exercise's or all, filtered by text
       and widget type. Done.
-   7. Search drafts (and later unpublished content) as published content
-      is searched: one search over every source, each document saying
-      which (see "Keeping agents on the tools").
+   7. Search drafts as published content is searched: `source` on the
+      search tools (published, drafts, all). Done; unpublished content
+      comes when a server can reach it.
    5. Checking search hits without importing: `fields` and `itemPaths`
       on search_content. Done.
    6. A tool that reads a TeX string aloud as the index does.
@@ -1063,7 +1064,8 @@ tools, by what would close them:
   folder; done): `read_items`.
 - **Search hits can't be checked without importing** (done): `fields`
   and `itemPaths` on search_content.
-- **Searching drafts as published content is searched:** the same search
+- **Searching drafts as published content is searched** (done, but for
+  unpublished content): the same search
   (queries, filters, facets, speech, `fields`) over local drafts, and later
   over unpublished content, since a server will likely reach all three.
   Each document says where it's from (`source`: published, unpublished,

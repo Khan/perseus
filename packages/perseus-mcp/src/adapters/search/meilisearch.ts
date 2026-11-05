@@ -14,6 +14,13 @@ export type MeilisearchClient = {
     getDocument<T>(uid: string, id: string): Promise<T | undefined>;
     /** How many documents an index holds. */
     documentCount(uid: string): Promise<number>;
+    /**
+     * Searches several indexes at once (`POST /multi-search`), federated
+     * into one list when the body says so. Unchecked, as `search` is.
+     */
+    multiSearch<T>(body: object): Promise<T>;
+    /** Removes every document from an index, waiting until it's done. */
+    deleteAllDocuments(uid: string): Promise<void>;
     indexExists(uid: string): Promise<boolean>;
     createIndex(uid: string, primaryKey: string): Promise<void>;
     deleteIndex(uid: string): Promise<void>;
@@ -167,6 +174,22 @@ export function createMeilisearchClient(
             await expectOk(response, `read document ${id} of ${uid}`);
             const document: T = await response.json();
             return document;
+        },
+        async multiSearch<T>(body: object): Promise<T> {
+            const response = await request("POST", "/multi-search", body);
+            await expectOk(response, "search several indexes");
+            const reply: T = await response.json();
+            return reply;
+        },
+        async deleteAllDocuments(uid) {
+            await waitForTask(
+                await runTask(
+                    "DELETE",
+                    `/indexes/${enc(uid)}/documents`,
+                    undefined,
+                    `delete ${uid}'s documents`,
+                ),
+            );
         },
         async documentCount(uid) {
             const response = await request("GET", `/indexes/${enc(uid)}/stats`);

@@ -22,7 +22,12 @@ import type {
     Facet,
     QueryOptions,
 } from "../domain/search/content-query";
-import type {ContentSearch, ContentSource} from "../ports/content-search";
+import type {
+    ContentSearch,
+    ContentSource,
+    SourceQuery,
+} from "../ports/content-search";
+import type {DraftRepository} from "../ports/draft-repository";
 
 /** The most items one import brings in: the exercise editor reviews 50. */
 export const MAX_IMPORT = 50;
@@ -39,7 +44,35 @@ export type SearchDependencies = {
      * otherwise the one the index says it was built from.
      */
     snapshotDir?: string;
+    /** The drafts, whose parts a drafts hit's itemPaths read. */
+    drafts?: DraftRepository;
 };
+
+/** What to search: published content, the person's drafts, or both. */
+export type SearchScope = "published" | "drafts" | "all";
+
+/**
+ * The sources a scope searches, each with its filter. Drafts aren't
+ * listed or unlisted, so the "listed only" default leaves them alone.
+ */
+function sourcesFor(
+    scope: SearchScope,
+    filters: ContentFilters,
+): SourceQuery[] {
+    const published: SourceQuery = {
+        source: "published",
+        filter: filterExpression(filters),
+    };
+    const drafts: SourceQuery = {
+        source: "drafts",
+        filter: filterExpression({...filters, includeUnlisted: true}),
+    };
+    return scope === "published"
+        ? [published]
+        : scope === "drafts"
+          ? [drafts]
+          : [published, drafts];
+}
 
 /** What an import left out, and why. */
 export type SkippedContent = {contentId: string; reason: string};
@@ -90,6 +123,8 @@ export function createSearchUseCases(deps: SearchDependencies) {
             query?: string;
             filters?: ContentFilters;
             options?: QueryOptions;
+            /** Default "published". */
+            source?: SearchScope;
             /** Index fields to return in full in each hit. */
             fields?: ReadonlyArray<ExtraField>;
             /**
@@ -105,7 +140,10 @@ export function createSearchUseCases(deps: SearchDependencies) {
             const itemPaths = input.itemPaths ?? [];
             const result = await search.search({
                 query: input.query ?? "",
-                filter: filterExpression(input.filters ?? {}),
+                sources: sourcesFor(
+                    input.source ?? "published",
+                    input.filters ?? {},
+                ),
                 options: input.options ?? {},
                 limit:
                     itemPaths.length > 0
@@ -117,10 +155,16 @@ export function createSearchUseCases(deps: SearchDependencies) {
                     ...(itemPaths.length > 0 ? ["sourceFile" as const] : []),
                 ],
             });
-            const dir = itemPaths.length > 0 ? await snapshotDir() : null;
+            const needsSnapshot =
+                itemPaths.length > 0 &&
+                result.hits.some((h) => h.source === "published");
+            const dir = needsSnapshot ? await snapshotDir() : null;
             const hits: ContentHit[] = [];
-            for (const {document, snippet} of result.hits) {
-                const hit = toHit(document, snippet);
+            for (const {document, snippet, source} of result.hits) {
+                const hit = {
+                    ...toHit(document, snippet),
+                    ...(source === "drafts" ? {source: "draft" as const} : {}),
+                };
                 if (fields.length > 0) {
                     hit.fields = Object.fromEntries(
                         fields.map((field) => [
@@ -138,8 +182,16 @@ export function createSearchUseCases(deps: SearchDependencies) {
                         ]),
                     );
                 }
-                if (dir != null && document.kind === "item") {
-                    hit.item = await readParts(dir, document, itemPaths);
+                if (itemPaths.length > 0 && document.kind === "item") {
+                    if (source === "drafts") {
+                        // The draft as it is now, not as it was indexed.
+                        hit.item = partsAt(
+                            deps.drafts?.get(document.contentId)?.item ?? null,
+                            itemPaths,
+                        );
+                    } else if (dir != null) {
+                        hit.item = await readParts(dir, document, itemPaths);
+                    }
                 }
                 hits.push(hit);
             }
@@ -150,12 +202,17 @@ export function createSearchUseCases(deps: SearchDependencies) {
             query?: string;
             filters?: ContentFilters;
             options?: QueryOptions;
+            /** Default "published". */
+            source?: SearchScope;
             facets: ReadonlyArray<Facet>;
             top: number;
         }) {
             const result = await search.facets({
                 query: input.query ?? "",
-                filter: filterExpression(input.filters ?? {}),
+                sources: sourcesFor(
+                    input.source ?? "published",
+                    input.filters ?? {},
+                ),
                 options: input.options ?? {},
                 // Always exercises, to count them.
                 facets: [...new Set([...input.facets, "exerciseId" as const])],

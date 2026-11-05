@@ -5,6 +5,7 @@ import {
 } from "@khanacademy/perseus-core";
 
 import {SearchUnavailableError} from "./errors";
+import {inMemoryRepository} from "./in-memory-draft-repository.testutils";
 import {createSearchUseCases} from "./search";
 
 import type {ExerciseUseCases} from "./exercises";
@@ -74,12 +75,15 @@ function fakeSearch(
             retrieved.push([...fields]);
             return {
                 total: documents.length,
-                hits: documents
-                    .slice(0, limit)
-                    .map((document) => ({document, snippet: ""})),
+                hits: documents.slice(0, limit).map((document) => ({
+                    document,
+                    snippet: "",
+                    source: "published" as const,
+                })),
             };
         },
         facets: async () => ({total: 0, counts: {}}),
+        placementOf: async () => undefined,
         async documents({filter}) {
             filters.push(filter);
             return documents;
@@ -320,5 +324,75 @@ describe("searchContent", () => {
 
         // Assert
         expect(result.hits).toHaveLength(10);
+    });
+});
+
+describe("searching drafts", () => {
+    it("searches drafts without the listed-only filter, and marks their hits", async () => {
+        // Arrange
+        const {exercises} = fakeExercises();
+        const requests: Array<{
+            sources: ReadonlyArray<{source: string; filter: string}>;
+        }> = [];
+        const search = {
+            ...fakeSearch([]),
+            async search(request: {
+                sources: ReadonlyArray<{
+                    source: "published" | "drafts";
+                    filter: string;
+                }>;
+            }) {
+                requests.push(request);
+                return {
+                    total: 1,
+                    hits: [
+                        {
+                            document: documentOf("d1"),
+                            snippet: "",
+                            source: "drafts" as const,
+                        },
+                    ],
+                };
+            },
+        };
+        const draft = {
+            itemId: "d1",
+            revision: 2,
+            createdAt: "",
+            updatedAt: "",
+            item: generateTestPerseusItem({
+                question: generateTestPerseusRenderer({content: "Now."}),
+            }),
+        };
+        const useCases = createSearchUseCases({
+            search,
+            content,
+            exercises,
+            drafts: {...inMemoryRepository(), get: () => draft},
+        });
+
+        // Act
+        const result = await useCases.searchContent({
+            source: "all",
+            filters: {course: "algebra"},
+            itemPaths: ["/question/content"],
+            limit: 10,
+        });
+
+        // Assert
+        expect(requests[0].sources).toEqual([
+            {
+                source: "published",
+                filter: 'listed = true AND (course = "algebra" OR courseTitle = "algebra")',
+            },
+            {
+                source: "drafts",
+                filter: '(course = "algebra" OR courseTitle = "algebra")',
+            },
+        ]);
+        expect(result.hits[0]).toMatchObject({
+            source: "draft",
+            item: {"/question/content": "Now."},
+        });
     });
 });

@@ -1,9 +1,18 @@
-import type {ContentDocument} from "../domain/search/content-document";
+import type {
+    ContentDocument,
+    Placement,
+} from "../domain/search/content-document";
 import type {
     Facet,
     HitFields,
     QueryOptions,
 } from "../domain/search/content-query";
+
+/** Where content is searched: published content, or the person's drafts. */
+export type SearchSource = "published" | "drafts";
+
+/** A source to search, with the filter for it (each filters differently). */
+export type SourceQuery = {source: SearchSource; filter: string};
 
 /** Whether search can be used, and what it holds when it can. */
 export type SearchStatus =
@@ -11,6 +20,8 @@ export type SearchStatus =
           available: true;
           url: string;
           documents: number;
+          /** Draft documents, when drafts are indexed. */
+          drafts?: number;
           snapshotVersion?: string;
           /** The content snapshot the index was built from. */
           snapshotDir?: string;
@@ -34,7 +45,8 @@ export interface ContentSearch {
      */
     search(request: {
         query: string;
-        filter: string;
+        /** One source, or several searched together and ranked as one. */
+        sources: ReadonlyArray<SourceQuery>;
         options: QueryOptions;
         limit: number;
         offset: number;
@@ -45,6 +57,7 @@ export interface ContentSearch {
         hits: Array<{
             document: HitFields & Partial<ContentDocument>;
             snippet: string;
+            source: SearchSource;
         }>;
     }>;
     /**
@@ -54,7 +67,7 @@ export interface ContentSearch {
      */
     facets(request: {
         query: string;
-        filter: string;
+        sources: ReadonlyArray<SourceQuery>;
         options: QueryOptions;
         facets: ReadonlyArray<Facet>;
     }): Promise<{
@@ -62,7 +75,12 @@ export interface ContentSearch {
         counts: Partial<Record<Facet, Record<string, number>>>;
     }>;
     /**
-     * Every matching document, up to `limit`, whole.
+     * Where a published item is in the content tree, or undefined if the
+     * index has no such item.
+     */
+    placementOf(contentId: string): Promise<Placement | undefined>;
+    /**
+     * Every matching published document, up to `limit`, whole.
      *
      * @throws SearchUnavailableError
      */
@@ -85,4 +103,12 @@ export interface ContentSource {
         sourceFile: string,
         itemId: string,
     ): Promise<unknown>;
+}
+
+/** The drafts' search index, kept up to date as drafts change. */
+export interface DraftSearchIndex {
+    /** Replaces every draft document with these. */
+    replaceAll(documents: ReadonlyArray<ContentDocument>): Promise<void>;
+    /** Adds these, replacing documents with the same ids. */
+    upsert(documents: ReadonlyArray<ContentDocument>): Promise<void>;
 }

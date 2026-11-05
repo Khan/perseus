@@ -1,19 +1,28 @@
 import {SearchUnavailableError} from "../../app/errors";
 import {
+    CONTENT_INDEX_SETTINGS,
     CONTENT_INDEX_UID,
     CONTENT_META_INDEX_UID,
     INDEX_META_ID,
 } from "../../domain/search/content-document";
 import {HIT_FIELDS, searchedFields} from "../../domain/search/content-query";
+import {DRAFT_INDEX_UID} from "../../domain/search/draft-document";
 
 import {createMeilisearchClient, MeilisearchRequestError} from "./meilisearch";
 
 import type {
     ContentDocument,
     IndexMeta,
+    Placement,
 } from "../../domain/search/content-document";
 import type {HitFields, QueryOptions} from "../../domain/search/content-query";
-import type {ContentSearch, SearchStatus} from "../../ports/content-search";
+import type {
+    ContentSearch,
+    DraftSearchIndex,
+    SearchSource,
+    SearchStatus,
+    SourceQuery,
+} from "../../ports/content-search";
 
 /** How to start Meilisearch and fill it, for when search isn't available. */
 const HOW_TO_START =
@@ -29,10 +38,34 @@ const SNIPPET_WORDS = 30;
 
 type SearchReply = {
     hits: Array<
-        HitFields & Partial<ContentDocument> & {_formatted?: {text?: unknown}}
+        HitFields &
+            Partial<ContentDocument> & {
+                _formatted?: {text?: unknown};
+                _federation?: {indexUid: string};
+            }
     >;
     facetDistribution?: Record<string, Record<string, number>>;
 };
+
+const INDEX_OF: Record<SearchSource, string> = {
+    published: CONTENT_INDEX_UID,
+    drafts: DRAFT_INDEX_UID,
+};
+
+function sourceOf(indexUid: string | undefined): SearchSource {
+    return indexUid === DRAFT_INDEX_UID ? "drafts" : "published";
+}
+
+const PLACEMENT_FIELDS = [
+    "domain",
+    "domainTitle",
+    "course",
+    "courseTitle",
+    "unit",
+    "unitTitle",
+    "lesson",
+    "lessonTitle",
+] as const satisfies ReadonlyArray<keyof Placement>;
 
 /** Meilisearch's search parameters for how a query matches. */
 function matching(query: string, options: QueryOptions): object {
@@ -97,9 +130,52 @@ export function createMeilisearchContentSearch(options: {
         }
     }
 
-    async function search(body: object): Promise<SearchReply> {
+    /**
+     * Searches one source's index, or several federated into one ranked
+     * list. `body` is the per-query part; `limit`, `offset` and `facets`
+     * go where each kind of search takes them.
+     */
+    async function search(
+        sources: ReadonlyArray<SourceQuery>,
+        body: object,
+        page: {limit: number; offset?: number; facets: string[]},
+    ): Promise<SearchReply> {
+        if (sources.length === 1) {
+            const [{source, filter}] = sources;
+            const reply = await guarded(() =>
+                client.search<SearchReply>(INDEX_OF[source], {
+                    ...body,
+                    filter,
+                    ...page,
+                }),
+            );
+            return {
+                ...reply,
+                hits: reply.hits.map((hit) => ({
+                    ...hit,
+                    _federation: {indexUid: INDEX_OF[source]},
+                })),
+            };
+        }
         return guarded(() =>
-            client.search<SearchReply>(CONTENT_INDEX_UID, body),
+            client.multiSearch<SearchReply>({
+                federation: {
+                    limit: page.limit,
+                    offset: page.offset ?? 0,
+                    facetsByIndex: Object.fromEntries(
+                        sources.map(({source}) => [
+                            INDEX_OF[source],
+                            page.facets,
+                        ]),
+                    ),
+                    mergeFacets: {},
+                },
+                queries: sources.map(({source, filter}) => ({
+                    indexUid: INDEX_OF[source],
+                    ...body,
+                    filter,
+                })),
+            }),
         );
     }
 
@@ -107,6 +183,9 @@ export function createMeilisearchContentSearch(options: {
         async status(): Promise<SearchStatus> {
             try {
                 const documents = await client.documentCount(CONTENT_INDEX_UID);
+                const drafts = (await client.indexExists(DRAFT_INDEX_UID))
+                    ? await client.documentCount(DRAFT_INDEX_UID)
+                    : undefined;
                 // An index built before the meta index existed has none.
                 const meta = await client
                     .getDocument<IndexMeta>(
@@ -118,6 +197,7 @@ export function createMeilisearchContentSearch(options: {
                     available: true,
                     url: options.url,
                     documents,
+                    ...(drafts != null ? {drafts} : {}),
                     snapshotVersion: meta?.snapshotVersion,
                     snapshotDir: meta?.snapshotDir,
                     builtAt: meta?.builtAt,
@@ -135,39 +215,44 @@ export function createMeilisearchContentSearch(options: {
 
         async search({
             query,
-            filter,
+            sources,
             options: queryOptions,
             limit,
             offset,
             fields = [],
         }) {
-            const reply = await search({
-                ...matching(query, queryOptions),
-                filter,
-                limit,
-                offset,
-                attributesToRetrieve: [...new Set([...HIT_FIELDS, ...fields])],
-                attributesToCrop: ["text"],
-                cropLength: SNIPPET_WORDS,
-                facets: ["kind"],
-            });
+            const reply = await search(
+                sources,
+                {
+                    ...matching(query, queryOptions),
+                    attributesToRetrieve: [
+                        ...new Set([...HIT_FIELDS, ...fields]),
+                    ],
+                    attributesToCrop: ["text"],
+                    cropLength: SNIPPET_WORDS,
+                },
+                {limit, offset, facets: ["kind"]},
+            );
             return {
                 total: totalOf(reply),
                 hits: reply.hits.map((hit) => {
-                    const {_formatted: formatted, ...fields} = hit;
+                    const {
+                        _formatted: formatted,
+                        _federation: federation,
+                        ...fields
+                    } = hit;
                     const snippet = formatted?.text;
                     return {
                         document: fields,
                         snippet: typeof snippet === "string" ? snippet : "",
+                        source: sourceOf(federation?.indexUid),
                     };
                 }),
             };
         },
 
-        async facets({query, filter, options: queryOptions, facets}) {
-            const reply = await search({
-                ...matching(query, queryOptions),
-                filter,
+        async facets({query, sources, options: queryOptions, facets}) {
+            const reply = await search(sources, matching(query, queryOptions), {
                 limit: 0,
                 facets: [...new Set(["kind", ...facets])],
             });
@@ -175,6 +260,32 @@ export function createMeilisearchContentSearch(options: {
                 total: totalOf(reply),
                 counts: reply.facetDistribution ?? {},
             };
+        },
+
+        async placementOf(contentId) {
+            const document = await guarded(() =>
+                client.getDocument<Placement>(
+                    CONTENT_INDEX_UID,
+                    `item-${contentId}`,
+                ),
+            );
+            if (document == null) {
+                return undefined;
+            }
+            const placement: Placement = {
+                domain: [],
+                domainTitle: [],
+                course: [],
+                courseTitle: [],
+                unit: [],
+                unitTitle: [],
+                lesson: [],
+                lessonTitle: [],
+            };
+            for (const field of PLACEMENT_FIELDS) {
+                placement[field] = document[field] ?? [];
+            }
+            return placement;
         },
 
         async documents({query, filter, options: queryOptions, limit}) {
@@ -186,6 +297,61 @@ export function createMeilisearchContentSearch(options: {
                 }),
             );
             return reply.hits;
+        },
+    };
+}
+
+/** How many draft documents go in one request. */
+const DRAFT_BATCH = 500;
+
+/**
+ * The drafts' index in Meilisearch, made with the published index's
+ * settings the first time it's written to.
+ */
+export function createMeilisearchDraftIndex(options: {
+    url: string;
+    apiKey?: string;
+}): DraftSearchIndex {
+    const client = createMeilisearchClient(options);
+    let ready: Promise<void> | null = null;
+
+    function ensureIndex(): Promise<void> {
+        ready ??= (async () => {
+            if (!(await client.indexExists(DRAFT_INDEX_UID))) {
+                await client.createIndex(DRAFT_INDEX_UID, "id");
+            }
+            await client.updateSettings(
+                DRAFT_INDEX_UID,
+                CONTENT_INDEX_SETTINGS,
+            );
+        })().catch((e: unknown) => {
+            // Try again next time: Meilisearch may start later.
+            ready = null;
+            throw e;
+        });
+        return ready;
+    }
+
+    async function add(documents: ReadonlyArray<ContentDocument>) {
+        for (let i = 0; i < documents.length; i += DRAFT_BATCH) {
+            await client.waitForTask(
+                await client.addDocuments(
+                    DRAFT_INDEX_UID,
+                    documents.slice(i, i + DRAFT_BATCH),
+                ),
+            );
+        }
+    }
+
+    return {
+        async replaceAll(documents) {
+            await ensureIndex();
+            await client.deleteAllDocuments(DRAFT_INDEX_UID);
+            await add(documents);
+        },
+        async upsert(documents) {
+            await ensureIndex();
+            await add(documents);
         },
     };
 }

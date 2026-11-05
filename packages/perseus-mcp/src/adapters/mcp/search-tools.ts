@@ -96,6 +96,21 @@ const querySchema = z
             "it out to match everything the filters allow.",
     );
 
+// What to search.
+const sourceSchema = z
+    .enum(["published", "drafts", "all"])
+    .optional()
+    .describe(
+        "What to search: published content (the default), the person's " +
+            "drafts, or both, ranked together. Drafts are searched as " +
+            "published content is (the same fields, filters, facets and " +
+            'speech); a draft\'s hit says source "draft", its contentId is ' +
+            "its itemId, its titles and problem types are its exercises', " +
+            "and its place in the tree is the published item's it was " +
+            "imported from, if it was. Read or change drafts found with " +
+            "read_items, export_item and edit_item.",
+    );
+
 // How a query matches: where it looks, whole words, one per exercise.
 const optionsSchema = {
     searchIn: z
@@ -170,6 +185,7 @@ export function registerSearchTools(
                 "the search index or read the content snapshot yourself.",
             inputSchema: z.object({
                 query: querySchema,
+                source: sourceSchema,
                 ...optionsSchema,
                 filters: filtersSchema,
                 limit: z.number().int().min(1).max(50).default(10),
@@ -205,11 +221,21 @@ export function registerSearchTools(
             }),
             annotations: {readOnlyHint: true},
         },
-        ({query, filters, limit, offset, fields, itemPaths, ...options}) =>
+        ({
+            query,
+            source,
+            filters,
+            limit,
+            offset,
+            fields,
+            itemPaths,
+            ...options
+        }) =>
             run("search_content", async () =>
                 jsonResult(
                     await search.searchContent({
                         query,
+                        source,
                         filters,
                         options,
                         fields,
@@ -239,6 +265,7 @@ export function registerSearchTools(
                 "exercises the matching items are in. Reads no content.",
             inputSchema: z.object({
                 query: querySchema,
+                source: sourceSchema,
                 searchIn: optionsSchema.searchIn,
                 matchAny: optionsSchema.matchAny,
                 filters: filtersSchema,
@@ -247,11 +274,12 @@ export function registerSearchTools(
             }),
             annotations: {readOnlyHint: true},
         },
-        ({query, filters, facets, top, ...options}) =>
+        ({query, source, filters, facets, top, ...options}) =>
             run("facet_content", async () =>
                 jsonResult(
                     await search.facetContent({
                         query,
+                        source,
                         filters,
                         options,
                         facets,
