@@ -5,11 +5,8 @@ import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-render
 import {articleDecorator} from "../../__testutils__/story-decorators";
 import {
     basicQuestion,
-<<<<<<< HEAD
     longTextWithTeX,
-=======
     simpleTexQuestion,
->>>>>>> main
     texQuestion,
     twoCardVerticalQuestion,
 } from "../sorter.testdata";
