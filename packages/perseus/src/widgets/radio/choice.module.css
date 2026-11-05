@@ -270,13 +270,19 @@
 
 .is-crossed-out {
     /* The lines repeat every 25.456px (36px / √2), so they're a whole 36px
-       apart horizontally and every line is drawn the same width.
+       apart horizontally and every line is drawn the same width. Each line
+       is centered on its repeat, so the hatching tiles seamlessly in 36px
+       squares (see below).
      */
+    --perseus-cross-out-hatch-half-line: calc(var(--wb-border-width-thick) / 2);
     --perseus-cross-out-hatch: repeating-linear-gradient(
         45deg,
         var(--wb-semanticColor-core-border-neutral-default) 0
-            var(--wb-border-width-thick),
-        transparent var(--wb-border-width-thick) 25.456px
+            var(--perseus-cross-out-hatch-half-line),
+        transparent var(--perseus-cross-out-hatch-half-line)
+            calc(25.456px - var(--perseus-cross-out-hatch-half-line)),
+        var(--wb-semanticColor-core-border-neutral-default)
+            calc(25.456px - var(--perseus-cross-out-hatch-half-line)) 25.456px
     );
     --perseus-cross-out-image-opacity: 0.7;
     --perseus-cross-out-strike-width: var(--wb-border-width-medium);
@@ -331,12 +337,17 @@
    would sit on the math axis, where it hides the bars of +, − and = and runs
    into fraction bars.
    Labels on a graph are left alone: the graph's hatching covers them.
+   The hatching is centered on what it covers, so a line always crosses the
+   middle. Short math like "6" is narrower than the gap between lines, and
+   hatching drawn from the corner would only catch the tip of one.
  */
 .is-crossed-out :global(.mathjax-wrapper):not(:global(.graphie-label) *),
 .is-crossed-out :global(.deprecated-perseus-container):has(> img:only-child),
 .is-crossed-out :global(.unresponsive-svg-image) {
     &::after {
         background-image: var(--perseus-cross-out-hatch);
+        background-position: center;
+        background-size: 36px 36px;
         content: "";
         inset: 0;
         pointer-events: none;
