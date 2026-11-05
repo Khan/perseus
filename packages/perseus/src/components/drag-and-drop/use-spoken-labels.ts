@@ -4,7 +4,9 @@ import {useEffect, useState} from "react";
 import {mathOnlyParser} from "../../widgets/interactive-graphs/utils";
 import {usePerseusI18n} from "../i18n-context";
 
-const inJest = typeof process !== "undefined" && !!process?.env?.JEST_WORKER_ID;
+function isInJest(): boolean {
+    return typeof process !== "undefined" && !!process?.env?.JEST_WORKER_ID;
+}
 
 function keepTex(tex: string): string {
     return tex;
@@ -35,7 +37,7 @@ export function useSpokenLabels(contents: string[]): string[] {
     const [engine, setEngine] = useState<SpeechRuleEngine | null>(null);
 
     useEffect(() => {
-        if (inJest) {
+        if (isInJest()) {
             return;
         }
         let cancelled = false;
