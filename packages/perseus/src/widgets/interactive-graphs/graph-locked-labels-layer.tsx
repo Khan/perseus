@@ -4,6 +4,7 @@ import {
     assumedLabelSize,
     getAutoLabelPlacements,
 } from "./locked-figures/label-placement-utils";
+import {getIntersectionOfRayWithBox} from "./graphs/utils";
 import LockedLabel from "./locked-figures/locked-label";
 import {strokeWeights} from "./locked-figures/utils";
 import useGraphConfig from "./reducer/use-graph-config";
@@ -146,9 +147,21 @@ export default function GraphLockedLabelsLayer(props: Props) {
 
             if (figure.type === "line") {
                 const [point1, point2] = figure.points;
+                // A ray carries on past its second point to the edge of the
+                // graph, so the stroke labels have to avoid runs further than
+                // the two points that define it. This is the same call the
+                // line itself is drawn with, so the two always agree.
+                const drawnEnd =
+                    figure.kind === "ray"
+                        ? getIntersectionOfRayWithBox(
+                              point1.coord,
+                              point2.coord,
+                              range,
+                          )
+                        : point2.coord;
                 const segment: SegmentObstacle = {
                     from: point1.coord,
-                    to: point2.coord,
+                    to: drawnEnd,
                     strokeWidth: strokeWeights[figure.weight],
                 };
                 segmentObstacles.push(segment);
@@ -175,6 +188,10 @@ export default function GraphLockedLabelsLayer(props: Props) {
                             key,
                             anchorCoord: point.coord,
                             size: sized(key),
+                            // An endpoint sits on its own line, so its label
+                            // would otherwise be pushed a full clearance away
+                            // from a line it belongs to.
+                            ownerSegment: segment,
                         });
                     });
                 });
@@ -191,6 +208,7 @@ export default function GraphLockedLabelsLayer(props: Props) {
                         ],
                         size: sized(key),
                         ownerSegment: segment,
+                        labelsTheLine: true,
                     });
                 });
             }
@@ -201,7 +219,8 @@ export default function GraphLockedLabelsLayer(props: Props) {
             segments: segmentObstacles,
             points: pointObstacles,
         };
-    }, [lockedFigures, labelSizes]);
+        // `range` matters because a ray's drawn end is clipped to it.
+    }, [lockedFigures, labelSizes, range]);
 
     const placements = React.useMemo(
         () =>

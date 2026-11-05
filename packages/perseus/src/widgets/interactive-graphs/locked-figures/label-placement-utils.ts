@@ -106,15 +106,6 @@ function rectToCircleGap(
     return Math.hypot(dx, dy) - radius;
 }
 
-/** Shortest distance from a line segment to a point. */
-function segmentToPointDistance(
-    a: [number, number],
-    b: [number, number],
-    point: [number, number],
-): number {
-    return pointToSegmentDistance(point, a, b);
-}
-
 /** Shortest distance from a point to a line segment. */
 function pointToSegmentDistance(
     point: [number, number],
@@ -555,14 +546,21 @@ export type LabelPlacementItem = {
     /** Measured size, or `assumedLabelSize` if it hasn't been measured yet. */
     size: LabelSize;
     /**
-     * The line this label belongs to, when it labels a line rather than a
-     * point. Such a label sits beside its line rather than radiating from the
-     * middle of the graph, and is exempt from this one segment's clearance.
+     * The line this label belongs to — either because it labels the line
+     * itself, or because it labels one of its endpoints. Such a label is
+     * exempt from that one segment's clearance near its own anchor; it is
+     * meant to sit beside the line, not be pushed away from it.
      *
      * Matched by reference, so this has to be the same object the caller puts
      * in the obstacle list — two different lines can share endpoints.
      */
     ownerSegment?: SegmentObstacle;
+    /**
+     * Whether this label names the line itself rather than one of its points.
+     * A line's own label is placed beside the line; an endpoint's label still
+     * radiates from its point like any other.
+     */
+    labelsTheLine?: boolean;
 };
 
 /** A drawn point that labels have to stay clear of. */
@@ -603,6 +601,44 @@ type PixelSegment = {
     /** The obstacle this came from, so a label can recognise its own line. */
     owner?: SegmentObstacle;
 };
+
+/**
+ * The part of a segment beyond `radius` of `point`, or `undefined` when the
+ * whole segment lies within it.
+ *
+ * Used when a label measures against its own line: it sits beside the point it
+ * labels, so the closest part of that line is the stretch running through that
+ * very point — which should not count as something to avoid.
+ */
+function trimSegmentNearPoint(
+    segment: PixelSegment,
+    point: [number, number],
+    radius: number,
+): PixelSegment | undefined {
+    const {a, b} = segment;
+    const length = Math.hypot(b[X] - a[X], b[Y] - a[Y]);
+    if (length === 0 || radius >= length) {
+        return undefined;
+    }
+
+    // Only an end can be the part to trim: the anchor is always an endpoint of
+    // its own line, or its midpoint, and a midpoint label is already held off
+    // the line by its perpendicular placement.
+    const fromA = Math.hypot(point[X] - a[X], point[Y] - a[Y]);
+    const fromB = Math.hypot(point[X] - b[X], point[Y] - b[Y]);
+    const t = radius / length;
+
+    if (fromA <= fromB) {
+        return {
+            ...segment,
+            a: [a[X] + (b[X] - a[X]) * t, a[Y] + (b[Y] - a[Y]) * t],
+        };
+    }
+    return {
+        ...segment,
+        b: [b[X] + (a[X] - b[X]) * t, b[Y] + (a[Y] - b[Y]) * t],
+    };
+}
 
 /** A point that labels have to stay clear of. */
 type PointObstacle = {
@@ -835,19 +871,37 @@ function scoreCandidate(
 
     let segmentPenalty = 0;
     for (const segment of segments) {
-        // A label whose own anchor lies on a line — its midpoint label, or one
-        // belonging to an endpoint — is meant to sit beside that line, so it
-        // doesn't keep the full clearance from it. It must still not lie
-        // across the stroke. Every other line gets the full treatment, just as
-        // a point label clears every point but its own.
-        const anchorIsOnSegment =
-            (segment.owner != null && segment.owner === item.ownerSegment) ||
-            segmentToPointDistance(segment.a, segment.b, anchorPx) <=
-                segment.strokeWidth / 2 + 1;
-        const required = anchorIsOnSegment
-            ? segment.strokeWidth / 2
+        // A label belonging to a line — its midpoint label, or one on one of
+        // its endpoints — is meant to sit beside that line, so it doesn't keep
+        // the full clearance from it. It must still not lie across the stroke.
+        //
+        // Ownership is declared rather than inferred from position: an
+        // unrelated point can happen to sit on a line, especially a ray
+        // running the width of the graph, and its label should still be held
+        // the full distance away.
+        const isOwnLine =
+            segment.owner != null && segment.owner === item.ownerSegment;
+        // The relief only applies where the label is actually near its anchor.
+        // Without that it would be free to slide anywhere along its own line —
+        // the length of the graph, for a ray — since nothing else holds it to
+        // the point it labels.
+        const nearOwnAnchor =
+            isOwnLine &&
+            rectToCircleGap(rect, anchorPx, 0) <= ownHalfDiagonal;
+        const required = nearOwnAnchor
+            ? labelOffsetPx + segment.strokeWidth / 2
             : ownHalfDiagonal + segment.strokeWidth / 2;
-        const distance = segmentToRectDistance(segment.a, segment.b, rect);
+
+        // Measuring against its own line, a label beside the point it labels
+        // is nearest that line *at that very point* — so the line's own end
+        // reads as an obstacle and pushes the label off a side that is in fact
+        // clear. Step past the anchor and measure against the rest.
+        const measured = nearOwnAnchor
+            ? trimSegmentNearPoint(segment, anchorPx, labelOffsetPx)
+            : segment;
+        const distance = measured
+            ? segmentToRectDistance(measured.a, measured.b, rect)
+            : Infinity;
         if (distance < required) {
             segmentPenalty += (required - distance) / labelOffsetPx;
         }
@@ -961,7 +1015,7 @@ export function getAutoLabelPlacements(
             pointPx,
             referencePx,
             graphInfo,
-            item.ownerSegment
+            item.labelsTheLine && item.ownerSegment
                 ? segmentsPx.find((s) => s.owner === item.ownerSegment)
                 : undefined,
         );
