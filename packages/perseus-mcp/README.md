@@ -61,6 +61,27 @@ If the data directory can't be written to, the server refuses to start rather
 than silently losing drafts. A saved draft that no longer parses is skipped
 and reported by `list_items`.
 
+## Content search
+
+Search runs in a local [Meilisearch](https://www.meilisearch.com), indexed
+from a content snapshot (a folder of published content). Start Meilisearch
+with Docker, reachable only from this machine, its data kept in a volume:
+
+```sh
+docker run -d --name perseus-search -p 127.0.0.1:7700:7700 \
+    -v perseus-search:/meili_data getmeili/meilisearch:v1.15
+```
+
+Then build the index (again after the snapshot changes):
+
+```sh
+pnpm --filter @khanacademy/perseus-mcp build:search-index /path/to/snapshot
+```
+
+`PERSEUS_MCP_SEARCH_URL` (default `http://localhost:7700`) and
+`PERSEUS_MCP_SEARCH_KEY` (if Meilisearch was started with a master key) say
+where it is.
+
 ## Code layout
 
 Hexagonal (ports and adapters):

@@ -41,7 +41,8 @@ How the work is done. An agent resuming this plan follows these rules exactly.
 ## Status
 
 **Build order steps 1 to 9 are done, and step 10 but for its upload; step 11
-(`create_graphie`) is next, then 10's upload.** The commits below are on
+(`create_graphie`) is next, then 10's upload; step 12 (content search) has
+started.** The commits below are on
 `jer/perseus-mcp`, oldest first, and every tool was smoke-tested over stdio
 from outside the repo.
 
@@ -98,6 +99,7 @@ from outside the repo.
 | Let the agent run the review itself with review_item | The instructions told agents to review every item with the `review_item` prompt and the checklist resource, but an agent can't start a prompt or read a resource (a person does), so none of the 19 items made in past sessions was reviewed. `review_item` is now also a tool: one call returns the procedure, the draft's validation issues for its revision, and the checklist entries it needs (the four judgment calls validate_item can't make, plus the entry for each issue the draft has), about 3.4 KB for a clean draft. The instructions point at the tool; the prompt and resource stay for people. Checked over MCP. |
 | Let hosts serve Graphie label data from anywhere | Build order step 11, commit 1 of 4, in Perseus (minor changeset `amber-labels-travel`). Perseus fetched a Graphie image's label data with plain `fetch`, so only the SVG (through `generateUrl`) could be served from another host or path. `loadGraphie` now takes a `resolveUrl` for its data URLs, and `SvgImage` passes `generateUrl` with the new context `"graphie:data_url"`; the label cache is keyed by the resolved URL instead of the image's hash, so a URL that changes between revisions is fetched again. `SvgImage`'s default export is now a function component that reads the dependencies and renders the class (`withDependencies` lost its `defaultProps` in the types). |
 | Draw diagrams with Graffiti, kept by revision | Build order step 11, commit 2 of 4. `create_graffiti` keeps a diagram drawn by a Graffiti script under a stable `graffitiId`, and `update_graffiti` adds a revision (a new script is kept only if it draws); `get_graffiti` and `list_graffiti` read them. Revisions are saved as `<dataDir>/graffiti/<id>/<revision>.json`. `/graffiti/<id>.svg` and `/graffiti/<id>-data.json` draw the latest revision when asked for, `/graffiti/<id>.<revision>…` an earlier one (itself a valid Graphie URL), and `/graffiti/<locale>/…` falls back to the English labels; each revision is drawn once and cached. An item shows a diagram with `web+graphie://perseus-mcp.localhost/graffiti/<id>`, so it needn't change when the diagram does. A script runs in a process of its own (`runner.mjs`) under Node's permission model, reading only the runner, Graffiti and itself, for at most 10 seconds; since Node 24's permission model doesn't cover the network, the runner also refuses every import but `graffiti` and removes `fetch` and the other network globals (not a hard boundary). Its default export is `{canvas, shapes, labels?}` or a function returning it. Graffiti is a `link:` dependency on its own checkout (built with `npm run build` there; without it the tools are left out), copied into the bundles as `graffiti/lib/` beside the runner. Checked over MCP from the repo and from the unpacked macOS bundle. |
+| Index a content snapshot for search in Meilisearch | Build order step 12, commit 1 of 3. `build:search-index <snapshot folder>` (or `PERSEUS_MCP_CONTENT_SNAPSHOT`) builds the `perseus-content` index in a local Meilisearch (`PERSEUS_MCP_SEARCH_URL`, default `http://localhost:7700`; `PERSEUS_MCP_SEARCH_KEY`): one document per current English item and article (an item in several exercises listing them all), marked `listed` when learners see it and then placed only on its listed paths in the content tree, with its text, TeX, hint text, widget text, widget types and option values (`domain/search/`). `readTopLevel` streams the snapshot's index, which is too large to read as one string, and `snapshotDocuments` reads each exercise's and article's current file. Built into a second index and swapped in, so a rebuild doesn't interrupt search. A small REST client (`adapters/search/meilisearch.ts`), no new dependencies. Plan: content search added as step 12; the later steps move down one. |
 | Show diagrams in the chat preview | Build order step 11, commit 3 of 4 (done before the browser commit, since the chat preview is the one that can't reach the local server). `get_preview_draft` finds the `web+graphie://perseus-mcp.localhost/graffiti/<id>` URLs in the draft and sends the drawing (SVG and label data) of each diagram whose revision isn't in the page's `diagramRevisions`; a new revision of a diagram counts as a change even when the draft hasn't changed, and ids that name no diagram come back as `missingDiagrams`, named in the page's status line. The page keeps the drawings and gives Perseus its own `generateUrl` (`Exercise` now takes `dependencies`): a diagram's image becomes a `data:image/svg+xml` URL, which MCP Apps' default CSP allows, and its label data URL names the revision, since Perseus keeps label data by URL; the page answers Perseus's `fetch` of that URL itself, since the host's CSP would block it, and 404s anything else at the diagram host (so other locales fall back to English). `resourceDomains` for the local server wasn't tried: this works under any host and once hosted, and the port changes from run to run. An image widget still needs the diagram's `width` and `height`: without them Perseus measures the image by loading the original URL. Checked over MCP (first poll, unchanged poll, poll after `update_graffiti`). Seen in the chat preview, the images didn't load: Perseus's `ImageLoader` preloaded each image from its original URL and only the `<img>` it then rendered went through `generateUrl`, so a rewritten URL never loaded; it now preloads from `generateUrl`'s URL (in the same changeset as the label data). |
 
 Remaining, in order:
@@ -143,7 +145,9 @@ Remaining, in order:
       instead (interactive-graph's is now 19 KB; its user input is its
       options' graph types).
 3. Build order step 11 (`create_graphie`), then step 10's upload, then
-   steps 12 to 15.
+   steps 12 to 16. Step 12 (content search) started alongside step 11's
+   last commits: its first commit, the search index and its ingestion
+   script, is done.
 
 Consuming applications aren't in this repo: the changesets carry the
 migration steps, and they're updated separately.
@@ -756,8 +760,23 @@ upload comes after step 11.
     POST. `preview_exercise` returns the page's URL. No dragging: Claude
     organizes, the page shows.
 11. **`create_graphie`:** declarative spec to Graphie image, served locally,
-    with alt text (step 12's rules come after it).
-12. **Alt text and long descriptions:** Claude infers each image's purpose
+    with alt text (step 13's rules come after it).
+12. **Content search** (see "Content search" below): a local search index
+    of published English content, so the agent narrows a request ("the
+    Pre-algebra course", "items using interactive-graph") to the few items
+    it needs before reading any, and counts without reading at all. In
+    three commits:
+    1. **The index and its ingestion** (done): Meilisearch in Docker, and a
+       `build:search-index` script that streams a local content snapshot
+       into it, one document per item and per article.
+    2. **Search tools:** `search_content`, `facet_content` and
+       `import_from_search` (listed content unless asked otherwise), and
+       search status in `get_server_info`.
+    3. **Guidelines and fixers:** content guidelines loaded from a local
+       file whose path an environment variable names (the text isn't
+       committed), and tools that apply rules code can apply to a set of
+       drafts, with a dry run.
+13. **Alt text and long descriptions:** Claude infers each image's purpose
     (assessment, instruction, decorative) from the item, writes `alt` and,
     when needed, `longDescription`, or sets `decorative`, and lists the
     purpose it assumed with them for the author to review, without
@@ -785,10 +804,10 @@ upload comes after step 11.
     dependency such as `@resvg/resvg-js`), saving the assumed purpose with
     the draft for the exercise page to flag, and images inside other
     widgets.
-13. **Eval harness** on the Claude Agent SDK with a few smoke tasks, until the
+14. **Eval harness** on the Claude Agent SDK with a few smoke tasks, until the
     real task set is ready (written in a separate session).
-14. **Publish to npm** as `@khanacademy/perseus-mcp`, for Khan Academy
-   content authors, once steps 4 to 13 are done and the server has been
+15. **Publish to npm** as `@khanacademy/perseus-mcp`, for Khan Academy
+   content authors, once steps 4 to 14 are done and the server has been
    tested in use. It installs and runs with `npx @khanacademy/perseus-mcp
    --stdio` in an MCP host's config. The build, the data directory and the
    `Host` check come from step 6; what's left:
@@ -801,13 +820,67 @@ upload comes after step 11.
      `config/build`'s `getPackageNames`, whose library build is wrong for
      it. Either `build-packages.ts` hands a package to its own build script,
      or perseus-mcp stays private and is published from its built output.
-15. **Hosted deployment**, after publishing: run the server as a hosted
+16. **Hosted deployment**, after publishing: run the server as a hosted
     service on an https origin. It needs a shared draft store (a new
     `DraftRepository` adapter), live updates across instances (one
     instance, a pub/sub layer, or polling), OAuth for remote MCP connectors,
     a decision on storing unpublished drafts, and the prebuilt bundles from
     step 6. Listed in the Claude directory with its site, it would also let
     the embedded page frame the hosted preview.
+
+## Content search
+
+Build order step 12. Authors ask for work across many items ("make the
+first line of every question in this course bold", "check this course's
+hints against our guidelines", "align this course to a new standard"). The
+agent narrows the request with search first and reads only what it finds;
+whatever code can do (counting, filtering, mechanical fixes) code does, so
+no tokens go on items the agent doesn't need to read.
+
+- **Meilisearch**, run locally from its Docker image (the README says how),
+  keyword search with filters and facets. Without it the search tools still
+  exist but say search isn't available and how to start it, and
+  `get_server_info` reports its state, the document count and the snapshot
+  version indexed.
+- **The content snapshot:** a local folder holding an index of published
+  content (`snapshot-en.json`: the content tree, each exercise's problem
+  types and items, each article) and the content itself, every version of
+  each exercise and article as `<contentId>-<sha>.json` under
+  `Exercise.TranslatedPerseusContent/en/` and
+  `Article.TranslatedPerseusContent/en/`. Only English is indexed, and
+  only the current version: the file whose sha is the index's
+  `translatedPerseusContentSha`, and of its items only those the index
+  lists. The index file is larger than the longest string V8 allows, so
+  `readTopLevel` streams it, one array element at a time.
+- **One document per item and per article**, each placed in the content
+  tree: domain, course, unit and lesson (lists, since an exercise can be in
+  several courses), with their titles, plus the exercise and problem type.
+  Searchable: the content's text (Markdown with widget placeholders and
+  images taken out, image alt text kept), its TeX on its own (so a search
+  for `\sqrt` doesn't flood text results), hint text, and the text in
+  widget options (choices, labels, nested renderers). Filterable and
+  faceted: the tree, widget types, widget option values
+  (`interactive-graph.correct.type=circle`, so an option can be searched
+  for and counted; not ids, and not numbers in arrays, which are
+  coordinates and ranges), and counts of hints, widgets and images. Items
+  are migrated to the latest schema first, so old widget versions index as
+  new ones. The item itself isn't stored: a document names the content
+  file it came from, for an import to read.
+- **Listed content:** a document is `listed` when learners see it: in a
+  listed exercise (or a listed article) on a path through listed domains,
+  courses, units and lessons. Listed content is placed only on its listed
+  paths, so counts by course aren't swamped by draft, test and staging
+  courses; other content keeps all its paths, so it can still be found by
+  course. The search tools search listed content unless asked to include
+  the rest.
+- **An item in several exercises** (about 3,400 are) has one document,
+  listing every exercise, title and problem type it's in, and placed on all
+  their paths.
+- **Not indexed:** standards and tags. The snapshot has no standards, and
+  its tags are bare ids without names.
+- **Rebuilds** go into `perseus-content-building`, which is swapped in for
+  `perseus-content` when it's complete, so search keeps working during a
+  rebuild.
 
 ## Graphie images
 
@@ -880,7 +953,10 @@ for each author and hands work over by paste:
   with a token that names the author, marks the caller as an agent, and is
   limited to approved operations; the backend has to accept such tokens
   first.
-- **Hosting** (build order step 15), with drafts kept per user.
+- **Hosting** (build order step 16), with drafts kept per user.
+- **Semantic search** ("items like this one"), with embeddings from a local
+  model (such as one served by Ollama) added to the content search index.
+  Keyword search with filters comes first (build order step 12).
 - **Limit which sites can embed the preview frame,** with a
   `Content-Security-Policy: frame-ancestors` header on the frame's response
   (`'self'`, plus the MCP Apps host once there is one). Not needed for
@@ -917,7 +993,7 @@ Not needed for production (that's "Toward production" above):
 
 ## Alt-text checks (after the build order)
 
-Checks code does better than Claude, for the alt text step 12 writes:
+Checks code does better than Claude, for the alt text step 13 writes:
 
 - Alt text of 125 characters or less, in `validate_item` and possibly as a
   perseus-linter rule.

@@ -113,6 +113,9 @@ const config: KnipConfig = {
                 "src/main-packaged.ts!",
                 // The MCP Apps page's script, built when a host asks for it.
                 "src/adapters/preview/app/preview-app.tsx!",
+                // Builds the content search index from a content snapshot;
+                // its .mjs loads it with swc, which Knip doesn't follow.
+                "scripts/build-search-index-lib.ts!",
             ],
             // Diagram scripts import Graffiti in a process of their own,
             // which finds it by path; nothing in the server imports it.

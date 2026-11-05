@@ -19,7 +19,8 @@
     },
     "scripts": {
         "build:bundle": "node scripts/build-bundle.mjs",
-        "build:pages": "node scripts/build-pages.mjs"
+        "build:pages": "node scripts/build-pages.mjs",
+        "build:search-index": "node scripts/build-search-index.mjs"
     },
     "dependencies": {
         "@fastify/middie": "^9.3.6",
