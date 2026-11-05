@@ -27,7 +27,10 @@ const result = await buildSearchIndex({
     snapshotDir: path.resolve(snapshotDir),
     url: process.env.PERSEUS_MCP_SEARCH_URL ?? "http://localhost:7700",
     apiKey: process.env.PERSEUS_MCP_SEARCH_KEY,
-    log: (line) => process.stdout.write(`${line}\n`),
+    log: (line) =>
+        process.stdout.write(
+            `[${Math.round((Date.now() - started) / 1000)}s] ${line}\n`,
+        ),
 });
 const seconds = Math.round((Date.now() - started) / 1000);
 process.stdout.write(

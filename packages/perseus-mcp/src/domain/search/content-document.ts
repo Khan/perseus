@@ -70,6 +70,8 @@ export type ContentDocument = Placement &
         aiGenerated?: boolean;
         sourceFile: string;
         snapshotVersion: string;
+        /** Each formula read as words: "the square root of x plus 1". */
+        mathSpeech: string[];
     };
 
 /** Content to place: an exercise or an article, with its topic paths. */
@@ -181,6 +183,7 @@ export const CONTENT_INDEX_SETTINGS = {
         "widgetText",
         "hintText",
         "math",
+        "mathSpeech",
         "lessonTitle",
         "unitTitle",
         "courseTitle",

@@ -56,6 +56,8 @@ export const SEARCH_FIELDS = {
     /** Text in widget options: choices, labels. */
     widgets: ["widgetText"],
     math: ["math"],
+    /** The math read as words: "the square root of x", "x squared". */
+    speech: ["mathSpeech"],
     /** The titles of the lesson, unit, course and domain. */
     tree: ["lessonTitle", "unitTitle", "courseTitle", "domainTitle"],
     /** Widget option values. */
@@ -71,6 +73,7 @@ export const SEARCH_FIELD_NAMES = [
     "hints",
     "widgets",
     "math",
+    "speech",
     "tree",
     "options",
 ] as const satisfies ReadonlyArray<SearchField>;

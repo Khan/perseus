@@ -72,7 +72,9 @@ docker run -d --name perseus-search -p 127.0.0.1:7700:7700 \
     -v perseus-search:/meili_data getmeili/meilisearch:v1.15
 ```
 
-Then build the index (again after the snapshot changes):
+Then build the index (again after the snapshot changes). It takes about half
+an hour, most of it reading the math aloud so words find it ("the square root
+of x"):
 
 ```sh
 pnpm --filter @khanacademy/perseus-mcp build:search-index /path/to/snapshot

@@ -5,6 +5,7 @@ import {
     snapshotDocuments,
 } from "../src/adapters/fs/content-snapshot";
 import {createMeilisearchClient} from "../src/adapters/search/meilisearch";
+import {createSreMathSpeech} from "../src/adapters/search/sre-math-speech";
 import {
     CONTENT_INDEX_SETTINGS,
     CONTENT_INDEX_UID,
@@ -52,6 +53,7 @@ export async function buildSearchIndex(
     });
     // Migrating items looks widgets up in the registry.
     CoreWidgetRegistry.registerCoreWidgets();
+    const speak = await createSreMathSpeech();
 
     log(`Reading the snapshot index in ${options.snapshotDir}`);
     const index = await readSnapshotIndex(options.snapshotDir);
@@ -89,6 +91,7 @@ export async function buildSearchIndex(
         options.snapshotDir,
         index,
         skips,
+        speak,
     )) {
         batch.push(document);
         result.documents++;

@@ -13,6 +13,7 @@ import {
     articleContentFields,
     itemContentFields,
 } from "../../domain/search/content-fields";
+import {speakAll} from "../../domain/search/math-speech";
 
 import {readTopLevelFromFile} from "./top-level-json";
 
@@ -218,7 +219,15 @@ export async function* snapshotDocuments(
     snapshotDir: string,
     index: SnapshotIndex,
     skips: SnapshotSkips,
+    /** Reads a formula as words, for `mathSpeech`; none when left out. */
+    speak?: (tex: string) => string,
 ): AsyncGenerator<ContentDocument> {
+    const readMath = (math: ReadonlyArray<string>) =>
+        speak == null ? [] : speakAll(math, speak);
+    const fieldsWithSpeech = <F extends {math: string[]}>(fields: F) => ({
+        ...fields,
+        mathSpeech: readMath(fields.math),
+    });
     const usesOf = itemUses(index);
     const done = new Set<string>();
     for (const exercise of index.exercises) {
@@ -277,7 +286,7 @@ export async function* snapshotDocuments(
                     sourceFile,
                     snapshotVersion: index.version,
                     ...placement,
-                    ...itemContentFields(parsed.item),
+                    ...fieldsWithSpeech(itemContentFields(parsed.item)),
                 };
             }
         }
@@ -320,7 +329,7 @@ export async function* snapshotDocuments(
             sourceFile,
             snapshotVersion: index.version,
             ...placement,
-            ...articleContentFields(sections),
+            ...fieldsWithSpeech(articleContentFields(sections)),
         };
     }
 }

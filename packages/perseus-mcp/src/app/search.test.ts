@@ -44,6 +44,7 @@ function documentOf(
         imageCount: 0,
         hasGraphie: false,
         firstLine: "",
+        mathSpeech: [],
         ...overrides,
     };
 }

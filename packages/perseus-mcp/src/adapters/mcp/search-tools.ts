@@ -73,8 +73,10 @@ const querySchema = z
     .describe(
         "Words to search for, all of them by default (see matchAny), in " +
             "the fields searchIn names, or all of them: the question and " +
-            "hint text, widget text (choices, labels), TeX, and the titles " +
-            "of the exercise and its lesson, unit, course and domain. Leave " +
+            "hint text, widget text (choices, labels), TeX, the math read " +
+            'as words ("the square root of x", "x squared", "one half"), ' +
+            "and the titles of the exercise and its lesson, unit, course " +
+            "and domain. Leave " +
             "it out to match everything the filters allow.",
     );
 
@@ -87,10 +89,14 @@ const optionsSchema = {
         .describe(
             "Where the query looks: titles (the exercise's and the problem " +
                 "type's), question, hints, widgets (choices, labels), math " +
-                "(TeX), tree (lesson, unit, course and domain titles), " +
+                "(TeX), speech (the math read as words, in ClearSpeak " +
+                'English: "the square root of 2", "x is greater than or ' +
+                'equal to 4", "a over b"), tree (lesson, unit, course and ' +
+                "domain titles), " +
                 'options (widget option values). For "items that test X", ' +
-                '["titles", "question"] keeps out items that only mention ' +
-                "X in a hint or sit in a lesson named for it. Default: all.",
+                '["titles", "question", "speech"] keeps out items that only ' +
+                "mention X in a hint or sit in a lesson named for it. " +
+                "Default: all.",
         ),
     onePerExercise: z
         .boolean()
