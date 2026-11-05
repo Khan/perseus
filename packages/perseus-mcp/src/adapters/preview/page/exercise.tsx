@@ -115,12 +115,12 @@ function Hints({
 }
 
 // A key per item, so each new item (a new revision of the draft) mounts a
-// new renderer: ServerItemRenderer reports that it has rendered only once
+// new renderer: Perseus's renderers report that they've rendered only once
 // per mount.
 const itemKeys = new WeakMap<object, number>();
 let nextItemKey = 0;
 
-function keyOf(item: object): number {
+export function keyOf(item: object): number {
     let key = itemKeys.get(item);
     if (key == null) {
         key = nextItemKey++;

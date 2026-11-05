@@ -1,8 +1,8 @@
 // A Graffiti diagram's page (`/graffiti/<graffitiId>`): the diagram as
-// Perseus shows it, labels included, in the preview frame. It follows the
+// Perseus shows it, labels included, in the preview frame, as article
+// content (nothing to answer). It follows the
 // diagram's event stream, so a new revision shows without reloading, and a
 // picker shows an earlier revision instead.
-import {getDefaultAnswerArea} from "@khanacademy/perseus-core";
 import {usePreviewController} from "@khanacademy/perseus-preview";
 import {RenderStateRoot, View} from "@khanacademy/wonder-blocks-core";
 import {BodyText, Heading} from "@khanacademy/wonder-blocks-typography";
@@ -17,7 +17,7 @@ import {StatusBar} from "./status-bar";
 
 import type {Connection} from "./status-bar";
 import type {DiagramView} from "../../../app/graffiti";
-import type {PerseusItem} from "@khanacademy/perseus-core";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 // The page setup Wonder Blocks expects: its tokens, fonts and base styles.
 import "@internal/perseus-environment/styles.css";
@@ -76,48 +76,47 @@ function useRevisionSize(graffitiId: string, revision: number | null) {
     return size?.revision === revision ? size : null;
 }
 
-/** An item showing nothing but the diagram, at one revision. */
-function diagramItem(
+/**
+ * Article content showing nothing but the diagram, at one revision: as an
+ * article, so Perseus shows no answer to check.
+ */
+function diagramSection(
     graffitiId: string,
     revision: number,
     {width, height}: Size,
     alt: string,
-): PerseusItem {
+): PerseusRenderer {
     return {
-        question: {
-            content: "[[☃ image 1]]",
-            images: {},
-            widgets: {
-                "image 1": {
-                    type: "image",
-                    graded: false,
-                    static: false,
-                    version: {major: 0, minor: 0},
-                    alignment: "default",
-                    options: {
-                        backgroundImage: {
-                            url: `${graphieUrlFor(graffitiId)}.${revision}`,
-                            width,
-                            height,
-                        },
-                        alt,
-                        title: "",
-                        caption: "",
-                        longDescription: "",
-                        decorative: false,
-                        labels: [],
-                        range: [
-                            [0, 10],
-                            [0, 10],
-                        ],
-                        box: [width, height],
-                        scale: 1,
+        content: "[[☃ image 1]]",
+        images: {},
+        widgets: {
+            "image 1": {
+                type: "image",
+                graded: false,
+                static: false,
+                version: {major: 0, minor: 0},
+                alignment: "default",
+                options: {
+                    backgroundImage: {
+                        url: `${graphieUrlFor(graffitiId)}.${revision}`,
+                        width,
+                        height,
                     },
+                    alt,
+                    title: "",
+                    caption: "",
+                    longDescription: "",
+                    decorative: false,
+                    labels: [],
+                    range: [
+                        [0, 10],
+                        [0, 10],
+                    ],
+                    box: [width, height],
+                    scale: 1,
                 },
             },
         },
-        answerArea: getDefaultAnswerArea(),
-        hints: [],
     };
 }
 
@@ -177,11 +176,11 @@ function GraffitiPage({graffitiId}: {graffitiId: string}) {
             return;
         }
         sendData({
-            type: "exercise",
+            type: "article-section",
             data: {
-                item: diagramItem(graffitiId, revision, size.size, alt),
+                article: diagramSection(graffitiId, revision, size.size, alt),
                 apiOptions: {},
-                showRationales: false,
+                linterContext: {contentType: "article", highlightLint: false},
             },
         });
     }, [graffitiId, revision, size, alt, sendData]);
@@ -204,7 +203,10 @@ function GraffitiPage({graffitiId}: {graffitiId: string}) {
                 <div className={styles.pane}>
                     <div className={styles.paneScroll}>
                         {view?.notes != null && (
-                            <BodyText>{view.notes}</BodyText>
+                            <BodyText>
+                                <strong>Notes:</strong>
+                                <span>{` ${view.notes}`}</span>
+                            </BodyText>
                         )}
                         {size != null && size.size == null && (
                             <BodyText role="alert">
