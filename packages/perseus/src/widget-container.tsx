@@ -21,7 +21,6 @@ import type {WidgetProps} from "./types";
 const widgetsNeedingOverlay: string[] = [
     "cs-program",
     "expression",
-    "free-response",
     "grapher",
     "iframe",
     "input-number",
