@@ -54,3 +54,17 @@ export function graphieUrlFor(graffitiId: string): string {
 export function isDiagramId(id: string): boolean {
     return /^[a-z0-9-]{1,64}$/.test(id);
 }
+
+const DIAGRAM_URL = new RegExp(
+    `web\\+graphie://${GRAFFITI_HOST.replace(/\./g, "\\.")}/graffiti/` +
+        "([a-z0-9-]{1,64})",
+    "g",
+);
+
+/** The ids of the diagrams something shows, such as an item, in order. */
+export function diagramIdsIn(value: unknown): string[] {
+    const ids = [...JSON.stringify(value).matchAll(DIAGRAM_URL)].map(
+        (match) => match[1],
+    );
+    return [...new Set(ids)];
+}

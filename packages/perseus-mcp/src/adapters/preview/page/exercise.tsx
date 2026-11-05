@@ -19,7 +19,10 @@ import {scoreItem} from "../../../domain/items/score";
 import {dependenciesV2} from "./perseus-environment";
 
 import type {ItemScore} from "../../../domain/items/score";
-import type {ServerItemRendererComponent} from "@khanacademy/perseus";
+import type {
+    PerseusDependenciesV2,
+    ServerItemRendererComponent,
+} from "@khanacademy/perseus";
 import type {PerseusStrings} from "@khanacademy/perseus/strings";
 import type {Hint} from "@khanacademy/perseus-core";
 import type {
@@ -57,10 +60,12 @@ function Hints({
     hints,
     hintsState,
     apiOptions,
+    dependencies,
 }: {
     hints: ReadonlyArray<Hint>;
     hintsState: HintsState;
     apiOptions: ExerciseData["apiOptions"];
+    dependencies: PerseusDependenciesV2;
 }) {
     const {strings} = usePerseusI18n();
     const headingId = React.useId();
@@ -100,7 +105,7 @@ function Hints({
                             lastRendered={pos === hintsState.hintsVisible - 1}
                             apiOptions={hintApiOptions}
                             linterContext={linterContextDefault}
-                            dependencies={dependenciesV2}
+                            dependencies={dependencies}
                         />
                     </React.Fragment>
                 ))}
@@ -172,6 +177,8 @@ export function Exercise(props: {
     /** Called with the answer and its result each time one is checked. */
     onCheck?: (userInput: unknown, result: string) => void;
     onRenderState?: (renderState: RenderState) => void;
+    /** What Perseus uses from its host; the preview pages' by default. */
+    dependencies?: PerseusDependenciesV2;
 }) {
     const {onRenderState} = props;
     const loading = React.useMemo(
@@ -203,11 +210,13 @@ function ExerciseItem({
     previewOptions,
     hintsState,
     onCheck,
+    dependencies = dependenciesV2,
 }: {
     data: ExerciseData;
     previewOptions: PreviewOptions;
     hintsState: HintsState;
     onCheck?: (userInput: unknown, result: string) => void;
+    dependencies?: PerseusDependenciesV2;
 }) {
     const {item} = data;
     const {reviewMode, showSolutions, answerless, readOnly} = previewOptions;
@@ -251,7 +260,7 @@ function ExerciseItem({
                 apiOptions={apiOptions}
                 reviewMode={reviewMode}
                 showSolutions={showSolutions}
-                dependencies={dependenciesV2}
+                dependencies={dependencies}
                 problemNum={0}
                 hintsVisible={0}
             />
@@ -269,6 +278,7 @@ function ExerciseItem({
                 hints={item.hints}
                 hintsState={hintsState}
                 apiOptions={apiOptions}
+                dependencies={dependencies}
             />
         </>
     );

@@ -158,6 +158,35 @@ export function createGraffitiUseCases(deps: GraffitiDependencies) {
         },
 
         /**
+         * The diagrams whose latest revision isn't the one `known` gives,
+         * drawn, for a page that can't load them from this server; and the
+         * ids that name no diagram.
+         */
+        async changedDiagrams(
+            graffitiIds: readonly string[],
+            known: Readonly<Record<string, number>> = {},
+        ): Promise<{
+            diagrams: Record<string, {revision: number} & RenderedDiagram>;
+            missing: string[];
+        }> {
+            const drawn: Record<string, {revision: number} & RenderedDiagram> =
+                {};
+            const missing: string[] = [];
+            for (const graffitiId of graffitiIds) {
+                const diagram = diagrams.get(graffitiId);
+                if (diagram == null) {
+                    missing.push(graffitiId);
+                } else if (known[graffitiId] !== diagram.revision) {
+                    drawn[graffitiId] = {
+                        revision: diagram.revision,
+                        ...(await render(diagram)),
+                    };
+                }
+            }
+            return {diagrams: drawn, missing};
+        },
+
+        /**
          * A diagram drawn, at its latest revision or another.
          *
          * @throws GraffitiNotFoundError

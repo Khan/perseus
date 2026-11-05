@@ -1,5 +1,7 @@
 import {registerAllWidgetsForTesting} from "@khanacademy/perseus";
 import {
+    generateImageOptions,
+    generateImageWidget,
     generateTestPerseusItem,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
@@ -12,6 +14,7 @@ import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
 import {Exercise} from "./exercise";
+import {dependenciesV2} from "./perseus-environment";
 
 import type {PerseusItem} from "@khanacademy/perseus-core";
 
@@ -95,6 +98,44 @@ describe("Exercise", () => {
         }).toEqual({
             report: "error",
             shown: expect.stringContaining("Perseus couldn't render this item"),
+        });
+    });
+
+    it("loads images through the dependencies it's given", () => {
+        // Arrange
+        const generateUrl = jest.fn(({url}: {url: string}) => url);
+        // jsdom has no fetch. Perseus asks for a Graphie image's labels
+        // first, so that request is enough to show what it uses.
+        globalThis.fetch = jest.fn(() => new Promise<Response>(() => {}));
+        const url = "web+graphie://perseus-mcp.localhost/graffiti/g1";
+        const item = generateTestPerseusItem({
+            question: generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            alt: "A triangle",
+                            backgroundImage: {url, width: 40, height: 30},
+                        }),
+                    }),
+                },
+            }),
+        });
+
+        // Act
+        render(
+            <Exercise
+                data={{item, apiOptions: {}, showRationales: false}}
+                previewOptions={DEFAULT_PREVIEW_OPTIONS}
+                hintsState={describeHints([], INITIAL_HINTS_REVEAL)}
+                dependencies={{...dependenciesV2, generateUrl}}
+            />,
+        );
+
+        // Assert
+        expect(generateUrl).toHaveBeenCalledWith({
+            url: "https://perseus-mcp.localhost/graffiti/g1-data.json",
+            context: "graphie:data_url",
         });
     });
 });

@@ -127,4 +127,45 @@ describe("graffiti use cases", () => {
             GraffitiNotFoundError,
         );
     });
+
+    describe("changedDiagrams", () => {
+        it("draws the diagrams whose revision the page doesn't have", async () => {
+            // Arrange
+            const {graffiti} = setUp();
+            await graffiti.createGraffiti({source: "one"});
+            await graffiti.updateGraffiti("g1", {source: "two"});
+
+            // Act
+            const changed = await graffiti.changedDiagrams(["g1"], {g1: 1});
+
+            // Assert
+            expect(changed).toEqual({
+                diagrams: {g1: {revision: 2, ...drawingOf("two")}},
+                missing: [],
+            });
+        });
+
+        it("leaves out the diagrams the page has at their latest revision", async () => {
+            // Arrange
+            const {graffiti} = setUp();
+            await graffiti.createGraffiti({source: "one"});
+
+            // Act
+            const changed = await graffiti.changedDiagrams(["g1"], {g1: 1});
+
+            // Assert
+            expect(changed.diagrams).toEqual({});
+        });
+
+        it("names the ids that aren't diagrams", async () => {
+            // Arrange
+            const {graffiti} = setUp();
+
+            // Act
+            const changed = await graffiti.changedDiagrams(["nope"]);
+
+            // Assert
+            expect(changed).toEqual({diagrams: {}, missing: ["nope"]});
+        });
+    });
 });

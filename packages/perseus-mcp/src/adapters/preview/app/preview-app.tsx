@@ -1,7 +1,8 @@
 // The MCP Apps page for preview_item: the draft as learners see it, shown
 // in the chat. Hosts don't let app pages frame or reach the local server, so
 // the page renders the item itself and follows the draft through the host,
-// polling the app-only get_preview_draft tool.
+// polling the app-only get_preview_draft tool, which also sends the drawings
+// of the Graffiti diagrams the draft shows.
 import {DependenciesContext} from "@khanacademy/perseus";
 import {
     DEFAULT_PREVIEW_OPTIONS,
@@ -23,9 +24,11 @@ import {
 import {Exercise} from "../page/exercise";
 import {dependenciesV2} from "../page/perseus-environment";
 
+import {createDiagramStore, serveDiagramsThroughFetch} from "./diagram-files";
 import {describePreview} from "./model-context";
 import styles from "./preview-app.module.css";
 
+import type {DiagramFiles} from "./diagram-files";
 import type {AnswerCheck} from "./model-context";
 import type {OfferedOptions} from "../page/controls";
 import type {PerseusItem} from "@khanacademy/perseus-core";
@@ -67,6 +70,10 @@ function subscribe(listener: () => void) {
     return () => listeners.delete(listener);
 }
 
+const diagramStore = createDiagramStore();
+serveDiagramsThroughFetch(diagramStore);
+const dependencies = {...dependenciesV2, generateUrl: diagramStore.generateUrl};
+
 const app = new App({name: "perseus-preview", version: "0.0.1"}, {});
 
 // The host replaces any handler set after connect(), so these come first.
@@ -87,9 +94,17 @@ app.connect().catch((error: unknown) =>
     update(() => (connectionError = `Couldn't connect: ${String(error)}`)),
 );
 
-type Draft = {revision: number; item: PerseusItem};
+type Draft = {
+    revision: number;
+    item: PerseusItem;
+    /** Diagrams the item shows that the server doesn't have. */
+    missingDiagrams: string[];
+};
 
-/** The draft, fetched now and again whenever its revision changes. */
+/**
+ * The draft, fetched now and again whenever its revision or a diagram it
+ * shows changes.
+ */
 function useDraft(id: string | null): {draft: Draft | null; error: string} {
     const [draft, setDraft] = React.useState<Draft | null>(null);
     const [error, setError] = React.useState("");
@@ -106,17 +121,30 @@ function useDraft(id: string | null): {draft: Draft | null; error: string} {
             try {
                 const result = await app.callServerTool({
                     name: "get_preview_draft",
-                    arguments: {itemId: id, sinceRevision},
+                    arguments: {
+                        itemId: id,
+                        sinceRevision,
+                        diagramRevisions: diagramStore.revisions(),
+                    },
                 });
                 const json = jsonOf(result);
                 if (result.isError || json == null) {
                     setError(textOf(result));
                 } else if (json.changed === true) {
+                    diagramStore.update(
+                        // The server sends what it drew.
+                        // eslint-disable-next-line no-restricted-syntax
+                        (json.diagrams ?? {}) as Record<string, DiagramFiles>,
+                    );
                     const next = {
                         revision: Number(json.revision),
-                        // The server sends what it saved: a parsed item.
+                        // The server sends what it saved: a parsed item, new
+                        // each time, so Perseus loads the diagrams again.
                         // eslint-disable-next-line no-restricted-syntax
                         item: json.item as PerseusItem,
+                        missingDiagrams: Array.isArray(json.missingDiagrams)
+                            ? json.missingDiagrams.map(String)
+                            : [],
                     };
                     sinceRevision = next.revision;
                     setDraft(next);
@@ -201,6 +229,7 @@ function Preview({itemId: id, draft}: {itemId: string; draft: Draft}) {
                     data={{item, apiOptions: {}, showRationales: false}}
                     previewOptions={{...DEFAULT_PREVIEW_OPTIONS, ...options}}
                     hintsState={hintsState}
+                    dependencies={dependencies}
                     onCheck={(userInput, result) =>
                         setLastCheck({userInput, result})
                     }
@@ -208,6 +237,12 @@ function Preview({itemId: id, draft}: {itemId: string; draft: Draft}) {
             </View>
         </View>
     );
+}
+
+function describeMissing(graffitiIds: string[]): string {
+    return graffitiIds.length === 0
+        ? ""
+        : ` It shows diagrams that don't exist: ${graffitiIds.join(", ")}.`;
 }
 
 function PreviewApp() {
@@ -225,7 +260,8 @@ function PreviewApp() {
             : draft == null
               ? "Loading the draft…"
               : `Draft ${id}, revision ${draft.revision}. Updates as the ` +
-                "draft changes.");
+                "draft changes." +
+                describeMissing(draft.missingDiagrams));
     return (
         <View className={styles.page}>
             <BodyText>{status}</BodyText>
@@ -238,7 +274,7 @@ function PreviewApp() {
 
 createRoot(document.getElementById("root")!).render(
     <RenderStateRoot>
-        <DependenciesContext.Provider value={dependenciesV2}>
+        <DependenciesContext.Provider value={dependencies}>
             <PreviewApp />
         </DependenciesContext.Provider>
     </RenderStateRoot>,

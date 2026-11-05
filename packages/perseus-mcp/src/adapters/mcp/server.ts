@@ -1,6 +1,7 @@
 import {McpServer} from "@modelcontextprotocol/server";
 import {z} from "zod";
 
+import {diagramIdsIn} from "../../domain/graffiti/diagram";
 import {CHECKLIST_URI} from "../../domain/review/checklist";
 import {libVersion} from "../../version";
 
@@ -561,27 +562,47 @@ export function createMcpServer({
                 title: "Get a draft for its preview",
                 description:
                     "For the preview shown in the chat: the draft's item and " +
-                    "revision, or `changed: false` when its revision is still " +
-                    "`sinceRevision`.",
+                    "revision, with the drawings of the Graffiti diagrams it " +
+                    "shows whose revision isn't in `diagramRevisions`; or " +
+                    "`changed: false` when its revision is still " +
+                    "`sinceRevision` and no diagram changed.",
                 inputSchema: z.object({
                     itemId: z.string(),
                     sinceRevision: z.number().int().optional(),
+                    diagramRevisions: z
+                        .record(z.string(), z.number().int())
+                        .optional(),
                 }),
                 annotations: {readOnlyHint: true},
                 _meta: {
                     ui: {resourceUri: PREVIEW_APP_URI, visibility: ["app"]},
                 },
             },
-            ({itemId, sinceRevision}) =>
-                run("get_preview_draft", () => {
+            ({itemId, sinceRevision, diagramRevisions}) =>
+                run("get_preview_draft", async () => {
                     const {draft} = drafts.exportItem(itemId);
-                    if (draft.revision === sinceRevision) {
+                    // The page can't load diagrams from this server, so
+                    // their drawings come with the draft, and a new revision
+                    // of one is a change too.
+                    const {diagrams, missing} =
+                        graffiti == null
+                            ? {diagrams: {}, missing: []}
+                            : await graffiti.changedDiagrams(
+                                  diagramIdsIn(draft.item),
+                                  diagramRevisions,
+                              );
+                    if (
+                        draft.revision === sinceRevision &&
+                        Object.keys(diagrams).length === 0
+                    ) {
                         return jsonResult({changed: false});
                     }
                     return jsonResult({
                         changed: true,
                         revision: draft.revision,
                         item: draft.item,
+                        diagrams,
+                        missingDiagrams: missing,
                     });
                 }),
         );
