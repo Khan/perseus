@@ -6,7 +6,10 @@ import type {ContentDocument} from "./content-document";
  */
 export type ContentFilters = {
     kind?: "item" | "article";
-    /** Slugs, as search results and facets show them. */
+    /**
+     * Slugs, as search results and facets show them, or titles
+     * ("Pre-algebra"), matched whole.
+     */
     domain?: string;
     course?: string;
     unit?: string;
@@ -121,17 +124,17 @@ export function filterExpression(filters: ContentFilters): string {
     if (filters.kind != null) {
         parts.push(`kind = ${quote(filters.kind)}`);
     }
-    for (const field of [
-        "domain",
-        "course",
-        "unit",
-        "lesson",
-        "exerciseId",
-    ] as const) {
+    // A level of the tree is named by its slug or its title.
+    for (const field of ["domain", "course", "unit", "lesson"] as const) {
         const value = filters[field];
         if (value != null) {
-            parts.push(`${field} = ${quote(value)}`);
+            parts.push(
+                `(${field} = ${quote(value)} OR ${field}Title = ${quote(value)})`,
+            );
         }
+    }
+    if (filters.exerciseId != null) {
+        parts.push(`exerciseId = ${quote(filters.exerciseId)}`);
     }
     for (const type of filters.widgetTypes ?? []) {
         parts.push(`widgetTypes = ${quote(type)}`);

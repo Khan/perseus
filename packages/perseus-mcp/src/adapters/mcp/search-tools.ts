@@ -22,16 +22,20 @@ const filtersSchema = z
         domain: z
             .string()
             .optional()
-            .describe('A domain slug, such as "math".'),
+            .describe('A domain\'s slug ("math") or title ("Math").'),
         course: z
             .string()
             .optional()
             .describe(
-                'A course slug, such as "cc-2nd-grade-math" (facet_content ' +
-                    'with facets ["course"] lists them).',
+                'A course\'s slug ("cc-2nd-grade-math") or its whole title ' +
+                    '("2nd grade math", any case). facet_content with facets ' +
+                    '["course"] lists the slugs.',
             ),
-        unit: z.string().optional().describe("A unit slug."),
-        lesson: z.string().optional().describe("A lesson slug."),
+        unit: z.string().optional().describe("A unit's slug or whole title."),
+        lesson: z
+            .string()
+            .optional()
+            .describe("A lesson's slug or whole title."),
         exerciseId: z.string().optional(),
         widgetTypes: z
             .array(z.string())
@@ -46,7 +50,13 @@ const filtersSchema = z
                     '"interactive-graph.correct.type=circle", ' +
                     '"radio.multipleSelect=true".',
             ),
-        hasGraphie: z.boolean().optional(),
+        hasGraphie: z
+            .boolean()
+            .optional()
+            .describe(
+                "Has a Graphie image (a web+graphie:// URL), in its content " +
+                    "or an image widget.",
+            ),
         includeUnlisted: z
             .boolean()
             .optional()
@@ -143,7 +153,12 @@ export function registerSearchTools(
                 "onePerExercise, so hits aren't all one exercise's items. " +
                 NARROW_FIRST +
                 " To work on items found, import_from_search makes drafts " +
-                "of them.",
+                "of them; read them then with export_item. Words match " +
+                "whole (no prefixes, few typos). The math is searched as TeX " +
+                "and as speech: each formula read aloud in ClearSpeak " +
+                'English, so \\sqrt{x^2+1} is "the square root of x squared ' +
+                'plus 1" and \\frac{3}{4} is "three fourths". Don\'t query ' +
+                "the search index or read the content snapshot yourself.",
             inputSchema: z.object({
                 query: querySchema,
                 ...optionsSchema,

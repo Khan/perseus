@@ -31,7 +31,8 @@ describe("filterExpression", () => {
 
         // Assert
         expect(filter).toBe(
-            'kind = "item" AND course = "algebra" AND widgetTypes = "radio" ' +
+            'kind = "item" AND (course = "algebra" OR courseTitle = ' +
+                '"algebra") AND widgetTypes = "radio" ' +
                 'AND widgetTypes = "image" AND widgetProps = ' +
                 '"radio.multipleSelect=true" AND hasGraphie = false AND ' +
                 "(hintCount >= 4)",
@@ -46,7 +47,9 @@ describe("filterExpression", () => {
         });
 
         // Assert
-        expect(filter).toBe('lesson = "say \\"hi\\""');
+        expect(filter).toBe(
+            '(lesson = "say \\"hi\\"" OR lessonTitle = "say \\"hi\\"")',
+        );
     });
 });
 

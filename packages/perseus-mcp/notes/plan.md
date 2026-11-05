@@ -110,6 +110,7 @@ from outside the repo.
 | Import an exercise from the list page | Build order step 10's upload, which finishes step 10. `/exercises` has an "Import an exercise" area: a labelled file field, and the form as a drop target (a pointer shortcut; the file field is the keyboard path), with the result in an `<output>`. One exercise opens its page; several (from a zip) are listed with what wasn't imported. `POST /exercises/import?fileName=<name>` takes the file as `application/json` or `application/zip` (its own parsers, in a scope of their own: no `text/plain`, which a cross-site form can send without asking), up to 20 MB, and only with an `Origin` naming the server itself (403 otherwise). A zip's `.json` files (not `__MACOSX` copies or hidden files) each become an exercise, read by a small reader on Node's `zlib` (stored or deflated, no Zip64), capped at 100 MB unzipped. `importExerciseText` shares `importExercise`'s parsing; the exercise is named after the file and each draft's first revision says "Uploaded <file>". Checked in a browser: a bad file's error, a zip of two exports and a bad file, a single export opening its exercise, the drop highlight, and a cross-site POST refused. |
 | Read exports that carry their exercise's URL | Newer bulk exports wrap the problem-type array as `{exerciseUrl, problemTypes}`; `readImport` reads them (upload, zip and `import_exercise` alike) and the exercise keeps `exerciseUrl` as its `editorUrl`, so "Open in the exercise editor" works straight after an import (a URL given to `import_exercise` still wins). Only `http(s)` URLs are kept, and the exercise page links only to those (`isWebUrl`), since a `javascript:` URL from a file would run in the page and zod's `url()` lets one through. A real export (24 items) imported with its URL. The "Failed to fetch" seen when first dropping it most likely came from a server started before the upload route (not reproduced). |
 | Read the guidelines as topics from a folder outside the repo | Guidelines differ by task (TeX, math content, writing in general, image descriptions), so `get_guidelines` reads a folder of Markdown files, one topic each, instead of one file: with no topic it lists them, each with its frontmatter's `summary`, `readWhen` and `seeAlso`; with `topic` it returns that document (or its headings when long, then sections by heading); `section` alone searches every topic's headings. The instructions tell agents to list the topics before writing, checking or changing items and read the ones the task needs, the general ones too. The folder is `perseus-mcp-guidance/distilled` beside the checkout, or `PERSEUS_MCP_GUIDANCE_DIR` (which replaces `PERSEUS_MCP_GUIDELINES`), so the organization's text can't be committed; `build:bundle` copies its `.md` files into the bundle's `guidance/`, which the bundled server reads, and warns when there are none. The raw documents the topics are distilled from sit beside `distilled/`, also outside the repo; distilling is done in a session, not by code. |
+| Keep agents on the tools, and name courses by title | A review of five of the day's authoring sessions found 13 places where the agent went around the tools (none after a tool failed; every one had the repo's source to read): it read Graffiti's and Perseus's source for APIs and colors, scripted over the drafts folder with jq, queried Meilisearch and the snapshot directly, and ran the speech engine itself. The server's instructions now open with `AUTHORING_RULES` (`adapters/mcp/authoring.ts`): use these tools whenever a person asks for Khan Academy content (and ask when that's unclear; articles aren't supported yet), and do the work only through them: no code or scripts over items, no hand-written item JSON, no reading the data folder, snapshot, index or source, and say what's missing instead of working around a tool. A `start_authoring` prompt (an optional `task`) gives a person the same rules to start a chat with. Descriptions of export_item, validate_item, get_widget_spec, score_item, edit_items and search_content say what they replace; search_content's says words match whole and what the speech field holds. Search filters take a domain, course, unit or lesson by slug or whole title, any case (`course: "Pre-algebra"`): the titles are filterable. |
 
 Remaining, in order:
 
@@ -153,7 +154,22 @@ Remaining, in order:
       leaves out the declarations `optionsType` already shows, naming them
       instead (interactive-graph's is now 19 KB; its user input is its
       options' graph types).
-3. Build order steps 13 to 16. Steps 10 to 12 are done: the exercise page
+3. Keep agents on the tools (see "Keeping agents on the tools"), from a
+   review of five of the day's authoring sessions, where the agent went
+   around the tools 13 times:
+   1. Rules in the server instructions (use the tools for any Khan Academy
+      content, ask when unclear, no code, files or source; say what's
+      missing), a `start_authoring` prompt, and tool descriptions saying
+      what each replaces. Done.
+   2. Graffiti's API documented to the agent (a guideline topic or tool),
+      a palette, tick and angle marks, and an error for ignored style keys.
+   3. Diagram tools returning a PNG the agent can see.
+   4. Reading many drafts at once: `read_items`, or `fields` on
+      export_item.
+   5. Checking search hits without importing: `fields` on search_content,
+      or `get_content`.
+   6. A tool that reads a TeX string aloud as the index does.
+4. Build order steps 13 to 16. Steps 10 to 12 are done: the exercise page
    with its upload, Graffiti diagrams, and content search with guidelines
    and fixes.
 
@@ -1043,6 +1059,30 @@ no tokens go on items the agent doesn't need to read.
   that need judgment (hints that give the answer away early) stay with the
   agent, after search has narrowed the items. Not done: more fixes, and
   marking in the guidelines file which rules a fix covers.
+
+## Keeping agents on the tools
+
+Authors' machines have no Perseus source and no access to the server's files,
+so every task has to be doable through the tools. The server's instructions
+say so first (`AUTHORING_RULES`), and `start_authoring` repeats it. From the
+review of the day's authoring sessions, the gaps still pushing agents off the
+tools, by what would close them:
+
+- **Graffiti's API isn't documented to the agent** (it read the library's
+  source three times): a Graffiti guideline topic or a tool giving each
+  export's signature, arc direction, style keys, label options; a palette
+  of Khan Academy colors; tick, parallel and angle marks; an error for a
+  style key Graffiti ignores (`fill-opacity`).
+- **The agent can't see what it drew:** create_graffiti, update_graffiti
+  and preview_graffiti returning a PNG.
+- **No way to read many drafts at once** (it ran jq over the drafts
+  folder): a `read_items` tool, or a `fields` option (JSON Pointers) on
+  export_item, over an exercise's drafts.
+- **Search hits can't be checked without importing:** a `fields` option
+  on search_content returning full values (answers, widget options, the
+  matched speech), or a `get_content` tool reading one snapshot item.
+- **How math is read aloud can't be asked** (it ran the speech engine
+  itself): a tool reading a TeX string as the index does.
 
 ## Graphie images
 

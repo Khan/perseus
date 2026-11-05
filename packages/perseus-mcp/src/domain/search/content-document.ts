@@ -209,6 +209,11 @@ export const CONTENT_INDEX_SETTINGS = {
         "live",
         "aiGenerated",
         "title",
+        // So a filter can name a course (or unit, lesson, domain) by title.
+        "domainTitle",
+        "courseTitle",
+        "unitTitle",
+        "lessonTitle",
     ],
     sortableAttributes: ["widgetCount", "hintCount", "imageCount"],
     // Counts need every value: about 1,500 courses, and the exercise count

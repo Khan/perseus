@@ -5,6 +5,7 @@ import {diagramIdsIn} from "../../domain/graffiti/diagram";
 import {CHECKLIST_URI} from "../../domain/review/checklist";
 import {libVersion} from "../../version";
 
+import {AUTHORING_RULES, registerAuthoringPrompt} from "./authoring";
 import {registerExerciseTools} from "./exercise-tools";
 import {registerGraffitiTools} from "./graffiti-tools";
 import {registerGuidelineTools} from "./guideline-tools";
@@ -49,6 +50,7 @@ function instructions(withSearch: boolean): string {
     return `\
 Tools for authoring Perseus items (Khan Academy exercise content).
 
+${AUTHORING_RULES}
 Work on drafts: create_item (for new content) or open_item (for an existing
 item) returns an itemId, which later tools take instead of the whole item.
 add_widget adds a widget and edit_item changes a draft with a JSON Patch;
@@ -455,7 +457,9 @@ export function createMcpServer({
                 "Return a draft's PerseusItem JSON (fully migrated), its " +
                 "notes and the path of the file it's saved in; with " +
                 "`revision`, the draft as it was at that revision " +
-                "(list_revisions lists them).",
+                "(list_revisions lists them). This is how to read a draft: " +
+                "the file is the server's, so don't open, script over or " +
+                "change it.",
             inputSchema: z.object({
                 itemId: z.string(),
                 revision: z
@@ -488,7 +492,9 @@ export function createMcpServer({
                 "Change several drafts in one call, each as edit_item does " +
                 "(a JSON Patch and/or new notes). Each edit is validated and " +
                 "saved, or not, on its own, so one failing edit doesn't stop " +
-                "the others; the result says which were saved.",
+                "the others; the result says which were saved. For a " +
+                "mechanical change to many drafts, apply_fix may already " +
+                "do it; never edit draft files or script the change.",
             inputSchema: z.object({
                 edits: z
                     .array(
@@ -743,7 +749,9 @@ export function createMcpServer({
             description:
                 "Return a widget type's status and notes, its default " +
                 "options, and the documented TypeScript definitions of its " +
-                "options and user input, taken from Perseus's own schema.",
+                "options and user input, taken from Perseus's own schema. " +
+                "Read a widget's options here rather than in Perseus's " +
+                "source, which authors don't have.",
             inputSchema: z.object({type: z.string().describe('e.g. "radio"')}),
             annotations: {readOnlyHint: true},
         },
@@ -761,7 +769,8 @@ export function createMcpServer({
                 "Check a draft (by itemId) or a PerseusItem (as JSON): it " +
                 "must parse, every [[☃ widget-id]] placeholder must have a " +
                 "widget and vice versa, and the content is linted. Returns " +
-                "`valid` plus issues with JSON paths.",
+                "`valid` plus issues with JSON paths. Use it, not your own " +
+                "checks of the JSON: it parses the item as Perseus does.",
             inputSchema: z.object({
                 itemId: z.string().optional(),
                 item: z
@@ -807,7 +816,9 @@ export function createMcpServer({
                 'does on "Check". Returns the outcome ("correct", ' +
                 '"incorrect", or "invalid" when the answer isn\'t scored, ' +
                 "e.g. a widget is empty) with Perseus's score and each " +
-                "widget's score.",
+                "widget's score. It runs Perseus's own scoring: don't work " +
+                "out by code or by reading the answer key whether an " +
+                "answer would be accepted.",
             inputSchema: z.object({
                 itemId: z.string(),
                 userInput: userInputSchema,
@@ -916,6 +927,8 @@ export function createMcpServer({
         ({itemId}) =>
             run("review_item", () => jsonResult(review.reviewItem(itemId))),
     );
+
+    registerAuthoringPrompt(server);
 
     // The same procedure, for a person to start (a prompt can't be started
     // by the agent).
