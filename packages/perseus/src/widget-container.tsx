@@ -21,10 +21,7 @@ import type {WidgetProps} from "./types";
 const widgetsNeedingOverlay: string[] = [
     "cs-program",
     "expression",
-    "graded-group",
-    "graded-group-set",
     "grapher",
-    "group",
     "iframe",
     "input-number",
     "label-image",
