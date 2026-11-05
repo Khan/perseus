@@ -174,8 +174,9 @@ Remaining, in order:
       JSON Pointer over named drafts, an exercise's or all, filtered by text
       and widget type. Done.
    7. Search drafts as published content is searched: `source` on the
-      search tools (published, drafts, all). Done; unpublished content
-      comes when a server can reach it.
+      search tools (published, drafts, all). Done. Unpublished content is
+      out of scope for this project: it reaches production content only
+      through a local snapshot.
    5. Checking search hits without importing: `fields` and `itemPaths`
       on search_content. Done.
    6. A tool that reads a TeX string aloud as the index does.
@@ -1064,8 +1065,10 @@ tools, by what would close them:
   folder; done): `read_items`.
 - **Search hits can't be checked without importing** (done): `fields`
   and `itemPaths` on search_content.
-- **Searching drafts as published content is searched** (done, but for
-  unpublished content): the same search
+- **Searching drafts as published content is searched** (done; the
+  drafts' files stay the record, with their revisions, and the index is
+  rebuilt from them at every start; unpublished content is out of scope
+  for this project): the same search
   (queries, filters, facets, speech, `fields`) over local drafts, and later
   over unpublished content, since a server will likely reach all three.
   Each document says where it's from (`source`: published, unpublished,
