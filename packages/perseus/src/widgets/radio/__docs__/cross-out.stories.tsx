@@ -116,6 +116,26 @@ export const Graphie: Story = {
     play: crossOutAllButFirst,
 };
 
+export const LongText: Story = {
+    args: {
+        choices: [
+            generateRadioChoice(
+                "The mitochondria makes most of the energy a cell needs, by breaking down sugars and fats with oxygen.",
+                {correct: true},
+            ),
+            generateRadioChoice(
+                "The nucleus makes most of the energy a cell needs, and it also stores the cell's DNA and controls which proteins the cell makes.",
+            ),
+            generateRadioChoice(
+                "The cell membrane makes most of the energy a cell needs, as it controls what enters and leaves the cell, including the sugars that are broken down for energy.",
+            ),
+            generateRadioChoice("The ribosome"),
+        ],
+    },
+    parameters: {chromatic},
+    play: crossOutAllButFirst,
+};
+
 export const MathContent: Story = {
     args: {
         choices: [

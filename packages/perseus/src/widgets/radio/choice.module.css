@@ -284,66 +284,47 @@
         var(--wb-semanticColor-core-border-neutral-default)
             calc(25.456px - var(--perseus-cross-out-hatch-half-line)) 25.456px
     );
-    --perseus-cross-out-image-opacity: 0.7;
-    --perseus-cross-out-strike-width: var(--wb-border-width-medium);
-    color: var(--wb-semanticColor-core-foreground-neutral-subtle);
 }
 
-.is-crossed-out > .choice-target > div {
-    text-decoration: line-through;
-    text-decoration-thickness: var(--perseus-cross-out-strike-width);
-}
-
-/* Crossed-out math and graph labels stay dark instead of taking the lighter
-   grey of crossed-out text, so they keep 4.5:1 contrast against the hatch
-   lines that cross them (below). Colored math and labels turn dark too;
+/* The choice's content, without its rationale, is hatched as one block, so
+   text, math, images, graphs and tables all get the same hatching, which
+   runs on unbroken across wrapped lines and table cells.
+   The block shrinks to the width of its widest line, so short content isn't
+   hatched across the whole row. That can't change how anything wraps: the
+   block only shrinks when nothing in it needed to wrap.
+   Crossed-out content stays dark, so it keeps 4.5:1 contrast against the
+   hatch lines that cross it. Colored math and graph labels turn dark too;
    their colors are set inline, hence !important.
  */
-.is-crossed-out :global(.mathjax-wrapper):not(:global(.graphie-label) *),
-.is-crossed-out :global(.graphie-label) {
-    color: var(--wb-semanticColor-core-foreground-neutral-strong) !important;
-
-    & [style*="color"] {
-        color: inherit !important;
-    }
-}
-
-/* Images and graphs are dimmed. Their labels are text, so they stay at
-   full strength to keep their contrast.
-   A markdown image renders as a bare <img>, which can't hold the hatching
-   (below) itself, so its paragraph does. Making that paragraph an
-   inline-block lets it take the image's size without moving anything. The
-   strike line is set again because text decorations skip inline-blocks.
-   NOTE: :only-child ignores text, so an image that shares its line with text
-         hatches the text beside it too.
- */
-.is-crossed-out :global(.deprecated-perseus-container):has(> img:only-child),
-.is-crossed-out :global(.unresponsive-svg-image) {
-    display: inline-block;
-    margin: 0;
+.is-crossed-out > .choice-target > div > :first-child {
+    align-self: start;
+    color: var(--wb-semanticColor-core-foreground-neutral-strong);
     position: relative;
-    text-decoration: line-through;
-    text-decoration-thickness: var(--perseus-cross-out-strike-width);
 
-    & > img,
-    & :global(.graphie) > svg {
-        opacity: var(--perseus-cross-out-image-opacity);
+    & :global(.mathjax-wrapper),
+    & :global(.graphie-label) {
+        color: var(
+            --wb-semanticColor-core-foreground-neutral-strong
+        ) !important;
+
+        & [style*="color"] {
+            color: inherit !important;
+        }
     }
-}
 
-/* Math, images and graphs get hatching over them.
-   Text decorations skip inline-block descendants, which is how MathJax
-   renders math, so math is hatched instead of struck through. A strike line
-   would sit on the math axis, where it hides the bars of +, − and = and runs
-   into fraction bars.
-   Labels on a graph are left alone: the graph's hatching covers them.
-   The hatching is centered on what it covers, so a line always crosses the
-   middle. Short math like "6" is narrower than the gap between lines, and
-   hatching drawn from the corner would only catch the tip of one.
- */
-.is-crossed-out :global(.mathjax-wrapper):not(:global(.graphie-label) *),
-.is-crossed-out :global(.deprecated-perseus-container):has(> img:only-child),
-.is-crossed-out :global(.unresponsive-svg-image) {
+    /* Images and graphs are dimmed. Their labels are text, so they stay at
+       full strength to keep their contrast.
+     */
+    & img,
+    & :global(.graphie) > svg {
+        opacity: 0.7;
+    }
+
+    /* The hatching is centered on what it covers, so a line always crosses
+       the middle. Short math like "6" is narrower than the gap between
+       lines, and hatching drawn from the corner would only catch the tip of
+       one.
+     */
     &::after {
         background-image: var(--perseus-cross-out-hatch);
         background-position: center;
@@ -352,6 +333,6 @@
         inset: 0;
         pointer-events: none;
         position: absolute;
-        z-index: 1; /* Above the copyable TeX that the renderer layers over math, and a graph's labels */
+        z-index: 1; /* Above the copyable TeX that the renderer layers over math */
     }
 }
