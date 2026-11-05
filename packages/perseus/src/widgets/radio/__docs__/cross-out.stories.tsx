@@ -135,6 +135,19 @@ export const MathContent: Story = {
     play: crossOutAllButFirst,
 };
 
+export const ShortMath: Story = {
+    args: {
+        choices: [
+            generateRadioChoice("$6$", {correct: true}),
+            generateRadioChoice("$7$"),
+            generateRadioChoice("$x$"),
+            generateRadioChoice("$-1$"),
+        ],
+    },
+    parameters: {chromatic},
+    play: crossOutAllButFirst,
+};
+
 export const Table: Story = {
     args: {
         choices: [
