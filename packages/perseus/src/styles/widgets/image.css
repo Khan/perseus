@@ -8,15 +8,6 @@
     max-width: 100%;
     height: auto;
 }
-.perseus-image-widget .perseus-image-title {
-    text-align: center;
-}
-.perseus-image-widget .perseus-image-caption {
-    color: var(--wb-semanticColor-core-foreground-neutral-subtle);
-    padding-left: 16px;
-    position: relative;
-}
-
 /* Referencing this WB background color is needed to aid in Dark Mode preview */
 .perseus-image-preview-container {
     background-color: var(--wb-semanticColor-core-background-base-default);
