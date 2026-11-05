@@ -48,6 +48,7 @@ const Choice = (props: IndicatorProps) => {
             buttonRef={buttonRef}
             checked={props.checked}
             content={props.indicatorContent}
+            crossedOut={props.crossOut?.crossedOut}
             shape={indicatorShape}
             showCorrectness={showCorrectness}
             updateChecked={props.updateChecked}
