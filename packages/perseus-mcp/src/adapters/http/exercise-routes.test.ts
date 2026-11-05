@@ -17,6 +17,7 @@ import {checkoutPaths} from "../../runtime-paths";
 import {createPerseusCoreSchemaSource} from "../fs/perseus-core-schema-source";
 
 import {allowedHostnames, createHttpServer} from "./server";
+import {makeZip} from "./zip-entries.testutils";
 
 import type {PreviewPages} from "./server";
 import type {Exercise} from "../../domain/exercises/exercise";
@@ -202,5 +203,123 @@ describe("exercise routes", () => {
                 problemType.assessmentItems.map((item: any) => item.contentId),
             ]),
         ).toEqual([["Type 1", ["a1"]]]);
+    });
+
+    describe("POST /exercises/import", () => {
+        function upload(
+            address: string,
+            body: string | Buffer,
+            {
+                type = "application/json",
+                origin = address,
+                fileName = "My exercise.json",
+            }: {type?: string; origin?: string | null; fileName?: string} = {},
+        ) {
+            return fetch(
+                `${address}/exercises/import?fileName=${encodeURIComponent(fileName)}`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": type,
+                        ...(origin != null && {Origin: origin}),
+                    },
+                    body:
+                        typeof body === "string" ? body : new Uint8Array(body),
+                },
+            );
+        }
+
+        it("imports an uploaded file as an exercise named after it", async () => {
+            // Arrange
+            const setup = await setUp();
+            app = setup.app;
+
+            // Act
+            const response = await upload(
+                setup.address,
+                JSON.stringify(bulkExport),
+            );
+
+            // Assert
+            expect(await response.json()).toEqual({
+                exercises: [
+                    {
+                        exerciseId: expect.any(String),
+                        name: "My exercise",
+                        imported: 1,
+                        skipped: 0,
+                    },
+                ],
+                failed: [],
+            });
+        });
+
+        it("imports each .json file in an uploaded zip", async () => {
+            // Arrange
+            const setup = await setUp();
+            app = setup.app;
+            const zip = makeZip([
+                {name: "a.json", text: JSON.stringify(bulkExport)},
+                {name: "b.json", text: "not JSON"},
+            ]);
+
+            // Act
+            const response = await upload(setup.address, zip, {
+                type: "application/zip",
+                fileName: "both.zip",
+            });
+
+            // Assert
+            const payload = await response.json();
+            expect({
+                imported: payload.exercises.map((e: any) => e.name),
+                failed: payload.failed.map((f: any) => f.fileName),
+            }).toEqual({imported: ["a"], failed: ["b.json"]});
+        });
+
+        it("refuses an upload from another site", async () => {
+            // Arrange
+            const setup = await setUp();
+            app = setup.app;
+
+            // Act
+            const statuses = [
+                (
+                    await upload(setup.address, "[]", {
+                        origin: "https://evil.example",
+                    })
+                ).status,
+                (await upload(setup.address, "[]", {origin: null})).status,
+            ];
+
+            // Assert
+            expect(statuses).toEqual([403, 403]);
+        });
+
+        it("returns 400 for a file import doesn't read", async () => {
+            // Arrange
+            const setup = await setUp();
+            app = setup.app;
+
+            // Act
+            const response = await upload(setup.address, '{"not": "items"}');
+
+            // Assert
+            expect(response.status).toBe(400);
+        });
+
+        it("returns 415 for a body that's neither JSON nor a zip", async () => {
+            // Arrange
+            const setup = await setUp();
+            app = setup.app;
+
+            // Act
+            const response = await upload(setup.address, "hello", {
+                type: "text/plain",
+            });
+
+            // Assert
+            expect(response.status).toBe(415);
+        });
     });
 });

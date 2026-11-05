@@ -40,9 +40,8 @@ How the work is done. An agent resuming this plan follows these rules exactly.
 
 ## Status
 
-**Build order steps 1 to 9 are done, and step 10 but for its upload; step 11
-(`create_graphie`) is next, then 10's upload; step 12 (content search) has
-started.** The commits below are on
+**Build order steps 1 to 12 are done; step 13 (alt text) is next.** The
+commits below are on
 `jer/perseus-mcp`, oldest first, and every tool was smoke-tested over stdio
 from outside the repo.
 
@@ -105,6 +104,7 @@ from outside the repo.
 | Preview diagrams in the browser | Build order step 11, commit 4 of 4, which finishes step 11 (commit 3, the chat preview, was seen working in Claude Desktop). `/graffiti/<graffitiId>` is a diagram's page: the diagram as Perseus shows it, labels included, in the preview frame, with its notes and a picker for its earlier revisions; it follows `/graffiti/<graffitiId>/events`, sent on connect and after each new revision, and measures each revision from its SVG, since an image widget needs its size. `preview_graffiti` returns the page's URL. The draft preview now shows diagrams too: `/drafts/<itemId>/events` sends the latest revision of each diagram the draft shows and is sent again when one of them changes (`watchDraftPreview`, over a `withGraffitiFeed` repository wrapper), the page names those revisions in the item's URLs (`pinDiagramRevisions`) so Perseus loads a new revision's labels, and the frame's `generateUrl` sends `https://perseus-mcp.localhost/...` to the server that serves the page. Checked in a browser from a check server: the diagram page at its latest and an earlier revision, and the draft preview following two `update_graffiti` calls without reloading. The diagram page shows the diagram as an article section (the frame now renders `article-section` content), so there's no "Check answer" button and no hints; its render marker comes from `ArticleRenderer`'s new `onRendered`, which reports once every section's images and math have rendered, as `ServerItemRenderer`'s does. |
 | Apply content guidelines and fixes to many drafts | Build order step 12, commit 3 of 3, which finishes step 12. `get_guidelines` reads the organization's content guidelines from a local Markdown file (`PERSEUS_MCP_GUIDELINES`; the text isn't in the repo), whole when short or by section heading (`splitSections`, `findSections`), and lists the fixes there are. `apply_fix` applies a fix (`domain/fixes/`: `bold-first-line`, and `replace-text`, plain or regex, in the question, hints or both) to named drafts or every draft of an exercise; a dry run (the default) says what would change, with the changed lines; a real run saves each change as a revision (`change: apply_fix: <fix>`; `DraftEdit` gains `change`), validated like any edit, so one that would break an item is rejected. Unchanged drafts are counted by reason, not listed. `get_server_info` reports whether guidelines are set up. The instructions tell agents to read the guideline first, apply what a fix covers with `apply_fix`, and read items only for rules that need judgment. Checked over MCP with a stand-in client on throwaway drafts: an exercise whose first lines were all bold was left unchanged; one with 30 that weren't was bolded, as revision 2 of each. |
 | Leave content search out of the testers' bundle | Search needs a local Meilisearch and content snapshot testers don't have, so it comes later for them. Run from the bundle (`build.source === "bundle"`), the server makes no search use cases: `search_content`, `facet_content` and `import_from_search` aren't registered, the instructions' search paragraph is left out (`instructions(withSearch)`), and `get_server_info` says search isn't part of this build instead of probing Meilisearch. From the repo, nothing changes. Checked over MCP from the repo: the search tools and paragraph are there. |
+| Import an exercise from the list page | Build order step 10's upload, which finishes step 10. `/exercises` has an "Import an exercise" area: a labelled file field, and the form as a drop target (a pointer shortcut; the file field is the keyboard path), with the result in an `<output>`. One exercise opens its page; several (from a zip) are listed with what wasn't imported. `POST /exercises/import?fileName=<name>` takes the file as `application/json` or `application/zip` (its own parsers, in a scope of their own: no `text/plain`, which a cross-site form can send without asking), up to 20 MB, and only with an `Origin` naming the server itself (403 otherwise). A zip's `.json` files (not `__MACOSX` copies or hidden files) each become an exercise, read by a small reader on Node's `zlib` (stored or deflated, no Zip64), capped at 100 MB unzipped. `importExerciseText` shares `importExercise`'s parsing; the exercise is named after the file and each draft's first revision says "Uploaded <file>". Checked in a browser: a bad file's error, a zip of two exports and a bad file, a single export opening its exercise, the drop highlight, and a cross-site POST refused. |
 
 Remaining, in order:
 
@@ -148,10 +148,9 @@ Remaining, in order:
       leaves out the declarations `optionsType` already shows, naming them
       instead (interactive-graph's is now 19 KB; its user input is its
       options' graph types).
-3. Build order step 11 (`create_graphie`), then step 10's upload, then
-   steps 12 to 16. Step 12 (content search) started alongside step 11's
-   last commits, and is done: the search index, the search tools, and
-   guidelines with fixes.
+3. Build order steps 13 to 16. Steps 10 to 12 are done: the exercise page
+   with its upload, Graffiti diagrams, and content search with guidelines
+   and fixes.
 
 Consuming applications aren't in this repo: the changesets carry the
 migration steps, and they're updated separately.
@@ -751,9 +750,10 @@ upload comes after step 11.
      `edit_items` (many drafts in one call, each saved or not on its own),
      `validate_exercise`, and `update_exercise` (name, notes, and the
      exercise editor URL the author gives). Review stays per item.
-10. **The exercise page (browser)** (done but for the upload):
+10. **The exercise page (browser)** (done):
     `/exercises` lists them, with an upload
-    for importing one; `/exercises/<id>` shows the problem types and their
+    for importing one (a file field or a dropped file: an export, or a zip
+    of several); `/exercises/<id>` shows the problem types and their
     items as a tree on the left and the selected item's preview on the right
     (`?item=<itemId>`). The tree follows an event stream (the exercise and
     its drafts' revisions) and shows each item's change since import (new,
@@ -763,8 +763,10 @@ upload comes after step 11.
     `Origin` header, since the `Host` check doesn't stop a cross-site form
     POST. `preview_exercise` returns the page's URL. No dragging: Claude
     organizes, the page shows.
-11. **`create_graphie`:** declarative spec to Graphie image, served locally,
-    with alt text (step 13's rules come after it).
+11. **Graffiti diagrams** (done): `create_graffiti` keeps a Graffiti script
+    that draws a Graphie image under a stable id, by revision; the server
+    draws each revision when asked for, items show the latest, and the
+    browser and chat previews follow its changes. Alt text is step 13.
 12. **Content search** (see "Content search" below): a local search index
     of published English content, so the agent narrows a request ("the
     Pre-algebra course", "items using interactive-graph") to the few items

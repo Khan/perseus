@@ -53,6 +53,14 @@ export type SkippedItem = {
     reason: string;
 };
 
+/** What an import made: the new exercise, and what it couldn't read. */
+export type ImportResult = {
+    exercise: Exercise;
+    shape: ImportShape;
+    imported: number;
+    skipped: SkippedItem[];
+};
+
 /** What the exercise editor's import would make of an exported item. */
 export type ImportChange = "new" | "edited" | "unchanged";
 
@@ -249,6 +257,46 @@ export function createExerciseUseCases(deps: ExerciseDependencies) {
     }
 
     /**
+     * Parses `text`, from `source` (a path or a file name), and saves what
+     * it holds as a new exercise.
+     *
+     * @throws InvalidImportError
+     */
+    function importText(
+        text: string,
+        {
+            source,
+            ...options
+        }: {
+            source: string;
+            name: string;
+            notes?: string;
+            editorUrl?: string;
+            change: string;
+        },
+    ): ImportResult {
+        let data: unknown;
+        try {
+            data = JSON.parse(text);
+        } catch (e) {
+            throw new InvalidImportError(
+                `Couldn't read ${source} as JSON: ${String(e)}`,
+            );
+        }
+        const read = readImport(data);
+        if (!read.ok) {
+            throw new InvalidImportError(read.error);
+        }
+        const {exercise, skipped} = saveImport(read.problemTypes, options);
+        return {
+            exercise,
+            shape: read.shape,
+            imported: itemIdsOf(exercise).length,
+            skipped,
+        };
+    }
+
+    /**
      * Saves a draft per item that parses (migrated to the latest schema)
      * and an exercise grouping them as given. Items that don't parse are
      * skipped and reported; problem types left empty are dropped.
@@ -327,37 +375,32 @@ export function createExerciseUseCases(deps: ExerciseDependencies) {
             name?: string;
             notes?: string;
             editorUrl?: string;
-        }): Promise<{
-            exercise: Exercise;
-            shape: ImportShape;
-            imported: number;
-            skipped: SkippedItem[];
-        }> {
-            let data: unknown;
-            try {
-                data = JSON.parse(await deps.files.read(input.path));
-            } catch (e) {
-                throw new InvalidImportError(
-                    `Couldn't read ${input.path} as JSON: ${String(e)}`,
-                );
-            }
-            const read = readImport(data);
-            if (!read.ok) {
-                throw new InvalidImportError(read.error);
-            }
-
-            const {exercise, skipped} = saveImport(read.problemTypes, {
+        }): Promise<ImportResult> {
+            return importText(await deps.files.read(input.path), {
+                source: input.path,
                 name: input.name ?? input.path,
                 notes: input.notes,
                 editorUrl: input.editorUrl,
                 change: `Imported from ${input.path}`,
             });
-            return {
-                exercise,
-                shape: read.shape,
-                imported: itemIdsOf(exercise).length,
-                skipped,
-            };
+        },
+
+        /**
+         * Reads an uploaded file's text into a new exercise, named after
+         * the file, as importExercise reads a file by path.
+         *
+         * @throws InvalidImportError if the text isn't JSON or isn't in a
+         * shape import reads.
+         */
+        importExerciseText(input: {
+            text: string;
+            fileName: string;
+        }): ImportResult {
+            return importText(input.text, {
+                source: input.fileName,
+                name: input.fileName.replace(/\.json$/i, ""),
+                change: `Uploaded ${input.fileName}`,
+            });
         },
 
         /**

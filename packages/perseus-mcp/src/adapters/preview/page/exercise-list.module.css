@@ -13,3 +13,32 @@
 .header {
     gap: var(--wb-sizing-size_120) !important;
 }
+
+.importArea {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_120);
+}
+
+/* The form takes dropped files; the dashed border says so. */
+.dropTarget {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_080);
+    padding: var(--wb-sizing-size_160);
+    border: var(--wb-border-width-medium) dashed
+        var(--wb-semanticColor-core-border-neutral-default);
+    border-radius: var(--wb-border-radius-radius_120);
+}
+
+.dragging {
+    border-color: var(--wb-semanticColor-core-border-instructive-default);
+    background: var(--wb-semanticColor-core-background-instructive-subtle);
+}
+
+.importRow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--wb-sizing-size_120);
+}

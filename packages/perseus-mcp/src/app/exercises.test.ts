@@ -117,6 +117,34 @@ describe("exercise use cases", () => {
         ]);
     });
 
+    it("imports an uploaded file's text, named after the file", () => {
+        // Arrange
+        const {useCases, drafts} = setUp([]);
+
+        // Act
+        const {exercise} = useCases.importExerciseText({
+            text: JSON.stringify(bulkExport),
+            fileName: "Fractions.json",
+        });
+
+        // Assert
+        const firstItemId = exercise.problemTypes[0].items[0].itemId;
+        expect({
+            name: exercise.name,
+            change: drafts.get(firstItemId)?.change,
+        }).toEqual({name: "Fractions", change: "Uploaded Fractions.json"});
+    });
+
+    it("refuses uploaded text that isn't JSON", () => {
+        // Arrange
+        const {useCases} = setUp([]);
+
+        // Act, Assert
+        expect(() =>
+            useCases.importExerciseText({text: "nope", fileName: "x.json"}),
+        ).toThrow("Couldn't read x.json as JSON");
+    });
+
     it("skips and reports items that don't parse", async () => {
         // Arrange
         const {useCases} = setUp([

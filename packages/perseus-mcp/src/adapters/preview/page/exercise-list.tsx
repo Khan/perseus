@@ -1,4 +1,5 @@
-// The list of exercises (`/exercises`), each linking to its page.
+// The list of exercises (`/exercises`), each linking to its page, with an
+// import for an exercise's export.
 import {RenderStateRoot, View} from "@khanacademy/wonder-blocks-core";
 import {BodyText, Heading} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
@@ -6,6 +7,7 @@ import {createRoot} from "react-dom/client";
 
 import shellStyles from "./exercise-list.module.css";
 import styles from "./exercise-pages.module.css";
+import {ImportArea} from "./import-area";
 
 // The page setup Wonder Blocks expects: its tokens, fonts and base styles.
 import "@internal/perseus-environment/styles.css";
@@ -26,6 +28,8 @@ type Listing =
 
 function ExerciseList() {
     const [listing, setListing] = React.useState<Listing>({state: "loading"});
+    // Bumped after an import, to list the new exercises.
+    const [version, setVersion] = React.useState(0);
     React.useEffect(() => {
         fetch("/api/exercises")
             .then((response) => {
@@ -38,7 +42,7 @@ function ExerciseList() {
                 ({exercises}) => setListing({state: "loaded", exercises}),
                 (e) => setListing({state: "failed", message: String(e)}),
             );
-    }, []);
+    }, [version]);
 
     return (
         <View className={`${shellStyles.root} ${shellStyles.page}`}>
@@ -48,6 +52,7 @@ function ExerciseList() {
                 </Heading>
             </View>
             <View tag="main" className={shellStyles.page}>
+                <ImportArea onImported={() => setVersion((v) => v + 1)} />
                 {listing.state === "loading" && <BodyText>Loading…</BodyText>}
                 {listing.state === "failed" && (
                     <BodyText>{`Couldn't load the exercises: ${listing.message}`}</BodyText>
@@ -55,8 +60,8 @@ function ExerciseList() {
                 {listing.state === "loaded" &&
                     (listing.exercises.length === 0 ? (
                         <BodyText>
-                            No exercises yet. Ask Claude to import one from a
-                            file with import_exercise.
+                            No exercises yet. Import one above, or ask Claude to
+                            import one from a file.
                         </BodyText>
                     ) : (
                         <ul className={styles.list}>
