@@ -9,23 +9,6 @@ const {NumberInput, TextInput} = components;
 
 type Props = WidgetEditorProps<PerseusPythonProgramWidgetOptions>;
 
-export function validateOptions(
-    height: Props["height"],
-    programID: Props["programID"],
-): ReadonlyArray<string> {
-    const errors: Array<string> = [];
-
-    if (programID === "") {
-        errors.push("The program ID is required.");
-    }
-
-    if (!Number.isInteger(height) || height < 1) {
-        errors.push("The height must be a positive integer.");
-    }
-
-    return errors;
-}
-
 /**
  * An editor for adding a Python program widget that allows users to write, edit and execute Python code.
  */
