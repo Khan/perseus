@@ -120,7 +120,7 @@ type State = {
     static: boolean;
     tooltip: boolean;
     touchOffset: null | Coord;
-    mouseTarget: unknown;
+    mouseTarget: WrappedEllipse | null;
     visibleShape: {wrapper: HTMLElement; toBack(): void; toFront(): void};
     normalStyle: Record<string, any>;
     highlightStyle: Record<string, any>;
@@ -233,6 +233,13 @@ export class MovablePoint {
                     opacity: 0.0,
                 });
             }
+        }
+
+        if (state.static && state.mouseTarget) {
+            // If state.static was specified, remove any previously
+            // existing mousetarget (from a previous update in the editor)
+            state.mouseTarget.remove();
+            state.mouseTarget = null;
         }
 
         const showTrashTooltip = () => {
