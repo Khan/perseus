@@ -190,3 +190,77 @@
     clip-path: inset(50%);
     white-space: nowrap;
 }
+
+/* The grid view: every item at a phone's width, as many across as fit. */
+.grid {
+    overflow: hidden auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_240);
+    padding: var(--wb-sizing-size_160);
+    min-block-size: 0;
+    scrollbar-width: thin;
+}
+
+.grid > * {
+    flex-shrink: 0;
+}
+
+.gridFilter {
+    flex-direction: row !important;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: var(--wb-sizing-size_160);
+    margin: var(--wb-sizing-size_080) 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_080);
+    padding: var(--wb-sizing-size_080);
+    border: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+    border-radius: var(--wb-border-radius-radius_080);
+}
+
+.cardHeader {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--wb-sizing-size_040) var(--wb-sizing-size_080);
+    inline-size: 375px;
+}
+
+/* A phone's width, as the frame lays the item out. */
+.gridFrame {
+    display: block;
+    inline-size: 375px;
+    min-block-size: 120px;
+    border: none;
+}
+
+/* Where a frame goes until it scrolls near the window. */
+.gridPlaceholder {
+    inline-size: 375px;
+    block-size: 240px;
+    background: var(--wb-semanticColor-core-background-base-subtle);
+}
+
+/* The switch between one item and the grid, in the page's header. */
+.viewSwitch {
+    margin-inline-start: auto;
+}
+
+.gridMain {
+    display: flex;
+    flex-direction: column;
+}

@@ -219,7 +219,8 @@ function ExerciseItem({
     dependencies?: PerseusDependenciesV2;
 }) {
     const {item} = data;
-    const {reviewMode, showSolutions, answerless, readOnly} = previewOptions;
+    const {reviewMode, showSolutions, answerless, readOnly, isMobile} =
+        previewOptions;
     const {strings} = usePerseusI18n();
     const rendererRef = React.useRef<ServerItemRendererComponent>(null);
     const [result, setResult] = React.useState<string | null>(null);
@@ -233,7 +234,7 @@ function ExerciseItem({
                 : item,
         [item, answerless, reviewMode, showSolutions],
     );
-    const apiOptions = {...data.apiOptions, readOnly};
+    const apiOptions = {...data.apiOptions, readOnly, isMobile};
 
     function checkAnswer() {
         const renderer = rendererRef.current;
@@ -252,7 +253,9 @@ function ExerciseItem({
     }
 
     return (
-        <>
+        // Perseus's mobile styles apply inside `perseus-mobile`, as on the
+        // site's mobile pages.
+        <div className={isMobile ? "perseus-mobile" : undefined}>
             {/* The hints are rendered below, by Hints. */}
             <ServerItemRenderer
                 ref={rendererRef}
@@ -280,6 +283,6 @@ function ExerciseItem({
                 apiOptions={apiOptions}
                 dependencies={dependencies}
             />
-        </>
+        </div>
     );
 }

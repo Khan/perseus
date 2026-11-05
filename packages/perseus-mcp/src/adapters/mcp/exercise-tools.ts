@@ -256,7 +256,9 @@ export function registerExerciseTools(
                 "Return the URL of a browser page showing an exercise: its " +
                 "problem types and items as a tree, each with its change " +
                 "since import (new, edited, unchanged) and its validation " +
-                "issues, and a preview of the selected item. The page " +
+                "issues, and a preview of the selected item; or, switched " +
+                "to its grid (gridUrl), every item at once at a phone's " +
+                "width, rendered as on a phone. The page " +
                 "updates as the exercise and its drafts change, and can " +
                 "copy the exercise for the exercise editor's bulk import. " +
                 "Give the URL to the person you're working with.",
@@ -265,7 +267,11 @@ export function registerExerciseTools(
         },
         ({exerciseId}) =>
             run("preview_exercise", () =>
-                jsonResult({exerciseId, url: preview.exerciseUrl(exerciseId)}),
+                jsonResult({
+                    exerciseId,
+                    url: preview.exerciseUrl(exerciseId),
+                    gridUrl: `${preview.exerciseUrl(exerciseId)}?view=grid`,
+                }),
             ),
     );
 

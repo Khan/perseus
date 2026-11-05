@@ -224,7 +224,11 @@ function Preview({itemId: id, draft}: {itemId: string; draft: Draft}) {
                     )
                 }
             />
-            <View className="framework-perseus box-sizing-border-box-reset">
+            <View
+                className="framework-perseus box-sizing-border-box-reset"
+                // As on a phone, the item is a phone's width.
+                style={options.isMobile ? {maxInlineSize: 375} : undefined}
+            >
                 <Exercise
                     data={{item, apiOptions: {}, showRationales: false}}
                     previewOptions={{...DEFAULT_PREVIEW_OPTIONS, ...options}}

@@ -58,6 +58,12 @@ function Frame() {
         contentContainerRef: containerRef,
     });
 
+    // frame.html narrows the page's margins as on a phone.
+    const isMobile = previewOptions.isMobile;
+    React.useEffect(() => {
+        document.body.classList.toggle("mobile", isMobile);
+    }, [isMobile]);
+
     // The shell sizes the iframe to fit, so it never scrolls on its own.
     React.useEffect(() => {
         const container = containerRef.current;

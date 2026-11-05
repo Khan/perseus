@@ -23,6 +23,7 @@ export type PreviewState = {
 
 function describeOptions(options: OfferedOptions): string {
     const on = [
+        options.isMobile && "as on a phone",
         options.reviewMode && "review mode",
         options.answerless && "without answers",
         options.readOnly && "read only",

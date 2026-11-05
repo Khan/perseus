@@ -161,6 +161,47 @@ describe("createHttpServer", () => {
         }).toEqual({contentType: "text/event-stream", revisions: [1, 2]});
     });
 
+    it("returns a draft as its event stream would start", async () => {
+        // Arrange
+        const setup = await setUp();
+        app = setup.app;
+        await setup.useCases.openItem({
+            item: generateTestPerseusItem({
+                question: generateTestPerseusRenderer({content: "Hello"}),
+            }),
+        });
+        const address = await app.listen({port: 0, host: "127.0.0.1"});
+
+        // Act
+        const response = await fetch(`${address}/api/drafts/abc`);
+        const body = await response.json();
+
+        // Assert
+        expect({
+            itemId: body.itemId,
+            revision: body.revision,
+            content: body.item.question.content,
+            diagrams: body.diagrams,
+        }).toEqual({
+            itemId: "abc",
+            revision: 1,
+            content: "Hello",
+            diagrams: {},
+        });
+    });
+
+    it("returns 404 when reading a draft that doesn't exist", async () => {
+        // Arrange
+        app = (await setUp()).app;
+        const address = await app.listen({port: 0, host: "127.0.0.1"});
+
+        // Act
+        const response = await fetch(`${address}/api/drafts/nope`);
+
+        // Assert
+        expect(response.status).toBe(404);
+    });
+
     it("returns 404 for a draft that doesn't exist", async () => {
         // Arrange
         app = (await setUp()).app;

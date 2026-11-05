@@ -145,7 +145,11 @@ export function DraftPreview({
                     src="/preview/frame"
                     title={`Draft ${itemId}`}
                     className={styles.frame}
-                    style={{blockSize: height ?? undefined}}
+                    style={{
+                        blockSize: height ?? undefined,
+                        // As on a phone, the frame is a phone's width.
+                        inlineSize: options.isMobile ? "375px" : undefined,
+                    }}
                 />
             </div>
             <div className={styles.paneBar}>

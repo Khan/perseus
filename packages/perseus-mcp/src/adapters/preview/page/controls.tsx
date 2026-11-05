@@ -105,14 +105,15 @@ export function HintControls({
     );
 }
 
-// The preview options the shell offers. The others (mobile, locale, color
-// scheme) aren't supported by the preview yet.
+// The preview options the shell offers. The others (locale, color scheme)
+// aren't supported by the preview yet.
 export type OfferedOptions = Pick<
     PreviewOptions,
-    "reviewMode" | "showSolutions" | "answerless" | "readOnly"
+    "isMobile" | "reviewMode" | "showSolutions" | "answerless" | "readOnly"
 >;
 
 const TOGGLES = {
+    isMobile: "As on a phone",
     reviewMode: "Review mode",
     answerless: "Without answers, as learners get it",
     readOnly: "Read only",
@@ -213,6 +214,7 @@ export function describeOptions(options: OfferedOptions): string {
 }
 
 export const DEFAULT_OFFERED_OPTIONS: OfferedOptions = {
+    isMobile: false,
     reviewMode: false,
     showSolutions: "none",
     answerless: false,

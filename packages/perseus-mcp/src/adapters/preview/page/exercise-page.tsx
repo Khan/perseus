@@ -1,70 +1,36 @@
 // An exercise's page (`/exercises/<exerciseId>?item=<itemId>`): its problem
 // types and items as a tree, each with its change since import and its
-// validation issues, and the selected item's live preview. It follows the
+// validation issues, and the selected item's live preview; or, as a grid
+// (`?view=grid`), every item at once at a phone's width. It follows the
 // exercise's event stream, so it shows Claude's changes as they're made.
 import Button from "@khanacademy/wonder-blocks-button";
 import {RenderStateRoot, View} from "@khanacademy/wonder-blocks-core";
-import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
+import {Choice, RadioGroup} from "@khanacademy/wonder-blocks-form";
 import {BodyText, Heading} from "@khanacademy/wonder-blocks-typography";
-import checkCircleIcon from "@phosphor-icons/core/regular/check-circle.svg";
-import pencilSimpleIcon from "@phosphor-icons/core/regular/pencil-simple.svg";
-import plusCircleIcon from "@phosphor-icons/core/regular/plus-circle.svg";
-import warningCircleIcon from "@phosphor-icons/core/regular/warning-circle.svg";
 import * as React from "react";
 import {createRoot} from "react-dom/client";
 
 import {isWebUrl} from "../../../domain/exercises/exercise";
 
+import {DEFAULT_OFFERED_OPTIONS} from "./controls";
 import {DraftPreview} from "./draft-preview";
+import {ExerciseGrid} from "./exercise-grid";
+import {ItemStatus} from "./exercise-items";
 import styles from "./exercise-pages.module.css";
 import layout from "./page-layout.module.css";
 import {StatusBar, worstConnection} from "./status-bar";
 
+import type {OfferedOptions} from "./controls";
 import type {DraftStatus} from "./draft-preview";
+import type {ExerciseView, Issue, ItemView} from "./exercise-items";
 import type {Connection} from "./status-bar";
 
 // The page setup Wonder Blocks expects: its tokens, fonts and base styles.
 import "@internal/perseus-environment/styles.css";
 import "@internal/perseus-environment/lato.css";
 
-type Issue = {
-    severity: "error" | "warning" | "info";
-    code: string;
-    path: string;
-    message: string;
-};
-
-type ItemView = {
-    itemId: string;
-    /** The item's id on the site, as the exercise editor shows it. */
-    contentId?: string;
-    revision?: number;
-    summary?: string;
-    change?: "new" | "edited" | "unchanged";
-    issues?: Issue[];
-    missing?: true;
-};
-
-type ExerciseView = {
-    exerciseId: string;
-    name: string;
-    notes?: string;
-    editorUrl?: string;
-    problemTypes: Array<{name: string | null; items: ItemView[]}>;
-};
-
 /** How many new or edited items the exercise editor's import reviews at once. */
 const REVIEW_LIMIT = 50;
-
-const CHANGES = {
-    new: {text: "New", icon: plusCircleIcon, className: styles.new},
-    edited: {text: "Edited", icon: pencilSimpleIcon, className: styles.edited},
-    unchanged: {
-        text: "Unchanged",
-        icon: checkCircleIcon,
-        className: styles.unchanged,
-    },
-} as const;
 
 function useExerciseEvents(exerciseId: string) {
     const [view, setView] = React.useState<ExerciseView | null>(null);
@@ -85,34 +51,79 @@ function useExerciseEvents(exerciseId: string) {
     return {view, connection};
 }
 
-/** The `?item=` of the page's URL, kept in step with Back and Forward. */
-function useSelectedItem(): [string | null, (itemId: string) => void] {
-    const read = () => new URLSearchParams(window.location.search).get("item");
-    const [itemId, setItemId] = React.useState(read);
+type ViewMode = "single" | "grid";
+
+type Location = {item: string | null; view: ViewMode};
+
+function readLocation(): Location {
+    const params = new URLSearchParams(window.location.search);
+    return {
+        item: params.get("item"),
+        view: params.get("view") === "grid" ? "grid" : "single",
+    };
+}
+
+/**
+ * The selected item (`?item=`) and the view (`?view=grid`, or one item) in
+ * the page's URL, kept in step with Back and Forward.
+ */
+function usePageLocation(): [Location, (next: Partial<Location>) => void] {
+    const [location, setLocation] = React.useState(readLocation);
     React.useEffect(() => {
-        const onPopState = () => setItemId(read());
+        const onPopState = () => setLocation(readLocation());
         window.addEventListener("popstate", onPopState);
         return () => window.removeEventListener("popstate", onPopState);
     }, []);
-    const select = React.useCallback((next: string) => {
+    const go = React.useCallback((next: Partial<Location>) => {
         const url = new URL(window.location.href);
-        url.searchParams.set("item", next);
+        if (next.item != null) {
+            url.searchParams.set("item", next.item);
+        }
+        if (next.view === "grid") {
+            url.searchParams.set("view", "grid");
+        } else if (next.view === "single") {
+            url.searchParams.delete("view");
+        }
         window.history.pushState(null, "", url);
-        setItemId(next);
+        setLocation(readLocation());
     }, []);
-    return [itemId, select];
+    return [location, go];
 }
 
-function countIssues(issues: Issue[] = []): string | null {
-    const errors = issues.filter((i) => i.severity === "error").length;
-    const warnings = issues.filter((i) => i.severity === "warning").length;
-    const parts = [
-        errors > 0 ? `${errors} ${errors === 1 ? "error" : "errors"}` : null,
-        warnings > 0
-            ? `${warnings} ${warnings === 1 ? "warning" : "warnings"}`
-            : null,
-    ].filter((part) => part != null);
-    return parts.length === 0 ? null : parts.join(", ");
+const VIEWS: Record<ViewMode, string> = {
+    single: "One item",
+    grid: "Grid, as on phones",
+};
+
+function isViewMode(value: string): value is ViewMode {
+    return value === "single" || value === "grid";
+}
+
+function ViewSwitch({
+    view,
+    onChange,
+}: {
+    view: ViewMode;
+    onChange: (view: ViewMode) => void;
+}) {
+    return (
+        <View className={styles.viewSwitch}>
+            <RadioGroup
+                label="View"
+                groupName="exercise-view"
+                selectedValue={view}
+                onChange={(value) => {
+                    if (isViewMode(value)) {
+                        onChange(value);
+                    }
+                }}
+            >
+                {Object.entries(VIEWS).map(([value, label]) => (
+                    <Choice key={value} label={label} value={value} />
+                ))}
+            </RadioGroup>
+        </View>
+    );
 }
 
 /** The exercise's counts, for the status bar. */
@@ -189,52 +200,6 @@ function CopyButton({exerciseId}: {exerciseId: string}) {
                 {message}
             </BodyText>
         </View>
-    );
-}
-
-function ItemStatus({item}: {item: ItemView}) {
-    if (item.missing) {
-        return (
-            <span className={`${styles.status} ${styles.problem}`}>
-                <PhosphorIcon
-                    icon={warningCircleIcon}
-                    className={styles.icon}
-                    aria-hidden={true}
-                />
-                Draft missing
-            </span>
-        );
-    }
-    const change = item.change != null ? CHANGES[item.change] : null;
-    const issues = countIssues(item.issues);
-    const hasErrors = item.issues?.some((i) => i.severity === "error");
-    return (
-        <span className={styles.status}>
-            {change != null && (
-                <span className={styles.status}>
-                    <PhosphorIcon
-                        icon={change.icon}
-                        className={`${styles.icon} ${change.className}`}
-                        aria-hidden={true}
-                    />
-                    {change.text}
-                </span>
-            )}
-            {` · revision ${item.revision}`}
-            {issues != null && (
-                <span
-                    className={`${styles.status} ${hasErrors ? styles.problem : ""}`}
-                >
-                    {" · "}
-                    <PhosphorIcon
-                        icon={warningCircleIcon}
-                        className={styles.icon}
-                        aria-hidden={true}
-                    />
-                    {issues}
-                </span>
-            )}
-        </span>
     );
 }
 
@@ -350,7 +315,15 @@ function ExercisePage({exerciseId}: {exerciseId: string}) {
     const [draftStatus, setDraftStatus] = React.useState<DraftStatus | null>(
         null,
     );
-    const [selected, select] = useSelectedItem();
+    const [{item: selected, view: viewMode}, go] = usePageLocation();
+    const select = React.useCallback(
+        (itemId: string) => go({item: itemId}),
+        [go],
+    );
+    const [gridOptions, setGridOptions] = React.useState<OfferedOptions>({
+        ...DEFAULT_OFFERED_OPTIONS,
+        isMobile: true,
+    });
     const items = view?.problemTypes.flatMap((type) => type.items) ?? [];
     // With no item named (or one that's gone), show the first that has a
     // draft.
@@ -369,8 +342,12 @@ function ExercisePage({exerciseId}: {exerciseId: string}) {
                 <Heading tag="h1" size="large">
                     {view?.name ?? "Exercise"}
                 </Heading>
+                <ViewSwitch
+                    view={viewMode}
+                    onChange={(next) => go({view: next})}
+                />
                 {view?.editorUrl != null && isWebUrl(view.editorUrl) && (
-                    <BodyText size="small" className={layout.headerEnd}>
+                    <BodyText size="small">
                         <a
                             className={styles.link}
                             href={view.editorUrl}
@@ -385,43 +362,65 @@ function ExercisePage({exerciseId}: {exerciseId: string}) {
                     </BodyText>
                 )}
             </View>
-            <div className={`${layout.main} ${styles.columns}`}>
-                {view != null && (
-                    <>
-                        <div className={styles.treePanel}>
-                            <Tree
-                                view={view}
-                                selected={current?.itemId ?? null}
-                                onSelect={select}
-                            />
-                            <CopyButton exerciseId={exerciseId} />
-                        </div>
-                        <main className={styles.previewPanel}>
-                            {current == null ? (
-                                <BodyText className={styles.empty}>
-                                    This exercise has no items.
-                                </BodyText>
-                            ) : (
-                                <DraftPreview
-                                    key={current.itemId}
-                                    itemId={current.itemId}
-                                    onStatus={setDraftStatus}
-                                    above={
-                                        <IssueList
-                                            issues={current.issues ?? []}
-                                        />
-                                    }
+            {viewMode === "grid" ? (
+                <main className={`${layout.main} ${styles.gridMain}`}>
+                    {view != null && (
+                        <ExerciseGrid
+                            view={view}
+                            options={gridOptions}
+                            onOptionsChange={(changed) =>
+                                setGridOptions((current) => ({
+                                    ...current,
+                                    ...changed,
+                                }))
+                            }
+                            onOpen={(itemId) =>
+                                go({item: itemId, view: "single"})
+                            }
+                        />
+                    )}
+                </main>
+            ) : (
+                <div className={`${layout.main} ${styles.columns}`}>
+                    {view != null && (
+                        <>
+                            <div className={styles.treePanel}>
+                                <Tree
+                                    view={view}
+                                    selected={current?.itemId ?? null}
+                                    onSelect={select}
                                 />
-                            )}
-                        </main>
-                    </>
-                )}
-            </div>
+                                <CopyButton exerciseId={exerciseId} />
+                            </div>
+                            <main className={styles.previewPanel}>
+                                {current == null ? (
+                                    <BodyText className={styles.empty}>
+                                        This exercise has no items.
+                                    </BodyText>
+                                ) : (
+                                    <DraftPreview
+                                        key={current.itemId}
+                                        itemId={current.itemId}
+                                        onStatus={setDraftStatus}
+                                        above={
+                                            <IssueList
+                                                issues={current.issues ?? []}
+                                            />
+                                        }
+                                    />
+                                )}
+                            </main>
+                        </>
+                    )}
+                </div>
+            )}
             <StatusBar
                 summary={view == null ? "" : summarize(view)}
                 connection={worstConnection(
                     connection,
-                    ...(draftStatus != null ? [draftStatus.connection] : []),
+                    ...(draftStatus != null && viewMode === "single"
+                        ? [draftStatus.connection]
+                        : []),
                 )}
             />
         </div>

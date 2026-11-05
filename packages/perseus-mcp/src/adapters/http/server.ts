@@ -216,6 +216,34 @@ export async function createHttpServer({
             }),
     );
 
+    // A draft as its event stream starts, read once: the exercise page's
+    // grid reads each item this way when the exercise's stream says it
+    // changed, rather than holding a stream open per item (browsers allow
+    // only a few connections to one host).
+    app.get<{Params: {itemId: string}}>(
+        "/api/drafts/:itemId",
+        async (request, reply) => {
+            try {
+                let data: ReturnType<typeof draftEventData> | null = null;
+                // It calls back at once with the draft as it is now.
+                const stop = watchDraftPreview(
+                    {drafts, graffiti},
+                    request.params.itemId,
+                    (draft, diagrams) => {
+                        data ??= draftEventData(draft, diagrams);
+                    },
+                );
+                stop();
+                return data;
+            } catch (e) {
+                if (e instanceof DraftNotFoundError) {
+                    return reply.code(404).send({error: e.message});
+                }
+                throw e;
+            }
+        },
+    );
+
     if (exercises != null) {
         registerExerciseRoutes(app, {exercises, pages: previewPages});
     }
