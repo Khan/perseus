@@ -132,11 +132,8 @@ export const Expression = forwardRef<Widget, Props>(
 
         const {strings} = usePerseusI18n();
         const {analytics} = useDependencies();
-        const isRequired =
-            props.isScorable &&
-            !props.reviewMode &&
-            !props.static &&
-            !apiOptions.readOnly;
+        const isDisabled = Boolean(props.static || apiOptions.readOnly);
+        const isRequired = props.isScorable && !props.reviewMode && !isDisabled;
         // KeypadContext provides setKeypadActive which is passed to focus() to notify
         // the mobile keypad system when an input becomes active. This is only used on
         // mobile (when apiOptions.customKeypad is true) but is safe to call on desktop.
@@ -233,6 +230,10 @@ export const Expression = forwardRef<Widget, Props>(
              * @returns true if focus is on the input element after the operation
              */
             focus: (): boolean => {
+                if (isDisabled) {
+                    return false;
+                }
+
                 const targetBefore = getFocusTarget();
 
                 // Try direct focus first; this may be a custom KeypadInput or MathInput.
@@ -258,6 +259,9 @@ export const Expression = forwardRef<Widget, Props>(
             },
 
             focusInputPath: (path: FocusPath) => {
+                if (isDisabled) {
+                    return;
+                }
                 inputRef.current?.focus?.(setKeypadActive);
             },
 
@@ -268,6 +272,9 @@ export const Expression = forwardRef<Widget, Props>(
             },
 
             insert: (keyPressed: KeypadKey) => {
+                if (isDisabled) {
+                    return;
+                }
                 inputRef.current?.insert?.(keyPressed);
             },
 
@@ -314,6 +321,7 @@ export const Expression = forwardRef<Widget, Props>(
                         ref={inputRef}
                         ariaLabel={ariaLabel || strings.mathInputBox}
                         ariaRequired={isRequired}
+                        disabled={isDisabled}
                         value={userInput}
                         keypadElement={keypadElement}
                         onChange={changeAndTrack}
@@ -342,6 +350,7 @@ export const Expression = forwardRef<Widget, Props>(
                         onBlur={handleBlur}
                         ariaLabel={ariaLabel || strings.mathInputBox}
                         ariaRequired={isRequired}
+                        disabled={isDisabled}
                         extraKeys={keypadConfiguration.extraKeys}
                         onAnalyticsEvent={
                             analytics?.onAnalyticsEvent ?? (async () => {})

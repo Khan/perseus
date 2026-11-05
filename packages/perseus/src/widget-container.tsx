@@ -20,7 +20,6 @@ import type {WidgetProps} from "./types";
 // static elements.
 const widgetsNeedingOverlay: string[] = [
     "cs-program",
-    "expression",
     "free-response",
     "graded-group",
     "graded-group-set",

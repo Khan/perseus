@@ -804,3 +804,220 @@ describe("required state", () => {
         expect(screen.getByRole("textbox", {hidden: true})).not.toBeRequired();
     });
 });
+
+describe("disabled state", () => {
+    let userEvent: UserEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+    });
+
+    function generateRenderer(isStatic: boolean): PerseusRenderer {
+        return generateTestPerseusRenderer({
+            content: "[[☃ expression 1]]",
+            widgets: {
+                "expression 1": generateExpressionWidget({
+                    static: isStatic,
+                    options: generateExpressionOptions({
+                        answerForms: [
+                            generateExpressionAnswerForm({value: "x+1"}),
+                        ],
+                    }),
+                }),
+            },
+        });
+    }
+
+    it("does not mark the input as aria-disabled when interactive", () => {
+        // Arrange, Act
+        renderQuestion(generateRenderer(false), {
+            apiOptions: {readOnly: false},
+        });
+
+        // Assert
+        expect(screen.getByRole("textbox")).not.toHaveAttribute(
+            "aria-disabled",
+        );
+    });
+
+    it("shows the MathQuill cursor when the interactive input is focused", async () => {
+        // Arrange
+        renderQuestion(generateRenderer(false), {
+            apiOptions: {readOnly: false},
+        });
+
+        // Act
+        await userEvent.tab();
+
+        // Assert
+        // MathQuill's cursor has no role or accessible name to query by.
+        // eslint-disable-next-line testing-library/no-node-access
+        expect(document.querySelector(".mq-cursor")).toBeInTheDocument();
+    });
+
+    describe.each([
+        {name: "static", isStatic: true, readOnly: false},
+        {name: "read-only", isStatic: false, readOnly: true},
+    ])("when $name", ({isStatic, readOnly}) => {
+        it("marks the input as aria-disabled", () => {
+            // Arrange, Act
+            renderQuestion(generateRenderer(isStatic), {
+                apiOptions: {readOnly},
+            });
+
+            // Assert
+            expect(screen.getByRole("textbox")).toHaveAttribute(
+                "aria-disabled",
+                "true",
+            );
+        });
+
+        it("keeps the input in the tab order", async () => {
+            // Arrange
+            renderQuestion(generateRenderer(isStatic), {
+                apiOptions: {readOnly},
+            });
+
+            // Act
+            await userEvent.tab();
+
+            // Assert
+            expect(screen.getByRole("textbox")).toHaveFocus();
+        });
+
+        it("does not show the MathQuill cursor when focused", async () => {
+            // Arrange
+            renderQuestion(generateRenderer(isStatic), {
+                apiOptions: {readOnly},
+            });
+
+            // Act
+            await userEvent.tab();
+
+            // Assert
+            // MathQuill's cursor has no role or accessible name to query by.
+            // eslint-disable-next-line testing-library/no-node-access
+            const cursor = document.querySelector(".mq-cursor");
+            expect(cursor).not.toBeInTheDocument();
+        });
+
+        it.each([
+            {device: "desktop", customKeypad: false},
+            {device: "mobile", customKeypad: true},
+        ])(
+            "does not show the MathQuill cursor when the $device input is clicked",
+            async ({customKeypad}) => {
+                // Arrange
+                renderQuestion(generateRenderer(isStatic), {
+                    apiOptions: {readOnly, customKeypad},
+                });
+                // Click MathQuill's rendered math, which is where a real
+                // click lands and where MathQuill listens for mousedown.
+                // MathQuill's elements have no role or accessible name to
+                // query by.
+                // eslint-disable-next-line testing-library/no-node-access
+                const mathContent = document.querySelector(".mq-root-block");
+
+                // Act
+                await userEvent.click(mathContent!);
+
+                // Assert
+                // eslint-disable-next-line testing-library/no-node-access
+                const cursor = document.querySelector(".mq-cursor");
+                expect(cursor).not.toBeInTheDocument();
+            },
+        );
+
+        it("does not change user input when keys are pressed while focused", async () => {
+            // Arrange
+            jest.useFakeTimers();
+            const {renderer} = renderQuestion(generateRenderer(isStatic), {
+                apiOptions: {readOnly},
+            });
+            // Static widgets start with the correct answer filled in, so
+            // compare against the initial input instead of a fixed value.
+            const initialUserInput = renderer.getUserInputMap();
+            await userEvent.tab();
+
+            // Act
+            await userEvent.keyboard("{Backspace}{Backspace}2");
+            act(() => jest.runOnlyPendingTimers());
+
+            // Assert
+            expect(renderer.getUserInputMap()).toEqual(initialUserInput);
+        });
+
+        it("does not change user input when inserted into", () => {
+            // Arrange
+            jest.useFakeTimers();
+            const {renderer} = renderQuestion(generateRenderer(isStatic), {
+                apiOptions: {readOnly},
+            });
+            const initialUserInput = renderer.getUserInputMap();
+            const expression = renderer.findWidgets("expression 1")[0];
+
+            // Act
+            act(() => expression.insert("2"));
+            act(() => jest.runOnlyPendingTimers());
+
+            // Assert
+            expect(renderer.getUserInputMap()).toEqual(initialUserInput);
+        });
+
+        it("returns false from focus()", () => {
+            // Arrange
+            const {renderer} = renderQuestion(generateRenderer(isStatic), {
+                apiOptions: {readOnly},
+            });
+            const expression = renderer.findWidgets("expression 1")[0];
+
+            // Act
+            const focused = expression.focus();
+
+            // Assert
+            expect(focused).toBe(false);
+            expect(screen.getByRole("textbox")).not.toHaveFocus();
+        });
+
+        it("disables the keypad toggle button", () => {
+            // Arrange, Act
+            renderQuestion(generateRenderer(isStatic), {
+                apiOptions: {readOnly},
+            });
+
+            // Assert
+            expect(
+                screen.getByRole("button", {name: "open math keypad"}),
+            ).toHaveAttribute("aria-disabled", "true");
+        });
+
+        it("marks the mobile input as aria-disabled", () => {
+            // Arrange, Act
+            renderQuestion(generateRenderer(isStatic), {
+                apiOptions: {readOnly, customKeypad: true},
+            });
+
+            // Assert
+            expect(screen.getByRole("textbox")).toHaveAttribute(
+                "aria-disabled",
+                "true",
+            );
+        });
+
+        it("keeps the mobile input in the tab order", async () => {
+            // Arrange
+            renderQuestion(generateRenderer(isStatic), {
+                apiOptions: {readOnly, customKeypad: true},
+            });
+
+            // Act
+            await userEvent.tab();
+
+            // Assert
+            // The mobile input's focusable element is a child of the
+            // textbox, so check that tabbing moved focus off the page body.
+            expect(document.body).not.toHaveFocus();
+        });
+    });
+});

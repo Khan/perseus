@@ -59,6 +59,12 @@ type Props = {
     keypadButtonSets?: KeypadButtonSets;
     ariaLabel: string;
     ariaRequired?: boolean;
+    /**
+     * Whether the input is disabled. A disabled input stays in the tab order
+     * so that it can be discovered, but it can't be edited and its keypad
+     * can't be opened.
+     */
+    disabled?: boolean;
     onFocus?: () => void;
     onBlur?: () => void;
     extraKeys?: ReadonlyArray<KeypadKey>;
@@ -110,7 +116,8 @@ class InnerMathInput extends React.Component<InnerProps, State> {
 
     state: State = {
         focused: false,
-        keypadOpen: this.props.buttonsVisible === "always",
+        keypadOpen:
+            this.props.buttonsVisible === "always" && !this.props.disabled,
         cursorContext: CursorContext.NONE,
     };
 
@@ -123,6 +130,13 @@ class InnerMathInput extends React.Component<InnerProps, State> {
     componentDidUpdate(prevProps: Readonly<InnerProps>): void {
         if (prevProps.ariaRequired !== this.props.ariaRequired) {
             this.updateAriaRequired();
+        }
+
+        if (prevProps.disabled !== this.props.disabled) {
+            this.updateDisabled();
+            if (this.props.disabled) {
+                this.closeKeypad();
+            }
         }
 
         if (prevProps.value !== this.props.value) {
@@ -142,7 +156,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
     }
 
     openKeypad() {
-        if (this.props.buttonsVisible === "never") {
+        if (this.props.buttonsVisible === "never" || this.props.disabled) {
             return;
         }
         this.setState({keypadOpen: true});
@@ -153,6 +167,9 @@ class InnerMathInput extends React.Component<InnerProps, State> {
     }
 
     insert: (value: any) => void = (value) => {
+        if (this.props.disabled) {
+            return;
+        }
         const input = this.mathField();
         const {locale} = this.context;
         const customKeyTranslator = {
@@ -279,6 +296,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
 
         this.__mathField?.setAriaLabel(this.props.ariaLabel);
         this.updateAriaRequired();
+        this.updateDisabled();
         return this.__mathField;
     };
 
@@ -291,7 +309,50 @@ class InnerMathInput extends React.Component<InnerProps, State> {
         }
     }
 
+    // MathQuill doesn't have a disabled mode for editable fields. We use
+    // aria-disabled rather than the native `disabled` attribute on the hidden
+    // textarea that MathQuill uses to capture keyboard input, so that the
+    // input stays in the tab order. Edits are blocked separately by
+    // `blockEditWhenDisabled`.
+    updateDisabled(): void {
+        const textarea = this.__mathFieldWrapperRef?.querySelector("textarea");
+        if (this.props.disabled) {
+            textarea?.setAttribute("aria-disabled", "true");
+        } else {
+            textarea?.removeAttribute("aria-disabled");
+        }
+    }
+
+    // Runs in the capture phase so that the event is stopped before it reaches
+    // MathQuill's listeners, which would otherwise edit the value or, on
+    // mousedown, place a blinking cursor. Tab is let through so that keyboard
+    // users can still move past the input.
+    blockEditWhenDisabled: (e: React.SyntheticEvent) => void = (e) => {
+        if (!this.props.disabled) {
+            return;
+        }
+        if (
+            e.nativeEvent instanceof KeyboardEvent &&
+            e.nativeEvent.key === "Tab"
+        ) {
+            return;
+        }
+        e.preventDefault();
+        e.stopPropagation();
+    };
+
     focus: () => void = () => {
+        if (this.props.disabled) {
+            // MathQuill's own focus listener on the textarea shows a blinking
+            // cursor, which would suggest the input can be edited. It runs
+            // before this React handler, so hiding the cursor here removes
+            // it and stops the blink.
+            this.mathField()?.cursor().hide();
+            // Still track focus so that keyboard users get a focus
+            // indicator, but don't focus the MathQuill field.
+            this.setState({focused: true});
+            return;
+        }
         this.mathField()?.focus();
         this.setState({focused: true});
     };
@@ -352,6 +413,10 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                 style={[
                     styles.outerWrapper,
                     this.state.focused && styles.wrapperFocused,
+                    this.props.disabled && styles.wrapperDisabled,
+                    this.props.disabled &&
+                        this.state.focused &&
+                        styles.wrapperDisabledFocused,
                 ]}
             >
                 {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events -- TODO(LEMS-2871): Address a11y error */}
@@ -382,6 +447,12 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                         ref={(ref) => (this.__mathFieldWrapperRef = ref)}
                         onFocus={() => this.focus()}
                         onBlur={() => this.blur()}
+                        onKeyDownCapture={this.blockEditWhenDisabled}
+                        onKeyPressCapture={this.blockEditWhenDisabled}
+                        onPasteCapture={this.blockEditWhenDisabled}
+                        onCutCapture={this.blockEditWhenDisabled}
+                        onDropCapture={this.blockEditWhenDisabled}
+                        onMouseDownCapture={this.blockEditWhenDisabled}
                     />
                     <Popover
                         opened={this.state.keypadOpen}
@@ -428,6 +499,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                                 focused={false}
                                 active={false}
                                 pressed={false}
+                                disabled={this.props.disabled}
                             />
                         ) : (
                             <Clickable
@@ -438,6 +510,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                                 }
                                 role="button"
                                 hideDefaultFocusRing
+                                disabled={this.props.disabled}
                                 onClick={() =>
                                     this.state.keypadOpen
                                         ? this.closeKeypad()
@@ -447,6 +520,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                                 {(props) => (
                                     <MathInputIcon
                                         active={this.state.keypadOpen}
+                                        disabled={this.props.disabled}
                                         {...props}
                                     />
                                 )}
@@ -499,14 +573,19 @@ const MathInputIcon = ({
     focused,
     pressed,
     active,
+    disabled = false,
 }: {
     hovered: boolean;
     focused: boolean;
     pressed: boolean;
     active: boolean;
+    disabled?: boolean;
 }) => {
     let fillColor: string;
     switch (true) {
+        case disabled:
+            fillColor = semanticColor.input.disabled.foreground;
+            break;
         case focused || pressed || active:
             fillColor = semanticColor.core.foreground.knockout.default;
             break;
@@ -519,6 +598,9 @@ const MathInputIcon = ({
     }
     let dynamicClass: CSSProperties;
     switch (true) {
+        case disabled:
+            dynamicClass = styles.iconDisabled;
+            break;
         case focused || pressed:
             dynamicClass = styles.iconActive;
             break;
@@ -600,6 +682,10 @@ const styles = StyleSheet.create({
         borderColor: semanticColor.core.transparent,
         backgroundColor: semanticColor.core.background.neutral.subtle,
     },
+    iconDisabled: {
+        borderColor: semanticColor.core.transparent,
+        backgroundColor: semanticColor.input.disabled.background,
+    },
     iconActive: {
         borderColor: semanticColor.focus.outer,
         boxShadow: `inset 0 0 0 ${border.width.medium} ${semanticColor.focus.inner}`,
@@ -623,6 +709,18 @@ const styles = StyleSheet.create({
         ":hover": inputFocused,
     },
     wrapperFocused: inputFocused,
+    wrapperDisabled: {
+        borderColor: semanticColor.input.disabled.border,
+        background: semanticColor.input.disabled.background,
+        color: semanticColor.input.disabled.foreground,
+        ":hover": {
+            borderColor: semanticColor.input.disabled.border,
+        },
+    },
+    wrapperDisabledFocused: {
+        outline: `${border.width.medium} solid ${semanticColor.focus.outer}`,
+        outlineOffset: border.width.thin,
+    },
     popoverContent: {
         padding: 0,
         paddingBlockEnd: sizing.size_060,
