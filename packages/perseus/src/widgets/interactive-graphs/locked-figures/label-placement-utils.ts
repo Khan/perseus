@@ -496,6 +496,18 @@ export type AutoLabelGraphInfo = GraphDimensions & {
 const pointRadiusPx = 7;
 
 /**
+ * How far a vector's arrowhead reaches from the tip it sits on, in pixels.
+ *
+ * The arrowhead is drawn from a path spanning roughly 5.6px either side of the
+ * line and 5.7px back from the tip (see `graphs/components/arrowhead.tsx`),
+ * plus half the stroke on every side. Treating it as a circle over-reserves a
+ * little to the sides, where it is narrower than it is long.
+ */
+export function getArrowheadRadiusPx(strokeWidth: number): number {
+    return 8.2 + strokeWidth / 2;
+}
+
+/**
  * Multiples of `labelOffsetPx` to try when the ideal position is blocked.
  * Each step trades proximity for room, so a label only travels as far as it
  * needs to.
@@ -572,6 +584,11 @@ export type PointObstacleInput = {
      * to clear the point it labels.
      */
     ownerKeys?: ReadonlyArray<string>;
+    /**
+     * How much space the drawn mark takes up, in pixels. Defaults to a locked
+     * point's own radius; a vector's arrowhead, for instance, is larger.
+     */
+    radiusPx?: number;
 };
 
 /** A drawn line that labels have to stay clear of. */
@@ -643,6 +660,7 @@ function trimSegmentNearPoint(
 /** A point that labels have to stay clear of. */
 type PointObstacle = {
     centerPx: [number, number];
+    radiusPx: number;
     /** Which label owns this point, so it can skip its own. */
     ownerKeys: ReadonlySet<string>;
 };
@@ -855,7 +873,7 @@ function scoreCandidate(
         const gap = rectToCircleGap(
             inflateRect(rect, ownHalfDiagonal),
             point.centerPx,
-            pointRadiusPx,
+            point.radiusPx,
         );
         if (gap < 0) {
             // Penetration depth rather than area: it pushes the label out
@@ -987,9 +1005,16 @@ export function getAutoLabelPlacements(
             owners.add(key);
         }
 
-        if (!existing) {
+        if (existing) {
+            // Coinciding marks: keep whichever reserves the most space.
+            existing.radiusPx = Math.max(
+                existing.radiusPx,
+                point.radiusPx ?? pointRadiusPx,
+            );
+        } else {
             pointsByCoord.set(coordKey, {
                 centerPx: pointToPixel(point.coord, graphInfo),
+                radiusPx: point.radiusPx ?? pointRadiusPx,
                 ownerKeys: owners,
             });
         }

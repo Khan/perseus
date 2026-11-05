@@ -2,6 +2,7 @@ import * as React from "react";
 
 import {
     assumedLabelSize,
+    getArrowheadRadiusPx,
     getAutoLabelPlacements,
 } from "./locked-figures/label-placement-utils";
 import {getIntersectionOfRayWithBox} from "./graphs/utils";
@@ -30,6 +31,8 @@ const endpointLabelKey = (
 ) => `${figureIndex}-point-${pointIndex}-label-${labelIndex}`;
 const lineLabelKey = (figureIndex: number, labelIndex: number) =>
     `${figureIndex}-line-label-${labelIndex}`;
+const vectorLabelKey = (figureIndex: number, labelIndex: number) =>
+    `${figureIndex}-vector-label-${labelIndex}`;
 
 /**
  * How long a wait for the labels to be measured has to exceed before they fade
@@ -222,6 +225,39 @@ export default function GraphLockedLabelsLayer(props: Props) {
                     });
                 });
             }
+
+            if (figure.type === "vector") {
+                const [tail, tip] = figure.points;
+                const strokeWidth = strokeWeights[figure.weight];
+                const segment: SegmentObstacle = {
+                    from: tail,
+                    to: tip,
+                    strokeWidth,
+                };
+                segmentObstacles.push(segment);
+
+                // Nothing is drawn at either end but the stroke itself, so
+                // neither reserves a point's worth of space. The arrowhead at
+                // the tip does, and it is larger than a point.
+                pointObstacles.push({
+                    coord: tip,
+                    radiusPx: getArrowheadRadiusPx(strokeWidth),
+                });
+
+                figure.labels.forEach((label, j) => {
+                    const key = vectorLabelKey(i, j);
+                    collected.push({
+                        key,
+                        anchorCoord: [
+                            (tail[0] + tip[0]) / 2,
+                            (tail[1] + tip[1]) / 2,
+                        ],
+                        size: sized(key),
+                        ownerSegment: segment,
+                        labelsTheLine: true,
+                    });
+                });
+            }
         });
 
         return {
@@ -305,14 +341,15 @@ export default function GraphLockedLabelsLayer(props: Props) {
 
         return (
             <React.Fragment key={i}>
-                {figure.labels.map((label, j) =>
-                    renderLabel(
-                        label,
+                {figure.labels.map((label, j) => {
+                    const key =
                         figure.type === "line"
                             ? lineLabelKey(i, j)
-                            : pointLabelKey(i, j),
-                    ),
-                )}
+                            : figure.type === "vector"
+                              ? vectorLabelKey(i, j)
+                              : pointLabelKey(i, j);
+                    return renderLabel(label, key);
+                })}
 
                 {/* A line's endpoints are points in their own right, so their
                     labels are placed like any other point's. */}
