@@ -103,12 +103,27 @@ arcBetween( arcs of different radii.`,
         text: `\
 Shapes take a style object as their last argument, with only these keys,
 in camelCase: fill, stroke (colors, as CSS writes them), strokeWidth
-("2") and strokeDashArray ("4 2"). Any other key, such as "fill-opacity",
-"opacity" or "stroke-width", is ignored without an error, and there's no
-opacity: use a solid light color for a tinted region. Without a style a
+("2") and strokeDashArray ("4 2"). Graffiti would ignore any other key,
+such as "fill-opacity", "opacity" or "stroke-width", so a diagram that uses
+one isn't kept. There's no opacity: use a tint for a region. Without a style a
 shape is drawn with a 1-pixel stroke and no fill, except sector(, which is
 filled white, and dot(, which is filled with no stroke. Colors come from
 "khan-style" (below).`,
+    },
+    {
+        heading: "What's checked",
+        text: `\
+create_graffiti and update_graffiti check what a script draws. A diagram
+isn't kept, and the error says how to fix it, when:
+- a shape's style has a key Graffiti ignores;
+- a line (a stroke, or a dot's fill) has a contrast under 3:1 on the
+  background (grid lines aside): a tint is for regions, not lines;
+- a label's color has a contrast under 4.5:1 on the background;
+- a TeX label uses \\frac (write \\dfrac) or writes a number of five
+  digits or more without {,} between groups (50{,}000).
+These come back as warnings, to fix unless there's a reason not to: colors
+outside Khan's palette, and labels of one word (say what they name).
+review_item repeats them for the diagrams an item shows.`,
     },
     {
         heading: "Labels",

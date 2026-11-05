@@ -26,7 +26,7 @@ describe("review use cases", () => {
     });
 
     describe("reviewItem", () => {
-        it("gives the issues and the checklist entries they need", () => {
+        it("gives the issues and the checklist entries they need", async () => {
             // Arrange
             const drafts = inMemoryRepository();
             drafts.save(
@@ -43,7 +43,7 @@ describe("review use cases", () => {
             const review = createReviewUseCases({drafts, catalog});
 
             // Act
-            const result = review.reviewItem("abc");
+            const result = await review.reviewItem("abc");
 
             // Assert
             expect({
@@ -55,7 +55,7 @@ describe("review use cases", () => {
             });
         });
 
-        it("leaves out entries for issues the draft doesn't have", () => {
+        it("leaves out entries for issues the draft doesn't have", async () => {
             // Arrange
             const drafts = inMemoryRepository();
             drafts.save(
@@ -68,7 +68,7 @@ describe("review use cases", () => {
             const review = createReviewUseCases({drafts, catalog});
 
             // Act
-            const result = review.reviewItem("abc");
+            const result = await review.reviewItem("abc");
 
             // Assert
             expect(result.checklist.map((entry) => entry.id)).not.toContain(
@@ -78,6 +78,42 @@ describe("review use cases", () => {
     });
 
     describe("reviewPrompt", () => {
+        it("lists what the item's diagrams should fix", async () => {
+            // Arrange
+            const drafts = inMemoryRepository();
+            drafts.save(
+                newDraft({
+                    itemId: "abc",
+                    item: generateTestPerseusItem({
+                        question: generateTestPerseusRenderer({
+                            content:
+                                "![A triangle](web+graphie://perseus-mcp.localhost/graffiti/d1)",
+                        }),
+                    }),
+                    now: new Date("2026-01-01T00:00:00Z"),
+                }),
+            );
+            const checkDiagrams = jest.fn(async (ids: ReadonlyArray<string>) =>
+                ids.map((graffitiId) => ({
+                    graffitiId,
+                    problems: ["Too pale."],
+                })),
+            );
+            const review = createReviewUseCases({
+                drafts,
+                catalog,
+                diagrams: {checkDiagrams},
+            });
+
+            // Act
+            const result = await review.reviewItem("abc");
+
+            // Assert
+            expect(result.diagrams).toEqual([
+                {graffitiId: "d1", problems: ["Too pale."]},
+            ]);
+        });
+
         it("returns the procedure for the given draft", () => {
             // Arrange
             const drafts = inMemoryRepository();

@@ -88,10 +88,12 @@ export function registerGraffitiTools(
                 "Draw a diagram (an illustration, not a graph for the " +
                 "learner to interact with; that's interactive-graph) from a " +
                 "Graffiti script, and keep it as a new diagram. It's kept " +
-                "only if the script draws: an error says what went wrong. " +
+                "only if the script draws and follows the rules code can " +
+                "check (style keys, contrast, TeX labels; see " +
+                "get_graffiti_reference): an error says what to fix. " +
                 "Returns its graffitiId, revision, size in pixels, label " +
-                "count, and warnings for what doesn't follow Khan's style " +
-                "(colors outside its palette): fix those. " +
+                "count, and warnings for what needs judgment (colors " +
+                "outside Khan's palette, one-word labels): fix those too. " +
                 EMBED,
             inputSchema: z.object({source: sourceSchema, notes: notesSchema}),
         },
@@ -108,8 +110,10 @@ export function registerGraffitiTools(
             description:
                 "Give a diagram a new script, new notes, or both, as a new " +
                 "revision; earlier revisions are kept. A new script is kept " +
-                "only if it draws. Items that show the diagram show the new " +
-                "revision without being edited.",
+                "only if it draws and follows the rules code can check, as " +
+                "for create_graffiti, which also says what the warnings are. " +
+                "Items that show the diagram show the new revision without " +
+                "being edited.",
             inputSchema: z.object({
                 graffitiId: z.string(),
                 source: sourceSchema.optional(),

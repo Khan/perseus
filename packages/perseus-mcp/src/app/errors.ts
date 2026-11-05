@@ -108,6 +108,17 @@ export class GraffitiRenderError extends Error {
     }
 }
 
+/** A script drew something Khan's style rules out; the diagram isn't kept. */
+export class GraffitiStyleError extends Error {
+    constructor(errors: ReadonlyArray<string>) {
+        super(
+            "The diagram wasn't kept: it doesn't follow Khan's style. " +
+                errors.join(" "),
+        );
+        this.name = "GraffitiStyleError";
+    }
+}
+
 /** Content search can't be used now: its message says why and what to do. */
 export class SearchUnavailableError extends Error {
     constructor(reason: string) {

@@ -1,5 +1,5 @@
 // Runs one Graffiti diagram script and prints what it draws, as JSON, to
-// stdout: {svg, data, width, height}. The server starts it in a process of
+// stdout: {svg, data, width, height, shapes}. The server starts it in a process of
 // its own with Node's permission model on (see node-graffiti-renderer.ts):
 // it can read only this file, the Graffiti library and the script.
 //
@@ -106,11 +106,18 @@ const data = {
     range: graffiti.graphieRange(canvas),
     labels: diagram.labels ?? [],
 };
+// Each shape's kind and the style it was given, for the server to check:
+// Graffiti ignores style keys it doesn't know, so the drawing can't show them.
+const shapeStyles = shapes.map((shape) => ({
+    kind: shape?.constructor?.name ?? "unknown",
+    style: shape?.style ?? shape?.options?.style ?? {},
+}));
 process.stdout.write(
     JSON.stringify({
         svg,
         data,
         width: canvas.viewport.width,
         height: canvas.viewport.height,
+        shapes: shapeStyles,
     }),
 );

@@ -931,7 +931,9 @@ export function createMcpServer({
             annotations: {readOnlyHint: true},
         },
         ({itemId}) =>
-            run("review_item", () => jsonResult(review.reviewItem(itemId))),
+            run("review_item", async () =>
+                jsonResult(await review.reviewItem(itemId)),
+            ),
     );
 
     registerAuthoringPrompt(server);

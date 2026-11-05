@@ -1,8 +1,8 @@
 import {graphieUrlFor} from "../domain/graffiti/diagram";
-import {offPaletteColors} from "../domain/graffiti/khan-style";
+import {checkDiagram} from "../domain/graffiti/diagram-checks";
 import {graffitiReference} from "../domain/graffiti/reference";
 
-import {GraffitiNotFoundError} from "./errors";
+import {GraffitiNotFoundError, GraffitiStyleError} from "./errors";
 
 import type {Diagram, RenderedDiagram} from "../domain/graffiti/diagram";
 import type {KhanStyle} from "../domain/graffiti/khan-style";
@@ -101,21 +101,34 @@ export function createGraffitiUseCases(deps: GraffitiDependencies) {
         };
     }
 
-    function result(diagram: Diagram, drawing: RenderedDiagram): DiagramResult {
-        const offPalette =
-            deps.style == null ? [] : offPaletteColors(drawing, deps.style);
+    /**
+     * A new script's drawing, checked: refused if it breaks a rule code can
+     * check, with its warnings otherwise.
+     *
+     * @throws GraffitiRenderError
+     * @throws GraffitiStyleError
+     */
+    async function drawChecked(source: string) {
+        const drawing = await renderer.render(source);
+        const {errors, warnings} = checkDiagram(drawing, deps.style);
+        if (errors.length > 0) {
+            throw new GraffitiStyleError(errors);
+        }
+        return {drawing, warnings};
+    }
+
+    function result(
+        diagram: Diagram,
+        drawing: RenderedDiagram,
+        warnings: string[],
+    ): DiagramResult {
         return {
             graffitiId: diagram.graffitiId,
             revision: diagram.revision,
             width: drawing.width,
             height: drawing.height,
             labels: drawing.data.labels.length,
-            ...(offPalette.length > 0 && {
-                warnings: [
-                    `Colors outside Khan's palette: ${offPalette.join("; ")}. ` +
-                        'Use colors, ui or tints from "khan-style".',
-                ],
-            }),
+            ...(warnings.length > 0 && {warnings}),
         };
     }
 
@@ -133,15 +146,16 @@ export function createGraffitiUseCases(deps: GraffitiDependencies) {
 
         /**
          * Draws a new diagram from its script, and keeps it only if it
-         * draws.
+         * draws and follows the rules code can check.
          *
          * @throws GraffitiRenderError
+         * @throws GraffitiStyleError
          */
         async createGraffiti(input: {
             source: string;
             notes?: string;
         }): Promise<DiagramResult> {
-            const drawing = await renderer.render(input.source);
+            const {drawing, warnings} = await drawChecked(input.source);
             const now = deps.now().toISOString();
             const diagram: Diagram = {
                 graffitiId: deps.newId(),
@@ -154,15 +168,17 @@ export function createGraffitiUseCases(deps: GraffitiDependencies) {
             };
             diagrams.save(diagram);
             rendered.set(`${diagram.graffitiId}@1`, Promise.resolve(drawing));
-            return result(diagram, drawing);
+            return result(diagram, drawing, warnings);
         },
 
         /**
          * Makes a new revision with a new script, new notes, or both; a new
-         * script is kept only if it draws.
+         * script is kept only if it draws and follows the rules code can
+         * check.
          *
          * @throws GraffitiNotFoundError
          * @throws GraffitiRenderError
+         * @throws GraffitiStyleError
          */
         async updateGraffiti(
             graffitiId: string,
@@ -170,9 +186,13 @@ export function createGraffitiUseCases(deps: GraffitiDependencies) {
         ): Promise<DiagramResult> {
             const current = getDiagram(graffitiId);
             const source = changes.source ?? current.source;
-            const drawing = await (changes.source == null
-                ? render(current)
-                : renderer.render(source));
+            const {drawing, warnings} =
+                changes.source == null
+                    ? await render(current).then((d) => ({
+                          drawing: d,
+                          warnings: checkDiagram(d, deps.style).warnings,
+                      }))
+                    : await drawChecked(source);
             const diagram: Diagram = {
                 ...current,
                 revision: current.revision + 1,
@@ -187,7 +207,34 @@ export function createGraffitiUseCases(deps: GraffitiDependencies) {
                 `${graffitiId}@${diagram.revision}`,
                 Promise.resolve(drawing),
             );
-            return result(diagram, drawing);
+            return result(diagram, drawing, warnings);
+        },
+
+        /**
+         * What each diagram's latest revision breaks or should reconsider,
+         * for reviewing an item that shows them; diagrams with nothing to
+         * report, or that aren't found, are left out.
+         */
+        async checkDiagrams(
+            graffitiIds: ReadonlyArray<string>,
+        ): Promise<Array<{graffitiId: string; problems: string[]}>> {
+            const checked = await Promise.all(
+                graffitiIds.map(async (graffitiId) => {
+                    const diagram = diagrams.get(graffitiId);
+                    if (diagram == null) {
+                        return null;
+                    }
+                    const {errors, warnings} = checkDiagram(
+                        await render(diagram),
+                        deps.style,
+                    );
+                    return {graffitiId, problems: [...errors, ...warnings]};
+                }),
+            );
+            return checked.filter(
+                (check): check is {graffitiId: string; problems: string[]} =>
+                    check != null && check.problems.length > 0,
+            );
         },
 
         /**

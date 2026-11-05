@@ -1,3 +1,4 @@
+import {diagramIdsIn} from "../domain/graffiti/diagram";
 import {validateItem} from "../domain/items/validate";
 import {checklistFor, renderChecklist} from "../domain/review/checklist";
 import {reviewProcedure, reviewPrompt} from "../domain/review/procedure";
@@ -5,11 +6,17 @@ import {reviewProcedure, reviewPrompt} from "../domain/review/procedure";
 import {DraftNotFoundError} from "./errors";
 
 import type {Catalog} from "./catalog";
+import type {GraffitiUseCases} from "./graffiti";
 import type {Issue} from "../domain/items/validate";
 import type {ChecklistEntry} from "../domain/review/checklist";
 import type {DraftRepository} from "../ports/draft-repository";
 
-export type ReviewDependencies = {drafts: DraftRepository; catalog: Catalog};
+export type ReviewDependencies = {
+    drafts: DraftRepository;
+    catalog: Catalog;
+    /** Checks the Graffiti diagrams an item shows, when there are diagrams. */
+    diagrams?: Pick<GraffitiUseCases, "checkDiagrams">;
+};
 
 /** What review_item gives the agent for one draft. */
 export type ItemReview = {
@@ -20,6 +27,8 @@ export type ItemReview = {
     issues: Issue[];
     /** The checklist entries that apply, without the issue codes. */
     checklist: Array<Omit<ChecklistEntry, "issueCodes">>;
+    /** What the item's diagrams should fix, if anything. */
+    diagrams?: Array<{graffitiId: string; problems: string[]}>;
 };
 
 /** The use cases behind reviewing a draft: the tool, prompt and checklist. */
@@ -39,9 +48,13 @@ export function createReviewUseCases(deps: ReviewDependencies) {
          *
          * @throws DraftNotFoundError
          */
-        reviewItem(itemId: string): ItemReview {
+        async reviewItem(itemId: string): Promise<ItemReview> {
             const draft = getDraft(itemId);
             const {issues} = validateItem(draft.item, deps.catalog.widgets());
+            const diagrams =
+                (await deps.diagrams?.checkDiagrams(
+                    diagramIdsIn(draft.item),
+                )) ?? [];
             return {
                 itemId,
                 revision: draft.revision,
@@ -50,6 +63,7 @@ export function createReviewUseCases(deps: ReviewDependencies) {
                 checklist: checklistFor(issues.map((issue) => issue.code)).map(
                     ({issueCodes: _, ...entry}) => entry,
                 ),
+                ...(diagrams.length > 0 && {diagrams}),
             };
         },
 

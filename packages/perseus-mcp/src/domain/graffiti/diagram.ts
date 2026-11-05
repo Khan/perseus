@@ -36,6 +36,8 @@ export type RenderedDiagram = {
     data: GraphieData;
     width: number;
     height: number;
+    /** Each shape's kind (`Segment`, `Grid`, …) and the style it was given. */
+    shapes?: Array<{kind: string; style: Record<string, unknown>}>;
 };
 
 /**
