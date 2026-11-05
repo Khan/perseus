@@ -105,7 +105,7 @@ const config: KnipConfig = {
                 ),
                 // The preview pages' scripts, loaded by their HTML through
                 // Vite.
-                "src/adapters/preview/page/{shell,frame,exercise-list,exercise-page}.tsx!",
+                "src/adapters/preview/page/{shell,frame,exercise-list,exercise-page,graffiti-page}.tsx!",
                 // Started as a process of its own to run a diagram script.
                 "src/adapters/graffiti/runner.mjs!",
                 // The packaged server's entry point, which scripts/build-bundle

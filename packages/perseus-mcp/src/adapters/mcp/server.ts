@@ -50,7 +50,8 @@ name and notes, and keeps its exercise editor URL when the person gives it.
 Draw illustrations with Graffiti: create_graffiti keeps a diagram drawn by a
 Graffiti script under a stable graffitiId, update_graffiti makes a new
 revision of it, and an image widget shows its latest revision, so an item
-needn't change when its diagram does.
+needn't change when its diagram does. preview_graffiti returns the URL of a
+page showing a diagram, which follows its changes.
 Read files by path; don't paste their contents into a call.
 
 list_widgets and get_widget_spec describe each widget's options; validate_item
@@ -476,7 +477,7 @@ export function createMcpServer({
 
     registerExerciseTools(server, {exercises, preview, run});
     if (graffiti != null) {
-        registerGraffitiTools(server, {graffiti, run});
+        registerGraffitiTools(server, {graffiti, preview, run});
     }
 
     server.registerTool(

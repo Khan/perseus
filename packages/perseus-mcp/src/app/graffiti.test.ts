@@ -3,6 +3,7 @@
  */
 import {GraffitiNotFoundError, GraffitiRenderError} from "./errors";
 import {createGraffitiUseCases} from "./graffiti";
+import {withGraffitiFeed} from "./graffiti-feed";
 
 import type {Diagram, RenderedDiagram} from "../domain/graffiti/diagram";
 import type {GraffitiRepository} from "../ports/graffiti-repository";
@@ -166,6 +167,88 @@ describe("graffiti use cases", () => {
 
             // Assert
             expect(changed).toEqual({diagrams: {}, missing: ["nope"]});
+        });
+    });
+
+    describe("watchGraffiti", () => {
+        function setUpWithFeed() {
+            const {diagrams, feed} = withGraffitiFeed(inMemoryDiagrams());
+            let id = 0;
+            const graffiti = createGraffitiUseCases({
+                diagrams,
+                feed,
+                renderer: {render: async (source) => drawingOf(source)},
+                now: () => new Date("2026-01-01T00:00:00Z"),
+                newId: () => `g${++id}`,
+            });
+            return graffiti;
+        }
+
+        it("sends the diagram's view, with its revisions", async () => {
+            // Arrange
+            const graffiti = setUpWithFeed();
+            await graffiti.createGraffiti({source: "one", notes: "A note"});
+            const listener = jest.fn();
+
+            // Act
+            graffiti.watchGraffiti("g1", listener);
+
+            // Assert
+            expect(listener).toHaveBeenCalledWith({
+                graffitiId: "g1",
+                revision: 1,
+                notes: "A note",
+                updatedAt: "2026-01-01T00:00:00.000Z",
+                revisions: [
+                    {
+                        revision: 1,
+                        change: "Created",
+                        updatedAt: "2026-01-01T00:00:00.000Z",
+                    },
+                ],
+            });
+        });
+
+        it("sends the view again after each new revision", async () => {
+            // Arrange
+            const graffiti = setUpWithFeed();
+            await graffiti.createGraffiti({source: "one"});
+            const listener = jest.fn();
+            graffiti.watchGraffiti("g1", listener);
+
+            // Act
+            await graffiti.updateGraffiti("g1", {source: "two"});
+
+            // Assert
+            expect(listener).toHaveBeenLastCalledWith(
+                expect.objectContaining({revision: 2}),
+            );
+        });
+
+        it("tells watchDiagrams' caller about another diagram's change only", async () => {
+            // Arrange
+            const graffiti = setUpWithFeed();
+            await graffiti.createGraffiti({source: "one"});
+            await graffiti.createGraffiti({source: "two"});
+            const onChange = jest.fn();
+            graffiti.watchDiagrams(["g2"], onChange);
+
+            // Act
+            await graffiti.updateGraffiti("g1", {source: "three"});
+            await graffiti.updateGraffiti("g2", {source: "four"});
+
+            // Assert
+            expect(onChange).toHaveBeenCalledTimes(1);
+        });
+
+        it("returns the latest revision of the diagrams that exist", async () => {
+            // Arrange
+            const graffiti = setUpWithFeed();
+            await graffiti.createGraffiti({source: "one"});
+            await graffiti.updateGraffiti("g1", {source: "two"});
+
+            // Act, Assert
+            expect(graffiti.latestRevisions(["g1", "nope"])).toEqual({g1: 2});
         });
     });
 });

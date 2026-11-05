@@ -8,6 +8,8 @@ import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import caretRightIcon from "@phosphor-icons/core/regular/caret-right.svg";
 import * as React from "react";
 
+import {pinDiagramRevisions} from "../../../domain/graffiti/diagram";
+
 import {
     DEFAULT_OFFERED_OPTIONS,
     describeOptions,
@@ -26,6 +28,8 @@ type DraftEvent = {
     revision: number;
     updatedAt: string;
     item: PerseusItem;
+    /** The latest revision of each diagram the item shows. */
+    diagrams?: Record<string, number>;
 };
 
 /** What the page around the preview shows of it, in its status bar. */
@@ -90,9 +94,12 @@ export function DraftPreview({
         if (draft == null) {
             return;
         }
+        // Naming each diagram's revision makes Perseus load a new
+        // revision's labels rather than the ones it has kept.
+        const item = pinDiagramRevisions(draft.item, draft.diagrams ?? {});
         sendData({
             type: "exercise",
-            data: {item: draft.item, apiOptions: {}, showRationales: false},
+            data: {item, apiOptions: {}, showRationales: false},
         });
     }, [draft, sendData]);
 

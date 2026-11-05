@@ -3,6 +3,7 @@ import {hostHeaderValidation, toNodeHandler} from "@modelcontextprotocol/node";
 import {createMcpHandler} from "@modelcontextprotocol/server";
 import Fastify from "fastify";
 
+import {watchDraftPreview} from "../../app/draft-preview-feed";
 import {DraftNotFoundError} from "../../app/errors";
 
 import {streamEvents} from "./event-stream";
@@ -20,10 +21,15 @@ import type {IncomingMessage, Server, ServerResponse} from "node:http";
 
 /**
  * The preview's pages: the shell for one draft, the frame inside it that
- * renders the item, and the exercise pages (the list, and one exercise with
- * its tree and a preview of the selected item).
+ * renders the item, the exercise pages (the list, and one exercise with its
+ * tree and a preview of the selected item), and a Graffiti diagram's page.
  */
-export type PreviewPage = "shell" | "frame" | "exercise-list" | "exercise-page";
+export type PreviewPage =
+    | "shell"
+    | "frame"
+    | "exercise-list"
+    | "exercise-page"
+    | "graffiti-page";
 
 export type PreviewPages = {
     /** Serves the pages' scripts, styles and other assets. */
@@ -37,12 +43,15 @@ export type PreviewPages = {
     close(): Promise<void>;
 };
 
-function draftEventData(draft: Draft) {
+function draftEventData(draft: Draft, diagrams: Record<string, number>) {
     return {
         itemId: draft.itemId,
         revision: draft.revision,
         updatedAt: draft.updatedAt,
         item: draft.item,
+        // The latest revision of each diagram the item shows, for the
+        // preview to name in their URLs.
+        diagrams,
     };
 }
 
@@ -63,6 +72,12 @@ export function previewLinks(baseUrl: () => string | null): PreviewLinks {
             return base == null
                 ? null
                 : `${base}/exercises/${encodeURIComponent(exerciseId)}`;
+        },
+        graffitiUrlFor(graffitiId) {
+            const base = baseUrl();
+            return base == null
+                ? null
+                : `${base}/graffiti/${encodeURIComponent(graffitiId)}`;
         },
     };
 }
@@ -97,8 +112,10 @@ export type TlsFiles = {cert: string; key: string};
  *
  * - MCP (Streamable HTTP) on `/mcp`, through the SDK's `createMcpHandler`:
  *   stateless, with a fresh MCP server from `createMcpServer` per request.
- * - `/drafts/<itemId>/events`: a server-sent event stream of a draft, sent
- *   once on connect and again after every change. Previews follow it.
+ * - `/drafts/<itemId>/events`: a server-sent event stream of a draft, with
+ *   the latest revision of each diagram it shows, sent once on connect and
+ *   again after every change to the draft or one of its diagrams. Previews
+ *   follow it.
  * - With `createPreview`, `/drafts/<itemId>/preview`: a page that shows the
  *   draft and follows its changes. `createPreview` gets the HTTP server, so
  *   the preview can share it.
@@ -184,8 +201,11 @@ export async function createHttpServer({
             streamEvents(request, reply, {
                 event: "draft",
                 watch: (send) =>
-                    drafts.watchItem(request.params.itemId, (draft) =>
-                        send(draftEventData(draft)),
+                    watchDraftPreview(
+                        {drafts, graffiti},
+                        request.params.itemId,
+                        (draft, diagrams) =>
+                            send(draftEventData(draft, diagrams)),
                     ),
                 onError(e) {
                     if (e instanceof DraftNotFoundError) {
@@ -200,7 +220,7 @@ export async function createHttpServer({
         registerExerciseRoutes(app, {exercises, pages: previewPages});
     }
     if (graffiti != null) {
-        registerGraffitiRoutes(app, {graffiti});
+        registerGraffitiRoutes(app, {graffiti, pages: previewPages});
     }
 
     return app;

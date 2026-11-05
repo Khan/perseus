@@ -1,6 +1,9 @@
 import {GraffitiNotFoundError, GraffitiRenderError} from "../../app/errors";
 import {isDiagramId} from "../../domain/graffiti/diagram";
 
+import {streamEvents} from "./event-stream";
+
+import type {PreviewPages} from "./server";
 import type {GraffitiUseCases} from "../../app/graffiti";
 import type {FastifyInstance, FastifyReply} from "fastify";
 
@@ -13,14 +16,30 @@ import type {FastifyInstance, FastifyReply} from "fastify";
 const FILE_NAME = /^([a-z0-9-]+)(?:\.(\d+))?(\.svg|-data\.json)$/;
 
 /**
- * Serves Graffiti diagrams as Graphie images, drawn from the stored script
- * when asked for: `/graffiti/<file>`, and `/graffiti/<locale>/<file>` for a
- * locale's labels, which are the English ones until labels are translated.
+ * Serves Graffiti diagrams:
+ *
+ * - As Graphie images, drawn from the stored script when asked for:
+ *   `/graffiti/<file>`, and `/graffiti/<locale>/<file>` for a locale's
+ *   labels, which are the English ones until labels are translated.
+ * - With `pages`, `/graffiti/<graffitiId>`: a page showing the diagram as
+ *   Perseus shows it, following its changes, with its earlier revisions.
+ * - `/graffiti/<graffitiId>/events`: a server-sent event stream of what that
+ *   page shows, sent on connect and after every new revision.
  */
 export function registerGraffitiRoutes(
     app: FastifyInstance,
-    {graffiti}: {graffiti: GraffitiUseCases},
+    {
+        graffiti,
+        pages = null,
+    }: {graffiti: GraffitiUseCases; pages?: PreviewPages | null},
 ): void {
+    function notFound(reply: FastifyReply, e: unknown): FastifyReply {
+        if (e instanceof GraffitiNotFoundError) {
+            return reply.code(404).send({error: e.message});
+        }
+        throw e;
+    }
+
     async function serve(file: string, reply: FastifyReply) {
         const match = FILE_NAME.exec(file);
         if (match == null || !isDiagramId(match[1])) {
@@ -53,8 +72,31 @@ export function registerGraffitiRoutes(
         }
     }
 
-    app.get<{Params: {file: string}}>("/graffiti/:file", (request, reply) =>
-        serve(request.params.file, reply),
+    app.get<{Params: {file: string}}>(
+        "/graffiti/:file",
+        async (request, reply) => {
+            const {file} = request.params;
+            if (pages == null || !isDiagramId(file)) {
+                return serve(file, reply);
+            }
+            try {
+                graffiti.getGraffiti(file);
+            } catch (e) {
+                return notFound(reply, e);
+            }
+            const html = await pages.html("graffiti-page", request.url);
+            return reply.type("text/html; charset=utf-8").send(html);
+        },
+    );
+    app.get<{Params: {graffitiId: string}}>(
+        "/graffiti/:graffitiId/events",
+        async (request, reply) =>
+            streamEvents(request, reply, {
+                event: "diagram",
+                watch: (send) =>
+                    graffiti.watchGraffiti(request.params.graffitiId, send),
+                onError: (e) => notFound(reply, e),
+            }),
     );
     app.get<{Params: {locale: string; file: string}}>(
         "/graffiti/:locale/:file",

@@ -7,6 +7,7 @@ import {GRAFFITI_HOST} from "../../domain/graffiti/diagram";
 import {jsonResult} from "./tool-results";
 
 import type {GraffitiUseCases} from "../../app/graffiti";
+import type {PreviewUseCases} from "../../app/preview";
 import type {CallToolResult, McpServer} from "@modelcontextprotocol/server";
 
 const SCRIPT_CONTRACT =
@@ -42,9 +43,11 @@ export function registerGraffitiTools(
     server: McpServer,
     {
         graffiti,
+        preview,
         run,
     }: {
         graffiti: GraffitiUseCases;
+        preview: PreviewUseCases;
         /** Runs a tool's handler, recording its errors under its name. */
         run: (
             tool: string,
@@ -110,6 +113,30 @@ export function registerGraffitiTools(
             run("get_graffiti", () =>
                 jsonResult(graffiti.getGraffiti(graffitiId, revision)),
             ),
+    );
+
+    server.registerTool(
+        "preview_graffiti",
+        {
+            title: "Preview a diagram",
+            description:
+                "Return the URL of a page showing a diagram as Perseus shows " +
+                "it, labels included, with its notes and a picker for its " +
+                "earlier revisions. The page updates as the diagram changes. " +
+                "Give the URL to the person you're working with. Previews " +
+                "of items (preview_item) show their diagrams too.",
+            inputSchema: z.object({graffitiId: z.string()}),
+            annotations: {readOnlyHint: true},
+        },
+        ({graffitiId}) =>
+            run("preview_graffiti", () => {
+                // Not found, if it doesn't exist.
+                graffiti.getGraffiti(graffitiId);
+                return jsonResult({
+                    graffitiId,
+                    url: preview.graffitiUrl(graffitiId),
+                });
+            }),
     );
 
     server.registerTool(

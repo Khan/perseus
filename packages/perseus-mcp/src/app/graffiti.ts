@@ -3,12 +3,15 @@ import {graphieUrlFor} from "../domain/graffiti/diagram";
 import {GraffitiNotFoundError} from "./errors";
 
 import type {Diagram, RenderedDiagram} from "../domain/graffiti/diagram";
+import type {GraffitiFeed} from "../ports/graffiti-feed";
 import type {GraffitiRenderer} from "../ports/graffiti-renderer";
 import type {GraffitiRepository} from "../ports/graffiti-repository";
 
 export type GraffitiDependencies = {
     diagrams: GraffitiRepository;
     renderer: GraffitiRenderer;
+    /** Announces new revisions, for previews that follow diagrams. */
+    feed?: GraffitiFeed;
     now: () => Date;
     newId: () => string;
 };
@@ -22,6 +25,17 @@ export type DiagramResult = {
     height: number;
     /** How many labels it lays over the image. */
     labels: number;
+};
+
+/** What a diagram's page shows of it. */
+export type DiagramView = {
+    graffitiId: string;
+    /** Its latest revision. */
+    revision: number;
+    notes?: string;
+    updatedAt: string;
+    /** Every revision, oldest first, with what made it. */
+    revisions: Array<{revision: number; change?: string; updatedAt: string}>;
 };
 
 /**
@@ -54,6 +68,27 @@ export function createGraffitiUseCases(deps: GraffitiDependencies) {
             drawing.catch(() => rendered.delete(key));
         }
         return drawing;
+    }
+
+    function viewOf(diagram: Diagram): DiagramView {
+        const revisions: DiagramView["revisions"] = [];
+        for (let n = 1; n <= diagram.revision; n++) {
+            const earlier = diagrams.getRevision(diagram.graffitiId, n);
+            if (earlier != null) {
+                revisions.push({
+                    revision: n,
+                    change: earlier.change,
+                    updatedAt: earlier.updatedAt,
+                });
+            }
+        }
+        return {
+            graffitiId: diagram.graffitiId,
+            revision: diagram.revision,
+            notes: diagram.notes,
+            updatedAt: diagram.updatedAt,
+            revisions,
+        };
     }
 
     function result(diagram: Diagram, drawing: RenderedDiagram): DiagramResult {
@@ -184,6 +219,54 @@ export function createGraffitiUseCases(deps: GraffitiDependencies) {
                 }
             }
             return {diagrams: drawn, missing};
+        },
+
+        /** The latest revision of each of the diagrams that exist. */
+        latestRevisions(
+            graffitiIds: readonly string[],
+        ): Record<string, number> {
+            const revisions: Record<string, number> = {};
+            for (const graffitiId of graffitiIds) {
+                const diagram = diagrams.get(graffitiId);
+                if (diagram != null) {
+                    revisions[graffitiId] = diagram.revision;
+                }
+            }
+            return revisions;
+        },
+
+        /**
+         * Calls `onChange` each time one of the diagrams gets a new
+         * revision, until the returned function is called.
+         */
+        watchDiagrams(
+            graffitiIds: readonly string[],
+            onChange: () => void,
+        ): () => void {
+            const unsubscribes = graffitiIds.map(
+                (graffitiId) =>
+                    deps.feed?.subscribe(graffitiId, onChange) ?? (() => {}),
+            );
+            return () => unsubscribes.forEach((unsubscribe) => unsubscribe());
+        },
+
+        /**
+         * Calls `listener` with what a diagram's page shows, now and after
+         * each new revision, until the returned function is called.
+         *
+         * @throws GraffitiNotFoundError
+         */
+        watchGraffiti(
+            graffitiId: string,
+            listener: (view: DiagramView) => void,
+        ): () => void {
+            const diagram = getDiagram(graffitiId);
+            const unsubscribe =
+                deps.feed?.subscribe(graffitiId, (latest) =>
+                    listener(viewOf(latest)),
+                ) ?? (() => {});
+            listener(viewOf(diagram));
+            return unsubscribe;
         },
 
         /**

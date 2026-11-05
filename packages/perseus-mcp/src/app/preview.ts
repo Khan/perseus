@@ -52,6 +52,20 @@ export function createPreviewUseCases(deps: PreviewDependencies) {
             }
             return url;
         },
+
+        /**
+         * The URL of a diagram's page, which follows the diagram as it
+         * changes. The caller checks that the diagram exists.
+         *
+         * @throws PreviewUnavailableError
+         */
+        graffitiUrl(graffitiId: string): string {
+            const url = deps.links.graffitiUrlFor(graffitiId);
+            if (url == null) {
+                throw new PreviewUnavailableError();
+            }
+            return url;
+        },
     };
 }
 

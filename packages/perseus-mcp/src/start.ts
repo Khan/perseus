@@ -36,6 +36,7 @@ import {createDraftUseCases} from "./app/drafts";
 import {withExerciseFeed} from "./app/exercise-feed";
 import {createExerciseUseCases} from "./app/exercises";
 import {createGraffitiUseCases} from "./app/graffiti";
+import {withGraffitiFeed} from "./app/graffiti-feed";
 import {createPreviewUseCases} from "./app/preview";
 import {createReviewUseCases} from "./app/review";
 import {createScoringUseCases} from "./app/scoring";
@@ -78,10 +79,12 @@ function graffitiUseCases(
         );
         return undefined;
     }
-    const diagrams = new FileGraffitiRepository(dataDir);
-    diagrams.init();
+    const fileDiagrams = new FileGraffitiRepository(dataDir);
+    fileDiagrams.init();
+    const {diagrams, feed} = withGraffitiFeed(fileDiagrams);
     return createGraffitiUseCases({
         diagrams,
+        feed,
         renderer: createNodeGraffitiRenderer(graffitiPaths),
         now: () => new Date(),
         newId: () => randomUUID().slice(0, 8),

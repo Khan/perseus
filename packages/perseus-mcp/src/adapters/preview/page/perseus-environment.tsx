@@ -14,6 +14,8 @@ import "@khanacademy/mathjax-renderer/src/css/safari-hacks.css";
 // The renderer always adds copy-paste spans, which need these styles.
 import "@khanacademy/mathjax-renderer/src/css/selectable.css";
 
+import {GRAFFITI_HOST} from "../../../domain/graffiti/diagram";
+
 import type {
     PerseusDependencies,
     PerseusDependenciesV2,
@@ -49,6 +51,9 @@ function TeX({
 
 const noLabels = {addLabel: () => {}};
 
+// What Perseus makes of a diagram's web+graphie:// URL.
+const DIAGRAM_ORIGIN = `https://${GRAFFITI_HOST}`;
+
 const dependencies: PerseusDependencies = {
     JIPT: {useJIPT: false},
     graphieMovablesJiptLabels: noLabels,
@@ -77,7 +82,11 @@ const dependencies: PerseusDependencies = {
 
 export const dependenciesV2: PerseusDependenciesV2 = {
     analytics: {onAnalyticsEvent: async () => {}},
-    generateUrl: ({url}) => url,
+    // Graffiti diagrams are served by perseus-mcp, which serves this page.
+    generateUrl: ({url}) =>
+        url.startsWith(DIAGRAM_ORIGIN)
+            ? window.location.origin + url.slice(DIAGRAM_ORIGIN.length)
+            : url,
     // Drafts are local, so there's no video service to look videos up in.
     useVideo: () => ({status: "success", data: {video: null}}),
 };

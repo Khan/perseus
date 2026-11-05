@@ -47,10 +47,18 @@ async function setUp() {
     await graffiti.createGraffiti({source: "one"});
     await graffiti.updateGraffiti("g1", {source: "two"});
     const app = Fastify();
-    registerGraffitiRoutes(app, {graffiti});
+    registerGraffitiRoutes(app, {
+        graffiti,
+        pages: {
+            middleware: (_req, _res, next) => next(),
+            html: async (page, url) => `<p>${page} for ${url}</p>`,
+            close: async () => {},
+        },
+    });
     const address = await app.listen({port: 0, host: "127.0.0.1"});
     return {
         app,
+        address,
         get: (path: string) => fetch(`${address}${path}`),
     };
 }
@@ -101,5 +109,40 @@ describe("graffiti routes", () => {
 
         // Assert
         expect(response.status).toBe(404);
+    });
+
+    it("serves a diagram's page", async () => {
+        // Arrange, Act
+        const response = await server.get("/graffiti/g1");
+
+        // Assert
+        expect(await response.text()).toBe(
+            "<p>graffiti-page for /graffiti/g1</p>",
+        );
+    });
+
+    it("returns 404 for the page of a diagram that doesn't exist", async () => {
+        // Arrange, Act
+        const response = await server.get("/graffiti/nope");
+
+        // Assert
+        expect(response.status).toBe(404);
+    });
+
+    it("streams what a diagram's page shows", async () => {
+        // Arrange
+        const controller = new AbortController();
+        const response = await fetch(`${server.address}/graffiti/g1/events`, {
+            signal: controller.signal,
+        });
+
+        // Act
+        const {value} = await response.body!.getReader().read();
+        controller.abort();
+
+        // Assert
+        expect(new TextDecoder().decode(value)).toContain(
+            '"graffitiId":"g1","revision":2',
+        );
     });
 });

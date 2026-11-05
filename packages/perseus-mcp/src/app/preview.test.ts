@@ -23,7 +23,12 @@ function setUp(links: Partial<PreviewLinks>) {
     return createPreviewUseCases({
         drafts,
         exercises: {get: () => undefined, list: () => [], save: () => {}},
-        links: {urlFor: () => null, exerciseUrlFor: () => null, ...links},
+        links: {
+            urlFor: () => null,
+            exerciseUrlFor: () => null,
+            graffitiUrlFor: () => null,
+            ...links,
+        },
     });
 }
 

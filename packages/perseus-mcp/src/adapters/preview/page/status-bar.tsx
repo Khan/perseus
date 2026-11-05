@@ -49,11 +49,18 @@ export function worstConnection(...connections: Connection[]): Connection {
 export function StatusBar({
     summary,
     connection,
+    live,
 }: {
     summary: string;
     connection: Connection;
+    /** What an open connection means, if not following a draft. */
+    live?: string;
 }) {
-    const {icon, text} = CONNECTIONS[connection];
+    const {icon} = CONNECTIONS[connection];
+    const text =
+        connection === "open" && live != null
+            ? live
+            : CONNECTIONS[connection].text;
     return (
         <footer className={styles.statusBar}>
             <BodyText size="small">{summary}</BodyText>

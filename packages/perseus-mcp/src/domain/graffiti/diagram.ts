@@ -55,9 +55,11 @@ export function isDiagramId(id: string): boolean {
     return /^[a-z0-9-]{1,64}$/.test(id);
 }
 
+// A diagram's Graphie URL, without a revision: one naming a revision ends
+// with `.<revision>` and isn't matched.
 const DIAGRAM_URL = new RegExp(
     `web\\+graphie://${GRAFFITI_HOST.replace(/\./g, "\\.")}/graffiti/` +
-        "([a-z0-9-]{1,64})",
+        "([a-z0-9-]{1,64})(?![a-z0-9.-])",
     "g",
 );
 
@@ -67,4 +69,22 @@ export function diagramIdsIn(value: unknown): string[] {
         (match) => match[1],
     );
     return [...new Set(ids)];
+}
+
+/**
+ * A copy of `value`, such as an item, whose diagram URLs name the revisions
+ * `revisions` gives, `.../graffiti/<id>.<revision>`, so Perseus, which keeps
+ * a Graphie image's labels by URL, loads a new revision's.
+ */
+export function pinDiagramRevisions<T>(
+    value: T,
+    revisions: Readonly<Record<string, number>>,
+): T {
+    return JSON.parse(
+        JSON.stringify(value).replace(DIAGRAM_URL, (url, graffitiId) =>
+            revisions[graffitiId] == null
+                ? url
+                : `${url}.${revisions[graffitiId]}`,
+        ),
+    );
 }
