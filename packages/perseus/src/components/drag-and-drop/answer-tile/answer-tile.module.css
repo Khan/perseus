@@ -180,3 +180,11 @@
     font: inherit;
     color: inherit;
 }
+
+/* See LEMS-4701
+ * Sorters in articles were rendering extra margins under TeX */
+.tile .content :global(.perseus-block-math),
+.tile .content :global(.perseus-block-math-inner) {
+    margin: 0 !important;
+    padding: 0 !important;
+}

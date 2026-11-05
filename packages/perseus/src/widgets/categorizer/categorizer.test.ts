@@ -1,5 +1,5 @@
 import {scorePerseusItem} from "@khanacademy/perseus-score";
-import {screen} from "@testing-library/react";
+import {screen, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../__testutils__/render-question";
@@ -177,6 +177,74 @@ describe("categorizer widget", () => {
                 widgetType: "categorizer",
                 widgetId: "categorizer 1",
             },
+        });
+    });
+
+    describe.each([
+        {
+            name: "static",
+            isStatic: true,
+            readOnly: false,
+        },
+        {
+            name: "read-only",
+            isStatic: false,
+            readOnly: true,
+        },
+    ])("when $name", ({isStatic, readOnly}) => {
+        const staticQuestion = {
+            ...question1,
+            widgets: {
+                "categorizer 1": {
+                    ...question1.widgets["categorizer 1"],
+                    static: isStatic,
+                },
+            },
+        };
+
+        it("does not change user input when a choice is clicked", async () => {
+            // Arrange
+            const {renderer} = renderQuestion(staticQuestion, {
+                apiOptions: {isMobile: false, readOnly},
+            });
+            // Static widgets start with the correct answer filled in, so
+            // compare against the initial input instead of a fixed value.
+            const initialUserInput = renderer.getUserInputMap();
+
+            // Act
+            await userEvent.click(
+                screen.getAllByRole("button", {
+                    name: "Nonlinear relationship",
+                })[0],
+            );
+
+            // Assert
+            expect(renderer.getUserInputMap()).toEqual(initialUserInput);
+        });
+
+        it("marks choices as aria-disabled", () => {
+            // Arrange, Act
+            renderQuestion(staticQuestion, {
+                apiOptions: {isMobile: false, readOnly},
+            });
+
+            // Assert
+            const table = screen.getByRole("table");
+            for (const choice of within(table).getAllByRole("button")) {
+                expect(choice).toHaveAttribute("aria-disabled", "true");
+            }
+        });
+
+        it("disables the radio inputs on mobile", () => {
+            // Arrange, Act
+            renderQuestion(staticQuestion, {
+                apiOptions: {isMobile: true, readOnly},
+            });
+
+            // Assert
+            for (const radio of screen.getAllByRole("radio")) {
+                expect(radio).toBeDisabled();
+            }
         });
     });
 
