@@ -299,3 +299,47 @@ describe("required state", () => {
         ).not.toBeRequired();
     });
 });
+
+describe("disabled state", () => {
+    const generateRenderer = (isStatic: boolean): PerseusRenderer =>
+        generateTestPerseusRenderer({
+            content: "[[☃ free-response 1]]",
+            widgets: {
+                "free-response 1": generateFreeResponseWidget({
+                    static: isStatic,
+                    options: generateFreeResponseOptions({
+                        question: "test-question",
+                    }),
+                }),
+            },
+        });
+
+    it("does not mark the textarea as aria-disabled when interactive", () => {
+        // Arrange, Act
+        renderQuestion(generateRenderer(false), {
+            apiOptions: {readOnly: false},
+        });
+
+        // Assert
+        expect(
+            screen.getByRole("textbox", {name: "test-question"}),
+        ).toHaveAttribute("aria-disabled", "false");
+    });
+
+    describe.each([
+        {name: "static", isStatic: true, readOnly: false},
+        {name: "read-only", isStatic: false, readOnly: true},
+    ])("when $name", ({isStatic, readOnly}) => {
+        it("marks the textarea as aria-disabled", () => {
+            // Arrange, Act
+            renderQuestion(generateRenderer(isStatic), {
+                apiOptions: {readOnly},
+            });
+
+            // Assert
+            expect(
+                screen.getByRole("textbox", {name: "test-question"}),
+            ).toHaveAttribute("aria-disabled", "true");
+        });
+    });
+});
