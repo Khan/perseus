@@ -11,6 +11,7 @@ import useGraphConfig from "./reducer/use-graph-config";
 import type {
     LabelPlacementItem,
     LabelSize,
+    PointObstacleInput,
     SegmentObstacle,
 } from "./locked-figures/label-placement-utils";
 import type {
@@ -26,6 +27,8 @@ const endpointLabelKey = (
     pointIndex: number,
     labelIndex: number,
 ) => `${figureIndex}-point-${pointIndex}-label-${labelIndex}`;
+const lineLabelKey = (figureIndex: number, labelIndex: number) =>
+    `${figureIndex}-line-label-${labelIndex}`;
 
 /**
  * How long a wait for the labels to be measured has to exceed before they fade
@@ -106,15 +109,31 @@ export default function GraphLockedLabelsLayer(props: Props) {
         return handler;
     };
 
-    // Standalone points and the endpoints of lines both carry a coordinate to
-    // anchor a label to. Labels on the other figure types — and a line's own
-    // labels — keep their authored positions for now.
-    const items: LabelPlacementItem[] = React.useMemo(() => {
+    // Points, line endpoints and lines themselves all anchor labels; the other
+    // figure types keep their authored positions for now.
+    //
+    // Items and segments are built together because a line label refers to its
+    // own segment by reference — placement recognises it that way, so both
+    // have to come from the same object.
+    const {items, segments, points} = React.useMemo(() => {
         const collected: LabelPlacementItem[] = [];
+        // Every drawn line repels labels, including those belonging to other
+        // figures — a label lying across a line hides what it was drawn to
+        // show.
+        const segmentObstacles: SegmentObstacle[] = [];
+        // Likewise every drawn point, whether or not it carries a label of its
+        // own. These are collected from the figures rather than from the
+        // labels, so an unlabelled point still reserves its space.
+        const pointObstacles: PointObstacleInput[] = [];
         const sized = (key: string) => labelSizes.get(key) ?? assumedLabelSize;
 
         lockedFigures.forEach((figure, i) => {
             if (figure.type === "point") {
+                const keys = figure.labels.map((label, j) =>
+                    pointLabelKey(i, j),
+                );
+                pointObstacles.push({coord: figure.coord, ownerKeys: keys});
+
                 figure.labels.forEach((label, j) => {
                     const key = pointLabelKey(i, j);
                     collected.push({
@@ -126,9 +145,29 @@ export default function GraphLockedLabelsLayer(props: Props) {
             }
 
             if (figure.type === "line") {
+                const [point1, point2] = figure.points;
+                const segment: SegmentObstacle = {
+                    from: point1.coord,
+                    to: point2.coord,
+                    strokeWidth: strokeWeights[figure.weight],
+                };
+                segmentObstacles.push(segment);
+
                 figure.points.forEach((point, pointIndex) => {
                     const isVisible =
                         pointIndex === 0 ? figure.showPoint1 : figure.showPoint2;
+                    const keys = point.labels.map((label, k) =>
+                        endpointLabelKey(i, pointIndex, k),
+                    );
+
+                    // Nothing is drawn at a hidden endpoint, so it reserves no
+                    // space — its label still radiates from it as usual.
+                    if (isVisible) {
+                        pointObstacles.push({
+                            coord: point.coord,
+                            ownerKeys: keys,
+                        });
+                    }
 
                     point.labels.forEach((label, k) => {
                         const key = endpointLabelKey(i, pointIndex, k);
@@ -136,33 +175,33 @@ export default function GraphLockedLabelsLayer(props: Props) {
                             key,
                             anchorCoord: point.coord,
                             size: sized(key),
-                            pointIsVisible: isVisible,
                         });
+                    });
+                });
+
+                // A line's own labels sit beside the line, anchored at its
+                // midpoint. Nothing is drawn there, so it reserves no space.
+                figure.labels.forEach((label, j) => {
+                    const key = lineLabelKey(i, j);
+                    collected.push({
+                        key,
+                        anchorCoord: [
+                            (point1.coord[0] + point2.coord[0]) / 2,
+                            (point1.coord[1] + point2.coord[1]) / 2,
+                        ],
+                        size: sized(key),
+                        ownerSegment: segment,
                     });
                 });
             }
         });
 
-        return collected;
+        return {
+            items: collected,
+            segments: segmentObstacles,
+            points: pointObstacles,
+        };
     }, [lockedFigures, labelSizes]);
-
-    // Every drawn line repels labels, including those belonging to other
-    // figures — a label lying across a line hides what it was drawn to show.
-    const segments: SegmentObstacle[] = React.useMemo(
-        () =>
-            lockedFigures.flatMap((figure) =>
-                figure.type === "line"
-                    ? [
-                          {
-                              from: figure.points[0].coord,
-                              to: figure.points[1].coord,
-                              strokeWidth: strokeWeights[figure.weight],
-                          },
-                      ]
-                    : [],
-            ),
-        [lockedFigures],
-    );
 
     const placements = React.useMemo(
         () =>
@@ -170,10 +209,12 @@ export default function GraphLockedLabelsLayer(props: Props) {
                 items,
                 {range, width, height, markings, showAxisTicks, tickStep},
                 segments,
+                points,
             ),
         [
             items,
             segments,
+            points,
             range,
             width,
             height,
@@ -236,7 +277,12 @@ export default function GraphLockedLabelsLayer(props: Props) {
         return (
             <React.Fragment key={i}>
                 {figure.labels.map((label, j) =>
-                    renderLabel(label, pointLabelKey(i, j)),
+                    renderLabel(
+                        label,
+                        figure.type === "line"
+                            ? lineLabelKey(i, j)
+                            : pointLabelKey(i, j),
+                    ),
                 )}
 
                 {/* A line's endpoints are points in their own right, so their

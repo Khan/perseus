@@ -106,6 +106,15 @@ function rectToCircleGap(
     return Math.hypot(dx, dy) - radius;
 }
 
+/** Shortest distance from a line segment to a point. */
+function segmentToPointDistance(
+    a: [number, number],
+    b: [number, number],
+    point: [number, number],
+): number {
+    return pointToSegmentDistance(point, a, b);
+}
+
 /** Shortest distance from a point to a line segment. */
 function pointToSegmentDistance(
     point: [number, number],
@@ -503,6 +512,18 @@ const pointRadiusPx = 7;
 const candidateRadiusScales = [1, 1.5, 2, 3];
 
 /**
+ * Fractions along a segment to try when a label can't sit at its midpoint.
+ */
+const slidePositions = [0.3, 0.7];
+
+/**
+ * Below this on-screen length, sliding a label along its segment lands the
+ * positions within a label's width of each other — near-duplicates that cost
+ * scoring time without opening up a real alternative.
+ */
+const slideMinSegmentLengthPx = 75;
+
+/**
  * How much each kind of problem counts against a candidate position.
  *
  * Collisions outrank distance: a label that sits a long way from its point
@@ -534,11 +555,25 @@ export type LabelPlacementItem = {
     /** Measured size, or `assumedLabelSize` if it hasn't been measured yet. */
     size: LabelSize;
     /**
-     * Whether a circle is drawn at `anchorCoord`. A hidden point reserves no
-     * space — nothing is there to collide with — though its label still
-     * radiates from it as usual. Defaults to visible.
+     * The line this label belongs to, when it labels a line rather than a
+     * point. Such a label sits beside its line rather than radiating from the
+     * middle of the graph, and is exempt from this one segment's clearance.
+     *
+     * Matched by reference, so this has to be the same object the caller puts
+     * in the obstacle list — two different lines can share endpoints.
      */
-    pointIsVisible?: boolean;
+    ownerSegment?: SegmentObstacle;
+};
+
+/** A drawn point that labels have to stay clear of. */
+export type PointObstacleInput = {
+    /** Where the point sits, in graph units. */
+    coord: Coord;
+    /**
+     * Keys of the labels belonging to this point, if any. A label doesn't have
+     * to clear the point it labels.
+     */
+    ownerKeys?: ReadonlyArray<string>;
 };
 
 /** A drawn line that labels have to stay clear of. */
@@ -565,6 +600,8 @@ type PixelSegment = {
     a: [number, number];
     b: [number, number];
     strokeWidth: number;
+    /** The obstacle this came from, so a label can recognise its own line. */
+    owner?: SegmentObstacle;
 };
 
 /** A point that labels have to stay clear of. */
@@ -581,12 +618,54 @@ type PointObstacle = {
  * The ideal comes first so that an exact tie in scoring resolves towards the
  * conceptual line, which keeps placement stable and predictable.
  */
-function getCandidates(
-    pointPx: [number, number],
+function getPerpendicularCandidate(
+    segmentPx: PixelSegment,
+    t: number,
+    side: 1 | -1,
     size: LabelSize,
+    graphInfo: AutoLabelGraphInfo,
+): Candidate {
+    const {a, b, strokeWidth} = segmentPx;
+    const dx = b[X] - a[X];
+    const dy = b[Y] - a[Y];
+    const length = Math.hypot(dx, dy);
+
+    const anchorPx: [number, number] = [a[X] + dx * t, a[Y] + dy * t];
+    // A degenerate segment has no perpendicular; fall back to straight up so
+    // the candidate is still well-formed.
+    const perpendicular: [number, number] =
+        length === 0
+            ? [0, -side]
+            : [(-dy / length) * side, (dx / length) * side];
+
+    // The anchors put the label's near corner at the offset position and let
+    // the box extend away from the line, so this is the visible gap between
+    // the two. It's the same gap a point label keeps from its point, and a
+    // flat distance rather than one scaled to the label: the box approaches
+    // the line along a known direction, so its width says nothing about how
+    // far away it needs to sit.
+    const distance = labelOffsetPx + strokeWidth / 2;
+
+    const placed = keepLabelInBounds(
+        anchorPx,
+        [perpendicular[X] * distance, perpendicular[Y] * distance],
+        size,
+        graphInfo,
+    );
+
+    return {
+        rect: getLabelRect(placed.cornerPx, placed.anchorX, placed.anchorY, size),
+    };
+}
+
+function getCandidates(
+    item: LabelPlacementItem,
+    pointPx: [number, number],
     referencePx: [number, number],
     graphInfo: AutoLabelGraphInfo,
+    ownerSegmentPx: PixelSegment | undefined,
 ): Candidate[] {
+    const {size} = item;
     const toCandidate = (offsetPx: [number, number]): Candidate => {
         // Run every candidate through the bounds check, so a position that
         // would hang off an edge is moved to the point's other side first.
@@ -601,9 +680,69 @@ function getCandidates(
         };
     };
 
-    const candidates = [
-        toCandidate(getLabelOffsetInPixels(pointPx, referencePx)),
-    ];
+    const candidates: Candidate[] = [];
+
+    if (ownerSegmentPx) {
+        // A line label belongs beside its line, so perpendicular positions
+        // come first; the radial ones below are the fallback when those are
+        // taken. Prefer the side facing away from the middle of the graph.
+        const {a, b} = ownerSegmentPx;
+        const midpoint: [number, number] = [
+            (a[X] + b[X]) / 2,
+            (a[Y] + b[Y]) / 2,
+        ];
+        const segmentLengthForSide = Math.hypot(b[X] - a[X], b[Y] - a[Y]);
+        const unitPerpendicular: [number, number] =
+            segmentLengthForSide === 0
+                ? [0, -1]
+                : [
+                      -(b[Y] - a[Y]) / segmentLengthForSide,
+                      (b[X] - a[X]) / segmentLengthForSide,
+                  ];
+        // Which way the perpendicular leans relative to the middle of the
+        // graph. A segment pointing straight away from the reference gives no
+        // preference either way, and either side reads equally well.
+        const outward: 1 | -1 =
+            unitPerpendicular[X] * (midpoint[X] - referencePx[X]) +
+                unitPerpendicular[Y] * (midpoint[Y] - referencePx[Y]) >=
+            0
+                ? 1
+                : -1;
+        const sides: Array<1 | -1> = [outward, outward === 1 ? -1 : 1];
+
+        for (const side of sides) {
+            candidates.push(
+                getPerpendicularCandidate(
+                    ownerSegmentPx,
+                    0.5,
+                    side,
+                    size,
+                    graphInfo,
+                ),
+            );
+        }
+
+        const segmentLength = Math.hypot(b[X] - a[X], b[Y] - a[Y]);
+        if (segmentLength > slideMinSegmentLengthPx) {
+            for (const t of slidePositions) {
+                for (const side of sides) {
+                    candidates.push(
+                        getPerpendicularCandidate(
+                            ownerSegmentPx,
+                            t,
+                            side,
+                            size,
+                            graphInfo,
+                        ),
+                    );
+                }
+            }
+        }
+    } else {
+        candidates.push(
+            toCandidate(getLabelOffsetInPixels(pointPx, referencePx)),
+        );
+    }
 
     for (const scale of candidateRadiusScales) {
         const distance = labelOffsetPx * scale;
@@ -637,6 +776,7 @@ function getCandidates(
 function scoreCandidate(
     candidate: Candidate,
     item: LabelPlacementItem,
+    anchorPx: [number, number],
     idealRect: Rect,
     placed: ReadonlyArray<{rect: Rect; size: LabelSize}>,
     points: ReadonlyArray<PointObstacle>,
@@ -695,9 +835,18 @@ function scoreCandidate(
 
     let segmentPenalty = 0;
     for (const segment of segments) {
-        // Same rule as for points: the label's inflated box must not reach the
-        // drawn edge of the stroke, which straddles the segment.
-        const required = ownHalfDiagonal + segment.strokeWidth / 2;
+        // A label whose own anchor lies on a line — its midpoint label, or one
+        // belonging to an endpoint — is meant to sit beside that line, so it
+        // doesn't keep the full clearance from it. It must still not lie
+        // across the stroke. Every other line gets the full treatment, just as
+        // a point label clears every point but its own.
+        const anchorIsOnSegment =
+            (segment.owner != null && segment.owner === item.ownerSegment) ||
+            segmentToPointDistance(segment.a, segment.b, anchorPx) <=
+                segment.strokeWidth / 2 + 1;
+        const required = anchorIsOnSegment
+            ? segment.strokeWidth / 2
+            : ownHalfDiagonal + segment.strokeWidth / 2;
         const distance = segmentToRectDistance(segment.a, segment.b, rect);
         if (distance < required) {
             segmentPenalty += (required - distance) / labelOffsetPx;
@@ -745,6 +894,7 @@ export function getAutoLabelPlacements(
     items: ReadonlyArray<LabelPlacementItem>,
     graphInfo: AutoLabelGraphInfo,
     segments: ReadonlyArray<SegmentObstacle> = [],
+    points: ReadonlyArray<PointObstacleInput> = [],
 ): ReadonlyMap<string, LabelPlacement> {
     const placements = new Map<string, LabelPlacement>();
 
@@ -765,28 +915,32 @@ export function getAutoLabelPlacements(
         a: pointToPixel(segment.from, graphInfo),
         b: pointToPixel(segment.to, graphInfo),
         strokeWidth: segment.strokeWidth,
+        owner: segment,
     }));
 
-    // One obstacle per distinct point, since several labels can share a point.
+    // Every drawn point repels labels, whether or not it carries one of its
+    // own — an unlabelled point is just as much a thing to avoid covering.
+    // One obstacle per distinct coordinate, since points can coincide.
     const pointsByCoord = new Map<string, PointObstacle>();
-    for (const item of items) {
-        // Nothing is drawn at a hidden point, so it reserves no space. The
-        // label still radiates from it; it just doesn't have to clear it.
-        if (item.pointIsVisible === false) {
-            continue;
-        }
-        const coordKey = `${item.anchorCoord[X]},${item.anchorCoord[Y]}`;
+    for (const point of points) {
+        const coordKey = `${point.coord[X]},${point.coord[Y]}`;
         const existing = pointsByCoord.get(coordKey);
-        if (existing) {
-            (existing.ownerKeys as Set<string>).add(item.key);
-        } else {
+        const owners = existing
+            ? (existing.ownerKeys as Set<string>)
+            : new Set<string>();
+
+        for (const key of point.ownerKeys ?? []) {
+            owners.add(key);
+        }
+
+        if (!existing) {
             pointsByCoord.set(coordKey, {
-                centerPx: pointToPixel(item.anchorCoord, graphInfo),
-                ownerKeys: new Set([item.key]),
+                centerPx: pointToPixel(point.coord, graphInfo),
+                ownerKeys: owners,
             });
         }
     }
-    const points = [...pointsByCoord.values()];
+    const pointObstacles = [...pointsByCoord.values()];
 
     // Outermost first. Ties break on key so the order is total, and placement
     // doesn't shift when figures are reordered.
@@ -803,10 +957,13 @@ export function getAutoLabelPlacements(
     for (const item of ordered) {
         const pointPx = pointToPixel(item.anchorCoord, graphInfo);
         const candidates = getCandidates(
+            item,
             pointPx,
-            item.size,
             referencePx,
             graphInfo,
+            item.ownerSegment
+                ? segmentsPx.find((s) => s.owner === item.ownerSegment)
+                : undefined,
         );
         const idealRect = candidates[0].rect;
 
@@ -814,9 +971,10 @@ export function getAutoLabelPlacements(
         let bestScore = scoreCandidate(
             best,
             item,
+            pointPx,
             idealRect,
             placed,
-            points,
+            pointObstacles,
             tickZones,
             segmentsPx,
             graphInfo,
@@ -826,9 +984,10 @@ export function getAutoLabelPlacements(
             const score = scoreCandidate(
                 candidate,
                 item,
+                pointPx,
                 idealRect,
                 placed,
-                points,
+                pointObstacles,
                 tickZones,
                 segmentsPx,
                 graphInfo,
