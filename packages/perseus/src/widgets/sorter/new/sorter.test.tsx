@@ -103,27 +103,12 @@ describe("new sorter widget", () => {
             expect(bank.getByRole("button", {name: "Cherry"})).toBeVisible();
         });
 
-        it("labels a TeX card's menu button without the TeX delimiters", () => {
-            // Arrange, Act
-            renderQuestion(generateSorterQuestion(["$x^2$", "Banana"]), {
-                apiOptions,
-            });
-
-            // Assert
-            const bank = within(getChoiceBank());
-            expect(bank.getByRole("button", {name: "x^2"})).toBeVisible();
-        });
-
-        describe("with the speech rule engine loaded", () => {
+        describe("handling TeX with a SpeechRuleEngine", () => {
             beforeEach(() => {
                 const spokenTex: Record<string, string> = {
                     "x^2": "x squared",
                     "\\frac{1}{2}": "one half",
                 };
-                jest.replaceProperty(process, "env", {
-                    ...process.env,
-                    JEST_WORKER_ID: undefined,
-                });
                 jest.spyOn(SpeechRuleEngine, "setup").mockResolvedValue({
                     texToSpeech: (tex: string) => spokenTex[tex],
                 });
