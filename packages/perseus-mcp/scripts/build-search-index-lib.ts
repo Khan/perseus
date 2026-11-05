@@ -8,10 +8,15 @@ import {createMeilisearchClient} from "../src/adapters/search/meilisearch";
 import {
     CONTENT_INDEX_SETTINGS,
     CONTENT_INDEX_UID,
+    CONTENT_META_INDEX_UID,
+    INDEX_META_ID,
 } from "../src/domain/search/content-document";
 
 import type {SnapshotSkips} from "../src/adapters/fs/content-snapshot";
-import type {ContentDocument} from "../src/domain/search/content-document";
+import type {
+    ContentDocument,
+    IndexMeta,
+} from "../src/domain/search/content-document";
 
 export type BuildSearchIndexOptions = {
     snapshotDir: string;
@@ -107,5 +112,25 @@ export async function buildSearchIndex(
     }
     await client.swapIndexes(indexUid, building);
     await client.deleteIndex(building);
+
+    // What the index was built from, for get_server_info and for imports,
+    // which read items from the snapshot. Only for the default index: the
+    // meta index describes that one.
+    if (indexUid === CONTENT_INDEX_UID) {
+        if (!(await client.indexExists(CONTENT_META_INDEX_UID))) {
+            await client.createIndex(CONTENT_META_INDEX_UID, "id");
+        }
+        const meta: IndexMeta = {
+            id: INDEX_META_ID,
+            snapshotDir: options.snapshotDir,
+            snapshotVersion: index.version,
+            builtAt: new Date().toISOString(),
+            items: result.items,
+            articles: result.articles,
+        };
+        await client.waitForTask(
+            await client.addDocuments(CONTENT_META_INDEX_UID, [meta]),
+        );
+    }
     return {...result, ...skips};
 }

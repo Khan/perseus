@@ -7,6 +7,7 @@ import {libVersion} from "../../version";
 
 import {registerExerciseTools} from "./exercise-tools";
 import {registerGraffitiTools} from "./graffiti-tools";
+import {registerSearchTools} from "./search-tools";
 import {errorResult, jsonResult, runTool} from "./tool-results";
 
 import type {DraftUseCases} from "../../app/drafts";
@@ -15,6 +16,7 @@ import type {GraffitiUseCases} from "../../app/graffiti";
 import type {PreviewUseCases} from "../../app/preview";
 import type {ReviewUseCases} from "../../app/review";
 import type {ScoringUseCases} from "../../app/scoring";
+import type {SearchUseCases} from "../../app/search";
 import type {ErrorLog, ServerInfo} from "../../app/server-info";
 import type {WidgetUseCases} from "../../app/widgets";
 import type {CallToolResult} from "@modelcontextprotocol/server";
@@ -52,6 +54,17 @@ Graffiti script under a stable graffitiId, update_graffiti makes a new
 revision of it, and an image widget shows its latest revision, so an item
 needn't change when its diagram does. preview_graffiti returns the URL of a
 page showing a diagram, which follows its changes.
+
+Find published content with search: search_content searches an index of a
+content snapshot (items and articles, placed in their domain, course, unit
+and lesson), facet_content counts it by any field (courses, widget types,
+option values) without reading it, and import_from_search makes drafts of the
+items found, an exercise per exercise they're from. For work across many
+items ("this course", "items using radio"), narrow with filters first and
+read or import only what the task needs; do what code can (counts, filters)
+with these tools rather than by reading items. Search covers only what
+learners see unless includeUnlisted is set. When search isn't available, the
+tools say why and how to start it.
 Read files by path; don't paste their contents into a call.
 
 list_widgets and get_widget_spec describe each widget's options; validate_item
@@ -124,6 +137,7 @@ export function createMcpServer({
     previewApp,
     exercises,
     graffiti,
+    search,
     serverInfo,
     errors,
     dataDir,
@@ -132,8 +146,10 @@ export function createMcpServer({
     exercises: ExerciseUseCases;
     /** Graffiti diagrams; their tools are left out when it's missing. */
     graffiti?: GraffitiUseCases;
+    /** Content search; its tools are left out when it's missing. */
+    search?: SearchUseCases;
     /** What get_server_info reports. */
-    serverInfo?: () => ServerInfo;
+    serverInfo?: () => Promise<ServerInfo>;
     /** Where tool errors are recorded, for get_server_info. */
     errors?: ErrorLog;
     /** Where drafts are saved, named when a draft isn't found. */
@@ -173,12 +189,16 @@ export function createMcpServer({
                     "it runs from the testers' bundle or the repo, the " +
                     "transport, Node, the operating system, the data folder " +
                     "and how many drafts it holds, whether previews are " +
-                    "served, and the last errors. It holds nothing of the " +
-                    "person's items.",
+                    "served, whether content search is available (and what " +
+                    "its index holds, or why not), and the last errors. It " +
+                    "holds nothing of the person's items.",
                 inputSchema: z.object({}),
                 annotations: {readOnlyHint: true},
             },
-            () => run("get_server_info", () => jsonResult(serverInfo())),
+            () =>
+                run("get_server_info", async () =>
+                    jsonResult(await serverInfo()),
+                ),
         );
     }
 
@@ -478,6 +498,9 @@ export function createMcpServer({
     registerExerciseTools(server, {exercises, preview, run});
     if (graffiti != null) {
         registerGraffitiTools(server, {graffiti, preview, run});
+    }
+    if (search != null) {
+        registerSearchTools(server, {search, run});
     }
 
     server.registerTool(

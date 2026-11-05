@@ -16,6 +16,11 @@ const facts: ServerFacts = {
     exercises: 1,
     httpUrl: "http://localhost:4567",
     previewPages: "prebuilt",
+    search: {
+        available: false,
+        url: "http://localhost:7700",
+        reason: "nothing answered",
+    },
     errors: [],
 };
 

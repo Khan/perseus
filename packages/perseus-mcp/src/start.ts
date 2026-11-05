@@ -12,6 +12,7 @@ import {parseArgs} from "node:util";
 import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
 import {serveStdio} from "@modelcontextprotocol/server/stdio";
 
+import {createSnapshotContentSource} from "./adapters/fs/content-snapshot";
 import {copyPreviousData} from "./adapters/fs/copy-previous-data";
 import {
     DataDirNotWritableError,
@@ -30,6 +31,7 @@ import {
 } from "./adapters/http/server";
 import {createMcpServer} from "./adapters/mcp/server";
 import {systemClipboard} from "./adapters/os/system-clipboard";
+import {createMeilisearchContentSearch} from "./adapters/search/meilisearch-content-search";
 import {createCatalog} from "./app/catalog";
 import {withDraftFeed} from "./app/draft-feed";
 import {createDraftUseCases} from "./app/drafts";
@@ -40,6 +42,7 @@ import {withGraffitiFeed} from "./app/graffiti-feed";
 import {createPreviewUseCases} from "./app/preview";
 import {createReviewUseCases} from "./app/review";
 import {createScoringUseCases} from "./app/scoring";
+import {createSearchUseCases} from "./app/search";
 import {createErrorLog, describeServer} from "./app/server-info";
 import {createWidgetUseCases} from "./app/widgets";
 
@@ -217,6 +220,13 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
     // Set once the HTTP server is listening.
     let baseUrl: string | null = null;
 
+    // Content search runs in a local Meilisearch (see the README); its tools
+    // say how to start it when it isn't running.
+    const contentSearch = createMeilisearchContentSearch({
+        url: process.env.PERSEUS_MCP_SEARCH_URL ?? "http://localhost:7700",
+        apiKey: process.env.PERSEUS_MCP_SEARCH_KEY,
+    });
+
     const catalog = createCatalog(
         createPerseusCoreSchemaSource(paths.perseusCoreTypesDir),
     );
@@ -257,11 +267,17 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
         }),
         graffiti,
     };
+    const search = createSearchUseCases({
+        search: contentSearch,
+        content: createSnapshotContentSource(),
+        exercises: useCases.exercises,
+        snapshotDir: process.env.PERSEUS_MCP_CONTENT_SNAPSHOT,
+    });
 
     // The browser preview's pages, and the page MCP Apps hosts show in the chat.
     const {createPreview, previewApp} = previewSource(values.pages);
 
-    const serverInfo = () =>
+    const serverInfo = async () =>
         describeServer({
             build,
             transport: values.stdio ? "stdio" : "http",
@@ -281,6 +297,7 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
                 values.pages != null || build.source === "bundle"
                     ? "prebuilt"
                     : "compiled by Vite",
+            search: await search.status(),
             errors: errors.recent(),
         });
 
@@ -310,6 +327,7 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
     const mcpServer = () =>
         createMcpServer({
             ...useCases,
+            search,
             previewApp,
             serverInfo,
             errors,

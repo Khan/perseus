@@ -14,7 +14,10 @@ import {
 import type {Catalog} from "./catalog";
 import type {Draft} from "../domain/draft";
 import type {Exercise, ExerciseItem} from "../domain/exercises/exercise";
-import type {ImportShape} from "../domain/exercises/import-shapes";
+import type {
+    ImportedProblemType,
+    ImportShape,
+} from "../domain/exercises/import-shapes";
 import type {Issue} from "../domain/items/validate";
 import type {Clipboard} from "../ports/clipboard";
 import type {DraftFeed} from "../ports/draft-feed";
@@ -245,6 +248,71 @@ export function createExerciseUseCases(deps: ExerciseDependencies) {
         return draft;
     }
 
+    /**
+     * Saves a draft per item that parses (migrated to the latest schema)
+     * and an exercise grouping them as given. Items that don't parse are
+     * skipped and reported; problem types left empty are dropped.
+     */
+    function saveImport(
+        problemTypesIn: ReadonlyArray<ImportedProblemType>,
+        options: {
+            name: string;
+            notes?: string;
+            editorUrl?: string;
+            /** What made each draft's first revision. */
+            change: string;
+        },
+    ): {exercise: Exercise; skipped: SkippedItem[]} {
+        const now = deps.now();
+        const skipped: SkippedItem[] = [];
+        const problemTypes = problemTypesIn.map((problemType) => ({
+            name: problemType.name,
+            contentId: problemType.contentId,
+            items: problemType.items.flatMap((item, index) => {
+                // The bulk format may hold itemData as a JSON string;
+                // parseItem reads both.
+                const parsed = parseItem(item.itemData);
+                if (!parsed.ok) {
+                    skipped.push({
+                        problemType: problemType.name,
+                        position: index + 1,
+                        reason: parsed.error,
+                    });
+                    return [];
+                }
+                const draft = newDraft({
+                    itemId: deps.newId(),
+                    item: parsed.item,
+                    notes: item.label,
+                    change: options.change,
+                    now,
+                });
+                drafts.save(draft);
+                return [
+                    {
+                        itemId: draft.itemId,
+                        contentId: item.contentId,
+                        importedRevision: draft.revision,
+                    },
+                ];
+            }),
+        }));
+
+        const exercise: Exercise = {
+            exerciseId: deps.newId(),
+            name: options.name,
+            notes: options.notes,
+            editorUrl: options.editorUrl,
+            createdAt: now.toISOString(),
+            updatedAt: now.toISOString(),
+            problemTypes: problemTypes.filter(
+                (problemType) => problemType.items.length > 0,
+            ),
+        };
+        exercises.save(exercise);
+        return {exercise, skipped};
+    }
+
     return {
         /**
          * Reads a file of items into a new exercise: a draft per item
@@ -278,59 +346,31 @@ export function createExerciseUseCases(deps: ExerciseDependencies) {
                 throw new InvalidImportError(read.error);
             }
 
-            const now = deps.now();
-            const skipped: SkippedItem[] = [];
-            const problemTypes = read.problemTypes.map((problemType) => ({
-                name: problemType.name,
-                contentId: problemType.contentId,
-                items: problemType.items.flatMap((item, index) => {
-                    // The bulk format may hold itemData as a JSON string;
-                    // parseItem reads both.
-                    const parsed = parseItem(item.itemData);
-                    if (!parsed.ok) {
-                        skipped.push({
-                            problemType: problemType.name,
-                            position: index + 1,
-                            reason: parsed.error,
-                        });
-                        return [];
-                    }
-                    const draft = newDraft({
-                        itemId: deps.newId(),
-                        item: parsed.item,
-                        notes: item.label,
-                        change: `Imported from ${input.path}`,
-                        now,
-                    });
-                    drafts.save(draft);
-                    return [
-                        {
-                            itemId: draft.itemId,
-                            contentId: item.contentId,
-                            importedRevision: draft.revision,
-                        },
-                    ];
-                }),
-            }));
-
-            const exercise: Exercise = {
-                exerciseId: deps.newId(),
+            const {exercise, skipped} = saveImport(read.problemTypes, {
                 name: input.name ?? input.path,
                 notes: input.notes,
                 editorUrl: input.editorUrl,
-                createdAt: now.toISOString(),
-                updatedAt: now.toISOString(),
-                problemTypes: problemTypes.filter(
-                    (problemType) => problemType.items.length > 0,
-                ),
-            };
-            exercises.save(exercise);
+                change: `Imported from ${input.path}`,
+            });
             return {
                 exercise,
                 shape: read.shape,
                 imported: itemIdsOf(exercise).length,
                 skipped,
             };
+        },
+
+        /**
+         * Makes a new exercise from items already read, such as items found
+         * by content search: a draft per item that parses, grouped as
+         * given.
+         */
+        importItems(
+            problemTypes: ReadonlyArray<ImportedProblemType>,
+            options: {name: string; notes?: string; change: string},
+        ): {exercise: Exercise; imported: number; skipped: SkippedItem[]} {
+            const {exercise, skipped} = saveImport(problemTypes, options);
+            return {exercise, imported: itemIdsOf(exercise).length, skipped};
         },
 
         /** @throws ExerciseNotFoundError */

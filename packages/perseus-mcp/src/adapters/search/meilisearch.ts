@@ -1,9 +1,19 @@
 /**
- * A small client for Meilisearch's REST API: the calls building the content
- * search index needs. Meilisearch runs writes as tasks, one after another;
- * `waitForTask` waits for one to finish and throws if it failed.
+ * A small client for Meilisearch's REST API: the calls the content search
+ * index needs, to build and to search. Meilisearch runs writes as tasks,
+ * one after another; `waitForTask` waits for one to finish and throws if it
+ * failed.
  */
 export type MeilisearchClient = {
+    /**
+     * Searches an index (`POST /indexes/<uid>/search`). The reply is
+     * Meilisearch's, unchecked: T is what the caller expects of it.
+     */
+    search<T>(uid: string, body: object): Promise<T>;
+    /** A document by id, or undefined when there's none; unchecked, too. */
+    getDocument<T>(uid: string, id: string): Promise<T | undefined>;
+    /** How many documents an index holds. */
+    documentCount(uid: string): Promise<number>;
     indexExists(uid: string): Promise<boolean>;
     createIndex(uid: string, primaryKey: string): Promise<void>;
     deleteIndex(uid: string): Promise<void>;
@@ -31,6 +41,18 @@ type Task = {
     status: "enqueued" | "processing" | "succeeded" | "failed" | "canceled";
     error?: {message: string; code?: string} | null;
 };
+
+/** A request Meilisearch refused, with its error code when it gave one. */
+export class MeilisearchRequestError extends Error {
+    readonly status: number;
+    readonly code: string | undefined;
+
+    constructor(message: string, status: number, code: string | undefined) {
+        super(message);
+        this.status = status;
+        this.code = code;
+    }
+}
 
 /** A task that failed, with Meilisearch's error code when it gave one. */
 class MeilisearchTaskError extends Error {
@@ -70,8 +92,17 @@ export function createMeilisearchClient(
     async function expectOk(response: Response, what: string): Promise<void> {
         if (!response.ok) {
             const detail = await response.text();
-            throw new Error(
+            let code: string | undefined;
+            try {
+                const body: {code?: unknown} = JSON.parse(detail);
+                code = typeof body.code === "string" ? body.code : undefined;
+            } catch {
+                // Not JSON: no code.
+            }
+            throw new MeilisearchRequestError(
                 `Meilisearch couldn't ${what}: ${response.status} ${detail}`,
+                response.status,
+                code,
             );
         }
     }
@@ -115,6 +146,34 @@ export function createMeilisearchClient(
 
     const enc = encodeURIComponent;
     return {
+        async search<T>(uid: string, body: object): Promise<T> {
+            const response = await request(
+                "POST",
+                `/indexes/${enc(uid)}/search`,
+                body,
+            );
+            await expectOk(response, `search ${uid}`);
+            const reply: T = await response.json();
+            return reply;
+        },
+        async getDocument<T>(uid: string, id: string): Promise<T | undefined> {
+            const response = await request(
+                "GET",
+                `/indexes/${enc(uid)}/documents/${enc(id)}`,
+            );
+            if (response.status === 404) {
+                return undefined;
+            }
+            await expectOk(response, `read document ${id} of ${uid}`);
+            const document: T = await response.json();
+            return document;
+        },
+        async documentCount(uid) {
+            const response = await request("GET", `/indexes/${enc(uid)}/stats`);
+            await expectOk(response, `read ${uid}'s stats`);
+            const stats: {numberOfDocuments?: number} = await response.json();
+            return stats.numberOfDocuments ?? 0;
+        },
         async indexExists(uid) {
             const response = await request("GET", `/indexes/${enc(uid)}`);
             if (response.status === 404) {

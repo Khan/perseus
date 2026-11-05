@@ -100,6 +100,7 @@ from outside the repo.
 | Let hosts serve Graphie label data from anywhere | Build order step 11, commit 1 of 4, in Perseus (minor changeset `amber-labels-travel`). Perseus fetched a Graphie image's label data with plain `fetch`, so only the SVG (through `generateUrl`) could be served from another host or path. `loadGraphie` now takes a `resolveUrl` for its data URLs, and `SvgImage` passes `generateUrl` with the new context `"graphie:data_url"`; the label cache is keyed by the resolved URL instead of the image's hash, so a URL that changes between revisions is fetched again. `SvgImage`'s default export is now a function component that reads the dependencies and renders the class (`withDependencies` lost its `defaultProps` in the types). |
 | Draw diagrams with Graffiti, kept by revision | Build order step 11, commit 2 of 4. `create_graffiti` keeps a diagram drawn by a Graffiti script under a stable `graffitiId`, and `update_graffiti` adds a revision (a new script is kept only if it draws); `get_graffiti` and `list_graffiti` read them. Revisions are saved as `<dataDir>/graffiti/<id>/<revision>.json`. `/graffiti/<id>.svg` and `/graffiti/<id>-data.json` draw the latest revision when asked for, `/graffiti/<id>.<revision>…` an earlier one (itself a valid Graphie URL), and `/graffiti/<locale>/…` falls back to the English labels; each revision is drawn once and cached. An item shows a diagram with `web+graphie://perseus-mcp.localhost/graffiti/<id>`, so it needn't change when the diagram does. A script runs in a process of its own (`runner.mjs`) under Node's permission model, reading only the runner, Graffiti and itself, for at most 10 seconds; since Node 24's permission model doesn't cover the network, the runner also refuses every import but `graffiti` and removes `fetch` and the other network globals (not a hard boundary). Its default export is `{canvas, shapes, labels?}` or a function returning it. Graffiti is a `link:` dependency on its own checkout (built with `npm run build` there; without it the tools are left out), copied into the bundles as `graffiti/lib/` beside the runner. Checked over MCP from the repo and from the unpacked macOS bundle. |
 | Index a content snapshot for search in Meilisearch | Build order step 12, commit 1 of 3. `build:search-index <snapshot folder>` (or `PERSEUS_MCP_CONTENT_SNAPSHOT`) builds the `perseus-content` index in a local Meilisearch (`PERSEUS_MCP_SEARCH_URL`, default `http://localhost:7700`; `PERSEUS_MCP_SEARCH_KEY`): one document per current English item and article (an item in several exercises listing them all), marked `listed` when learners see it and then placed only on its listed paths in the content tree, with its text, TeX, hint text, widget text, widget types and option values (`domain/search/`). `readTopLevel` streams the snapshot's index, which is too large to read as one string, and `snapshotDocuments` reads each exercise's and article's current file. Built into a second index and swapped in, so a rebuild doesn't interrupt search. A small REST client (`adapters/search/meilisearch.ts`), no new dependencies. Plan: content search added as step 12; the later steps move down one. |
+| Search published content from perseus-mcp | Build order step 12, commit 2 of 3. `search_content`, `facet_content` and `import_from_search` (`app/search.ts`, `adapters/mcp/search-tools.ts`), searching only listed content unless `includeUnlisted`, through a `ContentSearch` port (`createMeilisearchContentSearch`, at `PERSEUS_MCP_SEARCH_URL`) and a `ContentSource` that reads items back from the snapshot. Filters become a Meilisearch filter in `filterExpression`; hits are cut down by `toHit`. An import makes one exercise per source exercise through the new `importItems` (sharing `saveImport` with `import_exercise`). `get_server_info` is now async and reports search. The index build also writes `perseus-content-meta`. The instructions tell agents to narrow with search and count with facets before reading items. Checked over MCP against the real index: search, counts by course and by option value, a raw filter, and importing an exercise's 30 items (two problem types) and one item by id. |
 | Show diagrams in the chat preview | Build order step 11, commit 3 of 4 (done before the browser commit, since the chat preview is the one that can't reach the local server). `get_preview_draft` finds the `web+graphie://perseus-mcp.localhost/graffiti/<id>` URLs in the draft and sends the drawing (SVG and label data) of each diagram whose revision isn't in the page's `diagramRevisions`; a new revision of a diagram counts as a change even when the draft hasn't changed, and ids that name no diagram come back as `missingDiagrams`, named in the page's status line. The page keeps the drawings and gives Perseus its own `generateUrl` (`Exercise` now takes `dependencies`): a diagram's image becomes a `data:image/svg+xml` URL, which MCP Apps' default CSP allows, and its label data URL names the revision, since Perseus keeps label data by URL; the page answers Perseus's `fetch` of that URL itself, since the host's CSP would block it, and 404s anything else at the diagram host (so other locales fall back to English). `resourceDomains` for the local server wasn't tried: this works under any host and once hosted, and the port changes from run to run. An image widget still needs the diagram's `width` and `height`: without them Perseus measures the image by loading the original URL. Checked over MCP (first poll, unchanged poll, poll after `update_graffiti`). Seen in the chat preview, the images didn't load: Perseus's `ImageLoader` preloaded each image from its original URL and only the `<img>` it then rendered went through `generateUrl`, so a rewritten URL never loaded; it now preloads from `generateUrl`'s URL (in the same changeset as the label data). |
 | Preview diagrams in the browser | Build order step 11, commit 4 of 4, which finishes step 11 (commit 3, the chat preview, was seen working in Claude Desktop). `/graffiti/<graffitiId>` is a diagram's page: the diagram as Perseus shows it, labels included, in the preview frame, with its notes and a picker for its earlier revisions; it follows `/graffiti/<graffitiId>/events`, sent on connect and after each new revision, and measures each revision from its SVG, since an image widget needs its size. `preview_graffiti` returns the page's URL. The draft preview now shows diagrams too: `/drafts/<itemId>/events` sends the latest revision of each diagram the draft shows and is sent again when one of them changes (`watchDraftPreview`, over a `withGraffitiFeed` repository wrapper), the page names those revisions in the item's URLs (`pinDiagramRevisions`) so Perseus loads a new revision's labels, and the frame's `generateUrl` sends `https://perseus-mcp.localhost/...` to the server that serves the page. Checked in a browser from a check server: the diagram page at its latest and an earlier revision, and the draft preview following two `update_graffiti` calls without reloading. The diagram page shows Perseus's "Check answer" button, since it shows the diagram as an item. |
 
@@ -147,8 +148,8 @@ Remaining, in order:
       options' graph types).
 3. Build order step 11 (`create_graphie`), then step 10's upload, then
    steps 12 to 16. Step 12 (content search) started alongside step 11's
-   last commits: its first commit, the search index and its ingestion
-   script, is done.
+   last commits: its first two commits (the search index, and the search
+   tools) are done; the third, guidelines and fixers, is next.
 
 Consuming applications aren't in this repo: the changesets carry the
 migration steps, and they're updated separately.
@@ -770,7 +771,7 @@ upload comes after step 11.
     1. **The index and its ingestion** (done): Meilisearch in Docker, and a
        `build:search-index` script that streams a local content snapshot
        into it, one document per item and per article.
-    2. **Search tools:** `search_content`, `facet_content` and
+    2. **Search tools** (done): `search_content`, `facet_content` and
        `import_from_search` (listed content unless asked otherwise), and
        search status in `get_server_info`.
     3. **Guidelines and fixers:** content guidelines loaded from a local
@@ -881,7 +882,29 @@ no tokens go on items the agent doesn't need to read.
   its tags are bare ids without names.
 - **Rebuilds** go into `perseus-content-building`, which is swapped in for
   `perseus-content` when it's complete, so search keeps working during a
-  rebuild.
+  rebuild. Then `perseus-content-meta` gets one document saying what the
+  index was built from: the snapshot's folder and version, when, and the
+  item and article counts.
+- **The tools** (always offered; when Meilisearch isn't running or has no
+  index, they fail with `SearchUnavailableError`, saying how to start it):
+  - `search_content`: hits with the first exercise and problem type (and
+    how many other exercises the item is in), the first three courses,
+    widget types, hint count and a 30-word snippet of the text around the
+    match; never the content. Filters for the tree, widget types and
+    option values, Graphie, unlisted content, and a raw Meilisearch filter
+    for the rest (`hintCount >= 4`).
+  - `facet_content`: counts by any filterable field, the `top` values of
+    each and how many there are. Totals come from the `kind` facet, since
+    Meilisearch caps a search's hit count at 10,000.
+  - `import_from_search`: by `contentIds` from hits, or by query and
+    filters, at most 50 items (the exercise editor's review limit). One
+    exercise per exercise the items are first in, grouped by problem type,
+    each draft keeping the item's id as its `contentId` so an export is an
+    edit. The items are read from the snapshot folder the meta document
+    names, or `PERSEUS_MCP_CONTENT_SNAPSHOT`; a source file outside it is
+    refused.
+  - `get_server_info` reports search: available with the document count and
+    snapshot, or why not.
 
 ## Graphie images
 

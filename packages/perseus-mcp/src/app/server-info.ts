@@ -1,6 +1,7 @@
 // What get_server_info reports when a person has a problem: enough to
 // diagnose it from, and nothing of their items.
 import type {BuildInfo} from "../build-info";
+import type {SearchStatus} from "../ports/content-search";
 
 /** Long enough for an error's message, too short to carry an item. */
 const MAX_MESSAGE = 300;
@@ -50,6 +51,8 @@ export type ServerFacts = {
     /** Null when the HTTP server isn't listening. */
     httpUrl: string | null;
     previewPages: "prebuilt" | "compiled by Vite";
+    /** Content search: what its index holds, or why it can't be used. */
+    search: SearchStatus;
     errors: RecordedError[];
 };
 
@@ -85,6 +88,7 @@ export function describeServer(facts: ServerFacts) {
                       url: facts.httpUrl,
                       pages: facts.previewPages,
                   },
+        search: facts.search,
         recentErrors: facts.errors,
     };
 }

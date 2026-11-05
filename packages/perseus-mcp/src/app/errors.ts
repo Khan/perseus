@@ -107,3 +107,11 @@ export class GraffitiRenderError extends Error {
         this.name = "GraffitiRenderError";
     }
 }
+
+/** Content search can't be used now: its message says why and what to do. */
+export class SearchUnavailableError extends Error {
+    constructor(reason: string) {
+        super(`Content search isn't available: ${reason}`);
+        this.name = "SearchUnavailableError";
+    }
+}

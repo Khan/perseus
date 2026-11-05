@@ -80,7 +80,11 @@ pnpm --filter @khanacademy/perseus-mcp build:search-index /path/to/snapshot
 
 `PERSEUS_MCP_SEARCH_URL` (default `http://localhost:7700`) and
 `PERSEUS_MCP_SEARCH_KEY` (if Meilisearch was started with a master key) say
-where it is.
+where it is, for the build and for the server. The server's
+`search_content`, `facet_content` and `import_from_search` tools use it;
+`import_from_search` reads items from the snapshot folder the index was
+built from, or `PERSEUS_MCP_CONTENT_SNAPSHOT` when that's set.
+`get_server_info` says whether search is available.
 
 ## Code layout
 

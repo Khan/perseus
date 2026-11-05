@@ -153,6 +153,23 @@ export function placeInTree(
 export const CONTENT_INDEX_UID = "perseus-content";
 
 /**
+ * An index holding one document, `INDEX_META_ID`, saying what the content
+ * index was built from.
+ */
+export const CONTENT_META_INDEX_UID = "perseus-content-meta";
+export const INDEX_META_ID = "snapshot";
+
+export type IndexMeta = {
+    id: typeof INDEX_META_ID;
+    /** The content snapshot's folder, where an import reads items. */
+    snapshotDir: string;
+    snapshotVersion: string;
+    builtAt: string;
+    items: number;
+    articles: number;
+};
+
+/**
  * The search index's settings for these documents. Searchable fields are in
  * order of weight: a match in a title counts for more than one in a hint.
  */

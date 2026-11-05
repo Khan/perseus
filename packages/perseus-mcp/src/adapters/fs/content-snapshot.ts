@@ -22,6 +22,7 @@ import type {
     TopicPath,
     TreeNode,
 } from "../../domain/search/content-document";
+import type {ContentSource} from "../../ports/content-search";
 
 /*
  * A content snapshot is a folder of published content:
@@ -328,4 +329,36 @@ export async function* snapshotDocuments(
 function currentFile(dir: string, content: SnapshotContent): string | null {
     const sha = content.translatedPerseusContentSha;
     return sha == null ? null : `${dir}/${content.contentId}-${sha}.json`;
+}
+
+/**
+ * Reads items back from a snapshot's content files, for an import. A
+ * `sourceFile` comes from the search index, so one that would leave the
+ * snapshot's folder is refused. The last file read is kept, since an
+ * import reads several items from each.
+ */
+export function createSnapshotContentSource(): ContentSource {
+    let last: {file: string; items: Map<string, unknown>} | null = null;
+    return {
+        async readItem(snapshotDir, sourceFile, itemId) {
+            const root = path.resolve(snapshotDir);
+            const file = path.resolve(root, sourceFile);
+            if (!file.startsWith(root + path.sep) || !existsSync(file)) {
+                return undefined;
+            }
+            if (last?.file !== file) {
+                const raw: unknown = JSON.parse(await readFile(file, "utf8"));
+                const items = new Map<string, unknown>();
+                if (Array.isArray(raw)) {
+                    for (const entry of raw) {
+                        if (isRecord(entry)) {
+                            items.set(str(entry.id), entry.item_data);
+                        }
+                    }
+                }
+                last = {file, items};
+            }
+            return last.items.get(itemId);
+        },
+    };
 }
