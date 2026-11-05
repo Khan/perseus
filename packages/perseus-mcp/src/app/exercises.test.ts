@@ -135,6 +135,23 @@ describe("exercise use cases", () => {
         }).toEqual({name: "Fractions", change: "Uploaded Fractions.json"});
     });
 
+    it("keeps an export's exercise URL as the editor URL", () => {
+        // Arrange
+        const {useCases} = setUp([]);
+
+        // Act
+        const {exercise} = useCases.importExerciseText({
+            text: JSON.stringify({
+                exerciseUrl: "https://example.org/exercises/x1",
+                problemTypes: bulkExport,
+            }),
+            fileName: "x1.json",
+        });
+
+        // Assert
+        expect(exercise.editorUrl).toBe("https://example.org/exercises/x1");
+    });
+
     it("refuses uploaded text that isn't JSON", () => {
         // Arrange
         const {useCases} = setUp([]);

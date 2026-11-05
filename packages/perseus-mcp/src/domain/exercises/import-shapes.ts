@@ -4,11 +4,15 @@
  *
  * - A problem-type export, the exercise editor's bulk JSON format: an array
  *   of `{problemType, contentId?, assessmentItems: [{contentId?, itemData}]}`,
- *   `itemData` a JSON string or an object.
+ *   `itemData` a JSON string or an object. Newer exports wrap the array as
+ *   `{exerciseUrl, problemTypes}`, naming the exercise editor page they
+ *   came from.
  * - An exercise export: `{items: [{name?, item_data}]}`.
  * - A single item, or an array of them.
  * - A bare renderer (just the question: `{content, widgets, images}`).
  */
+
+import {isWebUrl} from "./exercise";
 
 /** An item read from a file, with what the file said about it. */
 export type ImportedItem = {
@@ -34,7 +38,13 @@ export type ImportShape =
     | "bare renderer";
 
 export type ReadImport =
-    | {ok: true; shape: ImportShape; problemTypes: ImportedProblemType[]}
+    | {
+          ok: true;
+          shape: ImportShape;
+          problemTypes: ImportedProblemType[];
+          /** The exercise editor page the export came from, if it says. */
+          editorUrl?: string;
+      }
     | {ok: false; error: string};
 
 function isObject(value: unknown): value is Record<string, unknown> {
@@ -63,6 +73,20 @@ function isExerciseExport(value: unknown): value is {items: unknown[]} {
 
 /** Reads the parsed contents of an import file into problem types. */
 export function readImport(data: unknown): ReadImport {
+    if (
+        isObject(data) &&
+        Array.isArray(data.problemTypes) &&
+        !("question" in data)
+    ) {
+        const read = readImport(data.problemTypes);
+        if (!read.ok || read.shape !== "problem-type export") {
+            return notAnImport();
+        }
+        const editorUrl = stringField(data.exerciseUrl);
+        return editorUrl == null || !isWebUrl(editorUrl)
+            ? read
+            : {...read, editorUrl};
+    }
     if (Array.isArray(data) && data.length > 0 && data.every(isProblemType)) {
         return {
             ok: true,
@@ -132,12 +156,17 @@ export function readImport(data: unknown): ReadImport {
             ],
         };
     }
+    return notAnImport();
+}
+
+function notAnImport(): ReadImport {
     return {
         ok: false,
         error:
             "The file isn't in a shape import_exercise reads: a problem-type " +
-            "export (an array of {problemType, assessmentItems}), an " +
-            "exercise export ({items: [{item_data}]}), an item or array of " +
-            "items, or a bare renderer ({content, widgets, images}).",
+            "export (an array of {problemType, assessmentItems}, or " +
+            "{exerciseUrl, problemTypes} holding one), an exercise export " +
+            "({items: [{item_data}]}), an item or array of items, or a bare " +
+            "renderer ({content, widgets, images}).",
     };
 }

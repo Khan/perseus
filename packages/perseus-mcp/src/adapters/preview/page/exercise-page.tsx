@@ -13,6 +13,8 @@ import warningCircleIcon from "@phosphor-icons/core/regular/warning-circle.svg";
 import * as React from "react";
 import {createRoot} from "react-dom/client";
 
+import {isWebUrl} from "../../../domain/exercises/exercise";
+
 import {DraftPreview} from "./draft-preview";
 import styles from "./exercise-pages.module.css";
 import layout from "./page-layout.module.css";
@@ -367,7 +369,7 @@ function ExercisePage({exerciseId}: {exerciseId: string}) {
                 <Heading tag="h1" size="large">
                     {view?.name ?? "Exercise"}
                 </Heading>
-                {view?.editorUrl != null && (
+                {view?.editorUrl != null && isWebUrl(view.editorUrl) && (
                     <BodyText size="small" className={layout.headerEnd}>
                         <a
                             className={styles.link}

@@ -38,6 +38,20 @@ export type ExerciseItem = {
 };
 
 /** Every draft in the exercise, in order. */
+/**
+ * Whether `url` is a web page's address, which the exercise page can link
+ * to. Anything else, such as a `javascript:` URL from an imported file,
+ * would run in the page.
+ */
+export function isWebUrl(url: string): boolean {
+    try {
+        const {protocol} = new URL(url);
+        return protocol === "https:" || protocol === "http:";
+    } catch {
+        return false;
+    }
+}
+
 export function itemIdsOf(exercise: Exercise): string[] {
     return exercise.problemTypes.flatMap((problemType) =>
         problemType.items.map((item) => item.itemId),

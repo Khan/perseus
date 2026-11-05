@@ -287,7 +287,11 @@ export function createExerciseUseCases(deps: ExerciseDependencies) {
         if (!read.ok) {
             throw new InvalidImportError(read.error);
         }
-        const {exercise, skipped} = saveImport(read.problemTypes, options);
+        // An editor URL given with the import wins over the file's own.
+        const {exercise, skipped} = saveImport(read.problemTypes, {
+            ...options,
+            editorUrl: options.editorUrl ?? read.editorUrl,
+        });
         return {
             exercise,
             shape: read.shape,
