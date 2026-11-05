@@ -12,7 +12,9 @@ import type {CallToolResult, McpServer} from "@modelcontextprotocol/server";
 
 const SCRIPT_CONTRACT =
     "The script is TypeScript or JavaScript that imports from " +
-    '"graffiti" (and nothing else) and default-exports {canvas, shapes, ' +
+    '"graffiti", and from "khan-style" for Khan\'s colors and sizes (draw ' +
+    "with those, not colors of your own), and nothing else, and " +
+    "default-exports {canvas, shapes, " +
     "labels?}, or a function (it may be async, and gets the library as " +
     "its argument) returning that: a canvas such as " +
     "scaledUniform([-5, 5], [-5, 5], 40, {margin: 10}), the drawables to " +
@@ -87,8 +89,9 @@ export function registerGraffitiTools(
                 "learner to interact with; that's interactive-graph) from a " +
                 "Graffiti script, and keep it as a new diagram. It's kept " +
                 "only if the script draws: an error says what went wrong. " +
-                "Returns its graffitiId, revision, size in pixels and label " +
-                "count. " +
+                "Returns its graffitiId, revision, size in pixels, label " +
+                "count, and warnings for what doesn't follow Khan's style " +
+                "(colors outside its palette): fix those. " +
                 EMBED,
             inputSchema: z.object({source: sourceSchema, notes: notesSchema}),
         },

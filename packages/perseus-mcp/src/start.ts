@@ -22,6 +22,7 @@ import {FileExerciseRepository} from "./adapters/fs/file-exercise-repository";
 import {FileGraffitiRepository} from "./adapters/fs/file-graffiti-repository";
 import {fileGraffitiTypes} from "./adapters/fs/file-graffiti-types";
 import {fileGuidelinesSource} from "./adapters/fs/file-guidelines-source";
+import {readKhanStyle} from "./adapters/fs/khan-style-source";
 import {nodeExportFileWriter} from "./adapters/fs/node-export-file-writer";
 import {nodeItemFileReader} from "./adapters/fs/node-item-file-reader";
 import {createPerseusCoreSchemaSource} from "./adapters/fs/perseus-core-schema-source";
@@ -53,6 +54,7 @@ import {createWidgetUseCases} from "./app/widgets";
 import type {PreviewPages} from "./adapters/http/server";
 import type {PreviewApp} from "./adapters/mcp/server";
 import type {BuildInfo} from "./build-info";
+import type {KhanStyle} from "./domain/graffiti/khan-style";
 import type {GraffitiPaths, RuntimePaths} from "./runtime-paths";
 import type {Server} from "node:http";
 
@@ -76,6 +78,7 @@ export type StartOptions = {
  */
 function graffitiUseCases(
     graffitiPaths: GraffitiPaths | undefined,
+    wonderBlocksTokensCss: string,
     dataDir: string,
     log: (message: string) => void,
 ) {
@@ -86,14 +89,22 @@ function graffitiUseCases(
         );
         return undefined;
     }
+    // Khan's colors and sizes, which scripts import as "khan-style".
+    let style: KhanStyle | undefined;
+    try {
+        style = readKhanStyle(wonderBlocksTokensCss);
+    } catch (e) {
+        log(`perseus-mcp: diagrams draw without Khan's colors: ${String(e)}`);
+    }
     const fileDiagrams = new FileGraffitiRepository(dataDir);
     fileDiagrams.init();
     const {diagrams, feed} = withGraffitiFeed(fileDiagrams);
     return createGraffitiUseCases({
         diagrams,
         feed,
-        renderer: createNodeGraffitiRenderer(graffitiPaths),
+        renderer: createNodeGraffitiRenderer(graffitiPaths, {style}),
         types: fileGraffitiTypes(path.dirname(graffitiPaths.module)),
+        style,
         now: () => new Date(),
         newId: () => randomUUID().slice(0, 8),
     });
@@ -210,7 +221,12 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
     const {drafts: repository, feed} = withDraftFeed(fileRepository);
     const {exercises, feed: exerciseFeed} =
         withExerciseFeed(exerciseRepository);
-    const graffiti = graffitiUseCases(paths.graffiti, dataDir, log);
+    const graffiti = graffitiUseCases(
+        paths.graffiti,
+        paths.wonderBlocksTokensCss,
+        dataDir,
+        log,
+    );
 
     // Set once the HTTP server is listening.
     let baseUrl: string | null = null;

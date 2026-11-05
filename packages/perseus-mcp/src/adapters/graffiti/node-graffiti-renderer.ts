@@ -5,8 +5,10 @@ import path from "node:path";
 import {pathToFileURL} from "node:url";
 
 import {GraffitiRenderError} from "../../app/errors";
+import {graffitiDefaultsReplaced} from "../../domain/graffiti/khan-style";
 
 import type {RenderedDiagram} from "../../domain/graffiti/diagram";
+import type {KhanStyle} from "../../domain/graffiti/khan-style";
 import type {GraffitiRenderer} from "../../ports/graffiti-renderer";
 import type {GraffitiPaths} from "../../runtime-paths";
 
@@ -24,8 +26,24 @@ const OUTPUT_LIMIT = 5_000_000;
  */
 export function createNodeGraffitiRenderer(
     paths: GraffitiPaths,
-    {timeLimitMs = 10_000}: {timeLimitMs?: number} = {},
+    {
+        timeLimitMs = 10_000,
+        style,
+    }: {
+        timeLimitMs?: number;
+        /** Khan's colors and sizes, which scripts import as "khan-style". */
+        style?: KhanStyle;
+    } = {},
 ): GraffitiRenderer {
+    const styleArg =
+        style == null
+            ? []
+            : [
+                  JSON.stringify({
+                      ...style,
+                      defaultsReplaced: graffitiDefaultsReplaced(style),
+                  }),
+              ];
     // The permission model compares real paths, and pnpm links Graffiti in.
     const runner = fs.realpathSync(paths.runner);
     const graffitiModule = fs.realpathSync(paths.module);
@@ -48,6 +66,7 @@ export function createNodeGraffitiRenderer(
                     runner,
                     pathToFileURL(graffitiModule).href,
                     script,
+                    ...styleArg,
                 ]);
                 return parseOutput(output);
             } finally {

@@ -15,7 +15,7 @@ import path from "node:path";
 
 import {productionBuild} from "../src/adapters/preview/vite-shared";
 import {gitCommit} from "../src/build-info";
-import {checkoutGuidanceDir} from "../src/runtime-paths";
+import {checkoutGuidanceDir, wonderBlocksTokensCss} from "../src/runtime-paths";
 
 import {buildPages} from "./build-pages-lib";
 
@@ -32,6 +32,8 @@ const COPIED_FILES: Record<string, string> = {
         PERSEUS_CORE_SRC,
         "validation.types.ts",
     ),
+    // Khan's diagram colors are read from Wonder Blocks' tokens in it.
+    "styles/wonder-blocks-tokens.css": wonderBlocksTokensCss(),
     LICENSE: path.join(REPO_ROOT, "LICENSE"),
     // The pages carry these fonts, whose license must go with them.
     "licenses/Lato-OFL.txt": path.join(FONTS_DIR, "lato/OFL.txt"),

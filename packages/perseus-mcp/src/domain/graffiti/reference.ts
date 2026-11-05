@@ -4,6 +4,7 @@
  * definitions of the library the scripts run with. An author's machine has
  * neither Graffiti's source nor perseus-mcp's, so this has to be enough.
  */
+import type {KhanStyle} from "./khan-style";
 import type {GraffitiTypesModule} from "../../ports/graffiti-types";
 
 type Note = {heading: string; text: string};
@@ -16,7 +17,8 @@ export const GRAFFITI_NOTES: ReadonlyArray<Note> = [
     {
         heading: "The script",
         text: `\
-A script imports from "graffiti" and nothing else, and default-exports
+A script imports from "graffiti" and "khan-style" (Khan's colors, below)
+and nothing else, and default-exports
 {canvas, shapes, labels?}, or a function (it may be async) that gets the
 library as its argument and returns that. It runs in a process of its own,
 with no file, network or process access, for at most 10 seconds. Types
@@ -104,9 +106,9 @@ in camelCase: fill, stroke (colors, as CSS writes them), strokeWidth
 ("2") and strokeDashArray ("4 2"). Any other key, such as "fill-opacity",
 "opacity" or "stroke-width", is ignored without an error, and there's no
 opacity: use a solid light color for a tinted region. Without a style a
-shape is drawn with a 1-pixel black stroke and no fill, except sector(,
-which is filled white, and dot(, which is filled black with no stroke.
-axes( default to a gray stroke (#888), grid( to a light one (#DDD).`,
+shape is drawn with a 1-pixel stroke and no fill, except sector(, which is
+filled white, and dot(, which is filled with no stroke. Colors come from
+"khan-style" (below).`,
     },
     {
         heading: "Labels",
@@ -122,13 +124,52 @@ such as {color: "#…"}.`,
     },
 ];
 
+/** What "khan-style" exports, with its values. */
+function khanStyleNote(style: KhanStyle): string {
+    return `## Khan's colors ("khan-style")
+
+Draw with Khan Academy's colors, not your own: import them from
+"khan-style", the one other module a script may import. A color that isn't
+one of these comes back as a warning from create_graffiti and
+update_graffiti.
+
+    import {colors, ui, tints} from "khan-style";
+    segment(A, B, {stroke: colors.blue, strokeWidth: "2"});
+    polygon([A, B, C], {fill: tints.blue, stroke: ui.ink});
+
+- colors: the math colors, safe for text and lines on white. They're what
+  TeX's color commands render as in the item's text (\\blueA to \\blueE
+  are all colors.blue, \\maroonD is colors.pink, \\tealD colors.green), so
+  a diagram can match the text beside it. Give a label the same color with
+  its style: label(at, "A", "above", {style: {color: colors.blue}}).
+- ui: ink (Khan's black, for outlines and text), interactive (the blue
+  Perseus's graphs give plotted points), line (axes) and gridLine.
+- tints: light fills for regions; there's no opacity.
+
+Without a style, shapes draw in ui.ink instead of black, axes and grids in
+ui.line and ui.gridLine, and a sector's fill in ui.background.
+
+    ${JSON.stringify({colors: style.colors, ui: style.ui, tints: style.tints})}
+
+## Size
+
+The canvas sets the image's size in pixels, margin included (create_graffiti
+returns it). Choose it from the image dimensions the guidelines give for
+where the image goes (get_guidelines, topic math-images): in the question,
+in an answer choice, or behind a widget.`;
+}
+
 /** The reference: the notes, then each module's declarations. */
 export function graffitiReference(
     modules: ReadonlyArray<GraffitiTypesModule>,
+    style?: KhanStyle,
 ): string {
     const notes = GRAFFITI_NOTES.map(
         ({heading, text}) => `## ${heading}\n\n${text}`,
     );
+    if (style != null) {
+        notes.push(khanStyleNote(style));
+    }
     const api = modules.map(
         ({module, text}) => `### ${module}\n\n\`\`\`ts\n${text}\n\`\`\``,
     );

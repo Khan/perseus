@@ -36,6 +36,7 @@
         "@khanacademy/wonder-blocks-form": "catalog:devDeps",
         "@khanacademy/wonder-blocks-icon": "catalog:devDeps",
         "@khanacademy/wonder-blocks-labeled-field": "catalog:devDeps",
+        "@khanacademy/wonder-blocks-tokens": "catalog:devDeps",
         "@khanacademy/wonder-blocks-typography": "catalog:devDeps",
         "@modelcontextprotocol/client": "^2.4.0",
         "@modelcontextprotocol/ext-apps": "^2.0.4",

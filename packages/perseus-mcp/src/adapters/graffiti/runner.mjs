@@ -3,7 +3,11 @@
 // its own with Node's permission model on (see node-graffiti-renderer.ts):
 // it can read only this file, the Graffiti library and the script.
 //
-//     node runner.mjs <Graffiti's index.js URL> <script path>
+//     node runner.mjs <Graffiti's index.js URL> <script path> [<style JSON>]
+//
+// With a style (Khan's colors, as domain/graffiti/khan-style.ts
+// describes them), the script can import it as "khan-style", and the colors
+// Graffiti draws with by default are swapped for the style's.
 //
 // The script's default export is {canvas, shapes, labels?} (shapes are
 // Graffiti drawables, labels made with Graffiti's `label`), or a function,
@@ -14,7 +18,25 @@
 import {registerHooks} from "node:module";
 import {pathToFileURL} from "node:url";
 
-const [graffitiUrl, scriptPath] = process.argv.slice(2);
+const [graffitiUrl, scriptPath, styleJson] = process.argv.slice(2);
+const style = styleJson == null ? null : JSON.parse(styleJson);
+// A module of its own, from a data: URL, so it needs no file to read.
+const styleUrl =
+    style == null
+        ? null
+        : "data:text/javascript," +
+          encodeURIComponent(
+              Object.entries({
+                  colors: style.colors,
+                  ui: style.ui,
+                  tints: style.tints,
+              })
+                  .map(
+                      ([name, value]) =>
+                          `export const ${name} = ${JSON.stringify(value)};`,
+                  )
+                  .join("\n"),
+          );
 const scriptUrl = pathToFileURL(scriptPath).href;
 const graffitiDir = new URL(".", graffitiUrl).href;
 
@@ -26,6 +48,9 @@ registerHooks({
         if (specifier === "graffiti") {
             return {url: graffitiUrl, shortCircuit: true};
         }
+        if (specifier === "khan-style" && styleUrl != null) {
+            return {url: styleUrl, shortCircuit: true};
+        }
         const fromGraffiti = context.parentURL?.startsWith(graffitiDir);
         const fromRunner = context.parentURL === import.meta.url;
         if (
@@ -36,7 +61,11 @@ registerHooks({
             return nextResolve(specifier, context);
         }
         throw new Error(
-            `A Graffiti script can import only "graffiti", not "${specifier}".`,
+            `A Graffiti script can import only ` +
+                (styleUrl == null
+                    ? `"graffiti"`
+                    : `"graffiti" and "khan-style"`) +
+                `, not "${specifier}".`,
         );
     },
 });
@@ -60,11 +89,18 @@ if (canvas == null || !Array.isArray(shapes)) {
     );
 }
 
-const svg = graffiti.print(
+const printed = graffiti.print(
     graffiti.svg(
         shapes.map((shape) => shape.draw(canvas)),
         canvas.viewport,
     ),
+);
+// Graffiti's default black and grays become Khan's ink and line colors.
+const replaced = style?.defaultsReplaced ?? {};
+const svg = printed.replace(
+    /\b(stroke|fill)="([^"]*)"/g,
+    (attribute, name, value) =>
+        replaced[value] == null ? attribute : `${name}="${replaced[value]}"`,
 );
 const data = {
     range: graffiti.graphieRange(canvas),

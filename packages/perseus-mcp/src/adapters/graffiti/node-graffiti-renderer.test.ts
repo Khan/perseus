@@ -4,7 +4,8 @@
 import fs from "node:fs";
 
 import {GraffitiRenderError} from "../../app/errors";
-import {checkoutPaths} from "../../runtime-paths";
+import {checkoutPaths, wonderBlocksTokensCss} from "../../runtime-paths";
+import {readKhanStyle} from "../fs/khan-style-source";
 
 import {createNodeGraffitiRenderer} from "./node-graffiti-renderer";
 
@@ -45,7 +46,41 @@ describeIfBuilt("createNodeGraffitiRenderer", () => {
         }).toEqual({svg: true, labels: ["B"], size: [100, 80]});
     });
 
-    it("refuses a script that imports anything but Graffiti", async () => {
+    it("lets a script draw with Khan's colors from khan-style", async () => {
+        // Arrange
+        const style = readKhanStyle(wonderBlocksTokensCss());
+        const renderer = createNodeGraffitiRenderer(paths, {style});
+
+        // Act
+        const drawing = await renderer.render(`
+import {point, segment, scaledUniform} from "graffiti";
+import {colors} from "khan-style";
+export default {
+    canvas: scaledUniform([0, 1], [0, 1], 20),
+    shapes: [segment(point(0, 0), point(1, 1), {stroke: colors.blue})],
+};
+`);
+
+        // Assert
+        expect(drawing.svg).toContain(`stroke="${style.colors.blue}"`);
+    });
+
+    it("draws an unstyled shape in Khan's ink, not black", async () => {
+        // Arrange
+        const style = readKhanStyle(wonderBlocksTokensCss());
+        const renderer = createNodeGraffitiRenderer(paths, {style});
+
+        // Act
+        const drawing = await renderer.render(TRIANGLE);
+
+        // Assert
+        expect({
+            ink: drawing.svg.includes(`stroke="${style.ui.ink}"`),
+            black: drawing.svg.includes('"black"'),
+        }).toEqual({ink: true, black: false});
+    });
+
+    it("refuses a script that imports anything but its modules", async () => {
         // Arrange
         const renderer = createNodeGraffitiRenderer(paths);
 

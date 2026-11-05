@@ -1,3 +1,4 @@
+import {createRequire} from "node:module";
 import os from "node:os";
 import path from "node:path";
 
@@ -23,7 +24,22 @@ export type RuntimePaths = {
      * so they're kept outside this repository.
      */
     guidanceDir: string;
+    /**
+     * Wonder Blocks' stylesheet, which holds its tokens' values: Khan's
+     * colors for diagrams come from it.
+     */
+    wonderBlocksTokensCss: string;
 };
+
+/** Wonder Blocks' stylesheet, in the installed tokens package. */
+export function wonderBlocksTokensCss(): string {
+    // The package's entry point is `dist/index.js`, its stylesheet
+    // `dist/css/index.css` (exported as "styles.css").
+    const entry = createRequire(import.meta.url).resolve(
+        "@khanacademy/wonder-blocks-tokens",
+    );
+    return path.join(path.dirname(entry), "css/index.css");
+}
 
 /**
  * Where the distilled guidelines are kept next to a checkout: a folder
@@ -56,6 +72,7 @@ export function checkoutPaths(): RuntimePaths {
         // until then.
         previousDataDir: path.join(repoRoot, ".perseus-mcp"),
         guidanceDir: checkoutGuidanceDir(repoRoot),
+        wonderBlocksTokensCss: wonderBlocksTokensCss(),
         graffiti: {
             runner: path.join(
                 repoRoot,
@@ -121,6 +138,10 @@ export function packagedPaths(root: string): PackagedPaths {
         ),
         pagesDir: path.join(root, "pages"),
         guidanceDir: path.join(root, "guidance"),
+        wonderBlocksTokensCss: path.join(
+            root,
+            "styles/wonder-blocks-tokens.css",
+        ),
         graffiti: {
             runner: path.join(root, "graffiti/runner.mjs"),
             module: path.join(root, "graffiti/lib/index.js"),

@@ -1,9 +1,11 @@
 import {graphieUrlFor} from "../domain/graffiti/diagram";
+import {offPaletteColors} from "../domain/graffiti/khan-style";
 import {graffitiReference} from "../domain/graffiti/reference";
 
 import {GraffitiNotFoundError} from "./errors";
 
 import type {Diagram, RenderedDiagram} from "../domain/graffiti/diagram";
+import type {KhanStyle} from "../domain/graffiti/khan-style";
 import type {GraffitiFeed} from "../ports/graffiti-feed";
 import type {GraffitiRenderer} from "../ports/graffiti-renderer";
 import type {GraffitiRepository} from "../ports/graffiti-repository";
@@ -14,6 +16,8 @@ export type GraffitiDependencies = {
     renderer: GraffitiRenderer;
     /** The library's type definitions, for the reference agents read. */
     types?: GraffitiTypesSource;
+    /** Khan's colors and sizes, which scripts import as "khan-style". */
+    style?: KhanStyle;
     /** Announces new revisions, for previews that follow diagrams. */
     feed?: GraffitiFeed;
     now: () => Date;
@@ -29,6 +33,8 @@ export type DiagramResult = {
     height: number;
     /** How many labels it lays over the image. */
     labels: number;
+    /** What in the drawing doesn't follow Khan's style, if anything. */
+    warnings?: string[];
 };
 
 /** What a diagram's page shows of it. */
@@ -96,12 +102,20 @@ export function createGraffitiUseCases(deps: GraffitiDependencies) {
     }
 
     function result(diagram: Diagram, drawing: RenderedDiagram): DiagramResult {
+        const offPalette =
+            deps.style == null ? [] : offPaletteColors(drawing, deps.style);
         return {
             graffitiId: diagram.graffitiId,
             revision: diagram.revision,
             width: drawing.width,
             height: drawing.height,
             labels: drawing.data.labels.length,
+            ...(offPalette.length > 0 && {
+                warnings: [
+                    `Colors outside Khan's palette: ${offPalette.join("; ")}. ` +
+                        'Use colors, ui or tints from "khan-style".',
+                ],
+            }),
         };
     }
 
@@ -111,7 +125,10 @@ export function createGraffitiUseCases(deps: GraffitiDependencies) {
          * agent needs, since an author has no Graffiti source to read.
          */
         async reference(): Promise<string> {
-            return graffitiReference((await deps.types?.read()) ?? []);
+            return graffitiReference(
+                (await deps.types?.read()) ?? [],
+                deps.style,
+            );
         },
 
         /**
