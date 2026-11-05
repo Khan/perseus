@@ -40,7 +40,67 @@ export const FACETS = [
     "listed",
     "live",
     "aiGenerated",
+    // The exercise's title (an item's), or the article's.
+    "title",
 ] as const;
+
+/**
+ * Where a query can look, by the document fields each means. Every field
+ * by default.
+ */
+export const SEARCH_FIELDS = {
+    /** The exercise's (or article's) title and the problem type. */
+    titles: ["title", "problemType"],
+    question: ["text"],
+    hints: ["hintText"],
+    /** Text in widget options: choices, labels. */
+    widgets: ["widgetText"],
+    math: ["math"],
+    /** The titles of the lesson, unit, course and domain. */
+    tree: ["lessonTitle", "unitTitle", "courseTitle", "domainTitle"],
+    /** Widget option values. */
+    options: ["widgetProps"],
+} as const;
+
+export type SearchField = keyof typeof SEARCH_FIELDS;
+
+/** The names `searchIn` takes, for a schema to list. */
+export const SEARCH_FIELD_NAMES = [
+    "titles",
+    "question",
+    "hints",
+    "widgets",
+    "math",
+    "tree",
+    "options",
+] as const satisfies ReadonlyArray<SearchField>;
+
+/** How a query matches, beyond what it matches. */
+export type QueryOptions = {
+    /** Where to look; every field when left out. */
+    searchIn?: ReadonlyArray<SearchField>;
+    /**
+     * One match per exercise (the best), so results show different
+     * exercises. Articles are kept. Facet counts don't follow it: they
+     * count every match.
+     */
+    onePerExercise?: boolean;
+    /**
+     * Match documents with any of the query's words, best first. By
+     * default a document must have them all.
+     */
+    matchAny?: boolean;
+};
+
+/** The document fields `searchIn` means, or undefined for all of them. */
+export function searchedFields(
+    searchIn: ReadonlyArray<SearchField> | undefined,
+): string[] | undefined {
+    if (searchIn == null || searchIn.length === 0) {
+        return undefined;
+    }
+    return [...new Set(searchIn.flatMap((field) => SEARCH_FIELDS[field]))];
+}
 
 export type Facet = (typeof FACETS)[number];
 
@@ -108,8 +168,13 @@ export type ContentHit = {
     widgetTypes: string[];
     hintCount: number;
     listed: boolean;
-    /** Part of the text, around the match when the query matched it. */
-    snippet: string;
+    /** The question's (or article's) first line as written, TeX and all. */
+    firstLine: string;
+    /**
+     * Part of the question's text (TeX left out) around the match, when
+     * the query matched it there.
+     */
+    snippet?: string;
 };
 
 /**
@@ -127,12 +192,16 @@ export const HIT_FIELDS = [
     "widgetTypes",
     "hintCount",
     "listed",
+    "firstLine",
     "text",
 ] as const;
 
 export type HitFields = Pick<ContentDocument, (typeof HIT_FIELDS)[number]>;
 
-/** A hit from a search's document and the snippet cut from its text. */
+/**
+ * A hit from a search's document and the snippet cut from its text, which
+ * is left out when it says nothing the first line doesn't.
+ */
 export function toHit(document: HitFields, snippet: string): ContentHit {
     const exercises = document.exerciseId ?? [];
     return {
@@ -154,7 +223,8 @@ export function toHit(document: HitFields, snippet: string): ContentHit {
         widgetTypes: document.widgetTypes,
         hintCount: document.hintCount,
         listed: document.listed,
-        snippet,
+        firstLine: document.firstLine,
+        ...(snippet !== "" && snippet !== document.text ? {snippet} : {}),
     };
 }
 

@@ -14,6 +14,7 @@ import type {
     ContentFilters,
     ContentHit,
     Facet,
+    QueryOptions,
 } from "../domain/search/content-query";
 import type {ContentSearch, ContentSource} from "../ports/content-search";
 
@@ -61,6 +62,7 @@ export function createSearchUseCases(deps: SearchDependencies) {
         async searchContent(input: {
             query?: string;
             filters?: ContentFilters;
+            options?: QueryOptions;
             limit: number;
             offset?: number;
         }): Promise<{total: number; offset: number; hits: ContentHit[]}> {
@@ -68,6 +70,7 @@ export function createSearchUseCases(deps: SearchDependencies) {
             const result = await search.search({
                 query: input.query ?? "",
                 filter: filterExpression(input.filters ?? {}),
+                options: input.options ?? {},
                 limit: input.limit,
                 offset,
             });
@@ -83,16 +86,21 @@ export function createSearchUseCases(deps: SearchDependencies) {
         async facetContent(input: {
             query?: string;
             filters?: ContentFilters;
+            options?: QueryOptions;
             facets: ReadonlyArray<Facet>;
             top: number;
         }) {
             const result = await search.facets({
                 query: input.query ?? "",
                 filter: filterExpression(input.filters ?? {}),
-                facets: input.facets,
+                options: input.options ?? {},
+                // Always exercises, to count them.
+                facets: [...new Set([...input.facets, "exerciseId" as const])],
             });
             return {
                 total: result.total,
+                // How many exercises the matching items are in.
+                exercises: Object.keys(result.counts.exerciseId ?? {}).length,
                 facets: Object.fromEntries(
                     input.facets.map((facet) => [
                         facet,
@@ -112,6 +120,7 @@ export function createSearchUseCases(deps: SearchDependencies) {
             contentIds?: ReadonlyArray<string>;
             query?: string;
             filters?: ContentFilters;
+            options?: QueryOptions;
             limit: number;
         }): Promise<{
             matched: number;
@@ -140,6 +149,7 @@ export function createSearchUseCases(deps: SearchDependencies) {
             const documents = await search.documents({
                 query: input.query ?? "",
                 filter,
+                options: input.options ?? {},
                 limit: input.limit,
             });
             const dir = await snapshotDir();

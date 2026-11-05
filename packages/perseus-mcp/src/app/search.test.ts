@@ -43,6 +43,7 @@ function documentOf(
         hintCount: 0,
         imageCount: 0,
         hasGraphie: false,
+        firstLine: "",
         ...overrides,
     };
 }

@@ -28,7 +28,27 @@ export type ContentFields = {
     /** Markdown images and image widgets. */
     imageCount: number;
     hasGraphie: boolean;
+    /**
+     * The first non-blank line of the content as written, TeX and all, cut
+     * to a length a list of hits can show. Not searched: for showing.
+     */
+    firstLine: string;
 };
+
+// How much of the first line a hit shows.
+const FIRST_LINE_LENGTH = 200;
+
+/** The first non-blank line of Markdown, cut to FIRST_LINE_LENGTH. */
+function firstLineOf(markdown: string): string {
+    const line =
+        markdown
+            .split("\n")
+            .find((l) => l.trim() !== "")
+            ?.trim() ?? "";
+    return line.length > FIRST_LINE_LENGTH
+        ? `${line.slice(0, FIRST_LINE_LENGTH)}…`
+        : line;
+}
 
 const PLACEHOLDER = /\[\[☃ [a-z0-9-]+ \d+\]\]/g;
 // ![alt](url "title"): the alt text is kept as text.
@@ -211,7 +231,7 @@ function fieldsOf(
     main: Collector,
     hints: Collector | null,
     hintCount: number,
-): ContentFields {
+): Omit<ContentFields, "firstLine"> {
     const all = hints == null ? [main] : [main, hints];
     const union = (pick: (c: Collector) => Set<string>) => [
         ...new Set(all.flatMap((c) => [...pick(c)])),
@@ -240,7 +260,10 @@ export function itemContentFields(item: PerseusItem): ContentFields {
     for (const hint of item.hints) {
         collectRenderer(hint, hints);
     }
-    return fieldsOf(question, hints, item.hints.length);
+    return {
+        ...fieldsOf(question, hints, item.hints.length),
+        firstLine: firstLineOf(item.question.content),
+    };
 }
 
 /** The searchable fields of an article: all its sections. */
@@ -251,5 +274,8 @@ export function articleContentFields(
     for (const section of sections) {
         collectRenderer(section, article);
     }
-    return fieldsOf(article, null, 0);
+    return {
+        ...fieldsOf(article, null, 0),
+        firstLine: firstLineOf(sections[0]?.content ?? ""),
+    };
 }

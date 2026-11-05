@@ -1,5 +1,9 @@
 import type {ContentDocument} from "../domain/search/content-document";
-import type {Facet, HitFields} from "../domain/search/content-query";
+import type {
+    Facet,
+    HitFields,
+    QueryOptions,
+} from "../domain/search/content-query";
 
 /** Whether search can be used, and what it holds when it can. */
 export type SearchStatus =
@@ -31,6 +35,7 @@ export interface ContentSearch {
     search(request: {
         query: string;
         filter: string;
+        options: QueryOptions;
         limit: number;
         offset: number;
     }): Promise<{
@@ -45,6 +50,7 @@ export interface ContentSearch {
     facets(request: {
         query: string;
         filter: string;
+        options: QueryOptions;
         facets: ReadonlyArray<Facet>;
     }): Promise<{
         total: number;
@@ -58,6 +64,7 @@ export interface ContentSearch {
     documents(request: {
         query: string;
         filter: string;
+        options: QueryOptions;
         limit: number;
     }): Promise<ContentDocument[]>;
 }

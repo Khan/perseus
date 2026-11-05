@@ -4,7 +4,7 @@
 import {z} from "zod";
 
 import {MAX_IMPORT} from "../../app/search";
-import {FACETS} from "../../domain/search/content-query";
+import {FACETS, SEARCH_FIELD_NAMES} from "../../domain/search/content-query";
 
 import {jsonResult} from "./tool-results";
 
@@ -71,11 +71,42 @@ const querySchema = z
     .string()
     .optional()
     .describe(
-        "Words to search for in the question and hint text, widget text " +
-            "(choices, labels), TeX, and the titles of the exercise and its " +
-            "lesson, unit, course and domain. Leave it out to match " +
-            "everything the filters allow.",
+        "Words to search for, all of them by default (see matchAny), in " +
+            "the fields searchIn names, or all of them: the question and " +
+            "hint text, widget text (choices, labels), TeX, and the titles " +
+            "of the exercise and its lesson, unit, course and domain. Leave " +
+            "it out to match everything the filters allow.",
     );
+
+// How a query matches: where it looks, whole words, one per exercise.
+const optionsSchema = {
+    searchIn: z
+        .array(z.enum(SEARCH_FIELD_NAMES))
+        .min(1)
+        .optional()
+        .describe(
+            "Where the query looks: titles (the exercise's and the problem " +
+                "type's), question, hints, widgets (choices, labels), math " +
+                "(TeX), tree (lesson, unit, course and domain titles), " +
+                'options (widget option values). For "items that test X", ' +
+                '["titles", "question"] keeps out items that only mention ' +
+                "X in a hint or sit in a lesson named for it. Default: all.",
+        ),
+    onePerExercise: z
+        .boolean()
+        .optional()
+        .describe(
+            "Only the best match of each exercise, so the hits are of " +
+                "different exercises: for sampling a course.",
+        ),
+    matchAny: z
+        .boolean()
+        .optional()
+        .describe(
+            "Match documents with any of the query's words, best first. " +
+                "Default: all of them.",
+        ),
+};
 
 export function registerSearchTools(
     server: McpServer,
@@ -99,23 +130,33 @@ export function registerSearchTools(
                 "Search Khan Academy's published content (an index of a " +
                 "content snapshot, English only): each hit is an item " +
                 "(with its exercise and problem type) or an article, with " +
-                "its courses, widget types, hint count and a snippet of its " +
-                "text, not the content itself. `total` counts every match. " +
+                "its courses, widget types, hint count, the question's first " +
+                "line as written and, when the query matched the question, " +
+                "a snippet around the match: not the content itself. " +
+                "`total` counts every match. To sample a course, use " +
+                "onePerExercise, so hits aren't all one exercise's items. " +
                 NARROW_FIRST +
                 " To work on items found, import_from_search makes drafts " +
                 "of them.",
             inputSchema: z.object({
                 query: querySchema,
+                ...optionsSchema,
                 filters: filtersSchema,
                 limit: z.number().int().min(1).max(50).default(10),
                 offset: z.number().int().min(0).optional(),
             }),
             annotations: {readOnlyHint: true},
         },
-        ({query, filters, limit, offset}) =>
+        ({query, filters, limit, offset, ...options}) =>
             run("search_content", async () =>
                 jsonResult(
-                    await search.searchContent({query, filters, limit, offset}),
+                    await search.searchContent({
+                        query,
+                        filters,
+                        options,
+                        limit,
+                        offset,
+                    }),
                 ),
             ),
     );
@@ -133,20 +174,29 @@ export function registerSearchTools(
                 '), how option values are spread ("widgetProps"). Counts ' +
                 "are of documents (items and articles); one in several " +
                 "courses counts in each. Each facet returns its most common " +
-                "values, `top` of them, and how many values it has. Reads no " +
-                "content.",
+                "values, `top` of them, and how many values it has. Facet " +
+                '"title" for exercises\' titles. `exercises` counts the ' +
+                "exercises the matching items are in. Reads no content.",
             inputSchema: z.object({
                 query: querySchema,
+                searchIn: optionsSchema.searchIn,
+                matchAny: optionsSchema.matchAny,
                 filters: filtersSchema,
                 facets: z.array(z.enum(FACETS)).min(1),
                 top: z.number().int().min(1).max(500).default(20),
             }),
             annotations: {readOnlyHint: true},
         },
-        ({query, filters, facets, top}) =>
+        ({query, filters, facets, top, ...options}) =>
             run("facet_content", async () =>
                 jsonResult(
-                    await search.facetContent({query, filters, facets, top}),
+                    await search.facetContent({
+                        query,
+                        filters,
+                        options,
+                        facets,
+                        top,
+                    }),
                 ),
             ),
     );
@@ -168,6 +218,7 @@ export function registerSearchTools(
             inputSchema: z.object({
                 contentIds: z.array(z.string()).min(1).optional(),
                 query: querySchema,
+                ...optionsSchema,
                 filters: filtersSchema,
                 limit: z
                     .number()
@@ -177,13 +228,14 @@ export function registerSearchTools(
                     .default(MAX_IMPORT),
             }),
         },
-        ({contentIds, query, filters, limit}) =>
+        ({contentIds, query, filters, limit, ...options}) =>
             run("import_from_search", async () =>
                 jsonResult(
                     await search.importFromSearch({
                         contentIds,
                         query,
                         filters,
+                        options,
                         limit,
                     }),
                 ),

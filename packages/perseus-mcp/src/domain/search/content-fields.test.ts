@@ -74,6 +74,7 @@ describe("itemContentFields", () => {
             hintText: "Count up from .\nIt's four.",
             math: ["2+2", "2"],
             hintCount: 2,
+            firstLine: "**What is $2+2$?**",
         });
     });
 

@@ -205,9 +205,21 @@ export const CONTENT_INDEX_SETTINGS = {
         "listed",
         "live",
         "aiGenerated",
+        "title",
     ],
     sortableAttributes: ["widgetCount", "hintCount", "imageCount"],
-    // Counts by course need every course: there are about 1,500.
-    faceting: {maxValuesPerFacet: 5000},
+    // Counts need every value: about 1,500 courses, and the exercise count
+    // comes from the exerciseId facet (about 14,000 exercises).
+    faceting: {maxValuesPerFacet: 20000},
+    // Agents search for whole words: a prefix match made "addition" match
+    // "additional".
+    prefixSearch: "disabled",
+    // Default typo tolerance lets a 5-letter word match with one typo and
+    // a 9-letter one with two, so "addition" also matched "addiction".
+    // TeX and option values are exact.
+    typoTolerance: {
+        minWordSizeForTypos: {oneTypo: 6, twoTypos: 12},
+        disableOnAttributes: ["math", "widgetProps"],
+    },
     pagination: {maxTotalHits: 10000},
 } as const;

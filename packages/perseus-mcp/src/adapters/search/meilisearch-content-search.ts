@@ -4,7 +4,7 @@ import {
     CONTENT_META_INDEX_UID,
     INDEX_META_ID,
 } from "../../domain/search/content-document";
-import {HIT_FIELDS} from "../../domain/search/content-query";
+import {HIT_FIELDS, searchedFields} from "../../domain/search/content-query";
 
 import {createMeilisearchClient, MeilisearchRequestError} from "./meilisearch";
 
@@ -12,7 +12,7 @@ import type {
     ContentDocument,
     IndexMeta,
 } from "../../domain/search/content-document";
-import type {HitFields} from "../../domain/search/content-query";
+import type {HitFields, QueryOptions} from "../../domain/search/content-query";
 import type {ContentSearch, SearchStatus} from "../../ports/content-search";
 
 /** How to start Meilisearch and fill it, for when search isn't available. */
@@ -31,6 +31,17 @@ type SearchReply = {
     hits: Array<HitFields & {_formatted?: {text?: unknown}}>;
     facetDistribution?: Record<string, Record<string, number>>;
 };
+
+/** Meilisearch's search parameters for how a query matches. */
+function matching(query: string, options: QueryOptions): object {
+    const fields = searchedFields(options.searchIn);
+    return {
+        q: query,
+        matchingStrategy: options.matchAny === true ? "last" : "all",
+        ...(fields != null ? {attributesToSearchOn: fields} : {}),
+        ...(options.onePerExercise === true ? {distinct: "exerciseId"} : {}),
+    };
+}
 
 /** The total from a reply's `kind` counts: exact, unlike its hit count. */
 function totalOf(reply: SearchReply): number {
@@ -120,9 +131,9 @@ export function createMeilisearchContentSearch(options: {
             }
         },
 
-        async search({query, filter, limit, offset}) {
+        async search({query, filter, options: queryOptions, limit, offset}) {
             const reply = await search({
-                q: query,
+                ...matching(query, queryOptions),
                 filter,
                 limit,
                 offset,
@@ -144,9 +155,9 @@ export function createMeilisearchContentSearch(options: {
             };
         },
 
-        async facets({query, filter, facets}) {
+        async facets({query, filter, options: queryOptions, facets}) {
             const reply = await search({
-                q: query,
+                ...matching(query, queryOptions),
                 filter,
                 limit: 0,
                 facets: [...new Set(["kind", ...facets])],
@@ -157,10 +168,10 @@ export function createMeilisearchContentSearch(options: {
             };
         },
 
-        async documents({query, filter, limit}) {
+        async documents({query, filter, options: queryOptions, limit}) {
             const reply = await guarded(() =>
                 client.search<{hits: ContentDocument[]}>(CONTENT_INDEX_UID, {
-                    q: query,
+                    ...matching(query, queryOptions),
                     filter,
                     limit,
                 }),

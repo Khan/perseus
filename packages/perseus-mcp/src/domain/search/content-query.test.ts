@@ -1,6 +1,7 @@
 import {
     contentIdFilter,
     filterExpression,
+    searchedFields,
     toHit,
     topValues,
 } from "./content-query";
@@ -71,6 +72,7 @@ describe("toHit", () => {
         widgetTypes: ["radio"],
         hintCount: 3,
         listed: true,
+        firstLine: "**Add $2+3$.**",
         text: "The whole text",
     };
 
@@ -92,8 +94,38 @@ describe("toHit", () => {
             widgetTypes: ["radio"],
             hintCount: 3,
             listed: true,
+            firstLine: "**Add $2+3$.**",
             snippet: "snippet",
         });
+    });
+
+    it.each([
+        ["empty", ""],
+        ["the whole text", "The whole text"],
+    ])("leaves out a snippet that's %s", (_case, snippet) => {
+        // Arrange, Act
+        const hit = toHit(document, snippet);
+
+        // Assert
+        expect(hit).not.toHaveProperty("snippet");
+    });
+});
+
+describe("searchedFields", () => {
+    it("names the document fields to search, each once", () => {
+        // Arrange, Act
+        const fields = searchedFields(["titles", "question", "titles"]);
+
+        // Assert
+        expect(fields).toEqual(["title", "problemType", "text"]);
+    });
+
+    it("searches every field when none are named", () => {
+        // Arrange, Act
+        const fields = searchedFields(undefined);
+
+        // Assert
+        expect(fields).toBeUndefined();
     });
 });
 
