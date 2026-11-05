@@ -118,6 +118,7 @@ from outside the repo.
 | Search drafts as published content is searched | Drafts get the same search as published content: the same document builder (`draftDocument`, speech included) puts each in a `perseus-drafts` index, with its exercises' names and problem types as its titles, and the tree placement of the published item it was imported from (`placementOf`). `withDraftIndexing` wraps the draft and exercise repositories, as `withDraftFeed` does, so every draft save upserts its document and every exercise save its drafts'; updates run one at a time in the background, never hold up a save, and log a failure once to get_server_info; every start replaces the index's documents with the data folder's drafts (`syncAll`). The search tools take `source` (published, the default; drafts; or all, through Meilisearch's federated multi-search with merged facets); a draft hit says `source: "draft"`, and its `itemPaths` read the draft as it is now. Drafts skip the listed-only default. get_server_info counts draft documents. From the repo only, as search is. Checked over MCP on throwaway drafts: a created draft found by speech, imported ones by course title, all sources together, facets of drafts. The first update waits a few seconds for the speech engine; updates pending when the server exits are caught up at the next start. |
 | Refuse diagrams that break the rules code can check | `create_graffiti` and `update_graffiti` (with a new script) don't keep a diagram, and say how to fix it, when a shape's style has a key Graffiti would ignore (such as `fill-opacity`), a line or a dot has a contrast under 3:1 on the background (grid lines aside), a label's color has one under 4.5:1 (WCAG 2.2's minimums), or a TeX label uses `\frac` or a number of five digits or more without `{,}`. Colors outside Khan's palette and one-word text labels come back as warnings. `review_item` lists what each diagram an item shows should fix (`checkDiagrams`). The runner now reports each shape's kind and style, since the SVG can't show keys Graffiti ignored. The checks are domain code (`diagram-checks.ts`); the reference lists them. Checked over MCP with a stand-in client on throwaway data: a polygon with `fill-opacity` and a `\frac` label was refused with both fixes, a one-word label got a warning, and a clean diagram neither. |
 | Give each server its own Vite cache | The browser preview went blank, every dependency answered with Vite's "504 Outdated Optimize Dep" until a restart: several perseus-mcp servers (one per Claude Desktop chat, plus any started by hand) shared `node_modules/.vite`, and two re-bundling at once deleted each other's `deps`. Each server now pre-bundles into a folder of its own in the system's temp folder, removed when Vite closes or the process exits (a killed process leaves it for the OS). The first page load of each new server is slower. Checked: two servers on one checkout served the grid and the list at once, each from its own folder; a stdio server removed its folder when stdin closed. |
+| Read TeX aloud with speak_math | An agent ran the speech engine itself to learn how a formula reads, so its speech query would match. `speak_math` reads formulas as the index does (`speakAll`: color macros out, ClearSpeak English) and says which aren't indexed as speech (a number, a letter). One reader is shared with the drafts' index, made when first needed. From the repo only, as search is. Plan: the Remaining list in order, and step 13 marked half done (its rules are the image-descriptions guideline topic; its tools aren't built). |
 
 Remaining, in order:
 
@@ -175,16 +176,20 @@ Remaining, in order:
       repository, plain Node, no jq or file globbing), selecting parts by
       JSON Pointer over named drafts, an exercise's or all, filtered by text
       and widget type. Done.
+   5. Checking search hits without importing: `fields` and `itemPaths`
+      on search_content. Done.
+   6. A tool that reads TeX aloud as the index does: `speak_math`.
+      Done.
    7. Search drafts as published content is searched: `source` on the
       search tools (published, drafts, all). Done. Unpublished content is
       out of scope for this project: it reaches production content only
       through a local snapshot.
-   5. Checking search hits without importing: `fields` and `itemPaths`
-      on search_content. Done.
-   6. A tool that reads a TeX string aloud as the index does.
 4. Build order steps 13 to 16. Steps 10 to 12 are done: the exercise page
    with its upload, Graffiti diagrams, and content search with guidelines
-   and fixes.
+   and fixes. Step 13 is half done: its rules are the guidelines'
+   image-descriptions topic (with math-images), which get_guidelines
+   gives agents; its tools (`describe_images`, validate_item's alt-text
+   checks, and alt-text entries in review_item's checklist) aren't built.
 
 Consuming applications aren't in this repo: the changesets carry the
 migration steps, and they're updated separately.
@@ -888,7 +893,9 @@ upload comes after step 11.
        guidelines from a local file whose path an environment variable
        names (the text isn't committed), and `apply_fix` applies rules code
        can apply to a set of drafts, with a dry run.
-13. **Alt text and long descriptions:** Claude infers each image's purpose
+13. **Alt text and long descriptions** (rules done, tools not): the rules
+    are the guidelines' image-descriptions topic, read with
+    get_guidelines; the tools below aren't built. Claude infers each image's purpose
     (assessment, instruction, decorative) from the item, writes `alt` and,
     when needed, `longDescription`, or sets `decorative`, and lists the
     purpose it assumed with them for the author to review, without

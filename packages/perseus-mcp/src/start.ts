@@ -233,6 +233,10 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
         build.source === "bundle"
             ? undefined
             : createMeilisearchContentSearch(searchConfig);
+    // The math reader, made once for the drafts' index and speak_math: it
+    // loads MathJax's speech engine.
+    let speechReady: Promise<(tex: string) => string> | null = null;
+    const speech = () => (speechReady ??= createSreMathSpeech());
     // Drafts are searched as published content is: every save is indexed.
     let indexingWarned = false;
     const draftIndexing =
@@ -244,7 +248,7 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
                   index: createMeilisearchDraftIndex(searchConfig),
                   placementOf: (contentId) =>
                       contentSearch.placementOf(contentId),
-                  speak: createSreMathSpeech,
+                  speak: speech,
                   // Once for get_server_info: with Meilisearch stopped,
                   // every save would fail the same way.
                   log: (message) => {
@@ -335,6 +339,7 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
                   exercises: useCases.exercises,
                   snapshotDir: process.env.PERSEUS_MCP_CONTENT_SNAPSHOT,
                   drafts: repository,
+                  speak: speech,
               });
     // Brings the drafts' index up to date, in the background.
     void draftIndexing?.syncAll();

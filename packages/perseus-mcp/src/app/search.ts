@@ -9,6 +9,7 @@ import {
     toHit,
     topValues,
 } from "../domain/search/content-query";
+import {readsAsItself, speakAll} from "../domain/search/math-speech";
 
 import {SearchUnavailableError} from "./errors";
 
@@ -46,6 +47,8 @@ export type SearchDependencies = {
     snapshotDir?: string;
     /** The drafts, whose parts a drafts hit's itemPaths read. */
     drafts?: DraftRepository;
+    /** Reads TeX aloud as the index does, made once, when first needed. */
+    speak?: () => Promise<(tex: string) => string>;
 };
 
 /** What to search: published content, the person's drafts, or both. */
@@ -118,6 +121,27 @@ export function createSearchUseCases(deps: SearchDependencies) {
 
     return {
         status: () => search.status(),
+
+        /**
+         * Each formula read aloud as the index reads it, so a query for the
+         * speech field can use the same words. A formula that reads as its
+         * own TeX (a number, a letter) isn't indexed as speech: it says so.
+         */
+        async speakMath(
+            texts: ReadonlyArray<string>,
+        ): Promise<Array<{tex: string; speech: string; indexed: boolean}>> {
+            if (deps.speak == null) {
+                throw new SearchUnavailableError(
+                    "math can't be read aloud in this build.",
+                );
+            }
+            const speak = await deps.speak();
+            return texts.map((tex) => ({
+                tex,
+                speech: speakAll([tex], speak)[0] ?? tex,
+                indexed: !readsAsItself(tex),
+            }));
+        },
 
         async searchContent(input: {
             query?: string;

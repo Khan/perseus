@@ -290,6 +290,35 @@ export function registerSearchTools(
     );
 
     server.registerTool(
+        "speak_math",
+        {
+            title: "Read TeX aloud as search does",
+            description:
+                "Read each TeX formula aloud as the search index does " +
+                "(MathJax's speech engine, ClearSpeak English, Khan " +
+                'Academy\'s color macros left out): "\\sqrt{x^2+1}" is ' +
+                '"the square root of x squared plus 1". Use it to write a ' +
+                'speech query (searchIn ["speech"], the phrase in double ' +
+                "quotes) that matches the math you mean, rather than " +
+                "guessing the words or running the engine yourself. A " +
+                "formula that reads as its own TeX (a number or a single " +
+                "letter) isn't indexed as speech; `indexed` says so.",
+            inputSchema: z.object({
+                tex: z
+                    .array(z.string().min(1))
+                    .min(1)
+                    .max(50)
+                    .describe("The formulas, without their $ delimiters."),
+            }),
+            annotations: {readOnlyHint: true},
+        },
+        ({tex}) =>
+            run("speak_math", async () =>
+                jsonResult({readings: await search.speakMath(tex)}),
+            ),
+    );
+
+    server.registerTool(
         "import_from_search",
         {
             title: "Make drafts of items found by search",

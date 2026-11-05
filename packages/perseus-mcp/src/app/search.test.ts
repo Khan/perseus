@@ -396,3 +396,41 @@ describe("searching drafts", () => {
         });
     });
 });
+
+describe("speakMath", () => {
+    it("reads each formula as the index does, without colors", async () => {
+        // Arrange
+        const {exercises} = fakeExercises();
+        const useCases = createSearchUseCases({
+            search: fakeSearch([]),
+            content,
+            exercises,
+            speak: async () => (tex) => `read ${tex}`,
+        });
+
+        // Act
+        const readings = await useCases.speakMath(["\\blue{x^2}", "5"]);
+
+        // Assert
+        expect(readings).toEqual([
+            {tex: "\\blue{x^2}", speech: "read {x^2}", indexed: true},
+            {tex: "5", speech: "5", indexed: false},
+        ]);
+    });
+
+    it("throws when there's no reader", async () => {
+        // Arrange
+        const {exercises} = fakeExercises();
+        const useCases = createSearchUseCases({
+            search: fakeSearch([]),
+            content,
+            exercises,
+        });
+
+        // Act
+        const readings = useCases.speakMath(["x^2"]);
+
+        // Assert
+        await expect(readings).rejects.toThrow(SearchUnavailableError);
+    });
+});
