@@ -223,13 +223,6 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
     // Set once the HTTP server is listening.
     let baseUrl: string | null = null;
 
-    // Content search runs in a local Meilisearch (see the README); its tools
-    // say how to start it when it isn't running.
-    const contentSearch = createMeilisearchContentSearch({
-        url: process.env.PERSEUS_MCP_SEARCH_URL ?? "http://localhost:7700",
-        apiKey: process.env.PERSEUS_MCP_SEARCH_KEY,
-    });
-
     const catalog = createCatalog(
         createPerseusCoreSchemaSource(paths.perseusCoreTypesDir),
     );
@@ -270,12 +263,23 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
         }),
         graffiti,
     };
-    const search = createSearchUseCases({
-        search: contentSearch,
-        content: createSnapshotContentSource(),
-        exercises: useCases.exercises,
-        snapshotDir: process.env.PERSEUS_MCP_CONTENT_SNAPSHOT,
-    });
+    // Content search runs in a local Meilisearch (see the README); its tools
+    // say how to start it when it isn't running. Only from the repo for now:
+    // the testers' bundle leaves it out, tools and all.
+    const search =
+        build.source === "bundle"
+            ? undefined
+            : createSearchUseCases({
+                  search: createMeilisearchContentSearch({
+                      url:
+                          process.env.PERSEUS_MCP_SEARCH_URL ??
+                          "http://localhost:7700",
+                      apiKey: process.env.PERSEUS_MCP_SEARCH_KEY,
+                  }),
+                  content: createSnapshotContentSource(),
+                  exercises: useCases.exercises,
+                  snapshotDir: process.env.PERSEUS_MCP_CONTENT_SNAPSHOT,
+              });
     // The guidelines' text is the organization's, kept in a local file.
     const guidelines = createGuidelineUseCases({
         source: fileGuidelinesSource(process.env.PERSEUS_MCP_GUIDELINES),
@@ -309,7 +313,13 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
                 values.pages != null || build.source === "bundle"
                     ? "prebuilt"
                     : "compiled by Vite",
-            search: await search.status(),
+            search:
+                search == null
+                    ? {
+                          available: false,
+                          reason: "content search isn't part of this build",
+                      }
+                    : await search.status(),
             guidelines: await guidelines.status(),
             errors: errors.recent(),
         });

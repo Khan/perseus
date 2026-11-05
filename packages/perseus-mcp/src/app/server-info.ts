@@ -52,8 +52,11 @@ export type ServerFacts = {
     /** Null when the HTTP server isn't listening. */
     httpUrl: string | null;
     previewPages: "prebuilt" | "compiled by Vite";
-    /** Content search: what its index holds, or why it can't be used. */
-    search: SearchStatus;
+    /**
+     * Content search: what its index holds, or why it can't be used, or
+     * that this build leaves it out.
+     */
+    search: SearchStatus | {available: false; reason: string};
     /** The content guidelines: where they're read from, or why not. */
     guidelines: GuidelinesStatus;
     errors: RecordedError[];

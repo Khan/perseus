@@ -24,9 +24,29 @@ import type {ErrorLog, ServerInfo} from "../../app/server-info";
 import type {WidgetUseCases} from "../../app/widgets";
 import type {CallToolResult} from "@modelcontextprotocol/server";
 
-// Sent to the agent when it connects (the `instructions` field of the MCP
-// initialize result); hosts may add it to the agent's system prompt.
-const INSTRUCTIONS = `\
+// The instructions' paragraph on content search, given only when the search
+// tools are there, so the agent isn't told of tools it doesn't have.
+const SEARCH_INSTRUCTIONS = `\
+Find published content with search: search_content searches an index of a
+content snapshot (items and articles, placed in their domain, course, unit
+and lesson), facet_content counts it by any field (courses, widget types,
+option values) without reading it, and import_from_search makes drafts of the
+items found, an exercise per exercise they're from. For work across many
+items ("this course", "items using radio"), narrow with filters first and
+read or import only what the task needs; do what code can (counts, filters)
+with these tools rather than by reading items. Search covers only what
+learners see unless includeUnlisted is set. When search isn't available, the
+tools say why and how to start it.
+
+`;
+
+/**
+ * Sent to the agent when it connects (the `instructions` field of the MCP
+ * initialize result); hosts may add it to the agent's system prompt.
+ */
+function instructions(withSearch: boolean): string {
+    const searchInstructions = withSearch ? SEARCH_INSTRUCTIONS : "";
+    return `\
 Tools for authoring Perseus items (Khan Academy exercise content).
 
 Work on drafts: create_item (for new content) or open_item (for an existing
@@ -58,18 +78,7 @@ revision of it, and an image widget shows its latest revision, so an item
 needn't change when its diagram does. preview_graffiti returns the URL of a
 page showing a diagram, which follows its changes.
 
-Find published content with search: search_content searches an index of a
-content snapshot (items and articles, placed in their domain, course, unit
-and lesson), facet_content counts it by any field (courses, widget types,
-option values) without reading it, and import_from_search makes drafts of the
-items found, an exercise per exercise they're from. For work across many
-items ("this course", "items using radio"), narrow with filters first and
-read or import only what the task needs; do what code can (counts, filters)
-with these tools rather than by reading items. Search covers only what
-learners see unless includeUnlisted is set. When search isn't available, the
-tools say why and how to start it.
-
-To check or change items against the content guidelines, read the guideline
+${searchInstructions}To check or change items against the content guidelines, read the guideline
 with get_guidelines first. Apply what a fix covers (such as bolding every
 question's first line, or replacing a phrase) with apply_fix across the
 drafts at once, dry run first; read items only for rules that need judgment
@@ -95,6 +104,7 @@ issues, and a preview of the one selected. A URL works while this server
 runs, and each start of the server gives new ones: when a person says a
 preview link stopped working, call preview_item (or preview_exercise) again
 for the same draft and give them the new URL.`;
+}
 
 // A JSON Patch (RFC 6902) against a PerseusItem's JSON.
 const patchSchema = z
@@ -176,7 +186,7 @@ export function createMcpServer({
 }): McpServer {
     const server = new McpServer(
         {name: "perseus", version: libVersion},
-        {instructions: INSTRUCTIONS},
+        {instructions: instructions(search != null)},
     );
 
     // Every tool's errors are recorded under its name.
