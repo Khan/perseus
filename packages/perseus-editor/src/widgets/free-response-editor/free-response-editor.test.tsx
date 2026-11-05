@@ -10,6 +10,7 @@ import FreeResponseEditor from "./free-response-editor";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {UserEvent} from "@testing-library/user-event";
 
+// TODO(benchristel): Remove forwardRef; no one gets a ref to this component.
 const HarnessedEditor = React.forwardRef<
     FreeResponseEditor,
     Partial<PropsFor<typeof FreeResponseEditor>>
@@ -158,49 +159,6 @@ describe("free-response editor", () => {
                 scoringCriteria: [{text: "2"}],
             }),
         );
-    });
-
-    it("returns a warning when the question is empty", async () => {
-        // Arrange
-        const ref = React.createRef<FreeResponseEditor>();
-
-        // Act
-        render(<HarnessedEditor ref={ref} question="" />);
-
-        // Assert
-        expect(ref.current?.getSaveWarnings()).toEqual([
-            "The question is empty",
-        ]);
-    });
-
-    it("returns a warning when the question contains a widget placeholder", async () => {
-        // Arrange
-        const ref = React.createRef<FreeResponseEditor>();
-
-        // Act
-        render(<HarnessedEditor ref={ref} question="[[☃ radio 1]]" />);
-
-        // Assert
-        expect(ref.current?.getSaveWarnings()).toEqual([
-            "The question contains a widget",
-        ]);
-    });
-
-    it("does not return a warning when the placeholder is empty", async () => {
-        // Arrange
-        const ref = React.createRef<FreeResponseEditor>();
-
-        // Act
-        render(
-            <HarnessedEditor
-                ref={ref}
-                placeholder=""
-                question="test-question"
-            />,
-        );
-
-        // Assert
-        expect(ref.current?.getSaveWarnings()).toEqual([]);
     });
 
     it("adds another criterion when the add button is clicked", async () => {

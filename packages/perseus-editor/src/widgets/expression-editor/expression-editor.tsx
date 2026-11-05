@@ -1,4 +1,3 @@
-import * as KAS from "@khanacademy/kas";
 import {components, Expression} from "@khanacademy/perseus";
 import {
     PerseusExpressionAnswerFormConsidered,
@@ -13,7 +12,6 @@ import {Heading, BodyText} from "@khanacademy/wonder-blocks-typography";
 import {isTruthy} from "@khanacademy/wonder-stuff-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-import _ from "underscore";
 
 import InfoTip from "../../components/info-tip";
 
@@ -86,42 +84,6 @@ class ExpressionEditor extends React.Component<Props, State> {
             ...changes,
         });
     }
-
-    // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
-    // the new linter rules for save warnings.
-    getSaveWarnings: () => any = () => {
-        const issues: Array<any | string> = [];
-
-        if (this.props.answerForms.length === 0) {
-            issues.push("No answers specified");
-        } else {
-            const hasCorrect = this.props.answerForms.some((form) => {
-                return form.considered === "correct";
-            });
-            if (!hasCorrect) {
-                issues.push("No correct answer specified");
-            }
-
-            _(this.props.answerForms).each((form, ix) => {
-                // TODO(benchristel): validate that `form.value` isn't blank?
-
-                // note we're not using icu for content creators
-                const expression = KAS.parse(form.value, {
-                    functions: this.props.functions,
-                });
-                if (!expression.parsed) {
-                    issues.push(`Couldn't parse ${form.value}`);
-                } else if (form.simplify && !expression.expr.isSimplified()) {
-                    issues.push(
-                        `${form.value} isn't simplified, but is required" +
-                        " to be`,
-                    );
-                }
-            });
-        }
-
-        return issues;
-    };
 
     newAnswer: () => void = () => {
         const answerForms = this.props.answerForms.slice();
