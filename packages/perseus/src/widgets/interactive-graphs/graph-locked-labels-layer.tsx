@@ -147,21 +147,31 @@ export default function GraphLockedLabelsLayer(props: Props) {
 
             if (figure.type === "line") {
                 const [point1, point2] = figure.points;
-                // A ray carries on past its second point to the edge of the
-                // graph, so the stroke labels have to avoid runs further than
-                // the two points that define it. This is the same call the
-                // line itself is drawn with, so the two always agree.
-                const drawnEnd =
-                    figure.kind === "ray"
+                // Rays and infinite lines carry on past the points that
+                // define them, so the stroke labels have to avoid runs
+                // further than those points: a ray past its second point, a
+                // line past both. These are the same calls the line itself is
+                // drawn with, so the obstacle always matches the stroke.
+                const extendsForward =
+                    figure.kind === "ray" || figure.kind === "line";
+                const drawnFrom =
+                    figure.kind === "line"
                         ? getIntersectionOfRayWithBox(
-                              point1.coord,
                               point2.coord,
+                              point1.coord,
                               range,
                           )
-                        : point2.coord;
+                        : point1.coord;
+                const drawnTo = extendsForward
+                    ? getIntersectionOfRayWithBox(
+                          point1.coord,
+                          point2.coord,
+                          range,
+                      )
+                    : point2.coord;
                 const segment: SegmentObstacle = {
-                    from: point1.coord,
-                    to: drawnEnd,
+                    from: drawnFrom,
+                    to: drawnTo,
                     strokeWidth: strokeWeights[figure.weight],
                 };
                 segmentObstacles.push(segment);
