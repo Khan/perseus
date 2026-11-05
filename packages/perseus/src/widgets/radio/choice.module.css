@@ -234,6 +234,7 @@
         :global(+ .deprecated-perseus-container)
     ) {
     display: block;
+    margin-block: var(--wb-sizing-size_160);
 }
 
 /* Remove the leading margin when the first paragraph is an image, for better alignment with the choice indicator */
