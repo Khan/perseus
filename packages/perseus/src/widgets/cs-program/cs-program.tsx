@@ -212,7 +212,7 @@ function getStartUserInput(): PerseusCSProgramUserInput {
 
 export default {
     name: "cs-program",
-    displayName: "CS Program",
+    displayName: "CS Program (articles only)",
     widget: CSProgram,
     hidden: true,
     getStartUserInput,

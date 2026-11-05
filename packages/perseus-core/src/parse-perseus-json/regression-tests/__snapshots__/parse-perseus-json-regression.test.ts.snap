@@ -849,7 +849,7 @@ exports[`parseAndMigratePerseusItem given cs-program-missing-static.ts returns t
           "showButtons": false,
           "showEditor": false,
         },
-        "static": false,
+        "static": undefined,
         "type": "cs-program",
         "version": {
           "major": 0,
@@ -944,7 +944,7 @@ exports[`parseAndMigratePerseusItem given cs-program-with-null-width.ts returns 
           "showButtons": true,
           "showEditor": true,
         },
-        "static": false,
+        "static": undefined,
         "type": "cs-program",
         "version": {
           "major": 0,

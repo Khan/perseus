@@ -19,7 +19,6 @@ import type {WidgetProps} from "./types";
 // and then delete this list after every widget handles its own
 // static elements.
 const widgetsNeedingOverlay: string[] = [
-    "cs-program",
     "expression",
     "free-response",
     "graded-group",

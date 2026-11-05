@@ -20,4 +20,6 @@ export const parseCSProgramWidget = parseWidget(
         showButtons: boolean,
         height: number,
     }),
+    // CS Program just points to an iframe and doesn't have a readonly state.
+    {supportsStatic: false},
 );
