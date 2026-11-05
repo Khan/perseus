@@ -166,3 +166,22 @@ export const TallColorfulList: Story = {
         padding: true,
     },
 };
+
+export const StaticOrderMatters: Story = {
+    decorators: [matcherRendererDecorator],
+    args: {
+        ...sharedArgs,
+        orderMatters: true,
+    },
+    parameters: {
+        static: true,
+    },
+};
+
+export const Static: Story = {
+    decorators: [matcherRendererDecorator],
+    args: sharedArgs,
+    parameters: {
+        static: true,
+    },
+};
