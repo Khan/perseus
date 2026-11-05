@@ -1,5 +1,6 @@
 // What get_server_info reports when a person has a problem: enough to
 // diagnose it from, and nothing of their items.
+import type {GuidelinesStatus} from "./guidelines";
 import type {BuildInfo} from "../build-info";
 import type {SearchStatus} from "../ports/content-search";
 
@@ -53,6 +54,8 @@ export type ServerFacts = {
     previewPages: "prebuilt" | "compiled by Vite";
     /** Content search: what its index holds, or why it can't be used. */
     search: SearchStatus;
+    /** The content guidelines: where they're read from, or why not. */
+    guidelines: GuidelinesStatus;
     errors: RecordedError[];
 };
 
@@ -89,6 +92,7 @@ export function describeServer(facts: ServerFacts) {
                       pages: facts.previewPages,
                   },
         search: facts.search,
+        guidelines: facts.guidelines,
         recentErrors: facts.errors,
     };
 }

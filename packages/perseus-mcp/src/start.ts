@@ -20,6 +20,7 @@ import {
 } from "./adapters/fs/file-draft-repository";
 import {FileExerciseRepository} from "./adapters/fs/file-exercise-repository";
 import {FileGraffitiRepository} from "./adapters/fs/file-graffiti-repository";
+import {fileGuidelinesSource} from "./adapters/fs/file-guidelines-source";
 import {nodeExportFileWriter} from "./adapters/fs/node-export-file-writer";
 import {nodeItemFileReader} from "./adapters/fs/node-item-file-reader";
 import {createPerseusCoreSchemaSource} from "./adapters/fs/perseus-core-schema-source";
@@ -37,8 +38,10 @@ import {withDraftFeed} from "./app/draft-feed";
 import {createDraftUseCases} from "./app/drafts";
 import {withExerciseFeed} from "./app/exercise-feed";
 import {createExerciseUseCases} from "./app/exercises";
+import {createFixUseCases} from "./app/fixes";
 import {createGraffitiUseCases} from "./app/graffiti";
 import {withGraffitiFeed} from "./app/graffiti-feed";
+import {createGuidelineUseCases} from "./app/guidelines";
 import {createPreviewUseCases} from "./app/preview";
 import {createReviewUseCases} from "./app/review";
 import {createScoringUseCases} from "./app/scoring";
@@ -273,6 +276,15 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
         exercises: useCases.exercises,
         snapshotDir: process.env.PERSEUS_MCP_CONTENT_SNAPSHOT,
     });
+    // The guidelines' text is the organization's, kept in a local file.
+    const guidelines = createGuidelineUseCases({
+        source: fileGuidelinesSource(process.env.PERSEUS_MCP_GUIDELINES),
+    });
+    const fixes = createFixUseCases({
+        drafts: repository,
+        draftUseCases: useCases.drafts,
+        exercises: useCases.exercises,
+    });
 
     // The browser preview's pages, and the page MCP Apps hosts show in the chat.
     const {createPreview, previewApp} = previewSource(values.pages);
@@ -298,6 +310,7 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
                     ? "prebuilt"
                     : "compiled by Vite",
             search: await search.status(),
+            guidelines: await guidelines.status(),
             errors: errors.recent(),
         });
 
@@ -328,6 +341,8 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
         createMcpServer({
             ...useCases,
             search,
+            guidelines,
+            fixes,
             previewApp,
             serverInfo,
             errors,

@@ -7,12 +7,15 @@ import {libVersion} from "../../version";
 
 import {registerExerciseTools} from "./exercise-tools";
 import {registerGraffitiTools} from "./graffiti-tools";
+import {registerGuidelineTools} from "./guideline-tools";
 import {registerSearchTools} from "./search-tools";
 import {errorResult, jsonResult, runTool} from "./tool-results";
 
 import type {DraftUseCases} from "../../app/drafts";
 import type {ExerciseUseCases} from "../../app/exercises";
+import type {FixUseCases} from "../../app/fixes";
 import type {GraffitiUseCases} from "../../app/graffiti";
+import type {GuidelineUseCases} from "../../app/guidelines";
 import type {PreviewUseCases} from "../../app/preview";
 import type {ReviewUseCases} from "../../app/review";
 import type {ScoringUseCases} from "../../app/scoring";
@@ -65,6 +68,12 @@ read or import only what the task needs; do what code can (counts, filters)
 with these tools rather than by reading items. Search covers only what
 learners see unless includeUnlisted is set. When search isn't available, the
 tools say why and how to start it.
+
+To check or change items against the content guidelines, read the guideline
+with get_guidelines first. Apply what a fix covers (such as bolding every
+question's first line, or replacing a phrase) with apply_fix across the
+drafts at once, dry run first; read items only for rules that need judgment
+(such as whether hints give the answer away too soon).
 Read files by path; don't paste their contents into a call.
 
 list_widgets and get_widget_spec describe each widget's options; validate_item
@@ -138,6 +147,8 @@ export function createMcpServer({
     exercises,
     graffiti,
     search,
+    guidelines,
+    fixes,
     serverInfo,
     errors,
     dataDir,
@@ -148,6 +159,9 @@ export function createMcpServer({
     graffiti?: GraffitiUseCases;
     /** Content search; its tools are left out when it's missing. */
     search?: SearchUseCases;
+    /** Content guidelines and fixes; their tools are left out if missing. */
+    guidelines?: GuidelineUseCases;
+    fixes?: FixUseCases;
     /** What get_server_info reports. */
     serverInfo?: () => Promise<ServerInfo>;
     /** Where tool errors are recorded, for get_server_info. */
@@ -190,7 +204,8 @@ export function createMcpServer({
                     "transport, Node, the operating system, the data folder " +
                     "and how many drafts it holds, whether previews are " +
                     "served, whether content search is available (and what " +
-                    "its index holds, or why not), and the last errors. It " +
+                    "its index holds, or why not), whether the content " +
+                    "guidelines are set up, and the last errors. It " +
                     "holds nothing of the person's items.",
                 inputSchema: z.object({}),
                 annotations: {readOnlyHint: true},
@@ -501,6 +516,9 @@ export function createMcpServer({
     }
     if (search != null) {
         registerSearchTools(server, {search, run});
+    }
+    if (guidelines != null && fixes != null) {
+        registerGuidelineTools(server, {guidelines, fixes, run});
     }
 
     server.registerTool(

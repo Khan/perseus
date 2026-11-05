@@ -21,6 +21,7 @@ const facts: ServerFacts = {
         url: "http://localhost:7700",
         reason: "nothing answered",
     },
+    guidelines: {available: false, reason: "no guidelines are set up"},
     errors: [],
 };
 

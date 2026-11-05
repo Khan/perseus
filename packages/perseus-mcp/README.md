@@ -86,6 +86,17 @@ where it is, for the build and for the server. The server's
 built from, or `PERSEUS_MCP_CONTENT_SNAPSHOT` when that's set.
 `get_server_info` says whether search is available.
 
+## Content guidelines
+
+`get_guidelines` reads your organization's content guidelines from a local
+Markdown file, so their text needn't be in this repository: export them
+(from a shared document, say) and set `PERSEUS_MCP_GUIDELINES` to the
+file's path in the server's environment (the `env` of its entry in Claude
+Desktop's config). The file is read on each call, so edits apply without a
+restart. `apply_fix` applies the rules code can apply (`bold-first-line`,
+`replace-text`) across drafts, as a dry run first. `get_server_info` says
+whether the guidelines are set up.
+
 ## Code layout
 
 Hexagonal (ports and adapters):

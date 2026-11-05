@@ -37,7 +37,12 @@ export type DraftDependencies = {
 export type ItemSource = {item: unknown} | {path: string};
 
 /** A change to a draft: a JSON Patch to its item, new notes, or both. */
-export type DraftEdit = {patch?: ReadonlyArray<PatchOperation>; notes?: string};
+export type DraftEdit = {
+    patch?: ReadonlyArray<PatchOperation>;
+    notes?: string;
+    /** What made the revision, when it's more than the patch says. */
+    change?: string;
+};
 
 /** A new or changed draft and its warnings, or why nothing was saved. */
 export type DraftChangeResult =
@@ -158,7 +163,7 @@ export function createDraftUseCases(deps: DraftDependencies) {
             const revised = reviseDraft(draft, {
                 item,
                 notes: edit.notes,
-                change: describeEdit(edit),
+                change: edit.change ?? describeEdit(edit),
                 now: deps.now(),
             });
             drafts.save(revised);

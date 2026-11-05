@@ -103,6 +103,7 @@ from outside the repo.
 | Search published content from perseus-mcp | Build order step 12, commit 2 of 3. `search_content`, `facet_content` and `import_from_search` (`app/search.ts`, `adapters/mcp/search-tools.ts`), searching only listed content unless `includeUnlisted`, through a `ContentSearch` port (`createMeilisearchContentSearch`, at `PERSEUS_MCP_SEARCH_URL`) and a `ContentSource` that reads items back from the snapshot. Filters become a Meilisearch filter in `filterExpression`; hits are cut down by `toHit`. An import makes one exercise per source exercise through the new `importItems` (sharing `saveImport` with `import_exercise`). `get_server_info` is now async and reports search. The index build also writes `perseus-content-meta`. The instructions tell agents to narrow with search and count with facets before reading items. Checked over MCP against the real index: search, counts by course and by option value, a raw filter, and importing an exercise's 30 items (two problem types) and one item by id. |
 | Show diagrams in the chat preview | Build order step 11, commit 3 of 4 (done before the browser commit, since the chat preview is the one that can't reach the local server). `get_preview_draft` finds the `web+graphie://perseus-mcp.localhost/graffiti/<id>` URLs in the draft and sends the drawing (SVG and label data) of each diagram whose revision isn't in the page's `diagramRevisions`; a new revision of a diagram counts as a change even when the draft hasn't changed, and ids that name no diagram come back as `missingDiagrams`, named in the page's status line. The page keeps the drawings and gives Perseus its own `generateUrl` (`Exercise` now takes `dependencies`): a diagram's image becomes a `data:image/svg+xml` URL, which MCP Apps' default CSP allows, and its label data URL names the revision, since Perseus keeps label data by URL; the page answers Perseus's `fetch` of that URL itself, since the host's CSP would block it, and 404s anything else at the diagram host (so other locales fall back to English). `resourceDomains` for the local server wasn't tried: this works under any host and once hosted, and the port changes from run to run. An image widget still needs the diagram's `width` and `height`: without them Perseus measures the image by loading the original URL. Checked over MCP (first poll, unchanged poll, poll after `update_graffiti`). Seen in the chat preview, the images didn't load: Perseus's `ImageLoader` preloaded each image from its original URL and only the `<img>` it then rendered went through `generateUrl`, so a rewritten URL never loaded; it now preloads from `generateUrl`'s URL (in the same changeset as the label data). |
 | Preview diagrams in the browser | Build order step 11, commit 4 of 4, which finishes step 11 (commit 3, the chat preview, was seen working in Claude Desktop). `/graffiti/<graffitiId>` is a diagram's page: the diagram as Perseus shows it, labels included, in the preview frame, with its notes and a picker for its earlier revisions; it follows `/graffiti/<graffitiId>/events`, sent on connect and after each new revision, and measures each revision from its SVG, since an image widget needs its size. `preview_graffiti` returns the page's URL. The draft preview now shows diagrams too: `/drafts/<itemId>/events` sends the latest revision of each diagram the draft shows and is sent again when one of them changes (`watchDraftPreview`, over a `withGraffitiFeed` repository wrapper), the page names those revisions in the item's URLs (`pinDiagramRevisions`) so Perseus loads a new revision's labels, and the frame's `generateUrl` sends `https://perseus-mcp.localhost/...` to the server that serves the page. Checked in a browser from a check server: the diagram page at its latest and an earlier revision, and the draft preview following two `update_graffiti` calls without reloading. The diagram page shows the diagram as an article section (the frame now renders `article-section` content), so there's no "Check answer" button and no hints; its render marker comes from `ArticleRenderer`'s new `onRendered`, which reports once every section's images and math have rendered, as `ServerItemRenderer`'s does. |
+| Apply content guidelines and fixes to many drafts | Build order step 12, commit 3 of 3, which finishes step 12. `get_guidelines` reads the organization's content guidelines from a local Markdown file (`PERSEUS_MCP_GUIDELINES`; the text isn't in the repo), whole when short or by section heading (`splitSections`, `findSections`), and lists the fixes there are. `apply_fix` applies a fix (`domain/fixes/`: `bold-first-line`, and `replace-text`, plain or regex, in the question, hints or both) to named drafts or every draft of an exercise; a dry run (the default) says what would change, with the changed lines; a real run saves each change as a revision (`change: apply_fix: <fix>`; `DraftEdit` gains `change`), validated like any edit, so one that would break an item is rejected. Unchanged drafts are counted by reason, not listed. `get_server_info` reports whether guidelines are set up. The instructions tell agents to read the guideline first, apply what a fix covers with `apply_fix`, and read items only for rules that need judgment. Checked over MCP with a stand-in client on throwaway drafts: an exercise whose first lines were all bold was left unchanged; one with 30 that weren't was bolded, as revision 2 of each. |
 
 Remaining, in order:
 
@@ -148,8 +149,8 @@ Remaining, in order:
       options' graph types).
 3. Build order step 11 (`create_graphie`), then step 10's upload, then
    steps 12 to 16. Step 12 (content search) started alongside step 11's
-   last commits: its first two commits (the search index, and the search
-   tools) are done; the third, guidelines and fixers, is next.
+   last commits, and is done: the search index, the search tools, and
+   guidelines with fixes.
 
 Consuming applications aren't in this repo: the changesets carry the
 migration steps, and they're updated separately.
@@ -774,10 +775,10 @@ upload comes after step 11.
     2. **Search tools** (done): `search_content`, `facet_content` and
        `import_from_search` (listed content unless asked otherwise), and
        search status in `get_server_info`.
-    3. **Guidelines and fixers:** content guidelines loaded from a local
-       file whose path an environment variable names (the text isn't
-       committed), and tools that apply rules code can apply to a set of
-       drafts, with a dry run.
+    3. **Guidelines and fixers** (done): `get_guidelines` reads content
+       guidelines from a local file whose path an environment variable
+       names (the text isn't committed), and `apply_fix` applies rules code
+       can apply to a set of drafts, with a dry run.
 13. **Alt text and long descriptions:** Claude infers each image's purpose
     (assessment, instruction, decorative) from the item, writes `alt` and,
     when needed, `longDescription`, or sets `decorative`, and lists the
@@ -905,6 +906,19 @@ no tokens go on items the agent doesn't need to read.
     refused.
   - `get_server_info` reports search: available with the document count and
     snapshot, or why not.
+- **Guidelines and fixes** (`get_guidelines`, `apply_fix`): the guidelines
+  are a Markdown file named by `PERSEUS_MCP_GUIDELINES`, read on each call
+  and split at its headings, so an agent asks for the section a task needs.
+  A fix proposes whole-string replacements of content (`/question/content`,
+  `/hints/<n>/content`), applied as a JSON Patch so the result is validated.
+  `bold-first-line` skips a first line that's already bold or isn't prose
+  (a widget, image, heading, list, table, quote, code), and removes bold
+  inside the line; it bolds whatever the first line is, so a dry run is
+  where to catch items whose first line is a setup sentence rather than
+  the question. `replace-text` is for mechanical wording changes. Rules
+  that need judgment (hints that give the answer away early) stay with the
+  agent, after search has narrowed the items. Not done: more fixes, and
+  marking in the guidelines file which rules a fix covers.
 
 ## Graphie images
 

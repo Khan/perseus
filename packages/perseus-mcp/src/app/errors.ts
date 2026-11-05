@@ -115,3 +115,19 @@ export class SearchUnavailableError extends Error {
         this.name = "SearchUnavailableError";
     }
 }
+
+/** No content guidelines can be read: its message says why and what to do. */
+export class GuidelinesUnavailableError extends Error {
+    constructor(reason: string) {
+        super(`Content guidelines aren't available: ${reason}`);
+        this.name = "GuidelinesUnavailableError";
+    }
+}
+
+/** A fix asked for with options it can't use. */
+export class InvalidFixError extends Error {
+    constructor(message: string) {
+        super(message);
+        this.name = "InvalidFixError";
+    }
+}
