@@ -40,9 +40,9 @@ How the work is done. An agent resuming this plan follows these rules exactly.
 
 ## Status
 
-**Build order steps 1 to 12 are done. Next are the Graffiti tasks in
-"Next: diagrams that follow the guidelines" below, then step 13 (alt
-text).** The commits below are on
+**Build order steps 1 to 12 are done. Next is "Next: an exercise's items
+as a grid" below, then the Graffiti tasks in "Next: diagrams that follow
+the guidelines", then step 13 (alt text).** The commits below are on
 `jer/perseus-mcp`, oldest first, and every tool was smoke-tested over stdio
 from outside the repo.
 
@@ -160,9 +160,30 @@ Remaining, in order:
 Consuming applications aren't in this repo: the changesets carry the
 migration steps, and they're updated separately.
 
+## Next: an exercise's items as a grid
+
+The immediate next task. A content author reviewing an exercise wants to see
+many of its items at once, as learners on phones see them; the exercise page
+shows one at a time, as on desktop.
+
+- **A grid page,** `/exercises/<exerciseId>/grid`: every item in a frame of
+  its own at phone width (about 375 px), wrapped into as many columns as
+  the window fits, grouped by problem type.
+- **Rendered as on mobile:** the preview applies `PreviewOptions.isMobile`
+  (which "Later work"'s side-by-side comparison needs too), so widgets and
+  layout are the mobile ones.
+- **Live:** each frame follows its draft's changes, like the item preview.
+- **Fast for large exercises:** frames load as they scroll into view.
+- **Each frame labelled** with its problem type, its validation issues and
+  a link to the item's own page; a filter to show only items with issues.
+- **Linked:** the exercise page links to it, and `preview_exercise` returns
+  its URL with the tree page's. Whether the chat preview shows it too is to
+  decide.
+- Checked in the browser with an imported exercise of 30 or more items.
+
 ## Next: diagrams that follow the guidelines
 
-The immediate next tasks, in order. They come from a usage test (an agent
+The tasks after the grid, in order. They come from a usage test (an agent
 drawing a parallelogram with congruence marks, graffiti `5b689200`, went to
 read Graffiti's source for what the tools don't say) and from the
 `math-images` guideline topic. Content authors won't have Graffiti's or
