@@ -6,6 +6,7 @@ import {
     copyFile,
     cp,
     mkdir,
+    readdir,
     readFile,
     rm,
     writeFile,
@@ -14,6 +15,7 @@ import path from "node:path";
 
 import {productionBuild} from "../src/adapters/preview/vite-shared";
 import {gitCommit} from "../src/build-info";
+import {checkoutGuidanceDir} from "../src/runtime-paths";
 
 import {buildPages} from "./build-pages-lib";
 
@@ -322,10 +324,11 @@ function run(command: string, args: string[]): void {
 /**
  * Builds the parts every platform's bundle shares, laid out as
  * `packagedPaths()` expects: the server in `server/index.mjs`, perseus-core's
- * type definitions in `types/`, the prebuilt pages in `pages/`, and the
- * licenses, and Graffiti in `graffiti/`: the runner, and the built library
- * in `lib/`. Diagram scripts import the library in a process of their own,
- * so it ships as files rather than inside the server's bundle.
+ * type definitions in `types/`, the prebuilt pages in `pages/`, the
+ * licenses, the content guidelines in `guidance/`, and Graffiti in
+ * `graffiti/`: the runner, and the built library in `lib/`. Diagram scripts
+ * import the library in a process of their own, so it ships as files rather
+ * than inside the server's bundle.
  */
 async function buildShared(dir: string): Promise<void> {
     await rm(dir, {recursive: true, force: true});
@@ -336,6 +339,32 @@ async function buildShared(dir: string): Promise<void> {
     }
     await buildPages(path.join(dir, "pages"));
     await copyGraffiti(path.join(dir, "graffiti"));
+    await copyGuidance(path.join(dir, "guidance"));
+}
+
+/**
+ * The distilled content guidelines, from PERSEUS_MCP_GUIDANCE_DIR or the
+ * folder beside the checkout: the organization's text, kept outside this
+ * repository and shipped only in the bundle. Without them the bundle ships
+ * with none, and says so.
+ */
+async function copyGuidance(dir: string): Promise<void> {
+    const from =
+        process.env.PERSEUS_MCP_GUIDANCE_DIR ?? checkoutGuidanceDir(REPO_ROOT);
+    const files = existsSync(from)
+        ? (await readdir(from)).filter((name) => name.endsWith(".md"))
+        : [];
+    if (files.length === 0) {
+        process.stderr.write(
+            `No guidelines in ${from}; the bundle ships without them.\n`,
+        );
+        return;
+    }
+    await mkdir(dir, {recursive: true});
+    for (const name of files) {
+        await copyFile(path.join(from, name), path.join(dir, name));
+    }
+    process.stdout.write(`Guidelines: ${files.join(", ")} from ${from}\n`);
 }
 
 /**

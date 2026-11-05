@@ -1,4 +1,4 @@
-import {findSections, splitSections} from "./guidelines";
+import {findSections, parseTopic, splitSections} from "./guidelines";
 
 const DOC = [
     "Intro text.",
@@ -52,5 +52,47 @@ describe("findSections", () => {
 
         // Assert
         expect(found).toEqual([]);
+    });
+});
+
+describe("parseTopic", () => {
+    it("reads the frontmatter's fields and returns the text after it", () => {
+        // Arrange
+        const markdown = [
+            "---",
+            "title: Writing TeX",
+            'summary: "How to write math in TeX."',
+            "readWhen: writing or reviewing math expressions",
+            "seeAlso: [math-content, 'general']",
+            "---",
+            "# Fractions",
+            "Use \\dfrac.",
+        ].join("\n");
+
+        // Act
+        const topic = parseTopic("tex", markdown);
+
+        // Assert
+        expect(topic).toEqual({
+            topic: "tex",
+            title: "Writing TeX",
+            summary: "How to write math in TeX.",
+            readWhen: "writing or reviewing math expressions",
+            seeAlso: ["math-content", "general"],
+            text: "# Fractions\nUse \\dfrac.",
+        });
+    });
+
+    it("titles a document without frontmatter by its topic", () => {
+        // Arrange, Act
+        const topic = parseTopic("general", "# Style\nBe brief.");
+
+        // Assert
+        expect(topic).toMatchObject({
+            title: "general",
+            summary: "",
+            seeAlso: [],
+            text: "# Style\nBe brief.",
+        });
     });
 });

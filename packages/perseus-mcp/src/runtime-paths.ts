@@ -17,7 +17,21 @@ export type RuntimePaths = {
     previousDataDir?: string;
     /** Where Graffiti and its runner are; Graffiti diagrams need them. */
     graffiti?: GraffitiPaths;
+    /**
+     * The content guidelines' folder, one Markdown file per topic, unless
+     * PERSEUS_MCP_GUIDANCE_DIR names another. They're the organization's,
+     * so they're kept outside this repository.
+     */
+    guidanceDir: string;
 };
+
+/**
+ * Where the distilled guidelines are kept next to a checkout: a folder
+ * beside it, outside the repository, so they can't be committed.
+ */
+export function checkoutGuidanceDir(repoRoot: string): string {
+    return path.resolve(repoRoot, "../perseus-mcp-guidance/distilled");
+}
 
 export type GraffitiPaths = {
     /** `runner.mjs`, which runs one diagram script. */
@@ -41,6 +55,7 @@ export function checkoutPaths(): RuntimePaths {
         // Drafts were kept in the checkout (`.perseus-mcp/`, gitignored)
         // until then.
         previousDataDir: path.join(repoRoot, ".perseus-mcp"),
+        guidanceDir: checkoutGuidanceDir(repoRoot),
         graffiti: {
             runner: path.join(
                 repoRoot,
@@ -91,8 +106,9 @@ export type PackagedPaths = RuntimePaths & {pagesDir: string};
 
 /**
  * Running from a bundle laid out as `scripts/build-bundle-lib.ts` builds it,
- * in `root`: `server/index.mjs`, `types/`, `pages/` and `graffiti/` (the
- * runner, and the Graffiti library in `lib/`). Drafts go in the
+ * in `root`: `server/index.mjs`, `types/`, `pages/`, `guidance/` (the
+ * guidelines it was built with, if any) and `graffiti/` (the runner, and
+ * the Graffiti library in `lib/`). Drafts go in the
  * user's data folder, since there's no checkout to keep them in.
  */
 export function packagedPaths(root: string): PackagedPaths {
@@ -104,6 +120,7 @@ export function packagedPaths(root: string): PackagedPaths {
             os.homedir(),
         ),
         pagesDir: path.join(root, "pages"),
+        guidanceDir: path.join(root, "guidance"),
         graffiti: {
             runner: path.join(root, "graffiti/runner.mjs"),
             module: path.join(root, "graffiti/lib/index.js"),

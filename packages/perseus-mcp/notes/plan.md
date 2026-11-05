@@ -107,6 +107,7 @@ from outside the repo.
 | Search where asked, one hit per exercise, all words | From a trial ("items that test addition", sampled by course): every sample was one exercise's items, totals counted items that only mentioned the word in a hint or a lesson's title, and facets named exercises only by id. The search tools take `searchIn` (titles, question, hints, widgets, math, tree, options; Meilisearch's `attributesToSearchOn`), `onePerExercise` (`distinct` on `exerciseId`, for samples; search only, since Meilisearch's facet counts ignore it) and `matchAny`; a query now needs all its words by default (`matchingStrategy: all`), with no prefix matching ("addition" matched "additional"). `title` is a facet, and `facet_content` also returns how many exercises the matches are in. Rerun: "addition" in titles and question text matched 2,079 items in 329 exercises (from 11,633 items), samples were one per exercise, and MCAT still ranks ("the addition of a catalyst"), so a domain filter is still the agent's to add. Typos need longer words (one from 6 letters, two from 12) and none count in TeX or option values. Hits carry the question's `firstLine` as written, TeX and all; the snippet, which leaves TeX out, only when it adds to it. Needs an index rebuild. |
 | Import an exercise from the list page | Build order step 10's upload, which finishes step 10. `/exercises` has an "Import an exercise" area: a labelled file field, and the form as a drop target (a pointer shortcut; the file field is the keyboard path), with the result in an `<output>`. One exercise opens its page; several (from a zip) are listed with what wasn't imported. `POST /exercises/import?fileName=<name>` takes the file as `application/json` or `application/zip` (its own parsers, in a scope of their own: no `text/plain`, which a cross-site form can send without asking), up to 20 MB, and only with an `Origin` naming the server itself (403 otherwise). A zip's `.json` files (not `__MACOSX` copies or hidden files) each become an exercise, read by a small reader on Node's `zlib` (stored or deflated, no Zip64), capped at 100 MB unzipped. `importExerciseText` shares `importExercise`'s parsing; the exercise is named after the file and each draft's first revision says "Uploaded <file>". Checked in a browser: a bad file's error, a zip of two exports and a bad file, a single export opening its exercise, the drop highlight, and a cross-site POST refused. |
 | Read exports that carry their exercise's URL | Newer bulk exports wrap the problem-type array as `{exerciseUrl, problemTypes}`; `readImport` reads them (upload, zip and `import_exercise` alike) and the exercise keeps `exerciseUrl` as its `editorUrl`, so "Open in the exercise editor" works straight after an import (a URL given to `import_exercise` still wins). Only `http(s)` URLs are kept, and the exercise page links only to those (`isWebUrl`), since a `javascript:` URL from a file would run in the page and zod's `url()` lets one through. A real export (24 items) imported with its URL. The "Failed to fetch" seen when first dropping it most likely came from a server started before the upload route (not reproduced). |
+| Read the guidelines as topics from a folder outside the repo | Guidelines differ by task (TeX, math content, writing in general, image descriptions), so `get_guidelines` reads a folder of Markdown files, one topic each, instead of one file: with no topic it lists them, each with its frontmatter's `summary`, `readWhen` and `seeAlso`; with `topic` it returns that document (or its headings when long, then sections by heading); `section` alone searches every topic's headings. The instructions tell agents to list the topics before writing, checking or changing items and read the ones the task needs, the general ones too. The folder is `perseus-mcp-guidance/distilled` beside the checkout, or `PERSEUS_MCP_GUIDANCE_DIR` (which replaces `PERSEUS_MCP_GUIDELINES`), so the organization's text can't be committed; `build:bundle` copies its `.md` files into the bundle's `guidance/`, which the bundled server reads, and warns when there are none. The raw documents the topics are distilled from sit beside `distilled/`, also outside the repo; distilling is done in a session, not by code. |
 
 Remaining, in order:
 
@@ -925,8 +926,12 @@ no tokens go on items the agent doesn't need to read.
 - **Only from the repo for now:** the testers' bundle leaves search out
   (no tools, no instructions paragraph; `get_server_info` says so).
 - **Guidelines and fixes** (`get_guidelines`, `apply_fix`): the guidelines
-  are a Markdown file named by `PERSEUS_MCP_GUIDELINES`, read on each call
-  and split at its headings, so an agent asks for the section a task needs.
+  are a folder of Markdown files, one per topic, each with frontmatter
+  saying what it covers, when to read it and which topics go with it. The
+  folder is kept outside the repository (`perseus-mcp-guidance/distilled`
+  beside the checkout, or `PERSEUS_MCP_GUIDANCE_DIR`) and copied into the
+  bundle by `build:bundle`. An agent lists the topics, reads the ones its
+  task needs, and asks for sections by heading when a topic is long.
   A fix proposes whole-string replacements of content (`/question/content`,
   `/hints/<n>/content`), applied as a JSON Patch so the result is validated.
   `bold-first-line` skips a first line that's already bold or isn't prose
@@ -1013,6 +1018,13 @@ for each author and hands work over by paste:
 - **Semantic search** ("items like this one"), with embeddings from a local
   model (such as one served by Ollama) added to the content search index.
   Keyword search with filters comes first (build order step 12).
+- **Guidelines from a source the organization owns.** The prototype reads
+  guidelines distilled by hand from a folder outside the repository and
+  copies them into the testers' bundle. Production needs them from a
+  source the content team owns and reviews, with versions (a private
+  package, or the team's documentation system), served to perseus-mcp
+  rather than built into it, and a review step for distilled versions so
+  they don't drift from the originals.
 - **Limit which sites can embed the preview frame,** with a
   `Content-Security-Policy: frame-ancestors` header on the frame's response
   (`'self'`, plus the MCP Apps host once there is one). Not needed for

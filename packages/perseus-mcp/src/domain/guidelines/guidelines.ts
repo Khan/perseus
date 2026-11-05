@@ -71,3 +71,63 @@ export function findSections(
     }
     return found;
 }
+
+/**
+ * One guidelines document of several, each on its own subject (TeX, math
+ * content, writing in general), so an agent reads the ones its task needs.
+ * Its frontmatter says what it covers and when to read it.
+ */
+export type GuidelineTopic = {
+    /** The file's name without `.md`, which get_guidelines takes. */
+    topic: string;
+    title: string;
+    /** What the document covers, in a sentence. */
+    summary: string;
+    /** The tasks it's for, so an agent can tell whether to read it. */
+    readWhen: string;
+    /** Topics to read with this one, such as the more general ones. */
+    seeAlso: string[];
+    /** The document, without its frontmatter. */
+    text: string;
+};
+
+const FRONTMATTER = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?/;
+
+/**
+ * Reads a topic's document: `---`-fenced frontmatter of `key: value` lines
+ * (`seeAlso` as `[a, b]`), then Markdown. A document without frontmatter is
+ * a topic titled by its name.
+ */
+export function parseTopic(topic: string, markdown: string): GuidelineTopic {
+    const match = FRONTMATTER.exec(markdown);
+    const fields = new Map<string, string>();
+    for (const line of match?.[1].split(/\r?\n/) ?? []) {
+        const colon = line.indexOf(":");
+        if (colon > 0) {
+            fields.set(
+                line.slice(0, colon).trim(),
+                unquote(line.slice(colon + 1).trim()),
+            );
+        }
+    }
+    const seeAlso = fields.get("seeAlso") ?? "";
+    return {
+        topic,
+        title: fields.get("title") || topic,
+        summary: fields.get("summary") ?? "",
+        readWhen: fields.get("readWhen") ?? "",
+        seeAlso: seeAlso
+            .replace(/^\[|\]$/g, "")
+            .split(",")
+            .map((name) => unquote(name.trim()))
+            .filter((name) => name !== ""),
+        text: (match == null
+            ? markdown
+            : markdown.slice(match[0].length)
+        ).trim(),
+    };
+}
+
+function unquote(value: string): string {
+    return /^(["']).*\1$/.test(value) ? value.slice(1, -1) : value;
+}

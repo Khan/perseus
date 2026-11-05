@@ -35,15 +35,23 @@ export function registerGuidelineTools(
         {
             title: "Read the content guidelines",
             description:
-                "The organization's content guidelines (style, hints, " +
-                "accessibility), from the local file the server is set up " +
-                "with: the sections whose headings contain `section`, or the " +
-                "whole document when it's short, else its headings to ask " +
-                "for. Also lists the fixes apply_fix has: rules code can " +
-                "apply. Before checking or editing items against a " +
-                "guideline, read it here; apply what a fix covers with " +
+                "The organization's content guidelines, as topics (such as " +
+                "writing in general, math content, TeX, image " +
+                "descriptions), from the local folder the server is set up " +
+                "with. Read them a topic at a time, as the task needs: " +
+                "with no topic, lists each topic's summary, when to read it " +
+                "and related topics; with `topic`, that document (whole when " +
+                "it's short, else its headings to ask for by `section`); " +
+                "`section` alone finds headings in every topic. Also lists " +
+                "the fixes apply_fix has: rules code can apply. Before " +
+                "writing, checking or editing items, list the topics and " +
+                "read the ones the task needs; apply what a fix covers with " +
                 "apply_fix, and read items only for what needs judgment.",
             inputSchema: z.object({
+                topic: z
+                    .string()
+                    .optional()
+                    .describe("The topic to read, as the list names it."),
                 section: z
                     .string()
                     .optional()
@@ -51,9 +59,9 @@ export function registerGuidelineTools(
             }),
             annotations: {readOnlyHint: true},
         },
-        ({section}) =>
+        ({topic, section}) =>
             run("get_guidelines", async () =>
-                jsonResult(await guidelines.getGuidelines({section})),
+                jsonResult(await guidelines.getGuidelines({topic, section})),
             ),
     );
 

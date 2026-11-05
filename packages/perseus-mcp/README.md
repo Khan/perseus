@@ -89,13 +89,26 @@ built from, or `PERSEUS_MCP_CONTENT_SNAPSHOT` when that's set.
 ## Content guidelines
 
 `get_guidelines` reads your organization's content guidelines from a local
-Markdown file, so their text needn't be in this repository: export them
-(from a shared document, say) and set `PERSEUS_MCP_GUIDELINES` to the
-file's path in the server's environment (the `env` of its entry in Claude
-Desktop's config). The file is read on each call, so edits apply without a
-restart. `apply_fix` applies the rules code can apply (`bold-first-line`,
-`replace-text`) across drafts, as a dry run first. `get_server_info` says
-whether the guidelines are set up.
+folder of Markdown files, one per topic (writing in general, math content,
+TeX, image descriptions), so their text needn't be in this repository.
+Agents list the topics first and read the ones a task needs. Each file can
+start with frontmatter saying what it covers and when to read it:
+
+```markdown
+---
+title: Writing TeX
+summary: How to write math expressions in TeX.
+readWhen: writing or reviewing any math expression
+seeAlso: [math-content, general]
+---
+```
+
+The folder is `perseus-mcp-guidance/distilled` beside this checkout, or
+`PERSEUS_MCP_GUIDANCE_DIR` when that's set. Its files are read on each call,
+so edits apply without a restart. `build:bundle` copies them into the
+bundle's `guidance/` folder, which the bundled server reads. `apply_fix`
+applies the rules code can apply (`bold-first-line`, `replace-text`) across
+drafts, as a dry run first. `get_server_info` says which topics there are.
 
 ## Code layout
 

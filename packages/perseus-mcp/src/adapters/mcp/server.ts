@@ -78,8 +78,10 @@ revision of it, and an image widget shows its latest revision, so an item
 needn't change when its diagram does. preview_graffiti returns the URL of a
 page showing a diagram, which follows its changes.
 
-${searchInstructions}To check or change items against the content guidelines, read the guideline
-with get_guidelines first. Apply what a fix covers (such as bolding every
+${searchInstructions}The content guidelines are topics (writing in general, math, TeX, image
+descriptions and so on). Before writing, checking or changing items, list
+them with get_guidelines and read the ones the task needs, the general ones
+too; the more specific topic wins where they differ. Apply what a fix covers (such as bolding every
 question's first line, or replacing a phrase) with apply_fix across the
 drafts at once, dry run first; read items only for rules that need judgment
 (such as whether hints give the answer away too soon).

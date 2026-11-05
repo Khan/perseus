@@ -1,10 +1,14 @@
-/** Where the content guidelines come from: a local file, when there is one. */
+/** A guidelines document's file: its name, and its Markdown. */
+export type GuidelineFile = {name: string; text: string};
+
+/**
+ * Where the content guidelines come from: a local folder of Markdown files,
+ * one per topic, when there is one.
+ */
 export interface GuidelinesSource {
-    /**
-     * The guidelines' text and where it was read from, or why there are
-     * none.
-     */
+    /** The guidelines' files and the folder they're in, or why there are none. */
     read(): Promise<
-        {ok: true; path: string; text: string} | {ok: false; reason: string}
+        | {ok: true; dir: string; files: GuidelineFile[]}
+        | {ok: false; reason: string}
     >;
 }

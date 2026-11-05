@@ -280,9 +280,17 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
                   exercises: useCases.exercises,
                   snapshotDir: process.env.PERSEUS_MCP_CONTENT_SNAPSHOT,
               });
-    // The guidelines' text is the organization's, kept in a local file.
+    // The guidelines' text is the organization's, kept in a local folder.
+    const guidanceDir =
+        process.env.PERSEUS_MCP_GUIDANCE_DIR ??
+        (fs.existsSync(paths.guidanceDir) ? paths.guidanceDir : undefined);
     const guidelines = createGuidelineUseCases({
-        source: fileGuidelinesSource(process.env.PERSEUS_MCP_GUIDELINES),
+        source: fileGuidelinesSource(
+            guidanceDir,
+            process.env.PERSEUS_MCP_GUIDANCE_DIR == null
+                ? "the default guidance folder"
+                : "PERSEUS_MCP_GUIDANCE_DIR",
+        ),
     });
     const fixes = createFixUseCases({
         drafts: repository,
