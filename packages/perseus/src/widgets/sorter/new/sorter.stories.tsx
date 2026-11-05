@@ -5,6 +5,7 @@ import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-render
 import {articleDecorator} from "../../__testutils__/story-decorators";
 import {
     basicQuestion,
+    longTextWithTeX,
     simpleTexQuestion,
     texQuestion,
     twoCardVerticalQuestion,
@@ -53,6 +54,12 @@ export const TextCards: Story = {
 export const VerticalLayout: Story = {
     args: {
         item: generateTestPerseusItem({question: twoCardVerticalQuestion}),
+    },
+};
+
+export const LongTextWithTex: Story = {
+    args: {
+        item: longTextWithTeX,
     },
 };
 
