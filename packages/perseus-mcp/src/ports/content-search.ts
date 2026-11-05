@@ -38,9 +38,14 @@ export interface ContentSearch {
         options: QueryOptions;
         limit: number;
         offset: number;
+        /** Document fields to return besides the hit's own. */
+        fields?: ReadonlyArray<keyof ContentDocument>;
     }): Promise<{
         total: number;
-        hits: Array<{document: HitFields; snippet: string}>;
+        hits: Array<{
+            document: HitFields & Partial<ContentDocument>;
+            snippet: string;
+        }>;
     }>;
     /**
      * How many matching documents have each value of each facet.

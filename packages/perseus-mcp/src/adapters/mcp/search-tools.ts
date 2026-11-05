@@ -3,8 +3,12 @@
 // used, they say why and how to start it.
 import {z} from "zod";
 
-import {MAX_IMPORT} from "../../app/search";
-import {FACETS, SEARCH_FIELD_NAMES} from "../../domain/search/content-query";
+import {MAX_IMPORT, MAX_ITEM_HITS} from "../../app/search";
+import {
+    EXTRA_FIELD_NAMES,
+    FACETS,
+    SEARCH_FIELD_NAMES,
+} from "../../domain/search/content-query";
 
 import {jsonResult} from "./tool-results";
 
@@ -81,7 +85,9 @@ const querySchema = z
     .string()
     .optional()
     .describe(
-        "Words to search for, all of them by default (see matchAny), in " +
+        "Words to search for, all of them by default (see matchAny); put " +
+            'a phrase in double quotes to match it as written ("square ' +
+            'root of x squared plus 1"). In ' +
             "the fields searchIn names, or all of them: the question and " +
             "hint text, widget text (choices, labels), TeX, the math read " +
             'as words ("the square root of x", "x squared", "one half"), ' +
@@ -153,7 +159,10 @@ export function registerSearchTools(
                 "onePerExercise, so hits aren't all one exercise's items. " +
                 NARROW_FIRST +
                 " To work on items found, import_from_search makes drafts " +
-                "of them; read them then with export_item. Words match " +
+                "of them; read them then with export_item. To check a hit " +
+                "first (its answer, choices, hints, speech), ask for " +
+                "`fields` or `itemPaths` rather than importing it. Words " +
+                "match " +
                 "whole (no prefixes, few typos). The math is searched as TeX " +
                 "and as speech: each formula read aloud in ClearSpeak " +
                 'English, so \\sqrt{x^2+1} is "the square root of x squared ' +
@@ -165,16 +174,46 @@ export function registerSearchTools(
                 filters: filtersSchema,
                 limit: z.number().int().min(1).max(50).default(10),
                 offset: z.number().int().min(0).optional(),
+                fields: z
+                    .array(z.enum(EXTRA_FIELD_NAMES))
+                    .min(1)
+                    .optional()
+                    .describe(
+                        "Index fields to add to each hit in full (long text " +
+                            "cut): question (its text, TeX left out), " +
+                            "hints, math (TeX), speech (the math read " +
+                            "aloud), widgets (choices, labels), options " +
+                            "(widget option values), courses (all of " +
+                            "them), exercises (every exercise and problem " +
+                            "type the item is in). For checking hits " +
+                            "without importing them.",
+                    ),
+                itemPaths: z
+                    .array(z.string().regex(/^(\/.*)?$/))
+                    .min(1)
+                    .optional()
+                    .describe(
+                        "JSON Pointers into each item (migrated to the " +
+                            'latest schema), such as "/question/widgets", ' +
+                            '"/question/widgets/radio 1/options/choices" ' +
+                            'or "/hints": each hit gets `item` with those ' +
+                            "parts (null where there's none; long ones cut). " +
+                            `At most ${MAX_ITEM_HITS} hits when given. For ` +
+                            "checking answers, choices or widget options of " +
+                            "what was found without importing it.",
+                    ),
             }),
             annotations: {readOnlyHint: true},
         },
-        ({query, filters, limit, offset, ...options}) =>
+        ({query, filters, limit, offset, fields, itemPaths, ...options}) =>
             run("search_content", async () =>
                 jsonResult(
                     await search.searchContent({
                         query,
                         filters,
                         options,
+                        fields,
+                        itemPaths,
                         limit,
                         offset,
                     }),

@@ -1,3 +1,9 @@
+import {
+    CoreWidgetRegistry,
+    generateTestPerseusItem,
+    generateTestPerseusRenderer,
+} from "@khanacademy/perseus-core";
+
 import {SearchUnavailableError} from "./errors";
 import {createSearchUseCases} from "./search";
 
@@ -57,12 +63,22 @@ function fakeSearch(
         documents: documents.length,
         snapshotDir: "/snapshot",
     },
-): ContentSearch & {filters: string[]} {
+): ContentSearch & {filters: string[]; retrieved: string[][]} {
     const filters: string[] = [];
+    const retrieved: string[][] = [];
     return {
         filters,
+        retrieved,
         status: async () => status,
-        search: async () => ({total: 0, hits: []}),
+        async search({fields = [], limit}) {
+            retrieved.push([...fields]);
+            return {
+                total: documents.length,
+                hits: documents
+                    .slice(0, limit)
+                    .map((document) => ({document, snippet: ""})),
+            };
+        },
         facets: async () => ({total: 0, counts: {}}),
         async documents({filter}) {
             filters.push(filter);
@@ -217,5 +233,92 @@ describe("importFromSearch", () => {
 
         // Assert
         await expect(result).rejects.toThrow(SearchUnavailableError);
+    });
+});
+
+describe("searchContent", () => {
+    beforeAll(() => {
+        CoreWidgetRegistry.registerCoreWidgets();
+    });
+
+    it("adds the fields asked for to each hit", async () => {
+        // Arrange
+        const {exercises} = fakeExercises();
+        const search = fakeSearch([
+            documentOf("i1", {
+                mathSpeech: ["the square root of 2"],
+                exerciseId: ["e1", "e2"],
+                title: ["First", "Second"],
+                problemType: ["Type 1", "Shared"],
+            }),
+        ]);
+        const useCases = createSearchUseCases({search, content, exercises});
+
+        // Act
+        const result = await useCases.searchContent({
+            fields: ["speech", "exercises"],
+            limit: 10,
+        });
+
+        // Assert
+        expect(search.retrieved).toEqual([
+            ["mathSpeech", "exerciseId", "problemType"],
+        ]);
+        expect(result.hits[0].fields).toEqual({
+            speech: ["the square root of 2"],
+            exercises: [
+                {exerciseId: "e1", title: "First", problemType: "Type 1"},
+                {exerciseId: "e2", title: "Second", problemType: "Shared"},
+            ],
+        });
+    });
+
+    it("reads the item parts asked for from the snapshot, migrated", async () => {
+        // Arrange
+        const {exercises} = fakeExercises();
+        const item = generateTestPerseusItem({
+            question: generateTestPerseusRenderer({content: "What is 2+2?"}),
+            hints: [generateTestPerseusRenderer({content: "Count."})],
+        });
+        const useCases = createSearchUseCases({
+            search: fakeSearch([documentOf("i1")]),
+            content: {readItem: async () => item},
+            exercises,
+        });
+
+        // Act
+        const result = await useCases.searchContent({
+            itemPaths: ["/question/content", "/hints/0/content", "/missing"],
+            limit: 10,
+        });
+
+        // Assert
+        expect(result.hits[0].item).toEqual({
+            "/question/content": "What is 2+2?",
+            "/hints/0/content": "Count.",
+            "/missing": null,
+        });
+    });
+
+    it("returns at most 10 hits when reading item parts", async () => {
+        // Arrange
+        const {exercises} = fakeExercises();
+        const documents = Array.from({length: 12}, (_, i) =>
+            documentOf(`i${i}`),
+        );
+        const useCases = createSearchUseCases({
+            search: fakeSearch(documents),
+            content,
+            exercises,
+        });
+
+        // Act
+        const result = await useCases.searchContent({
+            itemPaths: ["/question"],
+            limit: 50,
+        });
+
+        // Assert
+        expect(result.hits).toHaveLength(10);
     });
 });

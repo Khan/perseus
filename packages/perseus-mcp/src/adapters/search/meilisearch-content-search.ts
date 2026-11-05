@@ -28,7 +28,9 @@ const HOW_TO_START =
 const SNIPPET_WORDS = 30;
 
 type SearchReply = {
-    hits: Array<HitFields & {_formatted?: {text?: unknown}}>;
+    hits: Array<
+        HitFields & Partial<ContentDocument> & {_formatted?: {text?: unknown}}
+    >;
     facetDistribution?: Record<string, Record<string, number>>;
 };
 
@@ -131,13 +133,20 @@ export function createMeilisearchContentSearch(options: {
             }
         },
 
-        async search({query, filter, options: queryOptions, limit, offset}) {
+        async search({
+            query,
+            filter,
+            options: queryOptions,
+            limit,
+            offset,
+            fields = [],
+        }) {
             const reply = await search({
                 ...matching(query, queryOptions),
                 filter,
                 limit,
                 offset,
-                attributesToRetrieve: HIT_FIELDS,
+                attributesToRetrieve: [...new Set([...HIT_FIELDS, ...fields])],
                 attributesToCrop: ["text"],
                 cropLength: SNIPPET_WORDS,
                 facets: ["kind"],

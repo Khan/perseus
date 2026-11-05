@@ -1,6 +1,11 @@
+import {parseItem} from "../domain/items/parse";
 import {
     contentIdFilter,
+    EXTRA_FIELDS,
+    extraAttributes,
     filterExpression,
+    partsAt,
+    shortenField,
     toHit,
     topValues,
 } from "../domain/search/content-query";
@@ -13,6 +18,7 @@ import type {ContentDocument} from "../domain/search/content-document";
 import type {
     ContentFilters,
     ContentHit,
+    ExtraField,
     Facet,
     QueryOptions,
 } from "../domain/search/content-query";
@@ -20,6 +26,9 @@ import type {ContentSearch, ContentSource} from "../ports/content-search";
 
 /** The most items one import brings in: the exercise editor reviews 50. */
 export const MAX_IMPORT = 50;
+
+/** The most hits a search reads item parts for: each is a file read. */
+export const MAX_ITEM_HITS = 10;
 
 export type SearchDependencies = {
     search: ContentSearch;
@@ -56,6 +65,24 @@ export function createSearchUseCases(deps: SearchDependencies) {
         return status.snapshotDir;
     }
 
+    /** An item's parts at `pointers`, from its snapshot file, migrated. */
+    async function readParts(
+        dir: string,
+        document: Partial<ContentDocument> & {contentId: string},
+        pointers: ReadonlyArray<string>,
+    ): Promise<Record<string, unknown>> {
+        const raw =
+            document.sourceFile == null
+                ? undefined
+                : await deps.content.readItem(
+                      dir,
+                      document.sourceFile,
+                      document.contentId,
+                  );
+        const parsed = raw === undefined ? null : parseItem(raw);
+        return partsAt(parsed?.ok === true ? parsed.item : null, pointers);
+    }
+
     return {
         status: () => search.status(),
 
@@ -63,24 +90,60 @@ export function createSearchUseCases(deps: SearchDependencies) {
             query?: string;
             filters?: ContentFilters;
             options?: QueryOptions;
+            /** Index fields to return in full in each hit. */
+            fields?: ReadonlyArray<ExtraField>;
+            /**
+             * JSON Pointers into each item, read from the snapshot: at
+             * most MAX_ITEM_HITS hits are returned when given.
+             */
+            itemPaths?: ReadonlyArray<string>;
             limit: number;
             offset?: number;
         }): Promise<{total: number; offset: number; hits: ContentHit[]}> {
             const offset = input.offset ?? 0;
+            const fields = input.fields ?? [];
+            const itemPaths = input.itemPaths ?? [];
             const result = await search.search({
                 query: input.query ?? "",
                 filter: filterExpression(input.filters ?? {}),
                 options: input.options ?? {},
-                limit: input.limit,
+                limit:
+                    itemPaths.length > 0
+                        ? Math.min(input.limit, MAX_ITEM_HITS)
+                        : input.limit,
                 offset,
+                fields: [
+                    ...extraAttributes(fields),
+                    ...(itemPaths.length > 0 ? ["sourceFile" as const] : []),
+                ],
             });
-            return {
-                total: result.total,
-                offset,
-                hits: result.hits.map(({document, snippet}) =>
-                    toHit(document, snippet),
-                ),
-            };
+            const dir = itemPaths.length > 0 ? await snapshotDir() : null;
+            const hits: ContentHit[] = [];
+            for (const {document, snippet} of result.hits) {
+                const hit = toHit(document, snippet);
+                if (fields.length > 0) {
+                    hit.fields = Object.fromEntries(
+                        fields.map((field) => [
+                            field,
+                            field === "exercises"
+                                ? (document.exerciseId ?? []).map(
+                                      (exerciseId, i) => ({
+                                          exerciseId,
+                                          title: document.title[i],
+                                          problemType:
+                                              document.problemType?.[i],
+                                      }),
+                                  )
+                                : shortenField(document[EXTRA_FIELDS[field]]),
+                        ]),
+                    );
+                }
+                if (dir != null && document.kind === "item") {
+                    hit.item = await readParts(dir, document, itemPaths);
+                }
+                hits.push(hit);
+            }
+            return {total: result.total, offset, hits};
         },
 
         async facetContent(input: {

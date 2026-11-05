@@ -1,3 +1,6 @@
+// fast-json-patch is CommonJS, so its default export is the module.
+import jsonpatch from "fast-json-patch";
+
 import type {ContentDocument} from "./content-document";
 
 /**
@@ -181,6 +184,13 @@ export type ContentHit = {
      * the query matched it there.
      */
     snippet?: string;
+    /** The index fields asked for with `fields`, cut if long. */
+    fields?: Partial<Record<ExtraField, unknown>>;
+    /**
+     * The parts of the item asked for with `itemPaths`, by JSON Pointer,
+     * migrated to the latest schema; null where the item has none.
+     */
+    item?: Record<string, unknown>;
 };
 
 /**
@@ -203,6 +213,93 @@ export const HIT_FIELDS = [
 ] as const;
 
 export type HitFields = Pick<ContentDocument, (typeof HIT_FIELDS)[number]>;
+
+/**
+ * Index fields a hit can also carry in full, by the names `fields` takes,
+ * for checking a hit without importing it.
+ */
+export const EXTRA_FIELDS = {
+    /** The question's text, TeX left out. */
+    question: "text",
+    hints: "hintText",
+    /** The TeX, each formula once. */
+    math: "math",
+    /** Each formula read aloud, as searched. */
+    speech: "mathSpeech",
+    /** Text in widget options: choices, labels. */
+    widgets: "widgetText",
+    /** Widget option values (`radio.multipleSelect=true`). */
+    options: "widgetProps",
+    /** Every course, not the first three. */
+    courses: "course",
+    /** Every exercise the item is in, and its problem types. */
+    exercises: "exerciseId",
+} as const satisfies Record<string, keyof ContentDocument>;
+
+export type ExtraField = keyof typeof EXTRA_FIELDS;
+
+/** The names `fields` takes, for a schema to list. */
+export const EXTRA_FIELD_NAMES = [
+    "question",
+    "hints",
+    "math",
+    "speech",
+    "widgets",
+    "options",
+    "courses",
+    "exercises",
+] as const satisfies ReadonlyArray<ExtraField>;
+
+/** The index fields to retrieve for `fields`. */
+export function extraAttributes(
+    fields: ReadonlyArray<ExtraField>,
+): Array<keyof ContentDocument> {
+    const attributes = new Set<keyof ContentDocument>();
+    for (const field of fields) {
+        attributes.add(EXTRA_FIELDS[field]);
+        if (field === "exercises") {
+            attributes.add("problemType");
+        }
+    }
+    return [...attributes];
+}
+
+/** Longest string a field or item part returns before it's cut. */
+const MAX_TEXT = 1000;
+/** Most entries of a list a field returns before it's cut. */
+const MAX_LIST = 40;
+/** Longest an item part's JSON is before it's cut. */
+const MAX_JSON = 3000;
+
+function cut(text: string, max: number): string {
+    return text.length > max ? `${text.slice(0, max)}…` : text;
+}
+
+/** A field's value, cut so a list of hits stays small. */
+export function shortenField(value: unknown): unknown {
+    if (typeof value === "string") {
+        return cut(value, MAX_TEXT);
+    }
+    if (Array.isArray(value)) {
+        const shown = value.slice(0, MAX_LIST).map(shortenField);
+        return value.length > MAX_LIST
+            ? [...shown, `…and ${value.length - MAX_LIST} more`]
+            : shown;
+    }
+    return value;
+}
+
+/**
+ * A part of an item as a hit carries it: as it is when its JSON is short,
+ * else that JSON cut, marked so.
+ */
+export function shortenPart(value: unknown): unknown {
+    const json = JSON.stringify(value);
+    if (json == null || json.length <= MAX_JSON) {
+        return value;
+    }
+    return {cut: true, json: cut(json, MAX_JSON)};
+}
 
 /**
  * A hit from a search's document and the snippet cut from its text, which
@@ -247,4 +344,25 @@ export function topValues(
                 : a.value.localeCompare(b.value),
         );
     return {values: values.slice(0, top), distinctValues: values.length};
+}
+
+/**
+ * The parts of a value at JSON Pointers ("/question/widgets", "/hints/0"),
+ * each shortened; null where there's nothing.
+ */
+export function partsAt(
+    value: unknown,
+    pointers: ReadonlyArray<string>,
+): Record<string, unknown> {
+    const parts: Record<string, unknown> = {};
+    for (const pointer of pointers) {
+        let part: unknown;
+        try {
+            part = jsonpatch.getValueByPointer(value, pointer);
+        } catch {
+            // A pointer that doesn't resolve reads as nothing.
+        }
+        parts[pointer] = part === undefined ? null : shortenPart(part);
+    }
+    return parts;
 }

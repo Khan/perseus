@@ -111,6 +111,7 @@ from outside the repo.
 | Read exports that carry their exercise's URL | Newer bulk exports wrap the problem-type array as `{exerciseUrl, problemTypes}`; `readImport` reads them (upload, zip and `import_exercise` alike) and the exercise keeps `exerciseUrl` as its `editorUrl`, so "Open in the exercise editor" works straight after an import (a URL given to `import_exercise` still wins). Only `http(s)` URLs are kept, and the exercise page links only to those (`isWebUrl`), since a `javascript:` URL from a file would run in the page and zod's `url()` lets one through. A real export (24 items) imported with its URL. The "Failed to fetch" seen when first dropping it most likely came from a server started before the upload route (not reproduced). |
 | Read the guidelines as topics from a folder outside the repo | Guidelines differ by task (TeX, math content, writing in general, image descriptions), so `get_guidelines` reads a folder of Markdown files, one topic each, instead of one file: with no topic it lists them, each with its frontmatter's `summary`, `readWhen` and `seeAlso`; with `topic` it returns that document (or its headings when long, then sections by heading); `section` alone searches every topic's headings. The instructions tell agents to list the topics before writing, checking or changing items and read the ones the task needs, the general ones too. The folder is `perseus-mcp-guidance/distilled` beside the checkout, or `PERSEUS_MCP_GUIDANCE_DIR` (which replaces `PERSEUS_MCP_GUIDELINES`), so the organization's text can't be committed; `build:bundle` copies its `.md` files into the bundle's `guidance/`, which the bundled server reads, and warns when there are none. The raw documents the topics are distilled from sit beside `distilled/`, also outside the repo; distilling is done in a session, not by code. |
 | Keep agents on the tools, and name courses by title | A review of five of the day's authoring sessions found 13 places where the agent went around the tools (none after a tool failed; every one had the repo's source to read): it read Graffiti's and Perseus's source for APIs and colors, scripted over the drafts folder with jq, queried Meilisearch and the snapshot directly, and ran the speech engine itself. The server's instructions now open with `AUTHORING_RULES` (`adapters/mcp/authoring.ts`): use these tools whenever a person asks for Khan Academy content (and ask when that's unclear; articles aren't supported yet), and do the work only through them: no code or scripts over items, no hand-written item JSON, no reading the data folder, snapshot, index or source, and say what's missing instead of working around a tool. A `start_authoring` prompt (an optional `task`) gives a person the same rules to start a chat with. Descriptions of export_item, validate_item, get_widget_spec, score_item, edit_items and search_content say what they replace; search_content's says words match whole and what the speech field holds. Search filters take a domain, course, unit or lesson by slug or whole title, any case (`course: "Pre-algebra"`): the titles are filterable. |
+| Check search hits without importing them | Hits showed only a summary, so checking what was found (an answer, the choices, how the math was read) meant importing it or going around the tools, as an agent did today, querying Meilisearch and the snapshot. `search_content` takes `fields` (question, hints, math, speech, widgets, options, courses, exercises: index fields in full, long text and lists cut) and `itemPaths` (JSON Pointers into each item, read from its snapshot file and migrated, each part cut past 3,000 characters of JSON; at most 10 hits then). A query can quote a phrase to match it as written. Checked over MCP: speech search for the square root of x squared plus 1 returns each hit's matching readings and widgets (3 hits, 12 KB); quoted, it narrows to 13 items. |
 
 Remaining, in order:
 
@@ -164,10 +165,14 @@ Remaining, in order:
    2. Graffiti's API documented to the agent (a guideline topic or tool),
       a palette, tick and angle marks, and an error for ignored style keys.
    3. Diagram tools returning a PNG the agent can see.
-   4. Reading many drafts at once: `read_items`, or `fields` on
-      export_item.
-   5. Checking search hits without importing: `fields` on search_content,
-      or `get_content`.
+   4. Reading many drafts at once: `read_items`, in the server (the draft
+      repository, plain Node, no jq or file globbing), selecting parts by
+      JSON Pointer over named drafts or an exercise's. Next.
+   7. Search drafts (and later unpublished content) as published content
+      is searched: one search over every source, each document saying
+      which (see "Keeping agents on the tools").
+   5. Checking search hits without importing: `fields` and `itemPaths`
+      on search_content. Done.
    6. A tool that reads a TeX string aloud as the index does.
 4. Build order steps 13 to 16. Steps 10 to 12 are done: the exercise page
    with its upload, Graffiti diagrams, and content search with guidelines
@@ -1078,9 +1083,19 @@ tools, by what would close them:
 - **No way to read many drafts at once** (it ran jq over the drafts
   folder): a `read_items` tool, or a `fields` option (JSON Pointers) on
   export_item, over an exercise's drafts.
-- **Search hits can't be checked without importing:** a `fields` option
-  on search_content returning full values (answers, widget options, the
-  matched speech), or a `get_content` tool reading one snapshot item.
+- **Search hits can't be checked without importing** (done): `fields`
+  and `itemPaths` on search_content.
+- **Searching drafts as published content is searched:** the same search
+  (queries, filters, facets, speech, `fields`) over local drafts, and later
+  over unpublished content, since a server will likely reach all three.
+  Each document says where it's from (`source`: published, unpublished,
+  draft), built by the same document builder (`itemContentFields`,
+  `speakAll`), so a search can take one source or several. Drafts are
+  kept current through the draft feed (`withDraftFeed`, which every save
+  goes through): each new revision replaces its document. A draft's place
+  in the tree comes from the exercise it was imported from, when it was.
+  Until then, `read_items` reads drafts in bulk; the testers' bundle,
+  which has no Meilisearch, keeps that.
 - **How math is read aloud can't be asked** (it ran the speech engine
   itself): a tool reading a TeX string as the index does.
 
