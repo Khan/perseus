@@ -7,16 +7,30 @@ import {
     generateRadioWidget,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
-import {screen, fireEvent, waitFor, act, within} from "@testing-library/react";
+import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
+import {
+    screen,
+    fireEvent,
+    waitFor,
+    act,
+    within,
+    render,
+} from "@testing-library/react";
 import {userEvent} from "@testing-library/user-event";
+import * as React from "react";
 
 import {articleSectionWithExpression} from "../__testdata__/article-renderer.testdata";
 import {renderArticle} from "../__testutils__/render-article";
+import ArticleRenderer from "../article-renderer";
 import * as Dependencies from "../dependencies";
 import {ApiOptions} from "../perseus-api";
-import {testDependencies} from "../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../testing/test-dependencies";
 
 import type {
+    PerseusArticle,
     PerseusGradedGroupWidgetOptions,
     PerseusRenderer,
     RadioWidget,
@@ -240,6 +254,85 @@ describe("article renderer", () => {
             // Assert
             const [secondGroupOrder] = getRenderedChoiceOrders();
             expect(firstGroupOrder).not.toEqual(secondGroupOrder);
+        });
+    });
+
+    describe("onRendered", () => {
+        function renderWithOnRendered(json: PerseusArticle) {
+            const onRendered = jest.fn();
+            render(
+                <RenderStateRoot>
+                    <ArticleRenderer
+                        json={json}
+                        seed={0}
+                        dependencies={testDependenciesV2}
+                        onRendered={onRendered}
+                    />
+                </RenderStateRoot>,
+            );
+            return onRendered;
+        }
+
+        it("reports rendered once for content without assets", () => {
+            // Arrange
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+
+            // Act
+            const onRendered = renderWithOnRendered(
+                generateTestPerseusRenderer({content: "Plain text"}),
+            );
+
+            // Assert
+            expect(onRendered.mock.calls).toEqual([[true]]);
+        });
+
+        it("doesn't report rendered while math is still rendering", () => {
+            // Arrange
+            // This TeX never reports rendering, standing in for math that
+            // MathJax hasn't finished with yet.
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+                ...testDependencies,
+                TeX: ({children}: {children: React.ReactNode}) => (
+                    <span>{children}</span>
+                ),
+            });
+
+            // Act
+            const onRendered = renderWithOnRendered([
+                generateTestPerseusRenderer({content: "One"}),
+                generateTestPerseusRenderer({content: "Two: $x^2$"}),
+            ]);
+
+            // Assert
+            expect(onRendered).not.toHaveBeenCalled();
+        });
+
+        it("reports rendered once the math in every section has", () => {
+            // Arrange
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+                ...testDependencies,
+                TeX: ({
+                    children,
+                    onRender,
+                }: {
+                    children: React.ReactNode;
+                    onRender?: () => void;
+                }) => {
+                    React.useEffect(() => onRender?.(), [onRender]);
+                    return <span>{children}</span>;
+                },
+            });
+
+            // Act
+            const onRendered = renderWithOnRendered([
+                generateTestPerseusRenderer({content: "One: $x$"}),
+                generateTestPerseusRenderer({content: "Two: $y$"}),
+            ]);
+
+            // Assert
+            expect(onRendered.mock.calls).toEqual([[true]]);
         });
     });
 });

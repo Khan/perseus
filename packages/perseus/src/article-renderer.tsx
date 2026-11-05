@@ -7,6 +7,7 @@ import * as PerseusLinter from "@khanacademy/perseus-linter";
 import classNames from "classnames";
 import * as React from "react";
 
+import AssetContext from "./asset-context";
 import {PerseusI18nContext} from "./components/i18n-context";
 import {DependenciesContext, getDependencies} from "./dependencies";
 import JiptParagraphs from "./jipt-paragraphs";
@@ -31,6 +32,12 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> &
         dependencies: PerseusDependenciesV2;
         // the seed for deterministic shuffling (randomization)
         seed: number;
+        /**
+         * Called with `true` once every section has rendered, its images
+         * and math included, as ServerItemRenderer's `onRendered` is. It's
+         * called once per mount.
+         */
+        onRendered?: (isRendered: boolean) => void;
     };
 
 type DefaultProps = {
@@ -47,6 +54,15 @@ class ArticleRenderer
 
     _currentFocus: any;
     sectionRenderers: Array<Renderer> = [];
+    /**
+     * Whether each asset below us (images, math) has finished rendering, as
+     * in ServerItemRenderer. Not React state: assets register in their
+     * constructors, while we're still rendering.
+     */
+    _assetStatuses: {[assetKey: string]: boolean} = {};
+    _fullyRendered = false;
+    // One value for every render, so assets don't re-render for a new one.
+    _assetContext: React.ContextType<typeof AssetContext>;
 
     static defaultProps: DefaultProps = {
         apiOptions: ApiOptions.defaults,
@@ -55,11 +71,37 @@ class ArticleRenderer
 
     constructor(props: Props) {
         super(props);
+        this._assetContext = {
+            assetStatuses: this._assetStatuses,
+            setAssetStatus: this.setAssetStatus,
+        };
     }
 
     componentDidMount() {
         this._currentFocus = null;
+        // Assets have registered by now, so content without any is rendered.
+        this.maybeCallOnRendered();
     }
+
+    /** Reports that every asset has settled, once. */
+    maybeCallOnRendered() {
+        if (
+            !this._fullyRendered &&
+            Object.values(this._assetStatuses).every(Boolean)
+        ) {
+            this._fullyRendered = true;
+            this.props.onRendered?.(true);
+        }
+    }
+
+    // Pre-bound, so the context value doesn't change between renders.
+    setAssetStatus: (assetKey: string, status: boolean) => void = (
+        assetKey,
+        status,
+    ) => {
+        this._assetStatuses[assetKey] = status;
+        this.maybeCallOnRendered();
+    };
 
     _handleFocusChange: (arg1: any, arg2: any) => void = (
         newFocusPath,
@@ -263,7 +305,9 @@ class ArticleRenderer
         return (
             <div className={classes}>
                 <DependenciesContext.Provider value={this.props.dependencies}>
-                    {sections}
+                    <AssetContext.Provider value={this._assetContext}>
+                        {sections}
+                    </AssetContext.Provider>
                 </DependenciesContext.Provider>
             </div>
         );
