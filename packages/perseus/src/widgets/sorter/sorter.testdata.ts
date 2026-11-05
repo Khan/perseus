@@ -46,6 +46,18 @@ export const texQuestion: PerseusRenderer = {
     },
 };
 
+export const simpleTexQuestion: PerseusRenderer = generateTestPerseusRenderer({
+    content: "[[\u2603 sorter 1]]",
+    widgets: {
+        "sorter 1": generateSorterWidget({
+            options: generateSorterOptions({
+                correct: ["$x$", "$x^2$", "$\\frac{1}{2}$", "$\\sqrt{2}$"],
+                layout: "horizontal",
+            }),
+        }),
+    },
+});
+
 /**
  * A minimal sorter for driving real mouse drags in a browser (see
  * sorter.cypress.ts). Both options make the drag deterministic:
