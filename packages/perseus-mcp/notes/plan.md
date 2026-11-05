@@ -178,7 +178,10 @@ Graffiti diagrams as far as Graffiti can follow them.
    from Graffiti's type definitions so it can't drift (the bundle ships
    them), plus the behavior the types don't show: which way `arcBetween`
    sweeps and whether it ever draws the larger arc, the style object's
-   property names and defaults, label alignments and options
+   property names and defaults (only `fill`, `stroke`, `strokeWidth` and
+   `strokeDashArray`, camelCase; there's no opacity, and a key such as
+   `"fill-opacity"` or `"stroke-width"` is silently ignored: graffiti
+   `5b689200` revision 3 drew its "light" wedges solid), label alignments and options
    (`typesetAsMath`), and which shapes need a uniform canvas. As a tool or
    resource the instructions point to, saying not to look for the source.
 2. **Khan's palette and sizes baked in.** A palette built from where the
@@ -194,7 +197,8 @@ Graffiti diagrams as far as Graffiti can follow them.
    the guidelines rule out where code can tell: colors outside the palette,
    text and lines that fail contrast, text drawn as shapes instead of
    labels, labels using `\frac` or a number from 10,000 up without `{,}`,
-   sizes outside the presets. Only what needs judgment (one-word labels,
+   sizes outside the presets, and style keys Graffiti doesn't know (which
+   it would ignore). Only what needs judgment (one-word labels,
    too much detail) comes back as warnings, which `review_item` repeats for
    an item's diagrams.
 4. **Let the agent see what it drew.** `create_graffiti` and
@@ -223,6 +227,9 @@ works around each for now:
   canvas requirements).
 - A theme: a palette and default styles, so unstyled shapes needn't be
   black.
+- Fill and stroke opacity in `SVGStyle`, for tinted regions (angle wedges,
+  shaded areas); until then, solid light tints.
+- Rejecting unknown style keys instead of ignoring them.
 - Geometry marks: segment ticks, parallel chevrons, multi-arc angle marks.
 - A rendered preview of a diagram with its labels (PNG), for checking
   without a browser.
