@@ -86,3 +86,24 @@ export class PreviewUnavailableError extends Error {
         this.name = "PreviewUnavailableError";
     }
 }
+
+export class GraffitiNotFoundError extends Error {
+    readonly graffitiId: string;
+
+    constructor(graffitiId: string, revision?: number) {
+        super(
+            revision == null
+                ? `No Graffiti diagram with graffitiId "${graffitiId}".`
+                : `Graffiti diagram "${graffitiId}" has no revision ${revision}.`,
+        );
+        this.name = "GraffitiNotFoundError";
+        this.graffitiId = graffitiId;
+    }
+}
+
+export class GraffitiRenderError extends Error {
+    constructor(reason: string) {
+        super(`The Graffiti script didn't draw a diagram: ${reason}`);
+        this.name = "GraffitiRenderError";
+    }
+}

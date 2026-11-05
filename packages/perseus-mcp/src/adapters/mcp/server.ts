@@ -5,10 +5,12 @@ import {CHECKLIST_URI} from "../../domain/review/checklist";
 import {libVersion} from "../../version";
 
 import {registerExerciseTools} from "./exercise-tools";
+import {registerGraffitiTools} from "./graffiti-tools";
 import {errorResult, jsonResult, runTool} from "./tool-results";
 
 import type {DraftUseCases} from "../../app/drafts";
 import type {ExerciseUseCases} from "../../app/exercises";
+import type {GraffitiUseCases} from "../../app/graffiti";
 import type {PreviewUseCases} from "../../app/preview";
 import type {ReviewUseCases} from "../../app/review";
 import type {ScoringUseCases} from "../../app/scoring";
@@ -43,6 +45,11 @@ from drafts you already have. get_exercise shows the tree,
 move_items and add_to_exercise organize it, edit_items changes many drafts in
 one call, and validate_exercise checks them all. update_exercise changes its
 name and notes, and keeps its exercise editor URL when the person gives it.
+
+Draw illustrations with Graffiti: create_graffiti keeps a diagram drawn by a
+Graffiti script under a stable graffitiId, update_graffiti makes a new
+revision of it, and an image widget shows its latest revision, so an item
+needn't change when its diagram does.
 Read files by path; don't paste their contents into a call.
 
 list_widgets and get_widget_spec describe each widget's options; validate_item
@@ -114,12 +121,15 @@ export function createMcpServer({
     preview,
     previewApp,
     exercises,
+    graffiti,
     serverInfo,
     errors,
     dataDir,
 }: {
     drafts: DraftUseCases;
     exercises: ExerciseUseCases;
+    /** Graffiti diagrams; their tools are left out when it's missing. */
+    graffiti?: GraffitiUseCases;
     /** What get_server_info reports. */
     serverInfo?: () => ServerInfo;
     /** Where tool errors are recorded, for get_server_info. */
@@ -464,6 +474,9 @@ export function createMcpServer({
     );
 
     registerExerciseTools(server, {exercises, preview, run});
+    if (graffiti != null) {
+        registerGraffitiTools(server, {graffiti, run});
+    }
 
     server.registerTool(
         "list_revisions",

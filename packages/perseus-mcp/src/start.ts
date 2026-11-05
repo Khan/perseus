@@ -18,9 +18,11 @@ import {
     FileDraftRepository,
 } from "./adapters/fs/file-draft-repository";
 import {FileExerciseRepository} from "./adapters/fs/file-exercise-repository";
+import {FileGraffitiRepository} from "./adapters/fs/file-graffiti-repository";
 import {nodeExportFileWriter} from "./adapters/fs/node-export-file-writer";
 import {nodeItemFileReader} from "./adapters/fs/node-item-file-reader";
 import {createPerseusCoreSchemaSource} from "./adapters/fs/perseus-core-schema-source";
+import {createNodeGraffitiRenderer} from "./adapters/graffiti/node-graffiti-renderer";
 import {
     allowedHostnames,
     createHttpServer,
@@ -33,6 +35,7 @@ import {withDraftFeed} from "./app/draft-feed";
 import {createDraftUseCases} from "./app/drafts";
 import {withExerciseFeed} from "./app/exercise-feed";
 import {createExerciseUseCases} from "./app/exercises";
+import {createGraffitiUseCases} from "./app/graffiti";
 import {createPreviewUseCases} from "./app/preview";
 import {createReviewUseCases} from "./app/review";
 import {createScoringUseCases} from "./app/scoring";
@@ -42,7 +45,7 @@ import {createWidgetUseCases} from "./app/widgets";
 import type {PreviewPages, TlsFiles} from "./adapters/http/server";
 import type {PreviewApp} from "./adapters/mcp/server";
 import type {BuildInfo} from "./build-info";
-import type {RuntimePaths} from "./runtime-paths";
+import type {GraffitiPaths, RuntimePaths} from "./runtime-paths";
 import type {Server} from "node:http";
 
 /** The pages the server shows previews with. */
@@ -58,6 +61,32 @@ export type StartOptions = {
     /** Picks the preview pages, given the `--pages` option if there is one. */
     previewSource: (pagesOption: string | undefined) => PreviewSource;
 };
+
+/**
+ * Graffiti diagrams, when Graffiti is there to draw them: in the repository
+ * it's linked in and has to be built (`npm run build` in its checkout).
+ */
+function graffitiUseCases(
+    graffitiPaths: GraffitiPaths | undefined,
+    dataDir: string,
+    log: (message: string) => void,
+) {
+    if (graffitiPaths == null || !fs.existsSync(graffitiPaths.module)) {
+        log(
+            `perseus-mcp: Graffiti diagrams are off: no Graffiti at ` +
+                `${graffitiPaths?.module ?? "(none configured)"}`,
+        );
+        return undefined;
+    }
+    const diagrams = new FileGraffitiRepository(dataDir);
+    diagrams.init();
+    return createGraffitiUseCases({
+        diagrams,
+        renderer: createNodeGraffitiRenderer(graffitiPaths),
+        now: () => new Date(),
+        newId: () => randomUUID().slice(0, 8),
+    });
+}
 
 /** A file-name-safe form of an exercise's name. */
 function slug(name: string): string {
@@ -180,6 +209,7 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
     const {drafts: repository, feed} = withDraftFeed(fileRepository);
     const {exercises, feed: exerciseFeed} =
         withExerciseFeed(exerciseRepository);
+    const graffiti = graffitiUseCases(paths.graffiti, dataDir, log);
 
     // Set once the HTTP server is listening.
     let baseUrl: string | null = null;
@@ -222,6 +252,7 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
             exercises,
             links: previewLinks(() => baseUrl),
         }),
+        graffiti,
     };
 
     // The browser preview's pages, and the page MCP Apps hosts show in the chat.
@@ -288,6 +319,7 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
         createMcpServer: mcpServer,
         drafts: useCases.drafts,
         exercises: useCases.exercises,
+        graffiti: useCases.graffiti,
         createPreview,
         allowedHostnames: allowedHostnames(host, publicHost),
         tls,

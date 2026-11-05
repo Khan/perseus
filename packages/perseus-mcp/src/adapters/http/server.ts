@@ -7,9 +7,11 @@ import {DraftNotFoundError} from "../../app/errors";
 
 import {streamEvents} from "./event-stream";
 import {registerExerciseRoutes} from "./exercise-routes";
+import {registerGraffitiRoutes} from "./graffiti-routes";
 
 import type {DraftUseCases} from "../../app/drafts";
 import type {ExerciseUseCases} from "../../app/exercises";
+import type {GraffitiUseCases} from "../../app/graffiti";
 import type {Draft} from "../../domain/draft";
 import type {PreviewLinks} from "../../ports/preview-links";
 import type {McpServer} from "@modelcontextprotocol/server";
@@ -110,6 +112,7 @@ export async function createHttpServer({
     createMcpServer,
     drafts,
     exercises,
+    graffiti,
     createPreview,
     allowedHostnames,
     tls,
@@ -118,6 +121,8 @@ export async function createHttpServer({
     drafts: DraftUseCases;
     /** Serves the exercise pages' data, and the pages with `createPreview`. */
     exercises?: ExerciseUseCases;
+    /** Serves Graffiti diagrams as Graphie images, on `/graffiti`. */
+    graffiti?: GraffitiUseCases;
     createPreview?: (server: Server) => Promise<PreviewPages>;
     allowedHostnames: string[];
     /** Serve HTTPS with this certificate instead of HTTP. */
@@ -193,6 +198,9 @@ export async function createHttpServer({
 
     if (exercises != null) {
         registerExerciseRoutes(app, {exercises, pages: previewPages});
+    }
+    if (graffiti != null) {
+        registerGraffitiRoutes(app, {graffiti});
     }
 
     return app;

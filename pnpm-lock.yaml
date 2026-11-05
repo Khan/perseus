@@ -1156,6 +1156,9 @@ importers:
       fastify:
         specifier: ^5.12.7
         version: 5.12.7
+      graffiti:
+        specifier: link:../../../graffiti
+        version: link:../../../graffiti
       react:
         specifier: catalog:devDeps
         version: 18.2.0

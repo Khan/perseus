@@ -323,7 +323,9 @@ function run(command: string, args: string[]): void {
  * Builds the parts every platform's bundle shares, laid out as
  * `packagedPaths()` expects: the server in `server/index.mjs`, perseus-core's
  * type definitions in `types/`, the prebuilt pages in `pages/`, and the
- * licenses.
+ * licenses, and Graffiti in `graffiti/`: the runner, and the built library
+ * in `lib/`. Diagram scripts import the library in a process of their own,
+ * so it ships as files rather than inside the server's bundle.
  */
 async function buildShared(dir: string): Promise<void> {
     await rm(dir, {recursive: true, force: true});
@@ -333,6 +335,37 @@ async function buildShared(dir: string): Promise<void> {
         await copyFile(from, path.join(dir, to));
     }
     await buildPages(path.join(dir, "pages"));
+    await copyGraffiti(path.join(dir, "graffiti"));
+}
+
+/**
+ * Graffiti, linked in from its own checkout, built there with `npm run
+ * build`: its `dist/` (without source maps and type definitions), and the
+ * runner.
+ */
+async function copyGraffiti(dir: string): Promise<void> {
+    const dist = path.join(PACKAGE_DIR, "node_modules/graffiti/dist");
+    if (!existsSync(path.join(dist, "index.js"))) {
+        throw new Error(
+            `Graffiti isn't built: no ${dist}/index.js. Run \`npm run build\` ` +
+                "in its checkout.",
+        );
+    }
+    await cp(dist, path.join(dir, "lib"), {
+        recursive: true,
+        dereference: true,
+        filter: (file) => !/\.(map|d\.ts)$/.test(file),
+    });
+    // Graffiti's .js files are ES modules, which Node knows from the nearest
+    // package.json.
+    await writeFile(
+        path.join(dir, "lib/package.json"),
+        JSON.stringify({type: "module"}),
+    );
+    await copyFile(
+        path.join(PACKAGE_DIR, "src/adapters/graffiti/runner.mjs"),
+        path.join(dir, "runner.mjs"),
+    );
 }
 
 /**

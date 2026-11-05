@@ -15,6 +15,15 @@ export type RuntimePaths = {
      * them from once.
      */
     previousDataDir?: string;
+    /** Where Graffiti and its runner are; Graffiti diagrams need them. */
+    graffiti?: GraffitiPaths;
+};
+
+export type GraffitiPaths = {
+    /** `runner.mjs`, which runs one diagram script. */
+    runner: string;
+    /** The Graffiti library's entry point. */
+    module: string;
 };
 
 /** Running from this monorepo's sources, as `bin/perseus-mcp.mjs` does. */
@@ -32,6 +41,17 @@ export function checkoutPaths(): RuntimePaths {
         // Drafts were kept in the checkout (`.perseus-mcp/`, gitignored)
         // until then.
         previousDataDir: path.join(repoRoot, ".perseus-mcp"),
+        graffiti: {
+            runner: path.join(
+                repoRoot,
+                "packages/perseus-mcp/src/adapters/graffiti/runner.mjs",
+            ),
+            // Graffiti exports only its built entry point.
+            module: path.join(
+                repoRoot,
+                "packages/perseus-mcp/node_modules/graffiti/dist/index.js",
+            ),
+        },
     };
 }
 
@@ -71,7 +91,8 @@ export type PackagedPaths = RuntimePaths & {pagesDir: string};
 
 /**
  * Running from a bundle laid out as `scripts/build-bundle-lib.ts` builds it,
- * in `root`: `server/index.mjs`, `types/` and `pages/`. Drafts go in the
+ * in `root`: `server/index.mjs`, `types/`, `pages/` and `graffiti/` (the
+ * runner, and the Graffiti library in `lib/`). Drafts go in the
  * user's data folder, since there's no checkout to keep them in.
  */
 export function packagedPaths(root: string): PackagedPaths {
@@ -83,5 +104,9 @@ export function packagedPaths(root: string): PackagedPaths {
             os.homedir(),
         ),
         pagesDir: path.join(root, "pages"),
+        graffiti: {
+            runner: path.join(root, "graffiti/runner.mjs"),
+            module: path.join(root, "graffiti/lib/index.js"),
+        },
     };
 }

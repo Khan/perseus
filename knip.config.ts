@@ -106,12 +106,17 @@ const config: KnipConfig = {
                 // The preview pages' scripts, loaded by their HTML through
                 // Vite.
                 "src/adapters/preview/page/{shell,frame,exercise-list,exercise-page}.tsx!",
+                // Started as a process of its own to run a diagram script.
+                "src/adapters/graffiti/runner.mjs!",
                 // The packaged server's entry point, which scripts/build-bundle
                 // bundles.
                 "src/main-packaged.ts!",
                 // The MCP Apps page's script, built when a host asks for it.
                 "src/adapters/preview/app/preview-app.tsx!",
             ],
+            // Diagram scripts import Graffiti in a process of their own,
+            // which finds it by path; nothing in the server imports it.
+            ignoreDependencies: ["graffiti"],
         },
         "packages/perseus-core": {
             ...basePackageConfig,
