@@ -83,6 +83,8 @@ const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
             : options.layout;
 
     const tileIds = bankOrder.map((_, index) => getTileId(index));
+
+    // for TeX and screen reader support
     const tileLabels = useSpokenLabels(bankOrder);
 
     function getTileContent(tileId: string): string {

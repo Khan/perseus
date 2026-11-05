@@ -32,6 +32,11 @@ export function toSpokenText(
         .join("");
 }
 
+/**
+ * Hook that transforms strings that might contain TeX
+ * into screen reader friendly strings by pulling out TeX
+ * and using SpeechRuleEngine to convert it to plan language
+ */
 export function useSpokenLabels(contents: string[]): string[] {
     const {locale} = usePerseusI18n();
     const [engine, setEngine] = useState<SpeechRuleEngine | null>(null);
