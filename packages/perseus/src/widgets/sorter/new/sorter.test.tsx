@@ -102,6 +102,17 @@ describe("new sorter widget", () => {
             expect(bank.getByRole("button", {name: "Cherry"})).toBeVisible();
         });
 
+        it("labels a TeX card's menu button without the TeX delimiters", () => {
+            // Arrange, Act
+            renderQuestion(generateSorterQuestion(["$x^2$", "Banana"]), {
+                apiOptions,
+            });
+
+            // Assert
+            const bank = within(getChoiceBank());
+            expect(bank.getByRole("button", {name: "x^2"})).toBeVisible();
+        });
+
         it("renders an empty blank for each card", () => {
             // Arrange, Act
             renderQuestion(
