@@ -3,7 +3,7 @@ import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import * as React from "react";
 import _ from "underscore";
 
-import {getDependencies} from "../dependencies";
+import {getDependencies, useDependencies} from "../dependencies";
 import Util from "../util";
 import {toClosestMathColor} from "../util/colors";
 import {loadGraphie} from "../util/graphie-utils";
@@ -17,7 +17,7 @@ import {ZoomImageButton} from "./zoom-image-button";
 
 import type {ImageProps} from "./image-loader";
 import type {Coord} from "../interactive2/types";
-import type {APIOptions} from "../types";
+import type {APIOptions, PerseusDependenciesV2} from "../types";
 import type {Alignment, Size} from "@khanacademy/perseus-core";
 import type {ParsedFrame} from "gifuct-js";
 
@@ -46,6 +46,8 @@ function spinner() {
 }
 
 export type Props = {
+    /** Filled in by the default export; callers don't pass it. */
+    dependencies?: PerseusDependenciesV2;
     apiOptions?: APIOptions;
     allowFullBleed?: boolean;
     allowZoom: boolean;
@@ -251,26 +253,37 @@ class SvgImage extends React.Component<Props, State> {
         // Mark that we're loading to prevent duplicate calls
         this._isLoadingGraphie = true;
 
-        loadGraphie(this.props.src, (data, localized) => {
-            // Reset the loading flag when complete
-            this._isLoadingGraphie = false;
+        const {dependencies} = this.props;
+        loadGraphie(
+            this.props.src,
+            (data, localized) => {
+                // Reset the loading flag when complete
+                this._isLoadingGraphie = false;
 
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            if (this._isMounted && data.labels && data.range) {
-                const labelsRendered: LabelsRenderedMap = {};
-                data.labels.forEach((label) => {
-                    labelsRendered[label.content] = false;
-                });
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+                if (this._isMounted && data.labels && data.range) {
+                    const labelsRendered: LabelsRenderedMap = {};
+                    data.labels.forEach((label) => {
+                        labelsRendered[label.content] = false;
+                    });
 
-                this.setState({
-                    dataLoaded: true,
-                    labelDataIsLocalized: localized,
-                    labelsRendered,
-                    labels: data.labels,
-                    range: data.range,
-                });
-            }
-        });
+                    this.setState({
+                        dataLoaded: true,
+                        labelDataIsLocalized: localized,
+                        labelsRendered,
+                        labels: data.labels,
+                        range: data.range,
+                    });
+                }
+            },
+            // The label data goes through generateUrl like the image does, so
+            // a host can serve both files from wherever it keeps them.
+            (dataUrl) =>
+                dependencies?.generateUrl({
+                    url: dataUrl,
+                    context: "graphie:data_url",
+                }) ?? dataUrl,
+        );
     }
 
     sizeProvided(): boolean {
@@ -641,4 +654,18 @@ class SvgImage extends React.Component<Props, State> {
     }
 }
 
-export default SvgImage;
+/**
+ * SvgImage with the Perseus dependencies, which it needs to resolve a
+ * Graphie image's label data URL through `generateUrl`.
+ */
+function SvgImageWithDependencies(
+    props: Omit<
+        React.JSX.LibraryManagedAttributes<typeof SvgImage, Props>,
+        "dependencies"
+    >,
+) {
+    const dependencies = useDependencies();
+    return <SvgImage {...props} dependencies={dependencies} />;
+}
+
+export default SvgImageWithDependencies;

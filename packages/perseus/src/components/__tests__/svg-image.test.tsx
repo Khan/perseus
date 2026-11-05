@@ -240,7 +240,47 @@ describe("SvgImage", () => {
             expect(loadGraphie).toHaveBeenCalledWith(
                 typicalCase.url,
                 expect.any(Function),
+                expect.any(Function),
             );
+        });
+
+        it("resolves the label data URL through generateUrl", () => {
+            // Arrange
+            const generateUrl = jest.fn(
+                ({url}: {url: string}) => `https://elsewhere.test/${url}`,
+            );
+            jest.spyOn(Dependencies, "useDependencies").mockReturnValue({
+                ...testDependenciesV2,
+                generateUrl,
+            });
+            const loadGraphie = mockCachedLoadGraphie();
+            render(
+                <SvgImage
+                    src={graphieImage.url}
+                    alt="svg image"
+                    allowZoom={false}
+                    width={graphieImage.width}
+                    height={graphieImage.height}
+                />,
+            );
+            const resolveUrl = loadGraphie.mock.calls[0][2]!;
+
+            // Act
+            const resolved = resolveUrl("https://host/hash-data.json");
+
+            // Assert
+            expect({
+                resolved,
+                call: generateUrl.mock.calls.find(
+                    ([args]) => args.url === "https://host/hash-data.json",
+                )?.[0],
+            }).toEqual({
+                resolved: "https://elsewhere.test/https://host/hash-data.json",
+                call: {
+                    url: "https://host/hash-data.json",
+                    context: "graphie:data_url",
+                },
+            });
         });
     });
 

@@ -125,9 +125,12 @@ type CacheEntry = {
     range: [Coord, Coord];
 };
 
-// The global cache of label data. Its format is:
+// The global cache of label data, keyed by the URL the English data is
+// fetched from (after `resolveUrl`), so two images with the same hash on
+// different hosts, or one image whose URL changes, don't share data. Its
+// format is:
 // {
-//   hash (e.g. "c21435944d2cf0c8f39d9059cb35836aa701d04a"): {
+//   data URL (e.g. "https://…/c21435944d2cf0c8f39d9059cb35836aa701d04a-data.json"): {
 //     loaded: a boolean of whether the data has been loaded or not
 //     dataCallbacks: a list of callbacks to call with the data when the data
 //                    is loaded
@@ -160,16 +163,25 @@ export function resetLabelDataCache(): void {
     labelDataCache = {};
 }
 
+/**
+ * Loads a Graphie image's label data, calling `onDataLoaded` with it.
+ * `resolveUrl` turns each data file's URL into the one to fetch, as the
+ * `generateUrl` dependency does for the image itself; by default it leaves
+ * the URL as it is.
+ */
 export function loadGraphie(
     url: string,
     onDataLoaded: (data: CacheEntry, localized: boolean) => void,
+    resolveUrl: (dataUrl: string) => string = (dataUrl) => dataUrl,
 ) {
     const hash = getUrlHash(url);
+    const dataUrl = resolveUrl(Util.getDataUrl(url));
+    const cacheKey = dataUrl;
 
     // We can't make multiple jsonp calls to the same file because their
     // callbacks will collide with each other. Instead, we cache the data
     // and only make the jsonp calls once.
-    const entry = labelDataCache[hash];
+    const entry = labelDataCache[cacheKey];
     if (entry != null) {
         if (entry.loaded) {
             const {data, localized} = entry;
@@ -184,7 +196,7 @@ export function loadGraphie(
             localized: shouldUseLocalizedData(),
         };
 
-        labelDataCache[hash] = cacheData;
+        labelDataCache[cacheKey] = cacheData;
 
         const retrieveData = async (
             url: string,
@@ -218,8 +230,8 @@ export function loadGraphie(
                 return;
             }
 
-            const newCacheEntry = (labelDataCache[hash] = {
-                ...labelDataCache[hash],
+            const newCacheEntry = (labelDataCache[cacheKey] = {
+                ...labelDataCache[cacheKey],
                 loaded: true as const,
                 data,
             });
@@ -242,13 +254,13 @@ export function loadGraphie(
         if (shouldUseLocalizedData()) {
             // Try to load localized data first. If that fails, fall back to
             // non-localized data and update the localized flag accordingly.
-            retrieveData(getLocalizedDataUrl(url), () => {
+            retrieveData(resolveUrl(getLocalizedDataUrl(url)), () => {
                 // Mark as non-localized since we're falling back to English data
                 cacheData.localized = false;
-                retrieveData(Util.getDataUrl(url), dataLoadErrorHandler);
+                retrieveData(dataUrl, dataLoadErrorHandler);
             });
         } else {
-            retrieveData(Util.getDataUrl(url), dataLoadErrorHandler);
+            retrieveData(dataUrl, dataLoadErrorHandler);
         }
     }
 }

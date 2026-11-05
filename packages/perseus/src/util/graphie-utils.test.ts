@@ -166,4 +166,57 @@ describe("graphie utils", () => {
             localized: true,
         });
     });
+
+    describe("resolveUrl", () => {
+        function fetchingJson(data: unknown) {
+            const fetchMock = jest.fn(() =>
+                Promise.resolve({
+                    text: () => Promise.resolve(JSON.stringify(data)),
+                    ok: true,
+                }),
+            );
+            // eslint-disable-next-line no-restricted-syntax -- a partial Response is all loadGraphie reads
+            global.fetch = fetchMock as unknown as typeof fetch;
+            return fetchMock;
+        }
+
+        function load(url: string, resolveUrl: (url: string) => string) {
+            return new Promise<unknown>((resolve) => {
+                loadGraphie(url, (data) => resolve(data), resolveUrl);
+            });
+        }
+
+        beforeEach(() => {
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+        });
+
+        it("fetches the label data from the URL it resolves to", async () => {
+            // Arrange
+            const fetchMock = fetchingJson({labels: [], range: null});
+
+            // Act
+            await load(typicalCase.url, (url) =>
+                url.replace("https://", "https://elsewhere.test/"),
+            );
+
+            // Assert
+            expect(fetchMock).toHaveBeenCalledWith(
+                "https://elsewhere.test/ka-perseus-graphie.s3.amazonaws.com/ccefe63aa1bd05f1d11123f72790a49378d2e42b-data.json",
+            );
+        });
+
+        it("doesn't share cached data between URLs that resolve differently", async () => {
+            // Arrange
+            const fetchMock = fetchingJson({labels: [], range: null});
+
+            // Act
+            await load(typicalCase.url, (url) => `${url}?rev=1`);
+            await load(typicalCase.url, (url) => `${url}?rev=2`);
+
+            // Assert
+            expect(fetchMock).toHaveBeenCalledTimes(2);
+        });
+    });
 });

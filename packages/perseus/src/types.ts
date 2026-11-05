@@ -141,6 +141,7 @@ type TrackInteractionArgs = {
     Partial<TrackingSequenceExtraArguments>;
 
 type GenerateUrlContext =
+    | "graphie:data_url"
     | "image_loader:image_url"
     | "python_program:program_url"
     | "video:video_url";
