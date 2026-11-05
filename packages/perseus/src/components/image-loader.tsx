@@ -88,8 +88,17 @@ class ImageLoader extends React.Component<Props, State> {
         this.img.onload = this.handleLoad;
         // @ts-expect-error: Type 'string | Event' is not assignable to type 'Event'.
         this.img.onerror = this.handleError;
-        this.img.src = this.props.src;
+        // Preloaded from the URL the <img> will show, so a host that serves
+        // images from elsewhere gets the image loaded, and loaded once.
+        this.img.src = this.imageUrl();
     };
+
+    imageUrl(): string {
+        return this.props.dependencies.generateUrl({
+            url: this.props.src,
+            context: "image_loader:image_url",
+        });
+    }
 
     destroyLoader: () => void = () => {
         if (this.img) {
@@ -129,7 +138,7 @@ class ImageLoader extends React.Component<Props, State> {
      * they can click for some action (i.e. zooming in on the image).
      */
     renderImg: () => React.ReactElement<React.ComponentProps<"img">> = () => {
-        const {src, imgProps} = this.props;
+        const {imgProps} = this.props;
         // Pull `alt` (and `title`) out of the spread so the static
         // `jsx-a11y/alt-text` rule can see they're set.
         const {alt, title, ...restImgProps} = imgProps;
@@ -140,10 +149,7 @@ class ImageLoader extends React.Component<Props, State> {
                 title={title}
                 // Class name makes this img findable in Cypress tests.
                 className="image-loader-img"
-                src={this.props.dependencies.generateUrl({
-                    url: src,
-                    context: "image_loader:image_url",
-                })}
+                src={this.imageUrl()}
                 // Stop the image size from being larger than 100%
                 // when width and height are not explicitly provided.
                 style={{
