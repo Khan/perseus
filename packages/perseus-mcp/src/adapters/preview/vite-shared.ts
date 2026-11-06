@@ -13,9 +13,6 @@ export const PAGE_DIR = path.join(import.meta.dirname, "page");
 /** The MCP Apps page. */
 export const APP_DIR = path.join(import.meta.dirname, "app");
 
-/** Where Vite caches its pre-bundled dependencies for perseus-mcp. */
-export const CACHE_DIR = path.join(PACKAGE_DIR, "node_modules/.vite");
-
 /**
  * The Vite settings every page that renders Perseus shares: the browser
  * preview's pages and the MCP Apps page.
