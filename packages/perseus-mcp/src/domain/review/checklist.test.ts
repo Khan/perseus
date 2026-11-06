@@ -1,7 +1,12 @@
 /**
  * @jest-environment node
  */
-import {CHECKLIST, checklistLinkFor, renderChecklist} from "./checklist";
+import {
+    CHECKLIST,
+    checklistFor,
+    checklistLinkFor,
+    renderChecklist,
+} from "./checklist";
 
 describe("checklistLinkFor", () => {
     it("returns the entry's anchor in the checklist for a known code", () => {
@@ -58,6 +63,26 @@ describe("renderChecklist", () => {
             .filter((line) => line.startsWith("## "));
         expect(headings).toEqual(
             CHECKLIST.map((entry) => `## ${entry.title} (\`${entry.id}\`)`),
+        );
+    });
+});
+
+describe("checklistFor and images", () => {
+    it("includes the image judgment calls only for items with images", () => {
+        // Arrange, Act
+        const without = checklistFor([]).map((entry) => entry.id);
+        const withImages = checklistFor([], {hasImages: true}).map(
+            (entry) => entry.id,
+        );
+
+        // Assert
+        expect(without).not.toContain("description-gives-answer");
+        expect(withImages).toEqual(
+            expect.arrayContaining([
+                "description-gives-answer",
+                "choice-descriptions-differ",
+                "image-needs-sight",
+            ]),
         );
     });
 });

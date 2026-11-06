@@ -15,7 +15,10 @@ const JUDGMENT_STEPS = `\
    intended, and that static and ungraded widgets are deliberate.
 6. Test several equivalent forms of complex expressions; the expression
    scorer can reject valid ones. Report any it rejects.
-7. If the author's intent is unclear, ask or report it. Don't guess.`;
+7. If the item has images, look at each with describe_images and check its
+   alt text and long description against the guidelines' image-descriptions
+   topic: what a learner who can't see it needs, without the answer.
+8. If the author's intent is unclear, ask or report it. Don't guess.`;
 
 function report(): string {
     const kinds = CHECKLIST.map((entry) => `\`${entry.id}\``).join(", ");

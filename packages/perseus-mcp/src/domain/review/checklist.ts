@@ -15,6 +15,8 @@ export type ChecklistEntry = {
     example: string;
     /** The validate_item issue codes this entry explains, if any. */
     issueCodes: ReadonlyArray<string>;
+    /** Only for items with images: a judgment call about them. */
+    forImages?: true;
 };
 
 export const CHECKLIST: ReadonlyArray<ChecklistEntry> = [
@@ -145,6 +147,66 @@ export const CHECKLIST: ReadonlyArray<ChecklistEntry> = [
         ],
     },
     {
+        id: "alt-text-style",
+        title: "Alt text that breaks the image-description rules",
+        check:
+            "validate_item warns about missing, short or over-125-character " +
+            'alt text, dashes, "x-axis" and openings like "The diagram ' +
+            "shows\". The rules are the guidelines' image-descriptions " +
+            "topic (get_guidelines).",
+        example:
+            'Alt text "The diagram shows a line \u2014 rising through the ' +
+            'x-axis at 3".',
+        issueCodes: [
+            "lint:image-widget-alt-text",
+            "lint:image-alt-text",
+            "alt-text-dash",
+            "alt-text-axis-hyphen",
+            "alt-text-opening",
+        ],
+    },
+    {
+        id: "description-gives-answer",
+        title: "An image's description gives the answer away",
+        check:
+            "Read each image's alt text and long description as a learner " +
+            "who can't see it: they should get what a sighted learner gets " +
+            "from the image, and no more. A value the learner has to read " +
+            "or work out from the image, stated in its description, is a " +
+            "finding.",
+        example:
+            'A graph to read the slope from, described as "a line with ' +
+            'slope 2".',
+        issueCodes: [],
+        forImages: true,
+    },
+    {
+        id: "choice-descriptions-differ",
+        title: "Image choices described unevenly or alike",
+        check:
+            "Where answer choices are images, compare their descriptions: " +
+            "each should say the same kinds of things in the same order, " +
+            "and no two should read the same.",
+        example:
+            "Four graph choices, three described by their intercepts and " +
+            "the correct one by its shape.",
+        issueCodes: [],
+        forImages: true,
+    },
+    {
+        id: "image-needs-sight",
+        title: "An image that can't be described without sight",
+        check:
+            "If the task depends on seeing the image (judging a shape by " +
+            "eye, matching colors) so no description can stand in for it, " +
+            "flag it for the author rather than writing one.",
+        example:
+            '"Which shape looks most like a circle?" over four freehand ' +
+            "drawings.",
+        issueCodes: [],
+        forImages: true,
+    },
+    {
         id: "widget-to-avoid",
         title: "Unfinished or deprecated widget",
         check:
@@ -163,17 +225,19 @@ const ENTRY_BY_ISSUE_CODE: ReadonlyMap<string, ChecklistEntry> = new Map(
 
 /**
  * The entries a review of an item needs: those no validate_item issue
- * explains (the judgment calls), and those explaining `issueCodes`, the
- * item's issues.
+ * explains (the judgment calls; those about images only when it has some),
+ * and those explaining `issueCodes`, the item's issues.
  */
 export function checklistFor(
     issueCodes: ReadonlyArray<string>,
+    item: {hasImages: boolean} = {hasImages: false},
 ): ChecklistEntry[] {
     const codes = new Set(issueCodes);
-    return CHECKLIST.filter(
-        (entry) =>
-            entry.issueCodes.length === 0 ||
-            entry.issueCodes.some((code) => codes.has(code)),
+    return CHECKLIST.filter((entry) =>
+        entry.forImages === true
+            ? item.hasImages
+            : entry.issueCodes.length === 0 ||
+              entry.issueCodes.some((code) => codes.has(code)),
     );
 }
 

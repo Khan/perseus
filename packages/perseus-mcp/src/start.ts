@@ -27,6 +27,7 @@ import {nodeExportFileWriter} from "./adapters/fs/node-export-file-writer";
 import {nodeItemFileReader} from "./adapters/fs/node-item-file-reader";
 import {createPerseusCoreSchemaSource} from "./adapters/fs/perseus-core-schema-source";
 import {createNodeGraffitiRenderer} from "./adapters/graffiti/node-graffiti-renderer";
+import {nodeImageFetcher} from "./adapters/http/node-image-fetcher";
 import {
     allowedHostnames,
     createHttpServer,
@@ -49,6 +50,7 @@ import {createFixUseCases} from "./app/fixes";
 import {createGraffitiUseCases} from "./app/graffiti";
 import {withGraffitiFeed} from "./app/graffiti-feed";
 import {createGuidelineUseCases} from "./app/guidelines";
+import {createImageUseCases} from "./app/images";
 import {createPreviewUseCases} from "./app/preview";
 import {createReadItemsUseCase} from "./app/read-items";
 import {createReviewUseCases} from "./app/review";
@@ -326,6 +328,10 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
         }),
         graffiti,
     };
+    const images = createImageUseCases({
+        drafts: repository,
+        images: nodeImageFetcher,
+    });
     const readItems = createReadItemsUseCase({
         drafts: repository,
         exercises: useCases.exercises,
@@ -400,6 +406,7 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
         createMcpServer({
             ...useCases,
             readItems,
+            images,
             search,
             guidelines,
             fixes,

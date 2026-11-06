@@ -9,6 +9,7 @@ import {AUTHORING_RULES, registerAuthoringPrompt} from "./authoring";
 import {registerExerciseTools} from "./exercise-tools";
 import {registerGraffitiTools} from "./graffiti-tools";
 import {registerGuidelineTools} from "./guideline-tools";
+import {registerImageTools} from "./image-tools";
 import {registerSearchTools} from "./search-tools";
 import {errorResult, jsonResult, runTool} from "./tool-results";
 
@@ -17,6 +18,7 @@ import type {ExerciseUseCases} from "../../app/exercises";
 import type {FixUseCases} from "../../app/fixes";
 import type {GraffitiUseCases} from "../../app/graffiti";
 import type {GuidelineUseCases} from "../../app/guidelines";
+import type {ImageUseCases} from "../../app/images";
 import type {PreviewUseCases} from "../../app/preview";
 import type {ReadItemsUseCase} from "../../app/read-items";
 import type {ReviewUseCases} from "../../app/review";
@@ -163,6 +165,7 @@ export function createMcpServer({
     previewApp,
     exercises,
     readItems,
+    images,
     graffiti,
     search,
     guidelines,
@@ -174,6 +177,7 @@ export function createMcpServer({
     drafts: DraftUseCases;
     exercises: ExerciseUseCases;
     readItems: ReadItemsUseCase;
+    images: ImageUseCases;
     /** Graffiti diagrams; their tools are left out when it's missing. */
     graffiti?: GraffitiUseCases;
     /** Content search; its tools are left out when it's missing. */
@@ -535,6 +539,7 @@ export function createMcpServer({
     );
 
     registerExerciseTools(server, {exercises, preview, readItems, run});
+    registerImageTools(server, {images, run});
     if (graffiti != null) {
         registerGraffitiTools(server, {graffiti, preview, run});
     }

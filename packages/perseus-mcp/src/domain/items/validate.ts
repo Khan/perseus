@@ -6,6 +6,7 @@ import {lintPerseusItem} from "@khanacademy/perseus-linter";
 
 import {checklistLinkFor} from "../review/checklist";
 
+import {altTextIssues} from "./alt-text";
 import {parseItem} from "./parse";
 
 import type {WidgetCatalog} from "./widgets";
@@ -230,9 +231,11 @@ export function validateItem(
         };
     }
 
+    const renderers = collectRenderers(parsed.item);
     const issues = [
-        ...collectRenderers(parsed.item).flatMap((renderer) =>
-            checkRenderer(renderer, widgets),
+        ...renderers.flatMap((renderer) => checkRenderer(renderer, widgets)),
+        ...renderers.flatMap(({renderer, path}) =>
+            altTextIssues(renderer, path),
         ),
         ...lintIssues(parsed.item),
     ].map(withChecklistLink);

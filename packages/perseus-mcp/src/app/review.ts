@@ -2,6 +2,7 @@ import {diagramIdsIn} from "../domain/graffiti/diagram";
 import {validateItem} from "../domain/items/validate";
 import {checklistFor, renderChecklist} from "../domain/review/checklist";
 import {reviewProcedure, reviewPrompt} from "../domain/review/procedure";
+import {itemContentFields} from "../domain/search/content-fields";
 
 import {DraftNotFoundError} from "./errors";
 
@@ -60,9 +61,12 @@ export function createReviewUseCases(deps: ReviewDependencies) {
                 revision: draft.revision,
                 procedure: reviewProcedure(itemId),
                 issues,
-                checklist: checklistFor(issues.map((issue) => issue.code)).map(
-                    ({issueCodes: _, ...entry}) => entry,
-                ),
+                checklist: checklistFor(
+                    issues.map((issue) => issue.code),
+                    {
+                        hasImages: itemContentFields(draft.item).imageCount > 0,
+                    },
+                ).map(({issueCodes: _, forImages: __, ...entry}) => entry),
                 ...(diagrams.length > 0 && {diagrams}),
             };
         },
