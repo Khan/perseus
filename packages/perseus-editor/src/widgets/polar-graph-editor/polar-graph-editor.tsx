@@ -222,4 +222,8 @@ function PolarGraphEditor(props: Props) {
     );
 }
 
-export default PolarGraphEditor;
+export default Object.assign(PolarGraphEditor, {
+    // Read directly by the editor page to seed the options of a newly inserted
+    // polar graph.
+    defaultProps: polarGraphLogic.defaultWidgetOptions,
+});

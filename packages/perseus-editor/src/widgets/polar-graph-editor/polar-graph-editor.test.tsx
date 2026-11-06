@@ -10,6 +10,7 @@ import {
     generatePolarGraphRoseGraph,
     getPolarGraphStartState,
     PolarMath,
+    polarGraphLogic,
 } from "@khanacademy/perseus-core";
 import {render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -795,5 +796,15 @@ describe("polar-graph-editor", () => {
         expect(
             screen.getAllByRole("button", {name: /^Point \d+ at radius/}),
         ).toHaveLength(2);
+    });
+
+    // The editor page reads the default options off the component itself to
+    // seed a newly inserted polar graph, so they're part of its public
+    // surface, not implementation detail.
+    it("exposes the default options a new polar graph starts with", () => {
+        // Arrange, Act, Assert
+        expect(PolarGraphEditor.defaultProps).toEqual(
+            polarGraphLogic.defaultWidgetOptions,
+        );
     });
 });
