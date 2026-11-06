@@ -168,15 +168,13 @@ const parseUserInputMapEntry: (
             return parseAndAssign(`table ${n}`, parseTableUserInput);
 
         default:
-            // For unknown widget types, accept any input. Both casts matter:
-            // left typed, the parser lets TypeScript infer the key from it,
-            // which collapses to `never` once the registry holds many
-            // distinct input types.
-            return parseAndAssign(
+            // For unknown widget types, accept any input. The key type is
+            // given, not inferred: TypeScript would otherwise narrow it to
+            // `never` and reject the catch-all parser.
+            return parseAndAssign<keyof UserInputMap>(
                 // eslint-disable-next-line no-restricted-syntax
                 `${type} ${n}` as any,
-                // eslint-disable-next-line no-restricted-syntax
-                any as any,
+                any,
             );
     }
 };

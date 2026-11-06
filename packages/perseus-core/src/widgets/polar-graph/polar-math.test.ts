@@ -202,8 +202,11 @@ describe("snapGraphToGrid", () => {
             grid,
         );
 
-        // Assert
-        expect(toPolar(ray.coords![0]).r).toBe(1);
+        // Assert: the ray keeps its direction but moves out to the first
+        // circle.
+        expect(ray.coords).toEqual([
+            fromPolar(1, toPolar([0.1, 0.2]).thetaDegrees),
+        ]);
         expect(angle.coords).toEqual([fromPolar(1, 30), fromPolar(3, 90)]);
     });
 
