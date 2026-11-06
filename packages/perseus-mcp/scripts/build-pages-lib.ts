@@ -35,6 +35,8 @@ export async function buildPages(outDir: string): Promise<void> {
                     "exercise-list": path.join(PAGE_DIR, "exercise-list.html"),
                     "exercise-page": path.join(PAGE_DIR, "exercise-page.html"),
                     "graffiti-page": path.join(PAGE_DIR, "graffiti-page.html"),
+                    home: path.join(PAGE_DIR, "home.html"),
+                    images: path.join(PAGE_DIR, "images.html"),
                 },
             },
         },

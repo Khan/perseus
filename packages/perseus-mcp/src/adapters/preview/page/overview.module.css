@@ -1,0 +1,104 @@
+/* The homepage and the images page, under their title bar: the root font
+   size is 10px, so 120rem is 1200px. */
+.root {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_320);
+    max-inline-size: 120rem;
+    margin-inline: auto;
+    padding: var(--wb-sizing-size_240) var(--wb-sizing-size_160);
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_080);
+}
+
+.list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* The homepage's places to go: one card each, side by side when they fit. */
+.places {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(24rem, 1fr));
+    gap: var(--wb-sizing-size_160);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.place {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_040);
+    padding: var(--wb-sizing-size_160);
+    border: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+    border-radius: var(--wb-border-radius-radius_080);
+}
+
+/* Each entry, between thin dividers. */
+.row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_040);
+    padding-block: var(--wb-sizing-size_120);
+    border-block-end: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+}
+
+.row:first-child {
+    border-block-start: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+}
+
+.link {
+    color: var(--wb-semanticColor-core-foreground-instructive-default);
+    text-decoration: none;
+}
+
+.link:hover,
+.link:focus-visible {
+    text-decoration: underline;
+}
+
+.details {
+    color: var(--wb-semanticColor-core-foreground-neutral-subtle);
+}
+
+/* A diagram: its thumbnail beside what it is and where it's used. */
+.diagram {
+    display: grid;
+    grid-template-columns: 16rem 1fr;
+    gap: var(--wb-sizing-size_160);
+    padding-block: var(--wb-sizing-size_160);
+    border-block-end: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+}
+
+.thumbnail {
+    display: block;
+    inline-size: 16rem;
+    block-size: 12rem;
+    border: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+    border-radius: var(--wb-border-radius-radius_040);
+    background: var(--wb-semanticColor-core-background-base-default);
+    object-fit: contain;
+}
+
+.usedIn {
+    margin: 0;
+    padding-inline-start: var(--wb-sizing-size_200);
+}
+
+/* On a phone, the thumbnail goes above the text. */
+@media (max-width: 600px) {
+    .diagram {
+        grid-template-columns: 1fr;
+    }
+}

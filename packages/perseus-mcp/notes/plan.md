@@ -188,7 +188,13 @@ Remaining, in order:
       search tools (published, drafts, all). Done. Unpublished content is
       out of scope for this project: it reaches production content only
       through a local snapshot.
-4. Deleting drafts and exercises, so the data folder doesn't grow without
+4. A homepage and an images page in the browser. Done: `/` counts the
+   drafts, exercises and diagrams, links to the exercise list and the
+   images page, and lists the five latest exercises and drafts; `/images`
+   lists every Graffiti diagram, newest first, with a thumbnail, a link to
+   its page and the drafts that show it (`app/overview.ts`, `/api/home`,
+   `/api/images`).
+5. Deleting drafts and exercises, so the data folder doesn't grow without
    limit. Reversible: nothing is erased at once.
    - `delete_exercise`: the exercise, and its drafts with their revision
      history, except drafts also in another exercise, which stay.
@@ -211,7 +217,7 @@ Remaining, in order:
      decide on; fewer kept revisions if history grows too large.
    - In the exercise list and exercise pages (the browser): Delete
      controls with the same dry run and confirm.
-5. Build order steps 14 to 16. Steps 10 to 13 are done: the exercise page
+6. Build order steps 14 to 16. Steps 10 to 13 are done: the exercise page
    with its upload, Graffiti diagrams, content search with guidelines and
    fixes, and alt text and long descriptions.
 

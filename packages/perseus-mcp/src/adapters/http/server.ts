@@ -9,10 +9,12 @@ import {DraftNotFoundError} from "../../app/errors";
 import {streamEvents} from "./event-stream";
 import {registerExerciseRoutes} from "./exercise-routes";
 import {registerGraffitiRoutes} from "./graffiti-routes";
+import {registerOverviewRoutes} from "./overview-routes";
 
 import type {DraftUseCases} from "../../app/drafts";
 import type {ExerciseUseCases} from "../../app/exercises";
 import type {GraffitiUseCases} from "../../app/graffiti";
+import type {OverviewUseCases} from "../../app/overview";
 import type {Draft} from "../../domain/draft";
 import type {PreviewLinks} from "../../ports/preview-links";
 import type {McpServer} from "@modelcontextprotocol/server";
@@ -22,14 +24,17 @@ import type {IncomingMessage, Server, ServerResponse} from "node:http";
 /**
  * The preview's pages: the shell for one draft, the frame inside it that
  * renders the item, the exercise pages (the list, and one exercise with its
- * tree and a preview of the selected item), and a Graffiti diagram's page.
+ * tree and a preview of the selected item), a Graffiti diagram's page, the
+ * homepage, and the page listing the diagrams.
  */
 export type PreviewPage =
     | "shell"
     | "frame"
     | "exercise-list"
     | "exercise-page"
-    | "graffiti-page";
+    | "graffiti-page"
+    | "home"
+    | "images";
 
 export type PreviewPages = {
     /** Serves the pages' scripts, styles and other assets. */
@@ -122,6 +127,7 @@ export async function createHttpServer({
     drafts,
     exercises,
     graffiti,
+    overview,
     createPreview,
     allowedHostnames,
 }: {
@@ -131,6 +137,8 @@ export async function createHttpServer({
     exercises?: ExerciseUseCases;
     /** Serves Graffiti diagrams as Graphie images, on `/graffiti`. */
     graffiti?: GraffitiUseCases;
+    /** Serves the homepage and the images page, and their data. */
+    overview?: OverviewUseCases;
     createPreview?: (server: Server) => Promise<PreviewPages>;
     allowedHostnames: string[];
 }): Promise<FastifyInstance> {
@@ -238,6 +246,9 @@ export async function createHttpServer({
     }
     if (graffiti != null) {
         registerGraffitiRoutes(app, {graffiti, pages: previewPages});
+    }
+    if (overview != null) {
+        registerOverviewRoutes(app, {overview, pages: previewPages});
     }
 
     return app;

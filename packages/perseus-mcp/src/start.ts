@@ -52,6 +52,7 @@ import {createGraffitiUseCases} from "./app/graffiti";
 import {withGraffitiFeed} from "./app/graffiti-feed";
 import {createGuidelineUseCases} from "./app/guidelines";
 import {createImageUseCases} from "./app/images";
+import {createOverviewUseCases} from "./app/overview";
 import {createPreviewUseCases} from "./app/preview";
 import {createReadItemsUseCase} from "./app/read-items";
 import {createReviewUseCases} from "./app/review";
@@ -425,6 +426,11 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
         drafts: useCases.drafts,
         exercises: useCases.exercises,
         graffiti: useCases.graffiti,
+        overview: createOverviewUseCases({
+            drafts: repository,
+            exercises,
+            graffiti: useCases.graffiti,
+        }),
         createPreview,
         allowedHostnames: allowedHostnames(host),
     });
