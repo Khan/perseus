@@ -1,6 +1,3 @@
-/**
- * @jest-environment node
- */
 import {describe, expect, it, jest, beforeEach} from "@jest/globals";
 
 // We need to mock the module before importing it

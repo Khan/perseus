@@ -1,6 +1,6 @@
 /**
- * This is the main jest config.  It runs tests using the default
- * test environment: jest-environment-node.
+ * This is the main jest config. Workspace packages without a `react`
+ * dependency run in the node test environment; everything else runs in jsdom.
  */
 const fs = require("fs");
 const path = require("path");
@@ -26,8 +26,35 @@ swcrc.jsc.experimental.plugins.push(["swc_mut_cjs_exports", {}]);
 // faster with 10 workers, too (16s vs. 18s). This setting is not applied on CI.
 const maxWorkersConfig = process.env.CI ? {} : {maxWorkers: 10};
 
+// Workspace packages without a `react` dependency, and the repo scripts in
+// `utils/`. Their code also runs outside the browser, so their tests run in
+// node: code that depends on the DOM fails there instead of passing under
+// jsdom.
+const nodePackageDirs = fs
+    .readdirSync(path.join(root, "packages"))
+    .filter((name) => {
+        const file = path.join(root, "packages", name, "package.json");
+        if (!fs.existsSync(file)) {
+            return false;
+        }
+        const pkg = JSON.parse(fs.readFileSync(file, "utf8"));
+        return !["dependencies", "peerDependencies", "devDependencies"].some(
+            (field) => pkg[field]?.react,
+        );
+    })
+    .map((name) => `<rootDir>/packages/${name}/`);
+const nodeDirs = [...nodePackageDirs, "<rootDir>/utils/"];
+
+const testFilePatterns = [
+    "**/*.test.js",
+    "**/*.test.jsx",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+];
+
+// Options shared by both projects.
 /** @type {import('jest').Config} */
-module.exports = {
+const projectConfig = {
     setupFiles: [],
     transform: {
         "^.+\\.(j|t)sx?$": ["@swc/jest", swcrc],
@@ -46,13 +73,6 @@ module.exports = {
     ],
     restoreMocks: true,
     resetMocks: true,
-    testEnvironment: "jsdom",
-    testMatch: [
-        "<rootDir>/**/*.test.js",
-        "<rootDir>/**/*.test.jsx",
-        "<rootDir>/**/*.test.ts",
-        "<rootDir>/**/*.test.tsx",
-    ],
     // Exclude in-repo git worktrees (e.g. Claude Code agent worktrees under
     // .claude/) so their duplicate package.json files don't collide in Jest's
     // Haste module map and their tests aren't discovered twice.
@@ -68,6 +88,11 @@ module.exports = {
         // Load a .js file with no exports whenever a .css file is requested.
         "(?<!\\.module)\\.css$": "<rootDir>/config/test/style-mock.js",
     },
+};
+
+/** @type {import('jest').Config} */
+module.exports = {
+    // Options that Jest reads only from the top-level config.
     coverageDirectory: "<rootDir>/coverage/jest/",
     collectCoverageFrom: [
         "packages/*/src/**/*.js",
@@ -88,4 +113,26 @@ module.exports = {
     // Watchman doesn't work under Claude Code's sandbox, and `watchman: false`
     // must be set at the global config level (not per-project) to take effect.
     ...(!!process.env.CLAUDECODE && {watchman: false}),
+    projects: [
+        {
+            ...projectConfig,
+            displayName: "node",
+            testEnvironment: "node",
+            testMatch: nodeDirs.flatMap((dir) =>
+                testFilePatterns.map((pattern) => `${dir}${pattern}`),
+            ),
+        },
+        {
+            ...projectConfig,
+            displayName: "jsdom",
+            testEnvironment: "jsdom",
+            testMatch: testFilePatterns.map(
+                (pattern) => `<rootDir>/${pattern}`,
+            ),
+            testPathIgnorePatterns: [
+                ...projectConfig.testPathIgnorePatterns,
+                ...nodeDirs,
+            ],
+        },
+    ],
 };

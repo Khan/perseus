@@ -1,6 +1,3 @@
-/**
- * @jest-environment node
- */
 import fs from "node:fs";
 
 import {beforeEach, describe, expect, it, jest} from "@jest/globals";
