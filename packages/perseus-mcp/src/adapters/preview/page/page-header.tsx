@@ -7,6 +7,9 @@ import arrowLeftIcon from "@phosphor-icons/core/regular/arrow-left.svg";
 import * as React from "react";
 
 import styles from "./page-header.module.css";
+import {backFor} from "./return-path";
+
+import type {Back} from "./return-path";
 
 export function PageHeader({
     title,
@@ -17,17 +20,21 @@ export function PageHeader({
     title: string;
     /** A line under the title, such as what the page holds. */
     subtitle?: string;
-    /** The page this one belongs to, such as the list of exercises. */
-    back?: {href: string; label: string};
+    /**
+     * The page this one belongs to, such as the list of exercises. A
+     * `?from=` page in the URL takes its place.
+     */
+    back?: Back;
     /** Links or controls for the page, at the bar's end. */
     end?: React.ReactNode;
 }) {
+    const to = back == null ? null : backFor(back, window.location.search);
     return (
         <header className={styles.bar}>
-            {back != null && (
-                <a className={styles.back} href={back.href}>
+            {to != null && (
+                <a className={styles.back} href={to.href}>
                     <PhosphorIcon icon={arrowLeftIcon} aria-hidden={true} />
-                    <span className={styles.hidden}>{back.label}</span>
+                    <span className={styles.hidden}>{to.label}</span>
                 </a>
             )}
             <div className={styles.titles}>

@@ -3,6 +3,7 @@ import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import styles from "./overview.module.css";
+import {linkFromHere} from "./return-path";
 import {Ago} from "./since-now";
 
 import type {DraftSummary} from "../../../app/overview";
@@ -44,7 +45,9 @@ export function DraftLine({draft, now}: {draft: DraftSummary; now: Date}) {
             <BodyText>
                 <a
                     className={styles.link}
-                    href={`/drafts/${encodeURIComponent(draft.itemId)}/preview`}
+                    href={linkFromHere(
+                        `/drafts/${encodeURIComponent(draft.itemId)}/preview`,
+                    )}
                 >
                     {draft.firstLine !== ""
                         ? draft.firstLine
@@ -60,7 +63,9 @@ export function DraftLine({draft, now}: {draft: DraftSummary; now: Date}) {
                         {i > 0 && ", "}
                         <a
                             className={styles.link}
-                            href={`/exercises/${encodeURIComponent(exercise.exerciseId)}`}
+                            href={linkFromHere(
+                                `/exercises/${encodeURIComponent(exercise.exerciseId)}`,
+                            )}
                         >
                             {exercise.name}
                         </a>

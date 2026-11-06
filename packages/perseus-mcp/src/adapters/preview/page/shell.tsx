@@ -25,7 +25,7 @@ function Shell({itemId}: {itemId: string}) {
             <PageHeader
                 title={`Draft ${itemId}`}
                 subtitle="As learners see it"
-                back={{href: "/exercises", label: "All exercises"}}
+                back={{href: "/", label: "Home"}}
             />
             <main className={styles.main}>
                 <DraftPreview itemId={itemId} onStatus={setStatus} />

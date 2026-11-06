@@ -34,14 +34,69 @@ export type Overview = {
     }>;
 };
 
+/** What an image widget showing a diagram says about it; blank if unset. */
+export type ImageDescription = {
+    alt: string;
+    caption: string;
+    longDescription: string;
+};
+
 export type DiagramSummary = {
     graffitiId: string;
     revision: number;
     notes?: string;
     updatedAt: string;
-    /** The drafts whose items show it, most recently changed first. */
-    usedIn: DraftSummary[];
+    /**
+     * The drafts whose items show it, most recently changed first, each with
+     * how its image widgets describe it.
+     */
+    usedIn: Array<DraftSummary & {images: ImageDescription[]}>;
 };
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+    return value != null && typeof value === "object" && !Array.isArray(value);
+}
+
+function text(value: unknown): string {
+    return typeof value === "string" ? value : "";
+}
+
+/**
+ * How the image widgets in `value`, such as an item, that show the diagram
+ * `graffitiId` describe it, in order. It walks the whole value, so widgets
+ * inside others (a graded group's) are found too.
+ */
+export function imagesShowing(
+    value: unknown,
+    graffitiId: string,
+): ImageDescription[] {
+    const found: ImageDescription[] = [];
+    function walk(node: unknown) {
+        if (Array.isArray(node)) {
+            node.forEach(walk);
+            return;
+        }
+        if (!isRecord(node)) {
+            return;
+        }
+        const options = node.options;
+        if (
+            node.type === "image" &&
+            isRecord(options) &&
+            diagramIdsIn(options.backgroundImage).includes(graffitiId)
+        ) {
+            found.push({
+                alt: text(options.alt),
+                caption: text(options.caption),
+                longDescription: text(options.longDescription),
+            });
+            return;
+        }
+        Object.values(node).forEach(walk);
+    }
+    walk(value);
+    return found;
+}
 
 function firstLine(content: string): string {
     return (
@@ -128,12 +183,15 @@ export function createOverviewUseCases(deps: {
                 return [];
             }
             const byItem = exercisesByItem();
-            const usedIn = new Map<string, DraftSummary[]>();
+            const usedIn = new Map<string, DiagramSummary["usedIn"]>();
             for (const draft of newestFirst(deps.drafts.list())) {
                 for (const graffitiId of diagramIdsIn(draft.item)) {
                     usedIn.set(graffitiId, [
                         ...(usedIn.get(graffitiId) ?? []),
-                        summarize(draft, byItem),
+                        {
+                            ...summarize(draft, byItem),
+                            images: imagesShowing(draft.item, graffitiId),
+                        },
                     ]);
                 }
             }

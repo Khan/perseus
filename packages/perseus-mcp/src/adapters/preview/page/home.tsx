@@ -8,6 +8,7 @@ import {createRoot} from "react-dom/client";
 import {DraftLine, plural, useJson} from "./overview-parts";
 import styles from "./overview.module.css";
 import {PageHeader} from "./page-header";
+import {linkFromHere} from "./return-path";
 import {Ago, useNow} from "./since-now";
 
 // The page setup Wonder Blocks expects: its tokens, fonts and base styles.
@@ -86,7 +87,9 @@ function Home() {
                                     <BodyText weight="semi">
                                         <a
                                             className={styles.link}
-                                            href={`/exercises/${encodeURIComponent(exercise.exerciseId)}`}
+                                            href={linkFromHere(
+                                                `/exercises/${encodeURIComponent(exercise.exerciseId)}`,
+                                            )}
                                         >
                                             {exercise.name}
                                         </a>

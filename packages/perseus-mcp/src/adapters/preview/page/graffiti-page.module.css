@@ -1,0 +1,141 @@
+/*
+ * The Graffiti page: the diagram, and beside it its notes and how drafts
+ * describe it, as cards. On a wide window the two sit side by side in a
+ * centered column, so neither stretches across the screen; below 900px the
+ * notes stack under the diagram, their text in a centered column of a
+ * readable line length, left-aligned.
+ *
+ * TODO(LEMS-3686): Remove the !important once Wonder Blocks is in the shared
+ * layer.
+ */
+.picker {
+    display: flex;
+    align-items: center;
+    gap: var(--wb-sizing-size_080);
+}
+
+.layout {
+    box-sizing: border-box;
+    inline-size: 100%;
+    max-inline-size: 128rem;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 40rem;
+    align-items: start;
+    gap: var(--wb-sizing-size_160) var(--wb-sizing-size_240);
+}
+
+.figure,
+.side {
+    min-inline-size: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_160);
+}
+
+.card {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_080);
+    padding: var(--wb-sizing-size_120) var(--wb-sizing-size_160);
+    border: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+    border-radius: var(--wb-border-radius-radius_120);
+    background: var(--wb-semanticColor-core-background-base-default);
+}
+
+/*
+ * In rem, not ch: ch follows each element's font, so the heading's column
+ * would be narrower than its text's. 64rem is about 75 characters of the
+ * small body text (the root is 10px here).
+ */
+.card > * {
+    box-sizing: border-box;
+    inline-size: 100% !important;
+    max-inline-size: 64rem !important;
+    margin-inline: auto !important;
+}
+
+/* A heading with an icon before its text. */
+.heading {
+    display: flex !important;
+    align-items: center;
+    gap: var(--wb-sizing-size_060);
+}
+
+.notes,
+.none {
+    color: var(--wb-semanticColor-core-foreground-neutral-subtle) !important;
+}
+
+.uses {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Each draft, set apart from the one before it by a rule. */
+.use {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_080);
+    padding-block: var(--wb-sizing-size_120);
+}
+
+.use + .use {
+    border-block-start: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+}
+
+.use:first-child {
+    padding-block-start: 0;
+}
+
+.use:last-child {
+    padding-block-end: 0;
+}
+
+/* The draft's name, and under it which item and revision. */
+.useHeader {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_020);
+}
+
+/* Links in the cards, in muted text too, take Wonder Blocks' link blue. */
+.card a {
+    color: var(--wb-semanticColor-core-foreground-instructive-default);
+}
+
+/* Field names quieter than their values, so the values read first. */
+.label {
+    color: var(--wb-semanticColor-core-foreground-neutral-subtle) !important;
+}
+
+.fields {
+    margin: 0;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: var(--wb-sizing-size_040) var(--wb-sizing-size_120);
+}
+
+.field {
+    display: contents;
+}
+
+.field dd {
+    margin: 0;
+}
+
+@media (max-width: 900px) {
+    .layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .fields {
+        grid-template-columns: 1fr;
+    }
+}

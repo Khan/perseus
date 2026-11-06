@@ -8,7 +8,8 @@ import type {FastifyInstance} from "fastify";
  * - With `pages`, `/`: what this server holds, the latest drafts and
  *   exercises, and links to the exercises and the images; and `/images`:
  *   the Graffiti diagrams, each with the drafts that show it.
- * - `/api/home` and `/api/images`: what those pages show, as JSON.
+ * - `/api/home` and `/api/images`: what those pages show, as JSON, and
+ *   `/api/images/<graffitiId>`: one diagram's, for its own page.
  */
 export function registerOverviewRoutes(
     app: FastifyInstance,
@@ -31,4 +32,13 @@ export function registerOverviewRoutes(
     }
     app.get("/api/home", async () => overview.overview());
     app.get("/api/images", async () => ({diagrams: overview.diagrams()}));
+    app.get<{Params: {graffitiId: string}}>(
+        "/api/images/:graffitiId",
+        async (request, reply) => {
+            const diagram = overview
+                .diagrams()
+                .find((d) => d.graffitiId === request.params.graffitiId);
+            return diagram ?? reply.code(404).send({error: "No such diagram"});
+        },
+    );
 }

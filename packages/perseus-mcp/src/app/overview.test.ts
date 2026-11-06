@@ -9,7 +9,7 @@ import {newDraft} from "../domain/draft";
 import {graphieUrlFor} from "../domain/graffiti/diagram";
 
 import {inMemoryRepository} from "./in-memory-draft-repository.testutils";
-import {createOverviewUseCases} from "./overview";
+import {createOverviewUseCases, imagesShowing} from "./overview";
 
 import type {GraffitiUseCases} from "./graffiti";
 import type {Exercise} from "../domain/exercises/exercise";
@@ -122,6 +122,45 @@ describe("diagrams", () => {
         ).toEqual([
             ["g2", []],
             ["g1", ["d2", "d1"]],
+        ]);
+    });
+});
+
+describe("imagesShowing", () => {
+    it("returns how each image widget showing the diagram describes it", () => {
+        // Arrange
+        const item = generateTestPerseusItem({
+            question: generateTestPerseusRenderer({
+                content: "[[\u2603 image 1]] [[\u2603 image 2]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: {url: graphieUrlFor("g1")},
+                            alt: "A line.",
+                            caption: "Figure 1. A line.",
+                            longDescription: "It rises.",
+                        }),
+                    }),
+                    "image 2": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: {url: graphieUrlFor("g2")},
+                            alt: "Another.",
+                        }),
+                    }),
+                },
+            }),
+        });
+
+        // Act
+        const images = imagesShowing(item, "g1");
+
+        // Assert
+        expect(images).toEqual([
+            {
+                alt: "A line.",
+                caption: "Figure 1. A line.",
+                longDescription: "It rises.",
+            },
         ]);
     });
 });

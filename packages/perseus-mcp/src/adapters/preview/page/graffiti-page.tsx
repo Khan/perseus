@@ -2,22 +2,31 @@
 // Perseus shows it, labels included, in the preview frame, as article
 // content (nothing to answer). It follows the
 // diagram's event stream, so a new revision shows without reloading, and a
-// picker shows an earlier revision instead.
+// picker shows an earlier revision instead. Under it, the diagram's notes and
+// how each draft showing it describes it.
 import {usePreviewController} from "@khanacademy/perseus-preview";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {BodyText} from "@khanacademy/wonder-blocks-typography";
+import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
+import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
+import {BodyText, Heading} from "@khanacademy/wonder-blocks-typography";
+import fileTextIcon from "@phosphor-icons/core/regular/file-text.svg";
+import listChecksIcon from "@phosphor-icons/core/regular/list-checks.svg";
+import notePencilIcon from "@phosphor-icons/core/regular/note-pencil.svg";
 import * as React from "react";
 import {createRoot} from "react-dom/client";
 
 import {graphieUrlFor} from "../../../domain/graffiti/diagram";
 
+import styles from "./graffiti-page.module.css";
 import {PageHeader} from "./page-header";
-import styles from "./page-layout.module.css";
+import layout from "./page-layout.module.css";
 import {useRenderMarkers} from "./render-markers";
+import {linkFromHere} from "./return-path";
 import {StatusBar} from "./status-bar";
 
 import type {Connection} from "./status-bar";
 import type {DiagramView} from "../../../app/graffiti";
+import type {DiagramSummary} from "../../../app/overview";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 // The page setup Wonder Blocks expects: its tokens, fonts and base styles.
@@ -132,31 +141,194 @@ function RevisionPicker({
 }) {
     const id = React.useId();
     return (
-        <BodyText tag="div" size="small" className={styles.onBar}>
-            <label htmlFor={id}>Revision </label>
-            <select
+        <div className={styles.picker}>
+            <label htmlFor={id}>
+                <BodyText tag="span" size="small" className={layout.onBar}>
+                    Revision
+                </BodyText>
+            </label>
+            <SingleSelect
                 id={id}
-                value={picked ?? "latest"}
-                onChange={(event) =>
-                    onPick(
-                        event.target.value === "latest"
-                            ? null
-                            : Number(event.target.value),
-                    )
+                placeholder="Choose a revision"
+                selectedValue={picked == null ? "latest" : String(picked)}
+                alignment="right"
+                onChange={(value) =>
+                    onPick(value === "latest" ? null : Number(value))
                 }
             >
-                <option value="latest">
-                    {`Latest (${view.revision}), follows changes`}
-                </option>
-                {[...view.revisions].reverse().map(({revision, change}) => (
-                    <option key={revision} value={revision}>
-                        {change == null
-                            ? `${revision}`
-                            : `${revision}: ${change}`}
-                    </option>
-                ))}
-            </select>
-        </BodyText>
+                {[
+                    <OptionItem
+                        key="latest"
+                        value="latest"
+                        label={`Latest (${view.revision}), follows changes`}
+                    />,
+                    ...[...view.revisions]
+                        .reverse()
+                        .map(({revision, change}) => (
+                            <OptionItem
+                                key={revision}
+                                value={String(revision)}
+                                label={
+                                    change == null
+                                        ? `${revision}`
+                                        : `${revision}: ${change}`
+                                }
+                            />
+                        )),
+                ]}
+            </SingleSelect>
+        </div>
+    );
+}
+
+/**
+ * How the drafts showing the diagram describe it, read again when its
+ * revision changes; null until read, or when it can't be.
+ */
+function useUsage(
+    graffitiId: string,
+    revision: number | undefined,
+): DiagramSummary["usedIn"] | null {
+    const [usedIn, setUsedIn] = React.useState<DiagramSummary["usedIn"] | null>(
+        null,
+    );
+    React.useEffect(() => {
+        let current = true;
+        fetch(`/api/images/${encodeURIComponent(graffitiId)}`)
+            .then((response) => (response.ok ? response.json() : null))
+            .then(
+                (diagram: DiagramSummary | null) => {
+                    if (current) {
+                        setUsedIn(diagram?.usedIn ?? null);
+                    }
+                },
+                () => {},
+            );
+        return () => {
+            current = false;
+        };
+    }, [graffitiId, revision]);
+    return usedIn;
+}
+
+function Field({label, value}: {label: string; value: string}) {
+    return (
+        <div className={styles.field}>
+            <dt>
+                <BodyText tag="span" size="small" className={styles.label}>
+                    {label}
+                </BodyText>
+            </dt>
+            <dd>
+                <BodyText
+                    tag="span"
+                    size="small"
+                    className={value === "" ? styles.none : undefined}
+                >
+                    {value === "" ? "None" : value}
+                </BodyText>
+            </dd>
+        </div>
+    );
+}
+
+function DescribedIn({usedIn}: {usedIn: DiagramSummary["usedIn"]}) {
+    return (
+        <section className={styles.card} aria-labelledby="described-in">
+            <Heading tag="h2" size="small" id="described-in">
+                Described in
+            </Heading>
+            {usedIn.length === 0 ? (
+                <BodyText size="small" className={styles.none}>
+                    No draft shows this diagram yet.
+                </BodyText>
+            ) : (
+                <ul className={styles.uses}>
+                    {usedIn.map((draft) => (
+                        <li key={draft.itemId} className={styles.use}>
+                            <div className={styles.useHeader}>
+                                <Heading
+                                    tag="h3"
+                                    size="small"
+                                    className={styles.heading}
+                                >
+                                    <PhosphorIcon
+                                        icon={
+                                            draft.exercises.length === 0
+                                                ? fileTextIcon
+                                                : listChecksIcon
+                                        }
+                                        size="small"
+                                        aria-hidden={true}
+                                    />
+                                    <span>
+                                        {draft.exercises.length === 0 ? (
+                                            <a
+                                                href={linkFromHere(
+                                                    `/drafts/${encodeURIComponent(draft.itemId)}/preview`,
+                                                )}
+                                            >
+                                                {`Draft ${draft.itemId}`}
+                                            </a>
+                                        ) : (
+                                            draft.exercises.map(
+                                                (exercise, index) => (
+                                                    <React.Fragment
+                                                        key={
+                                                            exercise.exerciseId
+                                                        }
+                                                    >
+                                                        {index > 0 && ", "}
+                                                        <a
+                                                            href={linkFromHere(
+                                                                `/exercises/${encodeURIComponent(exercise.exerciseId)}?item=${encodeURIComponent(draft.itemId)}`,
+                                                            )}
+                                                        >
+                                                            {exercise.name}
+                                                        </a>
+                                                    </React.Fragment>
+                                                ),
+                                            )
+                                        )}
+                                    </span>
+                                </Heading>
+                                <BodyText
+                                    tag="span"
+                                    size="xsmall"
+                                    className={styles.none}
+                                >
+                                    {draft.exercises.length === 0 ? (
+                                        <span>Not in an exercise</span>
+                                    ) : (
+                                        <a
+                                            href={linkFromHere(
+                                                `/drafts/${encodeURIComponent(draft.itemId)}/preview`,
+                                            )}
+                                        >
+                                            {`Item ${draft.itemId}`}
+                                        </a>
+                                    )}
+                                    {` \u00b7 revision ${draft.revision}`}
+                                </BodyText>
+                            </div>
+                            {draft.images.map((image, index) => (
+                                <dl key={index} className={styles.fields}>
+                                    <Field label="Alt text" value={image.alt} />
+                                    <Field
+                                        label="Caption"
+                                        value={image.caption}
+                                    />
+                                    <Field
+                                        label="Long description"
+                                        value={image.longDescription}
+                                    />
+                                </dl>
+                            ))}
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </section>
     );
 }
 
@@ -171,7 +343,12 @@ function GraffitiPage({graffitiId}: {graffitiId: string}) {
     const {sendData, height, renderState} = usePreviewController(iframeRef);
     useRenderMarkers(renderState);
 
-    const alt = view?.notes ?? `Diagram ${graffitiId}`;
+    const usedIn = useUsage(graffitiId, view?.revision);
+    // What a draft's image widget gives as its alt text; notes are the
+    // author's, not a description.
+    const alt =
+        usedIn?.flatMap((draft) => draft.images).find((i) => i.alt !== "")
+            ?.alt ?? `Diagram ${graffitiId}`;
     React.useEffect(() => {
         if (revision == null || size?.size == null) {
             return;
@@ -187,11 +364,11 @@ function GraffitiPage({graffitiId}: {graffitiId: string}) {
     }, [graffitiId, revision, size, alt, sendData]);
 
     return (
-        <div className={styles.app}>
+        <div className={layout.app}>
             <PageHeader
                 title={`Diagram ${graffitiId}`}
                 subtitle="As Perseus shows it, labels included"
-                back={{href: "/exercises", label: "All exercises"}}
+                back={{href: "/images", label: "All images"}}
                 end={
                     view != null && (
                         <RevisionPicker
@@ -202,27 +379,56 @@ function GraffitiPage({graffitiId}: {graffitiId: string}) {
                     )
                 }
             />
-            <main className={styles.main}>
-                <div className={styles.pane}>
-                    <div className={styles.paneScroll}>
-                        {view?.notes != null && (
-                            <BodyText>
-                                <strong>Notes:</strong>
-                                <span>{` ${view.notes}`}</span>
-                            </BodyText>
-                        )}
-                        {size != null && size.size == null && (
-                            <BodyText role="alert">
-                                {`Revision ${revision} didn't draw.`}
-                            </BodyText>
-                        )}
-                        <iframe
-                            ref={iframeRef}
-                            src="/preview/frame"
-                            title={`Diagram ${graffitiId}`}
-                            className={styles.frame}
-                            style={{blockSize: height ?? undefined}}
-                        />
+            <main className={layout.main}>
+                <div className={layout.pane}>
+                    <div className={layout.paneScroll}>
+                        <div className={styles.layout}>
+                            <div className={styles.figure}>
+                                {size != null && size.size == null && (
+                                    <BodyText role="alert">
+                                        {`Revision ${revision} didn't draw.`}
+                                    </BodyText>
+                                )}
+                                <iframe
+                                    ref={iframeRef}
+                                    src="/preview/frame"
+                                    title={`Diagram ${graffitiId}`}
+                                    className={layout.frame}
+                                    style={{blockSize: height ?? undefined}}
+                                />
+                            </div>
+                            <div className={styles.side}>
+                                {view?.notes != null && (
+                                    <section
+                                        className={styles.card}
+                                        aria-labelledby="notes"
+                                    >
+                                        <Heading
+                                            tag="h2"
+                                            size="small"
+                                            id="notes"
+                                            className={styles.heading}
+                                        >
+                                            <PhosphorIcon
+                                                icon={notePencilIcon}
+                                                size="small"
+                                                aria-hidden={true}
+                                            />
+                                            Notes
+                                        </Heading>
+                                        <BodyText
+                                            size="small"
+                                            className={styles.notes}
+                                        >
+                                            {view.notes}
+                                        </BodyText>
+                                    </section>
+                                )}
+                                {usedIn != null && (
+                                    <DescribedIn usedIn={usedIn} />
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </main>

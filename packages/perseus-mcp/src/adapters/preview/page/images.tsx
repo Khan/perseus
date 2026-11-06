@@ -8,6 +8,7 @@ import {createRoot} from "react-dom/client";
 import {DraftLine, plural, useJson} from "./overview-parts";
 import styles from "./overview.module.css";
 import {PageHeader} from "./page-header";
+import {linkFromHere} from "./return-path";
 import {Ago, useNow} from "./since-now";
 
 // The page setup Wonder Blocks expects: its tokens, fonts and base styles.
@@ -38,7 +39,7 @@ function Diagram({diagram, now}: {diagram: DiagramSummary; now: Date}) {
             />
             <div className={styles.section}>
                 <Heading tag="h2" size="medium">
-                    <a className={styles.link} href={page}>
+                    <a className={styles.link} href={linkFromHere(page)}>
                         {nameOf(diagram)}
                     </a>
                 </Heading>
