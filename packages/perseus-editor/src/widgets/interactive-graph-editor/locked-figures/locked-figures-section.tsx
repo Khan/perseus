@@ -14,6 +14,7 @@ import Heading from "../../../components/heading";
 import LockedFigureSelect from "./locked-figure-select";
 import LockedFigureSettings from "./locked-figure-settings";
 import styles from "./locked-figures-section.module.css";
+import {moveItem, moveTarget, useExpandedStates} from "./use-expanded-states";
 
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
 import type {Props as InteractiveGraphEditorProps} from "../interactive-graph-editor";
@@ -27,97 +28,49 @@ interface Props {
 }
 
 const LockedFiguresSection = (props: Props) => {
-    // Keep track of all figures' accordions' expanded states for the
-    // expand/collapse all button. When editing is disabled, default to
-    // all open so content can still be reviewed. Otherwise, default to closed.
     const editingDisabled = props.apiOptions?.editingDisabled ?? false;
-    const collapsedStateArray = Array((props.figures ?? []).length).fill(
-        editingDisabled,
-    );
-    const [expandedStates, setExpandedStates] =
-        React.useState(collapsedStateArray);
-    const [isExpanded, setIsExpanded] = React.useState(true);
-
-    const uniqueId = useId();
     const {figures, onChange} = props;
+    const lockedFigures = figures ?? [];
+    // Which figures' accordions are open, for the expand/collapse all
+    // button. When editing is disabled, default to all open so content
+    // can still be reviewed. Otherwise, default to closed.
+    const expanded = useExpandedStates(lockedFigures.length, editingDisabled);
+    const [isExpanded, setIsExpanded] = React.useState(true);
+    const uniqueId = useId();
 
     function addLockedFigure(newFigure: LockedFigureType) {
-        const lockedFigures = figures || [];
-        const newProps = {
+        onChange({
             lockedFigures: [
                 ...lockedFigures,
                 getDefaultFigureForType(newFigure),
             ],
-        };
-        onChange(newProps);
-        setExpandedStates([...expandedStates, true]);
+        });
+        expanded.added();
     }
 
     function moveLockedFigure(
         index: number,
         movement: LockedFigureSettingsMovementType,
     ) {
+        const target = moveTarget(index, lockedFigures.length, movement);
         // Don't allow moving the first figure up or the last figure down.
-        if (index === 0 && (movement === "back" || movement === "backward")) {
+        if (target === index) {
             return;
         }
-        if (
-            figures &&
-            index === figures.length - 1 &&
-            (movement === "front" || movement === "forward")
-        ) {
-            return;
-        }
-
-        const lockedFigures = figures || [];
-        const newFigures = [...lockedFigures];
-        const newExpandedStates = [...expandedStates];
-
-        // First, remove the figure from its current position
-        // in the figures array and the expanded states array.
-        const [removedFigure] = newFigures.splice(index, 1);
-        newExpandedStates.splice(index, 1);
-
-        // Then, add it back in the new position. Add "true" to the
-        // expanded states array for the new position (it must already
-        // be open since the button to move it is being pressed from there).
-        switch (movement) {
-            case "back":
-                newFigures.unshift(removedFigure);
-                newExpandedStates.unshift(true);
-                break;
-            case "backward":
-                newFigures.splice(index - 1, 0, removedFigure);
-                newExpandedStates.splice(index - 1, 0, true);
-                break;
-            case "forward":
-                newFigures.splice(index + 1, 0, removedFigure);
-                newExpandedStates.splice(index + 1, 0, true);
-                break;
-            case "front":
-                newFigures.push(removedFigure);
-                newExpandedStates.push(true);
-                break;
-        }
-        onChange({lockedFigures: newFigures});
-        setExpandedStates(newExpandedStates);
+        onChange({lockedFigures: moveItem(lockedFigures, index, target)});
+        expanded.moved(index, target);
     }
 
     function removeLockedFigure(index: number) {
         // eslint-disable-next-line no-alert
         if (window.confirm("Are you sure you want to delete this figure?")) {
-            const lockedFigures = figures || [];
             onChange({
                 lockedFigures: [
                     ...lockedFigures.slice(0, index),
                     ...lockedFigures.slice(index + 1),
                 ],
             });
-
-            // Update expanded states
-            const newExpandedStates = [...expandedStates];
-            newExpandedStates.splice(index, 1);
-            setExpandedStates(newExpandedStates);
+            expanded.removed(index);
         }
     }
 
@@ -127,8 +80,7 @@ const LockedFiguresSection = (props: Props) => {
         // we're trying to pass in the props for the wrong type.
         figureProps: Omit<Partial<LockedFigure>, "type">,
     ) {
-        const lockedFigures = figures || [];
-        const newFigures = {
+        onChange({
             lockedFigures: [
                 ...lockedFigures.slice(0, index),
                 {
@@ -137,17 +89,11 @@ const LockedFiguresSection = (props: Props) => {
                 },
                 ...lockedFigures.slice(index + 1),
             ],
-        };
-        onChange(newFigures);
+        });
     }
 
-    function toggleExpanded(newValue: boolean) {
-        setExpandedStates(Array(figures?.length).fill(newValue));
-    }
-
-    const allCollapsed = expandedStates.every((value) => !value);
-    const buttonLabel = allCollapsed ? "Expand all" : "Collapse all";
-    const showExpandButton = !!figures?.length;
+    const buttonLabel = expanded.allCollapsed ? "Expand all" : "Collapse all";
+    const showExpandButton = lockedFigures.length > 0;
 
     return (
         <>
@@ -159,16 +105,14 @@ const LockedFiguresSection = (props: Props) => {
             />
             {isExpanded && (
                 <View>
-                    {figures?.map((figure, index) => {
+                    {lockedFigures.map((figure, index) => {
                         return (
                             <LockedFigureSettings
                                 key={`${uniqueId}-locked-${figure}-${index}`}
-                                expanded={expandedStates[index]}
-                                onToggle={(newValue) => {
-                                    const newExpanded = [...expandedStates];
-                                    newExpanded[index] = newValue;
-                                    setExpandedStates(newExpanded);
-                                }}
+                                expanded={expanded.isOpen(index)}
+                                onToggle={(newValue) =>
+                                    expanded.setOpen(index, newValue)
+                                }
                                 {...figure}
                                 editingDisabled={editingDisabled}
                                 onChangeProps={(newProps) =>
@@ -191,7 +135,9 @@ const LockedFiguresSection = (props: Props) => {
                             <Button
                                 kind="secondary"
                                 disabled={editingDisabled}
-                                onClick={() => toggleExpanded(allCollapsed)}
+                                onClick={() =>
+                                    expanded.setAll(expanded.allCollapsed)
+                                }
                                 className={styles.button}
                             >
                                 {buttonLabel}

@@ -23,6 +23,7 @@ import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import styles from "./locked-point-settings.module.css";
 import {
+    recolorLabels,
     generateSpokenMathDetails,
     generateLockedFigureAppearanceDescription,
     joinLabelsAsSpokenMath,
@@ -143,10 +144,7 @@ const LockedPointSettings = (props: Props) => {
         };
 
         // Update the color of the all labels to match the point
-        newProps.labels = labels.map((label) => ({
-            ...label,
-            color: newValue,
-        }));
+        newProps.labels = recolorLabels(labels, newValue);
 
         onChangeProps(newProps);
     }

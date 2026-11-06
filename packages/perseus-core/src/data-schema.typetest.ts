@@ -28,6 +28,7 @@ import type {
     PerseusOrdererWidgetOptions,
     PerseusPhetSimulationWidgetOptions,
     PerseusPlotterWidgetOptions,
+    PerseusPolarGraphWidgetOptions,
     PerseusPythonProgramWidgetOptions,
     PerseusRadioWidgetOptions,
     PerseusSorterWidgetOptions,
@@ -81,6 +82,7 @@ describe("PerseusWidgetOptions", () => {
             | PerseusOrdererWidgetOptions
             | PerseusPhetSimulationWidgetOptions
             | PerseusPlotterWidgetOptions
+            | PerseusPolarGraphWidgetOptions
             | PerseusPythonProgramWidgetOptions
             | PerseusRadioWidgetOptions
             | PerseusSorterWidgetOptions

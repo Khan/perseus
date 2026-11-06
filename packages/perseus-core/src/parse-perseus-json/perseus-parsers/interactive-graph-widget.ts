@@ -203,7 +203,8 @@ export const parsePerseusGraphType = discriminatedUnionOn("type")
     .withBranch("logarithm", parsePerseusGraphTypeLogarithm)
     .withBranch("vector", parsePerseusGraphTypeVector).parser;
 
-const parseLockedFigureColor = pipeParsers(
+// Shared with the polar graph parser.
+export const parseLockedFigureColor = pipeParsers(
     enumeration(
         // Same as lockedFigureColorNames in data-schema.ts
         "blue",
@@ -218,7 +219,7 @@ const parseLockedFigureColor = pipeParsers(
     ),
 ).then(convert((color) => (color === "orange" ? "gold" : color))).parser;
 
-const parseLockedFigureFillType = enumeration(
+export const parseLockedFigureFillType = enumeration(
     "none",
     "white",
     "translucent",
@@ -228,14 +229,19 @@ const parseLockedFigureFillType = enumeration(
 const parseLockedLineStyle = enumeration("solid", "dashed");
 
 // Fillable figures (polygons, ellipses) may additionally have no stroke.
-const parseLockedFigureStrokeStyle = enumeration("solid", "dashed", "none");
+export const parseLockedFigureStrokeStyle = enumeration(
+    "solid",
+    "dashed",
+    "none",
+);
 
-const parseStrokeWeight = defaulted(
+export const parseStrokeWeight = defaulted(
     enumeration("medium", "thin", "thick"),
     () => "medium" as const,
 );
 
-const parseLockedLabelType = object({
+// Shared with the polar graph parser, whose locked figures carry labels.
+export const parseLockedLabelType = object({
     type: constant("label"),
     coord: pairOfNumbers,
     text: defaulted(string, () => ""),

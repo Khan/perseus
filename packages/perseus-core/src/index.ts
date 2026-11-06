@@ -140,6 +140,8 @@ export {default as phetSimulationLogic} from "./widgets/phet-simulation";
 /** @hidden */
 export {default as plotterLogic} from "./widgets/plotter";
 /** @hidden */
+export {default as polarGraphLogic} from "./widgets/polar-graph";
+/** @hidden */
 export {default as pythonProgramLogic} from "./widgets/python-program";
 /** @hidden */
 export {default as radioLogic} from "./widgets/radio";
@@ -213,6 +215,11 @@ export {
     getInteractiveGraphPublicWidgetOptions,
     type InteractiveGraphPublicWidgetOptions,
 } from "./widgets/interactive-graph/interactive-graph-util";
+/** @hidden */
+export {
+    getPolarGraphPublicWidgetOptions,
+    type PolarGraphPublicWidgetOptions,
+} from "./widgets/polar-graph/polar-graph-util";
 /** @hidden */
 export {getLabelImagePublicWidgetOptions} from "./widgets/label-image/label-image-util";
 /** @hidden */
@@ -393,6 +400,27 @@ export {
     generateInteractiveGraphWidget,
     generateInteractiveGraphQuestion,
 } from "./utils/generators/interactive-graph-widget-generator";
+/** @hidden */
+export {
+    generatePolarGraphWidget,
+    generatePolarGraphOptions,
+    generatePolarGraphPointGraph,
+    generatePolarGraphRayGraph,
+    generatePolarGraphAngleGraph,
+    generatePolarGraphCircleGraph,
+    generatePolarGraphLemniscateGraph,
+    generatePolarGraphLockedFigure,
+    generatePolarGraphLimaconGraph,
+    generatePolarGraphRoseGraph,
+    generatePolarGraphQuestion,
+} from "./utils/generators/polar-graph-widget-generator";
+/** @hidden */
+export * as PolarMath from "./widgets/polar-graph/polar-math";
+/** @hidden */
+export {
+    getPolarGraphStartState,
+    withStartPositions as withPolarGraphStartPositions,
+} from "./widgets/polar-graph/polar-graph-start-state";
 /** @hidden */
 export {
     generateMatrixWidget,
