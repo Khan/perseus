@@ -116,6 +116,9 @@ const config: KnipConfig = {
         // @swc-node/register is used in the shabang of executable TypeScript
         // files.
         "@swc-node/register",
+        // @argos-ci/cli deploys Storybook to Argos from
+        // .github/workflows/argos-spike.yml (`pnpm exec argos deploy`).
+        "@argos-ci/cli",
         // nyc measures code coverage.
         "nyc",
         // swc_mut_cjs_exports is a plugin for swc, configured like
