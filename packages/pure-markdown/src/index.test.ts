@@ -411,27 +411,27 @@ describe("pure markdown", () => {
 
             // Assert
             expect(parsed).toEqual([
-                    {
-                        type: "paragraph",
-                        content: [
-                            {
-                                type: "text",
-                                content: "hi",
-                            },
-                        ],
-                    },
-                    {
-                        type: "deprecatedColumnSeparator"
-                    },
-                    {
-                        type: "paragraph",
-                        content: [
-                            {
-                                type: "text",
-                                content: "there",
-                            },
-                        ],
-                    },
+                {
+                    type: "paragraph",
+                    content: [
+                        {
+                            type: "text",
+                            content: "hi",
+                        },
+                    ],
+                },
+                {
+                    type: "deprecatedColumnSeparator",
+                },
+                {
+                    type: "paragraph",
+                    content: [
+                        {
+                            type: "text",
+                            content: "there",
+                        },
+                    ],
+                },
             ]);
         });
 

@@ -851,6 +851,9 @@ class Renderer
         this._foundTextNodes = false;
         state.foundFullWidth = false;
         const output = this.outputNested(ast, state);
+        if (output == null) {
+            return null;
+        }
 
         // In Jipt-land, we need to render the exact same outer
         // QuestionParagraph nodes always. This means the number of
@@ -914,7 +917,7 @@ class Renderer
                 const isString = typeof nodeOut === "string";
                 if (typeof nodeOut === "string" && lastWasString) {
                     result[result.length - 1] += nodeOut;
-                } else {
+                } else { // FIXME: handle null returned from outputNested
                     result.push(nodeOut);
                 }
                 lastWasString = isString;
@@ -1152,6 +1155,9 @@ class Renderer
                     </AssetContext.Consumer>
                 </ErrorBoundary>
             );
+        }
+        if (node.type === "deprecatedColumnSeparator") {
+            return null;
         }
         if (node.type === "text") {
             if (rContainsNonWhitespace.test(node.content)) {

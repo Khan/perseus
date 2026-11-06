@@ -538,13 +538,13 @@ describe("renderer", () => {
             expect(screen.queryAllByRole("combobox")).toHaveLength(0);
         });
 
-        it("should render columns", () => {
+        it("should ignore the deprecated column separator '====='", () => {
             // Arrange
             const question = {
                 content:
-                    "Stuff in column 1\n\n" +
+                    "Stuff before the separator\n\n" +
                     "=====\n\n" +
-                    "Stuff in column 2\n\n",
+                    "Stuff after the separator\n\n",
                 images: {},
                 widgets: {},
             } as const;

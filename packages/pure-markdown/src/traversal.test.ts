@@ -191,11 +191,10 @@ describe("traverseContent", () => {
             );
             expect(columnSeparator).toBeDefined();
 
-            // Verify col1 and col2 are traversed
             const paragraphNodes = visitedNodes.filter(
                 (node) => node.type === "paragraph",
             );
-            expect(paragraphNodes.length).toBeGreaterThan(0);
+            expect(paragraphNodes.length).toBe(2);
         });
     });
 

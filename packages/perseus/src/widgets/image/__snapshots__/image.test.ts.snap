@@ -352,9 +352,6 @@ exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
       </div>
     </div>
     <div
-      class="deprecated-perseus-container perseus-paragraph-centered"
-    />
-    <div
       class="deprecated-perseus-container"
     >
       <p
@@ -778,9 +775,6 @@ exports[`image widget - isMobile(true) should snapshot: first render 1`] = `
         </div>
       </div>
     </div>
-    <div
-      class="deprecated-perseus-container perseus-paragraph-centered"
-    />
     <div
       class="deprecated-perseus-container"
     >

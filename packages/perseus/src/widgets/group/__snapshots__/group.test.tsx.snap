@@ -49,9 +49,6 @@ exports[`group widget should snapshot: initial render 1`] = `
       </div>
     </div>
     <div
-      class="deprecated-perseus-container perseus-paragraph-centered"
-    />
-    <div
       class="deprecated-perseus-container"
     >
       <div

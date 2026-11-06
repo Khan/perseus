@@ -173,18 +173,17 @@ export const pureMarkdownRules = {
 
     // Before November 2026, Perseus content could be divided into columns
     // by `=====`. Perseus never had CSS to actually display multiple columns,
-    // it just divided up the content into elements which the frontend repo
+    // it just divided up the content into elements which the frontend code
     // could style as columns. The column styling was removed from frontend,
     // so this feature effectively doesn't exist anymore, so we're dropping
-    // column support from Perseus. However, we can't remove the `columns` rule
-    // here because some content still contains `=====`, and we don't want that
-    // to display as a paragraph.
+    // column support from Perseus. However, we can't completely remove the
+    // handling of `=====`, because some content still contains it, and we
+    // don't want it to display as a paragraph. This rule parses and hides the
+    // separator.
     deprecatedColumnSeparator: {
         order: -2,
-        // eslint-disable-next-line no-restricted-syntax
-        match: SimpleMarkdown.blockRegex(
-            /^={5,}\n*/,
-        ),
+
+        match: SimpleMarkdown.blockRegex(/^={5,}\n*/),
         parse: (capture: any, parse: any, state: any): any => {
             return {};
         },
@@ -337,7 +336,7 @@ export const pureMarkdownRules = {
     },
 } as const;
 
-// @ts-expect-error - TS2345 - Argument of type '{ readonly columns: { readonly order: -2; readonly match: any; readonly parse: (capture: any, parse: any, state: any) => any; }; readonly crowdinId: { readonly order: -1; readonly match: (source: any, state: any, prevCapture: any) => any; readonly parse: (capture: any, parse: any, state: any) => any; }; ... 34 more ...' is not assignable to parameter of type 'ParserRules'.
+// @ts-expect-error - TS2345 - Argument of type '{ readonly deprecatedColumnSeparator: { readonly order: -2; readonly match: MatchFunction; readonly parse: (capture: any, parse: any, state: any) => any; }; readonly crowdinId: { ...; }; ... 34 more ...; readonly text: TextInOutRule; }' is not assignable to parameter of type 'ParserRules'.
 const builtParser = SimpleMarkdown.parserFor(pureMarkdownRules);
 
 /**
