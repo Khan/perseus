@@ -1,6 +1,3 @@
-/**
- * @jest-environment node
- */
 import {createHash} from "node:crypto";
 
 import {describe, expect, it, jest} from "@jest/globals";

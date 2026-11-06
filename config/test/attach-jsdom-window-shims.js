@@ -55,6 +55,13 @@ const attachShims = (targetWindow) => {
     targetWindow.performance = targetWindow.performance || performance;
     targetWindow.performance.timing = targetWindow.performance.timing || {};
 
+    // The shims below stand in for browser APIs. Suites in the node test
+    // environment have no DOM, so they get none: code there that calls these
+    // APIs should fail, as it would outside the browser.
+    if (!targetWindow.document) {
+        return;
+    }
+
     // JSDOM window doesn't support matchMedia. Let's stub it.
     if (!targetWindow.matchMedia) {
         targetWindow.matchMedia = (query) => {
