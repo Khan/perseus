@@ -1,13 +1,14 @@
 // The list of exercises (`/exercises`), each linking to its page, with an
 // import for an exercise's export.
 import {RenderStateRoot, View} from "@khanacademy/wonder-blocks-core";
-import {BodyText, Heading} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import {createRoot} from "react-dom/client";
 
 import shellStyles from "./exercise-list.module.css";
 import styles from "./exercise-pages.module.css";
 import {ImportArea} from "./import-area";
+import {PageHeader} from "./page-header";
 
 // The page setup Wonder Blocks expects: its tokens, fonts and base styles.
 import "@internal/perseus-environment/styles.css";
@@ -45,13 +46,19 @@ function ExerciseList() {
     }, [version]);
 
     return (
-        <View className={`${shellStyles.root} ${shellStyles.page}`}>
-            <View tag="header" className={shellStyles.header}>
-                <Heading tag="h1" size="xlarge">
-                    Exercises
-                </Heading>
-            </View>
-            <View tag="main" className={shellStyles.page}>
+        <View>
+            <PageHeader
+                title="Exercises"
+                subtitle={
+                    listing.state === "loaded"
+                        ? `${listing.exercises.length} ${listing.exercises.length === 1 ? "exercise" : "exercises"}`
+                        : undefined
+                }
+            />
+            <View
+                tag="main"
+                className={`${shellStyles.root} ${shellStyles.page}`}
+            >
                 <ImportArea onImported={() => setVersion((v) => v + 1)} />
                 {listing.state === "loading" && <BodyText>Loading…</BodyText>}
                 {listing.state === "failed" && (

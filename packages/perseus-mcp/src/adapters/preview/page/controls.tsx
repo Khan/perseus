@@ -139,13 +139,18 @@ export function OptionControls({
     options,
     onChange,
     label = "Preview options",
+    withoutPhone = false,
 }: {
     options: OfferedOptions;
     onChange: (options: Partial<OfferedOptions>) => void;
     /** The checkboxes' label; "Preview options" unless a heading says so. */
     label?: string;
+    /** Leaves out "As on a phone", for a page with a switch of its own. */
+    withoutPhone?: boolean;
 }) {
-    const toggles = Object.keys(TOGGLES).filter(isToggle);
+    const toggles = Object.keys(TOGGLES)
+        .filter(isToggle)
+        .filter((toggle) => !withoutPhone || toggle !== "isMobile");
     return (
         <View className={styles.row}>
             <CheckboxGroup
@@ -200,9 +205,13 @@ export function OptionControls({
 }
 
 /** The options that differ from the defaults, for a collapsed options panel. */
-export function describeOptions(options: OfferedOptions): string {
+export function describeOptions(
+    options: OfferedOptions,
+    {withoutPhone = false}: {withoutPhone?: boolean} = {},
+): string {
     const set = Object.keys(TOGGLES)
         .filter(isToggle)
+        .filter((toggle) => !withoutPhone || toggle !== "isMobile")
         .filter((toggle) => options[toggle])
         .map((toggle) => TOGGLES[toggle]);
     if (options.showSolutions !== "none") {

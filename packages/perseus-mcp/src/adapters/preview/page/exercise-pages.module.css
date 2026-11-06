@@ -173,8 +173,19 @@
 }
 
 .issues {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_040);
     margin: 0;
-    padding-inline-start: var(--wb-sizing-size_240);
+    /* Room for the bullets only: the banner already spaces the icon. */
+    padding-inline-start: var(--wb-sizing-size_120);
+    list-style: disc;
+}
+
+/* A card's issues: as wide as its frame. */
+.briefIssues {
+    inline-size: 375px;
+    box-sizing: border-box;
 }
 
 .link {
@@ -205,10 +216,6 @@
 
 .grid > * {
     flex-shrink: 0;
-}
-
-.gridFilter {
-    flex-direction: row !important;
 }
 
 .cards {
@@ -253,11 +260,6 @@
     inline-size: 375px;
     block-size: 240px;
     background: var(--wb-semanticColor-core-background-base-subtle);
-}
-
-/* The switch between one item and the grid, in the page's header. */
-.viewSwitch {
-    margin-inline-start: auto;
 }
 
 .gridMain {

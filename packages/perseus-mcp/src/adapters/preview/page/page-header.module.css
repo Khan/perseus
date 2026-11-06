@@ -1,0 +1,102 @@
+/*
+ * The pages' title bar: dark, one line where it fits, as the exercise
+ * editor's header. Text on it is the knockout (light) color.
+ *
+ * TODO(LEMS-3686): Remove the !important once Wonder Blocks is in the shared
+ * layer.
+ */
+.bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--wb-sizing-size_080) var(--wb-sizing-size_160);
+    padding: var(--wb-sizing-size_080) var(--wb-sizing-size_240);
+    min-block-size: 5.6rem;
+    box-sizing: border-box;
+    background: var(--wb-semanticColor-core-background-base-strong);
+    color: var(--wb-semanticColor-core-foreground-knockout-default);
+}
+
+.titles {
+    display: flex;
+    flex-direction: column;
+    min-inline-size: 0;
+}
+
+.title {
+    color: inherit !important;
+    overflow-wrap: anywhere;
+}
+
+/* Light, but quieter than the title: the light gray of the page's borders. */
+.subtitle {
+    color: var(--wb-semanticColor-core-border-neutral-subtle) !important;
+}
+
+.end {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--wb-sizing-size_080) var(--wb-sizing-size_160);
+    margin-inline-start: auto;
+}
+
+.back,
+.barLink {
+    color: inherit;
+    border-radius: var(--wb-border-radius-radius_040);
+}
+
+.back {
+    display: inline-flex;
+    padding: var(--wb-sizing-size_080);
+    font-size: 2rem;
+}
+
+.barLink {
+    padding: var(--wb-sizing-size_060) var(--wb-sizing-size_120);
+    border: var(--wb-border-width-thin) solid currentColor;
+    font-family: inherit;
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.back:hover,
+.barLink:hover {
+    background: color-mix(in srgb, currentColor 16%, transparent);
+}
+
+.back:focus-visible,
+.barLink:focus-visible {
+    outline: var(--wb-border-width-thick) solid currentColor;
+    outline-offset: var(--wb-sizing-size_020);
+}
+
+/* For screen readers only. */
+.hidden {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+/* A pair of view buttons on the bar: light, and the pressed one filled. */
+.viewButtons {
+    display: flex;
+    gap: var(--wb-sizing-size_040);
+}
+
+.viewButton {
+    color: var(--wb-semanticColor-core-foreground-knockout-default) !important;
+}
+
+.pressed {
+    background: color-mix(
+        in srgb,
+        var(--wb-semanticColor-core-foreground-knockout-default) 24%,
+        transparent
+    ) !important;
+}

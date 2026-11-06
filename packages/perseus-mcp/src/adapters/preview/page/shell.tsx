@@ -1,11 +1,11 @@
 // The preview page for one draft (`/drafts/<itemId>/preview`): the draft's
 // live preview, which shows its latest state without reloading.
-import {RenderStateRoot, View} from "@khanacademy/wonder-blocks-core";
-import {Heading} from "@khanacademy/wonder-blocks-typography";
+import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {createRoot} from "react-dom/client";
 
 import {DraftPreview} from "./draft-preview";
+import {PageHeader} from "./page-header";
 import styles from "./page-layout.module.css";
 import {StatusBar} from "./status-bar";
 
@@ -22,11 +22,11 @@ function Shell({itemId}: {itemId: string}) {
     });
     return (
         <div className={styles.app}>
-            <View tag="header" className={styles.header}>
-                <Heading tag="h1" size="large">
-                    {`Preview of draft ${itemId}`}
-                </Heading>
-            </View>
+            <PageHeader
+                title={`Draft ${itemId}`}
+                subtitle="As learners see it"
+                back={{href: "/exercises", label: "All exercises"}}
+            />
             <main className={styles.main}>
                 <DraftPreview itemId={itemId} onStatus={setStatus} />
             </main>

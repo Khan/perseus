@@ -4,13 +4,14 @@
 // diagram's event stream, so a new revision shows without reloading, and a
 // picker shows an earlier revision instead.
 import {usePreviewController} from "@khanacademy/perseus-preview";
-import {RenderStateRoot, View} from "@khanacademy/wonder-blocks-core";
-import {BodyText, Heading} from "@khanacademy/wonder-blocks-typography";
+import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import {createRoot} from "react-dom/client";
 
 import {graphieUrlFor} from "../../../domain/graffiti/diagram";
 
+import {PageHeader} from "./page-header";
 import styles from "./page-layout.module.css";
 import {useRenderMarkers} from "./render-markers";
 import {StatusBar} from "./status-bar";
@@ -131,7 +132,7 @@ function RevisionPicker({
 }) {
     const id = React.useId();
     return (
-        <BodyText tag="div" size="small" className={styles.headerEnd}>
+        <BodyText tag="div" size="small" className={styles.onBar}>
             <label htmlFor={id}>Revision </label>
             <select
                 id={id}
@@ -187,18 +188,20 @@ function GraffitiPage({graffitiId}: {graffitiId: string}) {
 
     return (
         <div className={styles.app}>
-            <View tag="header" className={styles.header}>
-                <Heading tag="h1" size="large">
-                    {`Diagram ${graffitiId}`}
-                </Heading>
-                {view != null && (
-                    <RevisionPicker
-                        view={view}
-                        picked={picked}
-                        onPick={setPicked}
-                    />
-                )}
-            </View>
+            <PageHeader
+                title={`Diagram ${graffitiId}`}
+                subtitle="As Perseus shows it, labels included"
+                back={{href: "/exercises", label: "All exercises"}}
+                end={
+                    view != null && (
+                        <RevisionPicker
+                            view={view}
+                            picked={picked}
+                            onPick={setPicked}
+                        />
+                    )
+                }
+            />
             <main className={styles.main}>
                 <div className={styles.pane}>
                     <div className={styles.paneScroll}>

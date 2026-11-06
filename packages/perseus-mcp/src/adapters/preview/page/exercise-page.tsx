@@ -5,8 +5,10 @@
 // exercise's event stream, so it shows Claude's changes as they're made.
 import Button from "@khanacademy/wonder-blocks-button";
 import {RenderStateRoot, View} from "@khanacademy/wonder-blocks-core";
-import {Choice, RadioGroup} from "@khanacademy/wonder-blocks-form";
+import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {BodyText, Heading} from "@khanacademy/wonder-blocks-typography";
+import squareIcon from "@phosphor-icons/core/regular/square.svg";
+import squaresFourIcon from "@phosphor-icons/core/regular/squares-four.svg";
 import * as React from "react";
 import {createRoot} from "react-dom/client";
 
@@ -15,14 +17,16 @@ import {isWebUrl} from "../../../domain/exercises/exercise";
 import {DEFAULT_OFFERED_OPTIONS} from "./controls";
 import {DraftPreview} from "./draft-preview";
 import {ExerciseGrid} from "./exercise-grid";
-import {ItemStatus} from "./exercise-items";
+import {IssueList, ItemStatus} from "./exercise-items";
 import styles from "./exercise-pages.module.css";
+import {BarLink, PageHeader} from "./page-header";
+import header from "./page-header.module.css";
 import layout from "./page-layout.module.css";
 import {StatusBar, worstConnection} from "./status-bar";
 
 import type {OfferedOptions} from "./controls";
 import type {DraftStatus} from "./draft-preview";
-import type {ExerciseView, Issue, ItemView} from "./exercise-items";
+import type {ExerciseView, ItemView} from "./exercise-items";
 import type {Connection} from "./status-bar";
 
 // The page setup Wonder Blocks expects: its tokens, fonts and base styles.
@@ -90,16 +94,16 @@ function usePageLocation(): [Location, (next: Partial<Location>) => void] {
     return [location, go];
 }
 
-const VIEWS: Record<ViewMode, string> = {
-    single: "One item",
-    grid: "Grid, as on phones",
-};
+const VIEWS = [
+    {view: "single", label: "One item", icon: squareIcon},
+    {view: "grid", label: "Grid, as on phones", icon: squaresFourIcon},
+] as const;
 
-function isViewMode(value: string): value is ViewMode {
-    return value === "single" || value === "grid";
-}
-
-function ViewSwitch({
+/**
+ * The views, as a pair of buttons: the pressed one is showing. Each button's
+ * name is its view, as screen readers announce it with its pressed state.
+ */
+function ViewButtons({
     view,
     onChange,
 }: {
@@ -107,22 +111,30 @@ function ViewSwitch({
     onChange: (view: ViewMode) => void;
 }) {
     return (
-        <View className={styles.viewSwitch}>
-            <RadioGroup
-                label="View"
-                groupName="exercise-view"
-                selectedValue={view}
-                onChange={(value) => {
-                    if (isViewMode(value)) {
-                        onChange(value);
-                    }
-                }}
-            >
-                {Object.entries(VIEWS).map(([value, label]) => (
-                    <Choice key={value} label={label} value={value} />
-                ))}
-            </RadioGroup>
-        </View>
+        <div role="group" aria-label="View" className={header.viewButtons}>
+            {VIEWS.map(({view: value, label, icon}) => (
+                <IconButton
+                    key={value}
+                    icon={icon}
+                    kind="tertiary"
+                    size="medium"
+                    aria-label={label}
+                    aria-pressed={view === value}
+                    className={`${header.viewButton} ${view === value ? header.pressed : ""}`}
+                    onClick={() => onChange(value)}
+                />
+            ))}
+        </div>
+    );
+}
+
+/** What the exercise holds, for the line under its title. */
+function describeContents(view: ExerciseView): string {
+    const items = view.problemTypes.reduce((n, t) => n + t.items.length, 0);
+    const types = view.problemTypes.length;
+    return (
+        `${items} ${items === 1 ? "item" : "items"} in ${types} ` +
+        `${types === 1 ? "problem type" : "problem types"}`
     );
 }
 
@@ -290,26 +302,6 @@ function Tree({
     );
 }
 
-function IssueList({issues}: {issues: Issue[]}) {
-    if (issues.length === 0) {
-        return null;
-    }
-    return (
-        <View tag="section" aria-label="Validation issues">
-            <ul className={styles.issues}>
-                {issues.map((issue, index) => (
-                    <li key={index}>
-                        <BodyText size="small">
-                            {`${issue.severity === "error" ? "Error" : issue.severity === "warning" ? "Warning" : "Note"}: ` +
-                                `${issue.message} (${issue.path})`}
-                        </BodyText>
-                    </li>
-                ))}
-            </ul>
-        </View>
-    );
-}
-
 function ExercisePage({exerciseId}: {exerciseId: string}) {
     const {view, connection} = useExerciseEvents(exerciseId);
     const [draftStatus, setDraftStatus] = React.useState<DraftStatus | null>(
@@ -320,10 +312,9 @@ function ExercisePage({exerciseId}: {exerciseId: string}) {
         (itemId: string) => go({item: itemId}),
         [go],
     );
-    const [gridOptions, setGridOptions] = React.useState<OfferedOptions>({
-        ...DEFAULT_OFFERED_OPTIONS,
-        isMobile: true,
-    });
+    const [gridOptions, setGridOptions] = React.useState<OfferedOptions>(
+        DEFAULT_OFFERED_OPTIONS,
+    );
     const items = view?.problemTypes.flatMap((type) => type.items) ?? [];
     // With no item named (or one that's gone), show the first that has a
     // draft.
@@ -333,41 +324,32 @@ function ExercisePage({exerciseId}: {exerciseId: string}) {
 
     return (
         <div className={layout.app}>
-            <View tag="header" className={layout.header}>
-                <BodyText size="small">
-                    <a className={styles.link} href="/exercises">
-                        All exercises
-                    </a>
-                </BodyText>
-                <Heading tag="h1" size="large">
-                    {view?.name ?? "Exercise"}
-                </Heading>
-                <ViewSwitch
-                    view={viewMode}
-                    onChange={(next) => go({view: next})}
-                />
-                {view?.editorUrl != null && isWebUrl(view.editorUrl) && (
-                    <BodyText size="small">
-                        <a
-                            className={styles.link}
-                            href={view.editorUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Open in the exercise editor
-                            <span className={styles.hidden}>
-                                {" (opens in a new tab)"}
-                            </span>
-                        </a>
-                    </BodyText>
-                )}
-            </View>
+            <PageHeader
+                title={view?.name ?? "Exercise"}
+                subtitle={view == null ? undefined : describeContents(view)}
+                back={{href: "/exercises", label: "All exercises"}}
+                end={
+                    <>
+                        {view?.editorUrl != null &&
+                            isWebUrl(view.editorUrl) && (
+                                <BarLink href={view.editorUrl} external={true}>
+                                    Open in the exercise editor
+                                </BarLink>
+                            )}
+                        <ViewButtons
+                            view={viewMode}
+                            onChange={(next) => go({view: next})}
+                        />
+                    </>
+                }
+            />
             {viewMode === "grid" ? (
                 <main className={`${layout.main} ${styles.gridMain}`}>
                     {view != null && (
                         <ExerciseGrid
                             view={view}
-                            options={gridOptions}
+                            // The grid is for seeing items as on phones.
+                            options={{...gridOptions, isMobile: true}}
                             onOptionsChange={(changed) =>
                                 setGridOptions((current) => ({
                                     ...current,

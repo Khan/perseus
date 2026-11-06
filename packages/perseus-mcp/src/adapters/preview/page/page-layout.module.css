@@ -12,26 +12,16 @@
  * TODO(LEMS-3686): Remove the !important once Wonder Blocks is in the shared
  * layer.
  */
+/* Full width, as the exercise editor: the panes use the whole window. */
 .app {
     display: flex;
     flex-direction: column;
     block-size: 100dvh;
-    max-inline-size: 160rem;
-    margin-inline: auto;
 }
 
-.header {
-    flex-direction: row !important;
-    flex-wrap: wrap !important;
-    align-items: baseline !important;
-    gap: var(--wb-sizing-size_080) var(--wb-sizing-size_240) !important;
-    padding: var(--wb-sizing-size_160) var(--wb-sizing-size_240) !important;
-    border-block-end: var(--wb-border-width-thin) solid
-        var(--wb-semanticColor-core-border-neutral-subtle);
-}
-
-.headerEnd {
-    margin-inline-start: auto !important;
+/* Text in the dark title bar takes its light color. */
+.onBar {
+    color: inherit !important;
 }
 
 .main {

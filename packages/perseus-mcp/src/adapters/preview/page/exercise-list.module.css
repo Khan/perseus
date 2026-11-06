@@ -3,15 +3,12 @@
     gap: var(--wb-sizing-size_240) !important;
 }
 
-/* The whole page: the root font size is 10px, so 120rem is 1200px. */
+/* The page under its title bar: the root font size is 10px, so 120rem is
+   1200px, a readable width for a list. */
 .root {
     max-inline-size: 120rem;
     margin-inline: auto !important;
     padding: var(--wb-sizing-size_240) var(--wb-sizing-size_160) !important;
-}
-
-.header {
-    gap: var(--wb-sizing-size_120) !important;
 }
 
 .importArea {

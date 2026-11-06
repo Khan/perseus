@@ -3,8 +3,6 @@
 // over a whole exercise. A frame loads when it scrolls near the window, and
 // reads its draft again when the exercise's event stream says it changed.
 import {usePreviewController} from "@khanacademy/perseus-preview";
-import {View} from "@khanacademy/wonder-blocks-core";
-import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import {BodyText, Heading} from "@khanacademy/wonder-blocks-typography";
 import caretRightIcon from "@phosphor-icons/core/regular/caret-right.svg";
@@ -13,7 +11,7 @@ import * as React from "react";
 import {pinDiagramRevisions} from "../../../domain/graffiti/diagram";
 
 import {describeOptions, OptionControls} from "./controls";
-import {ItemStatus} from "./exercise-items";
+import {IssueList, ItemStatus} from "./exercise-items";
 import styles from "./exercise-pages.module.css";
 import layout from "./page-layout.module.css";
 
@@ -52,6 +50,68 @@ function useNearWindow<T extends Element>(): [React.RefObject<T>, boolean] {
         return () => observer.disconnect();
     }, [near]);
     return [ref, near];
+}
+
+/**
+ * How many frames load at once. Each loads several hundred modules from the
+ * dev server; started together, a screenful of frames runs the browser out
+ * of requests (ERR_INSUFFICIENT_RESOURCES) and some never load.
+ */
+const LOADING_AT_ONCE = 2;
+/** A frame that hasn't rendered by then gives up its turn anyway. */
+const LOADING_LIMIT_MS = 20_000;
+
+let loading = 0;
+const waiting: Array<() => void> = [];
+
+function startWaiting() {
+    while (loading < LOADING_AT_ONCE && waiting.length > 0) {
+        loading++;
+        waiting.shift()!();
+    }
+}
+
+/**
+ * Whether the frame may load yet, once `wanted`, and the function to call
+ * when it has rendered, which lets the next frame load.
+ */
+function useLoadingTurn(wanted: boolean): [boolean, () => void] {
+    const [allowed, setAllowed] = React.useState(false);
+    const release = React.useRef<() => void>(() => {});
+    React.useEffect(() => {
+        if (!wanted) {
+            return;
+        }
+        let started = false;
+        let finished = false;
+        let timer: ReturnType<typeof setTimeout> | undefined;
+        const finish = () => {
+            if (finished || !started) {
+                return;
+            }
+            finished = true;
+            clearTimeout(timer);
+            loading--;
+            startWaiting();
+        };
+        const start = () => {
+            started = true;
+            timer = setTimeout(finish, LOADING_LIMIT_MS);
+            setAllowed(true);
+        };
+        release.current = finish;
+        waiting.push(start);
+        startWaiting();
+        return () => {
+            const index = waiting.indexOf(start);
+            if (index >= 0) {
+                waiting.splice(index, 1);
+            }
+            finish();
+        };
+    }, [wanted]);
+    const done = React.useCallback(() => release.current(), []);
+    return [allowed, done];
 }
 
 /** The item at `revision`, read when the revision changes. */
@@ -94,15 +154,23 @@ function GridFrame({
     revision,
     options,
     title,
+    onRendered,
 }: {
     itemId: string;
     revision: number | undefined;
     options: OfferedOptions;
     title: string;
+    /** Called once Perseus has rendered the item, or couldn't. */
+    onRendered: () => void;
 }) {
     const iframeRef = React.useRef<HTMLIFrameElement>(null);
-    const {sendData, height, setPreviewOptions} =
+    const {sendData, height, setPreviewOptions, renderState} =
         usePreviewController(iframeRef);
+    React.useEffect(() => {
+        if (renderState?.status === "done" || renderState?.status === "error") {
+            onRendered();
+        }
+    }, [renderState?.status, onRendered]);
     const {draft, error} = useDraft(itemId, revision);
 
     React.useEffect(() => {
@@ -152,6 +220,7 @@ function GridCard({
     onOpen: (itemId: string) => void;
 }) {
     const [ref, near] = useNearWindow<HTMLLIElement>();
+    const [allowed, rendered] = useLoadingTurn(near && !item.missing);
     const title = `Item ${number}`;
     return (
         <li ref={ref} className={styles.card}>
@@ -181,27 +250,19 @@ function GridCard({
                     <ItemStatus item={item} />
                 </BodyText>
             </div>
-            {item.missing ? null : near ? (
+            <IssueList issues={item.issues ?? []} brief={true} />
+            {item.missing ? null : allowed ? (
                 <GridFrame
                     itemId={item.itemId}
                     revision={item.revision}
                     options={options}
                     title={title}
+                    onRendered={rendered}
                 />
             ) : (
                 <div className={styles.gridPlaceholder} />
             )}
         </li>
-    );
-}
-
-function hasIssues(item: ItemView): boolean {
-    return (
-        item.missing === true ||
-        (item.issues ?? []).some(
-            (issue) =>
-                issue.severity === "error" || issue.severity === "warning",
-        )
     );
 }
 
@@ -221,22 +282,9 @@ export function ExerciseGrid({
     onOptionsChange: (options: Partial<OfferedOptions>) => void;
     onOpen: (itemId: string) => void;
 }) {
-    const [onlyIssues, setOnlyIssues] = React.useState(false);
-    const shown = view.problemTypes.map((problemType) =>
-        problemType.items
-            .map((item, position) => ({item, position}))
-            .filter(({item}) => !onlyIssues || hasIssues(item)),
-    );
-    const none = shown.every((items) => items.length === 0);
+    const none = view.problemTypes.every((type) => type.items.length === 0);
     return (
         <div className={styles.grid}>
-            <View className={styles.gridFilter}>
-                <Checkbox
-                    label="Only items with errors or warnings"
-                    checked={onlyIssues}
-                    onChange={setOnlyIssues}
-                />
-            </View>
             <details className={layout.options}>
                 <summary className={layout.optionsSummary}>
                     <PhosphorIcon
@@ -252,26 +300,21 @@ export function ExerciseGrid({
                         size="small"
                         className={layout.optionsSet}
                     >
-                        {describeOptions(options)}
+                        {describeOptions(options, {withoutPhone: true})}
                     </BodyText>
                 </summary>
                 <div className={layout.optionsBody}>
                     <OptionControls
                         label="Modes"
                         options={options}
+                        withoutPhone={true}
                         onChange={onOptionsChange}
                     />
                 </div>
             </details>
-            {none && (
-                <BodyText>
-                    {onlyIssues
-                        ? "No items have errors or warnings."
-                        : "This exercise has no items."}
-                </BodyText>
-            )}
+            {none && <BodyText>This exercise has no items.</BodyText>}
             {view.problemTypes.map((problemType, index) =>
-                shown[index].length === 0 ? null : (
+                problemType.items.length === 0 ? null : (
                     <section
                         key={problemType.name ?? `none-${index}`}
                         aria-label={`${index + 1}. ${problemType.name ?? "Unassigned"}`}
@@ -280,7 +323,7 @@ export function ExerciseGrid({
                             {`${index + 1}. ${problemType.name ?? "Unassigned"}`}
                         </Heading>
                         <ol className={styles.cards}>
-                            {shown[index].map(({item, position}) => (
+                            {problemType.items.map((item, position) => (
                                 <GridCard
                                     key={item.itemId}
                                     item={item}
