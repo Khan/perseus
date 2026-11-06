@@ -452,6 +452,11 @@ table: [[☃ table 1]]
                       PhET Simulation
                     </option>
                     <option
+                      value="polar-graph"
+                    >
+                      Polar graph
+                    </option>
+                    <option
                       value="python-program"
                     >
                       Python Program
@@ -2483,6 +2488,11 @@ table: [[☃ table 1]]
                                   PhET Simulation
                                 </option>
                                 <option
+                                  value="polar-graph"
+                                >
+                                  Polar graph
+                                </option>
+                                <option
                                   value="python-program"
                                 >
                                   Python Program
@@ -2990,6 +3000,11 @@ table: [[☃ table 1]]
                                 value="phet-simulation"
                               >
                                 PhET Simulation
+                              </option>
+                              <option
+                                value="polar-graph"
+                              >
+                                Polar graph
                               </option>
                               <option
                                 value="python-program"
@@ -3937,6 +3952,11 @@ table: [[☃ table 1]]
                                   PhET Simulation
                                 </option>
                                 <option
+                                  value="polar-graph"
+                                >
+                                  Polar graph
+                                </option>
+                                <option
                                   value="python-program"
                                 >
                                   Python Program
@@ -4371,6 +4391,11 @@ table: [[☃ table 1]]
                                   value="phet-simulation"
                                 >
                                   PhET Simulation
+                                </option>
+                                <option
+                                  value="polar-graph"
+                                >
+                                  Polar graph
                                 </option>
                                 <option
                                   value="python-program"
@@ -7454,6 +7479,11 @@ table: [[☃ table 1]]
                                 value="phet-simulation"
                               >
                                 PhET Simulation
+                              </option>
+                              <option
+                                value="polar-graph"
+                              >
+                                Polar graph
                               </option>
                               <option
                                 value="python-program"
