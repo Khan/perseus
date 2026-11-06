@@ -1,5 +1,15 @@
 # @khanacademy/perseus-linter
 
+## 8.0.1
+
+### Patch Changes
+
+-   [#4505](https://github.com/Khan/perseus/pull/4505) [`0782684`](https://github.com/Khan/perseus/commit/0782684495ed6a2a588248f67b0a569193f51009) Thanks [@benchristel](https://github.com/benchristel)! - Fixed a bug where an invalid numeric input widget would cause the issues panel to show a nonsensical message like "numeric-input 1: undefined". The correct message is now shown.
+
+-   Updated dependencies [[`d5d3257`](https://github.com/Khan/perseus/commit/d5d3257f6c7b83b1b907ab1ae3a0b6dcd5d0a44b)]:
+    -   @khanacademy/perseus-core@42.3.0
+    -   @khanacademy/kmath@3.1.6
+
 ## 8.0.0
 
 ### Major Changes
