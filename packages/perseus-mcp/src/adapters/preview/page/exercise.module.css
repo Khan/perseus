@@ -1,0 +1,27 @@
+/* The "Check answer" button with its result beside it. */
+.checkRow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--wb-sizing-size_080) var(--wb-sizing-size_120);
+    margin-block: var(--wb-sizing-size_160);
+}
+
+.result {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--wb-sizing-size_060);
+    font-weight: bold;
+}
+
+.correct {
+    color: var(--wb-semanticColor-core-foreground-success-default);
+}
+
+.incorrect {
+    color: var(--wb-semanticColor-core-foreground-critical-default);
+}
+
+.invalid {
+    color: var(--wb-semanticColor-core-foreground-neutral-default);
+}

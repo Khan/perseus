@@ -1,7 +1,8 @@
-// The list page's import: a file field and a drop target for an exercise's
-// export (or a zip of several), sent to POST /exercises/import.
+// The list page's import: a file field for an exercise's export (or a zip of
+// several), sent to POST /exercises/import, and the whole page as a drop
+// target for the file.
 import Button from "@khanacademy/wonder-blocks-button";
-import {BodyText, Heading} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import styles from "./exercise-list.module.css";
@@ -60,17 +61,72 @@ function describe({exercises, failed}: ImportResponse): string {
         .join(" ");
 }
 
+/** Whether a drag carries files (not text or a link from the page). */
+function hasFiles(event: DragEvent): boolean {
+    return event.dataTransfer?.types.includes("Files") ?? false;
+}
+
+/**
+ * Takes a file dropped anywhere on the page, and says whether one is being
+ * dragged over it.
+ */
+function usePageDrop(onDrop: (file: File | undefined) => void): boolean {
+    const [dragging, setDragging] = React.useState(false);
+    const latest = React.useRef(onDrop);
+    latest.current = onDrop;
+    React.useEffect(() => {
+        // Entering a child element enters it before leaving its parent, so
+        // count: the drag has left the page when every enter has a leave.
+        let depth = 0;
+        const enter = (event: DragEvent) => {
+            if (hasFiles(event)) {
+                depth++;
+                setDragging(true);
+            }
+        };
+        const leave = (event: DragEvent) => {
+            if (hasFiles(event) && --depth <= 0) {
+                depth = 0;
+                setDragging(false);
+            }
+        };
+        const over = (event: DragEvent) => {
+            if (hasFiles(event)) {
+                // Without this the browser opens the file instead.
+                event.preventDefault();
+            }
+        };
+        const drop = (event: DragEvent) => {
+            if (hasFiles(event)) {
+                event.preventDefault();
+                depth = 0;
+                setDragging(false);
+                latest.current(event.dataTransfer?.files[0]);
+            }
+        };
+        window.addEventListener("dragenter", enter);
+        window.addEventListener("dragleave", leave);
+        window.addEventListener("dragover", over);
+        window.addEventListener("drop", drop);
+        return () => {
+            window.removeEventListener("dragenter", enter);
+            window.removeEventListener("dragleave", leave);
+            window.removeEventListener("dragover", over);
+            window.removeEventListener("drop", drop);
+        };
+    }, []);
+    return dragging;
+}
+
 /**
  * Opens a single imported exercise; for several, reports them and lets
  * the page list them.
  */
 export function ImportArea({onImported}: {onImported: () => void}) {
     const inputId = React.useId();
-    const headingId = React.useId();
     const inputRef = React.useRef<HTMLInputElement>(null);
     const [message, setMessage] = React.useState("");
     const [busy, setBusy] = React.useState(false);
-    const [dragging, setDragging] = React.useState(false);
 
     async function importFile(file: File | undefined) {
         if (file == null) {
@@ -99,63 +155,52 @@ export function ImportArea({onImported}: {onImported: () => void}) {
         }
     }
 
+    const dragging = usePageDrop((file) => void importFile(file));
+
     return (
-        <section aria-labelledby={headingId} className={styles.importArea}>
-            <Heading tag="h2" size="medium" id={headingId}>
-                Import an exercise
-            </Heading>
-            {/* Dropping a file is a pointer shortcut for the labelled file
-                field, which is how a keyboard or screen reader user imports;
-                the form is the drop target so the whole area takes the file.
-                A role would misdescribe the form, so the drag handlers stay
-                on it without one. */}
-            {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
+        <section aria-label="Import an exercise" className={styles.importArea}>
             <form
-                className={`${styles.dropTarget} ${dragging ? styles.dragging : ""}`}
+                className={styles.importRow}
                 onSubmit={(event) => {
                     event.preventDefault();
                     void importFile(inputRef.current?.files?.[0]);
                 }}
-                onDragOver={(event) => {
-                    event.preventDefault();
-                    setDragging(true);
-                }}
-                onDragLeave={(event) => {
-                    // Moving onto the label or button inside the form
-                    // leaves the form too; only leaving it counts.
-                    const to = event.relatedTarget;
-                    if (
-                        !(to instanceof Node) ||
-                        !event.currentTarget.contains(to)
-                    ) {
-                        setDragging(false);
-                    }
-                }}
-                onDrop={(event) => {
-                    event.preventDefault();
-                    setDragging(false);
-                    void importFile(event.dataTransfer.files[0]);
-                }}
             >
-                <BodyText tag="label" htmlFor={inputId}>
-                    An exercise&rsquo;s bulk JSON export, or a .zip of several
-                    (or drop the file here)
+                <BodyText tag="label" htmlFor={inputId} weight="semi">
+                    Import an exercise
                 </BodyText>
-                <div className={styles.importRow}>
-                    <input
-                        ref={inputRef}
-                        id={inputId}
-                        type="file"
-                        accept=".json,.zip,application/json,application/zip"
-                    />
-                    <Button type="submit" size="small" disabled={busy}>
-                        Import
-                    </Button>
-                </div>
+                <input
+                    ref={inputRef}
+                    id={inputId}
+                    type="file"
+                    accept=".json,.zip,application/json,application/zip"
+                    aria-describedby={`${inputId}-hint`}
+                />
+                <Button type="submit" size="small" disabled={busy}>
+                    Import
+                </Button>
+                <BodyText
+                    tag="span"
+                    size="small"
+                    id={`${inputId}-hint`}
+                    className={styles.hint}
+                >
+                    Its bulk JSON export, or a .zip of several. Or drop the file
+                    anywhere on the page.
+                </BodyText>
             </form>
             <BodyText tag="output" size="small">
                 {message}
             </BodyText>
+            {/* Dropping is a pointer shortcut for the file field above, so
+                screen readers skip what shows while dragging. */}
+            {dragging && (
+                <div className={styles.dropOverlay} aria-hidden={true}>
+                    <BodyText weight="bold" className={styles.dropText}>
+                        Drop here to upload
+                    </BodyText>
+                </div>
+            )}
         </section>
     );
 }

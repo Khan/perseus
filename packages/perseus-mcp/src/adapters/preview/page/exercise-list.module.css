@@ -14,23 +14,38 @@
 .importArea {
     display: flex;
     flex-direction: column;
-    gap: var(--wb-sizing-size_120);
+    gap: var(--wb-sizing-size_040);
 }
 
-/* The form takes dropped files; the dashed border says so. */
-.dropTarget {
+/* While a file is dragged over the page, the whole window is the drop
+   target, and says so. It lets the drag events through to the window. */
+.dropOverlay {
+    position: fixed;
+    inset: var(--wb-sizing-size_080);
+    z-index: 1;
     display: flex;
-    flex-direction: column;
-    gap: var(--wb-sizing-size_080);
-    padding: var(--wb-sizing-size_160);
-    border: var(--wb-border-width-medium) dashed
-        var(--wb-semanticColor-core-border-neutral-default);
+    align-items: center;
+    justify-content: center;
+    border: var(--wb-border-width-thick) dashed
+        var(--wb-semanticColor-core-border-instructive-default);
     border-radius: var(--wb-border-radius-radius_120);
+    background: color-mix(
+        in srgb,
+        var(--wb-semanticColor-core-background-instructive-subtle) 92%,
+        transparent
+    );
+    pointer-events: none;
 }
 
-.dragging {
-    border-color: var(--wb-semanticColor-core-border-instructive-default);
-    background: var(--wb-semanticColor-core-background-instructive-subtle);
+.dropText {
+    color: var(
+        --wb-semanticColor-core-foreground-instructive-default
+    ) !important;
+    font-size: var(--wb-font-heading-size-large) !important;
+}
+
+.hint {
+    color: var(--wb-semanticColor-core-foreground-neutral-subtle) !important;
 }
 
 .importRow {
@@ -38,4 +53,53 @@
     flex-wrap: wrap;
     align-items: center;
     gap: var(--wb-sizing-size_120);
+}
+
+.list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Each exercise, between thin dividers. */
+.row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_040);
+    padding-block: var(--wb-sizing-size_120);
+    border-block-end: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+}
+
+.row:first-child {
+    border-block-start: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+}
+
+/* The title is the row's only link, so it needs no underline until it's
+   pointed at or focused. */
+.link {
+    color: var(--wb-semanticColor-core-foreground-instructive-default);
+    text-decoration: none;
+}
+
+.link:hover,
+.link:focus-visible {
+    text-decoration: underline;
+}
+
+.details {
+    color: var(--wb-semanticColor-core-foreground-neutral-subtle) !important;
+}
+
+/* Notes are often long (where an exercise came from); two lines here, the
+   rest on hover. Screen readers still read all of it. */
+.notes {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    color: var(--wb-semanticColor-core-foreground-neutral-subtle) !important;
+    font-style: italic;
 }

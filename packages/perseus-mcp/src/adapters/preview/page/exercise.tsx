@@ -12,10 +12,15 @@ import {mapErrorToString} from "@khanacademy/perseus/strings";
 import {splitPerseusItem} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {shownHintPositions} from "@khanacademy/perseus-preview";
+import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
+import checkCircleIcon from "@phosphor-icons/core/fill/check-circle-fill.svg";
+import warningCircleIcon from "@phosphor-icons/core/fill/warning-circle-fill.svg";
+import xCircleIcon from "@phosphor-icons/core/fill/x-circle-fill.svg";
 import * as React from "react";
 
 import {scoreItem} from "../../../domain/items/score";
 
+import styles from "./exercise.module.css";
 import {dependenciesV2} from "./perseus-environment";
 
 import type {ItemScore} from "../../../domain/items/score";
@@ -33,6 +38,15 @@ import type {
 } from "@khanacademy/perseus-preview";
 
 type ExerciseData = Extract<PreviewContent, {type: "exercise"}>["data"];
+
+/** A check's result: how it scored, and what to say about it. */
+type CheckResult = {outcome: ItemScore["outcome"]; text: string};
+
+const OUTCOMES = {
+    correct: {icon: checkCircleIcon, className: styles.correct},
+    incorrect: {icon: xCircleIcon, className: styles.incorrect},
+    invalid: {icon: warningCircleIcon, className: styles.invalid},
+} as const;
 
 function describeScore(
     {outcome, score}: ItemScore,
@@ -223,7 +237,7 @@ function ExerciseItem({
         previewOptions;
     const {strings} = usePerseusI18n();
     const rendererRef = React.useRef<ServerItemRendererComponent>(null);
-    const [result, setResult] = React.useState<string | null>(null);
+    const [result, setResult] = React.useState<CheckResult | null>(null);
 
     // Learners get the item without its answers. Showing the answers needs
     // them, so the options that do override answerless.
@@ -248,7 +262,11 @@ function ExerciseItem({
         const described = scored.ok
             ? describeScore(scored.score, strings)
             : scored.issues.map((issue) => issue.message).join(" ");
-        setResult(described);
+        setResult({
+            // An item that can't be scored reads as an unfinished answer.
+            outcome: scored.ok ? scored.score.outcome : "invalid",
+            text: described,
+        });
         onCheck?.(userInput, described);
     }
 
@@ -267,16 +285,28 @@ function ExerciseItem({
                 problemNum={0}
                 hintsVisible={0}
             />
-            <p>
+            {/* The result sits beside the button, where the eye already
+                is, rather than below it, where it can fall out of view. */}
+            <div className={styles.checkRow}>
                 <button type="button" onClick={checkAnswer}>
                     Check answer
                 </button>
-            </p>
-            {/* An <output> is announced when its text changes, so a
-                screen reader hears the result of each check. */}
-            <p>
-                <output>{result}</output>
-            </p>
+                {/* An <output> is announced when its text changes, so a
+                    screen reader hears the result of each check. */}
+                <output
+                    className={`${styles.result} ${result == null ? "" : OUTCOMES[result.outcome].className}`}
+                >
+                    {result != null && (
+                        <>
+                            <PhosphorIcon
+                                icon={OUTCOMES[result.outcome].icon}
+                                aria-hidden={true}
+                            />
+                            {result.text}
+                        </>
+                    )}
+                </output>
+            </div>
             <Hints
                 hints={item.hints}
                 hintsState={hintsState}
