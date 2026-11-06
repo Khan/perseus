@@ -153,6 +153,87 @@ describe("Radio cross-out", () => {
         ).toHaveLength(3);
     });
 
+    it("turns the toggle on when Space is pressed on it", async () => {
+        // Arrange
+        renderQuestion(generateQuestion(), crossOutOn);
+        getToggle().focus();
+
+        // Act
+        await userEvent.keyboard(" ");
+
+        // Assert
+        expect(getToggle()).toBeChecked();
+    });
+
+    it("turns the toggle on when Enter is pressed on it", async () => {
+        // Arrange
+        renderQuestion(generateQuestion(), crossOutOn);
+        getToggle().focus();
+
+        // Act
+        await userEvent.keyboard("{Enter}");
+
+        // Assert
+        expect(getToggle()).toBeChecked();
+    });
+
+    it("turns the toggle off when Enter is pressed on it again", async () => {
+        // Arrange
+        renderQuestion(generateQuestion(), crossOutOn);
+        getToggle().focus();
+        await userEvent.keyboard("{Enter}");
+
+        // Act
+        await userEvent.keyboard("{Enter}");
+
+        // Assert
+        expect(getToggle()).not.toBeChecked();
+    });
+
+    it("doesn't submit the form when Enter is pressed on the toggle", async () => {
+        // Arrange
+        const onSubmit = jest.fn((e: React.FormEvent) => e.preventDefault());
+        renderQuestion(generateQuestion(), {
+            wrapper: ({children}) => (
+                <form onSubmit={onSubmit}>
+                    <CrossOutContext.Provider value={{enabled: true}}>
+                        {children}
+                    </CrossOutContext.Provider>
+                    <button type="submit">Check</button>
+                </form>
+            ),
+        });
+        getToggle().focus();
+
+        // Act
+        await userEvent.keyboard("{Enter}");
+
+        // Assert
+        expect(onSubmit).not.toHaveBeenCalled();
+    });
+
+    it("doesn't pass Enter on the toggle up to the host's keydown handlers", async () => {
+        // Arrange
+        const onKeyDown = jest.fn();
+        renderQuestion(generateQuestion(), {
+            wrapper: ({children}) => (
+                // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+                <div onKeyDown={onKeyDown}>
+                    <CrossOutContext.Provider value={{enabled: true}}>
+                        {children}
+                    </CrossOutContext.Provider>
+                </div>
+            ),
+        });
+        getToggle().focus();
+
+        // Act
+        await userEvent.keyboard("{Enter}");
+
+        // Assert
+        expect(onKeyDown).not.toHaveBeenCalled();
+    });
+
     it("tabs from each choice to its cross-out button", async () => {
         // Arrange
         renderQuestion(generateQuestion(), crossOutOn);
@@ -560,6 +641,24 @@ describe("Radio cross-out settings from CrossOutContext", () => {
         // Assert
         expect(getToggle()).toHaveAttribute("aria-disabled", "true");
         expect(getCrossOutButton("A")).toHaveAttribute("aria-disabled", "true");
+    });
+
+    it("doesn't change the toggle when Enter is pressed on it while read-only", async () => {
+        // Arrange
+        const onToggleChange = jest.fn();
+        render(
+            radioWithCrossOut(
+                {enabled: true, toggleOn: false, onToggleChange},
+                {readOnly: true},
+            ),
+        );
+        getToggle().focus();
+
+        // Act
+        await userEvent.keyboard("{Enter}");
+
+        // Assert
+        expect(onToggleChange).not.toHaveBeenCalled();
     });
 
     it("doesn't cross out a choice when read-only", async () => {
