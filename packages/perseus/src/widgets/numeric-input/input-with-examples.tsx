@@ -126,13 +126,16 @@ const InputWithExamples = forwardRef<Focusable, Props>(
                 autoCorrect: "off",
                 spellCheck: "false",
             };
+            // NOTE: This is the anchor of the examples Tooltip, so it is wrapped in
+            // an element (rather than a Fragment) that the Tooltip can find in
+            // the DOM. It is inline, so the layout doesn't change.
             return (
-                <>
+                <span>
                     <TextInput {...inputProps} />
                     <span id={ariaId} style={{display: "none"}}>
                         {examplesAria}
                     </span>
-                </>
+                </span>
             );
         };
 
@@ -176,6 +179,8 @@ const InputWithExamples = forwardRef<Focusable, Props>(
                 content={renderTooltipContent()}
                 opened={showExamplesTooltip}
                 placement="bottom"
+                // The input inside the anchor is already focusable.
+                forceAnchorFocusivity={false}
             >
                 {renderInput()}
             </Tooltip>
