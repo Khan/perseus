@@ -3,7 +3,15 @@ import {border, font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
-import {useState, useRef, useId, useImperativeHandle, forwardRef} from "react";
+import {
+    useContext,
+    useMemo,
+    useState,
+    useRef,
+    useId,
+    useImperativeHandle,
+    forwardRef,
+} from "react";
 import _ from "underscore";
 
 import {usePerseusI18n} from "../../components/i18n-context";
@@ -14,6 +22,7 @@ import {mapErrorToString} from "../../strings";
 import {phoneMargin, negativePhoneMargin} from "../../styles/constants";
 import UserInputManager from "../../user-input-manager";
 import {getPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
+import CrossOutContext from "../radio/cross-out-context";
 
 import GradedGroupAnswerBar from "./graded-group-answer-bar";
 import cssModuleStyles from "./graded-group.module.css";
@@ -66,6 +75,22 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
 
         const [answerBarState, setAnswerBarState] =
             useState<AnswerBarState>("active");
+
+        // The host's reset key only changes when the host checks an answer,
+        // but a graded group has its own Check button. Count those checks
+        // into the key, so each one clears the cross-outs inside the group
+        // like an exercise's Check does. Without a host provider, this stays
+        // undefined and cross-out stays off.
+        const hostCrossOut = useContext(CrossOutContext);
+        const [checkCount, setCheckCount] = useState(0);
+        const crossOut = useMemo(
+            () =>
+                hostCrossOut && {
+                    ...hostCrossOut,
+                    resetKey: `${hostCrossOut.resetKey ?? ""}-${checkCount}`,
+                },
+            [hostCrossOut, checkCount],
+        );
 
         const rendererRef = useRef<Renderer | null>(null);
         const hintRendererRef = useRef<Renderer | null>(null);
@@ -148,6 +173,7 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
 
             setMessage(message);
             setAnswerBarState(status);
+            setCheckCount((count) => count + 1);
 
             props.trackInteraction({
                 status: status,
@@ -183,7 +209,7 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
         // We only want to show the solutions and rationale if the answer is correct
         const showSolutions = isCorrect ? "all" : "none";
 
-        return (
+        const group = (
             <div className={classes}>
                 {!!props.options.title && (
                     <div className={css(styles.title)}>
@@ -304,6 +330,12 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                     onNextQuestion={props.onNextQuestion}
                 />
             </div>
+        );
+
+        return (
+            <CrossOutContext.Provider value={crossOut}>
+                {group}
+            </CrossOutContext.Provider>
         );
     },
 );
