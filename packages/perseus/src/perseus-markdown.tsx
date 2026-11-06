@@ -15,23 +15,10 @@ const rules = {
     ...pureMarkdownRules,
 
     // NOTE: basically ignored by JIPT. wraps everything at the outer layer
-    columns: {
-        ...pureMarkdownRules.columns,
+    deprecatedColumnSeparator: {
+        ...pureMarkdownRules.deprecatedColumnSeparator,
         react: (node, output, state) => {
-            return (
-                <div className="perseus-two-columns" key={state.key}>
-                    <div className="perseus-column">
-                        <div className="perseus-column-content">
-                            {output(node.col1, state)}
-                        </div>
-                    </div>
-                    <div className="perseus-column">
-                        <div className="perseus-column-content">
-                            {output(node.col2, state)}
-                        </div>
-                    </div>
-                </div>
-            );
+            return null;
         },
     },
     // Match paragraphs consisting solely of crowdin IDs

@@ -171,18 +171,22 @@ const crowdinJiptMatcher = SimpleMarkdown.blockRegex(/^(crwdns.*)\n\s*\n/);
 export const pureMarkdownRules = {
     ...SimpleMarkdown.defaultRules,
 
-    // NOTE: basically ignored by JIPT. wraps everything at the outer layer
-    columns: {
+    // Before November 2026, Perseus content could be divided into columns
+    // by `=====`. Perseus never had CSS to actually display multiple columns,
+    // it just divided up the content into elements which the frontend repo
+    // could style as columns. The column styling was removed from frontend,
+    // so this feature effectively doesn't exist anymore, so we're dropping
+    // column support from Perseus. However, we can't remove the `columns` rule
+    // here because some content still contains `=====`, and we don't want that
+    // to display as a paragraph.
+    deprecatedColumnSeparator: {
         order: -2,
         // eslint-disable-next-line no-restricted-syntax
         match: SimpleMarkdown.blockRegex(
-            /^([\s\S]*\n\n)={5,}\n\n([\s\S]*)/,
-        ) as any,
+            /^={5,}\n*/,
+        ),
         parse: (capture: any, parse: any, state: any): any => {
-            return {
-                col1: parse(capture[1], state),
-                col2: parse(capture[2], state),
-            };
+            return {};
         },
     },
     crowdinId: {

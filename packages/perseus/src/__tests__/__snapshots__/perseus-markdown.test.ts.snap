@@ -1,36 +1,17 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`perseus markdown output should output columns 1`] = `
+exports[`perseus markdown output should ignore the deprecated column separator '=====' 1`] = `
 [
   <div
-    className="perseus-two-columns"
+    className="paragraph"
   >
-    <div
-      className="perseus-column"
-    >
-      <div
-        className="perseus-column-content"
-      >
-        <div
-          className="paragraph"
-        >
-          col1
-        </div>
-      </div>
-    </div>
-    <div
-      className="perseus-column"
-    >
-      <div
-        className="perseus-column-content"
-      >
-        <div
-          className="paragraph"
-        >
-          col2
-        </div>
-      </div>
-    </div>
+    col1
+  </div>,
+  null,
+  <div
+    className="paragraph"
+  >
+    col2
   </div>,
 ]
 `;

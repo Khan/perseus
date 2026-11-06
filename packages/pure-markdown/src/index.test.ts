@@ -405,37 +405,33 @@ describe("pure markdown", () => {
             },
         );
 
-        it("should parse multiple columns", () => {
+        it("should parse the deprecated column separator '====='", () => {
             // Arrange, Act
-            const parsed = parse("hi\n\n" + "=====\n\n" + "there\n\n");
+            const parsed = parse("hi\n\n=====\n\nthere\n\n");
 
             // Assert
             expect(parsed).toEqual([
-                {
-                    type: "columns",
-                    col1: [
-                        {
-                            type: "paragraph",
-                            content: [
-                                {
-                                    type: "text",
-                                    content: "hi",
-                                },
-                            ],
-                        },
-                    ],
-                    col2: [
-                        {
-                            type: "paragraph",
-                            content: [
-                                {
-                                    type: "text",
-                                    content: "there",
-                                },
-                            ],
-                        },
-                    ],
-                },
+                    {
+                        type: "paragraph",
+                        content: [
+                            {
+                                type: "text",
+                                content: "hi",
+                            },
+                        ],
+                    },
+                    {
+                        type: "deprecatedColumnSeparator"
+                    },
+                    {
+                        type: "paragraph",
+                        content: [
+                            {
+                                type: "text",
+                                content: "there",
+                            },
+                        ],
+                    },
             ]);
         });
 

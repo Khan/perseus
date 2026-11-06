@@ -360,41 +360,28 @@ exports[`renderer rendering should render block math on mobile 1`] = `
 exports[`renderer rendering should render columns 1`] = `
 <div>
   <div
-    class="perseus-renderer perseus-renderer-responsive perseus-renderer-two-columns"
+    class="perseus-renderer perseus-renderer-responsive"
   >
     <div
       class="deprecated-perseus-container"
     >
-      <div
-        class="perseus-two-columns"
+      <p
+        class="deprecated-perseus-container"
       >
-        <div
-          class="perseus-column"
-        >
-          <div
-            class="perseus-column-content"
-          >
-            <p
-              class="deprecated-perseus-container"
-            >
-              Stuff in column 1
-            </p>
-          </div>
-        </div>
-        <div
-          class="perseus-column"
-        >
-          <div
-            class="perseus-column-content"
-          >
-            <p
-              class="deprecated-perseus-container"
-            >
-              Stuff in column 2
-            </p>
-          </div>
-        </div>
-      </div>
+        Stuff in column 1
+      </p>
+    </div>
+    <div
+      class="deprecated-perseus-container perseus-paragraph-centered"
+    />
+    <div
+      class="deprecated-perseus-container"
+    >
+      <p
+        class="deprecated-perseus-container"
+      >
+        Stuff in column 2
+      </p>
     </div>
   </div>
 </div>
