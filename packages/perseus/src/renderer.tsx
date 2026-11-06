@@ -917,7 +917,7 @@ class Renderer
                 const isString = typeof nodeOut === "string";
                 if (typeof nodeOut === "string" && lastWasString) {
                     result[result.length - 1] += nodeOut;
-                } else { // FIXME: handle null returned from outputNested
+                } else {
                     result.push(nodeOut);
                 }
                 lastWasString = isString;

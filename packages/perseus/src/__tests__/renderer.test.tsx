@@ -556,6 +556,44 @@ describe("renderer", () => {
             expect(container).toMatchSnapshot();
         });
 
+        it("should ignore the deprecated column separator '=====' inside a list item", () => {
+            // Arrange
+            const question = {
+                content:
+                    "- Stuff before the separator\n\n" +
+                    "  =====\n\n" +
+                    "  Stuff after the separator\n\n",
+                images: {},
+                widgets: {},
+            } as const;
+
+            // Act
+            const {container} = renderQuestion(question);
+
+            // Assert
+            expect(container).toMatchSnapshot();
+        });
+
+        it("should preserve '=====' inside a code block", () => {
+            // Arrange
+            const question = {
+                content:
+                    "```\n" +
+                    "Stuff before the separator\n\n" +
+                    "=====\n\n" +
+                    "Stuff after the separator\n\n" +
+                    "```",
+                images: {},
+                widgets: {},
+            } as const;
+
+            // Act
+            const {container} = renderQuestion(question);
+
+            // Assert
+            expect(container).toMatchSnapshot();
+        });
+
         it("should render image placeholder for links found in content that are images (for translation support)", () => {
             // Arrange
             const question = {
