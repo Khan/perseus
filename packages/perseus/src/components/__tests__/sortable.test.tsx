@@ -1,8 +1,10 @@
 import {act, render, screen, waitFor} from "@testing-library/react";
+import {userEvent} from "@testing-library/user-event";
 import * as React from "react";
 
 import * as Dependencies from "../../dependencies";
 import {testDependencies} from "../../testing/test-dependencies";
+import {wait} from "../../testing/wait";
 import Sortable from "../sortable";
 
 describe("Sortable", () => {
@@ -114,6 +116,137 @@ describe("Sortable", () => {
         await waitFor(() =>
             expect(cardHeights()).toEqual(["1px", "1px", "1px"]),
         );
+    });
+});
+
+describe("dragging", () => {
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+        jest.useRealTimers();
+    });
+
+    // Presses the mouse button on a card without releasing it. A drag starts
+    // in a requestAnimationFrame callback, so this also waits long enough for
+    // that frame to run.
+    async function startDragging(optionText: string) {
+        await userEvent.pointer({
+            keys: "[MouseLeft>]",
+            target: screen.getByText(optionText),
+        });
+        await act(() => wait({delay: 50}));
+    }
+
+    // Starting a drag adds a placeholder item to the list, so the item count
+    // shows whether a drag began.
+    function getItemCount(): number {
+        return screen.getAllByRole("listitem").length;
+    }
+
+    it("starts dragging a card when interactive", async () => {
+        // Arrange
+        render(
+            <Sortable
+                options={["a", "b"]}
+                waitForTexRendererToLoad={false}
+                apiOptions={{}}
+            />,
+        );
+
+        // Act
+        await startDragging("a");
+
+        // Assert
+        expect(getItemCount()).toBe(3);
+    });
+
+    it("does not start dragging a card when disabled", async () => {
+        // Arrange
+        render(
+            <Sortable
+                options={["a", "b"]}
+                disabled={true}
+                waitForTexRendererToLoad={false}
+                apiOptions={{}}
+            />,
+        );
+
+        // Act
+        await startDragging("a");
+
+        // Assert
+        expect(getItemCount()).toBe(2);
+    });
+
+    it("does not start dragging a card when non-interactive", async () => {
+        // Arrange
+        render(
+            <Sortable
+                options={["a", "b"]}
+                nonInteractive={true}
+                waitForTexRendererToLoad={false}
+                apiOptions={{}}
+            />,
+        );
+
+        // Act
+        await startDragging("a");
+
+        // Assert
+        expect(getItemCount()).toBe(2);
+    });
+
+    it("does not start dragging a card after becoming disabled", async () => {
+        // Arrange
+        const {rerender} = render(
+            <Sortable
+                options={["a", "b"]}
+                disabled={false}
+                waitForTexRendererToLoad={false}
+                apiOptions={{}}
+            />,
+        );
+        rerender(
+            <Sortable
+                options={["a", "b"]}
+                disabled={true}
+                waitForTexRendererToLoad={false}
+                apiOptions={{}}
+            />,
+        );
+
+        // Act
+        await startDragging("a");
+
+        // Assert
+        expect(getItemCount()).toBe(2);
+    });
+
+    it("starts dragging a card after becoming enabled", async () => {
+        // Arrange
+        const {rerender} = render(
+            <Sortable
+                options={["a", "b"]}
+                disabled={true}
+                waitForTexRendererToLoad={false}
+                apiOptions={{}}
+            />,
+        );
+        rerender(
+            <Sortable
+                options={["a", "b"]}
+                disabled={false}
+                waitForTexRendererToLoad={false}
+                apiOptions={{}}
+            />,
+        );
+
+        // Act
+        await startDragging("a");
+
+        // Assert
+        expect(getItemCount()).toBe(3);
     });
 });
 
@@ -292,6 +425,40 @@ describe("Sortable.itemsFromProps", () => {
         // Assert
         items.forEach((item) => {
             expect(item.state).toBe("static");
+        });
+    });
+
+    it("sets the item type to non-interactive if nonInteractive is true", () => {
+        // Arrange
+        const props = {
+            options: ["a", "b", "c"],
+            disabled: false,
+            nonInteractive: true,
+        } as const;
+
+        // Act
+        const items = Sortable.itemsFromProps(props);
+
+        // Assert
+        items.forEach((item) => {
+            expect(item.state).toBe("non-interactive");
+        });
+    });
+
+    it("prefers non-interactive over disabled when both are true", () => {
+        // Arrange
+        const props = {
+            options: ["a", "b", "c"],
+            disabled: true,
+            nonInteractive: true,
+        } as const;
+
+        // Act
+        const items = Sortable.itemsFromProps(props);
+
+        // Assert
+        items.forEach((item) => {
+            expect(item.state).toBe("non-interactive");
         });
     });
 });

@@ -26,7 +26,15 @@ enum ItemState {
     DRAGGING = "dragging",
     ANIMATING = "animating",
     DISABLED = "disabled",
+    NON_INTERACTIVE = "non-interactive",
 }
+
+// The states of an item that isn't being dragged or animated.
+const restingStates: ReadonlyArray<ItemState> = [
+    ItemState.STATIC,
+    ItemState.DISABLED,
+    ItemState.NON_INTERACTIVE,
+];
 
 // Augment the given position with the scroll position of the offset parent.
 const addOffsetParentScroll = ($el: any, position: any) => {
@@ -348,6 +356,7 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
                 layout === "vertical" && styles.verticalCard,
                 type === ItemState.DRAGGING && styles.dragging,
                 type === ItemState.DISABLED && styles.disabled,
+                type === ItemState.NON_INTERACTIVE && styles.nonInteractive,
                 !includePadding && styles.unpaddedCard,
             ) +
             " " +
@@ -417,7 +426,12 @@ type SortableProps = {
               height: number;
           }
         | Record<any, any>;
+    // Items look like tiles but can't be moved, e.g. when the widget is
+    // static or read-only.
     disabled: boolean;
+    // Items can never be moved, so they aren't styled as tiles. Takes
+    // precedence over `disabled`.
+    nonInteractive: boolean;
     layout: Layout;
     margin: number;
     onChange: (arg1: any) => void;
@@ -434,6 +448,7 @@ type SortableProps = {
 type DefaultProps = {
     constraints: SortableProps["constraints"];
     disabled: SortableProps["disabled"];
+    nonInteractive: SortableProps["nonInteractive"];
     layout: SortableProps["layout"];
     margin: SortableProps["margin"];
     onChange: SortableProps["onChange"];
@@ -461,6 +476,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         layout: "horizontal",
         padding: true,
         disabled: false,
+        nonInteractive: false,
         constraints: {},
         onMeasure: function () {},
         margin: 5,
@@ -481,13 +497,22 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         });
     }, 20);
 
+    static restingStateFromProps(props: {
+        disabled: boolean;
+        nonInteractive?: boolean;
+    }): ItemState {
+        if (props.nonInteractive) {
+            return ItemState.NON_INTERACTIVE;
+        }
+        return props.disabled ? ItemState.DISABLED : ItemState.STATIC;
+    }
+
     static itemsFromProps(props: {
         disabled: boolean;
+        nonInteractive?: boolean;
         options: ReadonlyArray<SortableOption>;
     }): ReadonlyArray<SortableItem> {
-        const state: ItemState = props.disabled
-            ? ItemState.DISABLED
-            : ItemState.STATIC;
+        const state = Sortable.restingStateFromProps(props);
         return props.options.map((option: SortableOption, i) => {
             return {
                 option: option,
@@ -542,9 +567,24 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                 items: Sortable.itemsFromProps(nextProps),
             });
         } else if (
+            nextProps.disabled !== prevProps.disabled ||
+            nextProps.nonInteractive !== prevProps.nonInteractive
+        ) {
+            // Update resting items (leaving any drag or animation alone),
+            // and clear measurements since the new styles can change sizes.
+            const state = Sortable.restingStateFromProps(nextProps);
+            this.setState({
+                items: Sortable.clearItemMeasurements(
+                    this.state.items.map((item) =>
+                        restingStates.includes(item.state)
+                            ? {...item, state}
+                            : item,
+                    ),
+                ),
+            });
+        } else if (
             nextProps.layout !== prevProps.layout ||
             nextProps.padding !== prevProps.padding ||
-            nextProps.disabled !== prevProps.disabled ||
             !_.isEqual(nextProps.constraints, prevProps.constraints)
         ) {
             // Clear item measurements
@@ -762,10 +802,12 @@ class Sortable extends React.Component<SortableProps, SortableState> {
     }
 
     onAnimationEnd(key: SortableItem["key"]) {
-        // Animating -> Static
+        // Animating -> resting. Use the current props in case the sortable
+        // was disabled while the item was being dragged.
+        const state = Sortable.restingStateFromProps(this.props);
         const items = this.state.items.map(function (item) {
             if (item.key === key) {
-                item.state = ItemState.STATIC;
+                item.state = state;
             }
             return item;
         });
@@ -827,9 +869,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
 
         this.state.items.forEach((item, i, items) => {
             const isLast = i === items.length - 1;
-            const isStatic =
-                item.state === ItemState.STATIC ||
-                item.state === ItemState.DISABLED;
+            const isStatic = restingStates.includes(item.state);
             let margin;
 
             if (this.props.layout === "horizontal") {
@@ -943,6 +983,13 @@ const styles = StyleSheet.create({
     },
 
     disabled: {
+        color: semanticColor.input.disabled.foreground,
+        backgroundColor: semanticColor.input.disabled.background,
+        border: `${border.width.thin} solid ${semanticColor.input.disabled.border}`,
+        cursor: "not-allowed",
+    },
+
+    nonInteractive: {
         backgroundColor: "inherit",
         border: `${border.width.thin} solid ${semanticColor.core.border.disabled.subtle}`,
         cursor: "default",

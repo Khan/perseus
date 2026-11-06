@@ -45,6 +45,7 @@ const Matcher = forwardRef<MatcherHandle, Props>(function Matcher(props, ref) {
     const [leftHeight, setLeftHeight] = useState(0);
     const [rightHeight, setRightHeight] = useState(0);
     const [texRendererLoaded, setTexRendererLoaded] = useState(false);
+    const isDisabled = Boolean(props.static || props.apiOptions.readOnly);
 
     useOnMountEffect(() => {
         dependencies.analytics.onAnalyticsEvent({
@@ -159,7 +160,10 @@ const Matcher = forwardRef<MatcherHandle, Props>(function Matcher(props, ref) {
                             options={props.userInput.left}
                             layout={"vertical"}
                             padding={padding}
-                            disabled={!orderMatters}
+                            // When order doesn't matter, the left column is
+                            // never movable.
+                            nonInteractive={!orderMatters}
+                            disabled={isDisabled}
                             constraints={constraints}
                             onMeasure={(dimensions) =>
                                 setLeftHeight(Math.max(...dimensions.heights))
@@ -176,6 +180,7 @@ const Matcher = forwardRef<MatcherHandle, Props>(function Matcher(props, ref) {
                             options={props.userInput.right}
                             layout={"vertical"}
                             padding={padding}
+                            disabled={isDisabled}
                             constraints={constraints}
                             onMeasure={(dimensions) =>
                                 setRightHeight(Math.max(...dimensions.heights))
