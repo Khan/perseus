@@ -42,14 +42,6 @@
     margin-block: 0;
 }
 
-/* Use type selectors (figcaption, div) to raise specificity above the
-   hint-renderer's `.bibliotron-exercise .perseus-hint-renderer div.paragraph`
-   rule, which would otherwise re-apply a 16px margin-block-end inside hints. */
-.perseus-image-widget
-    figcaption.perseus-image-caption
-    :is(div, p).deprecated-perseus-container {
-
-}
 .perseus-image-modal-description
     .perseus-renderer
     .deprecated-perseus-container {
