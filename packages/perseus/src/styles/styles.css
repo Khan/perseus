@@ -213,9 +213,6 @@
 .framework-perseus.perseus-mobile .MathJax .math {
     color: inherit;
 }
-.framework-perseus.perseus-mobile .perseus-image-widget {
-    text-align: center;
-}
 .framework-perseus.perseus-mobile .perseus-block-math {
     padding-top: var(--wb-sizing-size_160);
     padding-bottom: var(--wb-sizing-size_160);

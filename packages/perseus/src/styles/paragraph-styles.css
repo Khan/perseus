@@ -1,7 +1,6 @@
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer
     > .deprecated-perseus-container {
-    color: var(--wb-semanticColor-core-foreground-neutral-strong);
     margin: 0 auto;
 }
 /* Needed to restore bottom margin on the container <div> when an inline widget
@@ -15,7 +14,6 @@
     .perseus-renderer
     > .deprecated-perseus-container
     .deprecated-perseus-container {
-    color: var(--wb-semanticColor-core-foreground-neutral-strong);
     margin-bottom: var(--wb-sizing-size_320);
     margin-top: 0;
 }
@@ -27,30 +25,6 @@
     .perseus-renderer
     .deprecated-perseus-container {
     margin-bottom: 0;
-}
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-renderer
-    > .deprecated-perseus-container
-    ul:not([data-widget="radio"]) {
-    color: var(--wb-semanticColor-core-foreground-neutral-strong);
-}
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-image-caption
-    .perseus-renderer
-    .deprecated-perseus-container
-    .deprecated-perseus-container,
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-image-caption
-    .perseus-renderer
-    .deprecated-perseus-container
-    ol,
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-image-caption
-    .perseus-renderer
-    .deprecated-perseus-container
-    ul {
-    color: var(--wb-semanticColor-core-foreground-neutral-subtle);
-    text-align: left;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .deprecated-perseus-container.perseus-paragraph-full-width {
@@ -162,39 +136,6 @@
     ul:not([data-widget="radio"])
     ul:not([data-widget="radio"]) {
     padding-top: var(--wb-sizing-size_240);
-}
-@media (max-width: 767px) {
-    .framework-perseus.perseus-mobile
-        .perseus-image-caption
-        .deprecated-perseus-container
-        .deprecated-perseus-container {
-        color: var(--wb-semanticColor-core-foreground-neutral-subtle);
-        font-size: 14px;
-        line-height: 1.3;
-        text-align: left;
-    }
-}
-@media (min-width: 767px) and (max-width: 1199px) {
-    .framework-perseus.perseus-mobile
-        .perseus-image-caption
-        .deprecated-perseus-container
-        .deprecated-perseus-container {
-        color: var(--wb-semanticColor-core-foreground-neutral-subtle);
-        font-size: 17px;
-        line-height: 1.4;
-        text-align: left;
-    }
-}
-@media (min-width: 1200px) {
-    .framework-perseus.perseus-mobile
-        .perseus-image-caption
-        .deprecated-perseus-container
-        .deprecated-perseus-container {
-        color: var(--wb-semanticColor-core-foreground-neutral-subtle);
-        font-size: 20px;
-        line-height: 1.4;
-        text-align: left;
-    }
 }
 .framework-perseus.perseus-mobile
     .perseus-renderer
