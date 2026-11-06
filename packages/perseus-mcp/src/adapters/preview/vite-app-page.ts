@@ -1,3 +1,4 @@
+import {fork} from "node:child_process";
 import {readFile} from "node:fs/promises";
 import path from "node:path";
 
@@ -86,10 +87,55 @@ export async function buildAppPage(): Promise<string> {
 }
 
 /**
+ * Builds the MCP Apps page in a process of its own (build-app-page.mjs), so
+ * the build's NODE_ENV doesn't reach the browser preview's Vite server in
+ * this one. The child's output goes to stderr: over stdio, stdout is MCP's.
+ */
+function buildAppPageApart(): Promise<string> {
+    return new Promise((resolve, reject) => {
+        const child = fork(
+            path.join(import.meta.dirname, "build-app-page.mjs"),
+            {
+                env: {...process.env, NODE_ENV: "production"},
+                stdio: ["ignore", "pipe", "pipe", "ipc"],
+            },
+        );
+        child.stdout?.pipe(process.stderr);
+        child.stderr?.pipe(process.stderr);
+        let settled = false;
+        child.on("message", (message: {html?: string; error?: string}) => {
+            settled = true;
+            if (message.html != null) {
+                resolve(message.html);
+            } else {
+                reject(
+                    new Error(
+                        `Building the preview app page failed: ${message.error}`,
+                    ),
+                );
+            }
+        });
+        child.on("error", (error) => {
+            settled = true;
+            reject(error);
+        });
+        child.on("exit", (code) => {
+            if (!settled) {
+                reject(
+                    new Error(
+                        `Building the preview app page stopped (exit code ${code}).`,
+                    ),
+                );
+            }
+        });
+    });
+}
+
+/**
  * The MCP Apps page for show_item. Hosts receive it as a resource's text,
  * so it must be one document: Vite builds the page, and its script, styles,
- * fonts and icons are inlined. The build runs when a host first asks for the
- * page, then is reused.
+ * fonts and icons are inlined. The build runs, in a process of its own, when
+ * a host first asks for the page, then is reused.
  */
 export function createViteAppPage(): {html(): Promise<string>} {
     let built: Promise<string> | null = null;
@@ -97,7 +143,7 @@ export function createViteAppPage(): {html(): Promise<string>} {
         html() {
             if (built == null) {
                 // A failed build is retried on the next request.
-                built = buildAppPage().catch((error: unknown) => {
+                built = buildAppPageApart().catch((error: unknown) => {
                     built = null;
                     throw error;
                 });

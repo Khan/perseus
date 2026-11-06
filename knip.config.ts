@@ -108,6 +108,8 @@ const config: KnipConfig = {
                 "src/adapters/preview/page/{shell,frame,exercise-list,exercise-page,graffiti-page,home,images}.tsx!",
                 // Started as a process of its own to run a diagram script.
                 "src/adapters/graffiti/runner.mjs!",
+                // Started as a process of its own to build show_item's page.
+                "src/adapters/preview/build-app-page.mjs!",
                 // The packaged server's entry point, which scripts/build-bundle
                 // bundles.
                 "src/main-packaged.ts!",
