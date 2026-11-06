@@ -446,24 +446,10 @@ module.exports = {
         "import/no-commonjs": "error",
         // "import/first": "error",
         "import/no-duplicates": "error",
-        "import/order": [
-            "error",
-            {
-                alphabetize: {
-                    order: "asc",
-                },
-                groups: [
-                    "builtin",
-                    "external",
-                    "internal",
-                    "parent",
-                    "sibling",
-                    "type",
-                ],
-                "newlines-between": "always",
-            },
-        ],
-        "import/newline-after-import": "error",
+        // oxfmt sorts imports and separates them from the code that follows
+        // (see `sortImports` in .oxfmtrc.jsonc).
+        "import/order": "off",
+        "import/newline-after-import": "off",
         "import/no-unassigned-import": [
             "error",
             {
@@ -527,16 +513,9 @@ module.exports = {
         "monorepo/no-internal-import": "error",
 
         /**
-         * prettier - disabled in CI. W we run prettier manually here as its
-         * faster than through ESLint and covers more types of files than
-         * ESLint does.
-         *
-         * For Prettier, we include all files except those in
-         * `.prettierignore`.
-         * For ESLint we only consider TS/JS files (see `lint` script in
-         * package.json).
+         * prettier - oxfmt formats the code now (see .oxfmtrc.jsonc).
          */
-        "prettier/prettier": [process.env.CI === "true" ? "off" : "error"],
+        "prettier/prettier": "off",
 
         /**
          * promise

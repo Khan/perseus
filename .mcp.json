@@ -1,12 +1,12 @@
 {
-  "mcpServers": {
-    "storybook": {
-      "type": "http",
-      "url": "http://localhost:6006/mcp"
-    },
-    "wonder-blocks-storybook": {
-      "type": "http",
-      "url": "https://main--5e1bf4b385e3fb0020b7073c.chromatic.com/mcp"
+    "mcpServers": {
+        "storybook": {
+            "type": "http",
+            "url": "http://localhost:6006/mcp"
+        },
+        "wonder-blocks-storybook": {
+            "type": "http",
+            "url": "https://main--5e1bf4b385e3fb0020b7073c.chromatic.com/mcp"
+        }
     }
-  }
 }

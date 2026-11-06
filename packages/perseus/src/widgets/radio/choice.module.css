@@ -95,9 +95,11 @@
                         (
                                 var(--perseus-multiple-choice-divider-space) -
                                     var(--wb-border-width-thin)
-                            ) / 2
+                            ) /
+                            2
                     )
-            ) * -1
+            ) *
+            -1
     );
 }
 
@@ -109,9 +111,11 @@
                         (
                                 var(--wb-border-width-thin) -
                                     var(--perseus-multiple-choice-divider-space)
-                            ) / 2
+                            ) /
+                            2
                     )
-            ) * -1
+            ) *
+            -1
     );
 }
 

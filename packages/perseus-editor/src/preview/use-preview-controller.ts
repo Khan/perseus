@@ -11,8 +11,8 @@ import {
 import {isIframeToParentMessage} from "./message-validators";
 import {sanitizePreviewData} from "./preview-data-sanitizer";
 
-import type {ParentToIframeMessage, PreviewContent} from "./message-types";
 import type {A11yIssue} from "../components/issues-panel";
+import type {ParentToIframeMessage, PreviewContent} from "./message-types";
 
 export type A11yReport = {
     violations: A11yIssue[];

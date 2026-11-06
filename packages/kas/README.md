@@ -76,14 +76,17 @@ expr.simplify().print();
 ```
 
 ## How to build the library
+
     pnpm install
     pnpm build
 
 ## How to build the parser
+
 First, make any changes in `src/parser-generator.js`
 
     pnpm install
     pnpm build:parser
 
 ## License
+
 [MIT License](http://opensource.org/licenses/MIT)

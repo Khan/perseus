@@ -1,5 +1,5 @@
-import {testDependenciesV2} from "@khanacademy/perseus/testing";
 import {generateInteractiveGraphOptions} from "@khanacademy/perseus-core";
+import {testDependenciesV2} from "@khanacademy/perseus/testing";
 
 import type {ServerItemRenderer} from "@khanacademy/perseus";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";

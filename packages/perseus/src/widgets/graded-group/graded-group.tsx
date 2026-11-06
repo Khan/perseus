@@ -18,7 +18,6 @@ import {getPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-
 import GradedGroupAnswerBar from "./graded-group-answer-bar";
 import cssModuleStyles from "./graded-group.module.css";
 
-import type {AnswerBarState, GradingStatus} from "./graded-group-answer-bar";
 import type {
     FocusPath,
     TrackingGradedGroupExtraArguments,
@@ -26,6 +25,7 @@ import type {
     WidgetProps,
 } from "../../types";
 import type {GradedGroupPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
+import type {AnswerBarState, GradingStatus} from "./graded-group-answer-bar";
 import type {
     PerseusGradedGroupWidgetOptions,
     PerseusRenderer,

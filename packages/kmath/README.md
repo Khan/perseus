@@ -40,33 +40,33 @@ into a Node repl:
 
 ```js
 import {vector} from "@khanacademy/kmath";
-vector.add([1, 2], [3, 4]) // [4, 6]
+vector.add([1, 2], [3, 4]); // [4, 6]
 ```
 
 ## Usage overview
 
 kmath has 5 basic types:
 
--   `number`
--   `vector`
--   `point`
--   `ray`
--   `line`
+- `number`
+- `vector`
+- `point`
+- `ray`
+- `line`
 
 Each has its own representation:
 
--   `number`: a js number (i.e. `5`)
--   `vector`: a js array of numbers (i.e. `[5, 6]`)
--   `point`: a js array of numbers (i.e. `[5, 6]`)
--   `ray`: a js array of two points (i.e. `[[5, 6], [1, 2]]`)
--   `line`: a js array of two points (i.e. `[[5, 6], [1, 2]]`)
+- `number`: a js number (i.e. `5`)
+- `vector`: a js array of numbers (i.e. `[5, 6]`)
+- `point`: a js array of numbers (i.e. `[5, 6]`)
+- `ray`: a js array of two points (i.e. `[[5, 6], [1, 2]]`)
+- `line`: a js array of two points (i.e. `[[5, 6], [1, 2]]`)
 
 kmath functions usually take an argument of the corresponding type as
 the first parameter, and other parameters afterwards. For example, to
 rotate the point `[1, 1]` by 90 degrees around `[0, 0]`, one might use:
 
 ```js
-point.rotateDeg([1, 1], 90, [0, 0])
+point.rotateDeg([1, 1], 90, [0, 0]);
 ```
 
 Documentation for specific functions for each type is provided below.

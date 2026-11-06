@@ -1,9 +1,9 @@
 import accessible from "./accessible";
 import {getInteractiveGraphPublicWidgetOptions} from "./interactive-graph-util";
 
-import type {InteractiveGraphPublicWidgetOptions} from "./interactive-graph-util";
 import type {PerseusInteractiveGraphWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
+import type {InteractiveGraphPublicWidgetOptions} from "./interactive-graph-util";
 
 const defaultWidgetOptions: PerseusInteractiveGraphWidgetOptions = {
     labels: ["$x$", "$y$"],

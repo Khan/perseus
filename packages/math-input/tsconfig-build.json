@@ -2,7 +2,7 @@
     "extends": "../tsconfig-shared.json",
     "compilerOptions": {
         "outDir": "./dist",
-        "rootDir": "src",
+        "rootDir": "src"
     },
     "references": [
         {"path": "../keypad-context/tsconfig-build.json"},

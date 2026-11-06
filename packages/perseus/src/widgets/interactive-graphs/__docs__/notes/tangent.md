@@ -17,22 +17,22 @@ as context for future development and Claude Code sessions.
 
 ### File Map
 
-| File | Purpose |
-|------|---------|
-| `graphs/tangent.tsx` | Main rendering component: curve segments, asymptote lines, points, SR descriptions |
-| `graphs/components/dashed-asymptote-line.tsx` | Shared presentational backing+dashed line pair for an asymptote; used by both `TangentAsymptotes` and `MovableAsymptote` (exp/log) |
-| `graphs/components/svg-line.tsx` | Low-level reusable SVG `<line>` (used by `DashedAsymptoteLine` and other components) |
-| `graphs/strings/tangent.ts` | `describeTangentGraph()` and the SR graph description (`buildTangentDescription`) |
-| `reducer/interactive-graph-reducer.ts` | `movePoint` case for tangent (same-x rejection) |
-| `reducer/initialize-graph-state.ts` | `getTangentCoords()` — default coords |
-| `types.ts` | `TangentGraphState` (coords + snapStep) |
-| `mafs-graph.tsx` | Registers the tangent graph type (`renderTangentGraph` in the `renderGraphElements` switch) |
-| `graphs/tangent.tsx` (local) | `getTangentCoefficients()` — **render-path** helper returning a named object (`{amplitude, angularFrequency, phase, verticalOffset}`) |
-| `@khanacademy/kmath` `coefficients.ts` | `getTangentCoefficients()` — **scoring-path** helper returning a tuple `[a, b, c, d]` (same name, different shape) |
-| `@khanacademy/kmath` `geometry.ts` | `canonicalTangentCoefficients()` — canonical form for scoring |
-| `@khanacademy/perseus-core` `data-schema.ts` | `PerseusGraphTypeTangent`, `TangentGraphCorrect` |
-| `@khanacademy/perseus-score` `sub-scorers/score-tangent.ts` | `scoreTangent()` — tangent scoring (`score-interactive-graph.ts` dispatches to it) |
-| `@khanacademy/perseus-editor` `graph-type-selector.tsx` | "Tangent function" option |
+| File                                                        | Purpose                                                                                                                               |
+| ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `graphs/tangent.tsx`                                        | Main rendering component: curve segments, asymptote lines, points, SR descriptions                                                    |
+| `graphs/components/dashed-asymptote-line.tsx`               | Shared presentational backing+dashed line pair for an asymptote; used by both `TangentAsymptotes` and `MovableAsymptote` (exp/log)    |
+| `graphs/components/svg-line.tsx`                            | Low-level reusable SVG `<line>` (used by `DashedAsymptoteLine` and other components)                                                  |
+| `graphs/strings/tangent.ts`                                 | `describeTangentGraph()` and the SR graph description (`buildTangentDescription`)                                                     |
+| `reducer/interactive-graph-reducer.ts`                      | `movePoint` case for tangent (same-x rejection)                                                                                       |
+| `reducer/initialize-graph-state.ts`                         | `getTangentCoords()` — default coords                                                                                                 |
+| `types.ts`                                                  | `TangentGraphState` (coords + snapStep)                                                                                               |
+| `mafs-graph.tsx`                                            | Registers the tangent graph type (`renderTangentGraph` in the `renderGraphElements` switch)                                           |
+| `graphs/tangent.tsx` (local)                                | `getTangentCoefficients()` — **render-path** helper returning a named object (`{amplitude, angularFrequency, phase, verticalOffset}`) |
+| `@khanacademy/kmath` `coefficients.ts`                      | `getTangentCoefficients()` — **scoring-path** helper returning a tuple `[a, b, c, d]` (same name, different shape)                    |
+| `@khanacademy/kmath` `geometry.ts`                          | `canonicalTangentCoefficients()` — canonical form for scoring                                                                         |
+| `@khanacademy/perseus-core` `data-schema.ts`                | `PerseusGraphTypeTangent`, `TangentGraphCorrect`                                                                                      |
+| `@khanacademy/perseus-score` `sub-scorers/score-tangent.ts` | `scoreTangent()` — tangent scoring (`score-interactive-graph.ts` dispatches to it)                                                    |
+| `@khanacademy/perseus-editor` `graph-type-selector.tsx`     | "Tangent function" option                                                                                                             |
 
 ### Data Flow
 
@@ -69,7 +69,7 @@ User interaction (drag/keyboard)
 ### Asymptote Rendering
 
 - A tangent has **multiple** vertical asymptotes. Their x-positions are **fully derived from
-  the two control points** (the curve's period and phase) — they are *not* an independent,
+  the two control points** (the curve's period and phase) — they are _not_ an independent,
   user-set value. Every asymptote that falls within the visible x-range is drawn.
 - Asymptotes occur where `b*x - c = π/2 + n*π`, i.e. `x = (c + π/2 + n*π) / b`. The nearest
   two sit half a period on either side of the inflection point.
@@ -97,9 +97,9 @@ User interaction (drag/keyboard)
 ### Point Behavior
 
 - Two movable control points define the curve:
-  - `coords[0]` — the **inflection point** (where `tan = 0`, i.e. the curve crosses its
-    vertical offset).
-  - `coords[1]` — a **quarter-period away**; sets the amplitude and period.
+    - `coords[0]` — the **inflection point** (where `tan = 0`, i.e. the curve crosses its
+      vertical offset).
+    - `coords[1]` — a **quarter-period away**; sets the amplitude and period.
 - The two points **cannot share the same x-coordinate** (the coefficient computation would be
   undefined). Invalid moves are rejected gracefully (no crash, no invalid state).
 
@@ -255,24 +255,24 @@ derived, not stored.
 
 ### vs. Logarithm / Exponential
 
-| Aspect | Tangent | Logarithm / Exponential |
-|--------|---------|-------------------------|
-| Formula | `a * tan(b*x - c) + d` | `a * ln(b*x + c)` / `a * e^(b*x) + c` |
-| Interactive elements | 2 points | 2 points + 1 draggable asymptote |
-| Asymptotes | Multiple, periodic, **derived** from points | Single, **user-movable**, stored in state |
-| Asymptote UI | Visible dashed lines, non-interactive | `MovableAsymptote` with drag handle |
-| State | coords + snapStep (no asymptote field) | coords + `asymptote` number |
-| Rendering | Segment splitting (multiple `Plot.OfX`) | Single `Plot.OfX` with `domain` prop |
-| Canonical normalization | Yes | No |
+| Aspect                  | Tangent                                     | Logarithm / Exponential                   |
+| ----------------------- | ------------------------------------------- | ----------------------------------------- |
+| Formula                 | `a * tan(b*x - c) + d`                      | `a * ln(b*x + c)` / `a * e^(b*x) + c`     |
+| Interactive elements    | 2 points                                    | 2 points + 1 draggable asymptote          |
+| Asymptotes              | Multiple, periodic, **derived** from points | Single, **user-movable**, stored in state |
+| Asymptote UI            | Visible dashed lines, non-interactive       | `MovableAsymptote` with drag handle       |
+| State                   | coords + snapStep (no asymptote field)      | coords + `asymptote` number               |
+| Rendering               | Segment splitting (multiple `Plot.OfX`)     | Single `Plot.OfX` with `domain` prop      |
+| Canonical normalization | Yes                                         | No                                        |
 
 ### vs. Sinusoid
 
-| Aspect | Sinusoid | Tangent |
-|--------|----------|---------|
-| Period | `2π` | `π` |
-| Asymptotes | None | Multiple (periodic, derived) |
-| Rendering | Single `Plot.OfX` | Segment splitting |
-| Canonical guarantee | `a > 0` **and** `b > 0` | `b > 0` only |
+| Aspect              | Sinusoid                | Tangent                      |
+| ------------------- | ----------------------- | ---------------------------- |
+| Period              | `2π`                    | `π`                          |
+| Asymptotes          | None                    | Multiple (periodic, derived) |
+| Rendering           | Single `Plot.OfX`       | Segment splitting            |
+| Canonical guarantee | `a > 0` **and** `b > 0` | `b > 0` only                 |
 
 ## Legacy Reference: Grapher Widget
 
@@ -287,4 +287,5 @@ The Grapher widget has a tangent graph type that served as the mathematical refe
   it reuses **kmath's** `canonicalTangentCoefficients()` (there is no grapher-local canonical
   helper).
 </content>
+
 </invoke>

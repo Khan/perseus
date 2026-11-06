@@ -8,8 +8,8 @@ import FractionsPage from "./keypad-pages/fractions-page";
 import styles from "./keypad.module.css";
 import {RenderKeyPadPanel} from "./render-keypad-panel";
 
-import type {KeypadProps} from "./keypad";
 import type {KeypadPageType} from "../../types";
+import type {KeypadProps} from "./keypad";
 
 export type KeypadFractionsOnlyProps = Pick<
     KeypadProps,

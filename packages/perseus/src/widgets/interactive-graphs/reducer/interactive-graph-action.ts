@@ -1,5 +1,5 @@
-import type {InitializeGraphStateParams} from "./initialize-graph-state";
 import type {InteractionMode} from "../types";
+import type {InitializeGraphStateParams} from "./initialize-graph-state";
 import type {Interval, vec} from "mafs";
 
 export type InteractiveGraphAction =

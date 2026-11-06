@@ -6,11 +6,7 @@
         "packages/*/src/**/*.ts",
         "packages/*/src/**/*.tsx"
     ],
-    "exclude": [
-        "**/*.stories.tsx",
-        "**/*.test.ts",
-        "**/*.test.tsx"
-    ],
+    "exclude": ["**/*.stories.tsx", "**/*.test.ts", "**/*.test.tsx"],
     "report-dir": "coverage/cypress",
     "temp-dir": ".nyc_output"
 }

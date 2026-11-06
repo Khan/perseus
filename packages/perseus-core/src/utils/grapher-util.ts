@@ -2,6 +2,7 @@ import _ from "underscore";
 
 import {approximateDeepEqual} from "./equality";
 
+import type {Coord} from "../data-schema";
 import type {
     LinearType,
     QuadraticType,
@@ -12,7 +13,6 @@ import type {
     AbsoluteValueType,
     Coords,
 } from "./grapher-types";
-import type {Coord} from "../data-schema";
 
 export const MOVABLES = {
     PLOT: "PLOT",

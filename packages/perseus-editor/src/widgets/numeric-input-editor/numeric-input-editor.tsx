@@ -284,7 +284,8 @@ class NumericInputEditor extends React.Component<Props, State> {
                                 To restrict the answer to <em>only</em> an
                                 improper fraction (i.e. 7/4), select the
                                 improper fraction and toggle "strict" to true.
-                                This <b>will not</b> accept 1.75 as an answer.{" "}
+                                This <b>will not</b> accept 1.75 as an
+                                answer.{" "}
                             </p>
                             <p>
                                 Unless you are testing that specific skill,

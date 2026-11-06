@@ -10,9 +10,9 @@ import LabeledSwitch from "../../components/labeled-switch";
 import {RadioOptionSettings} from "./radio-option-settings";
 import {getMovedChoices} from "./utils";
 
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {RadioOptionSettingsHandle} from "./radio-option-settings";
 import type {ChoiceMovementType} from "./radio-option-settings-actions";
-import type {WidgetEditorProps} from "../widget-editor-props";
 import type {
     PerseusRadioWidgetOptions,
     PerseusRadioChoice,

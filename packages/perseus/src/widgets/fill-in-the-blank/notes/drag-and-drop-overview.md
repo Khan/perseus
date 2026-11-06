@@ -28,12 +28,12 @@ This doc is only useful if it stays true. When editing it:
 A new family of accessible drag-and-drop exercise widgets that share a common
 foundation (layout, components, interaction + a11y model). The widgets:
 
-| Widget                                | Answer-zone format | Confluence | Epic |
-|---------------------------------------| --- | --- | --- |
-| **Fill in the Blank**                 | Inline blanks within content | [FITB](https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4711972976/Fill+in+the+Blank) | [LEMS-4311](https://khanacademy.atlassian.net/browse/LEMS-4311) |
-| **Sorter** _(existing — to refactor)_ | Column(s) + optional legend | [Sorter](https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4712005818/Sorter) | [LEMS-4312](https://khanacademy.atlassian.net/browse/LEMS-4312) |
-| **Categorizer**                       | Columns | [Categorizer](https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4710040591/Categorizer) | TBD |
-| **Composer**                          | Columns | [Composer](https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4711186826/Composer) | TBD |
+| Widget                                | Answer-zone format           | Confluence                                                                                   | Epic                                                            |
+| ------------------------------------- | ---------------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| **Fill in the Blank**                 | Inline blanks within content | [FITB](https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4711972976/Fill+in+the+Blank)  | [LEMS-4311](https://khanacademy.atlassian.net/browse/LEMS-4311) |
+| **Sorter** _(existing — to refactor)_ | Column(s) + optional legend  | [Sorter](https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4712005818/Sorter)           | [LEMS-4312](https://khanacademy.atlassian.net/browse/LEMS-4312) |
+| **Categorizer**                       | Columns                      | [Categorizer](https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4710040591/Categorizer) | TBD                                                             |
+| **Composer**                          | Columns                      | [Composer](https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4711186826/Composer)       | TBD                                                             |
 
 ## Shared building blocks (built first, before wiring drag-and-drop)
 
@@ -41,12 +41,12 @@ The strategy is to build the shared pieces first, then wire them to the DnD
 engine holistically once they all exist. The set isn't only components — it also
 includes reusable **logic**.
 
-| Piece | Type | What it is | Ticket |
-| --- | --- | --- | --- |
-| **Choice Bank** | Component | The container/drop-zone holding the available Answer Tiles | [LEMS-4365](https://khanacademy.atlassian.net/browse/LEMS-4365) |
-| **Answer Tile** | Component | The individual draggable item | [LEMS-4363](https://khanacademy.atlassian.net/browse/LEMS-4363) |
-| **Actions Menu** | Component | Per-tile control giving keyboard/SR users a way to move tiles | [LEMS-4362](https://khanacademy.atlassian.net/browse/LEMS-4362) |
-| **Choice Bank randomization** | Logic | Reusable logic to randomize tile order in the Choice Bank | [LEMS-4388](https://khanacademy.atlassian.net/browse/LEMS-4388) |
+| Piece                         | Type      | What it is                                                    | Ticket                                                          |
+| ----------------------------- | --------- | ------------------------------------------------------------- | --------------------------------------------------------------- |
+| **Choice Bank**               | Component | The container/drop-zone holding the available Answer Tiles    | [LEMS-4365](https://khanacademy.atlassian.net/browse/LEMS-4365) |
+| **Answer Tile**               | Component | The individual draggable item                                 | [LEMS-4363](https://khanacademy.atlassian.net/browse/LEMS-4363) |
+| **Actions Menu**              | Component | Per-tile control giving keyboard/SR users a way to move tiles | [LEMS-4362](https://khanacademy.atlassian.net/browse/LEMS-4362) |
+| **Choice Bank randomization** | Logic     | Reusable logic to randomize tile order in the Choice Bank     | [LEMS-4388](https://khanacademy.atlassian.net/browse/LEMS-4388) |
 
 The shared **components** (Choice Bank, Answer Tile, Actions Menu) live in
 **`packages/perseus/src/components/drag-and-drop/`**. **Choice Bank**
@@ -57,7 +57,7 @@ built there — use it as the reference for structure and the conventions below.
 come out of it: the plan is to lift its **render-specific logic** into a shared
 component the other widgets can reuse. The widget itself
 ([LEMS-4364](https://khanacademy.atlassian.net/browse/LEMS-4364)) is likely to
-stay **FITB-specific**, since it's the bay for FITB's *inline* blanks.
+stay **FITB-specific**, since it's the bay for FITB's _inline_ blanks.
 
 ## Where things live in the repo
 
@@ -113,30 +113,30 @@ stay **FITB-specific**, since it's the bay for FITB's *inline* blanks.
   (24/36/48/60/72/84/96). Multi-use tiles show an SR-only "N remaining" count
   and disappear when exhausted. Single- and multi-use tiles can't be mixed within
   one widget (an exercise may contain several).
-  - **The 200px cap is a design target, not an enforceable guarantee yet _(open —
-    Aug 2026)_.** Rendered **TeX** width isn't known until it renders, so treat
-    the cap as aspirational there. **Images** are more tractable, but the seven
-    height presets drive the height — width falls out of the aspect ratio and can
-    overflow. That math is computable at authoring time, so the likely answer for
-    images is a **linter warning** rather than a render-time guarantee.
+    - **The 200px cap is a design target, not an enforceable guarantee yet _(open —
+      Aug 2026)_.** Rendered **TeX** width isn't known until it renders, so treat
+      the cap as aspirational there. **Images** are more tractable, but the seven
+      height presets drive the height — width falls out of the aspect ratio and can
+      overflow. That math is computable at authoring time, so the likely answer for
+      images is a **linter warning** rather than a render-time guarantee.
 - **Actions Menu:** because pointer drag isn't available to keyboard/SR users,
   every tile has an Actions Menu button (also available to pointer users) to
   move/clear tiles. It's the first focusable element in a tile, labeled by the
   tile value with SR-only descriptive context ("Penny. 5 remaining. Actions
   Menu."). Menu actions name their target ("Move to Blank 1" / "Clear Blank 1").
-  - **These strings aren't final _(open — Aug 2026)_.** They show the intended
-    shape — value, then state, then control — not settled copy. Confirm the exact
-    wording with design/a11y before building against it.
+    - **These strings aren't final _(open — Aug 2026)_.** They show the intended
+      shape — value, then state, then control — not settled copy. Confirm the exact
+      wording with design/a11y before building against it.
 - **Announcements:** tile moves are announced via the **Wonder Blocks Announcer**
   (aria-live), e.g. "[Tile] moved to Blank 1" (and swap feedback when a blank was
   already filled).
-  - **@dnd-kit ships its own announcement system too** — the `Accessibility`
-    plugin in `@dnd-kit/dom` (v0.5) takes `announcements`
-    (`dragstart`/`dragmove`/`dragover`/`dragend` → string),
-    `screenReaderInstructions.draggable`, and a `debounce` (default 500ms, on the
-    move/over events). It covers **drags**, pointer and keyboard. An Actions Menu
-    move isn't a drag, so that path likely still needs the Announcer — pick one
-    owner per event, since both firing would double-announce.
+    - **@dnd-kit ships its own announcement system too** — the `Accessibility`
+      plugin in `@dnd-kit/dom` (v0.5) takes `announcements`
+      (`dragstart`/`dragmove`/`dragover`/`dragend` → string),
+      `screenReaderInstructions.draggable`, and a `debounce` (default 500ms, on the
+      move/over events). It covers **drags**, pointer and keyboard. An Actions Menu
+      move isn't a drag, so that path likely still needs the Announcer — pick one
+      owner per event, since both firing would double-announce.
 - **Scored state (per Overview):** correct tiles switch to their correct state
   (no Actions Menu); unused tiles become disabled; the Choice Bank drops its
   dashed border, subdues the "Choices" label color, and collapses toward a single

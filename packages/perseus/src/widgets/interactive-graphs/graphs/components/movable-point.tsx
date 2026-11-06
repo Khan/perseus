@@ -2,8 +2,8 @@ import * as React from "react";
 
 import {useControlPoint} from "./use-control-point";
 
-import type {CSSCursor} from "./css-cursor";
 import type {KeyboardMovementConstraint} from "../use-draggable";
+import type {CSSCursor} from "./css-cursor";
 import type {vec} from "mafs";
 
 type Props = {

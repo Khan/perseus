@@ -3,8 +3,8 @@
  * the preview iframe.
  */
 
-import type {SerializableApiOptions} from "./sanitize-api-options";
 import type {A11yIssue} from "../components/issues-panel";
+import type {SerializableApiOptions} from "./sanitize-api-options";
 import type {
     Hint,
     PerseusItem,

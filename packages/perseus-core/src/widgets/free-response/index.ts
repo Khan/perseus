@@ -1,8 +1,8 @@
 import {getFreeResponsePublicWidgetOptions} from "./free-response-util";
 
-import type {FreeResponsePublicWidgetOptions} from "./free-response-util";
 import type {PerseusFreeResponseWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
+import type {FreeResponsePublicWidgetOptions} from "./free-response-util";
 
 const defaultWidgetOptions: PerseusFreeResponseWidgetOptions = {
     allowUnlimitedCharacters: false,

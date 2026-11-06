@@ -22,7 +22,9 @@ const QuestionParagraph = (props: Props): React.ReactNode => {
     // to attach some metadata to top-level QuestionParagraphs:
     return (
         <div
-            className={props.inline ? props.className ?? undefined : className}
+            className={
+                props.inline ? (props.className ?? undefined) : className
+            }
             data-perseus-component-index={
                 isJipt ? props.translationIndex : undefined
             }

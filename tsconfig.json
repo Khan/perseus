@@ -11,7 +11,7 @@
         "config/cypress/**",
         "**/*.cypress.ts",
         "**/*.cypress.tsx",
-        "packages/perseus/src/testing/render-question-with-cypress.tsx",
+        "packages/perseus/src/testing/render-question-with-cypress.tsx"
     ],
     "extends": "./tsconfig-common.json",
     "compilerOptions": {
@@ -21,14 +21,14 @@
                 "name": "typescript-plugin-css-modules",
                 "options": {
                     "classnameTransform": "camelCase",
-                    "goToDefinition": true,
-                },
-            },
+                    "goToDefinition": true
+                }
+            }
         ],
 
         /* Preference */
         // If this is disabled, TS will sometimes just delete dead code, which
         // can be confusing!
-        "allowUnreachableCode": true,
-    },
+        "allowUnreachableCode": true
+    }
 }

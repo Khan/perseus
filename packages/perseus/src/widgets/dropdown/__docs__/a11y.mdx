@@ -8,30 +8,30 @@ The Dropdown widget is designed with accessibility in mind, ensuring it is usabl
 
 ## Keyboard Navigation
 
--   Users can navigate to the dropdown using the `Tab` key.
--   Once focused, the dropdown can be opened with `Enter` or `Space`.
--   Arrow keys (`Up`/`Down`) allow users to move between options.
--   Pressing `Enter` or `Space` selects the highlighted option.
--   The dropdown can be closed with `Escape`.
+- Users can navigate to the dropdown using the `Tab` key.
+- Once focused, the dropdown can be opened with `Enter` or `Space`.
+- Arrow keys (`Up`/`Down`) allow users to move between options.
+- Pressing `Enter` or `Space` selects the highlighted option.
+- The dropdown can be closed with `Escape`.
 
 ## Screen Reader Support
 
--   The dropdown uses appropriate ARIA roles and attributes to communicate its state and options to screen readers.
--   The `aria-label` is set based on the widget's `ariaLabel` or `visibleLabel` prop, or defaults to a localized string (e.g., "Select an answer").
--   The currently selected option is announced to screen readers.
+- The dropdown uses appropriate ARIA roles and attributes to communicate its state and options to screen readers.
+- The `aria-label` is set based on the widget's `ariaLabel` or `visibleLabel` prop, or defaults to a localized string (e.g., "Select an answer").
+- The currently selected option is announced to screen readers.
 
 ## Visible Labels and Placeholders
 
--   If a `visibleLabel` is provided, it is rendered as a `<label>` and associated with the dropdown for better accessibility.
--   The placeholder is rendered as a disabled option and is not selectable.
+- If a `visibleLabel` is provided, it is rendered as a `<label>` and associated with the dropdown for better accessibility.
+- The placeholder is rendered as a disabled option and is not selectable.
 
 ## Best Practices
 
--   Always provide a meaningful `visibleLabel` or `ariaLabel` for context.
--   Avoid using only color to convey meaning in dropdown options.
--   Ensure the dropdown is not set to `readOnly` unless necessary, as this disables interaction.
+- Always provide a meaningful `visibleLabel` or `ariaLabel` for context.
+- Avoid using only color to convey meaning in dropdown options.
+- Ensure the dropdown is not set to `readOnly` unless necessary, as this disables interaction.
 
 ## Additional Notes
 
--   The widget leverages [Wonder Blocks Dropdown](https://github.com/Khan/wonder-blocks/tree/main/packages/wonder-blocks-dropdown), which is built for accessibility.
--   If you encounter any accessibility issues, please report them to the team.
+- The widget leverages [Wonder Blocks Dropdown](https://github.com/Khan/wonder-blocks/tree/main/packages/wonder-blocks-dropdown), which is built for accessibility.
+- If you encounter any accessibility issues, please report them to the team.

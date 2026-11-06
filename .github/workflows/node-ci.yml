@@ -121,7 +121,7 @@ jobs:
 
             - parallel:
                   - name: Check formatting
-                    run: pnpm prettier --check .
+                    run: pnpm format --check
 
                   - name: Check for dead code
                     run: pnpm knip
@@ -209,7 +209,7 @@ jobs:
             # Keep them in sync with `lint`, and keep them unconditional.
             - parallel:
                   - name: Check formatting
-                    run: pnpm prettier --check .
+                    run: pnpm format --check
 
                   - name: Check for dead code
                     run: pnpm knip

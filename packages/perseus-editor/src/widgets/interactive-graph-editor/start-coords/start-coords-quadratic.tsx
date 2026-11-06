@@ -20,9 +20,9 @@ const StartCoordsQuadratic = (props: StartCoordsQuadraticProps) => {
     const {startCoords, onChange, pointLabels, onChangePointLabels} = props;
     const updatePointLabel = (index: number, newLabel: string) => {
         const next: [string, string, string] = [
-            index === 0 ? newLabel : pointLabels[0] ?? "",
-            index === 1 ? newLabel : pointLabels[1] ?? "",
-            index === 2 ? newLabel : pointLabels[2] ?? "",
+            index === 0 ? newLabel : (pointLabels[0] ?? ""),
+            index === 1 ? newLabel : (pointLabels[1] ?? ""),
+            index === 2 ? newLabel : (pointLabels[2] ?? ""),
         ];
         onChangePointLabels(next);
     };

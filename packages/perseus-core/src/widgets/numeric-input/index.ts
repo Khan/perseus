@@ -1,8 +1,8 @@
 import {getNumericInputPublicWidgetOptions} from "./numeric-input-util";
 
-import type {NumericInputPublicWidgetOptions} from "./numeric-input-util";
 import type {PerseusNumericInputWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
+import type {NumericInputPublicWidgetOptions} from "./numeric-input-util";
 
 const defaultWidgetOptions: PerseusNumericInputWidgetOptions = {
     answers: [

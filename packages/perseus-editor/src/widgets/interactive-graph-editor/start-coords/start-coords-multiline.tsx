@@ -23,7 +23,7 @@ const StartCoordsMultiline = (props: StartCoordsMultilineProps) => {
     const updatePointLabel = (flatIndex: number, newLabel: string) => {
         const totalPoints = startCoords.length * 2;
         const next = Array.from({length: totalPoints}, (_, i) =>
-            i === flatIndex ? newLabel : pointLabels[i] ?? "",
+            i === flatIndex ? newLabel : (pointLabels[i] ?? ""),
         );
         onChangePointLabels(next);
     };

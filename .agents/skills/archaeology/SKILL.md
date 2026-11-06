@@ -1,12 +1,12 @@
 ---
 name: archaeology
 description: >
-  Investigates *why* Perseus code is the way it is by tracing its history across
-  the repos Perseus has lived in (khan-exercises → Khan/perseus → Khan/webapp →
-  Khan/perseus), past the 2022 "initial commit" squash that stops `git blame`.
-  Use for "why is it like this", "when/why was this added", or "what's the
-  history of this file/commit/PR" questions about Perseus, and for /archaeology.
-  Not for general web research or for explaining what current code does.
+    Investigates *why* Perseus code is the way it is by tracing its history across
+    the repos Perseus has lived in (khan-exercises → Khan/perseus → Khan/webapp →
+    Khan/perseus), past the 2022 "initial commit" squash that stops `git blame`.
+    Use for "why is it like this", "when/why was this added", or "what's the
+    history of this file/commit/PR" questions about Perseus, and for /archaeology.
+    Not for general web research or for explaining what current code does.
 ---
 
 # Perseus code archaeology
@@ -21,19 +21,20 @@ Phabricator, and Jira here is fine.
 
 ## The timeline (embedded reference data)
 
-| When | Event | Repo / pointer |
-| --- | --- | --- |
-| 2011-May-09 | `khan-exercises` prototype born | [`Khan/khan-exercises`](https://github.com/Khan/khan-exercises) |
-| 2013-Jan-25 | **Perseus** born | [`Khan/perseus`](https://github.com/Khan/perseus) |
-| 2018-Jan-04 | Perseus **moves into webapp** | [`Khan/webapp`](https://github.com/Khan/webapp) · `c4cc9587` |
-| 2018-Jan-19 | Last commit of old Perseus, tagged **`old-master`** | `Khan/perseus` · `0e82a089` |
-| 2018-Dec-04 | `khan-exercises` abandoned (last commit) | `Khan/khan-exercises` · `9cd98eef` |
-| 2022-Apr-20 | Perseus **restarts** in its own repo (current `main`) | `Khan/perseus` · `cb841024` "initial commit" |
-| 2022-May-25 | Perseus **fully removed from webapp** | `Khan/webapp` · `3a2d65d3` |
+| When        | Event                                                 | Repo / pointer                                                  |
+| ----------- | ----------------------------------------------------- | --------------------------------------------------------------- |
+| 2011-May-09 | `khan-exercises` prototype born                       | [`Khan/khan-exercises`](https://github.com/Khan/khan-exercises) |
+| 2013-Jan-25 | **Perseus** born                                      | [`Khan/perseus`](https://github.com/Khan/perseus)               |
+| 2018-Jan-04 | Perseus **moves into webapp**                         | [`Khan/webapp`](https://github.com/Khan/webapp) · `c4cc9587`    |
+| 2018-Jan-19 | Last commit of old Perseus, tagged **`old-master`**   | `Khan/perseus` · `0e82a089`                                     |
+| 2018-Dec-04 | `khan-exercises` abandoned (last commit)              | `Khan/khan-exercises` · `9cd98eef`                              |
+| 2022-Apr-20 | Perseus **restarts** in its own repo (current `main`) | `Khan/perseus` · `cb841024` "initial commit"                    |
+| 2022-May-25 | Perseus **fully removed from webapp**                 | `Khan/webapp` · `3a2d65d3`                                      |
 
 Source doc (humans, internal): [Perseus GitHub History](https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4370696155/Perseus+GitHub+History).
 
 ### What this means in practice
+
 - The **current repo's history dead-ends** at `cb841024 "initial commit"`.
   `git log`/`git blame` in this checkout will not take you earlier than that.
 - The **`old-master` tag** (commit `0e82a08991`) is your gateway to the
@@ -79,39 +80,45 @@ Work **newest → oldest**, crossing repo boundaries only as far back as the que
    In webapp, Perseus lived under `javascript/perseus-all-package/...`
    (and earlier `src/widgets/...`, later also `services/static/javascript/perseus-all-package/...`). Discover the historical path, then log within the
    era:
-   ```bash
-   git -C ~/khan/webapp log --all --pretty=format: --name-only --diff-filter=AM \
-     | grep -iE '<file>\.jsx?$' | sort -u
-   git -C ~/khan/webapp log --all --date=short --format='%h %ad | %s' \
-     --since=2018-01-01 --until=2022-06-01 -- '<historical-path>'
-   ```
-   webapp PRs (`#NNNN`) are reachable via `gh pr view <n> --repo Khan/webapp`.
+
+    ```bash
+    git -C ~/khan/webapp log --all --pretty=format: --name-only --diff-filter=AM \
+      | grep -iE '<file>\.jsx?$' | sort -u
+    git -C ~/khan/webapp log --all --date=short --format='%h %ad | %s' \
+      --since=2018-01-01 --until=2022-06-01 -- '<historical-path>'
+    ```
+
+    webapp PRs (`#NNNN`) are reachable via `gh pr view <n> --repo Khan/webapp`.
 
 4. **Walk the `old-master` era** for the 2013–2018 Perseus history (the most
    common destination). Files are `.jsx`/`.js` here — **transpose extensions**
    (`.tsx`→`.jsx`, `.ts`→`.js`). Find when the file(s) originated and when
    specific lines changed:
-   ```bash
-   git log --diff-filter=A --follow --date=short --format='%h %ad %an | %s' \
-     old-master -- src/widgets/<name>.jsx        # birth (follows renames)
-   git log -S '<exact code string>' --date=short --format='%h %ad %an | %s' \
-     old-master -- src/widgets/<name>.jsx        # when a line appeared/changed
-   ```
-   Watch for **renames** — `--follow` traces through them, and the commit that
-   "adds" a file is often a rename ("Rename X to Y", "Create Z (clone of W)").
-   Re-run without `--follow` to see the true add vs. a rename.
+
+    ```bash
+    git log --diff-filter=A --follow --date=short --format='%h %ad %an | %s' \
+      old-master -- src/widgets/<name>.jsx        # birth (follows renames)
+    git log -S '<exact code string>' --date=short --format='%h %ad %an | %s' \
+      old-master -- src/widgets/<name>.jsx        # when a line appeared/changed
+    ```
+
+    Watch for **renames** — `--follow` traces through them, and the commit that
+    "adds" a file is often a rename ("Rename X to Y", "Create Z (clone of W)").
+    Re-run without `--follow` to see the true add vs. a rename.
 
 5. **Check khan-exercises** if the trail points further back (Perseus predates
    React; many concepts came from `khan-exercises`). Look for a similarly named
    file/concept:
-   ```bash
-   ls ~/khan/khan-exercises/utils/ | grep -i <concept>
-   ```
+
+    ```bash
+    ls ~/khan/khan-exercises/utils/ | grep -i <concept>
+    ```
 
 6. **Land on the originating change** and surface its review link (see Phabricator
    below). Extract whatever rationale the commit body / PR / Diff holds.
 
 ### Phabricator (pre-GitHub code review)
+
 Commits from roughly 2013–2017 may carry, in the body:
 `Differential Revision: http://phabricator.khanacademy.org/D####`, or
 `Reviewers:` / `Auditors:` / `Test Plan:` fields. There may also be code
@@ -123,6 +130,7 @@ for the Summary / Test Plan / reviewers. Let the user decide whether to open
 it.
 
 ### Jira / Confluence enrichment (best-effort, internal)
+
 Git/GitHub is the core method and always works. If a commit/PR references a
 ticket (`LEMS-####`, `FEI-####`, `LP-####`) and the Atlassian MCP is available,
 look it up for the original motivation; otherwise just include the ID/URL in
@@ -136,18 +144,19 @@ to ease development and testing. To trace their pre-monorepo history, dig into
 the origin repo (clone via `ka-clone` if needed). The origin repos were
 archived after they were moved, so their history is frozen today.
 
-| Package | Origin repo | Notes |
-| --- | --- | --- |
-| `@khanacademy/kas` | [`Khan/KAS`](https://github.com/Khan/KAS) (archived) | Lightweight JS CAS for comparing expressions; Moved into Khan/perseus in `#173` (2022-May-03). |
-| `@khanacademy/kmath` | [`Khan/kmath`](https://github.com/Khan/kmath) (archived) | JS numeric math utils; Moved into Khan/perseus in `#126` (2022-Apr-25). |
-| `@khanacademy/math-input` | [`Khan/math-input`](https://github.com/Khan/math-input) (archived) | react + redux + mathquill keypad; Imported 2022-Apr-28 at math-input commit `c49d43a1`. |
-| `@khanacademy/simple-markdown` | [`Khan/simple-markdown`](https://github.com/Khan/simple-markdown) (public) | Standalone markdown parser; Moved into Khan/perseus in `#180` (2022-May-03). |
-| (dep) mathquill | [`Khan/mathquill`](https://github.com/Khan/mathquill) | KA fork of `mathquill/mathquill`; a dependency of `math-input`, not a package. |
-| graphie-to-png | [`Khan/internal-services`](https://github.com/Khan/internal-services) (`graphie-to-png/`) | A website for building graphie images (a multi-file image format that combines a base SVG with a JSON data file that defines overlay labels that can be translated). There is a copy of the graphie renderer code in this repo. Earlier graphie drawing code also appears in [`Khan/khan-exercises`](https://github.com/Khan/khan-exercises) (`utils/graphie*.js`). |
-| `perseus-core`, `perseus-editor`, `perseus-linter`, `perseus-score`, `perseus-utils`, `pure-markdown`, `keypad-context` | (none) | Split out *within* the monorepo from `perseus`; no pre-monorepo repo. Trace them in this repo. |
+| Package                                                                                                                 | Origin repo                                                                               | Notes                                                                                                                                                                                                                                                                                                                                                               |
+| ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@khanacademy/kas`                                                                                                      | [`Khan/KAS`](https://github.com/Khan/KAS) (archived)                                      | Lightweight JS CAS for comparing expressions; Moved into Khan/perseus in `#173` (2022-May-03).                                                                                                                                                                                                                                                                      |
+| `@khanacademy/kmath`                                                                                                    | [`Khan/kmath`](https://github.com/Khan/kmath) (archived)                                  | JS numeric math utils; Moved into Khan/perseus in `#126` (2022-Apr-25).                                                                                                                                                                                                                                                                                             |
+| `@khanacademy/math-input`                                                                                               | [`Khan/math-input`](https://github.com/Khan/math-input) (archived)                        | react + redux + mathquill keypad; Imported 2022-Apr-28 at math-input commit `c49d43a1`.                                                                                                                                                                                                                                                                             |
+| `@khanacademy/simple-markdown`                                                                                          | [`Khan/simple-markdown`](https://github.com/Khan/simple-markdown) (public)                | Standalone markdown parser; Moved into Khan/perseus in `#180` (2022-May-03).                                                                                                                                                                                                                                                                                        |
+| (dep) mathquill                                                                                                         | [`Khan/mathquill`](https://github.com/Khan/mathquill)                                     | KA fork of `mathquill/mathquill`; a dependency of `math-input`, not a package.                                                                                                                                                                                                                                                                                      |
+| graphie-to-png                                                                                                          | [`Khan/internal-services`](https://github.com/Khan/internal-services) (`graphie-to-png/`) | A website for building graphie images (a multi-file image format that combines a base SVG with a JSON data file that defines overlay labels that can be translated). There is a copy of the graphie renderer code in this repo. Earlier graphie drawing code also appears in [`Khan/khan-exercises`](https://github.com/Khan/khan-exercises) (`utils/graphie*.js`). |
+| `perseus-core`, `perseus-editor`, `perseus-linter`, `perseus-score`, `perseus-utils`, `pure-markdown`, `keypad-context` | (none)                                                                                    | Split out _within_ the monorepo from `perseus`; no pre-monorepo repo. Trace them in this repo.                                                                                                                                                                                                                                                                      |
 
 **Discovery recipe** for a package not in the table. Try these first; if they
 don't identify the origin repo, ask:
+
 ```bash
 gh repo view Khan/<name> --json name,isArchived,createdAt   # try casing variants, e.g. KAS
 git log --diff-filter=A --date=short --format='%h %ad | %s' \
@@ -164,24 +173,25 @@ answer, then any **interpretation**.
 2. **The trail** — newest → oldest, important commits that impact the answer.
    Give every entry the same shape:
    `<when> · <repo> · <SHA>  <ref> — "<commit msg>" — <synthesis>`
-   - `<when>`: an unambiguous date (`2018-Jun-20`, never a 2-digit numeric
-     month) or era label (`now`, `khan-exercises`).
-   - `<repo>`: name it on *every* line. A repo boundary is then just the line
-     where the repo changes — no separate "crossing" entry needed.
-   - `<SHA>`: short hash. Omit only on the `now` line, which points at live
-     code via `path:line` instead.
-   - `<ref>`: `#1234` (PR) or `D####` (Phabricator Diff). If neither exists,
-     omit it (and its surrounding separators) — don't leave a dangling dash.
-   - `<commit msg>`: the one-line commit subject, verbatim.
-   - `<synthesis>`: a short gloss of what this commit actually did *in relation
-     to the question* — not a restatement of the message.
-   Include an era only if it bears on the answer — never pad with "no change
-   during this era". Omission is the signal that nothing relevant happened.
+    - `<when>`: an unambiguous date (`2018-Jun-20`, never a 2-digit numeric
+      month) or era label (`now`, `khan-exercises`).
+    - `<repo>`: name it on _every_ line. A repo boundary is then just the line
+      where the repo changes — no separate "crossing" entry needed.
+    - `<SHA>`: short hash. Omit only on the `now` line, which points at live
+      code via `path:line` instead.
+    - `<ref>`: `#1234` (PR) or `D####` (Phabricator Diff). If neither exists,
+      omit it (and its surrounding separators) — don't leave a dangling dash.
+    - `<commit msg>`: the one-line commit subject, verbatim.
+    - `<synthesis>`: a short gloss of what this commit actually did _in relation
+      to the question_ — not a restatement of the message.
+      Include an era only if it bears on the answer — never pad with "no change
+      during this era". Omission is the signal that nothing relevant happened.
 3. **Interpretation (unverified)** — when the record runs cold (a terse commit, a
    token-gated Diff, no rationale), offer a clearly-labeled best interpretation reasoned
    from the code and the era. Keep verified facts and inference visibly separate.
 
 ### Skeletal trace (shape, not a script)
+
 ```
 Answer: <X> does <ABC> because <Y>.
 

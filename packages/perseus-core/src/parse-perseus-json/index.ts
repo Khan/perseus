@@ -5,13 +5,13 @@ import {parsePerseusRenderer as migrateAndTypecheckPerseusRenderer} from "./pers
 import {parseUserInputMap} from "./perseus-parsers/user-input-map";
 import {failure, isFailure} from "./result";
 
-import type {Result} from "./result";
 import type {
     PerseusItem,
     PerseusArticle,
     PerseusRenderer,
 } from "../data-schema";
 import type {UserInputMap} from "../validation.types";
+import type {Result} from "./result";
 
 export type ParseFailureDetail = {
     /**

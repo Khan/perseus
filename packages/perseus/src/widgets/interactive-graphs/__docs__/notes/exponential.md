@@ -12,24 +12,24 @@ as context for future development and Claude Code sessions.
 
 ### File Map
 
-| File | Purpose |
-|------|---------|
-| `graphs/exponential.tsx` | Main rendering component: curve, asymptote, points, SR descriptions |
-| `graphs/components/movable-asymptote.tsx` | Reusable draggable asymptote line (shared with logarithm); renders its visible line via `DashedAsymptoteLine` |
-| `graphs/components/dashed-asymptote-line.tsx` | Shared presentational backing+dashed line pair (also used by the tangent graph) |
-| `graphs/components/movable-pill-handle.tsx` | Pill-shaped SVG drag handle (also used by the vector graph) |
-| `reducer/interactive-graph-reducer.ts` | `doMovePoint` and `doMoveCenter` cases for exponential |
-| `reducer/initialize-graph-state.ts` | `getExponentialCoords()` — default coords and asymptote |
-| `reducer/interactive-graph-state.ts` | `getGradableGraph` serialization for exponential |
-| `mafs-state-to-interactive-graph.ts` | Exponential state → persisted data conversion |
-| `types.ts` | `ExponentialGraphState` (coords + asymptote + snapStep) |
-| `get-equation-string.ts` | `getExponentialEquationString()`, `defaultExponentialCoords()` (the `getEquationString` switch dispatches here; `interactive-graph.tsx` only delegates) |
-| `interactive-graph.testdata.ts` | `exponentialQuestion` fixture (built via `generateIGExponentialGraph` + `generateInteractiveGraphQuestion`) |
-| `@khanacademy/kmath` `coefficients.ts` | `getExponentialCoefficients()` — shared math utility |
-| `@khanacademy/perseus-core` `data-schema.ts` | `PerseusGraphTypeExponential`, `ExponentialGraphCorrect` |
-| `@khanacademy/perseus-score` `sub-scorers/score-exponential.ts` | `scoreExponential()` (`score-interactive-graph.ts` dispatches to it) |
-| `@khanacademy/perseus-editor` `start-coords/start-coords-exponential.tsx` | Editor start coords UI (shared `CoordInput`/`AsymptoteInput`, `start-coords-shared.module.css`) |
-| `__docs__/interactive-graph-interactions-regression.stories.tsx` | Asymptote drag-handle visual regression stories (shared with logarithm) |
+| File                                                                      | Purpose                                                                                                                                                 |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `graphs/exponential.tsx`                                                  | Main rendering component: curve, asymptote, points, SR descriptions                                                                                     |
+| `graphs/components/movable-asymptote.tsx`                                 | Reusable draggable asymptote line (shared with logarithm); renders its visible line via `DashedAsymptoteLine`                                           |
+| `graphs/components/dashed-asymptote-line.tsx`                             | Shared presentational backing+dashed line pair (also used by the tangent graph)                                                                         |
+| `graphs/components/movable-pill-handle.tsx`                               | Pill-shaped SVG drag handle (also used by the vector graph)                                                                                             |
+| `reducer/interactive-graph-reducer.ts`                                    | `doMovePoint` and `doMoveCenter` cases for exponential                                                                                                  |
+| `reducer/initialize-graph-state.ts`                                       | `getExponentialCoords()` — default coords and asymptote                                                                                                 |
+| `reducer/interactive-graph-state.ts`                                      | `getGradableGraph` serialization for exponential                                                                                                        |
+| `mafs-state-to-interactive-graph.ts`                                      | Exponential state → persisted data conversion                                                                                                           |
+| `types.ts`                                                                | `ExponentialGraphState` (coords + asymptote + snapStep)                                                                                                 |
+| `get-equation-string.ts`                                                  | `getExponentialEquationString()`, `defaultExponentialCoords()` (the `getEquationString` switch dispatches here; `interactive-graph.tsx` only delegates) |
+| `interactive-graph.testdata.ts`                                           | `exponentialQuestion` fixture (built via `generateIGExponentialGraph` + `generateInteractiveGraphQuestion`)                                             |
+| `@khanacademy/kmath` `coefficients.ts`                                    | `getExponentialCoefficients()` — shared math utility                                                                                                    |
+| `@khanacademy/perseus-core` `data-schema.ts`                              | `PerseusGraphTypeExponential`, `ExponentialGraphCorrect`                                                                                                |
+| `@khanacademy/perseus-score` `sub-scorers/score-exponential.ts`           | `scoreExponential()` (`score-interactive-graph.ts` dispatches to it)                                                                                    |
+| `@khanacademy/perseus-editor` `start-coords/start-coords-exponential.tsx` | Editor start coords UI (shared `CoordInput`/`AsymptoteInput`, `start-coords-shared.module.css`)                                                         |
+| `__docs__/interactive-graph-interactions-regression.stories.tsx`          | Asymptote drag-handle visual regression stories (shared with logarithm)                                                                                 |
 
 ### Data Flow
 
@@ -99,9 +99,9 @@ applies to the logarithm graph.
   keyboard focus, but no longer carries a pointer gesture — so dragging along the line away from
   the handle is not possible for pointer/touch.
 - A pill-shaped drag handle (`AsymptoteDragHandle`) is rendered at the midpoint:
-  - **Active state** (hovered, focused, or dragging): 22px × 12px pill with 6 white grip dots (3×2 grid)
-  - **Inactive state** (default): 16px × 6px pill, no grip dots
-  - **Focus ring** (keyboard focus only): rounded outline around the handle (not the full line)
+    - **Active state** (hovered, focused, or dragging): 22px × 12px pill with 6 white grip dots (3×2 grid)
+    - **Inactive state** (default): 16px × 6px pill, no grip dots
+    - **Focus ring** (keyboard focus only): rounded outline around the handle (not the full line)
 - The drag handle retains focus after a mouse drag ends, matching movable point behavior.
   Focus clears only when the user clicks elsewhere or navigates away via keyboard.
 
@@ -123,7 +123,7 @@ applies to the logarithm graph.
   Configurations that produce no fit (point on asymptote, or points on opposite sides) are
   allowed — they simply produce no curve.
 - Both points must have **different x-values** (same x makes coefficient `b` undefined).
-  Unlike logarithm, same y-values are *allowed* — only same x is degenerate for exponential.
+  Unlike logarithm, same y-values are _allowed_ — only same x is degenerate for exponential.
 - The only forbidden landing position is the exact coord of the asymptote drag handle (so
   the handle stays grabbable).
 - Invalid moves are rejected gracefully (no crash, no invalid state).
@@ -189,7 +189,7 @@ f(x) = a * e^(b * x) + c
 ```
 
 Where `[a, b, c]` are 3 coefficients derived from 2 movable points and 1 horizontal asymptote.
-The asymptote y-value *is* the `c` coefficient — no extra computation needed for `c`.
+The asymptote y-value _is_ the `c` coefficient — no extra computation needed for `c`.
 
 ### Coefficient Computation
 
@@ -238,7 +238,7 @@ the asymptote) before being clipped, which is robust for all coefficient values.
 
 **Why exponential doesn't need a dynamic domain offset (like logarithm does):**
 Logarithm approaches its vertical asymptote vertically (y → ±∞ as x nears the asymptote),
-so a y-padding cutoff would end the SVG path *near the asymptote itself*, causing visible
+so a y-padding cutoff would end the SVG path _near the asymptote itself_, causing visible
 discontinuity for flatter curves. Exponential avoids that problem entirely because the
 curve exits horizontally, not vertically. See logarithm.md for the dynamic-offset approach
 used there.
@@ -251,7 +251,7 @@ used there.
 interface ExponentialGraphState extends InteractiveGraphStateCommon {
     type: "exponential";
     coords: [vec.Vector2, vec.Vector2]; // Two curve control points
-    asymptote: number;                   // Y-value of the horizontal asymptote
+    asymptote: number; // Y-value of the horizontal asymptote
 }
 ```
 
@@ -261,6 +261,7 @@ interface ExponentialGraphState extends InteractiveGraphStateCommon {
 ### Actions
 
 Reuses existing action creators (no new action types):
+
 - `actions.exponential.movePoint(index, destination)` → `MOVE_POINT`
 - `actions.exponential.moveCenter(newPoint)` → `MOVE_CENTER`
 
@@ -271,7 +272,7 @@ Reuses existing action creators (no new action types):
 3. Reject if the destination overlaps the asymptote drag handle's coord (so the handle stays
    grabbable). Handle coord is computed via `getAsymptoteHandleCoord("horizontal", range, asymptote)`.
 
-Note: same y-values are *not* rejected for exponential (unlike logarithm).
+Note: same y-values are _not_ rejected for exponential (unlike logarithm).
 
 ### Reducer: `doMoveCenter`
 
@@ -317,7 +318,7 @@ Numbered decisions with rationale for future context.
    reducer lets the user drag the asymptote anywhere, including between the two control
    points; when it's between them no exponential fits and the curve simply disappears
    (the asymptote and points stay interactive). The editor's start-coords validator, however,
-   rejects this state for *initial* coords (see `interactive-graph-editor.tsx` `validate()`
+   rejects this state for _initial_ coords (see `interactive-graph-editor.tsx` `validate()`
    block) — content can only be authored with a valid configuration, but the learner can
    transiently enter the no-fit state while interacting.
 
@@ -378,38 +379,38 @@ Numbered decisions with rationale for future context.
 
 ### vs. Logarithm
 
-| Aspect | Exponential | Logarithm |
-|--------|-------------|-----------|
-| Formula | `a * e^(b*x) + c` | `a * ln(b*x + c)` |
-| Asymptote | Horizontal (y-value) | Vertical (x-value) |
-| Asymptote movement | Vertical only | Horizontal only |
-| Drag handle orientation | Horizontal | Vertical |
-| Point degeneracy | Same x-values rejected | Same x-values **and** same y-values rejected |
-| No-curve-fits state | Asymptote between point y-values, or point on asymptote | Asymptote between point x-values, or point on asymptote |
-| Coefficient computation | Direct from points + asymptote | Inverse of exponential (flip coords, compute, invert) |
-| Curve continuity approach | Y-padding NaN cutoff | Dynamic domain offset |
-| Domain | Full `[xMin, xMax]` | Restricted to one side of the asymptote |
+| Aspect                    | Exponential                                             | Logarithm                                               |
+| ------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
+| Formula                   | `a * e^(b*x) + c`                                       | `a * ln(b*x + c)`                                       |
+| Asymptote                 | Horizontal (y-value)                                    | Vertical (x-value)                                      |
+| Asymptote movement        | Vertical only                                           | Horizontal only                                         |
+| Drag handle orientation   | Horizontal                                              | Vertical                                                |
+| Point degeneracy          | Same x-values rejected                                  | Same x-values **and** same y-values rejected            |
+| No-curve-fits state       | Asymptote between point y-values, or point on asymptote | Asymptote between point x-values, or point on asymptote |
+| Coefficient computation   | Direct from points + asymptote                          | Inverse of exponential (flip coords, compute, invert)   |
+| Curve continuity approach | Y-padding NaN cutoff                                    | Dynamic domain offset                                   |
+| Domain                    | Full `[xMin, xMax]`                                     | Restricted to one side of the asymptote                 |
 
 ### vs. Tangent
 
-| Aspect | Tangent | Exponential |
-|--------|---------|-------------|
-| Formula | `a * tan(b*x - c) + d` | `a * e^(b*x) + c` |
-| Coefficients | 4 | 3 |
-| Interactive elements | 2 points | 2 points + 1 draggable asymptote |
-| Asymptotes | Multiple (periodic, computed) | Single horizontal (user-movable) |
-| Domain restriction | Undefined at each asymptote | Defined everywhere |
-| Rendering | Segment splitting (multiple `Plot.OfX`) | Single `Plot.OfX` with NaN cutoff |
-| Canonical normalization | Yes | No |
+| Aspect                  | Tangent                                 | Exponential                       |
+| ----------------------- | --------------------------------------- | --------------------------------- |
+| Formula                 | `a * tan(b*x - c) + d`                  | `a * e^(b*x) + c`                 |
+| Coefficients            | 4                                       | 3                                 |
+| Interactive elements    | 2 points                                | 2 points + 1 draggable asymptote  |
+| Asymptotes              | Multiple (periodic, computed)           | Single horizontal (user-movable)  |
+| Domain restriction      | Undefined at each asymptote             | Defined everywhere                |
+| Rendering               | Segment splitting (multiple `Plot.OfX`) | Single `Plot.OfX` with NaN cutoff |
+| Canonical normalization | Yes                                     | No                                |
 
 ### vs. Sinusoid
 
-| Aspect | Sinusoid | Exponential |
-|--------|----------|-------------|
-| Control points | 2 points | 2 points + 1 asymptote |
-| Asymptotes | None | Single horizontal (draggable) |
-| Domain | All real numbers | All real numbers |
-| Reducer actions | `movePoint` | `movePoint` + `moveCenter` |
+| Aspect          | Sinusoid         | Exponential                   |
+| --------------- | ---------------- | ----------------------------- |
+| Control points  | 2 points         | 2 points + 1 asymptote        |
+| Asymptotes      | None             | Single horizontal (draggable) |
+| Domain          | All real numbers | All real numbers              |
+| Reducer actions | `movePoint`      | `movePoint` + `moveCenter`    |
 
 ## Legacy Reference: Grapher Widget
 

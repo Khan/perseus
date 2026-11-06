@@ -94,7 +94,7 @@ export function useHitbox(params: HitboxParams): React.ReactNode {
                 pointerEvents: "auto",
                 // Handles above bodies so a vertex on a shape stays grabbable.
                 zIndex: layer === "body" ? 1 : 2,
-                cursor: dragging ? "grabbing" : cursor ?? "grab",
+                cursor: dragging ? "grabbing" : (cursor ?? "grab"),
                 ...shapeStyle(shape, graphConfig),
             }}
             onClick={onClick}
