@@ -188,7 +188,30 @@ Remaining, in order:
       search tools (published, drafts, all). Done. Unpublished content is
       out of scope for this project: it reaches production content only
       through a local snapshot.
-4. Build order steps 14 to 16. Steps 10 to 13 are done: the exercise page
+4. Deleting drafts and exercises, so the data folder doesn't grow without
+   limit. Reversible: nothing is erased at once.
+   - `delete_exercise`: the exercise, and its drafts with their revision
+     history, except drafts also in another exercise, which stay.
+     Graffiti diagrams stay: they're shared by id.
+   - `delete_items`: any drafts, by id, taken out of every exercise
+     they're in; or, with `exerciseId`, out of that one only, the draft
+     kept.
+   - Both move what they delete to `<dataDir>/trash/<date>-<id>/`, as it
+     is; `restore_exercise` and `restore_items` put it back (an item in
+     the same problem type and position). The trash is emptied after 30
+     days.
+   - A dry run by default, listing what would go and what stays; only
+     `confirm: true` moves anything. The instructions say to delete only
+     when the person asks.
+   - Deleting a draft imported from published content doesn't touch the
+     published item: the dry run says so for drafts with a `contentId`.
+   - Deleted drafts leave the drafts' search index; open previews and
+     exercise pages hear they're gone.
+   - Later: a report of exercises untouched for N days, for the person to
+     decide on; fewer kept revisions if history grows too large.
+   - In the exercise list and exercise pages (the browser): Delete
+     controls with the same dry run and confirm.
+5. Build order steps 14 to 16. Steps 10 to 13 are done: the exercise page
    with its upload, Graffiti diagrams, content search with guidelines and
    fixes, and alt text and long descriptions.
 
