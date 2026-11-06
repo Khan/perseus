@@ -148,6 +148,26 @@ const RadioComponent = ({
         ? `${styles.container} ${styles.hasCrossOut}`
         : styles.container;
 
+    // The Switch is an <input type="checkbox">, and Enter on an input means
+    // "submit the form": the browser clicks the form's submit button, and
+    // hosts can check the answer from a keydown handler on an ancestor. The
+    // toggle must never trigger scoring, so Enter toggles it instead, which
+    // the WAI-ARIA switch pattern allows alongside Space.
+    const handleCrossOutToggleKeyDown = (
+        e: React.KeyboardEvent<HTMLDivElement>,
+    ) => {
+        if (e.key !== "Enter" || !crossOut) {
+            return;
+        }
+        // Stops the browser's implicit form submission.
+        e.preventDefault();
+        // Stops ancestors' Enter handlers, which ignore defaultPrevented.
+        e.stopPropagation();
+        if (!crossOut.disabled) {
+            crossOut.onToggleChange(!crossOut.toggleOn);
+        }
+    };
+
     return (
         <>
             <fieldset
@@ -173,7 +193,14 @@ const RadioComponent = ({
                     choices in the DOM, so Tab goes from the toggle straight
                     into the choices. */}
                 {crossOut && (
-                    <div className={styles.crossOutToggle}>
+                    // The <div> isn't a control: it catches Enter as it
+                    // bubbles up from the Switch, which doesn't take an
+                    // onKeyDown prop.
+                    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+                    <div
+                        className={styles.crossOutToggle}
+                        onKeyDown={handleCrossOutToggleKeyDown}
+                    >
                         <label
                             className={styles.crossOutLabel}
                             htmlFor={crossOutSwitchId}
