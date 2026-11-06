@@ -1070,6 +1070,79 @@ describe("LabelImage", function () {
         });
     });
 
+    describe("disabled state", () => {
+        it("opens the answer choices when interactive", async () => {
+            // Arrange
+            renderQuestion(generateSingleMarkerRenderer(), {
+                apiOptions: {readOnly: false},
+            });
+
+            // Act
+            await userEvent.click(screen.getByRole("combobox"));
+
+            // Assert
+            expect(
+                screen.getByRole("option", {name: "Cars"}),
+            ).toBeInTheDocument();
+        });
+
+        it("disables the marker combobox when static", () => {
+            // Arrange, Act
+            renderQuestion(generateSingleMarkerRenderer({isStatic: true}), {
+                apiOptions: {readOnly: false},
+            });
+
+            // Assert
+            expect(screen.getByRole("combobox")).toHaveAttribute(
+                "aria-disabled",
+                "true",
+            );
+        });
+
+        it("does not open the answer choices when static", async () => {
+            // Arrange
+            renderQuestion(generateSingleMarkerRenderer({isStatic: true}), {
+                apiOptions: {readOnly: false},
+            });
+
+            // Act
+            await userEvent.click(screen.getByRole("combobox"));
+
+            // Assert
+            expect(
+                screen.queryByRole("option", {name: "Cars"}),
+            ).not.toBeInTheDocument();
+        });
+
+        it("disables the marker combobox when read-only", () => {
+            // Arrange, Act
+            renderQuestion(generateSingleMarkerRenderer(), {
+                apiOptions: {readOnly: true},
+            });
+
+            // Assert
+            expect(screen.getByRole("combobox")).toHaveAttribute(
+                "aria-disabled",
+                "true",
+            );
+        });
+
+        it("does not open the answer choices when read-only", async () => {
+            // Arrange
+            renderQuestion(generateSingleMarkerRenderer(), {
+                apiOptions: {readOnly: true},
+            });
+
+            // Act
+            await userEvent.click(screen.getByRole("combobox"));
+
+            // Assert
+            expect(
+                screen.queryByRole("option", {name: "Cars"}),
+            ).not.toBeInTheDocument();
+        });
+    });
+
     const answerfulItem = generateTestPerseusItem({
         question: shortTextQuestion,
     });
