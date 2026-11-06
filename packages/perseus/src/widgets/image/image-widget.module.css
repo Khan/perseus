@@ -27,8 +27,13 @@
 :global(.perseus-image-caption) {
     font-size: var(--wb-font-body-size-small);
     line-height: var(--wb-font-body-lineHeight-small);
-    padding-left: 16px;
+    padding-inline: var(--wb-sizing-size_160);
     color: var(--wb-semanticColor-core-foreground-neutral-subtle);
+
+    /* Remove block margin from paragraphs */
+    :global(.deprecated-perseus-container) {
+        margin-block: 0;
+    }
 }
 
 .modal-container {
