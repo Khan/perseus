@@ -79,7 +79,7 @@ export const ImageInfoArea = (props: Props) => {
 
             {/* Caption */}
             {caption && (
-                <figcaption className="perseus-image-caption">
+                <figcaption className={styles.perseusImageCaption}>
                     {/* The Renderer component is used here so that the caption
                         can support markdown and TeX. */}
                     <Renderer
