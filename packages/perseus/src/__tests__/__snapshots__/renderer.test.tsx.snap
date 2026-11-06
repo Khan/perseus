@@ -1,5 +1,94 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`renderer in a JIPT context renders \`crwdn\` placeholders with data-perseus-component-index and data-perseus-paragraph-index attributes in an article: article with JIPT placeholders 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="deprecated-perseus-container"
+      data-perseus-component-index="42"
+      data-perseus-paragraph-index="0"
+    >
+      crwdns1:0crwdne1
+    </div>
+    <div
+      class="deprecated-perseus-container"
+      data-perseus-component-index="42"
+      data-perseus-paragraph-index="1"
+    >
+      crwdns2:0crwdne2
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renderer in a JIPT context renders \`crwdn\` placeholders with data-perseus-component-index attributes in an exercise: exercise with JIPT placeholder 1`] = `
+<div>
+  <div
+    data-perseus-component-index="42"
+  >
+    crwdns123:0crwdne123
+  </div>
+</div>
+`;
+
+exports[`renderer in a JIPT context replaces the \`crwdn\` placeholder with the translated content of an article: JIPT-translated article 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="deprecated-perseus-container"
+      data-perseus-component-index="42"
+      data-perseus-paragraph-index="0"
+    >
+      <p
+        class="deprecated-perseus-container"
+      >
+        first paragraph
+      </p>
+    </div>
+    <div
+      class="deprecated-perseus-container"
+      data-perseus-component-index="42"
+      data-perseus-paragraph-index="1"
+    >
+      <p
+        class="deprecated-perseus-container"
+      >
+        second paragraph
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renderer in a JIPT context replaces the \`crwdn\` placeholder with the translated content of an exercise: JIPT-translated exercise 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="deprecated-perseus-container"
+      data-perseus-component-index="42"
+      data-perseus-paragraph-index="0"
+    >
+      <p
+        class="deprecated-perseus-container"
+      >
+        <a
+          href="https://khanacademy.org"
+          target="_blank"
+        >
+          link
+        </a>
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`renderer rendering should ignore the deprecated column separator '=====' 1`] = `
 <div>
   <div
@@ -397,6 +486,335 @@ exports[`renderer rendering should render the math 1`] = `
           <span />
         </span>
       </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renderer snapshots correct answer: correct answer 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="deprecated-perseus-container"
+    >
+      The total number of boxes the forklift can carry is 
+      <span
+        class="deprecated-perseus-container"
+      >
+        <span
+          class="perseus-widget-container widget-inline-block"
+        >
+          <div
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
+          >
+            <label
+              for=":r3:"
+              style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
+            >
+              Test visible label
+            </label>
+            <div
+              class="perseus-dropdown"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: fit-content; max-inline-size: 100%;"
+            >
+              <button
+                aria-controls=":r4:"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                aria-invalid="false"
+                aria-label="Test ARIA label"
+                aria-required="false"
+                data-style-active="box-shadow: 0 0 0 var(--wb-border-width-thin) var(--wb-semanticColor-input-default-border);"
+                data-style-focus="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                data-style-focus-active="box-shadow: 0 0 0 var(--wb-border-width-thin) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                data-style-moz-focus-inner="border: 0px;"
+                id=":r3:"
+                role="combobox"
+                style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: space-between; color: var(--wb-semanticColor-input-default-foreground); height: 40px; padding-inline-start: var(--wb-c-dropdown-opener-layout-padding-inlineStart); padding-inline-end: var(--wb-c-dropdown-opener-layout-padding-inlineEnd); border-width: 0px; border-radius: var(--wb-c-dropdown-opener-border-radius-rest); border-style: solid; outline: none; text-decoration: none; box-sizing: border-box; white-space: nowrap; touch-action: manipulation; background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); cursor: pointer;"
+                type="button"
+              >
+                <span
+                  style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); margin-inline-end: var(--wb-sizing-size_080); white-space: nowrap; user-select: none; overflow: hidden; text-overflow: ellipsis;"
+                >
+                  <div
+                    class="perseus-in-wb-popover"
+                  >
+                    <div
+                      class="perseus-renderer perseus-renderer-responsive"
+                    >
+                      <div
+                        class="deprecated-perseus-container"
+                      >
+                        <p
+                          class="deprecated-perseus-container"
+                        >
+                          less than or equal to
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </span>
+                <span
+                  aria-hidden="true"
+                  style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); min-inline-size: var(--wb-sizing-size_160); background-color: var(--wb-semanticColor-core-foreground-neutral-default); mask-image: url(caret-down-bold.svg);"
+                />
+              </button>
+            </div>
+          </div>
+        </span>
+      </span>
+       
+      <span
+        style="white-space: nowrap;"
+      >
+        <span />
+        <span
+          class="mock-TeX"
+        >
+          60
+        </span>
+        <span />
+      </span>
+      .
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="deprecated-perseus-container"
+    >
+      The total number of boxes the forklift can carry is 
+      <span
+        class="deprecated-perseus-container"
+      >
+        <span
+          class="perseus-widget-container widget-inline-block"
+        >
+          <div
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
+          >
+            <label
+              for=":r6:"
+              style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
+            >
+              Test visible label
+            </label>
+            <div
+              class="perseus-dropdown"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: fit-content; max-inline-size: 100%;"
+            >
+              <button
+                aria-controls=":r7:"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                aria-invalid="false"
+                aria-label="Test ARIA label"
+                aria-required="false"
+                data-style-active="box-shadow: 0 0 0 var(--wb-border-width-thin) var(--wb-semanticColor-input-default-border);"
+                data-style-focus="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                data-style-focus-active="box-shadow: 0 0 0 var(--wb-border-width-thin) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                data-style-moz-focus-inner="border: 0px;"
+                id=":r6:"
+                role="combobox"
+                style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: space-between; color: var(--wb-semanticColor-input-default-foreground); height: 40px; padding-inline-start: var(--wb-c-dropdown-opener-layout-padding-inlineStart); padding-inline-end: var(--wb-c-dropdown-opener-layout-padding-inlineEnd); border-width: 0px; border-radius: var(--wb-c-dropdown-opener-border-radius-rest); border-style: solid; outline: none; text-decoration: none; box-sizing: border-box; white-space: nowrap; touch-action: manipulation; background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); cursor: pointer;"
+                type="button"
+              >
+                <span
+                  style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); margin-inline-end: var(--wb-sizing-size_080); white-space: nowrap; user-select: none; overflow: hidden; text-overflow: ellipsis;"
+                >
+                  <div
+                    class="perseus-in-wb-popover"
+                  >
+                    <div
+                      class="perseus-renderer perseus-renderer-responsive"
+                    >
+                      <div
+                        class="deprecated-perseus-container"
+                      >
+                        <p
+                          class="deprecated-perseus-container"
+                        >
+                          greater than or equal to
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </span>
+                <span
+                  aria-hidden="true"
+                  style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); min-inline-size: var(--wb-sizing-size_160); background-color: var(--wb-semanticColor-core-foreground-neutral-default); mask-image: url(caret-down-bold.svg);"
+                />
+              </button>
+            </div>
+          </div>
+        </span>
+      </span>
+       
+      <span
+        style="white-space: nowrap;"
+      >
+        <span />
+        <span
+          class="mock-TeX"
+        >
+          60
+        </span>
+        <span />
+      </span>
+      .
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renderer snapshots initial render: initial render 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="deprecated-perseus-container"
+    >
+      The total number of boxes the forklift can carry is 
+      <span
+        class="deprecated-perseus-container"
+      >
+        <span
+          class="perseus-widget-container widget-inline-block"
+        >
+          <div
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
+          >
+            <label
+              for=":r0:"
+              style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
+            >
+              Test visible label
+            </label>
+            <div
+              class="perseus-dropdown"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: fit-content; max-inline-size: 100%;"
+            >
+              <button
+                aria-controls=":r1:"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                aria-invalid="false"
+                aria-label="Test ARIA label"
+                aria-required="false"
+                data-style-active="box-shadow: 0 0 0 var(--wb-border-width-thin) var(--wb-semanticColor-input-default-border);"
+                data-style-focus="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                data-style-focus-active="box-shadow: 0 0 0 var(--wb-border-width-thin) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                data-style-moz-focus-inner="border: 0px;"
+                id=":r0:"
+                role="combobox"
+                style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: space-between; color: var(--wb-semanticColor-input-default-foreground); height: 40px; padding-inline-start: var(--wb-c-dropdown-opener-layout-padding-inlineStart); padding-inline-end: var(--wb-c-dropdown-opener-layout-padding-inlineEnd); border-width: 0px; border-radius: var(--wb-c-dropdown-opener-border-radius-rest); border-style: solid; outline: none; text-decoration: none; box-sizing: border-box; white-space: nowrap; touch-action: manipulation; background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); cursor: pointer;"
+                type="button"
+              >
+                <span
+                  style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); margin-inline-end: var(--wb-sizing-size_080); white-space: nowrap; user-select: none; overflow: hidden; text-overflow: ellipsis;"
+                >
+                  <div
+                    class="perseus-in-wb-popover"
+                  >
+                    <div
+                      class="perseus-renderer perseus-renderer-responsive"
+                    >
+                      <div
+                        class="deprecated-perseus-container"
+                      >
+                        <p
+                          class="deprecated-perseus-container"
+                        >
+                          greater/less than or equal to
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </span>
+                <span
+                  aria-hidden="true"
+                  style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); min-inline-size: var(--wb-sizing-size_160); background-color: var(--wb-semanticColor-core-foreground-neutral-default); mask-image: url(caret-down-bold.svg);"
+                />
+              </button>
+            </div>
+          </div>
+        </span>
+      </span>
+       
+      <span
+        style="white-space: nowrap;"
+      >
+        <span />
+        <span
+          class="mock-TeX"
+        >
+          60
+        </span>
+        <span />
+      </span>
+      .
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renderer snapshots renders a placeholder for an unknown widget type: unknown widget 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="deprecated-perseus-container"
+    >
+      <div
+        class="deprecated-perseus-container"
+      >
+        <div
+          class="perseus-widget-container widget-block"
+        >
+          <div
+            style="padding-block: var(--wb-sizing-size_080);"
+          >
+            <div
+              role="status"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: var(--wb-sizing-size_160); position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; border-inline-start-width: var(--wb-c-banner-root-border-width-inlineStart); border-inline-end-width: var(--wb-c-banner-root-border-width-inlineEnd); border-block-start-width: var(--wb-c-banner-root-border-width-blockStart); border-block-end-width: var(--wb-c-banner-root-border-width-blockEnd); width: 100%; border-radius: var(--wb-c-banner-root-border-radius); overflow: hidden; padding-inline-start: var(--wb-c-banner-root-layout-paddingInlineStart); background-color: var(--wb-semanticColor-feedback-info-subtle-background); border-color: var(--wb-c-banner-root-color-border-info); color: var(--wb-semanticColor-feedback-info-subtle-text);"
+            >
+              <div
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; gap: var(--wb-c-banner-root-layout-gap);"
+              >
+                <span
+                  aria-label="Info"
+                  data-testid="banner-kind-icon"
+                  role="img"
+                  style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-c-banner-icon-sizing-width); height: var(--wb-c-banner-icon-sizing-height); align-self: flex-start; color: var(--wb-c-banner-icon-color-info); background-color: currentColor; mask-image: url(info-bold.svg);"
+                />
+                <div
+                  style="align-items: center; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; flex: 1; align-content: center; flex-wrap: wrap; justify-content: space-between; gap: var(--wb-c-banner-root-layout-gap);"
+                >
+                  <div
+                    style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; flex-shrink: 1; text-align: start; overflow-wrap: break-word;"
+                  >
+                    <div
+                      style="font-size: var(--wb-c-banner-label-font-size); font-weight: var(--wb-font-weight-semi); line-height: var(--wb-font-body-lineHeight-small); font-family: var(--wb-font-family-sans);"
+                    >
+                      Sorry, this part of the question is no longer available. 😅 Don't worry, you won't be graded on this part. Keep going!
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
