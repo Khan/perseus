@@ -1,4 +1,4 @@
-// The MCP Apps page for preview_item: the draft as learners see it, shown
+// The MCP Apps page for show_item: the draft as learners see it, shown
 // in the chat. Hosts don't let app pages frame or reach the local server, so
 // the page renders the item itself and follows the draft through the host,
 // polling the app-only get_preview_draft tool, which also sends the drawings
@@ -53,7 +53,7 @@ function jsonOf(result: ToolResult): Record<string, unknown> | null {
     }
 }
 
-// The draft to show, from preview_item's arguments or result. The host sends
+// The draft to show, from show_item's arguments or result. The host sends
 // them as soon as the page connects, which may be before React renders, so
 // they're kept here rather than in component state.
 let itemId: string | null = null;

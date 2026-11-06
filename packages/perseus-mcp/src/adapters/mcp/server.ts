@@ -1,7 +1,6 @@
 import {McpServer} from "@modelcontextprotocol/server";
 import {z} from "zod";
 
-import {diagramIdsIn} from "../../domain/graffiti/diagram";
 import {CHECKLIST_URI} from "../../domain/review/checklist";
 import {libVersion} from "../../version";
 
@@ -10,9 +9,11 @@ import {registerExerciseTools} from "./exercise-tools";
 import {registerGraffitiTools} from "./graffiti-tools";
 import {registerGuidelineTools} from "./guideline-tools";
 import {registerImageTools} from "./image-tools";
+import {registerPreviewTools} from "./preview-tools";
 import {registerSearchTools} from "./search-tools";
 import {errorResult, jsonResult, runTool} from "./tool-results";
 
+import type {PreviewApp} from "./preview-tools";
 import type {DraftUseCases} from "../../app/drafts";
 import type {ExerciseUseCases} from "../../app/exercises";
 import type {FixUseCases} from "../../app/fixes";
@@ -104,15 +105,25 @@ Review every item you create or edit before returning it: call review_item,
 which gives the procedure, the draft's validation issues and the checklist
 entries to check it against, and follow it.
 
-preview_item returns a URL where a person can see a draft as learners will,
-answer it and reveal its hints; the page follows the draft's changes, so give
-it to them once and keep editing. Hosts that support MCP Apps also show the
-preview in the chat. preview_exercise returns the URL of an exercise's page:
-its items as a tree, each with its change since import and its validation
-issues, and a preview of the one selected. A URL works while this server
-runs, and each start of the server gives new ones: when a person says a
-preview link stopped working, call preview_item (or preview_exercise) again
-for the same draft and give them the new URL.`;
+Previews are pages in a browser, which a person can keep open while you work,
+since each follows its draft's changes. preview_item returns the URL of a
+draft's preview, where a person can see it as learners will, answer it and
+reveal its hints; preview_exercise returns the URL of an exercise's page: its
+items as a tree with each one's change since import and validation issues,
+and a grid of every item at once. Give the person the URL to open in their
+browser: open_in_browser opens it for them when they ask, and if you have a
+browser pane of your own, open it there. For several items, give them the
+exercise's page rather than a preview per item. show_item shows one draft in
+the chat instead (in hosts that support it): use it for a quick look at a
+single item, or when the person asks to see it here.
+
+To check your own work, score_item and check_user_inputs say how answers
+score. When you need to see how an item looks or behaves beyond that, and you
+have a browser of your own, open its preview URL there.
+
+A URL works while this server runs, and each start of the server gives new
+ones: when a person says a preview link stopped working, call preview_item
+(or preview_exercise) again for the same draft and give them the new URL.`;
 }
 
 // A JSON Patch (RFC 6902) against a PerseusItem's JSON.
@@ -140,22 +151,6 @@ const notesSchema = z
  * server is created per request (stateless transport), so it holds no state
  * of its own.
  */
-/** The MCP Apps page that shows a draft's preview inside the chat. */
-export type PreviewApp = {
-    /** The page's HTML: one self-contained document, as MCP Apps requires. */
-    html(): Promise<string>;
-};
-
-// MCP Apps (the `ui://` extension): the host shows this resource in the
-// chat when preview_item is called.
-const PREVIEW_APP_URI = "ui://perseus/preview.html";
-const MCP_APP_MIME_TYPE = "text/html;profile=mcp-app";
-const RESOURCE_DOMAINS = [
-    "https://cdn.kastatic.org",
-    "https://ka-perseus-images.s3.amazonaws.com",
-    "https://ka-perseus-graphie.s3.amazonaws.com",
-];
-
 export function createMcpServer({
     drafts,
     widgets,
@@ -596,120 +591,7 @@ export function createMcpServer({
             }),
     );
 
-    server.registerTool(
-        "preview_item",
-        {
-            title: "Preview a draft",
-            description:
-                "Return the URL of a page showing a draft as learners will " +
-                "see it, where a person can answer it, check their answer " +
-                "and reveal the hints. The page updates as the draft " +
-                "changes. Give the URL to the person you're working with. " +
-                "It works while this server runs; if they say it stopped " +
-                "working, call this again for a new one.",
-            inputSchema: z.object({itemId: z.string()}),
-            annotations: {readOnlyHint: true},
-            // Hosts that support MCP Apps show the preview in the chat. The
-            // older key is deprecated but still read by some hosts.
-            ...(previewApp != null && {
-                _meta: {
-                    ui: {resourceUri: PREVIEW_APP_URI},
-                    "ui/resourceUri": PREVIEW_APP_URI,
-                },
-            }),
-        },
-        ({itemId}) =>
-            run("preview_item", () =>
-                jsonResult({itemId, url: preview.previewUrl(itemId)}),
-            ),
-    );
-
-    if (previewApp != null) {
-        // Only the app page calls this: it follows the draft through the
-        // host, since hosts don't let app pages reach the local server.
-        server.registerTool(
-            "get_preview_draft",
-            {
-                title: "Get a draft for its preview",
-                description:
-                    "For the preview shown in the chat: the draft's item and " +
-                    "revision, with the drawings of the Graffiti diagrams it " +
-                    "shows whose revision isn't in `diagramRevisions`; or " +
-                    "`changed: false` when its revision is still " +
-                    "`sinceRevision` and no diagram changed.",
-                inputSchema: z.object({
-                    itemId: z.string(),
-                    sinceRevision: z.number().int().optional(),
-                    diagramRevisions: z
-                        .record(z.string(), z.number().int())
-                        .optional(),
-                }),
-                annotations: {readOnlyHint: true},
-                _meta: {
-                    ui: {resourceUri: PREVIEW_APP_URI, visibility: ["app"]},
-                },
-            },
-            ({itemId, sinceRevision, diagramRevisions}) =>
-                run("get_preview_draft", async () => {
-                    const {draft} = drafts.exportItem(itemId);
-                    // The page can't load diagrams from this server, so
-                    // their drawings come with the draft, and a new revision
-                    // of one is a change too.
-                    const {diagrams, missing} =
-                        graffiti == null
-                            ? {diagrams: {}, missing: []}
-                            : await graffiti.changedDiagrams(
-                                  diagramIdsIn(draft.item),
-                                  diagramRevisions,
-                              );
-                    if (
-                        draft.revision === sinceRevision &&
-                        Object.keys(diagrams).length === 0
-                    ) {
-                        return jsonResult({changed: false});
-                    }
-                    return jsonResult({
-                        changed: true,
-                        revision: draft.revision,
-                        item: draft.item,
-                        diagrams,
-                        missingDiagrams: missing,
-                    });
-                }),
-        );
-
-        server.registerResource(
-            "preview-app",
-            PREVIEW_APP_URI,
-            {
-                title: "Perseus draft preview",
-                description:
-                    "The page MCP Apps hosts show in the chat for " +
-                    "preview_item.",
-                mimeType: MCP_APP_MIME_TYPE,
-            },
-            async (uri) => {
-                return {
-                    contents: [
-                        {
-                            uri: uri.href,
-                            mimeType: MCP_APP_MIME_TYPE,
-                            text: await previewApp.html(),
-                            _meta: {
-                                ui: {
-                                    // Hosts block any outside host not
-                                    // declared here: MathJax's fonts and the
-                                    // hosts Perseus images come from.
-                                    csp: {resourceDomains: RESOURCE_DOMAINS},
-                                    prefersBorder: true,
-                                },
-                            },
-                        },
-                    ],
-                };
-            },
-        );
-    }
+    registerPreviewTools(server, {drafts, preview, previewApp, graffiti, run});
 
     server.registerTool(
         "list_items",

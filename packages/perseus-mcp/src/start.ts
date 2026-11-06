@@ -34,6 +34,7 @@ import {
     previewLinks,
 } from "./adapters/http/server";
 import {createMcpServer} from "./adapters/mcp/server";
+import {systemBrowser} from "./adapters/os/system-browser";
 import {systemClipboard} from "./adapters/os/system-clipboard";
 import {
     createMeilisearchContentSearch,
@@ -60,7 +61,7 @@ import {createErrorLog, describeServer} from "./app/server-info";
 import {createWidgetUseCases} from "./app/widgets";
 
 import type {PreviewPages} from "./adapters/http/server";
-import type {PreviewApp} from "./adapters/mcp/server";
+import type {PreviewApp} from "./adapters/mcp/preview-tools";
 import type {BuildInfo} from "./build-info";
 import type {KhanStyle} from "./domain/graffiti/khan-style";
 import type {GraffitiPaths, RuntimePaths} from "./runtime-paths";
@@ -325,6 +326,7 @@ Usage: perseus-mcp [--http | --stdio] [--port <n>] [--host <host>] [--data-dir <
             drafts: repository,
             exercises,
             links: previewLinks(() => baseUrl),
+            browser: systemBrowser,
         }),
         graffiti,
     };

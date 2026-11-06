@@ -4,6 +4,7 @@ import {
     PreviewUnavailableError,
 } from "./errors";
 
+import type {Browser} from "../ports/browser";
 import type {DraftRepository} from "../ports/draft-repository";
 import type {ExerciseRepository} from "../ports/exercise-repository";
 import type {PreviewLinks} from "../ports/preview-links";
@@ -12,11 +13,19 @@ export type PreviewDependencies = {
     drafts: DraftRepository;
     exercises: ExerciseRepository;
     links: PreviewLinks;
+    /** The browser to open pages in; without it, nothing opens. */
+    browser?: Browser;
 };
+
+/** A page to open: a draft's preview, an exercise's page or a diagram's. */
+export type PreviewPage =
+    | {itemId: string}
+    | {exerciseId: string; grid?: boolean}
+    | {graffitiId: string};
 
 /** The use cases behind the draft preview. */
 export function createPreviewUseCases(deps: PreviewDependencies) {
-    return {
+    const useCases = {
         /**
          * The URL of a draft's preview page, which follows the draft as it
          * changes.
@@ -66,7 +75,27 @@ export function createPreviewUseCases(deps: PreviewDependencies) {
             }
             return url;
         },
+
+        /**
+         * Opens a page in the default browser of the machine this server
+         * runs on. Diagrams are checked to exist by the caller.
+         *
+         * @throws DraftNotFoundError
+         * @throws ExerciseNotFoundError
+         * @throws PreviewUnavailableError
+         */
+        openInBrowser(page: PreviewPage): {url: string; opened: boolean} {
+            const url =
+                "itemId" in page
+                    ? useCases.previewUrl(page.itemId)
+                    : "exerciseId" in page
+                      ? useCases.exerciseUrl(page.exerciseId) +
+                        (page.grid === true ? "?view=grid" : "")
+                      : useCases.graffitiUrl(page.graffitiId);
+            return {url, opened: deps.browser?.open(url) ?? false};
+        },
     };
+    return useCases;
 }
 
 export type PreviewUseCases = ReturnType<typeof createPreviewUseCases>;

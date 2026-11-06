@@ -86,7 +86,7 @@ export async function buildAppPage(): Promise<string> {
 }
 
 /**
- * The MCP Apps page for preview_item. Hosts receive it as a resource's text,
+ * The MCP Apps page for show_item. Hosts receive it as a resource's text,
  * so it must be one document: Vite builds the page, and its script, styles,
  * fonts and icons are inlined. The build runs when a host first asks for the
  * page, then is reused.
