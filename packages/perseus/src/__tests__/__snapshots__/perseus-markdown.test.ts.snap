@@ -48,7 +48,7 @@ exports[`perseus markdown output should output paragraphs 1`] = `
 exports[`perseus markdown output should output titled table with unescaped dollars 1`] = `
 [
   <div
-    className="perseus-titled-table"
+    className="perseus-table-wrapper"
   >
     <table>
       <caption
@@ -155,7 +155,7 @@ exports[`perseus markdown output should render \`\`\`alt screenreader blocks 1`]
 exports[`perseus markdown output with linter should output titled table with unescaped dollars in lint 1`] = `
 [
   <div
-    className="perseus-titled-table"
+    className="perseus-table-wrapper"
   >
     <Lint
       inline={false}
