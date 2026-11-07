@@ -37,7 +37,7 @@
     ); /* Space between the choices, which is also used to position the divider */
     border-radius: var(--wb-border-radius-radius_080);
     font-weight: var(--wb-font-weight-semi);
-    margin-block-end: var(--perseus-multiple-choice-divider-space);
+    margin-block: 0 var(--perseus-multiple-choice-divider-space);
     min-height: calc(var(--perseus-multiple-choice-spacing) * 4);
     outline: var(--wb-border-width-medium) solid
         var(--perseus-multiple-choice-correctness-outline-color, transparent);
