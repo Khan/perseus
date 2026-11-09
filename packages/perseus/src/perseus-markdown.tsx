@@ -145,7 +145,7 @@ const rules = {
             // Note: if the DOM structure changes, edit the Zoomable wrapper
             // in src/renderer.jsx.
             return (
-                <div className="perseus-table-wrapper" key={state.key}>
+                <div className="perseus-titled-table-wrapper" key={state.key}>
                     {contents}
                 </div>
             );
