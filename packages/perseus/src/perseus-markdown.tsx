@@ -14,24 +14,10 @@ import {getDependencies} from "./dependencies";
 const rules = {
     ...pureMarkdownRules,
 
-    // NOTE: basically ignored by JIPT. wraps everything at the outer layer
-    columns: {
-        ...pureMarkdownRules.columns,
+    deprecatedColumnSeparator: {
+        ...pureMarkdownRules.deprecatedColumnSeparator,
         react: (node, output, state) => {
-            return (
-                <div className="perseus-two-columns" key={state.key}>
-                    <div className="perseus-column">
-                        <div className="perseus-column-content">
-                            {output(node.col1, state)}
-                        </div>
-                    </div>
-                    <div className="perseus-column">
-                        <div className="perseus-column-content">
-                            {output(node.col2, state)}
-                        </div>
-                    </div>
-                </div>
-            );
+            return null;
         },
     },
     // Match paragraphs consisting solely of crowdin IDs
@@ -296,7 +282,7 @@ const inlineNodeTypes = {
     code: true,
 } as const;
 
-// @ts-expect-error - TS2345 - Argument of type '{ readonly columns: { readonly react: (node: any, output: any, state: any) => Element; readonly order: -2; readonly match: any; readonly parse: (capture: any, parse: any, state: any) => any; }; ... 35 more ...; readonly text: TextInOutRule; }' is not assignable to parameter of type 'ParserRules'.
+// @ts-expect-error - TS2345 - Argument of type '{ readonly deprecatedColumnSeparator: { readonly react: (node: any, output: any, state: any) => null; readonly order: -2; readonly match: MatchFunction; readonly parse: (capture: any, parse: any, state: any) => any; }; ... 35 more ...; readonly text: TextInOutRule; }' is not assignable to parameter of type 'ParserRules'.
 const builtParser = SimpleMarkdown.parserFor(rules);
 const parse = (source: string, state: any): any => {
     const paragraphedSource = source + "\n\n";
