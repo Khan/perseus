@@ -117,4 +117,60 @@ describe("MovablePoint", () => {
             },
         });
     });
+
+    describe("when static changes after construction", () => {
+        function createGraphie() {
+            const graphieDiv = document.createElement("div");
+            const graphie = new Graphie(graphieDiv);
+            graphie.init({
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+            });
+            graphie.addMouseLayer({});
+            return {graphie, graphieDiv};
+        }
+
+        function getMouseTargets(graphieDiv: HTMLElement) {
+            // Mouse targets are bare SVG elements with no accessible role.
+            return graphieDiv.querySelectorAll(
+                "[data-interactive-kind-for-testing='movable-point']",
+            );
+        }
+
+        it("removes its mouse target when it becomes static", () => {
+            // Arrange
+            const {graphie, graphieDiv} = createGraphie();
+            const movable = new Movable(graphie, {});
+            const movablePoint = new MovablePoint(graphie, movable, {
+                static: false,
+            });
+
+            // Act
+            movablePoint.modify({static: true});
+
+            // Assert
+            expect(movablePoint.state.mouseTarget).toBeNull();
+            expect(getMouseTargets(graphieDiv)).toHaveLength(0);
+        });
+
+        it("adds a mouse target when it stops being static", () => {
+            // Arrange
+            const {graphie, graphieDiv} = createGraphie();
+            const movable = new Movable(graphie, {});
+            const movablePoint = new MovablePoint(graphie, movable, {
+                static: true,
+            });
+
+            // Act
+            movablePoint.modify({static: false});
+
+            // Assert
+            expect(movablePoint.state.mouseTarget).toEqual(
+                expect.any(WrappedEllipse),
+            );
+            expect(getMouseTargets(graphieDiv)).toHaveLength(1);
+        });
+    });
 });
