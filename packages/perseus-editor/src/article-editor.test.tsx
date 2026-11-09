@@ -30,7 +30,7 @@ describe("ArticleEditor", () => {
         );
     });
 
-    it("should render", async () => {
+    it("should render", () => {
         // Arrange, Act
         render(
             <ArticleEditor
