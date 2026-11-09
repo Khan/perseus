@@ -151,6 +151,7 @@ class WidgetContainer extends React.Component<Props, State> {
             overflow: "visible",
         } as const;
         const staticOverlayStyles = {
+            display: "block",
             width: "100%",
             height: "100%",
             position: "absolute",
