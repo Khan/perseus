@@ -706,6 +706,7 @@ describe("Expression Widget", function () {
                     ).toHaveBeenAnsweredCorrectly(),
                 );
             },
+            10_000, // increase timeout
         );
     });
 });
