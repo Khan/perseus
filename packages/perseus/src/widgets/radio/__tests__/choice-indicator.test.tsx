@@ -22,7 +22,6 @@ describe("Radio widget choice indicator", () => {
         iconMock = jest.spyOn(PhosphorIcon, "render");
         mockClickHandler = jest.fn();
         buttonRef = React.createRef<HTMLButtonElement>();
-        jest.spyOn(React, "useId").mockReturnValue("id:foo");
     });
 
     afterEach(() => {
@@ -157,7 +156,7 @@ describe("Radio widget choice indicator", () => {
             expect(indicator).toHaveAttribute("aria-label", "Choice A");
             expect(indicator).toHaveAttribute(
                 "aria-labelledby",
-                "id:foo :bar:",
+                `${indicator.id} :bar:`,
             );
             expect(indicator).not.toHaveAttribute("aria-describedby");
         });
