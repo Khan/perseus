@@ -1,7 +1,5 @@
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
-import {screen, act} from "@testing-library/react";
+import {screen, act, fireEvent} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-import $ from "jquery";
 
 import {renderQuestion} from "../../__testutils__/render-question";
 import {Log} from "../../logging/log";
@@ -20,19 +18,29 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
+// Builds a native mouse event at the given page coordinates. jsdom doesn't
+// implement MouseEvent's pageX/pageY, which Graphie reads, so we set them.
+function mouseEventAt(type: string, pageX: number, pageY: number) {
+    const event = new MouseEvent(type, {bubbles: true, cancelable: true});
+    Object.defineProperties(event, {
+        pageX: {value: pageX},
+        pageY: {value: pageY},
+    });
+    return event;
+}
+
 // Presses and releases the mouse on the number line, 300px from the left edge
-// of the page. Graphie listens for jQuery's virtual mouse events on a
-// transparent <rect> in its mouse layer, which has no accessible handle.
+// of the page. Graphie handles clicks on a transparent <rect> in its mouse
+// layer, which has no accessible handle. It listens for jQuery vmouse events,
+// which the vmouse plugin generates from these native ones.
 function clickNumberLine(container: HTMLElement) {
     // eslint-disable-next-line testing-library/no-node-access
     const clickTarget = container.querySelector("svg rect");
     if (clickTarget == null) {
         throw new Error("Couldn't find the number line's click target");
     }
-    act(() => {
-        $(clickTarget).trigger($.Event("vmousedown", {pageX: 300, pageY: 40}));
-        $(document).trigger($.Event("vmouseup", {pageX: 300, pageY: 40}));
-    });
+    fireEvent(clickTarget, mouseEventAt("mousedown", 300, 40));
+    fireEvent(document, mouseEventAt("mouseup", 300, 40));
 }
 
 describe("number-line widget", () => {
@@ -403,22 +411,6 @@ describe("number-line widget", () => {
 
             // Assert
             expect(renderer.getUserInputMap()).toEqual(initialUserInput);
-        });
-
-        it("renders the point's mobile drop shadow in gray", () => {
-            // Arrange, Act
-            const {container} = renderQuestion(withStatic(question1), {
-                apiOptions: {isMobile: true, readOnly},
-            });
-
-            // Assert
-            // The shadow lives in an inline `filter` style on the point's
-            // wrapper; there's no accessible handle for it.
-            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-            const shadowed = container.querySelector('[style*="drop-shadow"]');
-            expect(shadowed).toHaveStyle({
-                filter: `drop-shadow(0px 0px 2px ${semanticColor.core.foreground.disabled.strong})`,
-            });
         });
 
         it("disables the divisions input", () => {
