@@ -46,4 +46,8 @@ export const parseGradedGroupWidgetOptions = object({
 export const parseGradedGroupWidget = parseWidget(
     constant("graded-group"),
     parseGradedGroupWidgetOptions,
+    // Graded Group is a container for other widgets - it can't be
+    // set as static or readonly itself. It sets its nested widgets as
+    // readonly after being correctly answered.
+    {supportsStatic: false},
 );

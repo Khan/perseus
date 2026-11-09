@@ -145,7 +145,6 @@ const GradedGroupSet = forwardRef<Widget, Props>(
                                 problemNum={(props.problemNum ?? 0) + i}
                                 options={gradedGroup}
                                 inGradedGroupSet={false}
-                                linterContext={props.linterContext}
                             />
                         );
                     })}

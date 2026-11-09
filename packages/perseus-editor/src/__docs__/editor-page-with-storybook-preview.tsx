@@ -107,9 +107,6 @@ function EditorPageWithStorybookPreview(props: Props) {
                     setQuestion(changed.question);
                     setHints(changed.hints);
                 }}
-                additionalTemplates={{
-                    "Side by Side": "Left hand side\n=====\nRight hand side",
-                }}
             />
         </View>
     );

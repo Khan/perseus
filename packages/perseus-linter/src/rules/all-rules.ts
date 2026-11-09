@@ -1,4 +1,5 @@
 import AbsoluteUrl from "./absolute-url";
+import {ExplanationWidgetRule} from "./explanation";
 import {
     ExplanationInGradedGroup,
     ExplanationInGradedGroupSet,
@@ -8,9 +9,11 @@ import {
     ExpressionWidgetButtons,
     ExpressionWidgetCorrectAnswer,
 } from "./expression-widget";
+import {FillInTheBlankRule} from "./fill-in-the-blank";
 import FreeResponseWidgetError from "./free-response-widget-error";
 import {GradedGroupWidgetRule} from "./graded-group";
 import {GradedGroupSetWidgetRule} from "./graded-group-set";
+import {GroupWidgetRule} from "./group";
 import HeadingLevel1 from "./heading-level-1";
 import HeadingLevelSkip from "./heading-level-skip";
 import HeadingSentenceCase from "./heading-sentence-case";
@@ -57,17 +60,35 @@ import type Rule from "../rule";
 export function allRules(): Rule[] {
     return [
         AbsoluteUrl,
-        ImageUrlEmpty,
+        ExplanationInGradedGroup,
+        ExplanationInGradedGroupSet,
+        ExplanationWidgetRule,
+        ExpressionWidgetAnswerForms,
         ExpressionWidgetButtons,
         ExpressionWidgetCorrectAnswer,
+        FillInTheBlankRule,
+        FreeResponseWidgetError,
+        GradedGroupSetWidgetRule,
+        GradedGroupWidgetRule,
+        GroupWidgetRule,
         HeadingLevel1,
         HeadingLevelSkip,
         HeadingSentenceCase,
         HeadingTitleCase,
         ImageAltText,
         ImageMarkdown,
+        ImageSpacesAroundUrls,
+        ImageUrlEmpty,
+        ImageWidgetAltText,
+        ImageWidgetEmptySize,
+        InaccessibleWidget,
+        InteractiveGraphLockedFigureOob,
+        InteractiveGraphWidgetError,
+        LabelImageWidgetError,
+        LegacyGifUrl,
         LinkClickHere,
         LongParagraph,
+        MatcherWidgetError,
         MathAdjacent,
         MathAlignExtraBreak,
         MathAlignLinebreaks,
@@ -76,34 +97,19 @@ export function allRules(): Rule[] {
         MathNested,
         MathStartsWithSpace,
         MathTextEmpty,
-        NestedLists,
-        StaticWidgetInQuestionStem,
-        TableMissingCaption,
-        TableMissingCells,
-        UnescapedDollar,
         MathWithoutDollars,
-        UnbalancedCodeDelimiters,
-        ImageSpacesAroundUrls,
-        ImageWidgetAltText,
-        ImageWidgetEmptySize,
-        LegacyGifUrl,
-        InaccessibleWidget,
-        RadioWidgetError,
-        ExpressionWidgetAnswerForms,
-        FreeResponseWidgetError,
-        MatcherWidgetError,
+        NestedLists,
         NumericInputMissingLabel,
         NumericInputWidgetError,
         PhetSimulationWidgetError,
         PythonProgramWidgetError,
-        LabelImageWidgetError,
-        InteractiveGraphWidgetError,
-        InteractiveGraphLockedFigureOob,
+        RadioWidgetError,
         SorterWidgetError,
         SorterWidgetWarning,
-        ExplanationInGradedGroup,
-        ExplanationInGradedGroupSet,
-        GradedGroupWidgetRule,
-        GradedGroupSetWidgetRule,
+        StaticWidgetInQuestionStem,
+        TableMissingCaption,
+        TableMissingCells,
+        UnbalancedCodeDelimiters,
+        UnescapedDollar,
     ];
 }

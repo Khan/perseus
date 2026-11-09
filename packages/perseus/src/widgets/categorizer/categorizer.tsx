@@ -40,6 +40,7 @@ const Categorizer = forwardRef<Widget, Props>(function Categorizer(props, ref) {
     const dependencies = useDependencies();
     const {strings} = usePerseusI18n();
     const idPrefix = useMemo(() => _.uniqueId("perseus_radio_"), []);
+    const isDisabled = Boolean(props.static || apiOptions.readOnly);
 
     useOnMountEffect(() => {
         dependencies.analytics.onAnalyticsEvent({
@@ -70,6 +71,14 @@ const Categorizer = forwardRef<Widget, Props>(function Categorizer(props, ref) {
     }));
 
     function _handleUserInput(itemNum: number, catNum: number) {
+        // Ideally we'll refactor the Categorizer widget to appropriately
+        // use semantic buttons, at which point we can use the button's
+        // `disabled` prop instead. In the meantime, we can stop clicks
+        // when getting the user input on a static or read-only Categorizer
+        // widget.
+        if (isDisabled) {
+            return;
+        }
         const values = [...userInput.values];
         values[itemNum] = catNum;
         handleUserInput({values});
@@ -140,6 +149,7 @@ const Categorizer = forwardRef<Widget, Props>(function Categorizer(props, ref) {
                                         <div
                                             role="button"
                                             aria-label={catName}
+                                            aria-disabled={isDisabled}
                                             onClick={() =>
                                                 _handleUserInput(
                                                     itemNum,
@@ -154,10 +164,11 @@ const Categorizer = forwardRef<Widget, Props>(function Categorizer(props, ref) {
                                                     className={css(
                                                         sharedStyles.responsiveInput,
                                                         sharedStyles.responsiveRadioInput,
-                                                        props.static &&
+                                                        isDisabled &&
                                                             sharedStyles.responsiveRadioInputStatic,
                                                     )}
                                                     checked={selected}
+                                                    disabled={isDisabled}
                                                     onChange={() =>
                                                         _handleUserInput(
                                                             itemNum,
@@ -173,9 +184,11 @@ const Categorizer = forwardRef<Widget, Props>(function Categorizer(props, ref) {
                                                 <span
                                                     className={css(
                                                         styles.radioSpan,
+                                                        !isDisabled &&
+                                                            styles.interactiveRadioSpan,
                                                         selected &&
                                                             styles.checkedRadioSpan,
-                                                        props.static &&
+                                                        isDisabled &&
                                                             selected &&
                                                             styles.staticCheckedRadioSpan,
                                                     )}
@@ -254,6 +267,9 @@ const styles = StyleSheet.create({
     radioSpan: {
         fontSize: sizing.size_280,
         paddingInlineEnd: 3,
+    },
+
+    interactiveRadioSpan: {
         cursor: "pointer",
 
         ":hover": {

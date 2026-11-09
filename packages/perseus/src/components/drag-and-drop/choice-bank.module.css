@@ -21,6 +21,14 @@
     background: var(--wb-semanticColor-core-background-base-subtle);
 }
 
+.choiceBank.dropTarget {
+    border-color: transparent;
+    outline: var(--wb-border-width-medium) dashed
+        var(--wb-semanticColor-core-border-instructive-default);
+    outline-offset: calc(-1 * var(--wb-border-width-medium));
+    background: var(--wb-semanticColor-core-background-instructive-subtle);
+}
+
 .label {
     font-family: var(--wb-font-family-sans);
     font-size: var(--wb-font-body-size-xsmall);
