@@ -293,6 +293,9 @@ catalogs:
     '@playwright/test':
       specifier: ^1.64.1
       version: 1.64.1
+    ancesdir:
+      specifier: ^3.1.0
+      version: 3.1.0
     eslint:
       specifier: ^8.57.1
       version: 8.57.1
@@ -435,7 +438,7 @@ importers:
         specifier: ^6.1.1
         version: 6.1.2(vite@8.3.1(@types/node@20.19.43)(esbuild@0.28.2)(jiti@2.3.3)(less@4.2.0(supports-color@8.1.1))(sass@1.89.2)(stylus@0.62.0(supports-color@8.1.1))(terser@5.51.2)(yaml@2.9.1))
       ancesdir:
-        specifier: ^3.1.0
+        specifier: catalog:toolDeps
         version: 3.1.0
       aphrodite:
         specifier: catalog:devDeps
@@ -629,6 +632,9 @@ importers:
       '@types/istanbul-lib-coverage':
         specifier: ^2.0.6
         version: 2.0.6
+      ancesdir:
+        specifier: catalog:toolDeps
+        version: 3.1.0
       istanbul-lib-coverage:
         specifier: ^3.2.0
         version: 3.2.0

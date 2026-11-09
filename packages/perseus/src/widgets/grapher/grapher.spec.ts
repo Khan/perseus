@@ -17,7 +17,7 @@ import {
     multipleAvailableTypesQuestion,
 } from "./grapher.testdata";
 
-import type {RenderedQuestion} from "../../testing/playwright/render-question";
+import type {RenderedQuestion} from "../../testing/playwright/types";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Locator} from "@playwright/test";
 
@@ -340,16 +340,13 @@ test.describe("Grapher widget", () => {
                     test("scores a correct answer as correct", async ({
                         mount,
                     }) => {
-                        // Arrange
                         const question = await renderQuestion(
                             mount,
                             item.question,
                         );
 
-                        // Act
                         await graphCase.answerCorrectly(question);
 
-                        // Assert
                         const score = scorePerseusItemTesting(
                             answerful.question,
                             await question.getUserInputMap(),
@@ -360,16 +357,13 @@ test.describe("Grapher widget", () => {
                     test("scores an incorrect answer as incorrect", async ({
                         mount,
                     }) => {
-                        // Arrange
                         const question = await renderQuestion(
                             mount,
                             item.question,
                         );
 
-                        // Act
                         await graphCase.answerIncorrectly(question);
 
-                        // Assert
                         const score = scorePerseusItemTesting(
                             answerful.question,
                             await question.getUserInputMap(),

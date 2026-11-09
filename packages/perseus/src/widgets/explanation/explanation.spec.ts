@@ -4,9 +4,9 @@ import renderQuestion from "../../testing/playwright/render-question";
 
 import {ipsumExample} from "./explanation.testdata";
 
-//  NOTE: The regression tests in this file use Playwright because they are intended to validate styling that is applied.
-//        Since React Testing Library isn't applying the CSS to the elements,
-//          we can't use Jest to verify that some keyboard interactions work properly.
+// NOTE: These regression tests run in a real browser because they validate
+// the styling that's applied. Our unit tests don't apply CSS to elements, so
+// they can't verify that these keyboard interactions work properly.
 
 test.describe("Explanation Widget", () => {
     const postContentLinkText = "the system J-25";
@@ -17,7 +17,6 @@ test.describe("Explanation Widget", () => {
         mount,
         page,
     }) => {
-        // Arrange
         await renderQuestion(mount, ipsumExample);
         const toggle = page.getByRole("button", {
             name: "Explanation",
@@ -25,14 +24,14 @@ test.describe("Explanation Widget", () => {
         });
         await toggle.focus();
 
-        // Act - verify tab order (forwards)
+        // Verify tab order (forwards)
         await expect(toggle).toBeFocused(); // Verify we are on the widget's button.
         await page.keyboard.press("Tab");
         await expect(
             page.getByRole("link", {name: postContentLinkText}),
         ).toBeFocused();
 
-        // Act - verify tab order (backwards)
+        // Verify tab order (backwards)
         await page.keyboard.press("Shift+Tab");
         await expect(toggle).toBeFocused();
     });
@@ -44,7 +43,6 @@ test.describe("Explanation Widget", () => {
         // NOTE: This test ensures that the CSS that controls keyboard access doesn't regress.
         //       It also ensures that any JavaScript event handling doesn't interfere with expected keyboard navigation.
 
-        // Arrange
         await renderQuestion(mount, ipsumExample);
         const toggle = page.getByRole("button", {
             name: "Explanation",
@@ -54,7 +52,7 @@ test.describe("Explanation Widget", () => {
         await expect(toggle).toBeFocused(); // Verify we are on the widget's button.
         await page.keyboard.press("Enter"); // Expand content
 
-        // Act - verify tab order (forwards)
+        // Verify tab order (forwards)
         await page.keyboard.press("Tab");
         await expect(
             page.getByRole("link", {name: contentLinkOne}),
@@ -68,7 +66,7 @@ test.describe("Explanation Widget", () => {
             page.getByRole("link", {name: postContentLinkText}),
         ).toBeFocused();
 
-        // Act - verify tab order (backwards)
+        // Verify tab order (backwards)
         await page.keyboard.press("Shift+Tab");
         await expect(
             page.getByRole("link", {name: contentLinkTwo}),
@@ -92,7 +90,6 @@ test.describe("Explanation Widget", () => {
         //          this one verifies that toggling doesn't introduce/remove anything that would interfere with
         //          expected keyboard navigation.
 
-        // Arrange
         await renderQuestion(mount, ipsumExample);
         const toggle = page.getByRole("button", {
             name: "Explanation",
@@ -103,13 +100,13 @@ test.describe("Explanation Widget", () => {
         const contentId = await toggle.getAttribute("aria-controls");
         await page.keyboard.press("Enter"); // Expand content
 
-        // Act - verify tab order (forwards)
+        // Verify tab order (forwards)
         await page.keyboard.press("Tab");
         await expect(
             page.getByRole("link", {name: contentLinkOne}),
         ).toBeFocused();
 
-        // Act - verify tab order (backwards)
+        // Verify tab order (backwards)
         await page.keyboard.press("Shift+Tab");
         await page.keyboard.press("Enter"); // Collapse content
         const content = page.locator(`[id="${contentId}"]`);

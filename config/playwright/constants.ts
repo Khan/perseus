@@ -3,12 +3,10 @@
  * story gallery, and our test fixtures.
  */
 import path from "node:path";
-import {fileURLToPath} from "node:url";
 
-export const REPO_ROOT = path.resolve(
-    path.dirname(fileURLToPath(import.meta.url)),
-    "../..",
-);
+import ancesdir from "ancesdir";
+
+export const REPO_ROOT = ancesdir(import.meta.dirname, "pnpm-workspace.yaml");
 
 /** The port Vite serves the story gallery on. */
 export const GALLERY_PORT = 3100;

@@ -31,12 +31,26 @@ const ASSERTION_TIMEOUT = 5_000;
 const NAVIGATION_TIMEOUT = 15_000;
 
 export default defineConfig({
+    // Specs live beside the code they test, in any package. `.spec.ts` keeps
+    // them apart from Jest's `.test.ts` files.
     testDir: path.join(REPO_ROOT, "packages"),
     testMatch: "**/*.spec.ts",
+    // Each test's traces, screenshots and so on. Playwright empties this at
+    // the start of every run.
     outputDir: path.join(REPO_ROOT, "genfiles/playwright/test-results"),
+    // Run the tests within a file in parallel too, not just separate files,
+    // so that one long spec file doesn't hold up the run.
     fullyParallel: true,
+    // A stray `test.only()` would quietly skip every other test, so CI
+    // refuses to run with one.
     forbidOnly: isCI,
+    // A test that only passes on a retry is reported as flaky, so it's still
+    // visible without failing the build. Khan/frontend's CI data supported
+    // two retries.
     retries: isCI ? 2 : 0,
+    // In CI: annotations on the PR for each failure, plus an HTML report
+    // that the workflow uploads when the job fails. Locally: one line per
+    // test.
     reporter: isCI
         ? [
               ["github"],
@@ -59,7 +73,9 @@ export default defineConfig({
     timeout: 30_000,
     expect: {timeout: ASSERTION_TIMEOUT},
     use: {
+        // Where `mount()` loads the story gallery from.
         baseURL: GALLERY_URL,
+        // The text our tests expect is English, so the browser is too.
         locale: "en",
         // So that dates and times don't depend on where the tests run.
         // (Khan/frontend found that without one, its CI browser reports its
@@ -71,6 +87,7 @@ export default defineConfig({
         // flaky test leaves a trace of the attempt that failed, not just of
         // the retry that passed.
         trace: "retain-on-first-failure",
+        // A screenshot of the page as each failed test left it.
         screenshot: "only-on-failure",
     },
     // Perseus runs on phones and on desktop browsers, so every spec runs in

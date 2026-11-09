@@ -9,9 +9,6 @@ export const scoreMatchers = {
     toHaveBeenAnsweredCorrectly(
         score: PerseusScore,
         options?: {
-            // TODO: some non-interactive widgets have scoring functions
-            // that just return no points. They should probably just
-            // not have scoring functions if they're not interactive.
             shouldHavePoints: boolean;
         },
     ) {

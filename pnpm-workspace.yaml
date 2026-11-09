@@ -146,5 +146,6 @@ catalogs:
         jquery: 4.0.0
     toolDeps:
         "@playwright/test": ^1.64.1
+        ancesdir: ^3.1.0
         eslint: ^8.57.1
         typescript: 5.9.3

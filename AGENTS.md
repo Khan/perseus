@@ -47,6 +47,9 @@ packages/
 ### Test Structure
 1. Follow the AAA pattern: Arrange, Act, Assert
 1.1 If Arrange and Act are one action, combine them to `//Arrange, Act`
+1.2 Playwright component tests (`*.spec.ts`) don't follow the AAA pattern:
+    a browser test interleaves actions and assertions (act, wait for the result,
+    act again), so the comments don't fit. Comment a step only to say what it's for.
 2. Use widget generators to build test data and test data options.
    You can find generators for all widgets in packages/perseus-core/src/utils/generators.
    An example usage can be seen here: packages/perseus/src/widgets/expression/expression.testdata.ts.

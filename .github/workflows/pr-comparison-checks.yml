@@ -28,7 +28,7 @@ env:
     # still depends on Cypress, its postinstall would download the Cypress
     # binary, which isn't needed to build and whose host isn't allowed here.
     #
-    # TODO(jeremy): Remove once main no longer depends on Cypress (that is,
+    # TODO(LEMS-4706): Remove once main no longer depends on Cypress (that is,
     # once the Cypress to Playwright migration has merged).
     CYPRESS_INSTALL_BINARY: 0
 

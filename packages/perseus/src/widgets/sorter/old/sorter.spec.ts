@@ -70,17 +70,14 @@ test.describe("Sorter widget", () => {
         mount,
         page,
     }) => {
-        // Arrange
         await renderQuestion(mount, twoCardVerticalQuestion);
         const cards = page.locator(CARDS);
         // shuffleSorter always displaces the first card, so two cards always
         // start out reversed.
         await expect(cards).toHaveText(["Banana", "Apple"]);
 
-        // Act
         await dragCardBelowTheNextOne(cards, 0);
 
-        // Assert
         await expect(cards).toHaveText(["Apple", "Banana"]);
     });
 
@@ -88,7 +85,6 @@ test.describe("Sorter widget", () => {
         mount,
         page,
     }) => {
-        // Arrange
         const {getUserInputMap} = await renderQuestion(
             mount,
             twoCardVerticalQuestion,
@@ -96,10 +92,8 @@ test.describe("Sorter widget", () => {
         const cards = page.locator(CARDS);
         await expect(cards).toHaveCount(2);
 
-        // Act
         await dragCardBelowTheNextOne(cards, 0);
 
-        // Assert
         // `toPass` retries while the asynchronous user-input update finishes
         // after the mouse release.
         await expect(async () => {

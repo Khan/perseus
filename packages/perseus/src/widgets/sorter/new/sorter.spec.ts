@@ -64,16 +64,13 @@ test.describe("Sorter widget (drag-and-drop)", () => {
         mount,
         page,
     }) => {
-        // Arrange
         await renderQuestion(mount, twoCardVerticalQuestion, apiOptions);
         const blanks = page.locator(BLANKS);
         const apple = page.locator(BANK_TILES, {hasText: "Apple"});
         await expect(blanks).toHaveCount(2);
 
-        // Act
         await dragTileToBlank(apple, blanks.nth(0), "Apple");
 
-        // Assert
         await expect(blanks.nth(0)).toContainText("Apple");
         await expect(apple).toHaveCount(0);
     });
@@ -82,7 +79,6 @@ test.describe("Sorter widget (drag-and-drop)", () => {
         mount,
         page,
     }) => {
-        // Arrange
         const {getUserInputMap} = await renderQuestion(
             mount,
             twoCardVerticalQuestion,
@@ -93,11 +89,9 @@ test.describe("Sorter widget (drag-and-drop)", () => {
             page.locator(BANK_TILES, {hasText: text});
         await expect(blanks).toHaveCount(2);
 
-        // Act
         await dragTileToBlank(tile("Apple"), blanks.nth(0), "Apple");
         await dragTileToBlank(tile("Banana"), blanks.nth(1), "Banana");
 
-        // Assert
         const score = scorePerseusItemTesting(
             twoCardVerticalQuestion,
             await getUserInputMap(),
