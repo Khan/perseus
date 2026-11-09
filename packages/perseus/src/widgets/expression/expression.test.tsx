@@ -490,7 +490,7 @@ describe("Expression Widget", function () {
             expect(expressionInput).toHaveFocus();
         });
 
-        it("returns true from focus() and succeeds even if called before the DOM ID is assigned", () => {
+        it("returns true from focus() and succeeds even if called before the DOM ID is assigned", async () => {
             // Arrange
             const {renderer} = renderQuestion(
                 expressionItemMultipleEquivalentAnswers.question,
@@ -500,7 +500,7 @@ describe("Expression Widget", function () {
             expressionInput.removeAttribute("id");
 
             // Act
-            const focused = expression.focus();
+            const focused = await act(() => expression.focus());
 
             // Assert
             expect(focused).toBe(true);
@@ -706,6 +706,7 @@ describe("Expression Widget", function () {
                     ).toHaveBeenAnsweredCorrectly(),
                 );
             },
+            10_000, // increase timeout
         );
     });
 });

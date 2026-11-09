@@ -173,6 +173,22 @@ describe("graded-group", () => {
         ).not.toBeInTheDocument();
     });
 
+    it("disables the nested widgets once the answer is correct", async () => {
+        // Arrange
+        renderQuestion(gradedGroupWithDropdownQuestion);
+
+        // Act
+        await userEvent.click(screen.getByRole("combobox"));
+        await userEvent.click(screen.getByText("Correct answer"));
+        await checkAnswer(userEvent);
+
+        // Assert
+        expect(screen.getByRole("combobox")).toHaveAttribute(
+            "aria-disabled",
+            "true",
+        );
+    });
+
     it("should be able to be answered incorrectly", async () => {
         // Arrange
         renderQuestion(gradedGroupWithDropdownQuestion);
