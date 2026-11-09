@@ -138,9 +138,8 @@ describe("MovablePoint", () => {
         // Assert
         expect(movablePoint.mouseTarget()).toBeNull();
         expect(
-            // The mouse target is an invisible SVG shape with no accessible
-            // handle.
-
+            // Need to use querySelector because the mouse target is an
+            // invisible SVG shape with no accessible handle.
             graphieEl.querySelector(
                 '[data-interactive-kind-for-testing="movable-point"]',
             ),
