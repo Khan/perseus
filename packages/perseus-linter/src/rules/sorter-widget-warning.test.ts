@@ -1,6 +1,6 @@
 import {SORTER_MAX_CARDS} from "@khanacademy/perseus-core";
 
-import {expectWarning} from "../__tests__/test-utils";
+import {expectIssue} from "../__tests__/test-utils";
 
 import sorterWidgetWarningRule, {
     sorterMaxIdealCards,
@@ -9,7 +9,7 @@ import sorterWidgetWarningRule, {
 
 describe("sorter-widget-warning", () => {
     it("warns for a sorter widget with over max cards in vertical layout", () => {
-        expectWarning(
+        expectIssue(
             sorterWidgetWarningRule,
             "[[☃ sorter 1]]",
             {
@@ -27,15 +27,15 @@ describe("sorter-widget-warning", () => {
             },
             {
                 messages: [
-                    "Sorter cannot have more than 10 cards.",
-                    "Having more than 5 cards in Sorter is discouraged.",
+                    "sorter 1: Sorter cannot have more than 10 cards.",
+                    "sorter 1: Having more than 5 cards in Sorter is discouraged.",
                 ],
             },
         );
     });
 
     it("warns for a sorter widget with over max cards in horizontal layout", () => {
-        expectWarning(
+        expectIssue(
             sorterWidgetWarningRule,
             "[[☃ sorter 1]]",
             {
@@ -53,16 +53,16 @@ describe("sorter-widget-warning", () => {
             },
             {
                 messages: [
-                    "Sorter cannot have more than 10 cards.",
-                    "Sorter cannot have more than 5 cards in horizontal layout.",
-                    "Having more than 5 cards in Sorter is discouraged.",
+                    "sorter 1: Sorter cannot have more than 10 cards.",
+                    "sorter 1: Sorter cannot have more than 5 cards in horizontal layout.",
+                    "sorter 1: Having more than 5 cards in Sorter is discouraged.",
                 ],
             },
         );
     });
 
     it("warns for a sorter widget with too many cards in horizontal layout", () => {
-        expectWarning(
+        expectIssue(
             sorterWidgetWarningRule,
             "[[☃ sorter 1]]",
             {
@@ -80,15 +80,15 @@ describe("sorter-widget-warning", () => {
             },
             {
                 messages: [
-                    "Sorter cannot have more than 5 cards in horizontal layout.",
-                    "Having more than 5 cards in Sorter is discouraged.",
+                    "sorter 1: Sorter cannot have more than 5 cards in horizontal layout.",
+                    "sorter 1: Having more than 5 cards in Sorter is discouraged.",
                 ],
             },
         );
     });
 
     it("warns for a sorter widget with more than ideal number of cards in horizontal layout", () => {
-        expectWarning(
+        expectIssue(
             sorterWidgetWarningRule,
             "[[☃ sorter 1]]",
             {
@@ -106,15 +106,15 @@ describe("sorter-widget-warning", () => {
             },
             {
                 messages: [
-                    "Sorter cannot have more than 5 cards in horizontal layout.",
-                    "Having more than 5 cards in Sorter is discouraged.",
+                    "sorter 1: Sorter cannot have more than 5 cards in horizontal layout.",
+                    "sorter 1: Having more than 5 cards in Sorter is discouraged.",
                 ],
             },
         );
     });
 
     it("warns for a sorter widget with more than ideal number of cards in vertical layout", () => {
-        expectWarning(
+        expectIssue(
             sorterWidgetWarningRule,
             "[[☃ sorter 1]]",
             {
@@ -132,7 +132,7 @@ describe("sorter-widget-warning", () => {
             },
             {
                 messages: [
-                    "Having more than 5 cards in Sorter is discouraged.",
+                    "sorter 1: Having more than 5 cards in Sorter is discouraged.",
                 ],
             },
         );

@@ -1,9 +1,8 @@
+import {linterError} from "../lint";
 import Rule from "../rule";
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "image-url-empty",
-    severity: Rule.Severity.ERROR,
     selector: "image",
     lint: function (state, content, nodes) {
         const image: any = nodes[0];
@@ -13,7 +12,7 @@ export default Rule.makeRule({
         // overlaying the page where the image should be. This prevents the page
         // from fully loading. As a result, we check for URLS with all images.
         if (!url || !url.trim()) {
-            return "Images should have a URL";
+            return linterError("Images should have a URL");
         }
 
         // NOTE(TB): Ideally there would be a check to confirm the URL works
@@ -21,4 +20,4 @@ export default Rule.makeRule({
         // linting to be able to handle async functions, which it currently
         // cannot do.
     },
-}) as Rule;
+});

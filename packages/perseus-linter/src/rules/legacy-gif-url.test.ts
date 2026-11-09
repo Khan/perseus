@@ -1,10 +1,10 @@
-import {expectWarning, expectPass} from "../__tests__/test-utils";
+import {expectIssue, expectPass} from "../__tests__/test-utils";
 
 import legacyGifUrlRule from "./legacy-gif-url";
 
 describe("legacy-gif-url", () => {
     it("warns for a legacy S3 gif URL", () => {
-        expectWarning(legacyGifUrlRule, "[[☃ image 1]]", {
+        expectIssue(legacyGifUrlRule, "[[☃ image 1]]", {
             widgets: {
                 "image 1": {
                     options: {
@@ -18,7 +18,7 @@ describe("legacy-gif-url", () => {
     });
 
     it("warns regardless of the gif extension's casing", () => {
-        expectWarning(legacyGifUrlRule, "[[☃ image 1]]", {
+        expectIssue(legacyGifUrlRule, "[[☃ image 1]]", {
             widgets: {
                 "image 1": {
                     options: {

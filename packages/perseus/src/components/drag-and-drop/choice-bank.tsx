@@ -1,8 +1,10 @@
-import {useDroppable} from "@dnd-kit/react";
+import {useDragOperation, useDroppable} from "@dnd-kit/react";
+import classNames from "classnames";
 import * as React from "react";
 import {useId} from "react";
 
 import styles from "./choice-bank.module.css";
+import {readTileDragData} from "./drag-ids";
 
 /**
  * The bank's droppable id: a tile dropped here returns to the bank.
@@ -31,14 +33,23 @@ export function ChoiceBank({
     label,
 }: ChoiceBankProps): React.ReactElement {
     const labelId = useId();
-    const {ref} = useDroppable({id: CHOICE_BANK_DROP_ID});
+    const {ref, isDropTarget} = useDroppable({id: CHOICE_BANK_DROP_ID});
+    const {source} = useDragOperation();
+    const dragged = readTileDragData(source?.data);
+    const isActiveDropTarget = isDropTarget && dragged?.fromBlankId != null;
 
     // The whole card is the drop target, so a tile can land anywhere in
     // the dashed area — the list alone has no height once the bank is
     // empty. Dropped tiles still render as list items; the ref only
     // sets where a drop counts.
     return (
-        <div ref={ref} className={styles.choiceBank}>
+        <div
+            ref={ref}
+            className={classNames(
+                styles.choiceBank,
+                isActiveDropTarget && styles.dropTarget,
+            )}
+        >
             <span id={labelId} className={styles.label}>
                 {label}
             </span>

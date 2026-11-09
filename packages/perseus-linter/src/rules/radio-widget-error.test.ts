@@ -1,11 +1,11 @@
-import {expectPass, expectWarning} from "../__tests__/test-utils";
+import {expectPass, expectIssue} from "../__tests__/test-utils";
 
 import radioWidgetErrorRule from "./radio-widget-error";
 
 describe("radio-widget-error", () => {
     describe("No choice is marked as correct.", () => {
         it("warns for radio widget with no choices", () => {
-            expectWarning(radioWidgetErrorRule, "[[☃ radio 1]]", {
+            expectIssue(radioWidgetErrorRule, "[[☃ radio 1]]", {
                 widgets: {
                     "radio 1": {
                         options: {
@@ -17,7 +17,7 @@ describe("radio-widget-error", () => {
         });
 
         it("warns for radio widget with no correct choices", () => {
-            expectWarning(radioWidgetErrorRule, "[[☃ radio 1]]", {
+            expectIssue(radioWidgetErrorRule, "[[☃ radio 1]]", {
                 widgets: {
                     "radio 1": {
                         options: {
@@ -43,7 +43,7 @@ describe("radio-widget-error", () => {
 
     describe("Cannot mark both None of the Above and another choice as correct.", () => {
         it("warns when None of the Above is marked correct alongside another correct choice", () => {
-            expectWarning(radioWidgetErrorRule, "[[☃ radio 1]]", {
+            expectIssue(radioWidgetErrorRule, "[[☃ radio 1]]", {
                 widgets: {
                     "radio 1": {
                         options: {

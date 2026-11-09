@@ -76,3 +76,11 @@
 .perseus-sortable :is(div, p).deprecated-perseus-container {
     margin: 0;
 }
+
+/* See LEMS-4701
+ * Sorters in articles were rendering extra margins under TeX */
+.perseus-sortable .perseus-block-math,
+.perseus-sortable .perseus-block-math-inner {
+    margin: 0 !important;
+    padding: 0 !important;
+}

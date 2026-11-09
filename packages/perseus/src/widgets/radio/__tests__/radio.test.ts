@@ -7,11 +7,9 @@ import {scoreRadio} from "@khanacademy/perseus-score";
 import {screen, fireEvent} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import * as Dependencies from "../../../dependencies";
+import {renderQuestion} from "../../../__testutils__/render-question";
 import {clone} from "../../../testing/object-utils";
-import {testDependencies} from "../../../testing/test-dependencies";
 import {scorePerseusItemTesting} from "../../../util/scoring.testutils";
-import {renderQuestion} from "../../__testutils__/render-question";
 
 import {
     questionAndAnswer,
@@ -44,10 +42,6 @@ describe("Radio Widget", () => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
 
         // Mocked for loading graphie in svg-image
         // eslint-disable-next-line no-restricted-syntax

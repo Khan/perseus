@@ -1,4 +1,4 @@
-import {expectWarning, expectPass} from "../__tests__/test-utils";
+import {expectIssue, expectPass} from "../__tests__/test-utils";
 
 import mathAlignLinebreaksRule from "./math-align-linebreaks";
 
@@ -9,7 +9,7 @@ describe("math-align-linebreaks", () => {
         "$\\begin{align}x\\\\\\\\\\\\y\\end{align}$",
         "$\\begin{align}\nx\\\\\n\\\\\\\\\ny\n\\end{align}$",
     ])("mathAlignLinebreaksRule warns with: %s", (str: string) => {
-        expectWarning(mathAlignLinebreaksRule, str);
+        expectIssue(mathAlignLinebreaksRule, str);
     });
 
     it.each([

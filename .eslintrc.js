@@ -162,6 +162,10 @@ const noSelfPackageImports = pkgNames.map((pkgName) => ({
 }));
 
 module.exports = {
+    // Don't merge in configs from parent directories. Without this, a git
+    // worktree inside this repo (e.g. under .claude/worktrees/) also loads the
+    // main checkout's config, and ESLint fails on the duplicate plugins.
+    root: true,
     extends: [
         "@khanacademy",
         "@khanacademy/eslint-config/a11y",

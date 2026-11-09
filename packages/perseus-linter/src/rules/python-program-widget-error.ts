@@ -1,27 +1,10 @@
+import {linterError} from "../lint";
 import Rule from "../rule";
 
-// eslint-disable-next-line no-restricted-syntax
-export default Rule.makeRule({
+export default Rule.makeWidgetRule({
     name: "python-program-widget-error",
-    severity: Rule.Severity.ERROR,
-    selector: "widget",
-    lint: function (state, content, nodes, match, context) {
-        // This rule only looks at python-program widgets
-        if (state.currentNode().widgetType !== "python-program") {
-            return;
-        }
-
-        const nodeId = state.currentNode().id;
-        if (!nodeId) {
-            return;
-        }
-
-        // If it can't find a definition for the widget it does nothing
-        const widget = context?.widgets?.[nodeId];
-        if (!widget) {
-            return;
-        }
-
+    widgetType: "python-program",
+    lint(widget) {
         const errors: Array<string> = [];
         const height = widget.options.height;
         const programID = widget.options.programID;
@@ -34,6 +17,6 @@ export default Rule.makeRule({
             errors.push("The height must be a positive integer.");
         }
 
-        return errors;
+        return errors.map((error) => linterError(error));
     },
-}) as Rule;
+});

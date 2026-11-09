@@ -1,9 +1,8 @@
+import {linterError} from "../lint";
 import Rule from "../rule";
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "image-spaces-around-urls",
-    severity: Rule.Severity.ERROR,
     selector: "image",
     lint: function (state, content, nodes, match, context) {
         const image: any = nodes[0];
@@ -26,10 +25,10 @@ export default Rule.makeRule({
                 context.content[index - 1] !== "(" ||
                 context.content[index + url.length] !== ")"
             ) {
-                return `Whitespace before or after image url:
+                return linterError(`Whitespace before or after image url:
 For images, don't include any space or newlines after '(' or before ')'.
-Whitespace in image URLs causes translation difficulties.`;
+Whitespace in image URLs causes translation difficulties.`);
             }
         }
     },
-}) as Rule;
+});

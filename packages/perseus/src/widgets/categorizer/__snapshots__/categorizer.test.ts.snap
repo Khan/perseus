@@ -164,6 +164,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                   >
                     <div
+                      aria-disabled="false"
                       aria-label="No relationship"
                       role="button"
                     >
@@ -181,6 +182,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                   >
                     <div
+                      aria-disabled="false"
                       aria-label="Positive linear relationship"
                       role="button"
                     >
@@ -198,6 +200,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                   >
                     <div
+                      aria-disabled="false"
                       aria-label="Negative linear relationship"
                       role="button"
                     >
@@ -215,6 +218,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                   >
                     <div
+                      aria-disabled="false"
                       aria-label="Nonlinear relationship"
                       role="button"
                     >
@@ -260,6 +264,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                   >
                     <div
+                      aria-disabled="false"
                       aria-label="No relationship"
                       role="button"
                     >
@@ -277,6 +282,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                   >
                     <div
+                      aria-disabled="false"
                       aria-label="Positive linear relationship"
                       role="button"
                     >
@@ -294,6 +300,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                   >
                     <div
+                      aria-disabled="false"
                       aria-label="Negative linear relationship"
                       role="button"
                     >
@@ -311,6 +318,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                   >
                     <div
+                      aria-disabled="false"
                       aria-label="Nonlinear relationship"
                       role="button"
                     >
@@ -601,6 +609,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                   >
                     <div
+                      aria-disabled="false"
                       aria-label="No relationship"
                       role="button"
                     >
@@ -629,6 +638,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                   >
                     <div
+                      aria-disabled="false"
                       aria-label="Positive linear relationship"
                       role="button"
                     >
@@ -657,6 +667,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                   >
                     <div
+                      aria-disabled="false"
                       aria-label="Negative linear relationship"
                       role="button"
                     >
@@ -685,6 +696,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                   >
                     <div
+                      aria-disabled="false"
                       aria-label="Nonlinear relationship"
                       role="button"
                     >
@@ -741,6 +753,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                   >
                     <div
+                      aria-disabled="false"
                       aria-label="No relationship"
                       role="button"
                     >
@@ -769,6 +782,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                   >
                     <div
+                      aria-disabled="false"
                       aria-label="Positive linear relationship"
                       role="button"
                     >
@@ -797,6 +811,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                   >
                     <div
+                      aria-disabled="false"
                       aria-label="Negative linear relationship"
                       role="button"
                     >
@@ -825,6 +840,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                   >
                     <div
+                      aria-disabled="false"
                       aria-label="Nonlinear relationship"
                       role="button"
                     >

@@ -1,3 +1,4 @@
+import {linterGuideline} from "../lint";
 import Rule from "../rule";
 
 export const MISSING_CAPTION_MESSAGE = `Table is missing a caption:
@@ -44,10 +45,8 @@ function hasEmptyHeaders(table: any): boolean {
     );
 }
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "table-missing-caption",
-    severity: Rule.Severity.GUIDELINE,
     // The selector grammar has no `:not()`, so we match every table and
     // inspect its parent in `lint()`. A captioned table is parsed as a
     // `titledTable` node whose `table` property holds the table itself, so
@@ -64,14 +63,14 @@ export default Rule.makeRule({
         const parent = state.parent();
 
         if (parent?.type !== "titledTable") {
-            return MISSING_CAPTION_MESSAGE;
+            return linterGuideline(MISSING_CAPTION_MESSAGE);
         }
 
         // The table has a caption line, but an author can write one with no
         // text in it (for example "||   ||"), which renders an empty
         // <caption> element. That is no more useful than having no caption.
         if (getTitleText(parent) === "") {
-            return EMPTY_CAPTION_MESSAGE;
+            return linterGuideline(EMPTY_CAPTION_MESSAGE);
         }
     },
-}) as Rule;
+});

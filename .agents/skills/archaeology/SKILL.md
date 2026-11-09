@@ -1,18 +1,12 @@
 ---
 name: archaeology
 description: >
-  Investigates *why* Perseus code is the way it is by tracing its history across the
-  several GitHub repos Perseus has lived in over its lifetime (khan-exercises →
-  Khan/perseus → Khan/webapp → Khan/perseus). Use this skill whenever someone asks a
-  code-archaeology or "why is it like this" question about Perseus — e.g. "why do we
-  have both X and Y widgets?", "why is this implemented this way?", "when/why was this
-  added?", "what's the history behind this file/function?", or hands you a commit, PR,
-  or file and wants its origins explained. Also triggers on the explicit /archaeology
-  command. This matters because Perseus's history bridges multiple repo moves (and
-  predates React), so an ordinary `git blame` in the current checkout dead-ends at the
-  2022 "initial commit" squash — this skill knows how to bridge those gaps. Do NOT use
-  it for general web research (use deep-research) or for understanding what current
-  code *does* (just read the code).
+  Investigates *why* Perseus code is the way it is by tracing its history across
+  the repos Perseus has lived in (khan-exercises → Khan/perseus → Khan/webapp →
+  Khan/perseus), past the 2022 "initial commit" squash that stops `git blame`.
+  Use for "why is it like this", "when/why was this added", or "what's the
+  history of this file/commit/PR" questions about Perseus, and for /archaeology.
+  Not for general web research or for explaining what current code does.
 ---
 
 # Perseus code archaeology
@@ -55,7 +49,7 @@ Source doc (humans, internal): [Perseus GitHub History](https://khanacademy.atla
 Prefer **local clones** at the canonical path `$HOME/khan/<repo>`; fall back to `gh` /
 the GitHub API when a repo isn't cloned.
 
-Likely already present locally: `perseus` (this repo) and `webapp`. If `webapp` is missing, stop and ask the user to clone it! The legacy repos like `khan-exercises`, `mathquill`, `ka-perseus-graphie`, and `live-editor` are rarely cloned locally.
+Likely already present locally: `perseus` (this repo) and `webapp`. The legacy repos like `khan-exercises`, `mathquill`, `ka-perseus-graphie`, and `live-editor` are rarely cloned locally.
 
 When a clone would meaningfully speed up the dig (e.g. deep blame-walking a
 sibling repo) and it isn't present, **offer to clone it** to the canonical location and,
@@ -79,10 +73,10 @@ Work **newest → oldest**, crossing repo boundaries only as far back as the que
 2. **Walk the current repo** with `git log`/`git blame` until you hit the
    `cb841024 "initial commit"` floor. If you don't have your answer yet,
    look in the webapp git history.
-   ```
 
 3. **Walk the webapp era (2018–2022)** if the trail runs through those
-   years. In webapp, Perseus lived under `javascript/perseus-all-package/...`
+   years. If `~/khan/webapp` is missing, stop and ask the user to clone it.
+   In webapp, Perseus lived under `javascript/perseus-all-package/...`
    (and earlier `src/widgets/...`, later also `services/static/javascript/perseus-all-package/...`). Discover the historical path, then log within the
    era:
    ```bash
@@ -152,8 +146,8 @@ archived after they were moved, so their history is frozen today.
 | graphie-to-png | [`Khan/internal-services`](https://github.com/Khan/internal-services) (`graphie-to-png/`) | A website for building graphie images (a multi-file image format that combines a base SVG with a JSON data file that defines overlay labels that can be translated). There is a copy of the graphie renderer code in this repo. Earlier graphie drawing code also appears in [`Khan/khan-exercises`](https://github.com/Khan/khan-exercises) (`utils/graphie*.js`). |
 | `perseus-core`, `perseus-editor`, `perseus-linter`, `perseus-score`, `perseus-utils`, `pure-markdown`, `keypad-context` | (none) | Split out *within* the monorepo from `perseus`; no pre-monorepo repo. Trace them in this repo. |
 
-**Discovery recipe** for a package not in the table, first ASK for help, then
-try:
+**Discovery recipe** for a package not in the table. Try these first; if they
+don't identify the origin repo, ask:
 ```bash
 gh repo view Khan/<name> --json name,isArchived,createdAt   # try casing variants, e.g. KAS
 git log --diff-filter=A --date=short --format='%h %ad | %s' \

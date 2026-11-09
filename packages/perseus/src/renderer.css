@@ -48,4 +48,45 @@
             max-width: 68.8rem;
         }
     }
+
+    /*******************
+     * Markdown Tables *
+     *******************/
+    .framework-perseus table {
+        border-collapse: collapse;
+        margin-inline: 0;
+        margin-block: auto;
+        /* min-width prevents tables from being too cramped on small screens.
+         * If the table is wider than the container, we use JavaScript to apply
+         * a CSS transform to zoom it out. The user can then click to zoom in.
+         */
+        min-width: 48rem;
+        tbody > tr {
+            border: var(--wb-border-width-thin) solid
+                var(--wb-semanticColor-core-border-neutral-subtle);
+        }
+        th {
+            font-weight: bold;
+        }
+        td {
+            background-color: var(
+                --wb-semanticColor-core-background-base-default
+            );
+        }
+        :is(th, td) {
+            padding: var(--wb-sizing-size_160);
+            text-align: left;
+
+            &[align="center"] {
+                text-align: center;
+            }
+            &[align="right"] {
+                text-align: right;
+            }
+        }
+    }
+    .framework-perseus .perseus-table-title {
+        text-align: center;
+        font-size: var(--wb-font-heading-size-medium);
+    }
 }
