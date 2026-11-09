@@ -1,5 +1,5 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
-import {render, screen} from "@testing-library/react";
+import {act, render, screen} from "@testing-library/react";
 import {
     userEvent as userEventLib,
     type UserEvent,
@@ -12,7 +12,7 @@ import {
     testDependencies,
     testDependenciesV2,
 } from "./testing/test-dependencies";
-import {registerAllWidgetsAndEditorsForTesting} from "./util/register-all-widgets-and-editors-for-testing";
+import {registerAllWidgetsAndEditorsForTesting} from "./util/register-all-widgets-and-editors.testutils";
 
 describe("ArticleEditor", () => {
     beforeAll(() => {
@@ -97,7 +97,7 @@ describe("ArticleEditor", () => {
         expect(screen.getByText("Issue:")).toBeInTheDocument();
     });
 
-    it("should match snapshot for editing disabled for all widgets", () => {
+    it("should match snapshot for editing disabled for all widgets", async () => {
         // Arrange, Act
         const {container} = render(
             <ArticleEditor
@@ -113,6 +113,9 @@ describe("ArticleEditor", () => {
                 previewURL="https://www.example.com"
             />,
         );
+        // Wait for plotter's card resizing to settle. RTL logs an error if
+        // the resize happens outside an act() call.
+        await act(() => Promise.resolve());
 
         // Assert
         // Note: the interactive-graph movable point renders fill/stroke="none"
@@ -121,5 +124,5 @@ describe("ArticleEditor", () => {
         // to "" and Raphael renders it as "none". The real color resolves in a
         // browser (covered by Chromatic). See movable-point.tsx / .test.ts.
         expect(container).toMatchSnapshot();
-    });
+    }, 10_000 /* increase timeout - this is a huge snapshot! */);
 });

@@ -3,8 +3,7 @@
     "extends": "../../tsconfig-common.json",
     "compilerOptions": {
         "noEmit": true,
-        // be explicit about types included
-        // to avoid clashing with Jest types
+        // be explicit about types included to avoid clashing with Jest types
         "types": [
             "cypress",
             "node",
@@ -13,10 +12,16 @@
         ],
     },
     "include": [
+        // All typescript files in _this_ directory
         "**/*.ts",
         "**/*.tsx",
-        "../../cypress.config.ts",
+        // All .cypress.tsx? files in any package
         "../../packages/**/*.cypress.ts",
         "../../packages/**/*.cypress.tsx",
+        "../../cypress.config.mts",
+        "../../packages/perseus/src/testing/render-question-with-cypress.tsx",
+        // Shared and package-specific ambient declarations
+        "../../types/**/*.d.ts",
+        "../../packages/*/types/**/*.d.ts",
     ],
 }

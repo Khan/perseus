@@ -273,7 +273,7 @@ export const numericInputInExplanation: PerseusRenderer =
                     showPrompt: "Show practice problem",
                     hidePrompt: "Hide practice problem",
                     explanation:
-                        "Warp 1 equals the speed of light. Enter the warp " +
+                        "A warp factor of 1 equals the speed of light. Enter the warp " +
                         "factor that equals twice the speed of light: " +
                         "[[☃ numeric-input 1]]",
                     widgets: {

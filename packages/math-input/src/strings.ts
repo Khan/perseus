@@ -64,6 +64,9 @@ export type MathInputStrings = {
     navIntoNumerator: string;
     navOutOfNumeratorIntoDenominator: string;
     navOutOfDenominator: string;
+    navOutOfSquareRoot: string;
+    navOutOfRadicalIndexIntoRadicand: string;
+    navOutOfRadical: string;
     delete: string;
     dismiss: string;
 };
@@ -262,6 +265,10 @@ export const strings: {
     navOutOfNumeratorIntoDenominator:
         "Navigate right out of the numerator and into the denominator",
     navOutOfDenominator: "Navigate right out of the denominator of a fraction",
+    navOutOfSquareRoot: "Navigate right out of a square root",
+    navOutOfRadicalIndexIntoRadicand:
+        "Navigate right out of the index and into the radicand of a radical",
+    navOutOfRadical: "Navigate right out of a radical",
     delete: "Delete",
     dismiss: {
         context: "A label for a button that will dismiss/hide a keypad.",
@@ -338,6 +345,10 @@ export const mockStrings: MathInputStrings = {
     navOutOfNumeratorIntoDenominator:
         "Navigate right out of the numerator and into the denominator",
     navOutOfDenominator: "Navigate right out of the denominator of a fraction",
+    navOutOfSquareRoot: "Navigate right out of a square root",
+    navOutOfRadicalIndexIntoRadicand:
+        "Navigate right out of the index and into the radicand of a radical",
+    navOutOfRadical: "Navigate right out of a radical",
     delete: "Delete",
     dismiss: "Dismiss",
 };

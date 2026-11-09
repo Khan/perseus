@@ -10,9 +10,9 @@ import {
 import {isInaccessible, screen, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
+import {renderQuestion} from "../../../__testutils__/render-question";
 import {getFeatureFlags} from "../../../testing/feature-flags-util";
-import {scorePerseusItemTesting} from "../../../util/test-utils";
-import {renderQuestion} from "../../__testutils__/render-question";
+import {scorePerseusItemTesting} from "../../../util/scoring.testutils";
 
 import type {APIOptions} from "../../../types";
 import type {SorterLegend} from "../legend/legend-types";

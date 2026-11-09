@@ -243,6 +243,16 @@ This is a paragraph after the block math.
 
 export const tableContent = `# Article with a Markdown table
 
+| column A | column B (right aligned) | column C (centered)    |
+| -------- | -----------------------: | :--------------------: |
+| turtles  | 42                       | $\\text{\\red{red}}$   |
+| bats     | 96                       | $\\text{\\blue{blue}}$ |
+| cabbages | 0                        | $\\dfrac{1}{2}$        |
+`;
+
+export const titledTableContent = `# Article with a Markdown table
+
+|| Magical Creatures ||
 | column A | column B | column C |
 | -------- | -------- | -------- |
 | turtles  | 42       | $\\text{\\red{red}}$ |

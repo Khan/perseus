@@ -6,7 +6,7 @@ import {
     seededRNG,
     shuffle,
 } from "./random-util";
-import {range} from "./range";
+import {range} from "./range.testutils";
 
 describe("shuffle", () => {
     it("does nothing to an empty array", () => {

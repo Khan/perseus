@@ -49,6 +49,8 @@ export const FreeResponse = forwardRef<Widget, Props>(function FreeResponse(
     const isRequired =
         isScorable && !reviewMode && !isStatic && !apiOptions.readOnly;
 
+    const isDisabled = Boolean(isStatic || apiOptions.readOnly);
+
     const {allowUnlimitedCharacters, characterLimit, question, placeholder} =
         options;
 
@@ -94,6 +96,7 @@ export const FreeResponse = forwardRef<Widget, Props>(function FreeResponse(
                         placeholder={placeholder}
                         style={styles.textarea}
                         value={userInput.currentValue}
+                        disabled={isDisabled}
                     />
                 }
                 additionalHelperMessage={

@@ -10,7 +10,7 @@ import {useRef, useState} from "react";
 import {comprehensiveQuestion} from "../__testdata__/all-widgets.testdata";
 import ArticleEditor from "../article-editor";
 import {testDependenciesV2} from "../testing/test-dependencies";
-import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
+import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors.testutils";
 
 import "../styles/perseus-editor.css"; // This helps ensure the styles are loaded correctly and timely
 import {usePreviewUrl} from "./use-preview-url";

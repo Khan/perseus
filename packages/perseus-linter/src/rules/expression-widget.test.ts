@@ -1,4 +1,4 @@
-import {expectPass, expectWarning} from "../__tests__/test-utils";
+import {expectPass, expectIssue} from "../__tests__/test-utils";
 
 import {
     ExpressionWidgetAnswerForms,
@@ -8,7 +8,7 @@ import {
 
 describe("expression-widget-buttons", () => {
     it("warns for sqrt without the prealgebra button set", () => {
-        expectWarning(
+        expectIssue(
             ExpressionWidgetButtons,
             "[[☃ expression 1]]",
             {
@@ -30,8 +30,9 @@ describe("expression-widget-buttons", () => {
                 },
             },
             {
-                message:
+                messages: [
                     "expression 1: Answer requires a button not found in the button sets: \\sqrt (in prealgebra)",
+                ],
             },
         );
     });
@@ -58,7 +59,7 @@ describe("expression-widget-buttons", () => {
     });
 
     it("warns for ^ without the prealgebra button set", () => {
-        expectWarning(ExpressionWidgetButtons, "[[☃ expression 1]]", {
+        expectIssue(ExpressionWidgetButtons, "[[☃ expression 1]]", {
             widgets: {
                 "expression 1": {
                     options: {
@@ -100,7 +101,7 @@ describe("expression-widget-buttons", () => {
     });
 
     it("warns for sin without the trig button set", () => {
-        expectWarning(ExpressionWidgetButtons, "[[☃ expression 1]]", {
+        expectIssue(ExpressionWidgetButtons, "[[☃ expression 1]]", {
             widgets: {
                 "expression 1": {
                     options: {
@@ -142,7 +143,7 @@ describe("expression-widget-buttons", () => {
     });
 
     it("warns for log without the logarithms button set", () => {
-        expectWarning(ExpressionWidgetButtons, "[[☃ expression 1]]", {
+        expectIssue(ExpressionWidgetButtons, "[[☃ expression 1]]", {
             widgets: {
                 "expression 1": {
                     options: {
@@ -186,7 +187,7 @@ describe("expression-widget-buttons", () => {
 
 describe("expression-widget-correct-answer", () => {
     it("warns when no answers are specified", () => {
-        expectWarning(
+        expectIssue(
             ExpressionWidgetCorrectAnswer,
             "[[☃ expression 1]]",
             {
@@ -198,12 +199,12 @@ describe("expression-widget-correct-answer", () => {
                     },
                 },
             },
-            {message: "expression 1: No answers specified."},
+            {messages: ["expression 1: No answers specified."]},
         );
     });
 
     it("warns when no correct answer is specified", () => {
-        expectWarning(
+        expectIssue(
             ExpressionWidgetCorrectAnswer,
             "[[☃ expression 1]]",
             {
@@ -222,7 +223,7 @@ describe("expression-widget-correct-answer", () => {
                     },
                 },
             },
-            {message: "expression 1: No correct answer specified."},
+            {messages: ["expression 1: No correct answer specified."]},
         );
     });
 
@@ -276,52 +277,55 @@ describe("expression-widget-answer-forms", () => {
     const content = "[[☃ expression 1]]";
 
     it("warns when an answer is empty", () => {
-        expectWarning(
+        expectIssue(
             ExpressionWidgetAnswerForms,
             content,
             expressionWidget({answers: [{value: ""}]}),
-            {message: "expression 1: Answer 1 is empty."},
+            {messages: ["expression 1: Answer 1 is empty."]},
         );
     });
 
     it("numbers empty answers by their position", () => {
-        expectWarning(
+        expectIssue(
             ExpressionWidgetAnswerForms,
             content,
             expressionWidget({answers: [{value: "2"}, {value: ""}]}),
-            {message: "expression 1: Answer 2 is empty."},
+            {messages: ["expression 1: Answer 2 is empty."]},
         );
     });
 
     it("warns when value could not be parsed", () => {
-        expectWarning(
+        expectIssue(
             ExpressionWidgetAnswerForms,
             content,
             expressionWidget({answers: [{value: "2.4.r"}]}),
-            {message: "expression 1: Couldn't parse 2.4.r."},
+            {messages: ["expression 1: Couldn't parse 2.4.r."]},
         );
     });
 
     it("warns when value is not simplified but is required to be", () => {
-        expectWarning(
+        expectIssue(
             ExpressionWidgetAnswerForms,
             content,
             expressionWidget({answers: [{value: "2/1", simplify: true}]}),
             {
-                message:
+                messages: [
                     "expression 1: 2/1 isn't simplified, but is required to be.",
+                ],
             },
         );
     });
 
     it("combines the messages for multiple bad answers", () => {
-        expectWarning(
+        expectIssue(
             ExpressionWidgetAnswerForms,
             content,
             expressionWidget({answers: [{value: ""}, {value: "2.4.r"}]}),
             {
-                message:
-                    "expression 1: Answer 1 is empty.\n\nCouldn't parse 2.4.r.",
+                messages: [
+                    "expression 1: Answer 1 is empty.",
+                    "expression 1: Couldn't parse 2.4.r.",
+                ],
             },
         );
     });
@@ -356,13 +360,14 @@ describe("expression-widget-answer-forms", () => {
     });
 
     it("treats names not in the functions list as variables", () => {
-        expectWarning(
+        expectIssue(
             ExpressionWidgetAnswerForms,
             content,
             expressionWidget({answers: [{value: "f(x)/x", simplify: true}]}),
             {
-                message:
+                messages: [
                     "expression 1: f(x)/x isn't simplified, but is required to be.",
+                ],
             },
         );
     });

@@ -11,6 +11,7 @@ import {
     testDependenciesV2,
 } from "../../testing/test-dependencies";
 
+import {getBaseMafsGraphPropsForTests} from "./graph.testutils";
 import {MafsGraph} from "./mafs-graph";
 import {
     actions,
@@ -18,7 +19,7 @@ import {
     REMOVE_POINT,
 } from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
-import {calculateNestedSVGCoords, getBaseMafsGraphPropsForTests} from "./utils";
+import {calculateNestedSVGCoords} from "./utils";
 
 import type {MafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState} from "./types";

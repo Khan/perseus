@@ -3,7 +3,6 @@ import SimpleMarkdown from "@khanacademy/simple-markdown";
 
 import {clamp, clampToBox, inset, MIN, size, snap, X, Y} from "./math";
 
-import type {MafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState, UnlimitedGraphState} from "./types";
 import type {Coord} from "../../interactive2/types";
 import type {PerseusInteractiveGraphWidgetOptions} from "@khanacademy/perseus-core";
@@ -181,40 +180,6 @@ function escapeIfUnescaped(character: string) {
     }
 }
 
-export function getBaseMafsGraphPropsForTests(): MafsGraphProps {
-    return {
-        box: [400, 400],
-        step: [1, 1],
-        gridStep: [1, 1],
-        markings: "graph",
-        containerSizeClass: "small",
-        showTooltips: false,
-        showProtractor: false,
-        readOnly: false,
-        labels: ["x", "y"],
-        lockedFigures: [],
-        static: false,
-        showAxisArrows: {
-            xMin: true,
-            xMax: true,
-            yMin: true,
-            yMax: true,
-        },
-        showAxisTicks: {x: true, y: true},
-        dispatch: () => {},
-        state: {
-            type: "segment",
-            hasBeenInteractedWith: false,
-            coords: [],
-            snapStep: [1, 1],
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-        },
-        widgetId: "test-widget-id",
-    };
-}
 // Calculate the difference between the min and max values of a range
 const getRangeDiff = (range: vec.Vector2) => {
     const [min, max] = range;

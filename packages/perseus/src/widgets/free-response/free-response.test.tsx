@@ -6,9 +6,7 @@ import {
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
-import {renderQuestion} from "../__testutils__/render-question";
+import {renderQuestion} from "../../__testutils__/render-question";
 
 import type {APIOptions} from "../../types";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
@@ -21,10 +19,6 @@ describe("free-response widget", () => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
     });
 
     it("should snapshot", () => {
@@ -303,5 +297,49 @@ describe("required state", () => {
         expect(
             screen.getByRole("textbox", {name: "test-question"}),
         ).not.toBeRequired();
+    });
+});
+
+describe("disabled state", () => {
+    const generateRenderer = (isStatic: boolean): PerseusRenderer =>
+        generateTestPerseusRenderer({
+            content: "[[☃ free-response 1]]",
+            widgets: {
+                "free-response 1": generateFreeResponseWidget({
+                    static: isStatic,
+                    options: generateFreeResponseOptions({
+                        question: "test-question",
+                    }),
+                }),
+            },
+        });
+
+    it("does not mark the textarea as aria-disabled when interactive", () => {
+        // Arrange, Act
+        renderQuestion(generateRenderer(false), {
+            apiOptions: {readOnly: false},
+        });
+
+        // Assert
+        expect(
+            screen.getByRole("textbox", {name: "test-question"}),
+        ).toHaveAttribute("aria-disabled", "false");
+    });
+
+    describe.each([
+        {name: "static", isStatic: true, readOnly: false},
+        {name: "read-only", isStatic: false, readOnly: true},
+    ])("when $name", ({isStatic, readOnly}) => {
+        it("marks the textarea as aria-disabled", () => {
+            // Arrange, Act
+            renderQuestion(generateRenderer(isStatic), {
+                apiOptions: {readOnly},
+            });
+
+            // Assert
+            expect(
+                screen.getByRole("textbox", {name: "test-question"}),
+            ).toHaveAttribute("aria-disabled", "true");
+        });
     });
 });

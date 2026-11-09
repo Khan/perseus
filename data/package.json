@@ -5,7 +5,7 @@
     "scripts": {
         "find-questions": "./find-questions.ts"
     },
-    "dependencies": {
+    "devDependencies": {
         "@khanacademy/perseus-core": "workspace:*"
     }
 }

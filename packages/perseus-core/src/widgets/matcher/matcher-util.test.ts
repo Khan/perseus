@@ -1,4 +1,4 @@
-import {range} from "../../utils/range";
+import {range} from "../../utils/range.testutils";
 
 import {getMatcherPublicWidgetOptions, shuffleMatcher} from "./matcher-util";
 

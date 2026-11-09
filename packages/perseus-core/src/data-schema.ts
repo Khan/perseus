@@ -2325,33 +2325,4 @@ export type PerseusInputNumberAnswer = PerseusNumericInputAnswer;
 
 export type PerseusInputNumberWidgetOptions = PerseusNumericInputWidgetOptions;
 
-export type PerseusWidgetOptions =
-    | PerseusBlankWidgetOptions
-    | PerseusCategorizerWidgetOptions
-    | PerseusCSProgramWidgetOptions
-    | PerseusDefinitionWidgetOptions
-    | PerseusDropdownWidgetOptions
-    | PerseusExplanationWidgetOptions
-    | PerseusExpressionWidgetOptions
-    | PerseusFillInTheBlankWidgetOptions
-    | PerseusFreeResponseWidgetOptions
-    | PerseusGradedGroupSetWidgetOptions
-    | PerseusGradedGroupWidgetOptions
-    | PerseusIFrameWidgetOptions
-    | PerseusImageWidgetOptions
-    | PerseusInputNumberWidgetOptions
-    | PerseusInteractionWidgetOptions
-    | PerseusInteractiveGraphWidgetOptions
-    | PerseusLabelImageWidgetOptions
-    | PerseusMatcherWidgetOptions
-    | PerseusMatrixWidgetOptions
-    | PerseusMeasurerWidgetOptions
-    | PerseusNumberLineWidgetOptions
-    | PerseusNumericInputWidgetOptions
-    | PerseusOrdererWidgetOptions
-    | PerseusPhetSimulationWidgetOptions
-    | PerseusPlotterWidgetOptions
-    | PerseusRadioWidgetOptions
-    | PerseusSorterWidgetOptions
-    | PerseusTableWidgetOptions
-    | PerseusVideoWidgetOptions;
+export type PerseusWidgetOptions = PerseusWidget["options"];

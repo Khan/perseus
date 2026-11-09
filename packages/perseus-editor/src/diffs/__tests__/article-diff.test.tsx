@@ -11,7 +11,7 @@ import {
     testDependencies,
     testDependenciesV2,
 } from "../../testing/test-dependencies";
-import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
+import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors.testutils";
 import ArticleDiff from "../article-diff";
 
 import type {PerseusArticle} from "@khanacademy/perseus-core";

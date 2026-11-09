@@ -17,6 +17,7 @@ exports[`ImageWidgetDiff renders an image widget in the diff view 1`] = `
           >
             <svg
               height="48"
+              style="width: var(--wb-c-progress-spinner-root-sizing-medium); height: var(--wb-c-progress-spinner-root-sizing-medium);"
               viewBox="0 0 48 48"
               width="48"
               xmlns="http://www.w3.org/2000/svg"
@@ -46,6 +47,7 @@ exports[`ImageWidgetDiff renders an image widget in the diff view 1`] = `
           >
             <svg
               height="48"
+              style="width: var(--wb-c-progress-spinner-root-sizing-medium); height: var(--wb-c-progress-spinner-root-sizing-medium);"
               viewBox="0 0 48 48"
               width="48"
               xmlns="http://www.w3.org/2000/svg"
@@ -95,6 +97,7 @@ exports[`ImageWidgetDiff renders with missing 'after' props 1`] = `
           >
             <svg
               height="48"
+              style="width: var(--wb-c-progress-spinner-root-sizing-medium); height: var(--wb-c-progress-spinner-root-sizing-medium);"
               viewBox="0 0 48 48"
               width="48"
               xmlns="http://www.w3.org/2000/svg"
@@ -137,6 +140,7 @@ exports[`ImageWidgetDiff renders with missing 'before' props 1`] = `
           >
             <svg
               height="48"
+              style="width: var(--wb-c-progress-spinner-root-sizing-medium); height: var(--wb-c-progress-spinner-root-sizing-medium);"
               viewBox="0 0 48 48"
               width="48"
               xmlns="http://www.w3.org/2000/svg"
@@ -173,6 +177,7 @@ exports[`ImageWidgetDiff renders with unchanged image 1`] = `
           >
             <svg
               height="48"
+              style="width: var(--wb-c-progress-spinner-root-sizing-medium); height: var(--wb-c-progress-spinner-root-sizing-medium);"
               viewBox="0 0 48 48"
               width="48"
               xmlns="http://www.w3.org/2000/svg"
@@ -202,6 +207,7 @@ exports[`ImageWidgetDiff renders with unchanged image 1`] = `
           >
             <svg
               height="48"
+              style="width: var(--wb-c-progress-spinner-root-sizing-medium); height: var(--wb-c-progress-spinner-root-sizing-medium);"
               viewBox="0 0 48 48"
               width="48"
               xmlns="http://www.w3.org/2000/svg"

@@ -123,7 +123,7 @@ export {
     getValidWidgetIds,
 } from "./util/extract-perseus-data";
 
-export {generateTestCategorizerWidget} from "./util/test-utils";
+export {generateTestCategorizerWidget} from "./util/scoring.testutils";
 export {
     getWidgetTypeByWidgetId,
     getWidgetSubTypeByWidgetId,

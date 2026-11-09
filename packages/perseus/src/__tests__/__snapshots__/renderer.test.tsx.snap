@@ -89,6 +89,60 @@ exports[`renderer in a JIPT context replaces the \`crwdn\` placeholder with the 
 </div>
 `;
 
+exports[`renderer rendering should ignore the deprecated column separator '=====' 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="deprecated-perseus-container"
+    >
+      <p
+        class="deprecated-perseus-container"
+      >
+        Stuff before the separator
+      </p>
+    </div>
+    <div
+      class="deprecated-perseus-container"
+    >
+      <p
+        class="deprecated-perseus-container"
+      >
+        Stuff after the separator
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renderer rendering should ignore the deprecated column separator '=====' inside a list item 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="deprecated-perseus-container"
+    >
+      <ul>
+        <li>
+          <p
+            class="deprecated-perseus-container"
+          >
+            Stuff before the separator
+          </p>
+          <p
+            class="deprecated-perseus-container"
+          >
+            Stuff after the separator
+          </p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`renderer rendering should not wrap math in divs in inline mode 1`] = `
 <div>
   <div
@@ -106,6 +160,29 @@ exports[`renderer rendering should not wrap math in divs in inline mode 1`] = `
       </span>
       <span />
     </span>
+  </div>
+</div>
+`;
+
+exports[`renderer rendering should preserve '=====' inside a code block 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="deprecated-perseus-container perseus-paragraph-centered"
+    >
+      <pre>
+        <code>
+          Stuff before the separator
+
+=====
+
+Stuff after the separator
+
+        </code>
+      </pre>
+    </div>
   </div>
 </div>
 `;
@@ -352,49 +429,6 @@ exports[`renderer rendering should render block math on mobile 1`] = `
       >
         And a footer.
       </p>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`renderer rendering should render columns 1`] = `
-<div>
-  <div
-    class="perseus-renderer perseus-renderer-responsive perseus-renderer-two-columns"
-  >
-    <div
-      class="deprecated-perseus-container"
-    >
-      <div
-        class="perseus-two-columns"
-      >
-        <div
-          class="perseus-column"
-        >
-          <div
-            class="perseus-column-content"
-          >
-            <p
-              class="deprecated-perseus-container"
-            >
-              Stuff in column 1
-            </p>
-          </div>
-        </div>
-        <div
-          class="perseus-column"
-        >
-          <div
-            class="perseus-column-content"
-          >
-            <p
-              class="deprecated-perseus-container"
-            >
-              Stuff in column 2
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>
@@ -730,7 +764,7 @@ exports[`renderer snapshots renders a placeholder for an unknown widget type: un
                 style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; gap: var(--wb-c-banner-root-layout-gap);"
               >
                 <span
-                  aria-label="info"
+                  aria-label="Info"
                   data-testid="banner-kind-icon"
                   role="img"
                   style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-c-banner-icon-sizing-width); height: var(--wb-c-banner-icon-sizing-height); align-self: flex-start; color: var(--wb-c-banner-icon-color-info); background-color: currentColor; mask-image: url(info-bold.svg);"
@@ -783,6 +817,7 @@ exports[`renderer snapshots renders a responsive markdown image 1`] = `
             >
               <svg
                 height="48"
+                style="width: var(--wb-c-progress-spinner-root-sizing-medium); height: var(--wb-c-progress-spinner-root-sizing-medium);"
                 viewBox="0 0 48 48"
                 width="48"
                 xmlns="http://www.w3.org/2000/svg"

@@ -1,4 +1,4 @@
-import {ctx} from "../general-purpose-parsers/test-helpers";
+import {ctx} from "../general-purpose-parsers/parser.testutils";
 import {success} from "../result";
 
 import {parsePerseusAnswerArea} from "./perseus-answer-area";

@@ -2,30 +2,28 @@ import {generatePlotterOptions} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
 
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
-import {getAnswerfulItem, getAnswerlessItem} from "../../util/test-utils";
-import {renderQuestion} from "../__testutils__/render-question";
+import {renderQuestion} from "../../__testutils__/render-question";
+import {
+    getAnswerfulItem,
+    getAnswerlessItem,
+} from "../../util/scoring.testutils";
 
 import {dotPlotter} from "./plotter.testdata";
 
 import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
 
 describe("plotter widget", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
     // Regression (LEMS-3251) make sure the dot plotter doesn't crash
-    it("should render dot plotters", () => {
+    it("should render dot plotters", async () => {
         renderQuestion(dotPlotter);
+        // Wait for plotter's card resizing to settle. RTL logs an error if
+        // the resize happens outside an act() call.
+        await act(() => Promise.resolve());
 
         expect(screen.getByText("Average Temp")).toBeInTheDocument();
     });
 
-    it("should send analytics event when widget is rendered", () => {
+    it("should send analytics event when widget is rendered", async () => {
         // Arrange
         const onAnalyticsEventSpy = jest.fn();
         const dependencies = {
@@ -34,6 +32,9 @@ describe("plotter widget", () => {
 
         // Act
         renderQuestion(dotPlotter, {dependencies});
+        // Wait for plotter's card resizing to settle. RTL logs an error if
+        // the resize happens outside an act() call.
+        await act(() => Promise.resolve());
 
         // Assert
         expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
@@ -158,9 +159,12 @@ describe("plotter widget", () => {
             ).toBeInTheDocument();
         });
 
-        it("can given an invalid score", () => {
+        it("can given an invalid score", async () => {
             // Arrange
             const {renderer} = renderQuestion(question);
+            // Wait for plotter's card resizing to settle. RTL logs an error if
+            // the resize happens outside an act() call.
+            await act(() => Promise.resolve());
 
             // Act
             const userInput = renderer.getUserInputMap();
@@ -175,9 +179,12 @@ describe("plotter widget", () => {
             expect(score).toHaveInvalidInput();
         });
 
-        it("can be answered correctly", () => {
+        it("can be answered correctly", async () => {
             // Arrange
             const {renderer} = renderQuestion(question);
+            // Wait for plotter's card resizing to settle. RTL logs an error if
+            // the resize happens outside an act() call.
+            await act(() => Promise.resolve());
 
             // Act
             const [plotter] = renderer.findWidgets("plotter 1");
@@ -196,9 +203,12 @@ describe("plotter widget", () => {
             expect(score).toHaveBeenAnsweredCorrectly();
         });
 
-        it("can be scored incorrectly", () => {
+        it("can be scored incorrectly", async () => {
             // Arrange
             const {renderer} = renderQuestion(question);
+            // Wait for plotter's card resizing to settle. RTL logs an error if
+            // the resize happens outside an act() call.
+            await act(() => Promise.resolve());
 
             // Act
             const [plotter] = renderer.findWidgets("plotter 1");

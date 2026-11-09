@@ -17,7 +17,7 @@ import {
     testDependenciesV2,
 } from "../testing/test-dependencies";
 import * as clipboardUtil from "../util/clipboard";
-import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
+import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors.testutils";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";

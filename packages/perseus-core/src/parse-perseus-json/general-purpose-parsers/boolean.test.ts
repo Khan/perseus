@@ -1,7 +1,7 @@
 import {success} from "../result";
 
 import {boolean} from "./boolean";
-import {ctx, parseFailureWith} from "./test-helpers";
+import {ctx, parseFailureWith} from "./parser.testutils";
 
 describe("boolean()", () => {
     it("accepts `true`", () => {
