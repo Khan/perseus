@@ -225,6 +225,9 @@
     font-size: 14px;
     line-height: 19.6px;
 }
+.framework-perseus.perseus-mobile .perseus-titled-table-wrapper {
+    display: inline-block;
+}
 .perseus-widget-editor-content .perseus-editor-accordion h2 {
     padding-top: 0;
 }

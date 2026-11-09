@@ -10,7 +10,7 @@ import {
     generateInteractiveGraphWidget,
 } from "@khanacademy/perseus-core";
 
-import {expectPass, expectWarning} from "../__tests__/test-utils";
+import {expectPass, expectIssue} from "../__tests__/test-utils";
 import Rule from "../rule";
 
 import interactiveGraphLockedFigureOobRule from "./interactive-graph-locked-figure-oob";
@@ -30,12 +30,12 @@ function graphContext(lockedFigures: LockedFigure[], range: GraphRange) {
     };
 }
 
-function expectFigureWarning(
+function expectFigureIssues(
     lockedFigures: LockedFigure[],
     range: GraphRange,
     messages: string[],
 ) {
-    expectWarning(
+    expectIssue(
         interactiveGraphLockedFigureOobRule,
         "[[☃ interactive-graph 1]]",
         graphContext(lockedFigures, range),
@@ -57,7 +57,7 @@ function expectFigurePass(lockedFigures: LockedFigure[], range: GraphRange) {
 describe("interactive-graph-locked-figure-oob", () => {
     describe("point", () => {
         it("warns when the point is outside the graph bounds", () => {
-            expectFigureWarning(
+            expectFigureIssues(
                 [generateIGLockedPoint({coord: [11, 0]})],
                 [
                     [-10, 10],
@@ -90,7 +90,7 @@ describe("interactive-graph-locked-figure-oob", () => {
 
     describe("line", () => {
         it("warns when both points of a line are outside the graph bounds", () => {
-            expectFigureWarning(
+            expectFigureIssues(
                 [
                     generateIGLockedLine({
                         kind: "line",
@@ -111,7 +111,7 @@ describe("interactive-graph-locked-figure-oob", () => {
         });
 
         it("warns when both points of a ray are outside the graph bounds", () => {
-            expectFigureWarning(
+            expectFigureIssues(
                 [
                     generateIGLockedLine({
                         kind: "ray",
@@ -132,7 +132,7 @@ describe("interactive-graph-locked-figure-oob", () => {
         });
 
         it("warns when both points of a segment are outside the graph bounds", () => {
-            expectFigureWarning(
+            expectFigureIssues(
                 [
                     generateIGLockedLine({
                         kind: "segment",
@@ -173,7 +173,7 @@ describe("interactive-graph-locked-figure-oob", () => {
 
     describe("vector", () => {
         it("warns when the tail and tip are outside the graph bounds", () => {
-            expectFigureWarning(
+            expectFigureIssues(
                 [
                     generateIGLockedVector({
                         points: [
@@ -229,7 +229,7 @@ describe("interactive-graph-locked-figure-oob", () => {
 
     describe("polygon", () => {
         it("warns when every vertex is outside the graph bounds", () => {
-            expectFigureWarning(
+            expectFigureIssues(
                 [
                     generateIGLockedPolygon({
                         points: [
@@ -270,7 +270,7 @@ describe("interactive-graph-locked-figure-oob", () => {
 
     describe("ellipse", () => {
         it("warns when a circle's center and edge are outside the graph bounds", () => {
-            expectFigureWarning(
+            expectFigureIssues(
                 [generateIGLockedEllipse({center: [15, 0], radius: [2, 2]})],
                 [
                     [-10, 10],
@@ -283,7 +283,7 @@ describe("interactive-graph-locked-figure-oob", () => {
         });
 
         it("warns when an ellipse's center and vertices are outside the graph bounds", () => {
-            expectFigureWarning(
+            expectFigureIssues(
                 [generateIGLockedEllipse({center: [15, 0], radius: [2, 1]})],
                 [
                     [-10, 10],
@@ -324,7 +324,7 @@ describe("interactive-graph-locked-figure-oob", () => {
 
     describe("label", () => {
         it("warns when the label is outside the graph bounds", () => {
-            expectFigureWarning(
+            expectFigureIssues(
                 [generateIGLockedLabel({coord: [0, -11]})],
                 [
                     [-10, 10],
@@ -346,7 +346,7 @@ describe("interactive-graph-locked-figure-oob", () => {
     });
 
     it("reports each off-graph figure separately", () => {
-        expectFigureWarning(
+        expectFigureIssues(
             [
                 generateIGLockedPoint({coord: [11, 0]}),
                 generateIGLockedLabel({coord: [13, 0]}),

@@ -4,9 +4,8 @@ export {linterContextDefault} from "./proptypes";
 
 export {default as Rule} from "./rule";
 export {runLinter} from "./run-linter";
-export {allRules as rules} from "./rules/all-rules";
 
-export type {LinterWarning} from "./rule";
+export type {LinterIssue} from "./rule";
 export type {LinterContextProps} from "./types";
 
 export function pushContextStack(context: any, name: string): any {
@@ -21,5 +20,5 @@ export {
     lintPerseusArticle,
     lintPerseusItem,
     lintPerseusRenderer,
-    type LinterWarningItem,
+    type ItemLinterIssues,
 } from "./lint-content";

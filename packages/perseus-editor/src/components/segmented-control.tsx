@@ -6,6 +6,12 @@ import styles from "./segmented-control.module.css";
 
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
+// TODO: Don't copy this pattern. Buttons with `role="radio"` /
+// `role="checkbox"` promise radio/checkbox keyboard behavior (one tab stop per
+// group, arrow keys between options) that these components don't implement.
+// See the `accessibility` skill (`.agents/skills/accessibility/`): rework them
+// as `aria-pressed` toggle buttons or as a complete radio pattern.
+
 interface ToggleButtonProps {
     selected: boolean;
     onClick: () => void;

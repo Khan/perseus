@@ -1,6 +1,6 @@
 import {SORTER_MAX_CARDS} from "@khanacademy/perseus-core";
 
-import {expectWarning} from "../__tests__/test-utils";
+import {expectIssue} from "../__tests__/test-utils";
 
 import sorterWidgetWarningRule, {
     sorterMaxIdealCards,
@@ -9,7 +9,7 @@ import sorterWidgetWarningRule, {
 
 describe("sorter-widget-warning", () => {
     it("warns for a sorter widget with over max cards in vertical layout", () => {
-        expectWarning(
+        expectIssue(
             sorterWidgetWarningRule,
             "[[☃ sorter 1]]",
             {
@@ -35,7 +35,7 @@ describe("sorter-widget-warning", () => {
     });
 
     it("warns for a sorter widget with over max cards in horizontal layout", () => {
-        expectWarning(
+        expectIssue(
             sorterWidgetWarningRule,
             "[[☃ sorter 1]]",
             {
@@ -62,7 +62,7 @@ describe("sorter-widget-warning", () => {
     });
 
     it("warns for a sorter widget with too many cards in horizontal layout", () => {
-        expectWarning(
+        expectIssue(
             sorterWidgetWarningRule,
             "[[☃ sorter 1]]",
             {
@@ -88,7 +88,7 @@ describe("sorter-widget-warning", () => {
     });
 
     it("warns for a sorter widget with more than ideal number of cards in horizontal layout", () => {
-        expectWarning(
+        expectIssue(
             sorterWidgetWarningRule,
             "[[☃ sorter 1]]",
             {
@@ -114,7 +114,7 @@ describe("sorter-widget-warning", () => {
     });
 
     it("warns for a sorter widget with more than ideal number of cards in vertical layout", () => {
-        expectWarning(
+        expectIssue(
             sorterWidgetWarningRule,
             "[[☃ sorter 1]]",
             {

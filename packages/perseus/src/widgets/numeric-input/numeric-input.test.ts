@@ -10,14 +10,10 @@ import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import * as Dependencies from "../../dependencies";
-import {
-    testDependencies,
-    testDependenciesV2,
-} from "../../testing/test-dependencies";
+import {renderQuestion} from "../../__testutils__/render-question";
+import {testDependenciesV2} from "../../testing/test-dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {scorePerseusItemTesting} from "../../util/scoring.testutils";
-import {renderQuestion} from "../__testutils__/render-question";
 
 import NumericInputWidgetExport from "./numeric-input";
 import {
@@ -43,10 +39,6 @@ describe("numeric-input widget", () => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
     });
 
     it("Should accept the right answer", async () => {
@@ -270,12 +262,6 @@ describe("numeric-input widget", () => {
 });
 
 describe("static function getOneCorrectAnswerFromRubric", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
     it("can get one correct answer from scoring data with multiple answers", () => {
         const widget = multipleAnswersWithDecimals.widgets["numeric-input 1"];
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
@@ -341,10 +327,6 @@ describe("Numeric input widget", () => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
     });
 
     it("can handle multiple correct answers (Part one)", async () => {
@@ -574,12 +556,6 @@ describe("required state", () => {
             },
         });
 
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
     it("renders the input as required when scorable and interactive", () => {
         // Arrange, Act
         renderQuestion(generateRenderer(false), {
@@ -668,10 +644,6 @@ describe("interactive: full vs answerless", () => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
     });
 
     function getAnswerfulItem(): PerseusItem {

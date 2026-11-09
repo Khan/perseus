@@ -8,14 +8,14 @@ import {
     generateInteractiveGraphWidget,
 } from "@khanacademy/perseus-core";
 
-import {expectPass, expectWarning} from "../__tests__/test-utils";
+import {expectPass, expectIssue} from "../__tests__/test-utils";
 import Rule from "../rule";
 
 import interactiveGraphWidgetErrorRule from "./interactive-graph-widget-error";
 
 describe("interactive-graph-widget-error", () => {
     it("warns when locked line has length 0", () => {
-        expectWarning(
+        expectIssue(
             interactiveGraphWidgetErrorRule,
             "[[☃ interactive-graph 1]]",
             {
@@ -44,7 +44,7 @@ describe("interactive-graph-widget-error", () => {
     });
 
     it("warns when locked polygon has all coordinates be the same", () => {
-        expectWarning(
+        expectIssue(
             interactiveGraphWidgetErrorRule,
             "[[☃ interactive-graph 1]]",
             {
@@ -74,7 +74,7 @@ describe("interactive-graph-widget-error", () => {
     });
 
     it("warns when locked ellipse has negative radius", () => {
-        expectWarning(
+        expectIssue(
             interactiveGraphWidgetErrorRule,
             "[[☃ interactive-graph 1]]",
             {
@@ -98,7 +98,7 @@ describe("interactive-graph-widget-error", () => {
     });
 
     it("warns when locked ellipse has zero radius", () => {
-        expectWarning(
+        expectIssue(
             interactiveGraphWidgetErrorRule,
             "[[☃ interactive-graph 1]]",
             {
@@ -122,7 +122,7 @@ describe("interactive-graph-widget-error", () => {
     });
 
     it("warns when unlimited polygon is open", () => {
-        expectWarning(
+        expectIssue(
             interactiveGraphWidgetErrorRule,
             "[[☃ interactive-graph 1]]",
             {
@@ -145,7 +145,7 @@ describe("interactive-graph-widget-error", () => {
     });
 
     it("warns when showPointLabels is true but pointLabels is missing (correct graph)", () => {
-        expectWarning(
+        expectIssue(
             interactiveGraphWidgetErrorRule,
             "[[☃ interactive-graph 1]]",
             {
@@ -188,7 +188,7 @@ describe("interactive-graph-widget-error", () => {
     });
 
     it("warns when showPointLabels is true but every pointLabels entry is empty", () => {
-        expectWarning(
+        expectIssue(
             interactiveGraphWidgetErrorRule,
             "[[☃ interactive-graph 1]]",
             {
@@ -213,7 +213,7 @@ describe("interactive-graph-widget-error", () => {
     });
 
     it("warns when showPointLabels is true on the starting (`graph`) graph too", () => {
-        expectWarning(
+        expectIssue(
             interactiveGraphWidgetErrorRule,
             "[[☃ interactive-graph 1]]",
             {
@@ -315,7 +315,7 @@ describe("interactive-graph-widget-error", () => {
     });
 
     it("warns when pointLabels is shorter than the expected number of points", () => {
-        expectWarning(
+        expectIssue(
             interactiveGraphWidgetErrorRule,
             "[[☃ interactive-graph 1]]",
             {
@@ -341,7 +341,7 @@ describe("interactive-graph-widget-error", () => {
     });
 
     it("warns when pointLabels is longer than the expected number of points", () => {
-        expectWarning(
+        expectIssue(
             interactiveGraphWidgetErrorRule,
             "[[☃ interactive-graph 1]]",
             {

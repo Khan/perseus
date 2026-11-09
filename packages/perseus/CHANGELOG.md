@@ -1,5 +1,43 @@
 # @khanacademy/perseus
 
+## 93.0.3
+
+### Patch Changes
+
+-   [#4479](https://github.com/Khan/perseus/pull/4479) [`e183904`](https://github.com/Khan/perseus/commit/e183904fe87a41c5a3f878893258ffbb3047d63e) Thanks [@nishasy](https://github.com/nishasy)! - Remove static overlay from widgets that handle their own static elements already
+
+-   [#4478](https://github.com/Khan/perseus/pull/4478) [`3f65aa5`](https://github.com/Khan/perseus/commit/3f65aa58c10ce4594fbd72cd3d6f1fed63a47d9e) Thanks [@benchristel](https://github.com/benchristel)! - The editor preview no longer shows duplicate red-dot lint indicators on widgets with internal renderers
+
+-   Updated dependencies [[`d477ac6`](https://github.com/Khan/perseus/commit/d477ac65fcd6b05ee9d538c015134a97573e0f85), [`ab4be27`](https://github.com/Khan/perseus/commit/ab4be2718fe891ff4485623f67675e25ebff07ea), [`a410c69`](https://github.com/Khan/perseus/commit/a410c692a8acdd512fa6bdee20ba1ff9abff79ba), [`d0a30fd`](https://github.com/Khan/perseus/commit/d0a30fd32b2be0a9b7e56f3439acb78c997045dd), [`cb3f878`](https://github.com/Khan/perseus/commit/cb3f878314870df2299fab42ee772e73127ca218), [`c5af770`](https://github.com/Khan/perseus/commit/c5af770a0d201230568e47677d6a300c885efab4), [`3cc554f`](https://github.com/Khan/perseus/commit/3cc554f63495651b9181aee97216c4bf73e80111), [`c5e9fd8`](https://github.com/Khan/perseus/commit/c5e9fd8c9ac031e536c6d610ad91ff103601e124)]:
+    -   @khanacademy/perseus-core@42.2.0
+    -   @khanacademy/perseus-linter@8.0.0
+    -   @khanacademy/keypad-context@6.0.12
+    -   @khanacademy/kmath@3.1.5
+    -   @khanacademy/math-input@30.2.2
+    -   @khanacademy/perseus-score@9.0.13
+
+## 93.0.2
+
+### Patch Changes
+
+-   [#4452](https://github.com/Khan/perseus/pull/4452) [`9370c0d`](https://github.com/Khan/perseus/commit/9370c0d080a4bf3f3a18b32ca62659b94681cf0f) Thanks [@benchristel](https://github.com/benchristel)! - Moved markdown table styles to renderer.css, and consolidated desktop and mobile styles. The styles are now in the perseus-base layer.
+
+-   [#4448](https://github.com/Khan/perseus/pull/4448) [`c58e2a7`](https://github.com/Khan/perseus/commit/c58e2a76ef41feaa224f0030ee906b035d3c351b) Thanks [@handeyeco](https://github.com/handeyeco)! - Ban React.createElement and replace uses
+
+-   [#4443](https://github.com/Khan/perseus/pull/4443) [`e71d6ff`](https://github.com/Khan/perseus/commit/e71d6ff0c1d04d2882de142fb8c647b51c046123) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Adjust heading font settings to match what is used in the app
+
+-   [#4459](https://github.com/Khan/perseus/pull/4459) [`70b6b86`](https://github.com/Khan/perseus/commit/70b6b86e35cfd9cf90f8c5ddc5972f6ddc435963) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Internal: Remove stale `TODO(LEMS-4304)` comments and "active changes in the renderer" warning banners now that the feature flag cleanup is complete.
+
+-   Updated dependencies [[`c58e2a7`](https://github.com/Khan/perseus/commit/c58e2a76ef41feaa224f0030ee906b035d3c351b), [`de3f186`](https://github.com/Khan/perseus/commit/de3f186628f1cf0bedaa40286a787622f086cb34), [`2b9fa74`](https://github.com/Khan/perseus/commit/2b9fa743061dc27dfbe79392d232f712f7686216), [`645b55f`](https://github.com/Khan/perseus/commit/645b55fcc87f40c8b920f2ed0046e04b000515e9), [`00d20b8`](https://github.com/Khan/perseus/commit/00d20b86648e27e2e4a53b159078a3d802152668), [`e0afd53`](https://github.com/Khan/perseus/commit/e0afd53b939f315223c7e948cd1da8eb32c279f5)]:
+    -   @khanacademy/simple-markdown@4.0.3
+    -   @khanacademy/perseus-linter@7.0.2
+    -   @khanacademy/perseus-score@9.0.12
+    -   @khanacademy/pure-markdown@3.1.2
+    -   @khanacademy/perseus-core@42.1.1
+    -   @khanacademy/keypad-context@6.0.11
+    -   @khanacademy/kmath@3.1.4
+    -   @khanacademy/math-input@30.2.1
+
 ## 93.0.1
 
 ### Patch Changes

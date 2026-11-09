@@ -37,63 +37,78 @@ packages/
 │   └── src/components/  # Reusable components
 ├── perseus-editor/      # Editor UI components
 ├── math-input/          # Math keypad and input components
+├── keypad-context/      # Context linking the keypad and renderers
 ├── perseus-core/        # Shared types and utilities
 ├── perseus-linter/      # Content validation tools
-└── perseus-score/       # Server-side scoring functions
+├── perseus-score/       # Server-side scoring functions
+├── perseus-utils/       # Miscellaneous shared utilities
+├── pure-markdown/       # Perseus Markdown rules (math, widgets), no React
+├── simple-markdown/     # Core Markdown parser
+├── kmath/               # Numeric math utilities
+└── kas/                 # Computer algebra system for comparing expressions
+data/questions/          # Sample Perseus content
+utils/                   # Repo scripts (changed-files, lint, publishing)
 ```
+
+## pnpm
+
+- Use `pnpm` only: no `npm`, `npx` or `pnpm dlx`. Run tools with
+  `pnpm <script>` or `pnpm exec <bin>`.
+- Change dependencies with `pnpm add` / `pnpm remove`; never edit
+  `pnpm-lock.yaml` by hand.
+- To resolve a `pnpm-lock.yaml` conflict, check out the version from the
+  branch you're merging in or rebasing onto (e.g.
+  `git checkout origin/main -- pnpm-lock.yaml`), then run `pnpm install` to
+  re-apply this branch's dependency changes.
+- Never delete `pnpm-lock.yaml` and regenerate it. That re-resolves every
+  dependency to the newest allowed version, as if there were no lockfile.
+
+## Code Style
+
+- Prefer `satisfies` over `as`.
+- Use `function` declarations for named functions; keep arrow functions for
+  inline callbacks.
+- Wrap comments and string literals at 80 columns. Prettier doesn't wrap
+  them. Split long strings by concatenation so the runtime value is
+  unchanged.
+- Run `pnpm fixc` to format and lint changed files.
 
 ## Testing Guidelines
 
 ### Test Structure
-1. Follow the AAA pattern: Arrange, Act, Assert
-1.1 If Arrange and Act are one action, combine them to `//Arrange, Act`
-2. Use widget generators to build test data and test data options.
-   You can find generators for all widgets in packages/perseus-core/src/utils/generators.
-   An example usage can be seen here: packages/perseus/src/widgets/expression/expression.testdata.ts.
-   Values that are important to the test — used in assertions or the specific logic being tested —
-   should be explicitly passed as params to the generator, not left as shared defaults.
-   Test assertions shouldn't be coupled to setup they don't control.
-3. Follow the test structure below:
-```typescript
-import {screen} from "@testing-library/react";
-import {userEvent} from "@testing-library/user-event";
-
-import {renderQuestion} from "../__testutils__/renderQuestion";
-import {generateWidgetItem} from "./widget.testdata";
-
-describe("Widget", () => {
-    it("renders the prompt text", () => {
-        // Arrange, Act
-        renderQuestion(generateWidgetItem());
-
-        expect(screen.getByText("What is 2 + 2?")).toBeInTheDocument();
-    });
-
-    it("calls handleUserInput when an answer is selected", async () => {
-        const user = userEvent.setup();
-        const {renderer} = renderQuestion(generateWidgetItem());
-
-        await user.click(screen.getByRole("button", {name: "4"}));
-
-        expect(renderer.getUserInput()).toMatchObject({currentValue: "4"});
-    });
-});
-```
+1. Model new widget tests on
+   `packages/perseus/src/widgets/dropdown/dropdown.test.ts` and its
+   `dropdown.testdata.ts`.
+2. Follow the AAA pattern with `// Arrange`, `// Act` and `// Assert`
+   comments. When Arrange and Act are one step, use `// Arrange, Act`.
+3. Build test data with the generators in
+   `packages/perseus-core/src/utils/generators`. Pass values the test depends
+   on (used in assertions or the logic under test) explicitly instead of
+   relying on shared defaults or testdata the test doesn't control.
+4. Render widget tests with `renderQuestion` from
+   `packages/perseus/src/__testutils__/render-question.tsx`. It takes
+   a `PerseusRenderer` (`item.question`), provides test dependencies and
+   registers widgets; override a dependency with its `dependencies` option.
+   Read user input with `renderer.getUserInputMap()`. Item-level tests
+   (`ServerItemRenderer`, a whole `PerseusItem`) use `renderItem` from
+   `packages/perseus/src/__testutils__/render-item.tsx` instead, and article
+   tests use `renderArticle` from `render-article.tsx` in the same directory.
 
 ### Writing Tests
 - Test titles should describe the requirement or observable outcome, not the implementation.
   Prefer verbs like `returns`, `renders`, `disables`, `throws` over vague phrases like "should handle".
   A failing test title should tell you which requirement broke without reading the test body.
   ❌ `"should handle empty input"` → ✅ `"returns null when input is empty"`
-- Only mock dependencies (`jest.spyOn(Dependencies, "getDependencies")` /
-  `jest.spyOn(Dependencies, "useDependencies")`) when the code under test actually
-  reads them. Don't copy the `beforeEach` block from other test files by default.
+- `renderQuestion`, `renderItem` and `renderArticle` set up test
+  dependencies. Spy on `Dependencies.getDependencies` / `useDependencies` only
+  to override a dependency the test depends on, or when rendering without
+  these helpers.
+- Test Perseus's behavior, not the libraries it wraps (e.g. Wonder Blocks
+  components). One assertion that a wrapped component did its job is enough.
 
 ## Accessibility
 
-When doing any UI work, follow the guidelines in `accessibility-instructions.md` (at the repo root).
-
-@accessibility-instructions.md
+For any UI work, apply the `accessibility` skill (`.agents/skills/accessibility/`).
 
 ## Commit Messages
 
@@ -109,5 +124,24 @@ Focus on what changed and why — write for someone reading git log in 5 years.
 1. Run tests: `pnpm tesc`
 2. Check types: `pnpm tsc`
 3. Lint and format: `pnpm fixc`
-4. Test in Storybook: `pnpm storybook`
+4. For UI changes, offer to start Storybook (`pnpm storybook`) so the user can
+   check them; start it only after they approve.
 5. Verify accessibility compliance
+
+CI runs more checks than the steps above (see `.github/workflows/node-ci.yml`).
+When CI fails, run only the failing step's command locally.
+
+### Changesets
+CI's `changeset` job (`.github/workflows/node-ci.yml`) fails a PR that changes
+package code without a changeset. Write it by hand as
+`.changeset/<three-random-words>.md` (e.g. `quiet-maples-drift.md`):
+
+```markdown
+---
+"@khanacademy/perseus": patch
+---
+
+One-line description of the change
+```
+
+When no production code ships, leave the frontmatter empty (`---` / `---`).

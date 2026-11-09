@@ -1,16 +1,16 @@
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {renderQuestion} from "../../__testutils__/render-question";
 import {waitForInitialGraphieRender} from "../../testing/wait";
-import {renderQuestion} from "../__testutils__/render-question";
 
 import {
     linearQuestion,
     multipleAvailableTypesQuestion,
+    quadraticQuestion,
 } from "./grapher.testdata";
 
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("grapher widget", () => {
@@ -19,10 +19,6 @@ describe("grapher widget", () => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
 
         // Mocked for loading graphie in svg-image
         // eslint-disable-next-line no-restricted-syntax
@@ -76,6 +72,57 @@ describe("grapher widget", () => {
 
         // Assert
         expect(consoleErrorSpy).not.toHaveBeenCalled();
+    });
+
+    describe("legacy grapher", () => {
+        function getMovablePointTargets(container: HTMLElement) {
+            // Graphie's mouse targets are bare SVG elements with no
+            // accessible role, so Testing Library queries can't find them.
+            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            return container.querySelectorAll(
+                "[data-interactive-kind-for-testing='movable-point']",
+            );
+        }
+
+        it("renders draggable points when interactive", async () => {
+            // Arrange, Act
+            // Quadratic graphers can't be converted to Interactive Graph, so
+            // they always render with the legacy grapher.
+            const {container} = renderQuestion(quadraticQuestion);
+            await waitForInitialGraphieRender();
+
+            // Assert
+            expect(getMovablePointTargets(container).length).toBeGreaterThan(0);
+        });
+
+        describe.each([
+            {name: "static", isStatic: true, readOnly: false},
+            {name: "read-only", isStatic: false, readOnly: true},
+        ])("when $name", ({isStatic, readOnly}) => {
+            function withStatic(question: PerseusRenderer): PerseusRenderer {
+                return {
+                    ...question,
+                    widgets: {
+                        "grapher 1": {
+                            ...question.widgets["grapher 1"],
+                            static: isStatic,
+                        },
+                    },
+                };
+            }
+
+            it("does not render draggable points", async () => {
+                // Arrange, Act
+                const {container} = renderQuestion(
+                    withStatic(quadraticQuestion),
+                    {apiOptions: {readOnly}},
+                );
+                await waitForInitialGraphieRender();
+
+                // Assert
+                expect(getMovablePointTargets(container)).toHaveLength(0);
+            });
+        });
     });
 
     it("should send analytics event when widget is rendered", () => {

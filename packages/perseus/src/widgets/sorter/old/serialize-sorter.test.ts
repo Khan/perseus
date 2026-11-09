@@ -4,9 +4,7 @@ import {
 } from "@khanacademy/perseus-core";
 import {act} from "@testing-library/react";
 
-import {renderQuestion} from "../../../__tests__/test-utils";
-import * as Dependencies from "../../../dependencies";
-import {testDependencies} from "../../../testing/test-dependencies";
+import {renderItem} from "../../../__testutils__/render-item";
 import {deriveUserInputFromSerializedState} from "../../../user-input-manager";
 import {registerAllWidgetsForTesting} from "../../../util/register-all-widgets-for-testing";
 
@@ -52,12 +50,6 @@ describe("Sorter serialization", () => {
         registerAllWidgetsForTesting();
     });
 
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
     afterEach(() => {
         // The Renderer uses a timer to wait for widgets to complete rendering.
         // If we don't spin the timers here, then the timer fires in the test
@@ -68,7 +60,7 @@ describe("Sorter serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicSorter());
+        const {renderer} = renderItem(generateBasicSorter());
 
         // Just making sure we're shuffling before answering
         expect(
@@ -105,7 +97,7 @@ describe("Sorter serialization", () => {
     it("restores the answered card order from serialized state", () => {
         // Arrange
         const item = generateBasicSorter();
-        const {renderer} = renderQuestion(item);
+        const {renderer} = renderItem(item);
         const sorter: SorterHandle =
             renderer.questionRenderer.findWidgets("sorter 1")[0];
         ["First", "Second", "Third"].forEach((option, index) => {
@@ -131,7 +123,7 @@ describe("Sorter serialization", () => {
     it("restores the shuffled order as unanswered when no card has been moved", () => {
         // Arrange
         const item = generateBasicSorter();
-        const {renderer} = renderQuestion(item);
+        const {renderer} = renderItem(item);
         const shuffledOrder = renderer.getUserInput()["sorter 1"].options;
 
         // Act

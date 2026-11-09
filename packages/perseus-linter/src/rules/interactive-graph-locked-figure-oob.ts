@@ -1,3 +1,4 @@
+import {linterWarning} from "../lint";
 import Rule from "../rule";
 
 import type {
@@ -11,7 +12,6 @@ import type {
 export default Rule.makeWidgetRule({
     name: "interactive-graph-locked-figure-oob",
     widgetType: "interactive-graph",
-    severity: Rule.Severity.WARNING,
     lint(widget) {
         const {range, lockedFigures}: PerseusInteractiveGraphWidgetOptions =
             widget.options;
@@ -31,7 +31,7 @@ export default Rule.makeWidgetRule({
             }
         }
 
-        return warnings;
+        return warnings.map((warning) => linterWarning(warning));
     },
 });
 

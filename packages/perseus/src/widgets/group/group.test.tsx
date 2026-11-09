@@ -1,11 +1,16 @@
+import {
+    generateDropdownOptions,
+    generateDropdownWidget,
+    generateGroupOptions,
+    generateGroupWidget,
+    generateTestPerseusRenderer,
+} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {renderQuestion} from "../../__testutils__/render-question";
 import {scorePerseusItemTesting} from "../../util/scoring.testutils";
-import {renderQuestion} from "../__testutils__/render-question";
 
 import {
     getFullGroupTestItem,
@@ -21,10 +26,6 @@ describe("group widget", () => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
 
         // Mocked for loading graphie in svg-image
         // eslint-disable-next-line no-restricted-syntax
@@ -440,5 +441,63 @@ describe("group widget", () => {
             // Assert
             expect(score).toHaveInvalidInput();
         });
+    });
+
+    it("disables the nested widgets when read-only", () => {
+        // Arrange, Act
+        renderQuestion(
+            generateTestPerseusRenderer({
+                content: "[[☃ group 1]]",
+                widgets: {
+                    "group 1": generateGroupWidget({
+                        options: generateGroupOptions({
+                            content: "[[☃ dropdown 1]]",
+                            widgets: {
+                                "dropdown 1": generateDropdownWidget(),
+                            },
+                        }),
+                    }),
+                },
+            }),
+            {apiOptions: {readOnly: true}},
+        );
+
+        // Assert
+        expect(screen.getByRole("combobox")).toHaveAttribute(
+            "aria-disabled",
+            "true",
+        );
+    });
+
+    it("renders a nested widget that is static on its own as static", () => {
+        // Arrange, Act
+        renderQuestion(
+            generateTestPerseusRenderer({
+                content: "[[☃ group 1]]",
+                widgets: {
+                    "group 1": generateGroupWidget({
+                        options: generateGroupOptions({
+                            content: "[[☃ dropdown 1]]",
+                            widgets: {
+                                "dropdown 1": generateDropdownWidget({
+                                    static: true,
+                                    options: generateDropdownOptions({
+                                        choices: [
+                                            {content: "Wrong", correct: false},
+                                            {content: "Right", correct: true},
+                                        ],
+                                    }),
+                                }),
+                            },
+                        }),
+                    }),
+                },
+            }),
+        );
+
+        // Assert
+        const dropdown = screen.getByRole("combobox");
+        expect(dropdown).toHaveAttribute("aria-disabled", "true");
+        expect(dropdown).toHaveTextContent("Right");
     });
 });

@@ -1,11 +1,11 @@
-import {expectPass, expectWarning} from "../__tests__/test-utils";
+import {expectPass, expectIssue} from "../__tests__/test-utils";
 import Rule from "../rule";
 
 import labelImageWidgetErrorRule from "./label-image-widget-error";
 
 describe("label-image-widget-error", () => {
     it("warns when question has fewer than two answer choices", () => {
-        expectWarning(
+        expectIssue(
             labelImageWidgetErrorRule,
             "[[☃ label-image 1]]",
             {
@@ -37,7 +37,7 @@ describe("label-image-widget-error", () => {
     });
 
     it("warns when there's no image URL", () => {
-        expectWarning(
+        expectIssue(
             labelImageWidgetErrorRule,
             "[[☃ label-image 1]]",
             {
@@ -66,7 +66,7 @@ describe("label-image-widget-error", () => {
     });
 
     it("warns when there's no image alt text", () => {
-        expectWarning(
+        expectIssue(
             labelImageWidgetErrorRule,
             "[[☃ label-image 1]]",
             {
@@ -95,7 +95,7 @@ describe("label-image-widget-error", () => {
     });
 
     it("warns when there are no markers", () => {
-        expectWarning(
+        expectIssue(
             labelImageWidgetErrorRule,
             "[[☃ label-image 1]]",
             {
@@ -120,7 +120,7 @@ describe("label-image-widget-error", () => {
     });
 
     it("warns when there are markers with no answers", () => {
-        expectWarning(
+        expectIssue(
             labelImageWidgetErrorRule,
             "[[☃ label-image 1]]",
             {
@@ -152,7 +152,7 @@ describe("label-image-widget-error", () => {
     });
 
     it("warns when there are markers with no ARIA label", () => {
-        expectWarning(
+        expectIssue(
             labelImageWidgetErrorRule,
             "[[☃ label-image 1]]",
             {

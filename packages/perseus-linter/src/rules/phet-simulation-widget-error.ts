@@ -1,11 +1,11 @@
 import {makeSafeUrl} from "@khanacademy/perseus-core";
 
+import {linterError} from "../lint";
 import Rule from "../rule";
 
 export default Rule.makeWidgetRule({
     name: "phet-simulation-widget-error",
     widgetType: "phet-simulation",
-    severity: Rule.Severity.ERROR,
     lint(widget) {
         if (
             makeSafeUrl(
@@ -14,7 +14,7 @@ export default Rule.makeWidgetRule({
                 "https://phet.colorado.edu",
             ) === null
         ) {
-            return "The URL is not from the PhET domain.";
+            return linterError("The URL is not from the PhET domain.");
         }
     },
 });

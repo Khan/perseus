@@ -2,13 +2,13 @@ import {parse} from "@khanacademy/pure-markdown";
 
 import TreeTransformer from "../tree-transformer";
 
-import type {LinterWarning} from "../rule";
+import type {LinterIssue} from "../rule";
 import type Rule from "../rule";
 
-function testRule(rule: Rule, markdown: string, context): LinterWarning[] {
+function testRule(rule: Rule, markdown: string, context): LinterIssue[] {
     const tree = parse(markdown);
     const tt = new TreeTransformer(tree);
-    const warnings: LinterWarning[] = [];
+    const issues: LinterIssue[] = [];
 
     // The markdown parser often outputs adjacent text nodes. We
     // coalesce them before linting for efficiency and accuracy.
@@ -34,13 +34,13 @@ function testRule(rule: Rule, markdown: string, context): LinterWarning[] {
     }
     tt.traverse((node, state, content) => {
         const check = rule.check(node, state, content, context);
-        warnings.push(...check);
+        issues.push(...check);
     });
 
-    return warnings;
+    return issues;
 }
 
-export function expectWarning(
+export function expectIssue(
     rule,
     string: string,
     context?,
@@ -52,7 +52,7 @@ export function expectWarning(
     const result = testRule(rule, string, context);
 
     if (options?.messages) {
-        const actual = new Set(result.map((warning) => warning.message));
+        const actual = new Set(result.map((issue) => issue.message));
         const expected = new Set(options.messages);
         expect(actual).toEqual(expected);
     }

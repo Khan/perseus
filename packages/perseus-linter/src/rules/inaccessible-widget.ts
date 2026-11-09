@@ -1,10 +1,10 @@
 import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
 
+import {linterWarning} from "../lint";
 import Rule from "../rule";
 
 export default Rule.makeRule({
     name: "inaccessible-widget",
-    severity: Rule.Severity.WARNING,
     selector: "widget",
     lint: function (state, content, nodes, match, context) {
         const node = state.currentNode();
@@ -25,15 +25,16 @@ export default Rule.makeRule({
             widgetInfo.options,
         );
         if (!accessible) {
-            return {
-                message: `The "${widgetType}" widget is not accessible.`,
-                start: 0,
-                end: content.length,
-                metadata: {
-                    widgetType: widgetType,
-                    widgetId: widgetId,
+            return linterWarning(
+                `The "${widgetType}" widget is not accessible.`,
+                {
+                    location: {start: 0, end: content.length},
+                    metadata: {
+                        widgetType: widgetType,
+                        widgetId: widgetId,
+                    },
                 },
-            };
+            );
         }
     },
 });

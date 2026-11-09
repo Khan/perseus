@@ -2,10 +2,10 @@ import {generateTestPerseusRenderer} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
+import {renderQuestion} from "../../__testutils__/render-question";
 import {DependenciesContext} from "../../dependencies";
 import {testDependenciesV2} from "../../testing/test-dependencies";
 import {scorePerseusItemTesting} from "../../util/scoring.testutils";
-import {renderQuestion} from "../../widgets/__testutils__/render-question";
 import UnsupportedWidgetMessage from "../unsupported-widget-message";
 
 import type {PerseusWidgetsMap} from "@khanacademy/perseus-core";

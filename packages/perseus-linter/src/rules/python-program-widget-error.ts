@@ -1,9 +1,9 @@
+import {linterError} from "../lint";
 import Rule from "../rule";
 
 export default Rule.makeWidgetRule({
     name: "python-program-widget-error",
     widgetType: "python-program",
-    severity: Rule.Severity.ERROR,
     lint(widget) {
         const errors: Array<string> = [];
         const height = widget.options.height;
@@ -17,6 +17,6 @@ export default Rule.makeWidgetRule({
             errors.push("The height must be a positive integer.");
         }
 
-        return errors;
+        return errors.map((error) => linterError(error));
     },
 });
