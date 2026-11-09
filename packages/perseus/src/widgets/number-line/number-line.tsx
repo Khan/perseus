@@ -235,7 +235,6 @@ function isValid(props: Props): boolean {
     );
 }
 
-// Whether the learner should be prevented from changing their answer.
 function isDisabled(props: Props): boolean {
     return Boolean(props.static || props.apiOptions.readOnly);
 }
@@ -514,8 +513,6 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                 ref="numberLinePoint"
                 pointSize={6}
                 coord={[props.userInput.numLinePosition, 0]}
-                // Removes the point's drag target, so it can't be hovered or
-                // dragged.
                 static={disabled}
                 constraints={[
                     (coord: any, prevCoord) => {
@@ -666,8 +663,9 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
 
     let tickCtrl;
     if (isTickCtrl) {
-        // The keypad input can't be disabled, so fall back to a disabled
-        // NumberInput, which also keeps the keypad from opening.
+        // SimpleKeypadInput (shows up on mobile) can't be disabled, so
+        // fall back to a disabled NumberInput, which also keeps the
+        // keypad from opening.
         const Input =
             props.apiOptions.customKeypad && !disabled
                 ? SimpleKeypadInput
