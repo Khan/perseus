@@ -235,6 +235,11 @@ function isValid(props: Props): boolean {
     );
 }
 
+// Whether the learner should be prevented from changing their answer.
+function isDisabled(props: Props): boolean {
+    return Boolean(props.static || props.apiOptions.readOnly);
+}
+
 const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
     const {strings} = usePerseusI18n();
     const dependencies = useDependencies();
@@ -396,6 +401,11 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
     }
 
     function onNumDivisionsChange(numDivisions: number, cb?: () => void) {
+        if (isDisabled(props)) {
+            cb?.();
+            return;
+        }
+
         // Don't allow a fraction for the number of divisions
         numDivisions = Math.round(numDivisions);
 
@@ -477,7 +487,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
         const hollowFill = tokenValue(
             semanticColor.core.foreground.knockout.default,
         );
-        const pointColor = props.static ? staticColor : interactiveColor;
+        const pointColor = isDisabled(props) ? staticColor : interactiveColor;
 
         const normalStyle = {
             fill: isOpen ? hollowFill : pointColor,
@@ -503,6 +513,9 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                 ref="numberLinePoint"
                 pointSize={6}
                 coord={[props.userInput.numLinePosition, 0]}
+                // Removes the point's drag target, so it can't be hovered or
+                // dragged.
+                static={isDisabled(props)}
                 constraints={[
                     (coord: any, prevCoord) => {
                         // constrain-y
@@ -589,6 +602,11 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                     isTickCtrl: props.options.isTickCtrl,
                 }}
                 onMouseDown={(coord) => {
+                    // Graphie registers this handler once, at setup, so read
+                    // the latest props instead of this render's.
+                    if (isDisabled(propsRef.current)) {
+                        return;
+                    }
                     // `grab` isn't declared on the Movable type; the movable
                     // is populated via the string ref on <MovablePoint>
                     // below, and MovablePoint exposes `grab` at runtime.
@@ -629,10 +647,12 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                 className="simple-button"
                 value={strings.switchDirection}
                 onClick={handleReverse}
+                disabled={isDisabled(props)}
             />
             <input
                 type="button"
                 className="simple-button"
+                disabled={isDisabled(props)}
                 value={
                     ["le", "ge"].includes(props.userInput?.rel)
                         ? strings.circleOpen
@@ -645,9 +665,12 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
 
     let tickCtrl;
     if (isTickCtrl) {
-        const Input = props.apiOptions.customKeypad
-            ? SimpleKeypadInput
-            : NumberInput;
+        // The keypad input can't be disabled, so fall back to a disabled
+        // NumberInput, which also keeps the keypad from opening.
+        const Input =
+            props.apiOptions.customKeypad && !isDisabled(props)
+                ? SimpleKeypadInput
+                : NumberInput;
         tickCtrl = (
             <label>
                 {`${strings.numDivisions} `}
@@ -666,6 +689,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                     onFocus={handleTickCtrlFocus}
                     onBlur={handleTickCtrlBlur}
                     useArrowKeys={true}
+                    disabled={isDisabled(props)}
                     keypadElement={props.keypadElement}
                 />
             </label>

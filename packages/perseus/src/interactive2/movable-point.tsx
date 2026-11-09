@@ -233,6 +233,12 @@ export class MovablePoint {
                     opacity: 0.0,
                 });
             }
+        } else if (state.mouseTarget) {
+            // The point became static after it was added (e.g. a widget
+            // turned read-only once answered). Remove the mouse target so
+            // the point stops responding to hovers and drags.
+            state.mouseTarget.remove();
+            state.mouseTarget = null;
         }
 
         const showTrashTooltip = () => {

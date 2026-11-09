@@ -27,7 +27,6 @@ const widgetsNeedingOverlay: string[] = [
     "label-image",
     "matcher",
     "matrix",
-    "number-line",
     "numeric-input",
     "orderer",
     "plotter",

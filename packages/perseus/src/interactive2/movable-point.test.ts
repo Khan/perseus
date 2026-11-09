@@ -117,4 +117,33 @@ describe("MovablePoint", () => {
             },
         });
     });
+
+    it("removes its mouse target when it becomes static", () => {
+        // Arrange
+        const graphieEl = document.createElement("div");
+        const graphie = new Graphie(graphieEl);
+        graphie.init({
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+        });
+        graphie.addMouseLayer({});
+        const movable = new Movable(graphie, {});
+        const movablePoint = new MovablePoint(graphie, movable, {});
+
+        // Act
+        movablePoint.modify({static: true});
+
+        // Assert
+        expect(movablePoint.mouseTarget()).toBeNull();
+        expect(
+            // The mouse target is an invisible SVG shape with no accessible
+            // handle.
+
+            graphieEl.querySelector(
+                '[data-interactive-kind-for-testing="movable-point"]',
+            ),
+        ).toBeNull();
+    });
 });
