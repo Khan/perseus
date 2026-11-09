@@ -270,12 +270,15 @@ jobs:
             - name: Run tests
               run: pnpm pw:ci
 
+            # Uploaded even when the job passes: a flaky test that passes on a
+            # retry leaves a trace of its failed first attempt, but the job is
+            # green, so `if: failure()` would never upload it.
             - name: Upload report
               uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
-              if: failure()
+              if: ${{ !cancelled() }}
               with:
                   name: playwright-report
-                  # The HTML report, plus each failed test's trace and
+                  # The HTML report, plus each failed attempt's trace and
                   # screenshot.
                   path: |
                       genfiles/playwright/report

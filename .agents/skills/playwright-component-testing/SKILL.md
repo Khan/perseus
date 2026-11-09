@@ -155,9 +155,10 @@ two into `coverage/final`. Coverage needs the built gallery, so stop
   snapshots, actions, console, network) with
   `pnpm exec playwright show-trace genfiles/playwright/test-results/<test>/trace.zip`,
   or rerun the test in `pnpm pw` to watch it.
-- **In CI:** failures are annotated on the PR. When the job fails, it uploads
-  a `playwright-report` artifact with the HTML report and each failed
-  attempt's screenshot and trace. Download and unzip it, then run
+- **In CI:** failures are annotated on the PR. Each run uploads a
+  `playwright-report` artifact with the HTML report and each failed
+  attempt's screenshot and trace, including attempts that passed on a
+  retry. Download and unzip it, then run
   `pnpm exec playwright show-report <unzipped>/report`.
 - **A test that passes only on a retry** is reported as flaky. Find what it
   isn't waiting for and fix that; don't add retries or timeouts.

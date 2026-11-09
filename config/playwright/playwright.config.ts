@@ -48,8 +48,7 @@ export default defineConfig({
     // two retries.
     retries: isCI ? 2 : 0,
     // In CI: annotations on the PR for each failure, plus an HTML report
-    // that the workflow uploads when the job fails. Locally: one line per
-    // test.
+    // that the workflow uploads with each run. Locally: one line per test.
     reporter: isCI
         ? [
               ["github"],
