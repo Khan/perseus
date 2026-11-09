@@ -8,7 +8,6 @@ import * as React from "react";
 
 import WrappedServerItemRenderer from "../../../server-item-renderer";
 import {storybookDependenciesV2} from "../../../testing/test-dependencies";
-import {getWidget} from "../../../widgets";
 import {
     textQuestion,
     mathQuestion,
@@ -17,14 +16,19 @@ import {
     mixedContentQuestion,
 } from "../__tests__/label-image.testdata";
 
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {
+    PerseusLabelImageWidgetOptions,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const LabelImageWidget = getWidget("label-image")!;
+type StoryArgs = {
+    options: PerseusLabelImageWidgetOptions;
+    static?: boolean;
+};
 
-const meta: Meta<typeof LabelImageWidget> = {
+const meta: Meta<StoryArgs> = {
     title: "Widgets/Label Image",
-    component: LabelImageWidget,
     tags: ["!dev"],
     // Render a ServerItemRenderer, but allow the Label Image widget
     // props to be passed in as args.
@@ -52,7 +56,7 @@ const meta: Meta<typeof LabelImageWidget> = {
 
 export default meta;
 
-type Story = StoryObj<typeof LabelImageWidget>;
+type Story = StoryObj<StoryArgs>;
 
 function getArgsFromQuestion(question: PerseusRenderer) {
     return {options: question.widgets["label-image 1"].options};
