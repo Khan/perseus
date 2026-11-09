@@ -6,7 +6,7 @@ import * as React from "react";
 
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
 
-export const matcherRendererDecorator = (_, {args}) => {
+export const matcherRendererDecorator = (_, {args, parameters}) => {
     return (
         <QuestionRendererForStories
             question={generateTestPerseusRenderer({
@@ -21,6 +21,7 @@ export const matcherRendererDecorator = (_, {args}) => {
                             padding: true,
                             ...args,
                         },
+                        static: parameters.static ?? false,
                     }),
                 },
             })}
