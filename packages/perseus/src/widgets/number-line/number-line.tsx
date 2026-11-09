@@ -244,6 +244,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
     const {strings} = usePerseusI18n();
     const dependencies = useDependencies();
     const propsRef = useLatestRef(props);
+    const disabled = isDisabled(props);
     const [numDivisionsEmpty, setNumDivisionsEmpty] = useState(false);
     const tickStep = getTickStep(
         props.options.range,
@@ -401,7 +402,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
     }
 
     function onNumDivisionsChange(numDivisions: number, cb?: () => void) {
-        if (isDisabled(props)) {
+        if (disabled) {
             cb?.();
             return;
         }
@@ -487,7 +488,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
         const hollowFill = tokenValue(
             semanticColor.core.foreground.knockout.default,
         );
-        const pointColor = isDisabled(props) ? staticColor : interactiveColor;
+        const pointColor = disabled ? staticColor : interactiveColor;
 
         const normalStyle = {
             fill: isOpen ? hollowFill : pointColor,
@@ -515,7 +516,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                 coord={[props.userInput.numLinePosition, 0]}
                 // Removes the point's drag target, so it can't be hovered or
                 // dragged.
-                static={isDisabled(props)}
+                static={disabled}
                 constraints={[
                     (coord: any, prevCoord) => {
                         // constrain-y
@@ -647,12 +648,12 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                 className="simple-button"
                 value={strings.switchDirection}
                 onClick={handleReverse}
-                disabled={isDisabled(props)}
+                disabled={disabled}
             />
             <input
                 type="button"
                 className="simple-button"
-                disabled={isDisabled(props)}
+                disabled={disabled}
                 value={
                     ["le", "ge"].includes(props.userInput?.rel)
                         ? strings.circleOpen
@@ -668,7 +669,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
         // The keypad input can't be disabled, so fall back to a disabled
         // NumberInput, which also keeps the keypad from opening.
         const Input =
-            props.apiOptions.customKeypad && !isDisabled(props)
+            props.apiOptions.customKeypad && !disabled
                 ? SimpleKeypadInput
                 : NumberInput;
         tickCtrl = (
@@ -689,7 +690,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                     onFocus={handleTickCtrlFocus}
                     onBlur={handleTickCtrlBlur}
                     useArrowKeys={true}
-                    disabled={isDisabled(props)}
+                    disabled={disabled}
                     keypadElement={props.keypadElement}
                 />
             </label>
