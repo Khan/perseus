@@ -9,12 +9,12 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import {renderQuestion} from "../../../__testutils__/render-question";
 import * as Dependencies from "../../../dependencies";
 import {ApiOptions} from "../../../perseus-api";
 import {testDependencies} from "../../../testing/test-dependencies";
 import {scorePerseusItemTesting} from "../../../util/scoring.testutils";
 import {containerSizeClass} from "../../../util/sizing-utils";
-import {renderQuestion} from "../../__testutils__/render-question";
 import CrossOutContext from "../cross-out-context";
 import Radio from "../radio-widget";
 
