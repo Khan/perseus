@@ -64,6 +64,9 @@ export default defineConfig({
               ],
           ]
         : [["list"]],
+    // Stops the run with one clear message if the browser isn't installed,
+    // instead of every test failing with the same error.
+    globalSetup: "./global-setup.ts",
     // Nothing reads the git diff Playwright captures for its reports in CI,
     // and fetching the base commit for it can stall a run.
     captureGitInfo: {diff: false},

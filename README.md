@@ -69,7 +69,7 @@ Some tests (`*.spec.ts`) need to run in a real browser using [Playwright](https:
 pnpm exec playwright install chromium
 ```
 
-Without it, every test fails as soon as it tries to launch the browser. Then:
+If it's missing, the run stops before any test starts and tells you to run that command. Then:
 
 ```bash
 pnpm pw                      # UI mode: pick tests, watch them run, step through each action

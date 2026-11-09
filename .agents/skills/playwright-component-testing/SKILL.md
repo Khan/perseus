@@ -126,8 +126,9 @@ check `test.info().project.name`, but prefer specs that hold in both.
 ## Running tests
 
 Once, and after Playwright upgrades, install the browser:
-`pnpm exec playwright install chromium`. Without it, every test fails as soon
-as it launches the browser.
+`pnpm exec playwright install chromium`. If it's missing, the run stops
+before any test starts and says to run that command (see
+config/playwright/global-setup.ts).
 
 ```bash
 pnpm pw                                  # UI mode: pick tests, watch them, step through actions
