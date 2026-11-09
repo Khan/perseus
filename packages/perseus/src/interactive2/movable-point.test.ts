@@ -118,31 +118,59 @@ describe("MovablePoint", () => {
         });
     });
 
-    it("removes its mouse target when it becomes static", () => {
-        // Arrange
-        const graphieEl = document.createElement("div");
-        const graphie = new Graphie(graphieEl);
-        graphie.init({
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
+    describe("when static changes after construction", () => {
+        function createGraphie() {
+            const graphieDiv = document.createElement("div");
+            const graphie = new Graphie(graphieDiv);
+            graphie.init({
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+            });
+            graphie.addMouseLayer({});
+            return {graphie, graphieDiv};
+        }
+
+        function getMouseTargets(graphieDiv: HTMLElement) {
+            // Mouse targets are bare SVG elements with no accessible role.
+            return graphieDiv.querySelectorAll(
+                "[data-interactive-kind-for-testing='movable-point']",
+            );
+        }
+
+        it("removes its mouse target when it becomes static", () => {
+            // Arrange
+            const {graphie, graphieDiv} = createGraphie();
+            const movable = new Movable(graphie, {});
+            const movablePoint = new MovablePoint(graphie, movable, {
+                static: false,
+            });
+
+            // Act
+            movablePoint.modify({static: true});
+
+            // Assert
+            expect(movablePoint.state.mouseTarget).toBeNull();
+            expect(getMouseTargets(graphieDiv)).toHaveLength(0);
         });
-        graphie.addMouseLayer({});
-        const movable = new Movable(graphie, {});
-        const movablePoint = new MovablePoint(graphie, movable, {});
 
-        // Act
-        movablePoint.modify({static: true});
+        it("adds a mouse target when it stops being static", () => {
+            // Arrange
+            const {graphie, graphieDiv} = createGraphie();
+            const movable = new Movable(graphie, {});
+            const movablePoint = new MovablePoint(graphie, movable, {
+                static: true,
+            });
 
-        // Assert
-        expect(movablePoint.mouseTarget()).toBeNull();
-        expect(
-            // Need to use querySelector because the mouse target is an
-            // invisible SVG shape with no accessible handle.
-            graphieEl.querySelector(
-                '[data-interactive-kind-for-testing="movable-point"]',
-            ),
-        ).toBeNull();
+            // Act
+            movablePoint.modify({static: false});
+
+            // Assert
+            expect(movablePoint.state.mouseTarget).toEqual(
+                expect.any(WrappedEllipse),
+            );
+            expect(getMouseTargets(graphieDiv)).toHaveLength(1);
+        });
     });
 });

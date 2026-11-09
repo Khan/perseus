@@ -6,7 +6,7 @@ import {
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
-import {screen} from "@testing-library/react";
+import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../../__testutils__/render-question";
@@ -987,9 +987,12 @@ describe("LabelImage", function () {
             ).toBeInTheDocument();
         });
 
-        it("names the marker combobox as correct when answered correctly", () => {
+        it("names the marker combobox as correct when answered correctly", async () => {
             // Arrange, Act
             renderQuestion(question, {extraProps: {reviewMode: true}});
+            // The popover positions itself asynchronously. We need to ensure
+            // that happens during an `act` call, or RTL warns.
+            await act(() => Promise.resolve());
 
             // Assert
             expect(
@@ -1021,18 +1024,21 @@ describe("LabelImage", function () {
             expect(screen.getByRole("combobox")).not.toBeRequired();
         });
 
-        it("does not render the marker as required in review mode", () => {
+        it("does not render the marker as required in review mode", async () => {
             // Arrange, Act
             renderQuestion(generateSingleMarkerRenderer(), {
                 apiOptions: {readOnly: false},
                 extraProps: {isScorable: true, reviewMode: true},
             });
+            // The popover positions itself asynchronously. We need to ensure
+            // that happens during an `act` call, or RTL warns.
+            await act(() => Promise.resolve());
 
             // Assert
             expect(screen.getByRole("combobox")).not.toBeRequired();
         });
 
-        it("does not render the marker as required when showing solutions", () => {
+        it("does not render the marker as required when showing solutions", async () => {
             // Arrange, Act
             renderQuestion(generateSingleMarkerRenderer(), {
                 apiOptions: {readOnly: false},
@@ -1042,17 +1048,23 @@ describe("LabelImage", function () {
                     showSolutions: "all",
                 },
             });
+            // The popover positions itself asynchronously. We need to ensure
+            // that happens during an `act` call, or RTL warns.
+            await act(() => Promise.resolve());
 
             // Assert
             expect(screen.getByRole("combobox")).not.toBeRequired();
         });
 
-        it("does not render the marker as required when static", () => {
+        it("does not render the marker as required when static", async () => {
             // Arrange, Act
             renderQuestion(generateSingleMarkerRenderer({isStatic: true}), {
                 apiOptions: {readOnly: false},
                 extraProps: {isScorable: true, reviewMode: false},
             });
+            // The popover positions itself asynchronously. We need to ensure
+            // that happens during an `act` call, or RTL warns.
+            await act(() => Promise.resolve());
 
             // Assert
             expect(screen.getByRole("combobox")).not.toBeRequired();
@@ -1067,6 +1079,79 @@ describe("LabelImage", function () {
 
             // Assert
             expect(screen.getByRole("combobox")).not.toBeRequired();
+        });
+    });
+
+    describe("disabled state", () => {
+        it("opens the answer choices when interactive", async () => {
+            // Arrange
+            renderQuestion(generateSingleMarkerRenderer(), {
+                apiOptions: {readOnly: false},
+            });
+
+            // Act
+            await userEvent.click(screen.getByRole("combobox"));
+
+            // Assert
+            expect(
+                screen.getByRole("option", {name: "Cars"}),
+            ).toBeInTheDocument();
+        });
+
+        it("disables the marker combobox when static", () => {
+            // Arrange, Act
+            renderQuestion(generateSingleMarkerRenderer({isStatic: true}), {
+                apiOptions: {readOnly: false},
+            });
+
+            // Assert
+            expect(screen.getByRole("combobox")).toHaveAttribute(
+                "aria-disabled",
+                "true",
+            );
+        });
+
+        it("does not open the answer choices when static", async () => {
+            // Arrange
+            renderQuestion(generateSingleMarkerRenderer({isStatic: true}), {
+                apiOptions: {readOnly: false},
+            });
+
+            // Act
+            await userEvent.click(screen.getByRole("combobox"));
+
+            // Assert
+            expect(
+                screen.queryByRole("option", {name: "Cars"}),
+            ).not.toBeInTheDocument();
+        });
+
+        it("disables the marker combobox when read-only", () => {
+            // Arrange, Act
+            renderQuestion(generateSingleMarkerRenderer(), {
+                apiOptions: {readOnly: true},
+            });
+
+            // Assert
+            expect(screen.getByRole("combobox")).toHaveAttribute(
+                "aria-disabled",
+                "true",
+            );
+        });
+
+        it("does not open the answer choices when read-only", async () => {
+            // Arrange
+            renderQuestion(generateSingleMarkerRenderer(), {
+                apiOptions: {readOnly: true},
+            });
+
+            // Act
+            await userEvent.click(screen.getByRole("combobox"));
+
+            // Assert
+            expect(
+                screen.queryByRole("option", {name: "Cars"}),
+            ).not.toBeInTheDocument();
         });
     });
 
