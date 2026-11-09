@@ -58,6 +58,11 @@ const restrictedSyntax = [
         message: "DEPRECATED: Use a React Portal instead.",
     },
     {
+        selector:
+            "ImportDeclaration[source.value='react'] > ImportSpecifier[imported.name='createElement']",
+        message: "Use JSX instead of createElement.",
+    },
+    {
         selector: "TSQualifiedName[left.name='React'][right.name='FC']",
         message:
             "Use of React.FC<Props> is disallowed, use the following alternative: https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/2201682693/TypeScript+for+Flow+Developers#Functional-Components",
@@ -189,6 +194,10 @@ const noSelfPackageImports = pkgNames.map((pkgName) => ({
 }));
 
 module.exports = {
+    // Don't merge in configs from parent directories. Without this, a git
+    // worktree inside this repo (e.g. under .claude/worktrees/) also loads the
+    // main checkout's config, and ESLint fails on the duplicate plugins.
+    root: true,
     extends: [
         "@khanacademy",
         "@khanacademy/eslint-config/a11y",
@@ -543,6 +552,11 @@ module.exports = {
                 property: "random",
                 message:
                     "Use seeded randomness. See: https://khanacademy.atlassian.net/browse/LEMS-3397",
+            },
+            {
+                object: "React",
+                property: "createElement",
+                message: "Use JSX instead of React.createElement.",
             },
         ],
         "no-restricted-imports": [

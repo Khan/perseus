@@ -8,14 +8,14 @@ import {
     generateInteractiveGraphWidget,
 } from "@khanacademy/perseus-core";
 
-import {expectPass, expectWarning} from "../__tests__/test-utils";
+import {expectPass, expectIssue} from "../__tests__/test-utils";
 import Rule from "../rule";
 
 import interactiveGraphWidgetErrorRule from "./interactive-graph-widget-error";
 
 describe("interactive-graph-widget-error", () => {
     it("warns when locked line has length 0", () => {
-        expectWarning(
+        expectIssue(
             interactiveGraphWidgetErrorRule,
             "[[☃ interactive-graph 1]]",
             {
@@ -35,14 +35,16 @@ describe("interactive-graph-widget-error", () => {
                 },
             },
             {
-                message: "Locked line cannot have length 0.",
+                messages: [
+                    "interactive-graph 1: Locked line cannot have length 0.",
+                ],
                 severity: Rule.Severity.ERROR,
             },
         );
     });
 
     it("warns when locked polygon has all coordinates be the same", () => {
-        expectWarning(
+        expectIssue(
             interactiveGraphWidgetErrorRule,
             "[[☃ interactive-graph 1]]",
             {
@@ -63,15 +65,16 @@ describe("interactive-graph-widget-error", () => {
                 },
             },
             {
-                message:
-                    "Locked polygon cannot have all coordinates be the same.",
+                messages: [
+                    "interactive-graph 1: Locked polygon cannot have all coordinates be the same.",
+                ],
                 severity: Rule.Severity.ERROR,
             },
         );
     });
 
     it("warns when locked ellipse has negative radius", () => {
-        expectWarning(
+        expectIssue(
             interactiveGraphWidgetErrorRule,
             "[[☃ interactive-graph 1]]",
             {
@@ -86,14 +89,16 @@ describe("interactive-graph-widget-error", () => {
                 },
             },
             {
-                message: "Locked ellipse must have positive radius values.",
+                messages: [
+                    "interactive-graph 1: Locked ellipse must have positive radius values.",
+                ],
                 severity: Rule.Severity.ERROR,
             },
         );
     });
 
     it("warns when locked ellipse has zero radius", () => {
-        expectWarning(
+        expectIssue(
             interactiveGraphWidgetErrorRule,
             "[[☃ interactive-graph 1]]",
             {
@@ -108,14 +113,16 @@ describe("interactive-graph-widget-error", () => {
                 },
             },
             {
-                message: "Locked ellipse must have positive radius values.",
+                messages: [
+                    "interactive-graph 1: Locked ellipse must have positive radius values.",
+                ],
                 severity: Rule.Severity.ERROR,
             },
         );
     });
 
     it("warns when unlimited polygon is open", () => {
-        expectWarning(
+        expectIssue(
             interactiveGraphWidgetErrorRule,
             "[[☃ interactive-graph 1]]",
             {
@@ -131,14 +138,14 @@ describe("interactive-graph-widget-error", () => {
                 },
             },
             {
-                message: "Polygon must be closed.",
+                messages: ["interactive-graph 1: Polygon must be closed."],
                 severity: Rule.Severity.ERROR,
             },
         );
     });
 
     it("warns when showPointLabels is true but pointLabels is missing (correct graph)", () => {
-        expectWarning(
+        expectIssue(
             interactiveGraphWidgetErrorRule,
             "[[☃ interactive-graph 1]]",
             {
@@ -153,8 +160,9 @@ describe("interactive-graph-widget-error", () => {
                 },
             },
             {
-                message:
-                    "showPointLabels is true but pointLabels has no labels. Provide a label for at least one point.",
+                messages: [
+                    "interactive-graph 1: showPointLabels is true but pointLabels has no labels. Provide a label for at least one point.",
+                ],
                 severity: Rule.Severity.ERROR,
             },
         );
@@ -180,7 +188,7 @@ describe("interactive-graph-widget-error", () => {
     });
 
     it("warns when showPointLabels is true but every pointLabels entry is empty", () => {
-        expectWarning(
+        expectIssue(
             interactiveGraphWidgetErrorRule,
             "[[☃ interactive-graph 1]]",
             {
@@ -196,15 +204,16 @@ describe("interactive-graph-widget-error", () => {
                 },
             },
             {
-                message:
-                    "showPointLabels is true but pointLabels has no labels. Provide a label for at least one point.",
+                messages: [
+                    "interactive-graph 1: showPointLabels is true but pointLabels has no labels. Provide a label for at least one point.",
+                ],
                 severity: Rule.Severity.ERROR,
             },
         );
     });
 
     it("warns when showPointLabels is true on the starting (`graph`) graph too", () => {
-        expectWarning(
+        expectIssue(
             interactiveGraphWidgetErrorRule,
             "[[☃ interactive-graph 1]]",
             {
@@ -219,8 +228,9 @@ describe("interactive-graph-widget-error", () => {
                 },
             },
             {
-                message:
-                    "showPointLabels is true but pointLabels has no labels. Provide a label for at least one point.",
+                messages: [
+                    "interactive-graph 1: showPointLabels is true but pointLabels has no labels. Provide a label for at least one point.",
+                ],
                 severity: Rule.Severity.ERROR,
             },
         );
@@ -305,7 +315,7 @@ describe("interactive-graph-widget-error", () => {
     });
 
     it("warns when pointLabels is shorter than the expected number of points", () => {
-        expectWarning(
+        expectIssue(
             interactiveGraphWidgetErrorRule,
             "[[☃ interactive-graph 1]]",
             {
@@ -322,15 +332,16 @@ describe("interactive-graph-widget-error", () => {
                 },
             },
             {
-                message:
-                    'pointLabels has 2 entries but this graph type expects 3. Use empty strings ("") to skip labels for specific points, e.g. ["A", "", "C"].',
+                messages: [
+                    'interactive-graph 1: pointLabels has 2 entries but this graph type expects 3. Use empty strings ("") to skip labels for specific points, e.g. ["A", "", "C"].',
+                ],
                 severity: Rule.Severity.ERROR,
             },
         );
     });
 
     it("warns when pointLabels is longer than the expected number of points", () => {
-        expectWarning(
+        expectIssue(
             interactiveGraphWidgetErrorRule,
             "[[☃ interactive-graph 1]]",
             {
@@ -347,8 +358,9 @@ describe("interactive-graph-widget-error", () => {
                 },
             },
             {
-                message:
-                    'pointLabels has 4 entries but this graph type expects 3. Use empty strings ("") to skip labels for specific points, e.g. ["A", "", "C"].',
+                messages: [
+                    'interactive-graph 1: pointLabels has 4 entries but this graph type expects 3. Use empty strings ("") to skip labels for specific points, e.g. ["A", "", "C"].',
+                ],
                 severity: Rule.Severity.ERROR,
             },
         );

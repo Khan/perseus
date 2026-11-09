@@ -1,38 +1,30 @@
-import {expectPass, expectWarning} from "../__tests__/test-utils";
+import {expectPass, expectIssue} from "../__tests__/test-utils";
 
 import phetSimulationWidgetErrorRule from "./phet-simulation-widget-error";
 
 describe("radio-widget-error", () => {
     it("warns for phet simulation widget with non-PhET URL", () => {
-        expectWarning(
-            phetSimulationWidgetErrorRule,
-            "[[☃ phet-simulation 1]]",
-            {
-                widgets: {
-                    "phet-simulation 1": {
-                        options: {
-                            url: "https://google.com",
-                        },
+        expectIssue(phetSimulationWidgetErrorRule, "[[☃ phet-simulation 1]]", {
+            widgets: {
+                "phet-simulation 1": {
+                    options: {
+                        url: "https://google.com",
                     },
                 },
             },
-        );
+        });
     });
 
     it("warns for phet simulation widget with nonsensical URL", () => {
-        expectWarning(
-            phetSimulationWidgetErrorRule,
-            "[[☃ phet-simulation 1]]",
-            {
-                widgets: {
-                    "phet-simulation 1": {
-                        options: {
-                            url: "abcdefghijklmnopqrstuvwxyz",
-                        },
+        expectIssue(phetSimulationWidgetErrorRule, "[[☃ phet-simulation 1]]", {
+            widgets: {
+                "phet-simulation 1": {
+                    options: {
+                        url: "abcdefghijklmnopqrstuvwxyz",
                     },
                 },
             },
-        );
+        });
     });
 
     it("passes for phet simulation widget with PhET URL", () => {

@@ -76,6 +76,7 @@ module.exports = {
         "packages/*/src/**/*.tsx",
         "!packages/*/node_modules/",
         "!**/__tests__/**",
+        "!**/__testutils__/**",
         "!**/__docs__/**",
         "!**/__stories__/**",
         "!**/*.stories.tsx",

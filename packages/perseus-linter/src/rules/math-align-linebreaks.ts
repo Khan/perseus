@@ -1,9 +1,8 @@
+import {linterWarning} from "../lint";
 import Rule from "../rule";
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "math-align-linebreaks",
-    severity: Rule.Severity.WARNING,
     selector: "blockMath",
     // Match any align block with double backslashes in it
     // Use [\s\S]* instead of .* so we match newlines as well.
@@ -31,7 +30,9 @@ export default Rule.makeRule({
             // If that does not match then we either have too few or too
             // many pairs of backslashes.
             if (!nextpair) {
-                return "Use four backslashes between lines of an align block";
+                return linterWarning(
+                    "Use four backslashes between lines of an align block",
+                );
             }
 
             // If it did match, then, shorten the string and continue looping
@@ -40,4 +41,4 @@ export default Rule.makeRule({
             text = text.substring(nextpair[0].length);
         }
     },
-}) as Rule;
+});

@@ -1,4 +1,5 @@
 import AbsoluteUrl from "./absolute-url";
+import {ExplanationWidgetRule} from "./explanation";
 import {
     ExplanationInGradedGroup,
     ExplanationInGradedGroupSet,
@@ -8,7 +9,11 @@ import {
     ExpressionWidgetButtons,
     ExpressionWidgetCorrectAnswer,
 } from "./expression-widget";
+import {FillInTheBlankRule} from "./fill-in-the-blank";
 import FreeResponseWidgetError from "./free-response-widget-error";
+import {GradedGroupWidgetRule} from "./graded-group";
+import {GradedGroupSetWidgetRule} from "./graded-group-set";
+import {GroupWidgetRule} from "./group";
 import HeadingLevel1 from "./heading-level-1";
 import HeadingLevelSkip from "./heading-level-skip";
 import HeadingSentenceCase from "./heading-sentence-case";
@@ -50,52 +55,61 @@ import TableMissingCells from "./table-missing-cells";
 import UnbalancedCodeDelimiters from "./unbalanced-code-delimiters";
 import UnescapedDollar from "./unescaped-dollar";
 
-export const allRules = [
-    AbsoluteUrl,
-    ImageUrlEmpty,
-    ExpressionWidgetButtons,
-    ExpressionWidgetCorrectAnswer,
-    HeadingLevel1,
-    HeadingLevelSkip,
-    HeadingSentenceCase,
-    HeadingTitleCase,
-    ImageAltText,
-    ImageMarkdown,
-    LinkClickHere,
-    LongParagraph,
-    MathAdjacent,
-    MathAlignExtraBreak,
-    MathAlignLinebreaks,
-    MathEmpty,
-    MathFrac,
-    MathNested,
-    MathStartsWithSpace,
-    MathTextEmpty,
-    NestedLists,
-    StaticWidgetInQuestionStem,
-    TableMissingCaption,
-    TableMissingCells,
-    UnescapedDollar,
-    MathWithoutDollars,
-    UnbalancedCodeDelimiters,
-    ImageSpacesAroundUrls,
-    ImageWidgetAltText,
-    ImageWidgetEmptySize,
-    LegacyGifUrl,
-    InaccessibleWidget,
-    RadioWidgetError,
-    ExpressionWidgetAnswerForms,
-    FreeResponseWidgetError,
-    MatcherWidgetError,
-    NumericInputMissingLabel,
-    NumericInputWidgetError,
-    PhetSimulationWidgetError,
-    PythonProgramWidgetError,
-    LabelImageWidgetError,
-    InteractiveGraphWidgetError,
-    InteractiveGraphLockedFigureOob,
-    SorterWidgetError,
-    SorterWidgetWarning,
-    ExplanationInGradedGroup,
-    ExplanationInGradedGroupSet,
-];
+import type Rule from "../rule";
+
+export function allRules(): Rule[] {
+    return [
+        AbsoluteUrl,
+        ExplanationInGradedGroup,
+        ExplanationInGradedGroupSet,
+        ExplanationWidgetRule,
+        ExpressionWidgetAnswerForms,
+        ExpressionWidgetButtons,
+        ExpressionWidgetCorrectAnswer,
+        FillInTheBlankRule,
+        FreeResponseWidgetError,
+        GradedGroupSetWidgetRule,
+        GradedGroupWidgetRule,
+        GroupWidgetRule,
+        HeadingLevel1,
+        HeadingLevelSkip,
+        HeadingSentenceCase,
+        HeadingTitleCase,
+        ImageAltText,
+        ImageMarkdown,
+        ImageSpacesAroundUrls,
+        ImageUrlEmpty,
+        ImageWidgetAltText,
+        ImageWidgetEmptySize,
+        InaccessibleWidget,
+        InteractiveGraphLockedFigureOob,
+        InteractiveGraphWidgetError,
+        LabelImageWidgetError,
+        LegacyGifUrl,
+        LinkClickHere,
+        LongParagraph,
+        MatcherWidgetError,
+        MathAdjacent,
+        MathAlignExtraBreak,
+        MathAlignLinebreaks,
+        MathEmpty,
+        MathFrac,
+        MathNested,
+        MathStartsWithSpace,
+        MathTextEmpty,
+        MathWithoutDollars,
+        NestedLists,
+        NumericInputMissingLabel,
+        NumericInputWidgetError,
+        PhetSimulationWidgetError,
+        PythonProgramWidgetError,
+        RadioWidgetError,
+        SorterWidgetError,
+        SorterWidgetWarning,
+        StaticWidgetInQuestionStem,
+        TableMissingCaption,
+        TableMissingCells,
+        UnbalancedCodeDelimiters,
+        UnescapedDollar,
+    ];
+}

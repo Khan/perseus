@@ -1,11 +1,12 @@
 import Rule from "../rule";
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "nested-lists",
-    severity: Rule.Severity.WARNING,
     selector: "list list",
-    message: `Nested lists:
+    lint: Rule.makeLintFunction({
+        severity: Rule.Severity.WARNING,
+        message: `Nested lists:
 nested lists are hard to read on mobile devices;
 do not use additional indentation.`,
-}) as Rule;
+    }),
+});

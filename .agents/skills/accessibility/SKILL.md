@@ -1,3 +1,12 @@
+---
+name: accessibility
+description: >
+  Accessibility rules for Perseus UI work: WCAG 2.2 AA, semantic HTML over
+  ARIA, and anti-patterns to avoid. Use whenever building, changing or
+  reviewing UI components, markup, styles or interactions, alongside the
+  wonder-blocks skill.
+---
+
 # Instructions for Accessibility Topics
 
 ## Rules that MUST Be Followed

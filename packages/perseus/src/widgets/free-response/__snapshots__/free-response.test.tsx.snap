@@ -55,6 +55,7 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
               >
                 <textarea
                   aria-describedby=":r2:-labeled-field-additional-helper-message"
+                  aria-disabled="false"
                   aria-invalid="false"
                   aria-required="false"
                   data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
@@ -146,6 +147,7 @@ exports[`free-response widget should snapshot: first render 1`] = `
               >
                 <textarea
                   aria-describedby=":r0:-labeled-field-additional-helper-message"
+                  aria-disabled="false"
                   aria-invalid="false"
                   aria-required="false"
                   data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"

@@ -1,5 +1,6 @@
 import {SORTER_MAX_CARDS} from "@khanacademy/perseus-core";
 
+import {linterWarning} from "../lint";
 import Rule from "../rule";
 
 import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
@@ -8,27 +9,10 @@ import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
 export const sorterMaxIdealCards = 5;
 export const sorterMaxHorizontalCards = 5;
 
-export default Rule.makeRule({
+export default Rule.makeWidgetRule({
     name: "sorter-widget-warning",
-    severity: Rule.Severity.WARNING,
-    selector: "widget",
-    lint: function (state, content, nodes, match, context) {
-        // This rule only looks at sorter widgets
-        if (state.currentNode().widgetType !== "sorter") {
-            return;
-        }
-
-        const nodeId = state.currentNode().id;
-        if (!nodeId) {
-            return;
-        }
-
-        // If it can't find a definition for the widget it does nothing
-        const widget = context?.widgets?.[nodeId];
-        if (!widget) {
-            return;
-        }
-
+    widgetType: "sorter",
+    lint(widget) {
         const warnings: string[] = [];
         const options: PerseusSorterWidgetOptions = widget.options;
         const {layout, correct = []} = options;
@@ -54,6 +38,6 @@ export default Rule.makeRule({
             );
         }
 
-        return warnings.join("\n\n");
+        return warnings.map((warning) => linterWarning(warning));
     },
 });

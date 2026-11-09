@@ -133,6 +133,7 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                   >
                                     <div
+                                      aria-disabled="false"
                                       aria-label="True"
                                       role="button"
                                     >
@@ -161,6 +162,7 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                   >
                                     <div
+                                      aria-disabled="false"
                                       aria-label="False"
                                       role="button"
                                     >
@@ -206,6 +208,7 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                   >
                                     <div
+                                      aria-disabled="false"
                                       aria-label="True"
                                       role="button"
                                     >
@@ -234,6 +237,7 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                   >
                                     <div
+                                      aria-disabled="false"
                                       aria-label="False"
                                       role="button"
                                     >
@@ -279,6 +283,7 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                   >
                                     <div
+                                      aria-disabled="false"
                                       aria-label="True"
                                       role="button"
                                     >
@@ -307,6 +312,7 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                   >
                                     <div
+                                      aria-disabled="false"
                                       aria-label="False"
                                       role="button"
                                     >
@@ -352,6 +358,7 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                   >
                                     <div
+                                      aria-disabled="false"
                                       aria-label="True"
                                       role="button"
                                     >
@@ -380,6 +387,7 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                   >
                                     <div
+                                      aria-disabled="false"
                                       aria-label="False"
                                       role="button"
                                     >
@@ -430,7 +438,7 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
               </div>
             </div>
             <button
-              aria-controls=":r2f:"
+              aria-controls=":r1:"
               aria-expanded="false"
               style="background-color: unset; font-size: var(--wb-font-body-size-small); padding: 0px; border: none; margin-block-start: 20px; color: var(--wb-semanticColor-core-foreground-instructive-default); cursor: pointer; display: block; clear: both;"
             >
@@ -438,7 +446,7 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
             </button>
             <div
               class="hint hint-collapsed"
-              id=":r2f:"
+              id=":r1:"
             >
               <div
                 class="hint-wrapper"
@@ -501,7 +509,6 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                     >
                       <div
                         class="perseus-widget-container widget-block"
-                        style="position: relative; overflow: visible;"
                       >
                         <div
                           class="categorizer-container static-mode "
@@ -573,12 +580,12 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
+                                    aria-disabled="true"
                                     aria-label="True"
                                     role="button"
                                   >
                                     <span
-                                      data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
-                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer; color: var(--wb-semanticColor-core-foreground-disabled-strong);"
+                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; color: var(--wb-semanticColor-core-foreground-disabled-strong);"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -601,12 +608,12 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
+                                    aria-disabled="true"
                                     aria-label="False"
                                     role="button"
                                   >
                                     <span
-                                      data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
-                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer;"
+                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px;"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -646,12 +653,12 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
+                                    aria-disabled="true"
                                     aria-label="True"
                                     role="button"
                                   >
                                     <span
-                                      data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
-                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer;"
+                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px;"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -674,12 +681,12 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
+                                    aria-disabled="true"
                                     aria-label="False"
                                     role="button"
                                   >
                                     <span
-                                      data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
-                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer; color: var(--wb-semanticColor-core-foreground-disabled-strong);"
+                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; color: var(--wb-semanticColor-core-foreground-disabled-strong);"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -719,12 +726,12 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
+                                    aria-disabled="true"
                                     aria-label="True"
                                     role="button"
                                   >
                                     <span
-                                      data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
-                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer; color: var(--wb-semanticColor-core-foreground-disabled-strong);"
+                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; color: var(--wb-semanticColor-core-foreground-disabled-strong);"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -747,12 +754,12 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
+                                    aria-disabled="true"
                                     aria-label="False"
                                     role="button"
                                   >
                                     <span
-                                      data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
-                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer;"
+                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px;"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -792,12 +799,12 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
+                                    aria-disabled="true"
                                     aria-label="True"
                                     role="button"
                                   >
                                     <span
-                                      data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
-                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer; color: var(--wb-semanticColor-core-foreground-disabled-strong);"
+                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; color: var(--wb-semanticColor-core-foreground-disabled-strong);"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -820,12 +827,12 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
+                                    aria-disabled="true"
                                     aria-label="False"
                                     role="button"
                                   >
                                     <span
-                                      data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
-                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer;"
+                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px;"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -847,9 +854,6 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                             </tbody>
                           </table>
                         </div>
-                        <div
-                          style="width: 100%; height: 100%; position: absolute; top: 0px; left: 0px; z-index: 3;"
-                        />
                       </div>
                     </div>
                   </div>
@@ -1026,6 +1030,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                   >
                                     <div
+                                      aria-disabled="false"
                                       aria-label="True"
                                       role="button"
                                     >
@@ -1043,6 +1048,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                   >
                                     <div
+                                      aria-disabled="false"
                                       aria-label="False"
                                       role="button"
                                     >
@@ -1077,6 +1083,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                   >
                                     <div
+                                      aria-disabled="false"
                                       aria-label="True"
                                       role="button"
                                     >
@@ -1094,6 +1101,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                   >
                                     <div
+                                      aria-disabled="false"
                                       aria-label="False"
                                       role="button"
                                     >
@@ -1128,6 +1136,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                   >
                                     <div
+                                      aria-disabled="false"
                                       aria-label="True"
                                       role="button"
                                     >
@@ -1145,6 +1154,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                   >
                                     <div
+                                      aria-disabled="false"
                                       aria-label="False"
                                       role="button"
                                     >
@@ -1179,6 +1189,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                   >
                                     <div
+                                      aria-disabled="false"
                                       aria-label="True"
                                       role="button"
                                     >
@@ -1196,6 +1207,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                     style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                   >
                                     <div
+                                      aria-disabled="false"
                                       aria-label="False"
                                       role="button"
                                     >
@@ -1235,7 +1247,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
               </div>
             </div>
             <button
-              aria-controls=":r2e:"
+              aria-controls=":r0:"
               aria-expanded="false"
               style="background-color: unset; font-size: var(--wb-font-body-size-small); padding: 0px; border: none; margin-block-start: 20px; color: var(--wb-semanticColor-core-foreground-instructive-default); cursor: pointer; display: block; clear: both;"
             >
@@ -1243,7 +1255,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
             </button>
             <div
               class="hint hint-collapsed"
-              id=":r2e:"
+              id=":r0:"
             >
               <div
                 class="hint-wrapper"
@@ -1306,7 +1318,6 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                     >
                       <div
                         class="perseus-widget-container widget-block"
-                        style="position: relative; overflow: visible;"
                       >
                         <div
                           class="categorizer-container static-mode"
@@ -1379,6 +1390,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
+                                    aria-disabled="true"
                                     aria-label="True"
                                     role="button"
                                   >
@@ -1386,6 +1398,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                       checked=""
                                       data-style-checked="background-color: var(--wb-semanticColor-core-foreground-disabled-strong); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-disabled-strong); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
                                       data-style-ms-check="display: none;"
+                                      disabled=""
                                       name="perseus_radio_10_0"
                                       style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
                                       type="radio"
@@ -1397,12 +1410,14 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
+                                    aria-disabled="true"
                                     aria-label="False"
                                     role="button"
                                   >
                                     <input
                                       data-style-checked="background-color: var(--wb-semanticColor-core-foreground-disabled-strong); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-disabled-strong); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
                                       data-style-ms-check="display: none;"
+                                      disabled=""
                                       name="perseus_radio_10_0"
                                       style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
                                       type="radio"
@@ -1431,12 +1446,14 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
+                                    aria-disabled="true"
                                     aria-label="True"
                                     role="button"
                                   >
                                     <input
                                       data-style-checked="background-color: var(--wb-semanticColor-core-foreground-disabled-strong); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-disabled-strong); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
                                       data-style-ms-check="display: none;"
+                                      disabled=""
                                       name="perseus_radio_10_1"
                                       style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
                                       type="radio"
@@ -1448,6 +1465,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
+                                    aria-disabled="true"
                                     aria-label="False"
                                     role="button"
                                   >
@@ -1455,6 +1473,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                       checked=""
                                       data-style-checked="background-color: var(--wb-semanticColor-core-foreground-disabled-strong); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-disabled-strong); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
                                       data-style-ms-check="display: none;"
+                                      disabled=""
                                       name="perseus_radio_10_1"
                                       style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
                                       type="radio"
@@ -1483,6 +1502,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
+                                    aria-disabled="true"
                                     aria-label="True"
                                     role="button"
                                   >
@@ -1490,6 +1510,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                       checked=""
                                       data-style-checked="background-color: var(--wb-semanticColor-core-foreground-disabled-strong); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-disabled-strong); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
                                       data-style-ms-check="display: none;"
+                                      disabled=""
                                       name="perseus_radio_10_2"
                                       style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
                                       type="radio"
@@ -1501,12 +1522,14 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
+                                    aria-disabled="true"
                                     aria-label="False"
                                     role="button"
                                   >
                                     <input
                                       data-style-checked="background-color: var(--wb-semanticColor-core-foreground-disabled-strong); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-disabled-strong); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
                                       data-style-ms-check="display: none;"
+                                      disabled=""
                                       name="perseus_radio_10_2"
                                       style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
                                       type="radio"
@@ -1535,6 +1558,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
+                                    aria-disabled="true"
                                     aria-label="True"
                                     role="button"
                                   >
@@ -1542,6 +1566,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                       checked=""
                                       data-style-checked="background-color: var(--wb-semanticColor-core-foreground-disabled-strong); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-disabled-strong); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
                                       data-style-ms-check="display: none;"
+                                      disabled=""
                                       name="perseus_radio_10_3"
                                       style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
                                       type="radio"
@@ -1553,12 +1578,14 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
+                                    aria-disabled="true"
                                     aria-label="False"
                                     role="button"
                                   >
                                     <input
                                       data-style-checked="background-color: var(--wb-semanticColor-core-foreground-disabled-strong); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-disabled-strong); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
                                       data-style-ms-check="display: none;"
+                                      disabled=""
                                       name="perseus_radio_10_3"
                                       style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
                                       type="radio"
@@ -1569,9 +1596,6 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                             </tbody>
                           </table>
                         </div>
-                        <div
-                          style="width: 100%; height: 100%; position: absolute; top: 0px; left: 0px; z-index: 3;"
-                        />
                       </div>
                     </div>
                   </div>

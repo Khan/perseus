@@ -1,10 +1,10 @@
-import {expectWarning, expectPass} from "../__tests__/test-utils";
+import {expectIssue, expectPass} from "../__tests__/test-utils";
 
 import headingLevelSkipRule from "./heading-level-skip";
 
 describe("heading-level-skip", () => {
     it("warns when a heading level is skipped", () => {
-        expectWarning(headingLevelSkipRule, "## heading 1\n\n#### heading 2");
+        expectIssue(headingLevelSkipRule, "## heading 1\n\n#### heading 2");
     });
 
     it.each([
