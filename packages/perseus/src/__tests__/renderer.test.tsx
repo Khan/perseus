@@ -42,16 +42,20 @@ import type {UserEvent} from "@testing-library/user-event";
 // see that symbol as an instance method).
 const mockRunLinter = jest.fn();
 const mockApplyLintErrors = jest.fn();
-jest.mock("../translation-linter", () => {
+jest.mock("../translation-linter", () => ({
+    // The module's default export is the TranslationLinter class. Return a
+    // module object, not a bare function: only Jest treats a bare function as
+    // the whole module.
+    __esModule: true,
     // We mock the TranslationLinter constructor here setting things up so we
     // can spy/verify calls to instances of TranslationLinter
-    return function () {
+    default: function () {
         return {
             runLinter: mockRunLinter,
             applyLintErrors: mockApplyLintErrors,
         };
-    };
-});
+    },
+}));
 
 describe("renderer", () => {
     beforeAll(() => {
