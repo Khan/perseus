@@ -619,8 +619,6 @@ export class LabelImage
                         onToggle={(opened) =>
                             this.activateMarker(index, opened)
                         }
-                        // cannot change answer choices once question is
-                        // answered, or when the widget is static or read-only
                         disabled={isDisabled}
                         aria-required={isRequired}
                         opener={({opened}) => (
