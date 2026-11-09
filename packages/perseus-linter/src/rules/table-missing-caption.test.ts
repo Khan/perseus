@@ -62,7 +62,7 @@ describe("table-missing-caption", () => {
 
     it("warns when a table has no caption and some column headers are empty", () => {
         // Arrange, Act, Assert
-        expectWarning(
+        expectIssue(
             tableMissingCaptionRule,
             "|col1|  |\n|----|----|\n|cell1|cell2|",
             undefined,
