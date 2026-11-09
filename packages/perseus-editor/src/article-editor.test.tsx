@@ -1,5 +1,5 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
-import {render, screen} from "@testing-library/react";
+import {act, render, screen} from "@testing-library/react";
 import {
     userEvent as userEventLib,
     type UserEvent,
@@ -30,7 +30,7 @@ describe("ArticleEditor", () => {
         );
     });
 
-    it("should render", () => {
+    it("should render", async () => {
         // Arrange, Act
         render(
             <ArticleEditor
@@ -97,7 +97,7 @@ describe("ArticleEditor", () => {
         expect(screen.getByText("Issue:")).toBeInTheDocument();
     });
 
-    it("should match snapshot for editing disabled for all widgets", () => {
+    it("should match snapshot for editing disabled for all widgets", async () => {
         // Arrange, Act
         const {container} = render(
             <ArticleEditor
@@ -113,6 +113,9 @@ describe("ArticleEditor", () => {
                 previewURL="https://www.example.com"
             />,
         );
+        // Wait for plotter's card resizing to settle. RTL logs an error if
+        // the resize happens outside an act() call.
+        await act(() => Promise.resolve());
 
         // Assert
         // Note: the interactive-graph movable point renders fill/stroke="none"

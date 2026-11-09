@@ -13,7 +13,7 @@
  * packages/perseus-editor/src/editor-page.test.tsx.
  */
 import {Dependencies} from "@khanacademy/perseus";
-import {render} from "@testing-library/react";
+import {act, render} from "@testing-library/react";
 import * as React from "react";
 
 import {comprehensiveQuestion} from "./__testdata__/all-widgets.testdata";
@@ -36,7 +36,7 @@ describe("EditorPage", () => {
         Dependencies.setDependencies(testDependencies);
     });
 
-    it("should match snapshot for editing disabled for all widgets", () => {
+    it("should match snapshot for editing disabled for all widgets", async () => {
         // Arrange, Act
         const {container} = render(
             <EditorPage
@@ -51,6 +51,9 @@ describe("EditorPage", () => {
                 widgetsAreOpen={true}
             />,
         );
+        // Wait for plotter's card resizing to settle. RTL logs an error if
+        // the resize happens outside an act() call.
+        await act(() => Promise.resolve());
 
         // Assert
         // Note: the interactive-graph movable point renders fill/stroke="none"
