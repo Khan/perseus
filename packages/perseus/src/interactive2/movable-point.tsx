@@ -120,7 +120,7 @@ type State = {
     static: boolean;
     tooltip: boolean;
     touchOffset: null | Coord;
-    mouseTarget: unknown;
+    mouseTarget: WrappedEllipse | null;
     visibleShape: {wrapper: HTMLElement; toBack(): void; toFront(): void};
     normalStyle: Record<string, any>;
     highlightStyle: Record<string, any>;
@@ -233,11 +233,10 @@ export class MovablePoint {
                     opacity: 0.0,
                 });
             }
-        } else if (state.mouseTarget) {
-            // The point became static after it was added (e.g. a widget
-            // turned read-only once answered). Remove the mouse target so
-            // the point stops responding to hovers and drags.
-            state.mouseTarget.remove();
+        } else {
+            // Remove any previously existing mousetarget (from a previous
+            // update in the editor)
+            state.mouseTarget?.remove();
             state.mouseTarget = null;
         }
 
