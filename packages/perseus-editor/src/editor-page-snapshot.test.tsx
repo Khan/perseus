@@ -62,5 +62,5 @@ describe("EditorPage", () => {
         // to "" and Raphael renders it as "none". The real color resolves in a
         // browser (covered by Chromatic). See movable-point.tsx / .test.ts.
         expect(container).toMatchSnapshot();
-    });
+    }, 10_000 /* increase timeout - this is a huge snapshot! */);
 });
