@@ -233,12 +233,10 @@ export class MovablePoint {
                     opacity: 0.0,
                 });
             }
-        }
-
-        if (state.static && state.mouseTarget) {
-            // If state.static was specified, remove any previously
-            // existing mousetarget (from a previous update in the editor)
-            state.mouseTarget.remove();
+        } else {
+            // Remove any previously existing mousetarget (from a previous
+            // update in the editor)
+            state.mouseTarget?.remove();
             state.mouseTarget = null;
         }
 
