@@ -36,10 +36,12 @@ describe("PlotterEditor", () => {
             width: 100,
             height: 200,
         };
-        jest.spyOn(global, "Image").mockImplementation(
+        // A `function`, not an arrow: the editor calls `new Image()`, and
+        // some test runners construct a mock's implementation with `new`.
+        jest.spyOn(global, "Image").mockImplementation(function () {
             // eslint-disable-next-line no-restricted-syntax
-            () => mockImage as HTMLImageElement,
-        );
+            return mockImage as HTMLImageElement;
+        });
 
         const {rerender} = render(
             <PlotterEditor

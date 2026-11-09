@@ -30,12 +30,16 @@ const apiOptions = {
 
 describe("article renderer", () => {
     beforeEach(() => {
-        // Mock ResizeObserver used by the mobile keypad
-        window.ResizeObserver = jest.fn().mockImplementation(() => ({
-            observe: jest.fn(),
-            unobserve: jest.fn(),
-            disconnect: jest.fn(),
-        }));
+        // Mock ResizeObserver used by the mobile keypad. A `function`, not an
+        // arrow: the keypad calls `new ResizeObserver()`, and some test
+        // runners construct a mock's implementation with `new`.
+        window.ResizeObserver = jest.fn().mockImplementation(function () {
+            return {
+                observe: jest.fn(),
+                unobserve: jest.fn(),
+                disconnect: jest.fn(),
+            };
+        });
     });
 
     afterEach(() => {
