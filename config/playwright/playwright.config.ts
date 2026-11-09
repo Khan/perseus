@@ -7,10 +7,9 @@ import {GALLERY_URL, REPO_ROOT} from "./constants";
 /**
  * Playwright configuration for our component tests.
  *
- * Component tests mount a single React tree into a real browser (rather
- * than JSDOM), for the cases Jest can't cover: real CSS, layout, focus order,
- * and native mouse and keyboard input. Prefer Jest + React Testing Library
- * for everything else.
+ * Component tests mount a single React tree into a real browser, for what
+ * our unit tests can't check: real CSS, layout, focus order, and native
+ * mouse and keyboard input. Prefer unit tests for everything else.
  *
  * Specs live beside the code they test and end in `.spec.ts`. They import
  * `test` and `expect` from `@internal/playwright` (./fixtures.ts), and mount

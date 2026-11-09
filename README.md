@@ -63,7 +63,7 @@ The components and widgets of Perseus are developed using [Storybook](https://gi
 
 ### Running browser tests
 
-A few tests (`*.spec.ts`) run in a real browser using [Playwright](https://playwright.dev), for things Jest can't check, like CSS, focus order and drag-and-drop. Before running them the first time, and after Playwright is upgraded, install the browser they use:
+A few tests (`*.spec.ts`) run in a real browser using [Playwright](https://playwright.dev), for things our unit tests can't check, like CSS, focus order and drag-and-drop. Before running them the first time, and after Playwright is upgraded, install the browser they use:
 
 ```bash
 pnpm exec playwright install chromium
