@@ -54,5 +54,12 @@ export const WithRadio: Story = {
                 }),
             }),
         },
+        // The Explain button sits right under the choices, where the choice
+        // list's scroll fade once covered it in cross-out mode.
+        hint: {
+            content: "Apples grow on trees and have seeds inside.",
+            images: {},
+            widgets: {},
+        },
     },
 };
