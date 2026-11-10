@@ -3,7 +3,7 @@ import {
     SORTER_MAX_LEGEND_LABEL_LENGTH,
 } from "@khanacademy/perseus-core";
 
-import {expectPass, expectWarning} from "../__tests__/test-utils";
+import {expectIssue} from "../__tests__/test-utils";
 
 import sorterWidgetWarningRule, {
     SorterLegendLabels,
@@ -17,7 +17,7 @@ import type {SorterLegend} from "@khanacademy/perseus-core";
 
 describe("sorter-widget-warning", () => {
     it("warns for a sorter widget with over max cards in vertical layout", () => {
-        expectWarning(
+        expectIssue(
             sorterWidgetWarningRule,
             "[[☃ sorter 1]]",
             {
@@ -34,14 +34,16 @@ describe("sorter-widget-warning", () => {
                 },
             },
             {
-                message:
-                    "Sorter cannot have more than 10 cards.\n\nHaving more than 5 cards in Sorter is discouraged.",
+                messages: [
+                    "sorter 1: Sorter cannot have more than 10 cards.",
+                    "sorter 1: Having more than 5 cards in Sorter is discouraged.",
+                ],
             },
         );
     });
 
     it("warns for a sorter widget with over max cards in horizontal layout", () => {
-        expectWarning(
+        expectIssue(
             sorterWidgetWarningRule,
             "[[☃ sorter 1]]",
             {
@@ -58,14 +60,17 @@ describe("sorter-widget-warning", () => {
                 },
             },
             {
-                message:
-                    "Sorter cannot have more than 10 cards.\n\nSorter cannot have more than 5 cards in horizontal layout.\n\nHaving more than 5 cards in Sorter is discouraged.",
+                messages: [
+                    "sorter 1: Sorter cannot have more than 10 cards.",
+                    "sorter 1: Sorter cannot have more than 5 cards in horizontal layout.",
+                    "sorter 1: Having more than 5 cards in Sorter is discouraged.",
+                ],
             },
         );
     });
 
     it("warns for a sorter widget with too many cards in horizontal layout", () => {
-        expectWarning(
+        expectIssue(
             sorterWidgetWarningRule,
             "[[☃ sorter 1]]",
             {
@@ -82,14 +87,16 @@ describe("sorter-widget-warning", () => {
                 },
             },
             {
-                message:
-                    "Sorter cannot have more than 5 cards in horizontal layout.\n\nHaving more than 5 cards in Sorter is discouraged.",
+                messages: [
+                    "sorter 1: Sorter cannot have more than 5 cards in horizontal layout.",
+                    "sorter 1: Having more than 5 cards in Sorter is discouraged.",
+                ],
             },
         );
     });
 
     it("warns for a sorter widget with more than ideal number of cards in horizontal layout", () => {
-        expectWarning(
+        expectIssue(
             sorterWidgetWarningRule,
             "[[☃ sorter 1]]",
             {
@@ -106,14 +113,16 @@ describe("sorter-widget-warning", () => {
                 },
             },
             {
-                message:
-                    "Sorter cannot have more than 5 cards in horizontal layout.\n\nHaving more than 5 cards in Sorter is discouraged.",
+                messages: [
+                    "sorter 1: Sorter cannot have more than 5 cards in horizontal layout.",
+                    "sorter 1: Having more than 5 cards in Sorter is discouraged.",
+                ],
             },
         );
     });
 
     it("warns for a sorter widget with more than ideal number of cards in vertical layout", () => {
-        expectWarning(
+        expectIssue(
             sorterWidgetWarningRule,
             "[[☃ sorter 1]]",
             {
@@ -130,7 +139,9 @@ describe("sorter-widget-warning", () => {
                 },
             },
             {
-                message: "Having more than 5 cards in Sorter is discouraged.",
+                messages: [
+                    "sorter 1: Having more than 5 cards in Sorter is discouraged.",
+                ],
             },
         );
     });

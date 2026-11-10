@@ -1,14 +1,8 @@
 {
   "mcpServers": {
-    "storybook-mcp": {
+    "storybook": {
       "type": "http",
       "url": "http://localhost:6006/mcp"
-    },
-    "wallaby": {
-      "type": "stdio",
-      "command": "node",
-      "args": ["~/.wallaby/mcp"],
-      "env": {}
     },
     "wonder-blocks-storybook": {
       "type": "http",

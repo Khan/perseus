@@ -5,8 +5,8 @@ import {defaulted} from "./defaulted";
 import {number} from "./number";
 import {looseObject, object} from "./object";
 import {optional} from "./optional";
+import {anyFailure, ctx, parseFailureWith} from "./parser.testutils";
 import {string} from "./string";
-import {anyFailure, ctx, parseFailureWith} from "./test-helpers";
 
 describe("looseObject", () => {
     testSharedObjectParserBehavior(looseObject);

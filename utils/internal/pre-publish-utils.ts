@@ -139,11 +139,12 @@ const checkEntrypoints = (pkgJson): boolean =>
  *
  * `exports` points at source files so that tooling in this repo resolves
  * workspace packages without a build. `publishConfig.exports` is the map pnpm
- * publishes in its place, so it must expose the same sub-paths, each pointing
+ * publishes in its place, so each sub-path it shares with `exports` must point
  * at the file the build emits for it.
  *
  * Built assets (such as CSS) have no source file, so they appear only in
- * `publishConfig.exports`.
+ * `publishConfig.exports`. Repo-only sub-paths (such as test helpers) appear
+ * only in `exports`; the build skips them and they aren't published.
  */
 const checkExports = (pkgJson): boolean => {
     const sourceExports = pkgJson.exports;
@@ -163,6 +164,11 @@ const checkExports = (pkgJson): boolean => {
         .map((subPath) => {
             const sourceFile = sourceExports[subPath];
             const publishedFile = publishedExports[subPath];
+            // Matches `getEntryPoints` in config/build, which doesn't build
+            // sub-paths that are absent from `publishConfig.exports`.
+            if (publishedFile === undefined) {
+                return true;
+            }
             if (typeof publishedFile !== "string") {
                 console.error(
                     `ERROR: ${pkgJson.name} export "${subPath}" must map to a file path in "publishConfig.exports".`,

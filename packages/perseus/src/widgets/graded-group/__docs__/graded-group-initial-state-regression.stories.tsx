@@ -88,3 +88,21 @@ export const DesktopWithTex: Story = {
     decorators: [gradedGroupRendererDecorator],
     args: texArgs,
 };
+
+const tableContent = `
+| column A | column B (right aligned) | column C (centered)    |
+| -------- | -----------------------: | :--------------------: |
+| turtles  | 42                       | $\\text{\\red{red}}$   |
+| bats     | 96                       | $\\text{\\blue{blue}}$ |
+| cabbages | 0                        | $\\dfrac{1}{2}$        |
+`;
+
+export const WithTable: Story = {
+    decorators: [gradedGroupRendererDecorator],
+    args: {
+        title: "This is a graded group",
+        content: tableContent,
+        widgets: {},
+        images: {},
+    },
+};

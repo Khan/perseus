@@ -1,8 +1,8 @@
+import {linterWarning} from "../lint";
 import Rule from "../rule";
 
 export default Rule.makeRule({
     name: "static-widget-in-question-stem",
-    severity: Rule.Severity.WARNING,
     selector: "widget",
     lint: (state, content, nodes, match, context) => {
         if (context?.contentType !== "exercise") {
@@ -24,7 +24,9 @@ export default Rule.makeRule({
         }
 
         if (widget.static) {
-            return `Widget in question stem is static (non-interactive).`;
+            return linterWarning(
+                `Widget in question stem is static (non-interactive).`,
+            );
         }
     },
 });

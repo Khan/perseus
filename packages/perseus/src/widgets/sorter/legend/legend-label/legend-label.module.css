@@ -3,4 +3,8 @@
     font-size: var(--wb-font-body-size-medium);
     font-weight: var(--wb-font-weight-bold);
     line-height: var(--wb-font-body-lineHeight-medium);
+    /* Breaks a word too long to fit on its own line instead of letting it
+       overflow. Hyphenates where the browser supports it for the language. */
+    hyphens: auto;
+    overflow-wrap: anywhere;
 }

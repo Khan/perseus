@@ -3874,10 +3874,10 @@ describe("simple markdown", function () {
                             /** @type {SimpleMarkdown.ReactNodeOutput} */ output,
                             /** @type {SimpleMarkdown.State} */ state,
                         ) {
-                            return React.createElement(
-                                state.TextComponent,
-                                {key: state.key},
-                                node.content,
+                            return (
+                                <state.TextComponent key={state.key}>
+                                    {node.content}
+                                </state.TextComponent>
                             );
                         },
                     }),
@@ -4386,10 +4386,10 @@ describe("simple markdown", function () {
                         /** @type {SimpleMarkdown.ReactOutput} */ output,
                         /** @type {SimpleMarkdown.State} */ state,
                     ) {
-                        return React.createElement(
-                            "span",
-                            {key: state.key, className: "text"},
-                            node.content,
+                        return (
+                            <span key={state.key} className="text">
+                                {node.content}
+                            </span>
                         );
                     },
                 }),
@@ -4423,9 +4423,11 @@ describe("simple markdown", function () {
 
         describe("ReactMarkdown component", function () {
             it("should work on a basic 2 paragraph input", function () {
-                var elem = React.createElement(SimpleMarkdown.ReactMarkdown, {
-                    source: "Hi there!\n\nYay!",
-                });
+                var elem = (
+                    <SimpleMarkdown.ReactMarkdown
+                        source={"Hi there!\n\nYay!"}
+                    />
+                );
 
                 assert.strictEqual(
                     reactToHtml(elem),

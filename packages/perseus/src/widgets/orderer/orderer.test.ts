@@ -1,10 +1,11 @@
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
 
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
-import {getAnswerfulItem, getAnswerlessItem} from "../../util/test-utils";
-import {renderQuestion} from "../__testutils__/render-question";
+import {renderQuestion} from "../../__testutils__/render-question";
+import {
+    getAnswerfulItem,
+    getAnswerlessItem,
+} from "../../util/scoring.testutils";
 
 import {question2} from "./orderer.testdata";
 
@@ -28,12 +29,6 @@ const ordererOptions: PerseusOrdererWidgetOptions = {
 };
 
 describe("orderer widget", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
     it("should snapshot", () => {
         // Arrange
         const apiOptions: APIOptions = {

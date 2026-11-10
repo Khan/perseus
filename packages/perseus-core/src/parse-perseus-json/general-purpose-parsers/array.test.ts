@@ -3,8 +3,8 @@ import {assertFailure, success} from "../result";
 import {array, arrayWithIndex} from "./array";
 import {defaulted} from "./defaulted";
 import {object} from "./object";
+import {anyFailure, ctx, parseFailureWith} from "./parser.testutils";
 import {string} from "./string";
-import {anyFailure, ctx, parseFailureWith} from "./test-helpers";
 
 describe("array", () => {
     const arrayOfStrings = array(string);

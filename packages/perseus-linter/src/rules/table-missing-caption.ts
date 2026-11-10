@@ -1,3 +1,4 @@
+import {linterGuideline} from "../lint";
 import Rule from "../rule";
 
 export const MISSING_CAPTION_MESSAGE = `Table is missing a caption:
@@ -36,27 +37,40 @@ function getTitleText(titledTable: any): string {
     return getTextContent(titledTable?.title).trim();
 }
 
-// eslint-disable-next-line no-restricted-syntax
+// Returns true when every column header cell of a `table` node has no text in it
+// (for example "|  |  |"). Each header cell is an array of inline nodes.
+function hasEmptyHeaders(table: any): boolean {
+    return table.header.every(
+        (cell: any) => getTextContent(cell).trim() === "",
+    );
+}
+
 export default Rule.makeRule({
     name: "table-missing-caption",
-    severity: Rule.Severity.GUIDELINE,
     // The selector grammar has no `:not()`, so we match every table and
     // inspect its parent in `lint()`. A captioned table is parsed as a
     // `titledTable` node whose `table` property holds the table itself, so
     // the table's parent tells us whether a caption was authored.
     selector: "table",
-    lint: function (state) {
+    lint: function (state, _content, nodes) {
+        // A table whose column headers are all empty isn't being used as a
+        // data table (instead as a layout table) so a caption is not required
+        // to ensure accessibility of the content.
+        if (hasEmptyHeaders(nodes[0])) {
+            return;
+        }
+
         const parent = state.parent();
 
         if (parent?.type !== "titledTable") {
-            return MISSING_CAPTION_MESSAGE;
+            return linterGuideline(MISSING_CAPTION_MESSAGE);
         }
 
         // The table has a caption line, but an author can write one with no
         // text in it (for example "||   ||"), which renders an empty
         // <caption> element. That is no more useful than having no caption.
         if (getTitleText(parent) === "") {
-            return EMPTY_CAPTION_MESSAGE;
+            return linterGuideline(EMPTY_CAPTION_MESSAGE);
         }
     },
-}) as Rule;
+});

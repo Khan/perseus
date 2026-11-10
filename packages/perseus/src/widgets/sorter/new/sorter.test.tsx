@@ -10,9 +10,9 @@ import {
 import {isInaccessible, screen, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
+import {renderQuestion} from "../../../__testutils__/render-question";
 import {getFeatureFlags} from "../../../testing/feature-flags-util";
-import {scorePerseusItemTesting} from "../../../util/test-utils";
-import {renderQuestion} from "../../__testutils__/render-question";
+import {scorePerseusItemTesting} from "../../../util/scoring.testutils";
 
 import type {APIOptions} from "../../../types";
 import type {SorterLegend} from "../legend/legend-types";
@@ -42,9 +42,10 @@ function generateSorterQuestion(
 function generateSorterQuestionWithLegend(
     legend: SorterLegend,
     layout: "horizontal" | "vertical" = "horizontal",
+    correct: string[] = ["Apple", "Banana"],
 ): PerseusRenderer {
     const options = {
-        ...generateSorterOptions({correct: ["Apple", "Banana"], layout}),
+        ...generateSorterOptions({correct, layout}),
         legend,
     };
     return generateTestPerseusRenderer({
@@ -52,6 +53,15 @@ function generateSorterQuestionWithLegend(
         widgets: {"sorter 1": generateSorterWidget({options})},
     });
 }
+
+const legend: SorterLegend = {
+    startCap: "arrow",
+    endCap: "bar",
+    startLabel: "Lowest",
+    endLabel: "Highest",
+    ariaLabel: "Interest rates, from lowest to highest",
+    position: "below",
+};
 
 function getChoiceBank(): HTMLElement {
     return screen.getByRole("list", {name: "Choices"});
@@ -237,23 +247,29 @@ describe("new sorter widget", () => {
         it("renders a horizontal legend bar when the layout is horizontal", () => {
             // Arrange, Act
             renderQuestion(
-                generateSorterQuestion(["Apple", "Banana"], "horizontal"),
+                generateSorterQuestionWithLegend(legend, "horizontal"),
                 {apiOptions},
             );
 
             // Assert
-            expect(screen.getByTestId("legend-bar")).toHaveClass("horizontal");
+            expect(screen.getByTestId("legend-bar")).toHaveAttribute(
+                "data-orientation",
+                "horizontal",
+            );
         });
 
         it("renders a vertical legend bar when the layout is vertical", () => {
             // Arrange, Act
             renderQuestion(
-                generateSorterQuestion(["Apple", "Banana"], "vertical"),
+                generateSorterQuestionWithLegend(legend, "vertical"),
                 {apiOptions},
             );
 
             // Assert
-            expect(screen.getByTestId("legend-bar")).toHaveClass("vertical");
+            expect(screen.getByTestId("legend-bar")).toHaveAttribute(
+                "data-orientation",
+                "vertical",
+            );
         });
 
         it("renders a vertical legend bar when a horizontal sorter has more cards than the maximum", () => {
@@ -264,12 +280,16 @@ describe("new sorter widget", () => {
             );
 
             // Act
-            renderQuestion(generateSorterQuestion(correct, "horizontal"), {
-                apiOptions,
-            });
+            renderQuestion(
+                generateSorterQuestionWithLegend(legend, "horizontal", correct),
+                {apiOptions},
+            );
 
             // Assert
-            expect(screen.getByTestId("legend-bar")).toHaveClass("vertical");
+            expect(screen.getByTestId("legend-bar")).toHaveAttribute(
+                "data-orientation",
+                "vertical",
+            );
         });
     });
 
@@ -365,15 +385,6 @@ describe("new sorter widget", () => {
     });
 
     describe("legend", () => {
-        const legend: SorterLegend = {
-            startCap: "arrow",
-            endCap: "bar",
-            startLabel: "Lowest",
-            endLabel: "Highest",
-            ariaLabel: "Interest rates, from lowest to highest",
-            position: "below",
-        };
-
         it("names the list of blanks with the legend's aria label", () => {
             // Arrange, Act
             renderQuestion(generateSorterQuestionWithLegend(legend), {
@@ -417,10 +428,14 @@ describe("new sorter widget", () => {
             });
 
             // Assert
-            expect(screen.getByTestId("legend-bar-start-cap")).toHaveClass(
+            expect(screen.getByTestId("legend-bar-start-cap")).toHaveAttribute(
+                "data-cap",
                 "arrow",
             );
-            expect(screen.getByTestId("legend-bar-end-cap")).toHaveClass("bar");
+            expect(screen.getByTestId("legend-bar-end-cap")).toHaveAttribute(
+                "data-cap",
+                "bar",
+            );
         });
 
         it("renders the legend labels in the vertical layout", () => {
@@ -467,7 +482,7 @@ describe("new sorter widget", () => {
             ).toBe(Node.DOCUMENT_POSITION_PRECEDING);
         });
 
-        it("renders arrow caps when a scale has no legend", () => {
+        it("renders no legend bar or labels when the options have no legend", () => {
             // Arrange, Act
             renderQuestion(
                 generateTestPerseusRenderer({
@@ -513,10 +528,8 @@ describe("new sorter widget", () => {
             );
 
             // Assert
-            expect(screen.getByTestId("legend-bar-start-cap")).toHaveClass(
-                "bar",
-            );
-            expect(screen.getByTestId("legend-bar-end-cap")).toHaveClass("bar");
+            expect(screen.queryByTestId("legend-bar")).not.toBeInTheDocument();
+            expect(screen.queryByText("Lowest")).not.toBeInTheDocument();
         });
     });
 

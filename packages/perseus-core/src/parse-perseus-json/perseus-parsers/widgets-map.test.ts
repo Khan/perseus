@@ -8,7 +8,7 @@ import {
 } from "../../utils/generators/definition-widget-generator";
 // eslint-disable-next-line import/no-restricted-paths
 import {generateVideoWidget} from "../../utils/generators/video-widget-generator";
-import {anyFailure} from "../general-purpose-parsers/test-helpers";
+import {anyFailure} from "../general-purpose-parsers/parser.testutils";
 import {parse} from "../parse";
 import {failure, success} from "../result";
 

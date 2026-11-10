@@ -4,13 +4,13 @@ import React from "react";
 
 import * as Dependencies from "../../../dependencies";
 import {testDependencies} from "../../../testing/test-dependencies";
+import {getBaseMafsGraphPropsForTests} from "../graph.testutils";
 import {MafsGraph} from "../mafs-graph";
 import {
     actions,
     ADD_POINT,
     MOVE_POINT,
 } from "../reducer/interactive-graph-action";
-import {getBaseMafsGraphPropsForTests} from "../utils";
 
 import type {MafsGraphProps} from "../mafs-graph";
 import type {InteractiveGraphState} from "../types";

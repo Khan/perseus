@@ -46,6 +46,8 @@
    centering them on the line also pulls them back by half the line's
    width. 7px and 6px are half the arrow (14px) and bar (12px) lengths. */
 .horizontal .arrow {
+    inline-size: 8px;
+    block-size: 14px;
     inset-block-start: calc(var(--wb-border-width-medium) / -2 - 7px);
 }
 
@@ -56,6 +58,8 @@
 }
 
 .vertical .arrow {
+    inline-size: 14px;
+    block-size: 8px;
     inset-inline-start: calc(var(--wb-border-width-medium) / -2 - 7px);
 }
 

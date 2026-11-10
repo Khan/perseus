@@ -8,7 +8,7 @@ import {render} from "@testing-library/react";
 import * as React from "react";
 
 import {mockImageLoading} from "../../testing/image-loader-utils";
-import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
+import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors.testutils";
 import RendererDiff from "../renderer-diff";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";

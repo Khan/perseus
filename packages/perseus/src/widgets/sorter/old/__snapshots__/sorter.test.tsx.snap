@@ -484,6 +484,7 @@ exports[`sorter widget snapshot should snapshot on mobile: first mobile render 1
             >
               <svg
                 height="96"
+                style="width: var(--wb-c-progress-spinner-root-sizing-large); height: var(--wb-c-progress-spinner-root-sizing-large);"
                 viewBox="0 0 96 96"
                 width="96"
                 xmlns="http://www.w3.org/2000/svg"
@@ -535,6 +536,7 @@ exports[`sorter widget snapshot should snapshot: first render 1`] = `
             >
               <svg
                 height="96"
+                style="width: var(--wb-c-progress-spinner-root-sizing-large); height: var(--wb-c-progress-spinner-root-sizing-large);"
                 viewBox="0 0 96 96"
                 width="96"
                 xmlns="http://www.w3.org/2000/svg"

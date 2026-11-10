@@ -3,7 +3,7 @@ import * as React from "react";
 
 import {Editor} from "..";
 import {question1} from "../__testdata__/numeric-input.testdata";
-import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
+import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors.testutils";
 
 // This is to address timing - Perseus widget editor registry accessed before initialization!
 registerAllWidgetsAndEditorsForTesting();

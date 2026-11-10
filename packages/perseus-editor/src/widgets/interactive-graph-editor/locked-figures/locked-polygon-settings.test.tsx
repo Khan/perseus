@@ -8,7 +8,7 @@ import LockedPolygonSettings from "./locked-polygon-settings";
 import {
     mockedGenerateSpokenMathDetailsForTests,
     mockedJoinLabelsAsSpokenMathForTests,
-} from "./util";
+} from "./math-a11y.testutils";
 
 import type {Coord} from "@khanacademy/perseus";
 import type {LockedLabelType} from "@khanacademy/perseus-core";

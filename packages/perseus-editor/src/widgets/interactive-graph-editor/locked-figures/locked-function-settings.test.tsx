@@ -6,7 +6,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import LockedFunctionSettings from "./locked-function-settings";
-import {mockedJoinLabelsAsSpokenMathForTests} from "./util";
+import {mockedJoinLabelsAsSpokenMathForTests} from "./math-a11y.testutils";
 
 import type {Props} from "./locked-function-settings";
 import type {UserEvent} from "@testing-library/user-event";

@@ -27,6 +27,7 @@ export function LegendBar({
             // Tests can't find this by role or text since it's aria-hidden
             // and empty.
             data-testid="legend-bar"
+            data-orientation={orientation}
         >
             <Cap type={startCap} side="start" orientation={orientation} />
             <Cap type={endCap} side="end" orientation={orientation} />
@@ -52,8 +53,7 @@ function Cap({type, side, orientation}: CapProps): React.ReactElement | null {
             <svg
                 className={classNames(styles.arrow, sideClass)}
                 data-testid={testId}
-                width={isVertical ? 14 : 8}
-                height={isVertical ? 8 : 14}
+                data-cap={type}
                 viewBox={isVertical ? "0 0 14 8" : "0 0 8 14"}
                 fill="none"
                 stroke="currentColor"
@@ -71,6 +71,7 @@ function Cap({type, side, orientation}: CapProps): React.ReactElement | null {
             <span
                 className={classNames(styles.bar, sideClass)}
                 data-testid={testId}
+                data-cap={type}
             />
         );
     }

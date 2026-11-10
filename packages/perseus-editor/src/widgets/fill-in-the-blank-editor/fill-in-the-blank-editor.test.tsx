@@ -5,7 +5,7 @@ import * as React from "react";
 
 import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {testDependencies} from "../../testing/test-dependencies";
-import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
+import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors.testutils";
 import * as WidgetEditorRegistry from "../../widget-editor-registry";
 
 import FillInTheBlankEditor from "./fill-in-the-blank-editor";

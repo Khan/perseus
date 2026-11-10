@@ -92,4 +92,50 @@ describe("handleJumpOut", () => {
         // Assert
         expect(mathField.latex()).toBe("4_{22}6");
     });
+    it("jumps out of square root", () => {
+        // Arrange
+        const mount = document.createElement("div");
+        const mathField = createMathField(mount, "en", mockStrings);
+
+        // Act
+        mathField.cmd("sqrt");
+        mathField.typedText("4");
+        handleJumpOut(mathField, "JUMP_OUT_SQUARE_ROOT");
+        mathField.typedText("6");
+
+        // Assert
+        expect(mathField.latex()).toBe("\\sqrt{4}6");
+    });
+
+    it("jumps from radical index into radicand", () => {
+        // Arrange
+        const mount = document.createElement("div");
+        const mathField = createMathField(mount, "en", mockStrings);
+
+        // Act
+        mathField.cmd("nthroot");
+        mathField.typedText("3");
+        handleJumpOut(mathField, "JUMP_OUT_RADICAL_INDEX");
+        mathField.typedText("8");
+
+        // Assert
+        expect(mathField.latex()).toBe("\\sqrt[3]{8}");
+    });
+
+    it("jumps out of radical", () => {
+        // Arrange
+        const mount = document.createElement("div");
+        const mathField = createMathField(mount, "en", mockStrings);
+
+        // Act
+        mathField.cmd("nthroot");
+        mathField.typedText("3");
+        handleJumpOut(mathField, "JUMP_OUT_RADICAL_INDEX");
+        mathField.typedText("8");
+        handleJumpOut(mathField, "JUMP_OUT_RADICAL");
+        mathField.typedText("2");
+
+        // Assert
+        expect(mathField.latex()).toBe("\\sqrt[3]{8}2");
+    });
 });

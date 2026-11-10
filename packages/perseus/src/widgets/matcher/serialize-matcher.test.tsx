@@ -5,7 +5,7 @@ import {
 import {act} from "@testing-library/react";
 import * as React from "react";
 
-import {renderQuestion} from "../../__tests__/test-utils";
+import {renderItem} from "../../__testutils__/render-item";
 import * as Dependencies from "../../dependencies";
 import {testDependencies} from "../../testing/test-dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
@@ -76,7 +76,7 @@ describe("Matcher serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicMatcher());
+        const {renderer} = renderItem(generateBasicMatcher());
 
         const matcher: MatcherHandle =
             renderer.questionRenderer.findWidgets("matcher 1")[0];

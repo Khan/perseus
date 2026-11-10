@@ -1,9 +1,5 @@
-import {pureMarkdownRules} from "@khanacademy/pure-markdown";
-import SimpleMarkdown from "@khanacademy/simple-markdown";
-
 import {clamp, clampToBox, inset, MIN, size, snap, X, Y} from "./math";
 
-import type {MafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState, UnlimitedGraphState} from "./types";
 import type {Coord} from "../../interactive2/types";
 import type {PerseusInteractiveGraphWidgetOptions} from "@khanacademy/perseus-core";
@@ -120,101 +116,6 @@ export function isUnlimitedGraphState(
     );
 }
 
-/**
- * Parse a string of text and math into a list of objects with type and content
- *
- * Example: "Pi is about $\frac{22}{7}$" ==>
- *    [
- *      {type: "text", content: "Pi is about "},
- *      {type: "math", content: "\\frac{22}{7}"},
- *    ]
- */
-export const mathOnlyParser = SimpleMarkdown.parserFor(
-    {
-        math: {
-            ...pureMarkdownRules.math,
-            order: 0,
-        },
-        text: {
-            order: 1,
-            match: SimpleMarkdown.anyScopeRegex(/^([^$\\{}]+)/),
-            parse: (capture) => ({content: capture[0]}),
-        },
-        specialCharacter: {
-            order: 2,
-            match: SimpleMarkdown.anyScopeRegex(/^(\\[\S\s]|\$|\\$|{|})/),
-            parse: (capture) => ({content: capture[0]}),
-        },
-    },
-    {inline: true},
-);
-
-/**
- * Replace all text outside of the $ TeX blocks with `\\text{...}`
- * This way, the entire resulting string can be rendered within <TeX>
- * and the text outside of the $ blocks will be non-TeX text.
- */
-export function replaceOutsideTeX(mathString: string) {
-    // All the information we need is in the first section,
-    // whether it's typed as "blockmath" or "paragraph"
-    const parsed = mathOnlyParser(mathString);
-
-    let result = "";
-
-    for (const piece of parsed) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        piece.type === "math"
-            ? (result += "$" + piece.content + "$")
-            : piece.type === "specialCharacter"
-              ? (result += escapeIfUnescaped(piece.content))
-              : (result += piece.content);
-    }
-
-    return `\\text{${result}}`;
-}
-
-function escapeIfUnescaped(character: string) {
-    if (character.length === 1) {
-        return "\\" + character;
-    } else {
-        return character;
-    }
-}
-
-export function getBaseMafsGraphPropsForTests(): MafsGraphProps {
-    return {
-        box: [400, 400],
-        step: [1, 1],
-        gridStep: [1, 1],
-        markings: "graph",
-        containerSizeClass: "small",
-        showTooltips: false,
-        showProtractor: false,
-        readOnly: false,
-        labels: ["x", "y"],
-        lockedFigures: [],
-        static: false,
-        showAxisArrows: {
-            xMin: true,
-            xMax: true,
-            yMin: true,
-            yMax: true,
-        },
-        showAxisTicks: {x: true, y: true},
-        dispatch: () => {},
-        state: {
-            type: "segment",
-            hasBeenInteractedWith: false,
-            coords: [],
-            snapStep: [1, 1],
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-        },
-        widgetId: "test-widget-id",
-    };
-}
 // Calculate the difference between the min and max values of a range
 const getRangeDiff = (range: vec.Vector2) => {
     const [min, max] = range;

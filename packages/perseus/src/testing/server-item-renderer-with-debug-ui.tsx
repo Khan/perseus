@@ -3,7 +3,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
 import {ServerItemRenderer} from "../server-item-renderer";
-import {isCorrect} from "../util/scoring";
+import {isCorrect} from "../util/scoring.testutils";
 
 import {DebugAccordionUI} from "./debug-accordion-ui";
 import {DebugCheckAnswerFooter} from "./debug-check-answer-footer";

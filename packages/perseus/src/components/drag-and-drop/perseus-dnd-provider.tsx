@@ -15,7 +15,7 @@ function activationConstraints(event: PointerEvent, source: Draggable) {
     const {pointerType, target} = event;
     if (pointerType === "touch") {
         return [
-            new PointerActivationConstraints.Delay({value: 250, tolerance: 5}),
+            new PointerActivationConstraints.Delay({value: 125, tolerance: 5}),
         ];
     }
     if (target instanceof Element && target.closest("button") != null) {

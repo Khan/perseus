@@ -1,11 +1,12 @@
 import Rule from "../rule";
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "math-nested",
-    severity: Rule.Severity.ERROR,
     selector: "math, blockMath",
     pattern: /\\text{[^$}]*\$[^$}]*\$[^}]*}/,
-    message: `Nested math:
+    lint: Rule.makeLintFunction({
+        severity: Rule.Severity.ERROR,
+        message: `Nested math:
 Don't nest math expressions inside \\text{} blocks`,
-}) as Rule;
+    }),
+});

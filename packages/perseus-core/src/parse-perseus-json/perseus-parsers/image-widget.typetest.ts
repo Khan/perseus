@@ -1,6 +1,6 @@
 import {describe, it, expect} from "tstyche";
 
-import {ctx} from "../general-purpose-parsers/test-helpers";
+import {ctx} from "../general-purpose-parsers/parser.testutils";
 
 import {parseImageWidget} from "./image-widget";
 

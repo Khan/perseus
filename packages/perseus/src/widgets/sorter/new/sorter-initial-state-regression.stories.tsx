@@ -7,7 +7,10 @@ import * as React from "react";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
-import {rtlDecorator} from "../../__testutils__/story-decorators";
+import {
+    narrowViewportDecorator,
+    rtlDecorator,
+} from "../../__testutils__/story-decorators";
 
 import type {SorterLegend} from "../legend/legend-types";
 import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
@@ -50,29 +53,8 @@ type Story = StoryObj<typeof meta>;
 
 const fourCards = ["20 km", "150 km", "500 km", "1200 km"];
 
-export const HorizontalLegendBar: Story = {
+export const NoLegend: Story = {
     args: {correct: fourCards, layout: "horizontal"},
-};
-
-export const VerticalLegendBar: Story = {
-    args: {correct: fourCards, layout: "vertical"},
-};
-
-export const HorizontalWithMoreCardsThanTheMaximum: Story = {
-    args: {
-        correct: ["1 km", "2 km", "3 km", "4 km", "5 km", "6 km"],
-        layout: "horizontal",
-    },
-};
-
-export const HorizontalLegendBarRightToLeft: Story = {
-    args: {correct: fourCards, layout: "horizontal"},
-    decorators: [rtlDecorator],
-};
-
-export const VerticalLegendBarRightToLeft: Story = {
-    args: {correct: fourCards, layout: "vertical"},
-    decorators: [rtlDecorator],
 };
 
 const scaleLegend: SorterLegend = {
@@ -94,6 +76,14 @@ const timelineLegend: SorterLegend = {
     ariaLabel:
         "Events of World War II, from 1944 at the start to 1946 at the end",
     position: "below",
+};
+
+export const HorizontalWithMoreCardsThanTheMaximum: Story = {
+    args: {
+        correct: ["1 km", "2 km", "3 km", "4 km", "5 km", "6 km"],
+        layout: "horizontal",
+        legend: scaleLegend,
+    },
 };
 
 export const ScaleLegendBelow: Story = {
@@ -132,6 +122,22 @@ export const LongLegendLabels: Story = {
             ...scaleLegend,
             startLabel: "Shortest distance traveled in a single day",
             endLabel: "Longest distance traveled in a single day",
+        },
+    },
+    // Narrow enough that each label has to wrap within its half.
+    decorators: [narrowViewportDecorator],
+};
+
+export const TexLegendLabels: Story = {
+    args: {
+        correct: ["$\\frac{1}{2}$ cup", "$1$ cup", "$1\\frac{1}{2}$ cups"],
+        layout: "horizontal",
+        legend: {
+            ...scaleLegend,
+            startLabel: "$\\frac{1}{4}$ cup",
+            endLabel: "$2$ cups",
+            ariaLabel:
+                "Amounts, from one quarter cup at the start to two cups at the end",
         },
     },
 };

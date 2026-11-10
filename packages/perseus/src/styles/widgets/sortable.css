@@ -64,7 +64,6 @@
     }
     .perseus-sortable .perseus-sortable-draggable > div {
         display: inline-block;
-        font-size: var(--wb-font-body-size-small);
         max-width: 100%;
         vertical-align: middle;
     }
@@ -76,4 +75,12 @@
 /**** New styles referencing .deprecated-perseus-container ****/
 .perseus-sortable :is(div, p).deprecated-perseus-container {
     margin: 0;
+}
+
+/* See LEMS-4701
+ * Sorters in articles were rendering extra margins under TeX */
+.perseus-sortable .perseus-block-math,
+.perseus-sortable .perseus-block-math-inner {
+    margin: 0 !important;
+    padding: 0 !important;
 }

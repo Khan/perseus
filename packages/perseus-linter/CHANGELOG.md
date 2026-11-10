@@ -1,5 +1,80 @@
 # @khanacademy/perseus-linter
 
+## 8.0.0
+
+### Major Changes
+
+-   [#4469](https://github.com/Khan/perseus/pull/4469) [`ab4be27`](https://github.com/Khan/perseus/commit/ab4be2718fe891ff4485623f67675e25ebff07ea) Thanks [@benchristel](https://github.com/benchristel)! - The `Rule` constructor and static methods `Rule.makeRule()` and `Rule.widgetRule()` no longer accept a severity level. The issues returned by lint functions must now include a severity level.
+
+### Minor Changes
+
+-   [#4476](https://github.com/Khan/perseus/pull/4476) [`d0a30fd`](https://github.com/Khan/perseus/commit/d0a30fd32b2be0a9b7e56f3439acb78c997045dd) Thanks [@benchristel](https://github.com/benchristel)! - The content of explanation widgets is now linted recursively.
+
+-   [#4471](https://github.com/Khan/perseus/pull/4471) [`cb3f878`](https://github.com/Khan/perseus/commit/cb3f878314870df2299fab42ee772e73127ca218) Thanks [@benchristel](https://github.com/benchristel)! - Add a linter rule to recursively lint the content of Graded Group widgets and aggregate the resulting issues.
+
+-   [#4473](https://github.com/Khan/perseus/pull/4473) [`c5af770`](https://github.com/Khan/perseus/commit/c5af770a0d201230568e47677d6a300c885efab4) Thanks [@benchristel](https://github.com/benchristel)! - Add a lint rule that runs the markdown and widget linters on the content of each group in a Graded Group Set.
+
+-   [#4477](https://github.com/Khan/perseus/pull/4477) [`3cc554f`](https://github.com/Khan/perseus/commit/3cc554f63495651b9181aee97216c4bf73e80111) Thanks [@benchristel](https://github.com/benchristel)! - Fill-in-the-blank widgets are now linted recursively.
+
+-   [#4475](https://github.com/Khan/perseus/pull/4475) [`c5e9fd8`](https://github.com/Khan/perseus/commit/c5e9fd8c9ac031e536c6d610ad91ff103601e124) Thanks [@benchristel](https://github.com/benchristel)! - Group widgets are now linted recursively.
+
+### Patch Changes
+
+-   [#4467](https://github.com/Khan/perseus/pull/4467) [`a410c69`](https://github.com/Khan/perseus/commit/a410c692a8acdd512fa6bdee20ba1ff9abff79ba) Thanks [@benchristel](https://github.com/benchristel)! - Internal: The `message` option to `Rule.makeRule()` has been removed, and the `lint` option is now required.
+
+-   Updated dependencies [[`d477ac6`](https://github.com/Khan/perseus/commit/d477ac65fcd6b05ee9d538c015134a97573e0f85)]:
+    -   @khanacademy/perseus-core@42.2.0
+    -   @khanacademy/kmath@3.1.5
+
+## 7.0.2
+
+### Patch Changes
+
+-   [#4456](https://github.com/Khan/perseus/pull/4456) [`de3f186`](https://github.com/Khan/perseus/commit/de3f186628f1cf0bedaa40286a787622f086cb34) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Renamed `LinterWarning` to `LinterIssue`, and updated names of variables and functions to match.
+
+-   [#4446](https://github.com/Khan/perseus/pull/4446) [`2b9fa74`](https://github.com/Khan/perseus/commit/2b9fa743061dc27dfbe79392d232f712f7686216) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Linter rules can now return an array of issues instead of only one.
+
+-   [#4460](https://github.com/Khan/perseus/pull/4460) [`645b55f`](https://github.com/Khan/perseus/commit/645b55fcc87f40c8b920f2ed0046e04b000515e9) Thanks [@benchristel](https://github.com/benchristel)! - Internal: We now use `Rule.makeWidgetRule()` to define linter rules for specific widget types.
+
+-   [#4453](https://github.com/Khan/perseus/pull/4453) [`00d20b8`](https://github.com/Khan/perseus/commit/00d20b86648e27e2e4a53b159078a3d802152668) Thanks [@benchristel](https://github.com/benchristel)! - Internal: removed unnecessary `as Rule` casts from linter rules.
+
+-   Updated dependencies []:
+    -   @khanacademy/pure-markdown@3.1.2
+    -   @khanacademy/perseus-core@42.1.1
+    -   @khanacademy/kmath@3.1.4
+
+## 7.0.1
+
+### Patch Changes
+
+-   Updated dependencies [[`29c19fd`](https://github.com/Khan/perseus/commit/29c19fd709b24776d10d64bdff23c3ccb6114ff4), [`4ea106b`](https://github.com/Khan/perseus/commit/4ea106be0fe054843917515c717270d006e78e77), [`5041a65`](https://github.com/Khan/perseus/commit/5041a65fc41837ddd09f447a9694ca5acefe122e)]:
+    -   @khanacademy/perseus-core@42.1.0
+    -   @khanacademy/kas@3.1.1
+    -   @khanacademy/kmath@3.1.3
+
+## 7.0.0
+
+### Major Changes
+
+-   [#4430](https://github.com/Khan/perseus/pull/4430) [`2153e64`](https://github.com/Khan/perseus/commit/2153e645f949c5bb156dc534e0ebd7b8850ec00b) Thanks [@benchristel](https://github.com/benchristel)! - Removed `Rule.Severity.BULK_WARNING` and the four lint rules that used it (`double-spacing-after-terminal`, `extra-content-spacing`, `image-in-table`, `widget-in-table`). These rules were always filtered out of the exported rule list, so they never ran. Breaking change: `severity` is now a required parameter of `Rule.makeRule`, `Rule.makeWidgetRule`, and the `Rule` constructor.
+
+### Patch Changes
+
+-   [#4428](https://github.com/Khan/perseus/pull/4428) [`30e081d`](https://github.com/Khan/perseus/commit/30e081d2cf5c9cd180b336c3270aad18f507a25e) Thanks [@benchristel](https://github.com/benchristel)! - Replace the `expression-widget-error` lint rule with `expression-widget-answer-forms`, which checks that each expression widget answer is non-empty, parseable, and simplified when required
+
+-   [#4433](https://github.com/Khan/perseus/pull/4433) [`8fce9ef`](https://github.com/Khan/perseus/commit/8fce9ef1fa6fe741ff131116a0f04372c1ebbdfa) Thanks [@benchristel](https://github.com/benchristel)! - Internal: The explanation-in-graded-group and explanation-in-graded-group-set linter rules are now defined using `Rule.makeWidgetRule`.
+
+-   [#4421](https://github.com/Khan/perseus/pull/4421) [`f77aa0e`](https://github.com/Khan/perseus/commit/f77aa0eb74afca6d2b815555db675c3d0e48ea77) Thanks [@benchristel](https://github.com/benchristel)! - The expression widget linter now includes the ID of the offending widget in its lint messages.
+
+-   [#4321](https://github.com/Khan/perseus/pull/4321) [`8d621d5`](https://github.com/Khan/perseus/commit/8d621d5be504f9253064b1f21fe3d3a1270845be) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Build packages with Vite (Rolldown and Oxc) instead of Rollup and SWC. Packages now import `react/jsx-runtime` and `react-dom/client` from their React peer dependencies instead of bundling copies. CSS is now built for Chrome 144 and Safari 16.6, which expands nested rules so they apply in Safari versions before 17.2.
+
+-   Updated dependencies [[`7e34ae2`](https://github.com/Khan/perseus/commit/7e34ae28f3ab30981d36798780241bedc32eadb1), [`7e34ae2`](https://github.com/Khan/perseus/commit/7e34ae28f3ab30981d36798780241bedc32eadb1), [`ced3262`](https://github.com/Khan/perseus/commit/ced3262bd5fbb41d2979522d87497e45916009d4), [`8d621d5`](https://github.com/Khan/perseus/commit/8d621d5be504f9253064b1f21fe3d3a1270845be)]:
+    -   @khanacademy/perseus-core@42.0.2
+    -   @khanacademy/kas@3.1.0
+    -   @khanacademy/kmath@3.1.2
+    -   @khanacademy/perseus-utils@3.0.2
+    -   @khanacademy/pure-markdown@3.1.1
+
 ## 6.2.0
 
 ### Minor Changes
