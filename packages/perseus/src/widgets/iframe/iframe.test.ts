@@ -1,3 +1,4 @@
+import {screen} from "@testing-library/react";
 import {act} from "react-dom/test-utils";
 
 import {renderQuestion} from "../../__testutils__/render-question";
@@ -6,6 +7,7 @@ import {scorePerseusItemTesting} from "../../util/scoring.testutils";
 import {question1} from "./iframe.testdata";
 
 import type {APIOptions} from "../../types";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 describe("iframe widget", () => {
     it("should snapshot", () => {
@@ -125,5 +127,46 @@ describe("iframe widget", () => {
             );
             expect(currentScore).toHaveInvalidInput(expectedInitialMessage);
         });
+    });
+
+    describe("disabled state", () => {
+        function withStatic(isStatic: boolean): PerseusRenderer {
+            return {
+                ...question1,
+                widgets: {
+                    "iframe 1": {
+                        ...question1.widgets["iframe 1"],
+                        static: isStatic,
+                    },
+                },
+            };
+        }
+
+        it("lets the iframe receive mouse and keyboard input when interactive", () => {
+            // Arrange, Act
+            renderQuestion(withStatic(false), {apiOptions: {readOnly: false}});
+
+            // Assert
+            const iframe = screen.getByTitle("Embedded content");
+            expect(iframe).not.toHaveStyle({pointerEvents: "none"});
+            expect(iframe).not.toHaveAttribute("tabindex");
+        });
+
+        it.each([
+            {name: "static", isStatic: true, readOnly: false},
+            {name: "read-only", isStatic: false, readOnly: true},
+        ])(
+            "blocks mouse input and removes the iframe from the tab order " +
+                "when $name",
+            ({isStatic, readOnly}) => {
+                // Arrange, Act
+                renderQuestion(withStatic(isStatic), {apiOptions: {readOnly}});
+
+                // Assert
+                const iframe = screen.getByTitle("Embedded content");
+                expect(iframe).toHaveStyle({pointerEvents: "none"});
+                expect(iframe).toHaveAttribute("tabindex", "-1");
+            },
+        );
     });
 });

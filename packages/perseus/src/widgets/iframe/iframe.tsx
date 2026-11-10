@@ -30,6 +30,7 @@ const Iframe = forwardRef<Widget, Props>(function Iframe(props, ref) {
     const {strings, locale} = usePerseusI18n();
     const {InitialRequestUrl} = getDependencies();
     const {allowFullScreen} = props.options;
+    const isDisabled = props.apiOptions.readOnly || props.static;
 
     useEffect(() => {
         function handleMessageEvent(e: MessageEvent) {
@@ -75,7 +76,13 @@ const Iframe = forwardRef<Widget, Props>(function Iframe(props, ref) {
         },
     }));
 
-    const style = getIframeStyle(props.options);
+    // We can't disable the content inside the iframe, so when the widget is
+    // static/readonly, we stop the iframe from receiving mouse events and
+    // take it out of the tab order.
+    const style = {
+        ...getIframeStyle(props.options),
+        ...(isDisabled && {pointerEvents: "none"}),
+    } satisfies React.CSSProperties;
     const url = getIframeUrl(props.options, locale, InitialRequestUrl.origin);
 
     // We sandbox the iframe so that we allowlist only the functionality
@@ -89,6 +96,7 @@ const Iframe = forwardRef<Widget, Props>(function Iframe(props, ref) {
             style={style}
             src={url}
             allowFullScreen={allowFullScreen}
+            tabIndex={isDisabled ? -1 : undefined}
         />
     );
 });
