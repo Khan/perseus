@@ -4,7 +4,7 @@ import {
 } from "@khanacademy/perseus-core";
 
 import {generateVideoWidget} from "../../../../perseus-core/src/utils/generators/video-widget-generator";
-import {renderQuestion} from "../../widgets/__testutils__/render-question";
+import {renderQuestion} from "../../__testutils__/render-question";
 
 import {getPromptJSON} from "./video-ai-utils";
 

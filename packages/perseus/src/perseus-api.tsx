@@ -54,7 +54,6 @@ export const ApiOptions = {
 
 export const ClassNames = {
     RENDERER: "perseus-renderer",
-    TWO_COLUMN_RENDERER: "perseus-renderer-two-columns",
     RESPONSIVE_RENDERER: "perseus-renderer-responsive",
     INPUT: "perseus-input",
     FOCUSED: "perseus-focused",

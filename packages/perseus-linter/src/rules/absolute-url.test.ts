@@ -1,4 +1,4 @@
-import {expectPass, expectWarning} from "../__tests__/test-utils";
+import {expectPass, expectIssue} from "../__tests__/test-utils";
 
 import absoluteUrlRule from "./absolute-url";
 
@@ -14,12 +14,12 @@ describe("absolute-url", () => {
         "[target](//www.khanacademy.org/about)",
         "[target](//www.khanacademy.org/about)",
 
-        // We should get the same warnings for images
+        // We should get the same issues for images
         "![alt text](http://khanacademy.org/about)",
         "![alt text](https://www.khanacademy.org/about)",
         "![alt text](https://es.khanacademy.org/about)",
     ])("absoluteUrlRule warns with: %s", (str: string) => {
-        expectWarning(absoluteUrlRule, str);
+        expectIssue(absoluteUrlRule, str);
     });
 
     it.each([
@@ -30,7 +30,7 @@ describe("absolute-url", () => {
         "[target](https://ka-perseus-images.s3.amazonaws.com/path)",
         "[target](https://ka-youtube-converted.storage.googleapis.com)",
 
-        // Same warnings for images
+        // Same issues for images
         "![alt text](/about)",
         "![alt text](https://cdn.kastatic.org/path)",
         "![alt text](https://ka-perseus-images.s3.amazonaws.com/path)",

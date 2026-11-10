@@ -1,5 +1,6 @@
 import {parse, traverseContent} from "@khanacademy/pure-markdown";
 
+import {linterWarning} from "../lint";
 import Rule from "../rule";
 
 /**
@@ -11,7 +12,6 @@ import Rule from "../rule";
  */
 export default Rule.makeRule({
     name: "image-markdown",
-    severity: Rule.Severity.WARNING,
     selector: "image",
     lint: function (state, content, nodes, match, context) {
         // Check if we're inside a widget - if so, allow markdown images.
@@ -30,9 +30,9 @@ export default Rule.makeRule({
         });
 
         if (hasInlineImageNode) {
-            return `[Inline markdown image]:
+            return linterWarning(`[Inline markdown image]:
 Markdown images are not recommended - these are images that use the
-![alt](url) format. Please use the Image widget instead.`;
+![alt](url) format. Please use the Image widget instead.`);
         }
     },
 });

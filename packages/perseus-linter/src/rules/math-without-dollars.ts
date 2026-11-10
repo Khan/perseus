@@ -6,8 +6,10 @@ import Rule from "../rule";
 // apply inside $$ or ``.
 export default Rule.makeRule({
     name: "math-without-dollars",
-    severity: Rule.Severity.GUIDELINE,
     pattern: /\\\w+{[^}]*}|{|}/,
-    message: `This looks like LaTeX:
+    lint: Rule.makeLintFunction({
+        severity: Rule.Severity.GUIDELINE,
+        message: `This looks like LaTeX:
 did you mean to put it inside dollar signs?`,
+    }),
 });

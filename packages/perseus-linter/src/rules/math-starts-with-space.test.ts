@@ -1,4 +1,4 @@
-import {expectWarning, expectPass} from "../__tests__/test-utils";
+import {expectIssue, expectPass} from "../__tests__/test-utils";
 
 import mathStartsWithSpaceRule from "./math-starts-with-space";
 
@@ -15,7 +15,7 @@ describe("math-starts-with-space", () => {
         "$\\enspace x$",
         "$\\phantom{xyz} x$",
     ])("mathStartsWithSpaceRule warns with: %s", (str: string) => {
-        expectWarning(mathStartsWithSpaceRule, str);
+        expectIssue(mathStartsWithSpaceRule, str);
     });
 
     it.each([

@@ -4,9 +4,7 @@ import {
 } from "@khanacademy/perseus-core";
 import {act} from "@testing-library/react";
 
-import {renderQuestion} from "../../__tests__/test-utils";
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {renderItem} from "../../__testutils__/render-item";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
 import type {PerseusItem} from "@khanacademy/perseus-core";
@@ -60,12 +58,6 @@ describe("Orderer serialization", () => {
         registerAllWidgetsForTesting();
     });
 
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
     afterEach(() => {
         // The Renderer uses a timer to wait for widgets to complete rendering.
         // If we don't spin the timers here, then the timer fires in the test
@@ -76,7 +68,7 @@ describe("Orderer serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicOrderer());
+        const {renderer} = renderItem(generateBasicOrderer());
 
         const [orderer] = renderer.questionRenderer.findWidgets("orderer 1");
         act(() => orderer.setListValues(["2", "1", "3"]));

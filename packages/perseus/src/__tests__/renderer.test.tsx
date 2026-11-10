@@ -19,6 +19,7 @@ import {
     definitionItem,
     mockedRandomItem,
 } from "../__testdata__/renderer.testdata";
+import {renderQuestion} from "../__testutils__/render-question";
 import * as Dependencies from "../dependencies";
 import Renderer, {
     isDifferentQuestion,
@@ -29,7 +30,6 @@ import {mockImageLoading} from "../testing/image-loader-utils";
 import {clone} from "../testing/object-utils";
 import {testDependencies} from "../testing/test-dependencies";
 import {registerWidget} from "../widgets";
-import {renderQuestion} from "../widgets/__testutils__/render-question";
 import {simpleGroupQuestion} from "../widgets/group/group.testdata";
 import MockWidgetExport from "../widgets/mock-widgets/mock-widget";
 
@@ -64,10 +64,6 @@ describe("renderer", () => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
 
         // Mocked for loading graphie in svg-image
         // eslint-disable-next-line no-restricted-syntax
@@ -542,13 +538,51 @@ describe("renderer", () => {
             expect(screen.queryAllByRole("combobox")).toHaveLength(0);
         });
 
-        it("should render columns", () => {
+        it("should ignore the deprecated column separator '====='", () => {
             // Arrange
             const question = {
                 content:
-                    "Stuff in column 1\n\n" +
+                    "Stuff before the separator\n\n" +
                     "=====\n\n" +
-                    "Stuff in column 2\n\n",
+                    "Stuff after the separator\n\n",
+                images: {},
+                widgets: {},
+            } as const;
+
+            // Act
+            const {container} = renderQuestion(question);
+
+            // Assert
+            expect(container).toMatchSnapshot();
+        });
+
+        it("should ignore the deprecated column separator '=====' inside a list item", () => {
+            // Arrange
+            const question = {
+                content:
+                    "- Stuff before the separator\n\n" +
+                    "  =====\n\n" +
+                    "  Stuff after the separator\n\n",
+                images: {},
+                widgets: {},
+            } as const;
+
+            // Act
+            const {container} = renderQuestion(question);
+
+            // Assert
+            expect(container).toMatchSnapshot();
+        });
+
+        it("should preserve '=====' inside a code block", () => {
+            // Arrange
+            const question = {
+                content:
+                    "```\n" +
+                    "Stuff before the separator\n\n" +
+                    "=====\n\n" +
+                    "Stuff after the separator\n\n" +
+                    "```",
                 images: {},
                 widgets: {},
             } as const;

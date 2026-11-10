@@ -2,4 +2,4 @@
 "@khanacademy/perseus-editor": patch
 ---
 
-Convert WidgetDiff to a functional component
+Internal: deleted unused CSS

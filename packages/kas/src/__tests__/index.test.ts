@@ -306,9 +306,9 @@ describe("KAS", () => {
             expect("xy<x^2+1").toBeSimplified();
             expect("y+1<x^2+1").not.toBeSimplified();
 
-            expect("xy<x^2"); // x might be negativ.toBeSimplified();
+            expect("xy<x^2").toBeSimplified(); // x might be negative
             expect("x^2y<x^3").not.toBeSimplified();
-            expect("alnx<blnx+clnx"); // lnx might be negativ.toBeSimplified();
+            expect("alnx<blnx+clnx").toBeSimplified(); // lnx might be negative
 
             expect("xy<0").toBeSimplified();
             expect("2xy<0").not.toBeSimplified();

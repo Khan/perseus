@@ -1,5 +1,33 @@
 # @khanacademy/perseus-editor
 
+## 45.0.7
+
+### Patch Changes
+
+-   [#4473](https://github.com/Khan/perseus/pull/4473) [`c5af770`](https://github.com/Khan/perseus/commit/c5af770a0d201230568e47677d6a300c885efab4) Thanks [@benchristel](https://github.com/benchristel)! - Add a lint rule that runs the markdown and widget linters on the content of each group in a Graded Group Set.
+
+-   Updated dependencies [[`d477ac6`](https://github.com/Khan/perseus/commit/d477ac65fcd6b05ee9d538c015134a97573e0f85), [`ab4be27`](https://github.com/Khan/perseus/commit/ab4be2718fe891ff4485623f67675e25ebff07ea), [`a410c69`](https://github.com/Khan/perseus/commit/a410c692a8acdd512fa6bdee20ba1ff9abff79ba), [`d0a30fd`](https://github.com/Khan/perseus/commit/d0a30fd32b2be0a9b7e56f3439acb78c997045dd), [`cb3f878`](https://github.com/Khan/perseus/commit/cb3f878314870df2299fab42ee772e73127ca218), [`e183904`](https://github.com/Khan/perseus/commit/e183904fe87a41c5a3f878893258ffbb3047d63e), [`c5af770`](https://github.com/Khan/perseus/commit/c5af770a0d201230568e47677d6a300c885efab4), [`3f65aa5`](https://github.com/Khan/perseus/commit/3f65aa58c10ce4594fbd72cd3d6f1fed63a47d9e), [`3cc554f`](https://github.com/Khan/perseus/commit/3cc554f63495651b9181aee97216c4bf73e80111), [`c5e9fd8`](https://github.com/Khan/perseus/commit/c5e9fd8c9ac031e536c6d610ad91ff103601e124)]:
+    -   @khanacademy/perseus-core@42.2.0
+    -   @khanacademy/perseus-linter@8.0.0
+    -   @khanacademy/perseus@93.0.3
+    -   @khanacademy/keypad-context@6.0.12
+    -   @khanacademy/kmath@3.1.5
+    -   @khanacademy/math-input@30.2.2
+
+## 45.0.6
+
+### Patch Changes
+
+-   [#4451](https://github.com/Khan/perseus/pull/4451) [`74af27d`](https://github.com/Khan/perseus/commit/74af27dba72d12d11a23da72d065206f9aee2161) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert WidgetDiff to a functional component
+
+-   Updated dependencies [[`9370c0d`](https://github.com/Khan/perseus/commit/9370c0d080a4bf3f3a18b32ca62659b94681cf0f), [`c58e2a7`](https://github.com/Khan/perseus/commit/c58e2a76ef41feaa224f0030ee906b035d3c351b), [`de3f186`](https://github.com/Khan/perseus/commit/de3f186628f1cf0bedaa40286a787622f086cb34), [`e71d6ff`](https://github.com/Khan/perseus/commit/e71d6ff0c1d04d2882de142fb8c647b51c046123), [`2b9fa74`](https://github.com/Khan/perseus/commit/2b9fa743061dc27dfbe79392d232f712f7686216), [`645b55f`](https://github.com/Khan/perseus/commit/645b55fcc87f40c8b920f2ed0046e04b000515e9), [`00d20b8`](https://github.com/Khan/perseus/commit/00d20b86648e27e2e4a53b159078a3d802152668), [`70b6b86`](https://github.com/Khan/perseus/commit/70b6b86e35cfd9cf90f8c5ddc5972f6ddc435963)]:
+    -   @khanacademy/perseus@93.0.2
+    -   @khanacademy/perseus-linter@7.0.2
+    -   @khanacademy/perseus-core@42.1.1
+    -   @khanacademy/keypad-context@6.0.11
+    -   @khanacademy/kmath@3.1.4
+    -   @khanacademy/math-input@30.2.1
+
 ## 45.0.5
 
 ### Patch Changes

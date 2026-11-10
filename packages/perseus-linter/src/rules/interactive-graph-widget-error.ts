@@ -1,29 +1,13 @@
 import {vector as kvector} from "@khanacademy/kmath";
 
+import {linterError} from "../lint";
 import Rule from "../rule";
 
-export default Rule.makeRule({
+export default Rule.makeWidgetRule({
     name: "interactive-graph-widget-error",
-    severity: Rule.Severity.ERROR,
-    selector: "widget",
-    lint: function (state, content, nodes, match, context) {
-        // This rule only looks at interactive-graph widgets
-        if (state.currentNode().widgetType !== "interactive-graph") {
-            return;
-        }
-
-        const nodeId = state.currentNode().id;
-        if (!nodeId) {
-            return;
-        }
-
-        // If it can't find a definition for the widget it does nothing
-        const widget = context?.widgets?.[nodeId];
-        if (!widget) {
-            return;
-        }
-
-        const issues: Array<any | string> = [];
+    widgetType: "interactive-graph",
+    lint(widget) {
+        const issues: string[] = [];
         const {correct, graph, lockedFigures} = widget.options;
 
         for (const figure of lockedFigures ?? []) {
@@ -86,7 +70,7 @@ export default Rule.makeRule({
         checkShowPointLabelsHasLabels(graph, issues);
         checkShowPointLabelsHasLabels(correct, issues);
 
-        return issues;
+        return issues.map((issue) => linterError(issue));
     },
 });
 

@@ -8,10 +8,10 @@ import {
 import {screen, within} from "@testing-library/react";
 import {userEvent} from "@testing-library/user-event";
 
+import {renderQuestion} from "../../__testutils__/render-question";
 import {ApiOptions} from "../../perseus-api";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import * as Widgets from "../../widgets";
-import {renderQuestion} from "../__testutils__/render-question";
 
 import type {
     PerseusFillInTheBlankUserInput,

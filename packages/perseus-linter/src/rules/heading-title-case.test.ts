@@ -1,10 +1,10 @@
-import {expectWarning, expectPass} from "../__tests__/test-utils";
+import {expectIssue, expectPass} from "../__tests__/test-utils";
 
 import headingTitleCaseRule from "./heading-title-case";
 
 describe("heading-title-case", () => {
     it("warns when a heading is in title case", () => {
-        expectWarning(
+        expectIssue(
             headingTitleCaseRule,
             "## This Heading is in Title Case and the but nor for Too",
         );

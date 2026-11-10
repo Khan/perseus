@@ -1,31 +1,15 @@
+import {linterError} from "../lint";
 import Rule from "../rule";
 
-export default Rule.makeRule({
+export default Rule.makeWidgetRule({
     name: "radio-widget-error",
-    severity: Rule.Severity.ERROR,
-    selector: "widget",
-    lint: function (state, content, nodes, match, context) {
-        // This rule only looks at radio widgets
-        if (state.currentNode().widgetType !== "radio") {
-            return;
-        }
-
-        const nodeId = state.currentNode().id;
-        if (!nodeId) {
-            return;
-        }
-
-        // If it can't find a definition for the widget it does nothing
-        const widget = context?.widgets?.[nodeId];
-        if (!widget) {
-            return;
-        }
-
+    widgetType: "radio",
+    lint(widget) {
         const choices = widget.options.choices;
 
         // Error if no choice is marked as correct
         if (!choices.some((choice) => choice.correct)) {
-            return "No choice is marked as correct.";
+            return linterError("No choice is marked as correct.");
         }
 
         // Error if NOTA (none of the above) and another choice are both marked as correct
@@ -35,7 +19,9 @@ export default Rule.makeRule({
         );
 
         if (hasNotaCorrect && correctChoices.length > 1) {
-            return "Cannot mark both None of the Above and another choice as correct.";
+            return linterError(
+                "Cannot mark both None of the Above and another choice as correct.",
+            );
         }
 
         return;

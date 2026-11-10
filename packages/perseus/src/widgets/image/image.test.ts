@@ -7,11 +7,9 @@ import {act, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import invariant from "tiny-invariant";
 
-import * as Dependencies from "../../dependencies";
+import {renderQuestion} from "../../__testutils__/render-question";
 import {mockImageLoading} from "../../testing/image-loader-utils";
-import {testDependencies} from "../../testing/test-dependencies";
 import {scorePerseusItemTesting} from "../../util/scoring.testutils";
-import {renderQuestion} from "../__testutils__/render-question";
 
 import {
     earthMoonImage,
@@ -50,9 +48,6 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
 
         unmockImageLoading = mockImageLoading();
 
@@ -426,7 +421,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         expect(dialog).toHaveTextContent("widget long description");
     });
 
-    it("should render a modal the placeholder title if a title is not provided", async () => {
+    it("should render a modal with a placeholder title if a title is not provided", async () => {
         // Arrange
         const imageQuestion = generateTestPerseusRenderer({
             content: "[[☃ image 1]]",
@@ -560,7 +555,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             expect(button).not.toBeInTheDocument();
         });
 
-        it("does not render a zoom image button for gif images", () => {
+        it("does not render a zoom image button for gif images", async () => {
             // Arrange
             const gifImageQuestion = generateTestPerseusRenderer({
                 content: "[[☃ image 1]]",
@@ -577,7 +572,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             renderQuestion(gifImageQuestion, {apiOptions});
 
             // Assert
-            expect(screen.getByRole("figure")).toBeVisible();
+            expect(await screen.findByRole("figure")).toBeVisible();
             const zoomButton = screen.queryByRole("button", {
                 name: "Zoom image.",
             });

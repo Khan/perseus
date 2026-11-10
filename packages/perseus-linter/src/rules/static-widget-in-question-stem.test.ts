@@ -1,4 +1,4 @@
-import {expectPass, expectWarning} from "../__tests__/test-utils";
+import {expectPass, expectIssue} from "../__tests__/test-utils";
 
 import staticWidgetInQuestionStemRule from "./static-widget-in-question-stem";
 
@@ -48,7 +48,7 @@ describe("static-widget-in-question-stem", () => {
     });
 
     test("Rule static-widget-in-question-stem allows warns about static widgets in question stems", () => {
-        expectWarning(
+        expectIssue(
             staticWidgetInQuestionStemRule,
             "[[☃ radio 1]]",
             {

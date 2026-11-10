@@ -1,5 +1,6 @@
 import {parse, traverseContent} from "@khanacademy/pure-markdown";
 
+import {linterError} from "../lint";
 import Rule from "../rule";
 
 // There's nothing to sort with fewer than two cards.
@@ -24,42 +25,25 @@ function hasMixedContent(card: string): boolean {
     );
 }
 
-export default Rule.makeRule({
+export default Rule.makeWidgetRule({
     name: "sorter-widget-error",
-    severity: Rule.Severity.ERROR,
-    selector: "widget",
-    lint: function (state, content, nodes, match, context) {
-        // This rule only looks at sorter widgets
-        if (state.currentNode().widgetType !== "sorter") {
-            return;
-        }
-
-        const nodeId = state.currentNode().id;
-        if (!nodeId) {
-            return;
-        }
-
-        // If it can't find a definition for the widget it does nothing
-        const widget = context?.widgets?.[nodeId];
-        if (!widget) {
-            return;
-        }
-
-        const warnings: string[] = [];
+    widgetType: "sorter",
+    lint(widget) {
+        const issues: string[] = [];
         const correct: string[] = widget.options.correct ?? [];
 
         if (correct.length < minCards) {
-            warnings.push(`Sorter requires at least ${minCards} cards.`);
+            issues.push(`Sorter requires at least ${minCards} cards.`);
         }
 
         if (correct.some((card) => card.trim() === "")) {
-            warnings.push("Sorter cards cannot be blank.");
+            issues.push("Sorter cards cannot be blank.");
         }
 
         if (correct.some(hasMixedContent)) {
-            warnings.push("Sorter cards cannot mix images with other content.");
+            issues.push("Sorter cards cannot mix images with other content.");
         }
 
-        return warnings;
+        return issues.map((issue) => linterError(issue));
     },
 });

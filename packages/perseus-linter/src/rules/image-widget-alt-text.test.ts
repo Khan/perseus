@@ -1,10 +1,10 @@
-import {expectWarning, expectPass} from "../__tests__/test-utils";
+import {expectIssue, expectPass} from "../__tests__/test-utils";
 
 import imageWidgetAltTextRule from "./image-widget-alt-text";
 
 describe("image-widget", () => {
     it("warns for image widget with no alt text", () => {
-        expectWarning(imageWidgetAltTextRule, "[[☃ image 1]]", {
+        expectIssue(imageWidgetAltTextRule, "[[☃ image 1]]", {
             widgets: {
                 "image 1": {
                     options: {},
@@ -14,7 +14,7 @@ describe("image-widget", () => {
     });
 
     it("warns for image widget with short alt text", () => {
-        expectWarning(imageWidgetAltTextRule, "[[☃ image 1]]", {
+        expectIssue(imageWidgetAltTextRule, "[[☃ image 1]]", {
             widgets: {
                 "image 1": {
                     options: {
@@ -26,7 +26,7 @@ describe("image-widget", () => {
     });
 
     it("warns for image widget with excessively long alt text", () => {
-        expectWarning(imageWidgetAltTextRule, "[[☃ image 1]]", {
+        expectIssue(imageWidgetAltTextRule, "[[☃ image 1]]", {
             widgets: {
                 "image 1": {
                     options: {

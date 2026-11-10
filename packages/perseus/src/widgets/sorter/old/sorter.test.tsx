@@ -11,11 +11,10 @@ import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import {act, screen} from "@testing-library/react";
 import * as React from "react";
 
+import {renderQuestion} from "../../../__testutils__/render-question";
 import * as Dependencies from "../../../dependencies";
 import {testDependencies} from "../../../testing/test-dependencies";
-import {wait} from "../../../testing/wait";
 import {scorePerseusItemTesting} from "../../../util/scoring.testutils";
-import {renderQuestion} from "../../__testutils__/render-question";
 import {basicQuestion} from "../sorter.testdata";
 
 import type {SorterHandle} from "./sorter";
@@ -65,15 +64,12 @@ describe("sorter widget", () => {
     describe("snapshot", () => {
         it("should snapshot", async () => {
             // Arrange
-            jest.useRealTimers();
-
             const apiOptions: APIOptions = {
                 isMobile: false,
             };
 
             // Act
             const {container} = renderQuestion(basicQuestion, {apiOptions});
-            await wait();
 
             // Assert
             expect(container).toMatchSnapshot("first render");
@@ -81,15 +77,12 @@ describe("sorter widget", () => {
 
         it("should snapshot on mobile", async () => {
             // Arrange
-            jest.useRealTimers();
-
             const apiOptions: APIOptions = {
                 isMobile: true,
             };
 
             // Act
             const {container} = renderQuestion(basicQuestion, {apiOptions});
-            await wait();
 
             // Assert
             expect(container).toMatchSnapshot("first mobile render");

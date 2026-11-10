@@ -1,5 +1,23 @@
 # @khanacademy/perseus-score
 
+## 9.0.13
+
+### Patch Changes
+
+-   Updated dependencies [[`d477ac6`](https://github.com/Khan/perseus/commit/d477ac65fcd6b05ee9d538c015134a97573e0f85)]:
+    -   @khanacademy/perseus-core@42.2.0
+    -   @khanacademy/kmath@3.1.5
+
+## 9.0.12
+
+### Patch Changes
+
+-   [#4463](https://github.com/Khan/perseus/pull/4463) [`e0afd53`](https://github.com/Khan/perseus/commit/e0afd53b939f315223c7e948cd1da8eb32c279f5) Thanks [@benchristel](https://github.com/benchristel)! - Made numeric input more robust to invalid input.
+
+-   Updated dependencies []:
+    -   @khanacademy/perseus-core@42.1.1
+    -   @khanacademy/kmath@3.1.4
+
 ## 9.0.11
 
 ### Patch Changes

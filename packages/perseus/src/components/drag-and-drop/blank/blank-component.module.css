@@ -19,8 +19,9 @@
     margin-inline: var(--wb-sizing-size_040);
 
     border-radius: var(--wb-border-radius-radius_040);
-    border: var(--wb-border-width-thin) dashed
+    outline: var(--wb-border-width-thin) dashed
         var(--wb-semanticColor-core-border-neutral-default);
+    outline-offset: calc(-1 * var(--wb-border-width-thin));
     background: var(--wb-semanticColor-core-background-base-subtle);
 
     transition: min-width 150ms ease-out;
@@ -63,7 +64,7 @@
 .container.filled {
     min-width: 0;
     min-height: 0;
-    border: none;
+    outline: none;
     background: transparent;
 }
 
@@ -76,7 +77,6 @@
 /* Drag-enter highlight. An outline adds no layout size, so the line
  * does not jump while a tile drags over. */
 .container.dropTarget {
-    border-color: transparent;
     outline: var(--wb-border-width-medium) dashed
         var(--wb-semanticColor-core-border-instructive-default);
     outline-offset: calc(-1 * var(--wb-border-width-medium));
