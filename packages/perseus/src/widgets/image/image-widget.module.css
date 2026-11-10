@@ -62,14 +62,19 @@
     align-items: center;
     font-size: var(--wb-font-heading-size-medium);
     line-height: var(--wb-font-heading-lineHeight-medium);
-    /* Undo some of the default padding for the top of the modal, and set spacing after h1 */
-    margin-block: calc(var(--perseus-image-modal-padding-offset) / 2)
-        var(--wb-sizing-size_080);
+    /* Undo the default padding for the top of the modal, and set spacing after h1 */
+    margin-block: 0 var(--wb-sizing-size_160);
 
     /* Remove default margin for paragraphs - handled by margin on h1 */
     p {
         margin-block: 0;
     }
+}
+
+[data-wb-theme="default"] .modal-title-container {
+    /* Undo SOME of the default padding for the top of the modal, and set spacing after h1 */
+    margin-block: calc(var(--perseus-image-modal-padding-offset) / 2)
+    var(--wb-sizing-size_080);
 }
 
 .modal-panel-container {
