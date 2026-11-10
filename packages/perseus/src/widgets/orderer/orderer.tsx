@@ -76,7 +76,6 @@ type CardProps = {
     width?: number | null | undefined;
     stack: boolean;
     removing: boolean;
-    // When true, the card can't be picked up or dragged.
     disabled: boolean;
 
     onMouseDown?: any;
