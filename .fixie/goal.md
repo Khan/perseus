@@ -130,9 +130,13 @@ The issues, summarized from the dig:
       `interactive-graph.test.tsx` (~1574-1590).
 - [ ] Confirm the editor's "getSaveWarnings returns an error when the graph
       is invalid" test no longer logs NaN errors.
-- [ ] Stop passing `keypadElement` from `number-line.tsx` to `NumberInput`;
+- [x] Stop passing `keypadElement` from `number-line.tsx` to `NumberInput`;
       drop it from `NumberInput`'s props if declared.
-- [ ] Replace the `restProps` spread in `NumberInput` with an explicit list
+      (Done via the allowlist below: `NumberInput` no longer forwards it.
+      `number-line.tsx` still passes it because the same JSX renders
+      `SimpleKeypadInput`, which needs it; splitting the branches conflicts
+      with the shared `tickCtrlRef` union type.)
+- [x] Replace the `restProps` spread in `NumberInput` with an explicit list
       of props passed to `<input>`, keeping existing callers working.
 - [x] Add `key={state.key}` to the custom `react` rules in
       `simple-markdown.test.tsx`.

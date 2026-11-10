@@ -9296,7 +9296,6 @@ table: [[☃ table 1]]
                                         </p>
                                         <input
                                           class="number-input numeric-input-value"
-                                          format="mixed"
                                           placeholder="answer"
                                           type="text"
                                           value="1/2"
@@ -9309,7 +9308,6 @@ table: [[☃ table 1]]
                                       </span>
                                       <input
                                         class="number-input max-error-input-value"
-                                        format="mixed"
                                         placeholder="0"
                                         type="text"
                                         value="0"
@@ -15095,7 +15093,6 @@ table: [[☃ table 1]]
                          
                         <input
                           class="number-input normal"
-                          format="decimal"
                           placeholder="answer"
                           type="text"
                           value="2"
@@ -15113,7 +15110,6 @@ table: [[☃ table 1]]
                            
                           <input
                             class="number-input"
-                            format="decimal"
                             placeholder="-5"
                             type="text"
                             value="2"
@@ -15125,13 +15121,11 @@ table: [[☃ table 1]]
                         >
                           <input
                             class="number-input"
-                            format="decimal"
                             type="text"
                             value="-5"
                           />
                           <input
                             class="number-input"
-                            format="decimal"
                             type="text"
                             value="5"
                           />
@@ -15151,7 +15145,6 @@ table: [[☃ table 1]]
                            
                           <input
                             class="number-input"
-                            format="decimal"
                             placeholder="-5"
                             type="text"
                             value="-5"
@@ -15161,7 +15154,6 @@ table: [[☃ table 1]]
                           </span>
                           <input
                             class="number-input"
-                            format="decimal"
                             placeholder="5"
                             type="text"
                             value="5"
@@ -15370,7 +15362,6 @@ table: [[☃ table 1]]
                              
                             <input
                               class="number-input"
-                              format="decimal"
                               type="text"
                               value="5"
                             />
@@ -15381,7 +15372,6 @@ table: [[☃ table 1]]
                              
                             <input
                               class="number-input"
-                              format="decimal"
                               placeholder="2"
                               type="text"
                               value=""
@@ -15401,7 +15391,6 @@ table: [[☃ table 1]]
                            
                           <input
                             class="number-input"
-                            format="decimal"
                             type="text"
                             value="2"
                           />
