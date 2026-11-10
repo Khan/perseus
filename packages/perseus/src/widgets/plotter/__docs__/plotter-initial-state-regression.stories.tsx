@@ -218,11 +218,6 @@ export const PictographMobile: Story = {
     },
 };
 
-// Static and read-only plotters can't be changed. Plotter draws every type
-// differently on desktop and mobile, so each type has a static story for both.
-// Desktop bar and histogram handles are hidden; mobile bar and histogram
-// handles, and line plot points and lines, use the disabled color. Static
-// widgets show the correct answer instead of the starting values.
 export const BarChartStatic: Story = {
     parameters: {static: true},
     args: BarChart.args,
@@ -254,13 +249,6 @@ export const LinePlotMobileStatic: Story = {
     decorators: [mobileDecorator],
     parameters: {apiOptions: {isMobile: true}, static: true},
     args: LinePlotMobile.args,
-};
-
-// Read-only shares the static code path, so one story covers it. Unlike
-// static, it shows the starting values.
-export const LinePlotReadOnly: Story = {
-    parameters: {apiOptions: {readOnly: true}},
-    args: LinePlot.args,
 };
 
 export const DotPlotStatic: Story = {
