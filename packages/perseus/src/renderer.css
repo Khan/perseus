@@ -90,8 +90,10 @@
         }
 
         /* Nested lists place leading text in a paragraph element,
-           so we need to adjust the margin to match list items. */
-        li > p:has(+ :is(ul, ol)) {
+           so we need to adjust the margin to match list items.
+           We also want other markdown cases that cause paragraphs
+           to respect the list-based spacing. */
+        li > p {
             margin-block: var(--wb-sizing-size_080);
         }
     }

@@ -24,6 +24,6 @@ body.mobile
     content: "\f111"; /* fa-circle */
 }
 
-.framework-perseus .categorizer-container p {
+.framework-perseus .categorizer-container :is(p, [role=paragraph]) {
     margin: 10px 0px;
 }
