@@ -30,20 +30,35 @@ export const useItemRenderer = (
         createInitialState(item, reviewMode, showSolutions),
     );
 
-    // Get a derived item based on answerless state
+    // Replace the item (discarding JSON edits) when the caller passes a new
+    // one, e.g. when a story's args change.
+    const isFirstRender = useRef(true);
+    useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
+        dispatch({type: "UPDATE_ITEM", payload: item});
+    }, [item]);
+
+    // Derive the item to render from the full item. This is computed rather
+    // than stored in state so that changing answerless/solution state
+    // can't overwrite edits made in the JSON editor.
     const renderedItem = React.useMemo(() => {
         const shouldUseAnswerless =
             state.answerless &&
             !state.reviewMode &&
             (state.showSolutions === "none" || !state.showSolutions);
 
-        return shouldUseAnswerless ? splitPerseusItem(item) : item;
-    }, [item, state.answerless, state.reviewMode, state.showSolutions]);
-
-    // Update item if the renderedItem changes
-    useEffect(() => {
-        dispatch({type: "UPDATE_ITEM", payload: renderedItem});
-    }, [renderedItem]);
+        return shouldUseAnswerless
+            ? splitPerseusItem(state.perseusItem)
+            : state.perseusItem;
+    }, [
+        state.perseusItem,
+        state.answerless,
+        state.reviewMode,
+        state.showSolutions,
+    ]);
 
     // Show the popover when the score changes
     useEffect(() => {
@@ -96,7 +111,11 @@ export const useItemRenderer = (
         );
 
         const userInput = renderer.getUserInput();
-        const score = scorePerseusItem(item.question, userInput, "en");
+        const score = scorePerseusItem(
+            state.perseusItem.question,
+            userInput,
+            "en",
+        );
 
         if (score.type === "points") {
             // Show solutions for selected answers when the user answered the
@@ -105,7 +124,7 @@ export const useItemRenderer = (
         }
 
         return score;
-    }, [item]);
+    }, [state.perseusItem]);
 
     const updateJson = React.useCallback((json: string): boolean => {
         try {
@@ -143,6 +162,7 @@ export const useItemRenderer = (
     return {
         ref,
         state,
+        renderedItem,
         options,
         updateJson,
         handleReset,
