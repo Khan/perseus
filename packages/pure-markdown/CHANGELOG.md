@@ -1,5 +1,11 @@
 # @khanacademy/pure-markdown
 
+## 4.0.0
+
+### Major Changes
+
+-   [#4511](https://github.com/Khan/perseus/pull/4511) [`aa65a1f`](https://github.com/Khan/perseus/commit/aa65a1f73488da6067c5a82bfac225c23e744074) Thanks [@benchristel](https://github.com/benchristel)! - Dropped support for the deprecated 'columns' markdown parse node type. The column separator '=====' is now ignored, and has no effect on rendered content.
+
 ## 3.1.2
 
 ### Patch Changes
