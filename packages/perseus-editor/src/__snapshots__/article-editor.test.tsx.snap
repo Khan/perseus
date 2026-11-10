@@ -16655,6 +16655,7 @@ table: [[☃ table 1]]
                             style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                           />
                           <rect
+                            data-interactive-kind-for-testing="plotter-tile"
                             fill="none"
                             height="36"
                             r="0"
@@ -16667,6 +16668,7 @@ table: [[☃ table 1]]
                             y="205"
                           />
                           <rect
+                            data-interactive-kind-for-testing="plotter-tile"
                             fill="none"
                             height="36"
                             r="0"
@@ -16679,6 +16681,7 @@ table: [[☃ table 1]]
                             y="169"
                           />
                           <rect
+                            data-interactive-kind-for-testing="plotter-tile"
                             fill="none"
                             height="36"
                             r="0"
@@ -16691,6 +16694,7 @@ table: [[☃ table 1]]
                             y="133"
                           />
                           <rect
+                            data-interactive-kind-for-testing="plotter-tile"
                             fill="none"
                             height="36"
                             r="0"
@@ -16703,6 +16707,7 @@ table: [[☃ table 1]]
                             y="97"
                           />
                           <rect
+                            data-interactive-kind-for-testing="plotter-tile"
                             fill="none"
                             height="36"
                             r="0"
@@ -16715,6 +16720,7 @@ table: [[☃ table 1]]
                             y="61.00000000000001"
                           />
                           <rect
+                            data-interactive-kind-for-testing="plotter-tile"
                             fill="none"
                             height="36"
                             r="0"
