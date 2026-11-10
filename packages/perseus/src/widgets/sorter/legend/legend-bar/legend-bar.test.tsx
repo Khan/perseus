@@ -13,16 +13,22 @@ describe("LegendBar", () => {
         );
     });
 
-    it("applies the horizontal styling when orientation is horizontal", () => {
+    it("marks the bar as horizontal when orientation is horizontal", () => {
         render(<LegendBar orientation="horizontal" />);
 
-        expect(screen.getByTestId("legend-bar")).toHaveClass("horizontal");
+        expect(screen.getByTestId("legend-bar")).toHaveAttribute(
+            "data-orientation",
+            "horizontal",
+        );
     });
 
-    it("applies the vertical styling when orientation is vertical", () => {
+    it("marks the bar as vertical when orientation is vertical", () => {
         render(<LegendBar orientation="vertical" />);
 
-        expect(screen.getByTestId("legend-bar")).toHaveClass("vertical");
+        expect(screen.getByTestId("legend-bar")).toHaveAttribute(
+            "data-orientation",
+            "vertical",
+        );
     });
 
     it("renders no caps by default", () => {
@@ -56,13 +62,19 @@ describe("LegendBar", () => {
     it("renders an arrow cap at the start", () => {
         render(<LegendBar orientation="horizontal" startCap="arrow" />);
 
-        expect(screen.getByTestId("legend-bar-start-cap")).toHaveClass("arrow");
+        expect(screen.getByTestId("legend-bar-start-cap")).toHaveAttribute(
+            "data-cap",
+            "arrow",
+        );
     });
 
     it("renders a bar cap at the end", () => {
         render(<LegendBar orientation="horizontal" endCap="bar" />);
 
-        expect(screen.getByTestId("legend-bar-end-cap")).toHaveClass("bar");
+        expect(screen.getByTestId("legend-bar-end-cap")).toHaveAttribute(
+            "data-cap",
+            "bar",
+        );
     });
 
     it("renders a different cap at each end", () => {
@@ -70,7 +82,13 @@ describe("LegendBar", () => {
             <LegendBar orientation="vertical" startCap="arrow" endCap="bar" />,
         );
 
-        expect(screen.getByTestId("legend-bar-start-cap")).toHaveClass("arrow");
-        expect(screen.getByTestId("legend-bar-end-cap")).toHaveClass("bar");
+        expect(screen.getByTestId("legend-bar-start-cap")).toHaveAttribute(
+            "data-cap",
+            "arrow",
+        );
+        expect(screen.getByTestId("legend-bar-end-cap")).toHaveAttribute(
+            "data-cap",
+            "bar",
+        );
     });
 });

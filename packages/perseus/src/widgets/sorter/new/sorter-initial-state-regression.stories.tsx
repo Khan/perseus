@@ -7,7 +7,10 @@ import * as React from "react";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
-import {rtlDecorator} from "../../__testutils__/story-decorators";
+import {
+    narrowViewportDecorator,
+    rtlDecorator,
+} from "../../__testutils__/story-decorators";
 
 import type {SorterLegend} from "../legend/legend-types";
 import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
@@ -119,6 +122,22 @@ export const LongLegendLabels: Story = {
             ...scaleLegend,
             startLabel: "Shortest distance traveled in a single day",
             endLabel: "Longest distance traveled in a single day",
+        },
+    },
+    // Narrow enough that each label has to wrap within its half.
+    decorators: [narrowViewportDecorator],
+};
+
+export const TexLegendLabels: Story = {
+    args: {
+        correct: ["$\\frac{1}{2}$ cup", "$1$ cup", "$1\\frac{1}{2}$ cups"],
+        layout: "horizontal",
+        legend: {
+            ...scaleLegend,
+            startLabel: "$\\frac{1}{4}$ cup",
+            endLabel: "$2$ cups",
+            ariaLabel:
+                "Amounts, from one quarter cup at the start to two cups at the end",
         },
     },
 };

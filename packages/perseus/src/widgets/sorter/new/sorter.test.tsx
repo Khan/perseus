@@ -252,7 +252,10 @@ describe("new sorter widget", () => {
             );
 
             // Assert
-            expect(screen.getByTestId("legend-bar")).toHaveClass("horizontal");
+            expect(screen.getByTestId("legend-bar")).toHaveAttribute(
+                "data-orientation",
+                "horizontal",
+            );
         });
 
         it("renders a vertical legend bar when the layout is vertical", () => {
@@ -263,7 +266,10 @@ describe("new sorter widget", () => {
             );
 
             // Assert
-            expect(screen.getByTestId("legend-bar")).toHaveClass("vertical");
+            expect(screen.getByTestId("legend-bar")).toHaveAttribute(
+                "data-orientation",
+                "vertical",
+            );
         });
 
         it("renders a vertical legend bar when a horizontal sorter has more cards than the maximum", () => {
@@ -280,7 +286,10 @@ describe("new sorter widget", () => {
             );
 
             // Assert
-            expect(screen.getByTestId("legend-bar")).toHaveClass("vertical");
+            expect(screen.getByTestId("legend-bar")).toHaveAttribute(
+                "data-orientation",
+                "vertical",
+            );
         });
     });
 
@@ -419,10 +428,14 @@ describe("new sorter widget", () => {
             });
 
             // Assert
-            expect(screen.getByTestId("legend-bar-start-cap")).toHaveClass(
+            expect(screen.getByTestId("legend-bar-start-cap")).toHaveAttribute(
+                "data-cap",
                 "arrow",
             );
-            expect(screen.getByTestId("legend-bar-end-cap")).toHaveClass("bar");
+            expect(screen.getByTestId("legend-bar-end-cap")).toHaveAttribute(
+                "data-cap",
+                "bar",
+            );
         });
 
         it("renders the legend labels in the vertical layout", () => {

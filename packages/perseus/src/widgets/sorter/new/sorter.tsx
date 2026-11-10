@@ -221,49 +221,12 @@ const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
         </ol>
     );
 
-    function renderAnswerZone() {
-        if (legend == null) {
-            return blankList;
-        }
-
-        if (layout === "vertical") {
-            return (
-                <div className={classNames(styles.answerZone, styles.vertical)}>
-                    <LegendBar
-                        orientation="vertical"
-                        startCap={legend.startCap}
-                        endCap={legend.endCap}
-                    />
-                    <div className={styles.verticalColumn}>
-                        {legend.startLabel && (
-                            <LegendLabel content={legend.startLabel} />
-                        )}
-                        {blankList}
-                        {legend.endLabel && (
-                            <LegendLabel content={legend.endLabel} />
-                        )}
-                    </div>
-                </div>
-            );
-        }
-
-        return (
-            <div className={styles.answerZone}>
-                {legend.position === "above" && (
-                    <HorizontalLegend legend={legend} position="above" />
-                )}
-                {blankList}
-                {legend.position === "below" && (
-                    <HorizontalLegend legend={legend} position="below" />
-                )}
-            </div>
-        );
-    }
-
     return (
         <PerseusDndProvider onDragEnd={handleDragEnd}>
             <div className={styles.sorter}>
-                {renderAnswerZone()}
+                <AnswerZone legend={legend} layout={layout}>
+                    {blankList}
+                </AnswerZone>
                 <ChoiceBank label={tempDndStrings.choices}>
                     {bankTiles.map((tileId, index) => (
                         <AnswerTile
@@ -283,6 +246,51 @@ const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
         </PerseusDndProvider>
     );
 });
+
+function AnswerZone(props: {
+    layout: PerseusSorterWidgetOptions["layout"];
+    children: React.ReactNode;
+    legend?: SorterLegend;
+}) {
+    const {legend, layout, children} = props;
+
+    if (legend == null) {
+        return <>{children}</>;
+    }
+
+    if (layout === "vertical") {
+        return (
+            <div className={classNames(styles.answerZone, styles.vertical)}>
+                <LegendBar
+                    orientation="vertical"
+                    startCap={legend.startCap}
+                    endCap={legend.endCap}
+                />
+                <div className={styles.verticalColumn}>
+                    {legend.startLabel && (
+                        <LegendLabel content={legend.startLabel} />
+                    )}
+                    {children}
+                    {legend.endLabel && (
+                        <LegendLabel content={legend.endLabel} />
+                    )}
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <div className={styles.answerZone}>
+            {legend.position === "above" && (
+                <HorizontalLegend legend={legend} position="above" />
+            )}
+            {children}
+            {legend.position === "below" && (
+                <HorizontalLegend legend={legend} position="below" />
+            )}
+        </div>
+    );
+}
 
 // The labels sit on the side of the bar away from the blanks.
 function HorizontalLegend(props: {
