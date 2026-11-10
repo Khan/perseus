@@ -1,5 +1,3 @@
-import * as React from "react";
-
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
 import {paragraphFillInTheBlankQuestion} from "../fill-in-the-blank.testdata";
 
@@ -13,7 +11,6 @@ const meta: Meta<typeof QuestionRendererForStories> = {
     title: "Widgets/Fill in the Blank/Widget Demo",
     component: QuestionRendererForStories,
     tags: ["!autodocs"],
-    render: (args) => <QuestionRendererForStories {...args} />,
     args: {
         question: paragraphFillInTheBlankQuestion,
     },
