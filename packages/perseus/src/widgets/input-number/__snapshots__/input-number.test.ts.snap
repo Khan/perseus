@@ -216,8 +216,7 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
       <table>
         <thead>
           <tr>
-            <th
-              scope="col"
+            <td
               style="text-align: center;"
             />
             <th
@@ -233,7 +232,8 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
         </thead>
         <tbody>
           <tr>
-            <td
+            <th
+              scope="row"
               style="text-align: center;"
             >
               <span
@@ -247,7 +247,7 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
                 </span>
                 <span />
               </span>
-            </td>
+            </th>
             <td
               style="text-align: center;"
             >
@@ -265,7 +265,8 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
             </td>
           </tr>
           <tr>
-            <td
+            <th
+              scope="row"
               style="text-align: center;"
             >
               <span
@@ -279,7 +280,7 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
                 </span>
                 <span />
               </span>
-            </td>
+            </th>
             <td
               style="text-align: center;"
             >
@@ -297,7 +298,8 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
             </td>
           </tr>
           <tr>
-            <td
+            <th
+              scope="row"
               style="text-align: center;"
             >
               <span
@@ -311,7 +313,7 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
                 </span>
                 <span />
               </span>
-            </td>
+            </th>
             <td
               style="text-align: center;"
             >
@@ -329,7 +331,8 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
             </td>
           </tr>
           <tr>
-            <td
+            <th
+              scope="row"
               style="text-align: center;"
             >
               <span
@@ -343,7 +346,7 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
                 </span>
                 <span />
               </span>
-            </td>
+            </th>
             <td
               style="text-align: center;"
             >
@@ -361,7 +364,8 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
             </td>
           </tr>
           <tr>
-            <td
+            <th
+              scope="row"
               style="text-align: center;"
             >
               <span
@@ -375,7 +379,7 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
                 </span>
                 <span />
               </span>
-            </td>
+            </th>
             <td
               style="text-align: center;"
             >
@@ -393,7 +397,8 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
             </td>
           </tr>
           <tr>
-            <td
+            <th
+              scope="row"
               style="text-align: center;"
             >
               <span
@@ -407,7 +412,7 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
                 </span>
                 <span />
               </span>
-            </td>
+            </th>
             <td
               style="text-align: center;"
             >
@@ -425,7 +430,8 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
             </td>
           </tr>
           <tr>
-            <td
+            <th
+              scope="row"
               style="text-align: center;"
             >
               <span
@@ -439,7 +445,7 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
                 </span>
                 <span />
               </span>
-            </td>
+            </th>
             <td
               style="text-align: center;"
             >
@@ -457,7 +463,8 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
             </td>
           </tr>
           <tr>
-            <td
+            <th
+              scope="row"
               style="text-align: center;"
             >
               <span
@@ -471,7 +478,7 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
                 </span>
                 <span />
               </span>
-            </td>
+            </th>
             <td
               style="text-align: center;"
             >
