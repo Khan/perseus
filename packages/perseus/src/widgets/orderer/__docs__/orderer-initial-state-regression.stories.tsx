@@ -38,6 +38,23 @@ export const Default: Story = {
     } satisfies Partial<PerseusOrdererWidgetOptions>,
 };
 
+// Cards in both the bank and the answer list should look disabled (no grab
+// cursor or hover shadow) when the widget can't be interacted with.
+export const Static: Story = {
+    decorators: [ordererRendererDecorator],
+    args: {
+        options: [
+            generateCard("First"),
+            generateCard("Second"),
+            generateCard("Third"),
+        ],
+    },
+    parameters: {
+        static: true,
+        initialUserInput: {"orderer 1": {current: ["Second", "First"]}},
+    },
+};
+
 export const RightToLeft: Story = {
     decorators: [ordererRendererDecorator, rtlDecorator],
     args: {

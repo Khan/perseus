@@ -3,6 +3,7 @@ import * as React from "react";
 
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
 
+import type {APIOptions} from "../../../types";
 import type {
     PerseusOrdererWidgetOptions,
     PerseusRenderer,
@@ -26,13 +27,16 @@ export const ordererRendererDecorator: Decorator = (
     }: {
         args: Partial<PerseusOrdererWidgetOptions>;
         parameters?: {
+            apiOptions?: APIOptions;
             content?: string;
             initialUserInput?: UserInputMap;
+            static?: boolean;
         };
     },
 ) => {
     return (
         <QuestionRendererForStories
+            apiOptions={parameters?.apiOptions}
             initialUserInput={parameters?.initialUserInput}
             question={generateTestPerseusRenderer({
                 content: parameters?.content ?? "[[☃ orderer 1]]",
@@ -41,6 +45,7 @@ export const ordererRendererDecorator: Decorator = (
                         version: {major: 0, minor: 0},
                         type: "orderer",
                         graded: true,
+                        static: parameters?.static ?? false,
                         options: {
                             ...defaultOptions,
                             ...args,
