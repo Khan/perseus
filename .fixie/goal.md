@@ -123,10 +123,11 @@ The issues, summarized from the dig:
 - [x] Test: a ray with coincident points renders no vector.
 - [x] Test: coincident points still render endpoints when `showPoint1` and
       `showPoint2` are set.
-- [ ] Add `locked-vector.test.tsx` with a test that a vector with distinct
+- [x] Add `locked-vector.test.tsx` with a test that a vector with distinct
       points renders.
-- [ ] Test: a locked vector with coincident points renders without NaN
+- [x] Test: a locked vector with coincident points renders without NaN
       errors; guard `LockedVector` if the test fails.
+      (The test passed without a guard.)
 - [ ] Use two distinct points for the locked line in
       `interactive-graph.test.tsx` (~1574-1590).
 - [ ] Confirm the editor's "getSaveWarnings returns an error when the graph
