@@ -119,19 +119,13 @@ class Plotter extends React.Component<Props, State> implements Widget {
         this._isMounted = false;
     }
 
-    /**
-     * Whether the learner is blocked from changing the plot, either because
-     * the widget is static or because the whole renderer is read-only.
-     */
     isDisabled(): boolean {
         return Boolean(this.props.static || this.props.apiOptions.readOnly);
     }
 
     /**
-     * Options for the movable points used as bar and line handles. When the
-     * plotter is disabled, the points can't be dragged and are drawn in the
-     * disabled color. (`addMovablePointV2` sets its own fill, which would
-     * otherwise override MovablePoint's built-in static color.)
+     * Options for the movable points used as bar and line handles.
+     * Returns disable style when static.
      */
     movablePointOptions(): {
         static: boolean;
@@ -995,7 +989,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
             // In order to make sure that manipulating the graph doesn't cause
             // dragging, we disable touch actions for the whole mouselayer.
             // (A disabled plot can't be manipulated, so we leave touch
-            // actions alone to let learners scroll past it.)
+            // actions alone to let learners scroll past it on touch devices.)
             graphie.mouselayer.canvas.style.touchAction = "none";
         }
 
@@ -1019,8 +1013,6 @@ class Plotter extends React.Component<Props, State> implements Widget {
                     c.picBoxHeight,
                 );
                 $(mouseRect[0])
-                    // Matches the attribute that Graphie's other mouse
-                    // targets (WrappedEllipse, WrappedLine) set for tests.
                     .attr("data-interactive-kind-for-testing", "plotter-tile")
                     .css({
                         // `fill` must be set for clicks to register.
@@ -1122,7 +1114,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
 
         const isMobile = this.props.apiOptions.isMobile;
 
-        // The dot prompt is only added to interactive mobile plots.
+        // The dot prompt is only added to interactive (not disabled) mobile plots.
         if (graphie.dotPrompt != null) {
             const shouldDisplay = values.every((v) => v === 0);
             graphie.dotPrompt[0].style.display = shouldDisplay
