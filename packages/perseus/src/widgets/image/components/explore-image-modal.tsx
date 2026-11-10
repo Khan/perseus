@@ -1,5 +1,6 @@
 import {FlexibleDialog} from "@khanacademy/wonder-blocks-modal";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
+import {Heading} from "@khanacademy/wonder-blocks-typography";
 import React from "react";
 
 import {PerseusI18nContext} from "../../../components/i18n-context";
@@ -38,7 +39,9 @@ export const ExploreImageModal = (props: CommonImageProps) => {
     const titleText =
         props.options.title || context.strings.imageAlternativeTitle;
     const title = (
-        <h1
+        <Heading
+            size="medium"
+            tag="h1"
             className={`perseus-image-modal-title ${styles.modalTitleContainer}`}
         >
             {/* Use Renderer so that the title can support markdown and TeX. */}
@@ -48,7 +51,7 @@ export const ExploreImageModal = (props: CommonImageProps) => {
                 linterContext={props.linterContext}
                 strings={context.strings}
             />
-        </h1>
+        </Heading>
     );
 
     return (
