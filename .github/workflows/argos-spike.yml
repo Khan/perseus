@@ -158,7 +158,11 @@ jobs:
                   #   returned by the Argos API point to.
                   # ka-perseus-graphie.s3.amazonaws.com, cdn.kastatic.org:
                   #   images some stories load
-                  extra-domains: playwright.download.prss.microsoft.com cdn.playwright.dev storage.googleapis.com api.argos-ci.com argos-ci-production-us-east-1.s3.us-east-1.amazonaws.com ka-perseus-graphie.s3.amazonaws.com cdn.kastatic.org
+                  # phet.colorado.edu: PhET simulations and their string
+                  #   maps (the PhET Simulation regression stories)
+                  # fonts.googleapis.com, fonts.gstatic.com: Inconsolata and
+                  #   Source Serif Pro, from .storybook/preview-head.html
+                  extra-domains: playwright.download.prss.microsoft.com cdn.playwright.dev storage.googleapis.com api.argos-ci.com argos-ci-production-us-east-1.s3.us-east-1.amazonaws.com ka-perseus-graphie.s3.amazonaws.com cdn.kastatic.org phet.colorado.edu fonts.googleapis.com fonts.gstatic.com
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
