@@ -101,7 +101,11 @@ The issues, summarized from the dig:
 - For coincident locked-line points, should `LockedLine` render nothing,
   a single point, or keep rendering the points only? Rendering only the
   optional endpoints seems least surprising.
+  - It should render the points only.
 - Should the same guard apply to rays (`kind === "ray"`), which also derive a
   direction from the two points? Probably yes, for consistency.
+  - Yes, include tests for ray and also locked vectors if they don't have
+    tests already.
 - Should `NumberInput` switch to an explicit prop allowlist now, or in a
   follow-up?
+  - Yes, explicitly list the props to be passed to the `<input>`.
