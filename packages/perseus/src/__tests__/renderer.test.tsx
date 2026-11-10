@@ -43,9 +43,9 @@ import type {UserEvent} from "@testing-library/user-event";
 const mockRunLinter = jest.fn();
 const mockApplyLintErrors = jest.fn();
 jest.mock("../translation-linter", () => ({
-    // The module's default export is the TranslationLinter class. Return a
-    // module object, not a bare function: only Jest treats a bare function as
-    // the whole module.
+    // Return a module object, not a bare function: most test runners do not 
+    // treat bare function as the whole module (ie. they need the __esModule
+    // field).
     __esModule: true,
     // We mock the TranslationLinter constructor here setting things up so we
     // can spy/verify calls to instances of TranslationLinter
