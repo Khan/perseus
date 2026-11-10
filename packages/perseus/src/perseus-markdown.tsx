@@ -25,9 +25,10 @@ const isBoldCell = (cell: TableCell): boolean => {
 
 /**
  * Markdown has no syntax for row headers, so we infer them from two common
- * authoring patterns where the first column is meant to label each row:
+ * authoring patterns:
  *
  * 1. The first column header is empty.
+ * Or
  * 2. Every body cell in the first column is bold.
  *
  * Tables with a single column are never treated as having row headers, as

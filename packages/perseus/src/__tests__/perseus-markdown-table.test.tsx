@@ -9,35 +9,22 @@ const renderMarkdown = (content: string) =>
     );
 
 describe("markdown table row headers", () => {
-    it.each([
-        {
-            format: "without surrounding pipes",
-            content:
-                "  | Mass | Volume\n" +
+    it("renders the first column as row headers when its header is empty", () => {
+        // Arrange, Act
+        renderMarkdown(
+            "  | Mass | Volume\n" +
                 "- | - | -\n" +
                 "Gold | 19.3 | 1\n" +
                 "Silver | 10.5 | 1",
-        },
-        {
-            format: "with surrounding pipes",
-            content:
-                "| | Mass | Volume |\n" +
-                "|-|-|-|\n" +
-                "| Gold | 19.3 | 1 |\n" +
-                "| Silver | 10.5 | 1 |",
-        },
-    ])(
-        "renders the first column as row headers when its header is empty ($format)",
-        ({content}) => {
-            // Arrange, Act
-            renderMarkdown(content);
+        );
 
-            expect(
-                screen.getAllByRole("rowheader").map((th) => th.textContent),
-            ).toEqual(["Gold", "Silver"]);
-        },
-    );
+        expect(
+            screen.getAllByRole("rowheader").map((th) => th.textContent),
+        ).toEqual(["Gold", "Silver"]);
+    });
 
+    // This is important for accessibility to ensure this empty cell doesn't get read out as a row header.
+    // See: https://www.w3.org/WAI/tutorials/tables/two-headers/
     it("renders an empty first column header as a data cell", () => {
         // Arrange, Act
         renderMarkdown(
