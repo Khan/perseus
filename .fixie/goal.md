@@ -109,3 +109,39 @@ The issues, summarized from the dig:
 - Should `NumberInput` switch to an explicit prop allowlist now, or in a
   follow-up?
   - Yes, explicitly list the props to be passed to the `<input>`.
+
+## Checklist
+
+- [ ] Add `locked-line.test.tsx` with a test that a segment with two distinct
+      points renders a line (baseline for the guard tests).
+- [ ] Test: a segment with coincident points renders no line and logs no
+      NaN error; make `LockedLine` skip the line part when the points are
+      equal (keep hooks unconditional).
+- [ ] Test: a line (`kind: "line"`) with coincident points renders no line
+      or arrowheads.
+- [ ] Test: a ray with coincident points renders no vector.
+- [ ] Test: coincident points still render endpoints when `showPoint1` and
+      `showPoint2` are set.
+- [ ] Add `locked-vector.test.tsx` with a test that a vector with distinct
+      points renders.
+- [ ] Test: a locked vector with coincident points renders without NaN
+      errors; guard `LockedVector` if the test fails.
+- [ ] Use two distinct points for the locked line in
+      `interactive-graph.test.tsx` (~1574-1590).
+- [ ] Confirm the editor's "getSaveWarnings returns an error when the graph
+      is invalid" test no longer logs NaN errors.
+- [ ] Stop passing `keypadElement` from `number-line.tsx` to `NumberInput`;
+      drop it from `NumberInput`'s props if declared.
+- [ ] Replace the `restProps` spread in `NumberInput` with an explicit list
+      of props passed to `<input>`, keeping existing callers working.
+- [ ] Add `key={state.key}` to the custom `react` rules in
+      `simple-markdown.test.tsx`.
+- [ ] Make `MockWidgetComponent` in `widget-container.test.tsx` a
+      `forwardRef` component with `useImperativeHandle`.
+- [ ] Mock `console.error` in the expected-throw test in
+      `use-preview-presenter.test.ts`.
+- [ ] Mock `console.log` in `beforeEach` in
+      `update-catalog-hashes.test.ts`; check whether Jest's `restoreMocks`
+      is set and restore explicitly if not.
+- [ ] Add a `@khanacademy/perseus: patch` changeset for the locked-line and
+      number-line fixes.
