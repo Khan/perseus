@@ -1,8 +1,8 @@
 import {screen} from "@testing-library/react";
 import * as React from "react";
 
+import {renderQuestion} from "../../__testutils__/render-question";
 import {testDependencies} from "../../testing/test-dependencies";
-import {renderQuestion} from "../__testutils__/render-question";
 
 import {BlankContext} from "./blank-context";
 import {basicBlankQuestion, superscriptQuestion} from "./blank.testdata";
