@@ -1098,14 +1098,14 @@ describe("LabelImage", function () {
             ).toBeInTheDocument();
         });
 
-        it("disables the marker combobox when static", () => {
+        it("disables the marker combobox when static", async () => {
             // Arrange, Act
             renderQuestion(generateSingleMarkerRenderer({isStatic: true}), {
                 apiOptions: {readOnly: false},
             });
 
             // Assert
-            expect(screen.getByRole("combobox")).toHaveAttribute(
+            expect(await screen.findByRole("combobox")).toHaveAttribute(
                 "aria-disabled",
                 "true",
             );
