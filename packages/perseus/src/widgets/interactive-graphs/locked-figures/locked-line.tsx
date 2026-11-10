@@ -42,33 +42,39 @@ const LockedLine = (props: Props) => {
         point1.coord,
     );
 
-    let line;
+    function renderLine() {
+        if (vec.squareDist(point1.coord, point2.coord) === 0) {
+            // Two coincident points don't define a line.
+            return null;
+        }
 
-    if (vec.dist(point1.coord, point2.coord) === 0) {
-        // Coincident points define no direction, so there's no line to draw.
-        line = null;
-    } else if (kind === "ray") {
-        // Rays extend to the end of the graph in one direction.
-        const extendedPoint = getIntersectionOfRayWithBox(
-            point1.coord,
-            point2.coord,
-            range,
-        );
-        line = (
-            <Vector
-                tail={point1.coord}
-                tip={extendedPoint}
-                color={lockedFigureColors[color]}
-                strokeWidth={strokeWeights[weight]}
-                style={{
-                    strokeDasharray:
-                        lineStyle === "dashed"
-                            ? "var(--mafs-line-stroke-dash-style)"
-                            : undefined,
-                }}
-            />
-        );
-    } else {
+        if (kind === "ray") {
+            // Rays extend to the end of the graph in one direction.
+            const extendedPoint = getIntersectionOfRayWithBox(
+                point1.coord,
+                point2.coord,
+                range,
+            );
+            return (
+                <Vector
+                    tail={point1.coord}
+                    tip={extendedPoint}
+                    color={lockedFigureColors[color]}
+                    strokeWidth={strokeWeights[weight]}
+                    style={{
+                        strokeDasharray:
+                            lineStyle === "dashed"
+                                ? "var(--mafs-line-stroke-dash-style)"
+                                : undefined,
+                    }}
+                />
+            );
+        }
+
+        // TODO(benchristel): Split up the segment and line cases into
+        //  separate if (...) {} blocks. The ternaries and short-circuiting
+        //  && here are confusing, and lead to unnecessary code running in
+        //  the line case.
         const LineType = kind === "segment" ? Line.Segment : Line.ThroughPoints;
 
         let arrowTip =
@@ -108,7 +114,7 @@ const LockedLine = (props: Props) => {
             />
         );
 
-        line = (
+        return (
             <>
                 {startArrowHead}
                 <LineType
@@ -132,7 +138,7 @@ const LockedLine = (props: Props) => {
             // Weight-scaled dash pattern for dashed figures (see dashedStrokeStyle).
             style={dashedStrokeStyle(lineStyle === "dashed", weight)}
         >
-            {line}
+            {renderLine()}
             {showPoint1 && (
                 <Point
                     x={point1.coord[X]}

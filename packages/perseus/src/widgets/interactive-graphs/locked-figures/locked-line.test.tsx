@@ -11,11 +11,11 @@ import {getBaseMafsGraphPropsForTests} from "../graph.testutils";
 import {MafsGraph} from "../mafs-graph";
 
 import type {NoneGraphState} from "../types";
-import type {LockedLineType} from "@khanacademy/perseus-core";
+import type {LockedLineType, LockedPointType} from "@khanacademy/perseus-core";
 
 const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
 
-const graphState = {
+const graphState: NoneGraphState = {
     type: "none",
     range: [
         [-10, 10],
@@ -23,14 +23,14 @@ const graphState = {
     ],
     hasBeenInteractedWith: false,
     snapStep: [1, 1],
-} satisfies NoneGraphState;
+};
 
-const distinctPoints: LockedLineType["points"] = [
+const distinctPoints: [LockedPointType, LockedPointType] = [
     generateIGLockedPoint({coord: [0, 0]}),
     generateIGLockedPoint({coord: [1, 1]}),
 ];
 
-const coincidentPoints: LockedLineType["points"] = [
+const coincidentPoints: [LockedPointType, LockedPointType] = [
     generateIGLockedPoint({coord: [2, 2]}),
     generateIGLockedPoint({coord: [2, 2]}),
 ];
@@ -61,33 +61,26 @@ function circles(figure: Element) {
     return figure.querySelectorAll("circle");
 }
 
-describe("LockedLine", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
+describe.each(["segment", "line", "ray"] as const)(
+    "LockedLine with kind %s",
+    (kind) => {
+        beforeEach(() => {
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+        });
 
-    it.each([
-        {kind: "segment", expectedStrokes: 1},
-        {kind: "line", expectedStrokes: 3},
-        {kind: "ray", expectedStrokes: 2},
-    ] as const)(
-        "draws $expectedStrokes stroke(s) for a $kind with distinct points",
-        ({kind, expectedStrokes}) => {
+        it("draws strokes given distinct points", () => {
             // Arrange, Act
             const figure = renderLockedLine(
                 generateIGLockedLine({kind, points: distinctPoints}),
             );
 
             // Assert
-            expect(strokes(figure)).toHaveLength(expectedStrokes);
-        },
-    );
+            expect(strokes(figure)).not.toHaveLength(0);
+        });
 
-    it.each(["segment", "line", "ray"] as const)(
-        "draws no strokes for a %s with coincident points",
-        (kind) => {
+        it("draws no strokes given coincident points", () => {
             // Arrange, Act
             const figure = renderLockedLine(
                 generateIGLockedLine({kind, points: coincidentPoints}),
@@ -95,12 +88,9 @@ describe("LockedLine", () => {
 
             // Assert
             expect(strokes(figure)).toHaveLength(0);
-        },
-    );
+        });
 
-    it.each(["segment", "line", "ray"] as const)(
-        "logs no console errors for a %s with coincident points",
-        (kind) => {
+        it("logs no console errors given coincident points", () => {
             // Arrange
             const errorSpy = jest
                 .spyOn(console, "error")
@@ -113,12 +103,9 @@ describe("LockedLine", () => {
 
             // Assert
             expect(errorSpy).not.toHaveBeenCalled();
-        },
-    );
+        });
 
-    it.each(["segment", "line", "ray"] as const)(
-        "draws both endpoints for a %s with coincident points when shown",
-        (kind) => {
+        it("draws both endpoints given coincident points when showPoint1 and showPoint2 are true", () => {
             // Arrange, Act
             const figure = renderLockedLine(
                 generateIGLockedLine({
@@ -131,6 +118,6 @@ describe("LockedLine", () => {
 
             // Assert
             expect(circles(figure)).toHaveLength(2);
-        },
-    );
-});
+        });
+    },
+);

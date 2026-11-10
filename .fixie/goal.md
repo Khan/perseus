@@ -72,6 +72,7 @@ The issues, summarized from the dig:
   (scoped to the single test or a `beforeEach`).
 - Test structure follows CLAUDE.md (AAA comments, generators from
   `perseus-core/src/utils/generators`).
+- For locked vector tests, follow the example of locked-line.test.tsx.
 
 ## Behavioral requirements
 
