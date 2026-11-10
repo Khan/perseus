@@ -1,6 +1,6 @@
 import {getWidgetIdsFromContentByType} from "@khanacademy/perseus-core";
 import * as React from "react";
-import {forwardRef, useImperativeHandle} from "react";
+import {useMemo, forwardRef, useImperativeHandle} from "react";
 
 import {AnswerTile} from "../../components/drag-and-drop/answer-tile";
 import {ChoiceBank} from "../../components/drag-and-drop/choice-bank";
@@ -75,7 +75,7 @@ const FillInTheBlankWidget = forwardRef<Widget, FillInTheBlankProps>(
         const maxUses =
             maxUsesPerTile === "unlimited" ? undefined : maxUsesPerTile;
 
-        const blankIds = React.useMemo(
+        const blankIds = useMemo(
             // A blank can appear more than once in authored content.
             () => [
                 ...new Set(
@@ -84,7 +84,7 @@ const FillInTheBlankWidget = forwardRef<Widget, FillInTheBlankProps>(
             ],
             [content, widgets],
         );
-        const blankLabels = React.useMemo(
+        const blankLabels = useMemo(
             () =>
                 Object.fromEntries(
                     blankIds.map((blankId, index) => [
@@ -94,11 +94,11 @@ const FillInTheBlankWidget = forwardRef<Widget, FillInTheBlankProps>(
                 ),
             [blankIds],
         );
-        const tilesById = React.useMemo(
+        const tilesById = useMemo(
             () => new Map(tiles.map((tile) => [tile.id, tile])),
             [tiles],
         );
-        const placements = React.useMemo(
+        const placements = useMemo(
             () => getPlacements(userInput, blankIds),
             [userInput, blankIds],
         );
