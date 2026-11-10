@@ -14,10 +14,6 @@ import {
     articleDecorator,
     mobileArticleDecorator,
     rtlDecorator,
-    articleFloatLeftDecorator,
-    articleFloatRightDecorator,
-    mobileArticleFloatRightDecorator,
-    mobileArticleFloatLeftDecorator,
 } from "../../__testutils__/story-decorators";
 import {
     earthMoonImage,
