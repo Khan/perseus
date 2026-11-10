@@ -252,7 +252,6 @@ class NumberInput extends React.Component<Props, State> {
                     this.props.value,
                     this.state.format,
                 )}
-                value={undefined}
             />
         );
     }

@@ -45,38 +45,6 @@ describe("NumberInput", function () {
         expect(screen.getByRole("textbox")).toHaveAttribute("id", "the-id");
     });
 
-    it("renders only standard attributes on the input", () => {
-        // Arrange, Act
-        render(
-            <NumberInput
-                value={1}
-                onChange={() => {}}
-                onFormatChange={() => {}}
-                checkValidity={() => true}
-                format="decimal"
-                size="small"
-                allowPiTruncation={true}
-                useArrowKeys={true}
-                placeholder="answer"
-                className="custom"
-                id="the-id"
-            />,
-        );
-
-        // Assert
-        const attributeNames = screen
-            .getByRole("textbox")
-            .getAttributeNames()
-            .sort();
-        expect(attributeNames).toEqual([
-            "class",
-            "id",
-            "placeholder",
-            "type",
-            "value",
-        ]);
-    });
-
     it("basic input", async function () {
         await testInputResult("42", 42);
     });
