@@ -26,7 +26,7 @@ export function LegendLabel({content}: LegendLabelProps): React.ReactElement {
                 if (segment.type === "math") {
                     return <TeX key={index}>{segment.content}</TeX>;
                 }
-                // unescaped characters are shown as is 
+                // unescaped characters are shown as is
                 if (segment.type === "specialCharacter") {
                     return segment.content.length > 1
                         ? segment.content.slice(1)
