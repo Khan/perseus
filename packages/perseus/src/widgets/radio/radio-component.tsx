@@ -168,6 +168,27 @@ const RadioComponent = ({
         }
     };
 
+    const choiceList = (
+        <ScrollableView id={scrollId} overflowX="auto">
+            {/* eslint-disable-next-line jsx-a11y/no-redundant-roles */}
+            <ul
+                data-widget="radio"
+                aria-labelledby={legendId}
+                className={choiceListClasses}
+                role="list"
+            >
+                <ChoiceListItems
+                    choices={choices}
+                    i18nStrings={strings}
+                    onChoiceChange={onChoiceChange}
+                    reviewMode={reviewMode}
+                    multipleSelect={multipleSelect}
+                    crossOut={crossOut}
+                />
+            </ul>
+        </ScrollableView>
+    );
+
     return (
         <>
             <fieldset
@@ -222,28 +243,11 @@ const RadioComponent = ({
                         </span>
                     </div>
                 )}
-                <ScrollableView
-                    className={crossOut ? styles.clearFloats : undefined}
-                    id={scrollId}
-                    overflowX="auto"
-                >
-                    {/* eslint-disable-next-line jsx-a11y/no-redundant-roles */}
-                    <ul
-                        data-widget="radio"
-                        aria-labelledby={legendId}
-                        className={choiceListClasses}
-                        role="list"
-                    >
-                        <ChoiceListItems
-                            choices={choices}
-                            i18nStrings={strings}
-                            onChoiceChange={onChoiceChange}
-                            reviewMode={reviewMode}
-                            multipleSelect={multipleSelect}
-                            crossOut={crossOut}
-                        />
-                    </ul>
-                </ScrollableView>
+                {crossOut ? (
+                    <div className={styles.crossOutChoices}>{choiceList}</div>
+                ) : (
+                    choiceList
+                )}
             </fieldset>
             <ScrollableView.Controls target={scrollId} />
         </>

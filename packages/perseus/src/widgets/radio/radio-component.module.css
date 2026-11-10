@@ -238,6 +238,15 @@
     line-height: var(--wb-font-body-lineHeight-medium);
 }
 
-.clear-floats {
+/* Wraps the choices below the instructions line in cross-out mode.
+   The scroll fade is sized to its containing block, which is otherwise the
+   <fieldset>. Here the floated <legend> is ordinary fieldset content, so the
+   fieldset is taller than the choices and the fade would run past the widget.
+   Layout containment makes this wrapper the fade's containing block instead,
+   so the fade is only as tall as the choices. The wrapper is outside the
+   scroll container, so the fade still stays put while the choices scroll.
+ */
+.cross-out-choices {
     clear: both;
+    contain: layout;
 }
