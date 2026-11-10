@@ -42,12 +42,12 @@ standalone blocks so line breaks/reflow can be controlled precisely:
 - A blank's default width = the **widest answer tile** (so size doesn't reveal
   the answer). When a tile is placed, the blank shrinks to hug the tile.
 - **Reflow breakpoint at 504px line length:**
-  - **≥ 504px:** classic inline behavior — blank has a fixed width, text wraps
-    around it.
-  - **< 504px:** blanks **fill the parent width** and sit on their own line
-    (text no longer wraps around them). *Exception:* when only a single
-    word/character precedes or follows the blank (e.g. first/last word of a
-    sentence), it stays inline with the blank to reduce spacing exaggeration.
+    - **≥ 504px:** classic inline behavior — blank has a fixed width, text wraps
+      around it.
+    - **< 504px:** blanks **fill the parent width** and sit on their own line
+      (text no longer wraps around them). _Exception:_ when only a single
+      word/character precedes or follows the blank (e.g. first/last word of a
+      sentence), it stays inline with the blank to reduce spacing exaggeration.
 - **Small-value exception:** when tile values are **≤ 3 characters** (e.g.
   punctuation, single digits), keep the wide-viewport inline behavior even as the
   viewport narrows — the fill-width behavior would be disruptive for tiny items.
@@ -58,10 +58,10 @@ standalone blocks so line breaks/reflow can be controlled precisely:
   with others; Text/TeX/Images may **not** be mixed with each other. Avoid Empty
   tiles unless unavoidable (e.g. balancing a chemical equation).
 - **Single word or standalone character only** — no multi-word tiles (readability
-  + reflow).
+    - reflow).
 - In the Choice Bank, tiles hug their contents; the whole **tile** should not
   exceed **256px** (the max choice-bank width at the 320px smallest viewport).
-  This is the *tile* width, distinct from the family-wide **200px** max *content*
+  This is the _tile_ width, distinct from the family-wide **200px** max _content_
   width in the shared spec — which isn't enforceable yet for TeX or images (see
   the shared overview). Watch i18n — some languages have long words; the max may
   need to flex.

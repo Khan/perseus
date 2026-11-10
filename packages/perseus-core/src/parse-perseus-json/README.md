@@ -27,7 +27,7 @@ Consider the case of a data-schema type like:
 export type CoolWidgetOptions = {
     text: string;
     color: "green" | "blue";
-}
+};
 ```
 
 The parser looks like the following. Note the explicit type declaration! This
@@ -52,7 +52,7 @@ export type CoolWidgetOptions = {
     text: string;
     color: "green" | "blue";
     title?: string;
-}
+};
 ```
 
 Now, the parser will not parse `title`, because it is not defined in the
@@ -115,19 +115,19 @@ in an assessment item copied from production:
 
 ```json
 {
-  "question": {
-    "content": "[[☃ coffee-maker 1]]",
-    "images": {},
-    "widgets": {
-      "coffee-maker 1": {
-        "type": "coffee-maker",
-        "version": {"major": 0, "minor": 0},
-        "options": {
-          "capacityCups": 6
+    "question": {
+        "content": "[[☃ coffee-maker 1]]",
+        "images": {},
+        "widgets": {
+            "coffee-maker 1": {
+                "type": "coffee-maker",
+                "version": {"major": 0, "minor": 0},
+                "options": {
+                    "capacityCups": 6
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -168,7 +168,7 @@ fields:
 ```ts
 const parseMyWidgetOptions = object({
     // ...
-    title: defaulted(string, () => "Untitled")
+    title: defaulted(string, () => "Untitled"),
 });
 ```
 

@@ -37,7 +37,6 @@ import {
     getSideLengthsFromPoints,
 } from "./utils";
 
-import type {KeyboardMovementConstraint} from "./use-draggable";
 import type {Coord} from "../../../interactive2/types";
 import type {GraphConfig} from "../reducer/use-graph-config";
 import type {
@@ -47,6 +46,7 @@ import type {
     PolygonGraphState,
     SnapTo,
 } from "../types";
+import type {KeyboardMovementConstraint} from "./use-draggable";
 import type {
     CollinearTuple,
     PerseusInteractiveGraphWidgetOptions,

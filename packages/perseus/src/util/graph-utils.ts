@@ -8,7 +8,6 @@
  * itself.
  */
 import GraphUtils from "./graphie";
-
 // eslint-disable-next-line import/no-unassigned-import
 import "./interactive"; // For side effects
 

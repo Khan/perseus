@@ -44,6 +44,10 @@ module.exports = {
     transformIgnorePatterns: [
         "/node_modules/.pnpm/(?!(@phosphor-icons.core|@preact.signals-core)@)",
     ],
+    // Write inline snapshots without Prettier, which this repo doesn't use.
+    // Jest then rewrites only the `expect(…)` call and leaves the snapshot
+    // unindented. Run `pnpm format` after `jest -u`.
+    prettierPath: null,
     restoreMocks: true,
     resetMocks: true,
     testEnvironment: "jsdom",

@@ -93,7 +93,9 @@ export type ShowAxisTicks = {
  * TypeScript are always open (ie. you can extend them) whereas types aren't.
  */
 export type MakeWidgetMap<TRegistry> = {
-    [Property in keyof TRegistry as `${Property & string} ${number}`]: TRegistry[Property];
+    [
+        Property in keyof TRegistry as `${Property & string} ${number}`
+    ]: TRegistry[Property];
 };
 
 /**

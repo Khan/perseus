@@ -1,8 +1,8 @@
 import {getInputNumberPublicWidgetOptions} from "./input-number-util";
 
-import type {InputNumberPublicWidgetOptions} from "./input-number-util";
 import type {PerseusInputNumberWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
+import type {InputNumberPublicWidgetOptions} from "./input-number-util";
 
 const defaultWidgetOptions: PerseusInputNumberWidgetOptions = {
     textAlign: "left",

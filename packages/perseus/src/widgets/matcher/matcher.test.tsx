@@ -13,8 +13,8 @@ import {scorePerseusItemTesting} from "../../util/scoring.testutils";
 
 import {question1} from "./matcher.testdata";
 
-import type {MatcherHandle} from "./matcher";
 import type {APIOptions} from "../../types";
+import type {MatcherHandle} from "./matcher";
 
 describe("matcher widget", () => {
     beforeEach(() => {

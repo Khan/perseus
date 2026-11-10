@@ -41,7 +41,7 @@ folder. Then you can acquire the `SimpleMarkdown` variable
 with:
 
 ```javascript
-import SimpleMarkdown from '@khanacademy/simple-markdown'
+import SimpleMarkdown from "@khanacademy/simple-markdown";
 ```
 
 Then let's get a basic markdown parser and outputter.
@@ -49,14 +49,14 @@ Then let's get a basic markdown parser and outputter.
 generic markdown:
 
 ```javascript
-    var mdParse = SimpleMarkdown.defaultBlockParse;
-    var mdOutput = SimpleMarkdown.defaultOutput;
+var mdParse = SimpleMarkdown.defaultBlockParse;
+var mdOutput = SimpleMarkdown.defaultOutput;
 ```
 
 `mdParse` can give us a syntax tree:
 
 ```javascript
-    var syntaxTree = mdParse("Here is a paragraph and an *em tag*.");
+var syntaxTree = mdParse("Here is a paragraph and an *em tag*.");
 ```
 
 Let's inspect our syntax tree:
@@ -103,7 +103,6 @@ call `mdOutput`:
         _store: { validated: false, props: [Object] } } ]
 ```
 
-
 ## Adding a simple extension
 
 Let's add an underline extension! To do this, we'll need to create
@@ -127,48 +126,47 @@ any content until it finds another `__` not followed by a
 third `_`.
 
 ```javascript
-    var underlineRule = {
-        // Specify the order in which this rule is to be run
-        order: SimpleMarkdown.defaultRules.em.order - 0.5,
+var underlineRule = {
+    // Specify the order in which this rule is to be run
+    order: SimpleMarkdown.defaultRules.em.order - 0.5,
 
-        // First we check whether a string matches
-        match: function(source) {
-            return /^__([\s\S]+?)__(?!_)/.exec(source);
-        },
+    // First we check whether a string matches
+    match: function (source) {
+        return /^__([\s\S]+?)__(?!_)/.exec(source);
+    },
 
-        // Then parse this string into a syntax node
-        parse: function(capture, parse, state) {
-            return {
-                content: parse(capture[1], state)
-            };
-        },
+    // Then parse this string into a syntax node
+    parse: function (capture, parse, state) {
+        return {
+            content: parse(capture[1], state),
+        };
+    },
 
-        // Finally transform this syntax node into a
-        // React element
-        react: function(node, output) {
-            return React.DOM.u(null, output(node.content));
-        },
-    };
+    // Finally transform this syntax node into a
+    // React element
+    react: function (node, output) {
+        return React.DOM.u(null, output(node.content));
+    },
+};
 ```
 
 Then, we need to add this rule to the other rules:
 
 ```javascript
-    var rules = _.extend({}, SimpleMarkdown.defaultRules, {
-        underline: underlineRule
-    });
+var rules = _.extend({}, SimpleMarkdown.defaultRules, {
+    underline: underlineRule,
+});
 ```
 
 Finally, we need to build our parser and outputter:
 
 ```javascript
-    var rawBuiltParser = SimpleMarkdown.parserFor(rules);
-    var parse = function(source) {
-        var blockSource = source + "\n\n";
-        return rawBuiltParser(blockSource, {inline: false});
-    };
-    var reactOutput = SimpleMarkdown.outputFor(rules, 'react');
-
+var rawBuiltParser = SimpleMarkdown.parserFor(rules);
+var parse = function (source) {
+    var blockSource = source + "\n\n";
+    return rawBuiltParser(blockSource, {inline: false});
+};
+var reactOutput = SimpleMarkdown.outputFor(rules, "react");
 ```
 
 Now we can use our custom `parse` and `output` functions to parse
@@ -203,7 +201,6 @@ markdown with underlines!
         _store: { validated: false, props: [Object] } } ]
 ```
 
-
 ## Basic parsing/output API
 
 #### `SimpleMarkdown.defaultBlockParse(source)`
@@ -226,7 +223,6 @@ Parses `source` as block if it ends with `\n\n`, or inline if not.
 #### `SimpleMarkdown.defaultOutput(syntaxTree)`
 
 Returns React-renderable output for `syntaxTree`.
-
 
 ## Extension Overview
 
@@ -306,10 +302,16 @@ parsing scope alone, you can just pass `state` with no modifications).
 For example:
 
 ```javascript
-    var innerText = capture[1];
-    recurseParse(innerText, _.defaults({
-        inline: true
-    }, state));
+var innerText = capture[1];
+recurseParse(
+    innerText,
+    _.defaults(
+        {
+            inline: true,
+        },
+        state,
+    ),
+);
 ```
 
 `parse` should return a `node` object, which can have custom fields
@@ -395,14 +397,14 @@ var rules = {
         ...SimpleMarkdown.defaultRules.paragraph,
         react: (node, output, state) => {
             return <p key={state.key}>{output(node.content, state)}</p>;
-        }
-    }
+        },
+    },
 };
 
 var parser = SimpleMarkdown.parserFor(rules);
-var reactOutput = SimpleMarkdown.outputFor(rules, 'react');
+var reactOutput = SimpleMarkdown.outputFor(rules, "react");
 
-var blockParseAndOutput = function(source) {
+var blockParseAndOutput = function (source) {
     // Many rules require content to end in \n\n to be interpreted
     // as a block.
     var blockSource = source + "\n\n";
@@ -413,4 +415,5 @@ var blockParseAndOutput = function(source) {
 ```
 
 ## LICENSE
+
 MIT. See the LICENSE file for text.

@@ -20,11 +20,11 @@ import {getKeyTranslator} from "../key-handlers/key-translator";
 import {getCursorContext, maybeFindCommand} from "./mathquill-helpers";
 import {createMathField, mathQuillInstance} from "./mathquill-instance";
 
+import type {MathInputStrings} from "../../strings";
 import type {
     MathFieldInterface,
     MathFieldUpdaterCallback,
 } from "./mathquill-types";
-import type {MathInputStrings} from "../../strings";
 import type {KeypadKey} from "@khanacademy/perseus-core";
 
 /**

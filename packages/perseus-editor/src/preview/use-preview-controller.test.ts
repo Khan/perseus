@@ -6,8 +6,8 @@ import {
 } from "./message-types";
 import {usePreviewController} from "./use-preview-controller";
 
-import type {PreviewContent} from "./message-types";
 import type {Issue} from "../components/issues-panel";
+import type {PreviewContent} from "./message-types";
 import type {APIOptions} from "@khanacademy/perseus";
 import type * as React from "react";
 

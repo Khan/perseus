@@ -37,6 +37,7 @@ f(x) = m * |x - h| + v
 ```
 
 Where:
+
 - `h` = horizontal offset (x-coordinate of the vertex) = `p1[x]`
 - `v` = vertical offset (y-coordinate of the vertex) = `p1[y]`
 - `m` = slope of each arm, computed from the two control points
@@ -82,8 +83,8 @@ position and `m` uniquely defines its shape and orientation. Scoring uses
 - The graph description (`buildAbsoluteValueDescription` in `graphs/strings/absolute-value.ts`)
   states: which way the V opens (upward/downward), the vertex (or "at the origin"), the
   x-intercepts (two / one / none), the y-intercept, and the slope. Example:
-  *"The graph opens downward. Vertex is at 0 comma 2. The X-intercepts are at -1 comma 0 and 1
-  comma 0. The Y-intercept is at 0 comma 2. The slope is -2."*
+  _"The graph opens downward. Vertex is at 0 comma 2. The X-intercepts are at -1 comma 0 and 1
+  comma 0. The Y-intercept is at 0 comma 2. The slope is -2."_
 - Each point also carries its own label; the arm point announces the slope. Custom author
   `pointLabels` take precedence over the default localized labels.
 - All number values use `srFormatNumber` for locale-appropriate formatting.
@@ -91,22 +92,22 @@ position and `m` uniquely defines its shape and orientation. Scoring uses
 
 ## Key Files
 
-| File | Role |
-|------|------|
-| `graphs/absolute-value.tsx` | Rendering, keyboard constraints (`getAbsoluteValueKeyboardConstraint`), `coeffRef` fallback; imports the coefficient helper from `./utils` |
-| `graphs/utils.ts` | `getAbsoluteValueCoefficients()` — **render-path** helper returning an object `{m, h, v}` |
-| `graphs/strings/absolute-value.ts` | `describeAbsoluteValueGraph()` / `buildAbsoluteValueDescription()` — SR graph description and point labels |
-| `graphs/absolute-value.test.tsx` | Unit tests for the component: keyboard constraint + SR labels/`pointLabels` (the coefficient helper's math is tested in `graphs/utils.test.ts`) |
-| `reducer/initialize-graph-state.ts` | `getAbsoluteValueCoords()` — default and start coordinate logic |
-| `reducer/interactive-graph-reducer.ts` | `movePoint` action with same-x constraint |
-| `reducer/interactive-graph-state.ts` | `getGradableGraph()` branch mapping state → `PerseusGraphTypeAbsoluteValue` |
-| `mafs-state-to-interactive-graph.ts` | Maps mafs graph state back to `PerseusGraphTypeAbsoluteValue` (coords passthrough) |
-| `packages/perseus-core/src/data-schema.ts` | `PerseusGraphTypeAbsoluteValue` type |
-| `packages/perseus/src/widgets/interactive-graphs/types.ts` | `AbsoluteValueGraphState` |
-| `packages/kmath/src/coefficients.ts` | `getAbsoluteValueCoefficients()` — **scoring/reducer-path** helper returning a tuple `[m, h, v]` (same name, different shape) |
-| `packages/perseus-score/.../sub-scorers/score-absolute-value.ts` | `scoreAbsoluteValue()` (`score-interactive-graph.ts` dispatches to it) |
-| `packages/perseus-editor/.../graph-type-selector.tsx` | "Absolute value function" dropdown option |
-| `packages/perseus-editor/.../start-coords/start-coords-absolute-value.tsx` | Start coordinate editor UI |
+| File                                                                       | Role                                                                                                                                            |
+| -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `graphs/absolute-value.tsx`                                                | Rendering, keyboard constraints (`getAbsoluteValueKeyboardConstraint`), `coeffRef` fallback; imports the coefficient helper from `./utils`      |
+| `graphs/utils.ts`                                                          | `getAbsoluteValueCoefficients()` — **render-path** helper returning an object `{m, h, v}`                                                       |
+| `graphs/strings/absolute-value.ts`                                         | `describeAbsoluteValueGraph()` / `buildAbsoluteValueDescription()` — SR graph description and point labels                                      |
+| `graphs/absolute-value.test.tsx`                                           | Unit tests for the component: keyboard constraint + SR labels/`pointLabels` (the coefficient helper's math is tested in `graphs/utils.test.ts`) |
+| `reducer/initialize-graph-state.ts`                                        | `getAbsoluteValueCoords()` — default and start coordinate logic                                                                                 |
+| `reducer/interactive-graph-reducer.ts`                                     | `movePoint` action with same-x constraint                                                                                                       |
+| `reducer/interactive-graph-state.ts`                                       | `getGradableGraph()` branch mapping state → `PerseusGraphTypeAbsoluteValue`                                                                     |
+| `mafs-state-to-interactive-graph.ts`                                       | Maps mafs graph state back to `PerseusGraphTypeAbsoluteValue` (coords passthrough)                                                              |
+| `packages/perseus-core/src/data-schema.ts`                                 | `PerseusGraphTypeAbsoluteValue` type                                                                                                            |
+| `packages/perseus/src/widgets/interactive-graphs/types.ts`                 | `AbsoluteValueGraphState`                                                                                                                       |
+| `packages/kmath/src/coefficients.ts`                                       | `getAbsoluteValueCoefficients()` — **scoring/reducer-path** helper returning a tuple `[m, h, v]` (same name, different shape)                   |
+| `packages/perseus-score/.../sub-scorers/score-absolute-value.ts`           | `scoreAbsoluteValue()` (`score-interactive-graph.ts` dispatches to it)                                                                          |
+| `packages/perseus-editor/.../graph-type-selector.tsx`                      | "Absolute value function" dropdown option                                                                                                       |
+| `packages/perseus-editor/.../start-coords/start-coords-absolute-value.tsx` | Start coordinate editor UI                                                                                                                      |
 
 ## Decision Record
 

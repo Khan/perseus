@@ -35,7 +35,7 @@ const StartCoordsPoint = (props: StartCoordsPointProps) => {
                                 (_, i) =>
                                     i === index
                                         ? newLabel
-                                        : pointLabels?.[i] ?? "",
+                                        : (pointLabels?.[i] ?? ""),
                             );
                             onChangePointLabels(next);
                         })

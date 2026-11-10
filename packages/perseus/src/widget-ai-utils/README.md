@@ -18,7 +18,6 @@
 
 We want to have a representation of Perseus widgets that LLMs can understand. They understand JSON pretty well! This is a set of utility functions for each widget that get the minimum amount of data for an LLM to understand the state of the widget, as well as the current user input.
 
-
 ### Why don't we just pass the raw widget json?
 
 We do not want to have the external API relying on the internal

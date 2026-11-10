@@ -1,8 +1,8 @@
 import {getMatrixPublicWidgetOptions} from "./matrix-util";
 
-import type {MatrixPublicWidgetOptions} from "./matrix-util";
 import type {PerseusMatrixWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
+import type {MatrixPublicWidgetOptions} from "./matrix-util";
 
 const defaultWidgetOptions: PerseusMatrixWidgetOptions = {
     matrixBoardSize: [3, 3],

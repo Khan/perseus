@@ -1,8 +1,8 @@
 import {getNumberLinePublicWidgetOptions} from "./number-line-util";
 
-import type {NumberLinePublicWidgetOptions} from "./number-line-util";
 import type {PerseusNumberLineWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
+import type {NumberLinePublicWidgetOptions} from "./number-line-util";
 
 const defaultWidgetOptions: PerseusNumberLineWidgetOptions = {
     range: [0, 10],

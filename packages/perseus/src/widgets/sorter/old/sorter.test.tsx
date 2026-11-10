@@ -17,8 +17,8 @@ import {testDependencies} from "../../../testing/test-dependencies";
 import {scorePerseusItemTesting} from "../../../util/scoring.testutils";
 import {basicQuestion} from "../sorter.testdata";
 
-import type {SorterHandle} from "./sorter";
 import type {APIOptions} from "../../../types";
+import type {SorterHandle} from "./sorter";
 
 /*
  * Sortable settles its cards from a requestAnimationFrame callback, which can

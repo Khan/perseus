@@ -5,9 +5,9 @@ import {
 } from "@khanacademy/perseus-core";
 import _ from "underscore";
 
-import type {ChoiceType, RadioChoiceWithMetadata} from "./radio-widget";
 import type {PerseusStrings} from "../../strings";
 import type {ChoiceState} from "../../types";
+import type {ChoiceType, RadioChoiceWithMetadata} from "./radio-widget";
 
 /**
  * Given a choice's position in the radio widget, return the corresponding

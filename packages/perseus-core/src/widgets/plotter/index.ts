@@ -1,8 +1,8 @@
 import {getPlotterPublicWidgetOptions} from "./plotter-util";
 
-import type {PlotterPublicWidgetOptions} from "./plotter-util";
 import type {PerseusPlotterWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
+import type {PlotterPublicWidgetOptions} from "./plotter-util";
 
 const defaultWidgetOptions: PerseusPlotterWidgetOptions = {
     scaleY: 1,

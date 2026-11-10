@@ -16,13 +16,13 @@ import {describeAbsoluteValueGraph} from "./strings/absolute-value";
 import {srFormatNumber} from "./strings/format-number";
 import {getAbsoluteValueCoefficients} from "./utils";
 
-import type {AbsoluteValueCoefficients} from "./utils";
 import type {
     AbsoluteValueGraphState,
     Dispatch,
     InteractiveGraphElementSuite,
     MafsGraphProps,
 } from "../types";
+import type {AbsoluteValueCoefficients} from "./utils";
 import type {Coord} from "@khanacademy/perseus-core";
 
 export function renderAbsoluteValueGraph(

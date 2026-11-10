@@ -17,7 +17,6 @@ import _ from "underscore";
 // (this should have no impact in the browser)
 // eslint-disable-next-line import/no-unassigned-import
 import "../jquery.mobile.vmouse";
-
 import {Arrowhead} from "../interactive2/arrowhead";
 import WrappedEllipse from "../interactive2/wrapped-ellipse";
 import WrappedLine from "../interactive2/wrapped-line";

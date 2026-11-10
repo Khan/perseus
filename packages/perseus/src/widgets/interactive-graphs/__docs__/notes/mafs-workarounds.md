@@ -12,12 +12,12 @@ upstream PR is an optional post-project nicety that Perseus does not need.
 
 ## Ticket map
 
-| Ticket | What | Status |
-|--------|------|--------|
-| **LEMS-4010** | Open a PR to fix Mafs `Plot.OfX` discontinuity rendering (`lineTo → moveTo` after non-finite gaps) | **Won't Do** |
-| **LEMS-2262** | Fix discontinuity rendering for **Locked Functions** (umbrella ticket) | Open, **moved to a future Interactive Graph epic**; was blocked by LEMS-4010 |
-| **LEMS-4100** | Add the visible asymptote back to the tangent graph | Done |
-| **LEMS-4353** | Fix iOS 26.5 touch-scroll over interactive graphs (the Perseus-side touch fix) | Done |
+| Ticket        | What                                                                                               | Status                                                                       |
+| ------------- | -------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| **LEMS-4010** | Open a PR to fix Mafs `Plot.OfX` discontinuity rendering (`lineTo → moveTo` after non-finite gaps) | **Won't Do**                                                                 |
+| **LEMS-2262** | Fix discontinuity rendering for **Locked Functions** (umbrella ticket)                             | Open, **moved to a future Interactive Graph epic**; was blocked by LEMS-4010 |
+| **LEMS-4100** | Add the visible asymptote back to the tangent graph                                                | Done                                                                         |
+| **LEMS-4353** | Fix iOS 26.5 touch-scroll over interactive graphs (the Perseus-side touch fix)                     | Done                                                                         |
 
 ---
 
@@ -55,7 +55,7 @@ LEMS-4010 proposed changing Mafs to emit `M` (moveTo) instead of `L` after a non
    samples that get evaluated are otherwise large-but-finite and still joined by `L`. Perseus's
    segment-splitting is deterministic and coefficient-independent, so it is strictly safer. Relying on
    Option A to justify deleting a correct, deterministic workaround is a bad trade. (For gentle
-   default tangents Option A + the NaN band would *often* work at depth 14 — but "often" is not
+   default tangents Option A + the NaN band would _often_ work at depth 14 — but "often" is not
    "reliably.")
 
 2. **The robust fix (Option B) is the abandoned upstream work.** The reliable fix is an explicit

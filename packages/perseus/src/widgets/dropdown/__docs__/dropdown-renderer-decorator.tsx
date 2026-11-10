@@ -28,8 +28,7 @@ export const dropdownRendererDecorator: Decorator = (
         <QuestionRendererForStories
             question={generateTestPerseusRenderer({
                 content:
-                    parameters?.content ??
-                    "Select an answer: [[☃ dropdown 1]]",
+                    parameters?.content ?? "Select an answer: [[☃ dropdown 1]]",
                 widgets: {
                     "dropdown 1": generateDropdownWidget({
                         options: generateDropdownOptions({

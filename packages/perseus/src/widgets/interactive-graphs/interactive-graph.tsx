@@ -8,10 +8,10 @@ import {getPromptJSON} from "../../widget-ai-utils/interactive-graph/interactive
 
 import {getEquationString} from "./get-equation-string";
 
-import type {StatefulMafsGraphType} from "./stateful-mafs-graph";
 import type {WidgetExports, WidgetProps} from "../../types";
 import type {InteractiveGraphPromptJSON} from "../../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
+import type {StatefulMafsGraphType} from "./stateful-mafs-graph";
 import type {
     PerseusGraphType,
     PerseusInteractiveGraphWidgetOptions,

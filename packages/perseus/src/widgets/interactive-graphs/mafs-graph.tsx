@@ -67,6 +67,8 @@ import {
     handleKeyboardEvent,
 } from "./utils/mafs-graph-utils";
 
+import type {I18nContextType} from "../../components/i18n-context";
+import type {PerseusStrings} from "../../strings";
 import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import type {
     InteractiveGraphState,
@@ -76,12 +78,11 @@ import type {
     InteractiveGraphElementSuite,
     GraphDimensions,
 } from "./types";
-import type {I18nContextType} from "../../components/i18n-context";
-import type {PerseusStrings} from "../../strings";
 import type {PerseusInteractiveGraphWidgetOptions} from "@khanacademy/perseus-core";
 import type {vec} from "mafs";
 
 import "mafs/core.css";
+
 import "./mafs-styles.css";
 
 const GRAPH_LEFT_MARGIN = 20;

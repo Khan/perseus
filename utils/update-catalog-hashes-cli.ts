@@ -42,7 +42,7 @@ function main(argv: string[]) {
         updateCatalogHashes(isDryRun, verbose);
     } catch (error) {
         console.error(
-            `‼️ Unexpected error: ${error instanceof Error ? error.stack ?? error : error}`,
+            `‼️ Unexpected error: ${error instanceof Error ? (error.stack ?? error) : error}`,
         );
         process.exit(1);
     }

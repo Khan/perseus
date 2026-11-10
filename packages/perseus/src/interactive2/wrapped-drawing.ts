@@ -6,8 +6,8 @@ import {vector as kvector} from "@khanacademy/kmath";
 
 import InteractiveUtil from "./interactive-util";
 
-import type {Coord} from "./types";
 import type {Graphie} from "../util/graphie";
+import type {Coord} from "./types";
 
 /*
  * attr() and animate() simply pass the

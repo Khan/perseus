@@ -4,9 +4,9 @@ import {
     toCard,
 } from "./orderer-util";
 
-import type {OrdererPublicWidgetOptions} from "./orderer-util";
 import type {PerseusOrdererWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
+import type {OrdererPublicWidgetOptions} from "./orderer-util";
 
 const defaultCorrectOptions = [toCard("$x$")];
 const defaultOtherOptions = [toCard("$y$")];

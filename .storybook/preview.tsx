@@ -1,5 +1,3 @@
-import * as React from "react";
-import {DocsContainer} from "@storybook/addon-docs/blocks";
 import {
     defaultStringsEn,
     WonderBlocksConfigProvider,
@@ -10,28 +8,31 @@ import {
     ThemeSwitcher,
     ThemeSwitcherContext,
 } from "@khanacademy/wonder-blocks-theming";
-import type {SupportedThemes} from "@khanacademy/wonder-blocks-theming";
+import {DocsContainer} from "@storybook/addon-docs/blocks";
+import * as React from "react";
 
-import darkTheme from "./dark-theme";
-import lightTheme from "./lightTheme";
 import {
     setDependencies,
     DependenciesContext,
 } from "../packages/perseus/src/dependencies";
 import {
+    StorybookFeatureFlagsContext,
+    defaultFeatureFlags,
+} from "../packages/perseus/src/testing/feature-flags-context";
+import {StorybookViewOptionsContext} from "../packages/perseus/src/testing/storybook-view-options-context";
+import {
     testDependencies,
     storybookDependenciesV2,
 } from "../packages/perseus/src/testing/test-dependencies";
 import {TestMathjax} from "../packages/perseus/src/testing/test-mathjax";
-import {
-    StorybookFeatureFlagsContext,
-    defaultFeatureFlags,
-} from "../packages/perseus/src/testing/feature-flags-context";
-import type {PerseusFeatureFlag} from "../packages/perseus/src/testing/feature-flags-context";
-import {StorybookViewOptionsContext} from "../packages/perseus/src/testing/storybook-view-options-context";
 
-import type {Decorator, Preview, StoryContext} from "@storybook/react-vite";
+import darkTheme from "./dark-theme";
+import lightTheme from "./lightTheme";
+
+import type {PerseusFeatureFlag} from "../packages/perseus/src/testing/feature-flags-context";
 import type {PerseusDependencies} from "../packages/perseus/src/types";
+import type {SupportedThemes} from "@khanacademy/wonder-blocks-theming";
+import type {Decorator, Preview, StoryContext} from "@storybook/react-vite";
 
 const storybookTestDependencies: PerseusDependencies = {
     ...testDependencies,

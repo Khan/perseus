@@ -8,8 +8,8 @@
             "cypress",
             "node",
             "cypress-real-events",
-            "cypress-wait-until",
-        ],
+            "cypress-wait-until"
+        ]
     },
     "include": [
         // All typescript files in _this_ directory
@@ -22,6 +22,6 @@
         "../../packages/perseus/src/testing/render-question-with-cypress.tsx",
         // Shared and package-specific ambient declarations
         "../../types/**/*.d.ts",
-        "../../packages/*/types/**/*.d.ts",
-    ],
+        "../../packages/*/types/**/*.d.ts"
+    ]
 }

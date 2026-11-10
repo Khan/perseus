@@ -43,23 +43,23 @@ exercise.
 The best way to understand Perseus is to explore the components in this
 Storybook. You can:
 
--   Browse the Widget Gallery to see the available widgets
--   Read the renderer documentation
--   Browse the available reusable components
+- Browse the Widget Gallery to see the available widgets
+- Read the renderer documentation
+- Browse the available reusable components
 
 ## How Perseus Works
 
 Perseus content is written in an extended Markdown syntax that includes:
 
--   Standard Markdown formatting (headings, lists, links, etc.)
--   Math expressions enclosed in dollar signs: `$y = mx + b$`
--   Widgets using the syntax: `[[☃ widget-type 1]]`, where each widget has a unique ID
+- Standard Markdown formatting (headings, lists, links, etc.)
+- Math expressions enclosed in dollar signs: `$y = mx + b$`
+- Widgets using the syntax: `[[☃ widget-type 1]]`, where each widget has a unique ID
 
 When a learner interacts with widgets (such as answering questions), Perseus can:
 
--   Validate answers against expected solutions
--   Provide feedback and hints
--   Support a variety of input methods
+- Validate answers against expected solutions
+- Provide feedback and hints
+- Support a variety of input methods
 
 ## Core Components
 
@@ -69,9 +69,9 @@ Perseus consists of three main concepts:
 
 Renderers are responsible for displaying Perseus content. The three primary renderers are:
 
--   **ServerItemRenderer**: The main exercise renderer that handles question content, hint management, and keypad display
--   **ArticleRenderer**: Renders long-form, read-only content, with support for embedded "knowledge checks"
--   **Renderer**: The core rendering engine that manages widgets and math content display
+- **ServerItemRenderer**: The main exercise renderer that handles question content, hint management, and keypad display
+- **ArticleRenderer**: Renders long-form, read-only content, with support for embedded "knowledge checks"
+- **Renderer**: The core rendering engine that manages widgets and math content display
 
 For more detailed information on renderers, refer to the [Perseus Renderers Overview](?path=/docs/renderers-overview--docs).
 
@@ -79,18 +79,18 @@ For more detailed information on renderers, refer to the [Perseus Renderers Over
 
 Widgets are self-contained React components that provide interactive functionality beyond standard Markdown. They can:
 
--   Appear within articles and exercises (in questions and hints)
--   Be nested within other widgets (e.g., the "graded-group" widget)
--   Handle various input types (multiple-choice, graphing, numeric input, etc.)
--   Validate and score user responses
+- Appear within articles and exercises (in questions and hints)
+- Be nested within other widgets (e.g., the "graded-group" widget)
+- Handle various input types (multiple-choice, graphing, numeric input, etc.)
+- Validate and score user responses
 
 ### 3. Editors
 
 Editors provide the interface for content creators to:
 
--   Add/Edit Perseus content
--   Configure widget settings
--   Preview content as it will appear to learners
+- Add/Edit Perseus content
+- Configure widget settings
+- Preview content as it will appear to learners
 
 Each widget type has its own specialized editor component.
 
@@ -100,10 +100,10 @@ Perseus is in charge of creating, parsing, rendering, and scoring exercises. Per
 
 A high-level overview:
 
--   Content - JSON containing Markdown - is created using widget editors
--   We parse and migrate the data before using it
--   The renderers take the data and render a UI
--   We use the data and the user input to generate a score
+- Content - JSON containing Markdown - is created using widget editors
+- We parse and migrate the data before using it
+- The renderers take the data and render a UI
+- We use the data and the user input to generate a score
 
 ### A More Detailed Look at Data Flow at Khan Academy
 
@@ -111,25 +111,25 @@ Perseus defines around 30 types of "widgets" for content that can't be represent
 
 As much as possible, we decouple widget logic from shared logic:
 
--   The editors defer to individual widget editors for creating widget options
--   `splitPerseusItem` defers to individual widget splitting functions
--   `parseAndMigratePerseusItem` defers to individual widget parsing functions
--   The renderers defer to individual widget components for rendering/updating
--   `validateUserInput` defers to individual widget validators
--   `scorePerseusItem` defers to individual widget scorers
+- The editors defer to individual widget editors for creating widget options
+- `splitPerseusItem` defers to individual widget splitting functions
+- `parseAndMigratePerseusItem` defers to individual widget parsing functions
+- The renderers defer to individual widget components for rendering/updating
+- `validateUserInput` defers to individual widget validators
+- `scorePerseusItem` defers to individual widget scorers
 
 #### Generating Content
 
 `@khanacademy/perseus-editor`
 
--   We have two main editing pages:
-    -   `ArticleEditor` for editing articles
-    -   `EditorPage` for editing exercises
--   The editing pages take the output from the widget editors to make a full piece of content
-    -   `PerseusArticle` for articles
-    -   `PerseusItem` for exercises
--   The content is stringified and sent to the content pipeline
--   The content pipeline parses content to find translatable strings
+- We have two main editing pages:
+    - `ArticleEditor` for editing articles
+    - `EditorPage` for editing exercises
+- The editing pages take the output from the widget editors to make a full piece of content
+    - `PerseusArticle` for articles
+    - `PerseusItem` for exercises
+- The content is stringified and sent to the content pipeline
+- The content pipeline parses content to find translatable strings
 
 Additionally for exercises, we generate an "answerless" version of the PerseusItem. This is sent to the learner pre-attempt to prevent cheating.
 
@@ -139,22 +139,22 @@ Additionally for exercises, we generate an "answerless" version of the PerseusIt
 
 Over time the shape of our data changes, so we migrate old versions of the data to new versions.
 
--   We have parsers:
-    -   `parseAndMigratePerseusArticle` for articles
-    -   `parseAndMigratePerseusItem` for exercises
-    -   `parseAndMigratePerseusRenderer` for renderers
--   They parse the stringified data into a valid object
--   They migrate old formats of the content to the latest version
+- We have parsers:
+    - `parseAndMigratePerseusArticle` for articles
+    - `parseAndMigratePerseusItem` for exercises
+    - `parseAndMigratePerseusRenderer` for renderers
+- They parse the stringified data into a valid object
+- They migrate old formats of the content to the latest version
 
 #### Rendering Content
 
 `@khanacademy/perseus`
 
--   We have multiple renderers:
-    -   `ArticleRenderer` for articles
-    -   `ServerItemRenderer` for exercises
--   They take data and render a UI using React
--   The UI is configurable (see `PerseusDependencies` and `ApiOptions`)
+- We have multiple renderers:
+    - `ArticleRenderer` for articles
+    - `ServerItemRenderer` for exercises
+- They take data and render a UI using React
+- The UI is configurable (see `PerseusDependencies` and `ApiOptions`)
 
 #### Scoring User Input
 
@@ -164,16 +164,16 @@ Widgets in articles are scored internally and scores are not recorded (see `Grad
 
 Scoring exercises is a little more complex:
 
--   `ServerItemRenderer` provides `getUserInput` for getting the user input
--   We do client-side validation using `validateUserInput`
-    -   We do as much validation as possible with the "answerless" `PerseusItem`
--   We make a call to the Perseus Service (a Node server) for scoring
-    -   We provide the `UserInput`
-    -   We provide the "answerful" `PerseusItem`
--   We call `scorePerseusItem`
-    -   It does server-side validation (validation requiring "answerful" data)
-    -   It scores each widgets
-    -   It returns a final score (correct/incorrect/invalid)
+- `ServerItemRenderer` provides `getUserInput` for getting the user input
+- We do client-side validation using `validateUserInput`
+    - We do as much validation as possible with the "answerless" `PerseusItem`
+- We make a call to the Perseus Service (a Node server) for scoring
+    - We provide the `UserInput`
+    - We provide the "answerful" `PerseusItem`
+- We call `scorePerseusItem`
+    - It does server-side validation (validation requiring "answerful" data)
+    - It scores each widgets
+    - It returns a final score (correct/incorrect/invalid)
 
 We return the "answerful" `PerseusItem` with the attempt and the UI updates to show answer, hints, and rationales.
 

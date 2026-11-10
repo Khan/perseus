@@ -5,9 +5,9 @@ import React, {forwardRef, useImperativeHandle, useRef} from "react";
 
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
 
-import type {MockWidgetOptions} from "./mock-widget-types";
 import type {WidgetProps, Widget, WidgetExports} from "../../types";
 import type {MockWidgetPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
+import type {MockWidgetOptions} from "./mock-widget-types";
 import type {PerseusMockWidgetUserInput} from "@khanacademy/perseus-score";
 
 type ExternalProps = WidgetProps<MockWidgetOptions, PerseusMockWidgetUserInput>;

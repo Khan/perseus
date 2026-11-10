@@ -10,8 +10,8 @@ import {useDraggable} from "../use-draggable";
 import {HANDLE_HITBOX_SIZE_PX, useHitbox} from "./hitbox";
 import {MovablePointView} from "./movable-point-view";
 
-import type {CSSCursor} from "./css-cursor";
 import type {KeyboardMovementConstraint} from "../use-draggable";
+import type {CSSCursor} from "./css-cursor";
 import type {vec} from "mafs";
 
 type Params = {

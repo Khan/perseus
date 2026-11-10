@@ -126,7 +126,7 @@ const ImageWidget = forwardRef<Widget, ImageWidgetProps>(
                                 : undefined
                         }
                         gifFrames={
-                            imageIsGif ? gifFrames ?? undefined : undefined
+                            imageIsGif ? (gifFrames ?? undefined) : undefined
                         }
                     />
                 )}

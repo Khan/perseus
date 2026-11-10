@@ -4,16 +4,16 @@ Examples read translated text from `strings` (`const {strings} = usePerseusI18n(
 
 ## Choosing form components
 
-| Input type | Component |
-| --- | --- |
-| Single-line text | `TextField` from `wonder-blocks-form` |
-| Multi-line text | `TextArea` from `wonder-blocks-form` |
-| Single checkbox | `Checkbox` from `wonder-blocks-form` |
-| Multiple checkboxes | `CheckboxGroup` + `Choice` from `wonder-blocks-form` |
-| Radio buttons | `RadioGroup` + `Choice` from `wonder-blocks-form` |
+| Input type             | Component                                                   |
+| ---------------------- | ----------------------------------------------------------- |
+| Single-line text       | `TextField` from `wonder-blocks-form`                       |
+| Multi-line text        | `TextArea` from `wonder-blocks-form`                        |
+| Single checkbox        | `Checkbox` from `wonder-blocks-form`                        |
+| Multiple checkboxes    | `CheckboxGroup` + `Choice` from `wonder-blocks-form`        |
+| Radio buttons          | `RadioGroup` + `Choice` from `wonder-blocks-form`           |
 | Single select dropdown | `SingleSelect` + `OptionItem` from `wonder-blocks-dropdown` |
-| Multi select dropdown | `MultiSelect` + `OptionItem` from `wonder-blocks-dropdown` |
-| Search input | `SearchField` from `wonder-blocks-search-field` |
+| Multi select dropdown  | `MultiSelect` + `OptionItem` from `wonder-blocks-dropdown`  |
+| Search input           | `SearchField` from `wonder-blocks-search-field`             |
 
 - When using `TextArea`, set `autoResize` to `true` so that it resizes based on
   content. If needed, the `rows` and `maxRows` props can be used to configure
@@ -29,19 +29,14 @@ handles `htmlFor`/`id` wiring and setting `aria-describedby` for the related
 description, error message, etc.
 
 ```tsx
-import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import {TextField} from "@khanacademy/wonder-blocks-form";
+import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 
 <LabeledField
     label={strings.fieldName}
     description={strings.descriptionForThe}
-    field={
-        <TextField
-            value={name}
-            onChange={setName}
-        />
-    }
-/>
+    field={<TextField value={name} onChange={setName} />}
+/>;
 ```
 
 For dropdowns, pass `SingleSelect` or `MultiSelect` as the `field` prop:
@@ -111,7 +106,11 @@ For checkboxes and radio groups, use the `CheckboxGroup` and `RadioGroup`
 components which support `label`, `description`, and `errorMessage` props.
 
 ```tsx
-import {CheckboxGroup, RadioGroup, Choice} from "@khanacademy/wonder-blocks-form";
+import {
+    CheckboxGroup,
+    RadioGroup,
+    Choice,
+} from "@khanacademy/wonder-blocks-form";
 
 // Multiple checkboxes
 const [selectedValues, setSelectedValues] = useState<string[]>([]);
@@ -127,7 +126,7 @@ const [selectedValues, setSelectedValues] = useState<string[]>([]);
     <Choice label={strings.option1} value="option1" />
     <Choice label={strings.option2} value="option2" />
     <Choice label={strings.option3} value="option3" />
-</CheckboxGroup>
+</CheckboxGroup>;
 
 // Radio buttons
 const [selectedValue, setSelectedValue] = useState<string>("");
@@ -143,7 +142,7 @@ const [selectedValue, setSelectedValue] = useState<string>("");
     <Choice label={strings.option1} value="option1" />
     <Choice label={strings.option2} value="option2" />
     <Choice label={strings.option3} value="option3" />
-</RadioGroup>
+</RadioGroup>;
 ```
 
 ## Form field states
@@ -190,8 +189,9 @@ have built-in validation support via three props:
   form is submitted
 
 ```tsx
-
-const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null);
+const [errorMessage, setErrorMessage] = useState<string | null | undefined>(
+    null,
+);
 const [value, setValue] = useState<string>("");
 
 <LabeledField
@@ -210,5 +210,5 @@ const [value, setValue] = useState<string>("");
             onValidate={setErrorMessage}
         />
     }
-/>
+/>;
 ```

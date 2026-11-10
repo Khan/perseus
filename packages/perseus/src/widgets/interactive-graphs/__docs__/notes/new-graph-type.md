@@ -63,9 +63,9 @@ Add a `parsePerseusGraphTypeVectorSum` parser (`object({...})`) and wire it into
 `parsePerseusGraphType` (~line 188) as a new `.withBranch(...)`:
 
 ```typescript
-  export const parsePerseusGraphType = discriminatedUnionOn("type")
-      // ... existing branches ...
-      .withBranch("vector-sum", parsePerseusGraphTypeVectorSum).parser;
+export const parsePerseusGraphType = discriminatedUnionOn("type")
+    // ... existing branches ...
+    .withBranch("vector-sum", parsePerseusGraphTypeVectorSum).parser;
 ```
 
 **Note:** The `coords` field is typically `null` until the user interacts, and is populated by `getGradableGraph()` when the user submits.
@@ -96,6 +96,7 @@ export type InteractiveGraphState =
 ```
 
 `InteractiveGraphStateCommon` provides:
+
 - `hasBeenInteractedWith: boolean`
 - `range: [xRange: Interval, yRange: Interval]`
 - `snapStep: vec.Vector2`
@@ -168,7 +169,15 @@ export function getVectorSumCoords(
         return graph.startCoords;
     }
     // Return sensible defaults, normalized to the graph's range/step
-    return normalizePoints(range, step, [[0.25, 0.5], [0.75, 0.5]], true);
+    return normalizePoints(
+        range,
+        step,
+        [
+            [0.25, 0.5],
+            [0.75, 0.5],
+        ],
+        true,
+    );
 }
 ```
 
@@ -211,6 +220,7 @@ function doMoveVectorSumPoint(
 ```
 
 Other utility functions available in the reducer file:
+
 - `boundToEdgeAndSnapToGrid()` — keeps points strictly inside the graph
 - `snap()` / `clamp()` — for manual snapping/clamping
 - `angleSidePointsTooCloseToVertex()`, `polygonSidesIntersect()` — validation helpers
@@ -341,8 +351,8 @@ srVectorSumInteractiveElements: "The graph has 2 draggable points.",
 
 These strings are consumed by your graph component (Step 7) via `usePerseusI18n()` and rendered as `aria-label`, `aria-describedby`, and `SRDescInSVG` elements.
 
-
 Reusable components available in `graphs/components/`:
+
 - `MovablePoint` — draggable point with keyboard support (`movable-point.tsx`)
 - `MovableLine` — draggable line segment (`movable-line/movable-line.tsx`)
 - `useControlPoint` — hook for controlling a single draggable point (`use-control-point.tsx`)
@@ -388,13 +398,13 @@ Then implement the free function in the same file (not a static method):
 
 ```typescript
 function getVectorSumEquationString(props: Props): string {
-  const userInput = props.userInput;
-  if (userInput.type !== "vector-sum" || !userInput.coords) {
-      return "";
-  }
-  // Compute coefficients and return a formatted equation string
-  // e.g., "y = a·f(x) + b"
-  return `...`;
+    const userInput = props.userInput;
+    if (userInput.type !== "vector-sum" || !userInput.coords) {
+        return "";
+    }
+    // Compute coefficients and return a formatted equation string
+    // e.g., "y = a·f(x) + b"
+    return `...`;
 }
 ```
 
@@ -550,24 +560,24 @@ Both functions have `UnreachableCaseError` on the default branch, so TypeScript 
 
 ## Summary Table
 
-| What | File | Notes |
-|------|------|-------|
-| Public data type | `perseus-core/src/data-schema.ts` | Add `PerseusGraphTypeXxx` and add to `PerseusGraphType` union |
-| Parser branch | `perseus-core/src/parse-perseus-json/perseus-parsers/interactive-graph-widget.ts` | Add `parsePerseusGraphTypeXxx` and a `.withBranch("xxx", …)` |
-| Internal state type | `interactive-graphs/types.ts` | Add `XxxGraphState`, add to `InteractiveGraphState` union |
-| Actions | `reducer/interactive-graph-action.ts` | Add constants, interfaces, factory fns, and entry in `actions` |
-| State initialization | `reducer/initialize-graph-state.ts` | Add `case` in `initializeGraphState`, implement `getXxxCoords()` |
-| Reducer transitions | `reducer/interactive-graph-reducer.ts` | Add `case` in main switch, implement `doXxx()` functions |
-| Gradable output | `reducer/interactive-graph-state.ts` | Add `if` branch in `getGradableGraph()` |
-| Graph component | `graphs/xxx.tsx` (new file) | Implement `renderXxxGraph()` and graph React component |
-| SR description | `graphs/strings/xxx.ts` (new file) | Implement `describeXxxGraph(state, i18n)` |
-| Render dispatch | `mafs-graph.tsx` | Import and add `case` in `renderGraphElements()` switch |
-| Equation string | `interactive-graphs/get-equation-string.ts` | Add `case` in `getEquationString()` + a `getXxxEquationString()` free function |
-| Scoring | `perseus-score/.../sub-scorers/score-xxx.ts` (new file) | Implement `scoreXxx()`; wire an `else if` branch into `score-interactive-graph.ts` |
-| Editor selector | `interactive-graph-editor/components/graph-type-selector.tsx` | Add a key to the `TypedSingleSelect` `options` object |
-| Editor start coords | `interactive-graph-editor/start-coords/start-coords-settings.tsx` | Add `case` in switch |
-| Editor answer options | `interactive-graph-editor/components/xxx-answer-options.tsx` | New file if type-specific controls needed |
-| AI utils | `widget-ai-utils/interactive-graph/interactive-graph-ai-utils.ts` | Add types, `getGraphOptionsForProps()` case, `getUserInput()` case |
+| What                  | File                                                                              | Notes                                                                              |
+| --------------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Public data type      | `perseus-core/src/data-schema.ts`                                                 | Add `PerseusGraphTypeXxx` and add to `PerseusGraphType` union                      |
+| Parser branch         | `perseus-core/src/parse-perseus-json/perseus-parsers/interactive-graph-widget.ts` | Add `parsePerseusGraphTypeXxx` and a `.withBranch("xxx", …)`                       |
+| Internal state type   | `interactive-graphs/types.ts`                                                     | Add `XxxGraphState`, add to `InteractiveGraphState` union                          |
+| Actions               | `reducer/interactive-graph-action.ts`                                             | Add constants, interfaces, factory fns, and entry in `actions`                     |
+| State initialization  | `reducer/initialize-graph-state.ts`                                               | Add `case` in `initializeGraphState`, implement `getXxxCoords()`                   |
+| Reducer transitions   | `reducer/interactive-graph-reducer.ts`                                            | Add `case` in main switch, implement `doXxx()` functions                           |
+| Gradable output       | `reducer/interactive-graph-state.ts`                                              | Add `if` branch in `getGradableGraph()`                                            |
+| Graph component       | `graphs/xxx.tsx` (new file)                                                       | Implement `renderXxxGraph()` and graph React component                             |
+| SR description        | `graphs/strings/xxx.ts` (new file)                                                | Implement `describeXxxGraph(state, i18n)`                                          |
+| Render dispatch       | `mafs-graph.tsx`                                                                  | Import and add `case` in `renderGraphElements()` switch                            |
+| Equation string       | `interactive-graphs/get-equation-string.ts`                                       | Add `case` in `getEquationString()` + a `getXxxEquationString()` free function     |
+| Scoring               | `perseus-score/.../sub-scorers/score-xxx.ts` (new file)                           | Implement `scoreXxx()`; wire an `else if` branch into `score-interactive-graph.ts` |
+| Editor selector       | `interactive-graph-editor/components/graph-type-selector.tsx`                     | Add a key to the `TypedSingleSelect` `options` object                              |
+| Editor start coords   | `interactive-graph-editor/start-coords/start-coords-settings.tsx`                 | Add `case` in switch                                                               |
+| Editor answer options | `interactive-graph-editor/components/xxx-answer-options.tsx`                      | New file if type-specific controls needed                                          |
+| AI utils              | `widget-ai-utils/interactive-graph/interactive-graph-ai-utils.ts`                 | Add types, `getGraphOptionsForProps()` case, `getUserInput()` case                 |
 
 ---
 

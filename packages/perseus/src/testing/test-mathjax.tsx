@@ -1,10 +1,8 @@
 import {MathJaxRenderer} from "@khanacademy/mathjax-renderer";
 import * as React from "react";
 import "@khanacademy/mathjax-renderer/src/css/mathjax.css";
-
 // if you want \text{} to look good on Safari:
 import "@khanacademy/mathjax-renderer/src/css/safari-hacks.css";
-
 // if you want copy-paste support:
 import "@khanacademy/mathjax-renderer/src/css/selectable.css";
 

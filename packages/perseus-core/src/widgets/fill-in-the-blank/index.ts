@@ -1,8 +1,8 @@
 import {getFillInTheBlankPublicWidgetOptions} from "./fill-in-the-blank-util";
 
-import type {FillInTheBlankPublicWidgetOptions} from "./fill-in-the-blank-util";
 import type {PerseusFillInTheBlankWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
+import type {FillInTheBlankPublicWidgetOptions} from "./fill-in-the-blank-util";
 
 const defaultWidgetOptions: PerseusFillInTheBlankWidgetOptions = {
     content: "",

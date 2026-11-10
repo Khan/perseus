@@ -3,12 +3,12 @@ import MathQuill from "mathquill";
 
 import {inJest} from "../../utils";
 
+import type {MathInputStrings} from "../../strings";
 import type {
     MathQuillInterface,
     MathFieldConfig,
     MathFieldInterface,
 } from "./mathquill-types";
-import type {MathInputStrings} from "../../strings";
 
 // We only need one MathQuill instance (referred to as MQ in the docs)
 // and that contains some MQ constants and the MathField constructor

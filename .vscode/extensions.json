@@ -1,0 +1,7 @@
+{
+    "recommendations": [
+        // Oxc
+        // Code formatter using oxfmt
+        "oxc.oxc-vscode"
+    ]
+}
