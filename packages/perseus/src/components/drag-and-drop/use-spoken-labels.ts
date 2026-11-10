@@ -1,7 +1,7 @@
 import {SpeechRuleEngine} from "@khanacademy/mathjax-renderer";
 import {useEffect, useState} from "react";
 
-import {mathOnlyParser} from "../../widgets/interactive-graphs/utils";
+import {mathOnlyParser} from "../../util/math-only-parser";
 import {usePerseusI18n} from "../i18n-context";
 
 function containsTex(content: string): boolean {
