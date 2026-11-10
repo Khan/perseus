@@ -1,6 +1,10 @@
-import {generatePlotterOptions} from "@khanacademy/perseus-core";
+import {
+    generatePlotterOptions,
+    generatePlotterWidget,
+    generateTestPerseusRenderer,
+} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
-import {act, screen, waitFor} from "@testing-library/react";
+import {act, screen} from "@testing-library/react";
 
 import {renderQuestion} from "../../__testutils__/render-question";
 import {
@@ -10,7 +14,10 @@ import {
 
 import {dotPlotter} from "./plotter.testdata";
 
-import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    PerseusPlotterWidgetOptions,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
 
 describe("plotter widget", () => {
     // Regression (LEMS-3251) make sure the dot plotter doesn't crash
@@ -47,76 +54,160 @@ describe("plotter widget", () => {
         });
     });
 
-    describe("drag text", () => {
-        function sharedPlotterOptions(): PerseusPlotterWidgetOptions {
-            return generatePlotterOptions({
-                categories: ["0", "1", "2"],
-                plotDimensions: [300, 300],
-                correct: [0, 1, 2],
-                labels: ["Horizontal", "Vertical"],
-                maxY: 2,
-                scaleY: 1,
-                snapsPerLine: 1,
-                starting: [0, 0, 0],
-                type: "bar",
+    describe("disabled state", () => {
+        function generateQuestion(
+            type: PerseusPlotterWidgetOptions["type"],
+            isStatic: boolean,
+            values: number[] = [1, 2, 3],
+        ): PerseusRenderer {
+            return generateTestPerseusRenderer({
+                content: "[[☃ plotter 1]]",
+                widgets: {
+                    "plotter 1": generatePlotterWidget({
+                        static: isStatic,
+                        options: generatePlotterOptions({
+                            type,
+                            categories: ["A", "B", "C"],
+                            // Static widgets render with the correct answer
+                            // as their user input, so we set both to the
+                            // same values.
+                            starting: values,
+                            correct: values,
+                            maxY: 5,
+                            scaleY: 1,
+                        }),
+                    }),
+                },
             });
         }
 
-        it("should show drag text when not static", async () => {
-            // Arrange and Act
-            renderQuestion(
-                {
-                    content: "[[☃ plotter 1]]",
-                    images: {},
-                    widgets: {
-                        "plotter 1": {
-                            type: "plotter",
-                            static: false, // <= important
-                            options: sharedPlotterOptions(),
-                        },
-                    },
-                },
-                {
-                    apiOptions: {
-                        isMobile: true, // <= important
-                    },
-                },
+        function getMouseTargets(container: HTMLElement, kind: string) {
+            // Graphie's mouse targets are bare SVG elements with no
+            // accessible role, so Testing Library queries can't find them.
+            // eslint-disable-next-line testing-library/no-node-access
+            return container.querySelectorAll(
+                `[data-interactive-kind-for-testing='${kind}']`,
             );
+        }
 
-            // Assert
-            expect(
-                await screen.findByText("Drag handles to make graph"),
-            ).toBeInTheDocument();
-        });
+        // Plotter draws each plot type differently on desktop and mobile, so
+        // every type is tested on both. Each row lists a kind of Graphie
+        // mouse target that makes the plot interactive.
+        const plotTypes = [
+            // Desktop bars are dragged by a line segment across the top;
+            // mobile bars by a point.
+            {type: "bar", isMobile: false, targetKind: "movable-line"},
+            {type: "bar", isMobile: true, targetKind: "movable-point"},
+            {type: "histogram", isMobile: false, targetKind: "movable-line"},
+            {type: "histogram", isMobile: true, targetKind: "movable-point"},
+            // Line plots have draggable points joined by lines that
+            // highlight on hover.
+            {type: "line", isMobile: false, targetKind: "movable-point"},
+            {type: "line", isMobile: false, targetKind: "movable-line"},
+            {type: "line", isMobile: true, targetKind: "movable-point"},
+            {type: "line", isMobile: true, targetKind: "movable-line"},
+            // Tiled plots are set by clicking or tapping a tile.
+            {type: "dotplot", isMobile: false, targetKind: "plotter-tile"},
+            {type: "dotplot", isMobile: true, targetKind: "plotter-tile"},
+            {type: "pic", isMobile: false, targetKind: "plotter-tile"},
+            {type: "pic", isMobile: true, targetKind: "plotter-tile"},
+        ] as const;
 
-        it("should not show drag text when static", async () => {
-            // Arrange and Act
-            renderQuestion(
-                {
-                    content: "[[☃ plotter 1]]",
-                    images: {},
-                    widgets: {
-                        "plotter 1": {
-                            type: "plotter",
-                            static: true, // <= important
-                            options: sharedPlotterOptions(),
-                        },
+        describe.each(plotTypes)(
+            "$type plot (isMobile: $isMobile, $targetKind)",
+            ({type, isMobile, targetKind}) => {
+                it("renders mouse targets when interactive", async () => {
+                    // Arrange, Act
+                    const {container} = renderQuestion(
+                        generateQuestion(type, false),
+                        {apiOptions: {isMobile, readOnly: false}},
+                    );
+                    // Wait for plotter's card resizing to settle.
+                    await act(() => Promise.resolve());
+
+                    // Assert
+                    expect(
+                        getMouseTargets(container, targetKind).length,
+                    ).toBeGreaterThan(0);
+                });
+
+                it.each([
+                    {name: "static", isStatic: true, readOnly: false},
+                    {name: "read-only", isStatic: false, readOnly: true},
+                ])(
+                    "does not render mouse targets when $name",
+                    async ({isStatic, readOnly}) => {
+                        // Arrange, Act
+                        const {container} = renderQuestion(
+                            generateQuestion(type, isStatic),
+                            {apiOptions: {isMobile, readOnly}},
+                        );
+                        // Wait for plotter's card resizing to settle.
+                        await act(() => Promise.resolve());
+
+                        // Assert
+                        expect(
+                            getMouseTargets(container, targetKind),
+                        ).toHaveLength(0);
                     },
-                },
-                {
-                    apiOptions: {
-                        isMobile: true, // <= important
-                    },
-                },
-            );
+                );
+            },
+        );
 
-            // Assert
-            await waitFor(() => {
-                expect(
-                    screen.queryByText("Drag handles to make graph"),
-                ).not.toBeInTheDocument();
-            });
-        });
+        // Mobile plots show instructions over the graph. (Desktop plots
+        // never show them.) Tiled plots only show theirs while empty.
+        const mobilePrompts = [
+            {
+                type: "bar",
+                text: "Drag handles to make graph",
+                values: [1, 2, 3],
+            },
+            {
+                type: "line",
+                text: "Drag handles to make graph",
+                values: [1, 2, 3],
+            },
+            {type: "dotplot", text: "Tap to add points", values: [0, 0, 0]},
+            {type: "pic", text: "Tap to add points", values: [0, 0, 0]},
+        ] as const;
+
+        describe.each(mobilePrompts)(
+            "$type plot on mobile",
+            ({type, text, values}) => {
+                it(`shows "${text}" when interactive`, async () => {
+                    // Arrange, Act
+                    renderQuestion(generateQuestion(type, false, [...values]), {
+                        apiOptions: {isMobile: true, readOnly: false},
+                    });
+                    // Wait for plotter's card resizing to settle.
+                    await act(() => Promise.resolve());
+
+                    // Assert
+                    expect(screen.getByText(text)).toBeInTheDocument();
+                });
+
+                it.each([
+                    {name: "static", isStatic: true, readOnly: false},
+                    {name: "read-only", isStatic: false, readOnly: true},
+                ])(
+                    `does not show "${text}" when $name`,
+                    async ({isStatic, readOnly}) => {
+                        // Arrange, Act
+                        renderQuestion(
+                            generateQuestion(type, isStatic, [...values]),
+                            {apiOptions: {isMobile: true, readOnly}},
+                        );
+                        // Wait for plotter's card resizing to settle.
+                        await act(() => Promise.resolve());
+
+                        // Assert
+                        expect(
+                            screen.queryByText(text),
+                        ).not.toBeInTheDocument();
+                    },
+                );
+            },
+        );
     });
 
     const plotterOptions: PerseusPlotterWidgetOptions = {

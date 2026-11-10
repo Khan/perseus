@@ -91,6 +91,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
 
         this.shouldSetupGraphie =
             this.props.static !== nextProps.static ||
+            this.props.apiOptions.readOnly !== nextProps.apiOptions.readOnly ||
             optionsKeys.some(
                 (key) => !_.isEqual(options[key], nextOptions[key]),
             );
@@ -116,6 +117,35 @@ class Plotter extends React.Component<Props, State> implements Widget {
 
     componentWillUnmount() {
         this._isMounted = false;
+    }
+
+    /**
+     * Whether the learner is blocked from changing the plot, either because
+     * the widget is static or because the whole renderer is read-only.
+     */
+    isDisabled(): boolean {
+        return Boolean(this.props.static || this.props.apiOptions.readOnly);
+    }
+
+    /**
+     * Options for the movable points used as bar and line handles. When the
+     * plotter is disabled, the points can't be dragged and are drawn in the
+     * disabled color. (`addMovablePointV2` sets its own fill, which would
+     * otherwise override MovablePoint's built-in static color.)
+     */
+    movablePointOptions(): {
+        static: boolean;
+        normalStyle?: {fill: string};
+    } {
+        if (!this.isDisabled()) {
+            return {static: false};
+        }
+        return {
+            static: true,
+            normalStyle: {
+                fill: tokenValue(semanticColor.core.foreground.disabled.strong),
+            },
+        };
     }
 
     DOT_PLOT_POINT_SIZE: () => number = () => {
@@ -307,7 +337,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
 
         // Set up the instruction text that tells the learner how to interact
         // with the plot.
-        if ((isBar || isLine) && isMobile && !this.props.static) {
+        if ((isBar || isLine) && isMobile && !this.isDisabled()) {
             self.graphie.dragPrompt = graphie
                 .label(
                     [c.dimX / 2, c.dimY / 2],
@@ -325,7 +355,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
 
         self.setupCategories(config);
 
-        if (isTiledPlot && isMobile) {
+        if (isTiledPlot && isMobile && !this.isDisabled()) {
             self.graphie.dotPrompt = graphie
                 .label(
                     [c.dimX / 2, c.dimY / 2],
@@ -763,6 +793,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
         if (isMobile) {
             const snap = config.scaleY / self.props.options.snapsPerLine;
             config.graph.lines[i] = Interactive2.addMovablePointV2(this, {
+                ...this.movablePointOptions(),
                 coord: [x, startHeight],
                 constraints: [
                     (coord: any, prev: any, options: any) => {
@@ -802,12 +833,14 @@ class Plotter extends React.Component<Props, State> implements Widget {
                 constraints: {
                     constrainX: true,
                 },
+                // A fixed segment has no mouse target, so it can't be dragged.
+                fixed: this.isDisabled(),
                 normalStyle: {
                     stroke: tokenValue(
                         semanticColor.core.foreground.instructive.default,
                     ),
-                    // Don't display graph handles in static mode
-                    "stroke-width": this.props.static ? 0 : 4,
+                    // Don't display graph handles when disabled
+                    "stroke-width": this.isDisabled() ? 0 : 4,
                 },
             });
 
@@ -853,6 +886,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
 
         const snap = config.scaleY / self.props.options.snapsPerLine;
         c.graph.points[i] = Interactive2.addMovablePointV2(this, {
+            ...this.movablePointOptions(),
             coord: [x, startHeight],
             constraints: [
                 (coord) => {
@@ -880,19 +914,23 @@ class Plotter extends React.Component<Props, State> implements Widget {
         self._maybeShowDragPrompt();
 
         if (i > 0) {
+            const lineColor = tokenValue(
+                this.isDisabled()
+                    ? semanticColor.core.foreground.disabled.strong
+                    : semanticColor.core.border.instructive.default,
+            );
             c.graph.lines[i] = Interactive2.addMovableLine(graphie, {
                 points: [c.graph.points[i - 1], c.graph.points[i]],
                 constraints: Interactive2.MovablePoint.constraints.fixed(),
+                // Static lines have no mouse target, so they don't highlight
+                // on hover.
+                static: this.isDisabled(),
                 normalStyle: {
-                    stroke: tokenValue(
-                        semanticColor.core.border.instructive.default,
-                    ),
+                    stroke: lineColor,
                     "stroke-width": 2,
                 },
                 highlightStyle: {
-                    stroke: tokenValue(
-                        semanticColor.core.border.instructive.default,
-                    ),
+                    stroke: lineColor,
                     "stroke-width": 2,
                 },
             });
@@ -951,10 +989,15 @@ class Plotter extends React.Component<Props, State> implements Widget {
         const pics = graphie.pics;
         const dotTicks = graphie.dotTicks;
         const x = i + 0.5 + c.picPad;
+        const isDisabled = self.isDisabled();
 
-        // In order to make sure that manipulating the graph doesn't cause
-        // dragging, we disable touch actions for the whole mouselayer.
-        graphie.mouselayer.canvas.style.touchAction = "none";
+        if (!isDisabled) {
+            // In order to make sure that manipulating the graph doesn't cause
+            // dragging, we disable touch actions for the whole mouselayer.
+            // (A disabled plot can't be manipulated, so we leave touch
+            // actions alone to let learners scroll past it.)
+            graphie.mouselayer.canvas.style.touchAction = "none";
+        }
 
         pics[i] = [];
         dotTicks[i] = [];
@@ -965,55 +1008,65 @@ class Plotter extends React.Component<Props, State> implements Widget {
             const leftX = x - c.picBoxWidth / 2;
             const topY = midY + 0.5 * c.scaleY;
             const coord = graphie.scalePoint([leftX, topY + bottomMargin]);
-            const mouseRect = graphie.mouselayer.rect(
-                coord[0],
-                coord[1],
-                c.picBoxWidthPx,
-                c.picBoxHeight,
-            );
-            $(mouseRect[0])
-                .css({
-                    // `fill` must be set for clicks to register.
-                    fill: "transparent",
-                    opacity: 0.0,
-                    cursor: "pointer",
-                })
-                .on("vmousedown", function (e) {
-                    e.preventDefault();
-                    // @ts-expect-error - TS2339 - Property 'whichPicClicked' does not exist on type 'Plotter'.
-                    self.whichPicClicked = i;
-                    self.setPicHeight(i, topY);
 
-                    $(document).on("vmouseup.plotTile", function (e) {
-                        $(document).unbind(".plotTile");
-                    });
-
-                    $(document).on("vmousemove.plotTile", function (e) {
+            // Each tile gets an invisible click target that sets the column's
+            // height. Disabled plots don't get one, so they can't be changed.
+            if (!isDisabled) {
+                const mouseRect = graphie.mouselayer.rect(
+                    coord[0],
+                    coord[1],
+                    c.picBoxWidthPx,
+                    c.picBoxHeight,
+                );
+                $(mouseRect[0])
+                    // Matches the attribute that Graphie's other mouse
+                    // targets (WrappedEllipse, WrappedLine) set for tests.
+                    .attr("data-interactive-kind-for-testing", "plotter-tile")
+                    .css({
+                        // `fill` must be set for clicks to register.
+                        fill: "transparent",
+                        opacity: 0.0,
+                        cursor: "pointer",
+                    })
+                    .on("vmousedown", function (e) {
                         e.preventDefault();
-
-                        // Reverse-engineer the initial calculation
-                        const yCoord = graphie.getMouseCoord(e)[1];
-                        const adjustedCoord = Math.floor(yCoord - bottomMargin);
-
-                        // Calculate top coord from j value, but don't let them
-                        // go below j = -1, which is equivalent to having '0'
-                        // on the dot plot (due to weird indexing).
-                        const newJ = Math.max(
-                            -1,
-                            Math.floor(adjustedCoord / c.scaleY),
-                        );
-                        const newMidY = (newJ + 0.5) * c.scaleY;
-                        // Constrain the max Y value to max displayable Y of the
-                        // plot.  Otherwise users can unintentionally select an
-                        // out-of-range value and not see that they have done so.
-                        const newTopY = Math.min(
-                            newMidY + 0.5 * c.scaleY,
-                            c.dimY,
-                        );
                         // @ts-expect-error - TS2339 - Property 'whichPicClicked' does not exist on type 'Plotter'.
-                        self.setPicHeight(self.whichPicClicked, newTopY);
+                        self.whichPicClicked = i;
+                        self.setPicHeight(i, topY);
+
+                        $(document).on("vmouseup.plotTile", function (e) {
+                            $(document).unbind(".plotTile");
+                        });
+
+                        $(document).on("vmousemove.plotTile", function (e) {
+                            e.preventDefault();
+
+                            // Reverse-engineer the initial calculation
+                            const yCoord = graphie.getMouseCoord(e)[1];
+                            const adjustedCoord = Math.floor(
+                                yCoord - bottomMargin,
+                            );
+
+                            // Calculate top coord from j value, but don't let them
+                            // go below j = -1, which is equivalent to having '0'
+                            // on the dot plot (due to weird indexing).
+                            const newJ = Math.max(
+                                -1,
+                                Math.floor(adjustedCoord / c.scaleY),
+                            );
+                            const newMidY = (newJ + 0.5) * c.scaleY;
+                            // Constrain the max Y value to max displayable Y of the
+                            // plot.  Otherwise users can unintentionally select an
+                            // out-of-range value and not see that they have done so.
+                            const newTopY = Math.min(
+                                newMidY + 0.5 * c.scaleY,
+                                c.dimY,
+                            );
+                            // @ts-expect-error - TS2339 - Property 'whichPicClicked' does not exist on type 'Plotter'.
+                            self.setPicHeight(self.whichPicClicked, newTopY);
+                        });
                     });
-                });
+            }
 
             if (j < 0) {
                 // Don't show a pic underneath the axis!
@@ -1069,7 +1122,8 @@ class Plotter extends React.Component<Props, State> implements Widget {
 
         const isMobile = this.props.apiOptions.isMobile;
 
-        if (isMobile) {
+        // The dot prompt is only added to interactive mobile plots.
+        if (graphie.dotPrompt != null) {
             const shouldDisplay = values.every((v) => v === 0);
             graphie.dotPrompt[0].style.display = shouldDisplay
                 ? "inline"
