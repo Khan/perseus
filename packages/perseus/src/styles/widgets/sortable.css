@@ -67,7 +67,7 @@
         color: var(--wb-semanticColor-core-foreground-disabled-strong);
         cursor: default;
         /* Same box shadow as the default state */
-        box-shadow: var(--wb-boxShadow-low)
+        box-shadow: var(--wb-boxShadow-low);
     }
     .perseus-sortable .perseus-sortable-draggable:before {
         content: "";
