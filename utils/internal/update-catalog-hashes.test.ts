@@ -18,6 +18,7 @@ jest.mock("node:fs");
 describe("updateCatalogHashes", () => {
     beforeEach(() => {
         jest.clearAllMocks();
+        jest.spyOn(console, "log").mockImplementation(() => {});
     });
 
     const getMockPnpmWorkspace = (): PnpmWorkspace => ({

@@ -134,13 +134,13 @@ The issues, summarized from the dig:
       drop it from `NumberInput`'s props if declared.
 - [ ] Replace the `restProps` spread in `NumberInput` with an explicit list
       of props passed to `<input>`, keeping existing callers working.
-- [ ] Add `key={state.key}` to the custom `react` rules in
+- [x] Add `key={state.key}` to the custom `react` rules in
       `simple-markdown.test.tsx`.
-- [ ] Make `MockWidgetComponent` in `widget-container.test.tsx` a
+- [x] Make `MockWidgetComponent` in `widget-container.test.tsx` a
       `forwardRef` component with `useImperativeHandle`.
-- [ ] Mock `console.error` in the expected-throw test in
+- [x] Mock `console.error` in the expected-throw test in
       `use-preview-presenter.test.ts`.
-- [ ] Mock `console.log` in `beforeEach` in
+- [x] Mock `console.log` in `beforeEach` in
       `update-catalog-hashes.test.ts`; check whether Jest's `restoreMocks`
       is set and restore explicitly if not.
 - [ ] Add a `@khanacademy/perseus: patch` changeset for the locked-line and
