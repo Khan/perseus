@@ -8,60 +8,396 @@ import {Meta} from "@storybook/addon-docs/blocks";
 
 # Getting Started
 
-This guide walks through integrating Perseus into your React application — from
-installation through rendering your first interactive exercise.
+If you're showing learners **a math question, an article, or a diagram or
+graph**, use Perseus. It's what renders every exercise and article on Khan
+Academy, so you get accessible widgets, the math keypad, translations and
+design-system styling for free. Rolling your own means rebuilding all of that,
+and drifting away from the rest of the product.
 
-> **Working in khan/frontend?** Skip the setup sections below. Import
-> renderers from `@khan/component-perseus/perseus`, not `@khanacademy/perseus`
-> (a lint rule enforces this). Importing it already calls `init()`, sets the
-> dependencies, loads Perseus's styles and adds the i18n provider. You still:
->
-> -   pass `dependencies`: `webappDependenciesV2` from `@khan/component-perseus`,
->     or `usePerseusDependencies()` from `@khan/classroom-perseus` in classroom;
-> -   pass `kaLocale`;
-> -   wrap `ServerItemRenderer` in an element with the `framework-perseus` class.
->
-> Don't call `init()` or `setDependencies()` yourself: that would replace
-> frontend's real dependencies across the whole app.
+It's less work than it looks. In khan/frontend, Perseus is already set up, so
+you can go straight to what you're rendering:
 
-## Installation
+-   [**A question**](#rendering-a-question): multiple choice, numeric and
+    expression answers, interactive graphs and more, scored in the browser, on
+    your server or on Khan Academy's.
+-   [**An article**](#rendering-an-article): long-form content with math,
+    images and embedded practice.
+-   [**A diagram**](#rendering-a-diagram): an image or a graph to look at,
+    not answer.
 
-Perseus is published as a set of scoped npm packages. At minimum, you'll need:
+The examples assume you're working in khan/frontend. If you're not, see
+[Not working in the frontend repo?](#not-working-in-the-frontend-repo) at the
+end.
 
-```bash
-pnpm add @khanacademy/perseus @khanacademy/perseus-core
+## Rendering a question
+
+Rendering a question works the same way everywhere: `ServerItemRenderer` shows
+it, and its `getUserInput()` gives you the learner's answer. Despite the name,
+`ServerItemRenderer` doesn't talk to a server ("Server" means it can be
+rendered on the server), and it never scores anything.
+
+## Scoring methods
+
+Scoring has three paths with growing investment. Ask yourself:
+
+1.  **How mature is your feature?** If it's an early experiment, you may simply score in the browser (path 1). If it's
+    validated and ready to launch universally, don't! 
+2.  **Does it matter if a learner cheats?** If so go path 2 or 3.
+3.  **Should answers count toward a learner's mastery?** Use path 3.
+
+You can start on the first path and move along as your experience matures:
+
+<table>
+    <thead>
+        <tr>
+            <th scope="col">Path</th>
+            <th scope="col">Where scoring runs</th>
+            <th scope="col">Use it when</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">
+                <a href="#1-lightweight-scoring-in-the-browser">1. In the browser</a>
+            </th>
+            <td>The learner's browser</td>
+            <td>
+                Early experiments and low-stakes tutoring, where cheating isn't
+                a concern and nothing counts toward mastery.
+
+                **Example:** a graph-based question Khanmigo
+                generates on the fly in a tutoring session. It's an early
+                experiment, it doesn't count toward mastery, and cheating isn't
+                important.
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <a href="#2-hosted-by-you">2. Hosted by you</a>
+            </th>
+            <td>Your own server</td>
+            <td>
+                Scores need to be trusted, but don't count toward Khan Academy
+                mastery
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <a href="#3-mastery-enabled">3. Mastery-enabled</a>
+            </th>
+            <td>The Khan Academy backend</td>
+            <td>Answers count toward a learner's mastery and progress</td>
+        </tr>
+    </tbody>
+</table>
+
+All three use the same scoring logic, so learners get the same results
+whichever path you're on.
+
+#### 1. Scoring in the browser
+
+For **early experiments**, and for low-stakes contexts where cheating isn't a
+concern and nothing counts toward mastery, such as a graph-based question
+Khanmigo generates on the fly during a tutoring session. There's no backend to
+build.
+
+```tsx
+import {useRef} from "react";
+import {scorePerseusItem, webappDependenciesV2} from "@khan/component-perseus";
+import {
+    ServerItemRenderer,
+    type ServerItemRendererComponent,
+} from "@khan/component-perseus/perseus";
+import type {PerseusItem} from "@khanacademy/perseus-core";
+
+function Question({item, kaLocale}: {item: PerseusItem; kaLocale: string}) {
+    const rendererRef = useRef<ServerItemRendererComponent>(null);
+
+    function handleCheck() {
+        const userInput = rendererRef.current?.getUserInput() ?? {};
+        // Uses the learner's locale and translates any message for you.
+        const score = scorePerseusItem(item.question, userInput);
+        // React to the score: show feedback, tell your tutor, ...
+    }
+
+    return (
+        // Perseus styles are scoped to this class.
+        <div className="framework-perseus">
+            <ServerItemRenderer
+                ref={rendererRef}
+                item={item}
+                problemNum={1}
+                reviewMode={false}
+                apiOptions={{}}
+                dependencies={webappDependenciesV2}
+                kaLocale={kaLocale}
+            />
+            <button onClick={handleCheck}>Check</button>
+        </div>
+    );
+}
 ```
 
-Perseus has a number of peer dependencies that must also be installed,
-including React, Aphrodite, and the Wonder Blocks design system. See the full
-list in the `peerDependencies` field of `@khanacademy/perseus/package.json`.
+In classroom apps, pass `usePerseusDependencies()` from
+`@khan/classroom-perseus` as `dependencies` instead of `webappDependenciesV2`.
 
-## Core Concepts
+The trade-off: the item, answers included, is in the browser, so anyone who
+looks can find them. That's fine for practice, and it's why this path never
+counts toward mastery.
 
-Before writing any code, it's worth understanding the two things Perseus needs
-from you as a consumer:
+#### 2. Hosted by you
 
-1. **A `PerseusItem`** — the JSON content object describing the exercise,
-   including its question, widgets, and hints.
-2. **Dependencies** — a set of callbacks and components that Perseus delegates
-   to the host application (analytics, URL generation, video loading, etc.).
+When scores need to be trusted (say, you're recording results in your own
+system) but don't need to count toward Khan Academy mastery. Your server keeps
+the full item and does the scoring; the browser only ever sees the question.
 
-## Providing Dependencies
+1.  Send the browser an answerless copy of the item from
+    `splitPerseusItem(item)` (from `@khanacademy/perseus-core`), and render
+    that.
+2.  When the learner checks, post `getUserInput()` to your server.
+3.  Score it there, with Perseus's scoring package:
 
-Perseus uses two dependency mechanisms:
+```ts
+import {
+    isFailure,
+    parseAndMigrateUserInputMap,
+} from "@khanacademy/perseus-core";
+import {scorePerseusItem} from "@khanacademy/perseus-score";
+import type {PerseusItem} from "@khanacademy/perseus-core";
 
--   **`PerseusDependencies`** — passed via `setDependencies()` once at app
-    startup. Covers things like TeX rendering, logging, and locale.
--   **`PerseusDependenciesV2`** (preferred) — provided via React context using
-    `DependenciesContext`. Covers analytics, URL generation, and video loading.
+export function scoreOnServer(
+    item: PerseusItem,
+    body: unknown,
+    locale: string,
+) {
+    // userInput comes from the browser, so validate it first.
+    const userInput = parseAndMigrateUserInputMap(body);
+    if (isFailure(userInput)) {
+        return {status: 400};
+    }
+    return {
+        status: 200,
+        score: scorePerseusItem(item.question, userInput.value, locale),
+    };
+}
+```
 
-A minimal setup looks like this:
+To show the solutions afterwards, send the full item back once the learner is
+done, then re-render with it and `showSolutions="all"`.
+
+#### 3. Mastery-enabled
+
+When answers should count toward a learner's mastery and progress on Khan
+Academy. This is the only path where you don't write the scoring yourself,
+which is why you'll need other teams' help.
+
+**How it works today.** Practice, quizzes, unit tests, course challenges and
+mastery challenges all follow the same flow:
+
+1.  The backend's progress service creates a _task_ for the learner (for
+    example, a practice task for an exercise).
+2.  The browser fetches each question from Khan Academy's content system by
+    exercise and item ID, **without answers**. The answers were removed when
+    the content was published.
+3.  When the learner checks, the browser only confirms the answer is complete
+    (`validateUserInput`). It doesn't score it.
+4.  It sends the raw answer, with the item, exercise and task IDs, to the
+    `attemptProblem` GraphQL mutation. No score or correct/incorrect flag is
+    sent.
+5.  The backend loads the full item from the content system, scores the answer
+    with the same Perseus scoring code (`@khanacademy/perseus-score`), records
+    the attempt and returns the score. Mastery levels usually change when the
+    learner completes the task, not on every answer.
+
+**Why you can't just point at an endpoint.** The browser never has the
+answers, the backend only scores questions it can look up itself, and mastery
+is always worked out on the server from its own scoring. A score reported by
+the browser never counts.
+
+**What a new experience needs.** Usually:
+
+1.  **Its questions live in the content system,** published under an
+    exercise, so the backend has their answer keys.
+2.  **It maps to a task type** that the attempt flow accepts, either an
+    existing one or a new one.
+3.  **Its attempts feed mastery in an agreed way.** This can mean a new backend
+    mutation. Gap Finder, for example, scores answers on the server with its
+    own mutation and can lower a learner's mastery outside of any task.
+
+**Who to talk to.** Start with the **Practice** team, which owns tasks,
+attempts and mastery (the backend's progress service; GitHub review team
+`@Khan/progress`, and `@Khan/practice` for the frontend task code). The Perseus
+team (`@Khan/lems`) owns the scoring code and rendering, and Content Tools and
+Localization (`@Khan/ctl`) owns the content system.
+
+### What the score means
+
+A score is one of two shapes:
+
+-   `{type: "points", earned, total}`: correct when `earned >= total`.
+    `isPerseusScoreCorrect(score)` from `@khan/component-perseus` checks this
+    for you.
+-   `{type: "invalid", message}`: the answer isn't ready to score yet, so
+    don't count it as wrong. No `message` means the answer is empty; otherwise
+    `message` says what's off (for example, a fraction that needs simplifying).
+
+### Getting the item
+
+Questions are Perseus JSON. If your items come from somewhere other than Khan
+Academy's content system, such as generated content, parse them with
+`parseAndMigratePerseusItem` from `@khanacademy/perseus-core` and check the
+result. It migrates older content to the latest schema and tells you if an
+item is invalid, so you can show something else instead of a broken question.
+
+```tsx
+import {isFailure, parseAndMigratePerseusItem} from "@khanacademy/perseus-core";
+
+const result = parseAndMigratePerseusItem(itemJson); // a string or an object
+if (isFailure(result)) {
+    // Invalid item: log it and fall back.
+} else {
+    const item = result.value;
+}
+```
+
+`parsePerseusItem` from `@khan/component-perseus` is shorter, but it returns
+invalid items anyway instead of telling you, so use it only for trusted
+content.
+
+## Rendering an article
+
+For long-form content with text, math and images, use `ArticleRenderer`.
+Articles are never scored, but they can embed short practice checks
+(`graded-group` widgets) that score themselves.
+
+```tsx
+import {useArticleSeed, webappDependenciesV2} from "@khan/component-perseus";
+import {ArticleRenderer} from "@khan/component-perseus/perseus";
+import type {PerseusArticle} from "@khanacademy/perseus-core";
+
+function Article({
+    article,
+    articleId,
+    kaLocale,
+}: {
+    article: PerseusArticle;
+    articleId: string;
+    kaLocale: string;
+}) {
+    // Keeps any shuffling stable for this learner and article.
+    const seed = useArticleSeed(articleId);
+
+    return (
+        <ArticleRenderer
+            json={article}
+            dependencies={webappDependenciesV2}
+            seed={seed}
+            kaLocale={kaLocale}
+        />
+    );
+}
+```
+
+`ArticleRenderer` adds the `framework-perseus` class itself, so there's no
+wrapper to add.
+
+## Rendering a diagram
+
+A diagram is a small piece of content with one widget in it, rendered with
+`ArticleRenderer` like an article. Use an **image** for a picture, or a
+**graph** to draw points, lines and shapes on a coordinate plane. Either way,
+describe it for screen readers.
+
+An image needs a short `alt`, plus a `longDescription` for anything complex:
+
+```json
+{
+    "content": "[[☃ image 1]]",
+    "images": {},
+    "widgets": {
+        "image 1": {
+            "type": "image",
+            "options": {
+                "alt": "A right triangle with legs of 3 and 4",
+                "longDescription": "The legs meet at a right angle. The hypotenuse is unlabeled.",
+                "backgroundImage": {
+                    "url": "https://cdn.kastatic.org/ka-content-images/<id>.png",
+                    "width": 400,
+                    "height": 300
+                }
+            }
+        }
+    }
+}
+```
+
+For a graph to look at rather than answer, set `static: true`, use the `none`
+graph type (otherwise a line appears by default) and draw with
+`lockedFigures`. Fill in `fullGraphAriaLabel` and `fullGraphAriaDescription`,
+and give each figure an `ariaLabel`:
+
+```json
+{
+    "content": "[[☃ interactive-graph 1]]",
+    "images": {},
+    "widgets": {
+        "interactive-graph 1": {
+            "type": "interactive-graph",
+            "static": true,
+            "options": {
+                "step": [1, 1],
+                "markings": "graph",
+                "showProtractor": false,
+                "range": [
+                    [-10, 10],
+                    [-10, 10]
+                ],
+                "graph": {"type": "none"},
+                "correct": {"type": "none"},
+                "fullGraphAriaLabel": "Right triangle",
+                "fullGraphAriaDescription": "A triangle with vertices at (0, 0), (4, 0) and (0, 3).",
+                "lockedFigures": [
+                    {
+                        "type": "polygon",
+                        "points": [
+                            [0, 0],
+                            [4, 0],
+                            [0, 3]
+                        ],
+                        "color": "green",
+                        "showVertices": true,
+                        "fillStyle": "translucent",
+                        "strokeStyle": "solid",
+                        "ariaLabel": "Right triangle"
+                    }
+                ]
+            }
+        }
+    }
+}
+```
+
+## Not working in the frontend repo?
+
+In khan/frontend, `@khan/component-perseus` does Perseus's setup for you. In
+any other React app, do it yourself, once.
+
+Install the packages (see the `peerDependencies` of
+`@khanacademy/perseus/package.json` for React, Aphrodite and Wonder Blocks):
+
+```bash
+pnpm add @khanacademy/perseus @khanacademy/perseus-core @khanacademy/perseus-score
+```
+
+Then, at app startup, register the widgets, set the dependencies (TeX,
+logging, locale) and wrap your Perseus content in the providers:
 
 ```tsx
 import {
     Dependencies,
     DependenciesContext,
     PerseusI18nContextProvider,
+    init,
 } from "@khanacademy/perseus";
 import {mockStrings} from "@khanacademy/perseus/strings";
 import type {
@@ -72,7 +408,14 @@ import type {
 // Perseus's compiled styles. Load them once, anywhere in your app.
 import "@khanacademy/perseus/styles.css";
 
-const dependenciesV2: PerseusDependenciesV2 = {
+init(); // Registers the widgets. Safe to call more than once.
+
+const dependencies: PerseusDependencies = {
+    /* TeX renderer, logger, locale, ... */
+};
+Dependencies.setDependencies(dependencies);
+
+export const dependenciesV2: PerseusDependenciesV2 = {
     analytics: {
         onAnalyticsEvent: async (event) => {
             // Forward to your analytics system, or no-op
@@ -81,11 +424,6 @@ const dependenciesV2: PerseusDependenciesV2 = {
     generateUrl: ({url}) => url,
     useVideo: () => ({status: "loading"}),
 };
-
-const dependencies: PerseusDependencies = {
-    /* ... */
-};
-Dependencies.setDependencies(dependencies);
 
 function App() {
     return (
@@ -103,176 +441,19 @@ function App() {
 }
 ```
 
-## Registering Widgets
+The examples above then work with three changes:
 
-Perseus widgets must be registered before they can be rendered. Call `init()`
-once at app startup — it registers all widgets and handles any deprecated widget
-replacements:
+-   Import renderers from `@khanacademy/perseus` instead of
+    `@khan/component-perseus/perseus`, and drop the `kaLocale` prop (your
+    `PerseusI18nContextProvider` covers it).
+-   Pass your own `dependenciesV2` instead of `webappDependenciesV2`.
+-   Use `scorePerseusItem` from `@khanacademy/perseus-score`, which takes the
+    locale as a third argument: `scorePerseusItem(item.question, userInput,
+"en")`. Its `message` is an error code; turn it into words with
+    `mapErrorToString` from `@khanacademy/perseus/strings`.
 
-```tsx
-import {init} from "@khanacademy/perseus";
+## Next steps
 
-init();
-```
-
-`init()` is idempotent, so calling it multiple times is safe.
-
-## Parsing Content
-
-Before rendering, parse and migrate any PerseusItem to the latest schema
-version using `parseAndMigratePerseusItem` from `@khanacademy/perseus-core`.
-
-_Note: Perseus content is often stored as a JSON serialized string. All Perseus
-parsers can accept strings (which are first `JSON.parse()`'d before actual
-parsing)._
-
-```tsx
-import {isFailure, parseAndMigratePerseusItem} from "@khanacademy/perseus-core";
-
-const rawItem = {
-    question: {
-        /* ... */
-    },
-    hints: [],
-};
-
-const parseResult = parseAndMigratePerseusItem(rawItem);
-
-if (isFailure(parseResult)) {
-    console.error(parseResult.detail.message);
-}
-
-const item = parseResult.value;
-```
-
-This handles any schema migrations automatically, so older content works with
-the latest version of Perseus.
-
-## Rendering a PerseusItem
-
-Use `ServerItemRenderer` to render a full item. Despite the name, it doesn't
-talk to a server: "Server" means it can be rendered on the server. It never
-scores anything; scoring is up to you (see below).
-
-```tsx
-import {ServerItemRenderer} from "@khanacademy/perseus";
-
-function Exercise({item}) {
-    return (
-        <ServerItemRenderer
-            item={item}
-            problemNum={1}
-            reviewMode={false}
-            apiOptions={{}}
-            dependencies={dependenciesV2}
-        />
-    );
-}
-```
-
-### Getting the User's Answer and Scoring
-
-`ServerItemRenderer` exposes a `getUserInput()` method via its ref. Call it
-when the learner submits their answer. User input can then be scored using
-functions in `@khanacademy/perseus-score`.
-
-```tsx
-import {useRef} from "react";
-import {ServerItemRenderer} from "@khanacademy/perseus";
-import {scorePerseusItem} from "@khanacademy/perseus-score";
-import type {ServerItemRendererComponent} from "@khanacademy/perseus";
-import type {PerseusItem} from "@khanacademy/perseus-core";
-
-function Exercise({item}: {item: PerseusItem}) {
-    const rendererRef = useRef<ServerItemRendererComponent>(null);
-
-    function handleSubmit() {
-        const userInput = rendererRef.current?.getUserInput();
-        const score = scorePerseusItem(item.question, userInput, "en");
-        console.log("The user's score:", score);
-    }
-
-    return (
-        <>
-            <ServerItemRenderer
-                ref={rendererRef}
-                item={item}
-                problemNum={1}
-                reviewMode={false}
-                apiOptions={{}}
-                dependencies={dependenciesV2}
-            />
-            <button onClick={handleSubmit}>Submit</button>
-        </>
-    );
-}
-```
-
-### Where scoring happens
-
-`scorePerseusItem` is a pure function, so it gives the same result in the
-browser or on a server. Pick based on how much you need to trust the score:
-
--   **In the browser** (the example above): the quickest way to start, good for
-    prototypes and low-stakes checks such as a Khanmigo activity. The item, with
-    its answers, is in the browser, so don't use this where scores need to be
-    trusted.
--   **On your own server:** keep the full item on the server, and send the
-    browser an answerless copy from `splitPerseusItem(item)`. Post
-    `getUserInput()` to your server and score it there:
-
-    ```ts
-    import {
-        isFailure,
-        parseAndMigrateUserInputMap,
-    } from "@khanacademy/perseus-core";
-    import {scorePerseusItem} from "@khanacademy/perseus-score";
-    import type {PerseusItem} from "@khanacademy/perseus-core";
-
-    export function scoreOnServer(item: PerseusItem, body: unknown) {
-        // userInput comes from the browser, so validate it first.
-        const userInput = parseAndMigrateUserInputMap(body);
-        if (isFailure(userInput)) {
-            return {status: 400};
-        }
-        return {
-            status: 200,
-            score: scorePerseusItem(item.question, userInput.value, "en"),
-        };
-    }
-    ```
-
--   **On the Khan Academy backend:** content that counts toward mastery goes
-    through the existing KA pipeline. Talk to the Perseus team.
-
-The score is one of two shapes:
-
--   `{type: "points", earned, total}`: the answer is correct when
-    `earned >= total`.
--   `{type: "invalid", message}`: the input isn't ready to score yet. That's
-    not a wrong answer. A missing `message` means the input is empty.
-
-To show the solutions after checking, re-render `ServerItemRenderer` with the
-full item and `showSolutions="all"`.
-
-## Rendering an Article
-
-For long-form, read-only content, use `ArticleRenderer` instead:
-
-```tsx
-import {ArticleRenderer} from "@khanacademy/perseus";
-import type {PerseusArticle} from "@khanacademy/perseus-core";
-
-function Article({article: PerseusArticle}) {
-    return <ArticleRenderer json={article} />;
-}
-```
-
-Articles are never scored, but they can contain embedded "knowledge check"
-widgets (`GradedGroup` / `GradedGroupSet`) that give learners in-line practice.
-
-## Next Steps
-
--   Browse the **Widget Gallery** in this Storybook to see all available widgets
--   Read the **Renderers Overview** for a deeper look at renderer configuration
--   See **`ApiOptions`** for the full list of options you can pass to renderers
+-   Browse the **Widget Gallery** in this Storybook to see every widget
+-   Read the **Renderers Overview** for more on renderer configuration
+-   See **`ApiOptions`** for everything you can pass to renderers
