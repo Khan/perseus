@@ -32,7 +32,7 @@ export const useItemRenderer = (
 
     // Replace the item (discarding JSON edits) when the caller passes a new
     // one, e.g. when a story's args change.
-    const isFirstRender = useRef(true);
+    const isFirstRender = useRef(true); // Whether the component has mounted.
     useEffect(() => {
         if (isFirstRender.current) {
             isFirstRender.current = false;

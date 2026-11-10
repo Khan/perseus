@@ -7,9 +7,11 @@ import type {
 
 // Define state type
 export type ItemRendererState = {
-    // The full item (with answers), including any edits made in the debug
-    // UI's JSON editor. The answerless version shown to the learner is
-    // derived from this at render time.
+    /**
+     * The full item (with answers), including any edits made in the debug
+     * UI's JSON editor. The answerless version shown to the learner is
+     * derived from this at render time.
+     */
     perseusItem: PerseusItem;
     answerless: boolean;
     score: PerseusScore | undefined;
