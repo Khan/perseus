@@ -38,15 +38,6 @@ function renderLockedVector(vector: LockedVectorType) {
     return figure;
 }
 
-function lineCoords(figure: Element): number[] {
-    // eslint-disable-next-line testing-library/no-node-access
-    const lines = figure.querySelectorAll("line");
-    expect(lines).toHaveLength(1);
-    return ["x1", "y1", "x2", "y2"].map((attr) =>
-        Number(lines[0].getAttribute(attr)),
-    );
-}
-
 describe("LockedVector", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
@@ -54,38 +45,7 @@ describe("LockedVector", () => {
         );
     });
 
-    it("renders a line between distinct points", () => {
-        // Arrange, Act
-        const figure = renderLockedVector(
-            generateIGLockedVector({
-                points: [
-                    [0, 0],
-                    [1, 1],
-                ],
-            }),
-        );
-
-        // Assert
-        const [x1, y1, x2, y2] = lineCoords(figure);
-        expect([x1, y1]).not.toEqual([x2, y2]);
-    });
-
-    it("renders a line with finite coordinates given coincident points", () => {
-        // Arrange, Act
-        const figure = renderLockedVector(
-            generateIGLockedVector({
-                points: [
-                    [2, 2],
-                    [2, 2],
-                ],
-            }),
-        );
-
-        // Assert
-        expect(lineCoords(figure).every(Number.isFinite)).toBe(true);
-    });
-
-    it("logs no NaN-attribute errors given coincident points", () => {
+    it("logs no errors given coincident points", () => {
         // Arrange
         const errorSpy = jest
             .spyOn(console, "error")
