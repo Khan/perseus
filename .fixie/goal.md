@@ -112,15 +112,15 @@ The issues, summarized from the dig:
 
 ## Checklist
 
-- [ ] Add `locked-line.test.tsx` with a test that a segment with two distinct
+- [x] Add `locked-line.test.tsx` with a test that a segment with two distinct
       points renders a line (baseline for the guard tests).
-- [ ] Test: a segment with coincident points renders no line and logs no
+- [x] Test: a segment with coincident points renders no line and logs no
       NaN error; make `LockedLine` skip the line part when the points are
       equal (keep hooks unconditional).
-- [ ] Test: a line (`kind: "line"`) with coincident points renders no line
+- [x] Test: a line (`kind: "line"`) with coincident points renders no line
       or arrowheads.
-- [ ] Test: a ray with coincident points renders no vector.
-- [ ] Test: coincident points still render endpoints when `showPoint1` and
+- [x] Test: a ray with coincident points renders no vector.
+- [x] Test: coincident points still render endpoints when `showPoint1` and
       `showPoint2` are set.
 - [ ] Add `locked-vector.test.tsx` with a test that a vector with distinct
       points renders.
@@ -147,5 +147,5 @@ The issues, summarized from the dig:
 - [x] Mock `console.log` in `beforeEach` in
       `update-catalog-hashes.test.ts`; check whether Jest's `restoreMocks`
       is set and restore explicitly if not.
-- [ ] Add a `@khanacademy/perseus: patch` changeset for the locked-line and
+- [x] Add a `@khanacademy/perseus: patch` changeset for the locked-line and
       number-line fixes.

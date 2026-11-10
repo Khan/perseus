@@ -37,9 +37,17 @@ const LockedLine = (props: Props) => {
 
     const hasAria = !!ariaLabel;
 
+    const [tailPx, tipPx] = useTransformVectorsToPixels(
+        point2.coord,
+        point1.coord,
+    );
+
     let line;
 
-    if (kind === "ray") {
+    if (vec.dist(point1.coord, point2.coord) === 0) {
+        // Coincident points define no direction, so there's no line to draw.
+        line = null;
+    } else if (kind === "ray") {
         // Rays extend to the end of the graph in one direction.
         const extendedPoint = getIntersectionOfRayWithBox(
             point1.coord,
@@ -71,11 +79,6 @@ const LockedLine = (props: Props) => {
                       point2.coord,
                       range,
                   );
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        const [tailPx, tipPx] = useTransformVectorsToPixels(
-            point2.coord,
-            point1.coord,
-        );
         const direction = vec.sub(tailPx, tipPx);
         let angle = calculateAngleInDegrees(direction);
         const startArrowHead = kind !== "segment" && (
