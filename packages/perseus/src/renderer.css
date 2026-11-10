@@ -38,7 +38,8 @@
         .perseus-renderer:first-child
             > .deprecated-perseus-container:first-child
             > :first-child:not(.perseus-widget-container *),
-        .perseus-renderer:first-child > :first-child:not(.perseus-widget-container *) {
+        .perseus-renderer:first-child
+            > :first-child:not(.perseus-widget-container *) {
             margin-block-start: 0;
         }
 

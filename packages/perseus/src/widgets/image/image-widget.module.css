@@ -74,7 +74,7 @@
 [data-wb-theme="default"] .modal-title-container {
     /* Undo SOME of the default padding for the top of the modal, and set spacing after h1 */
     margin-block: calc(var(--perseus-image-modal-padding-offset) / 2)
-    var(--wb-sizing-size_080);
+        var(--wb-sizing-size_080);
 }
 
 .modal-panel-container {
