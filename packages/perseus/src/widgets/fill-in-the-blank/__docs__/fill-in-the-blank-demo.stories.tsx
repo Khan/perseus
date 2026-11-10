@@ -11,9 +11,6 @@ const meta: Meta<typeof QuestionRendererForStories> = {
     title: "Widgets/Fill in the Blank/Widget Demo",
     component: QuestionRendererForStories,
     tags: ["!autodocs"],
-    args: {
-        question: paragraphFillInTheBlankQuestion,
-    },
 };
 
 export default meta;
@@ -21,11 +18,16 @@ export default meta;
 type Story = StoryObj<typeof QuestionRendererForStories>;
 
 /** A paragraph with four empty blanks. */
-export const Paragraph: Story = {};
+export const Paragraph: Story = {
+    args: {
+        question: paragraphFillInTheBlankQuestion,
+    },
+};
 
 /** The same paragraph with every blank answered. */
 export const ParagraphAnswered: Story = {
     args: {
+        question: paragraphFillInTheBlankQuestion,
         initialUserInput: {
             "fill-in-the-blank 1": {
                 "blank 1": {selected: "bongo"},
