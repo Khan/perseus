@@ -146,6 +146,7 @@
     );
 }
 
+/* TODO: Adjust the selector with deprecated-perseus-container once it is removed from the renderer. */
 .content:has(
         :global(.perseus-renderer > .deprecated-perseus-container:first-child)
             :is(
@@ -162,6 +163,7 @@
     margin-block-start: 0;
 }
 
+/* TODO: Remove the selector with deprecated-perseus-container once it is removed from the renderer. */
 .content
     :global(.perseus-renderer)
     > :global(.deprecated-perseus-container:first-child)
@@ -170,6 +172,7 @@
     margin-block-start: 0;
 }
 
+/* TODO: Remove the selector with deprecated-perseus-container once it is removed from the renderer. */
 .content
     :global(.perseus-renderer)
     > :global(.deprecated-perseus-container:last-child)
