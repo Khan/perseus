@@ -74,7 +74,7 @@ const renderTable = (
         // An empty top-left cell labels nothing, so per the W3C pattern it's
         // a plain `<td>` rather than a header.
         i === 0 && isEmptyCell(content) ? (
-            <td key={i} style={getStyle(i)} />
+            <td key={i} />
         ) : (
             <th key={i} style={getStyle(i)} scope="col">
                 {output(content, state)}

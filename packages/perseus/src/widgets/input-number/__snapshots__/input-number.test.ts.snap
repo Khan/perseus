@@ -216,9 +216,7 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
       <table>
         <thead>
           <tr>
-            <td
-              style="text-align: center;"
-            />
+            <td />
             <th
               scope="col"
               style="text-align: center;"
