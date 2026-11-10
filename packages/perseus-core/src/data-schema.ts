@@ -1947,9 +1947,9 @@ export type SorterLegendCap = "arrow" | "bar" | "none";
 export type SorterLegend = {
     startCap: SorterLegendCap;
     endCap: SorterLegendCap;
-    /** Translatable text */
+    /** Translatable text - accepts plain text and TeX but not markdown */
     startLabel: string;
-    /** Translatable text */
+    /** Translatable text - accepts plain text and TeX but not markdown */
     endLabel: string;
     /** Translatable text */
     ariaLabel: string;
