@@ -560,6 +560,9 @@ class Grapher extends React.Component<Props> implements Widget {
 
     renderLegacyGrapher() {
         const availableTypes = this.getAvailableTypes();
+        const isDisabled = Boolean(
+            this.props.static || this.props.apiOptions.readOnly,
+        );
 
         const type = this.props.userInput.type;
         const coords = this.props.userInput.coords;
@@ -574,6 +577,7 @@ class Grapher extends React.Component<Props> implements Widget {
                     value={type}
                     buttons={availableTypes.map(typeToButton)}
                     onChange={this.handleActiveTypeChange}
+                    disabled={isDisabled}
                 />
             </div>
         );
@@ -613,7 +617,7 @@ class Grapher extends React.Component<Props> implements Widget {
             model: type && GrapherUtil.functionForType(type),
             coords: coords,
             asymptote: asymptote,
-            static: this.props.static,
+            static: isDisabled,
             isMobile: this.props.apiOptions.isMobile,
             showTooltips: graph.showTooltips,
             showHairlines: this.showHairlines,

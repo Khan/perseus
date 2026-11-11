@@ -1,5 +1,54 @@
 # @khanacademy/perseus
 
+## 93.1.0
+
+### Minor Changes
+
+-   [#4511](https://github.com/Khan/perseus/pull/4511) [`aa65a1f`](https://github.com/Khan/perseus/commit/aa65a1f73488da6067c5a82bfac225c23e744074) Thanks [@benchristel](https://github.com/benchristel)! - Dropped support for the deprecated 'columns' markdown parse node type. The column separator '=====' is now ignored, and has no effect on rendered content.
+
+### Patch Changes
+
+-   [#4490](https://github.com/Khan/perseus/pull/4490) [`07110c6`](https://github.com/Khan/perseus/commit/07110c6393ee705660e959f2b438734261de3b0c) Thanks [@handeyeco](https://github.com/handeyeco)! - Reduce dnd-kit pointer delay
+
+-   [#4486](https://github.com/Khan/perseus/pull/4486) [`043173f`](https://github.com/Khan/perseus/commit/043173f00fc5a794113890ff5bb12aaa2128886f) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove extra margins around TeX in Sorter widgets
+
+-   [#4489](https://github.com/Khan/perseus/pull/4489) [`33928d6`](https://github.com/Khan/perseus/commit/33928d642696436ccfd13a5ba8886710f4a55201) Thanks [@handeyeco](https://github.com/handeyeco)! - Add breakpoint for Sorter to switch from horizontal to vertical
+
+-   [#4498](https://github.com/Khan/perseus/pull/4498) [`26b5931`](https://github.com/Khan/perseus/commit/26b593173902e19d5578ed84a8f373f5ca3a8534) Thanks [@handeyeco](https://github.com/handeyeco)! - Sorter: convert TeX to text with SpeechRuleEngine for screen readers
+
+-   [#4487](https://github.com/Khan/perseus/pull/4487) [`b337344`](https://github.com/Khan/perseus/commit/b33734424004d4ba1999ff4549ba09f3f734af1f) Thanks [@handeyeco](https://github.com/handeyeco)! - Add drag and drop target styles to card bank when moving from blank
+
+-   [#4494](https://github.com/Khan/perseus/pull/4494) [`d5d3257`](https://github.com/Khan/perseus/commit/d5d3257f6c7b83b1b907ab1ae3a0b6dcd5d0a44b) Thanks [@nishasy](https://github.com/nishasy)! - [Group + Graded Group/Set] Updated Group, Graded Group, and Graded Group set parsers to drop static
+
+-   [#4488](https://github.com/Khan/perseus/pull/4488) [`19a9701`](https://github.com/Khan/perseus/commit/19a97013673b8ecd50b8e953a9d8ed2504cd531a) Thanks [@handeyeco](https://github.com/handeyeco)! - Fix long text reflow in new Sorter
+
+-   [#4527](https://github.com/Khan/perseus/pull/4527) [`f73dbd1`](https://github.com/Khan/perseus/commit/f73dbd129bc30dc8261b9fe8da8746a0a6e0ece8) Thanks [@benchristel](https://github.com/benchristel)! - Updated catalog hash
+
+-   [#4520](https://github.com/Khan/perseus/pull/4520) [`043beb2`](https://github.com/Khan/perseus/commit/043beb248736b12c0bf3d7527eee1f59260c21a7) Thanks [@benchristel](https://github.com/benchristel)! - Fixed an invalid DOM nesting issue that happened when the click-blocking "static overlay" was displayed. This overlay element appears when a widget is answered correctly.
+
+-   [#4492](https://github.com/Khan/perseus/pull/4492) [`f343966`](https://github.com/Khan/perseus/commit/f34396603982ccbd69ffe2fd784f46dbde0f27d0) Thanks [@nishasy](https://github.com/nishasy)! - [Free Response] Add disabled state to Free Response and remove overlay
+
+-   [#4499](https://github.com/Khan/perseus/pull/4499) [`b092f46`](https://github.com/Khan/perseus/commit/b092f4657f151edb98f84c9ed29eb7384a4e7e20) Thanks [@handeyeco](https://github.com/handeyeco)! - Sorter: Fix vertical jump when removing tile from blank
+
+-   [#4493](https://github.com/Khan/perseus/pull/4493) [`61b57d2`](https://github.com/Khan/perseus/commit/61b57d23d264d31776a4a5e0a41c479f53e6ccd0) Thanks [@nishasy](https://github.com/nishasy)! - [Grapher] Add disabled state to Grapher and remove overlay
+
+-   [#4514](https://github.com/Khan/perseus/pull/4514) [`c493a2b`](https://github.com/Khan/perseus/commit/c493a2b3c9f4a676368c4144622d03f0e40917e2) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Bugfix - Tables on mobile showed at full size instead of reduced (zoomable)
+
+-   [#4495](https://github.com/Khan/perseus/pull/4495) [`cab6677`](https://github.com/Khan/perseus/commit/cab6677530a2c1d66df841beccc7ee9b91374d3f) Thanks [@nishasy](https://github.com/nishasy)! - [Label Image] Add disabled state to Label Image widget and remove static overlay
+
+-   [#4481](https://github.com/Khan/perseus/pull/4481) [`49c8b4d`](https://github.com/Khan/perseus/commit/49c8b4d7780ae9aeab10b29e822985e63501c833) Thanks [@nishasy](https://github.com/nishasy)! - [Categorizer] Update Categorizer widget to handle its own static elements and remove overlay
+
+-   [#4521](https://github.com/Khan/perseus/pull/4521) [`067c806`](https://github.com/Khan/perseus/commit/067c80623d9dc16ed0e655158d1a66958ad9bff8) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - move `mathOnlyParser` and `replaceOutsideTeX` out of the Interactive Graph widget into a shared Perseus util, so other widgets can render text-and-TeX labels without importing Interactive Graph internals.
+
+-   Updated dependencies [[`0782684`](https://github.com/Khan/perseus/commit/0782684495ed6a2a588248f67b0a569193f51009), [`aa65a1f`](https://github.com/Khan/perseus/commit/aa65a1f73488da6067c5a82bfac225c23e744074), [`d5d3257`](https://github.com/Khan/perseus/commit/d5d3257f6c7b83b1b907ab1ae3a0b6dcd5d0a44b), [`3d90cad`](https://github.com/Khan/perseus/commit/3d90cade198d395d563f01332d4d9788e3251f78)]:
+    -   @khanacademy/perseus-linter@8.0.1
+    -   @khanacademy/pure-markdown@4.0.0
+    -   @khanacademy/perseus-core@42.3.0
+    -   @khanacademy/keypad-context@6.0.13
+    -   @khanacademy/kmath@3.1.6
+    -   @khanacademy/math-input@30.2.3
+    -   @khanacademy/perseus-score@9.0.14
+
 ## 93.0.3
 
 ### Patch Changes

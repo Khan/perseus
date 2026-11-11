@@ -127,7 +127,7 @@ describe("ScrollableView", () => {
         delete (HTMLElement.prototype as any).scrollLeft;
         // eslint-disable-next-line no-restricted-syntax
         delete (HTMLElement.prototype as any).scrollBy;
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
         jest.useRealTimers();
     });
 
