@@ -42,13 +42,13 @@ exports[`ArticleEditor should match snapshot for editing disabled for all widget
                   data-testid="issues-icon-warning-octagon-fill.svg"
                   style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_240); height: var(--wb-sizing-size_240); background-color: var(--wb-semanticColor-feedback-critical-strong-icon); mask-image: url(warning-octagon-fill.svg); margin-inline-end: 0.25em;"
                 />
-                20 issues
+                21 issues
               </div>
             </div>
             <div
               class="pod-title"
             >
-              Section
+              Section 
               1
               <fieldset
                 disabled=""
@@ -105,199 +105,199 @@ exports[`ArticleEditor should match snapshot for editing disabled for all widget
                 >
                   ![earth and moon](https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg)
 
-categorizer:
+categorizer: 
                   <b
                     class=""
                   >
                     [[☃ categorizer 1]]
                   </b>
+                  
 
-
-definition:
+definition: 
                   <b
                     class=""
                   >
                     [[☃ definition 1]]
                   </b>
+                  
 
-
-dropdown:
+dropdown: 
                   <b
                     class=""
                   >
                     [[☃ dropdown 1]]
                   </b>
+                  
 
-
-expression:
+expression: 
                   <b
                     class=""
                   >
                     [[☃ expression 1]]
                   </b>
+                  
 
-
-explanation:
+explanation: 
                   <b
                     class=""
                   >
                     [[☃ explanation 1]]
                   </b>
+                  
 
-
-free:
+free: 
                   <b
                     class=""
                   >
                     [[☃ free-response 1]]
                   </b>
+                  
 
-
-graded:
+graded: 
                   <b
                     class=""
                   >
                     [[☃ graded-group 1]]
                   </b>
+                  
 
-
-graded:
+graded: 
                   <b
                     class=""
                   >
                     [[☃ graded-group-set 1]]
                   </b>
+                  
 
-
-grapher:
+grapher: 
                   <b
                     class=""
                   >
                     [[☃ grapher 1]]
                   </b>
+                  
 
-
-group:
+group: 
                   <b
                     class=""
                   >
                     [[☃ group 1]]
                   </b>
+                  
 
-
-image:
+image: 
                   <b
                     class=""
                   >
                     [[☃ image 1]]
                   </b>
+                  
 
-
-input:
+input: 
                   <b
                     class=""
                   >
                     [[☃ input-number 1]]
                   </b>
+                  
 
-
-interaction:
+interaction: 
                   <b
                     class=""
                   >
                     [[☃ interaction 1]]
                   </b>
+                  
 
-
-interactive-graph:
+interactive-graph: 
                   <b
                     class=""
                   >
                     [[☃ interactive-graph 1]]
                   </b>
+                  
 
-
-label:
+label: 
                   <b
                     class=""
                   >
                     [[☃ label-image 1]]
                   </b>
+                  
 
-
-matcher:
+matcher: 
                   <b
                     class=""
                   >
                     [[☃ matcher 1]]
                   </b>
+                  
 
-
-matrix:
+matrix: 
                   <b
                     class=""
                   >
                     [[☃ matrix 1]]
                   </b>
+                  
 
-
-measurer:
+measurer: 
                   <b
                     class=""
                   >
                     [[☃ measurer 1]]
                   </b>
+                  
 
-
-number-line:
+number-line: 
                   <b
                     class=""
                   >
                     [[☃ number-line 1]]
                   </b>
+                  
 
-
-numeric:
+numeric: 
                   <b
                     class=""
                   >
                     [[☃ numeric-input 1]]
                   </b>
+                  
 
-
-orderer:
+orderer: 
                   <b
                     class=""
                   >
                     [[☃ orderer 1]]
                   </b>
+                  
 
-
-plotter:
+plotter: 
                   <b
                     class=""
                   >
                     [[☃ plotter 1]]
                   </b>
+                  
 
-
-radio:
+radio: 
                   <b
                     class=""
                   >
                     [[☃ radio 1]]
                   </b>
+                  
 
-
-sorter:
+sorter: 
                   <b
                     class=""
                   >
                     [[☃ sorter 1]]
                   </b>
+                  
 
-
-table:
+table: 
                   <b
                     class=""
                   >
@@ -1025,7 +1025,7 @@ table: [[☃ table 1]]
                       >
                         <label>
                           Word to be defined:
-
+                           
                           <input
                             aria-disabled="false"
                             aria-invalid="false"
@@ -2327,7 +2327,7 @@ table: [[☃ table 1]]
                       >
                         <label>
                           Prompt to show explanation:
-
+                           
                           <input
                             aria-disabled="false"
                             aria-invalid="false"
@@ -2351,7 +2351,7 @@ table: [[☃ table 1]]
                       >
                         <label>
                           Prompt to hide explanation:
-
+                           
                           <input
                             aria-disabled="false"
                             aria-invalid="false"
@@ -2857,7 +2857,7 @@ table: [[☃ table 1]]
                           class="title"
                         >
                           Title:
-
+                           
                           <input
                             aria-disabled="false"
                             aria-invalid="false"
@@ -2887,7 +2887,7 @@ table: [[☃ table 1]]
                           <div
                             class="perseus-textarea-underlay"
                           >
-                            Answer this:
+                            Answer this: 
                             <b
                               class=""
                             >
@@ -3398,7 +3398,7 @@ table: [[☃ table 1]]
                                                 <span
                                                   style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
                                                 >
-                                                  Correct answer: 10
+                                                  Correct answer: 10 
                                                 </span>
                                               </div>
                                               <span
@@ -4066,7 +4066,7 @@ table: [[☃ table 1]]
                                       style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
                                     >
                                       Show calculator
-
+                                       
                                       <span
                                         style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); margin-inline-start: 4px; background-color: currentColor; mask-image: url(question.svg);"
                                         tabindex="0"
@@ -4117,7 +4117,7 @@ table: [[☃ table 1]]
                                       style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
                                     >
                                       Show financial calculator
-
+                                       
                                       <span
                                         style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); margin-inline-start: 4px; background-color: currentColor; mask-image: url(question.svg);"
                                         tabindex="0"
@@ -4168,7 +4168,7 @@ table: [[☃ table 1]]
                                       style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
                                     >
                                       Show periodic table
-
+                                       
                                       <span
                                         style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); margin-inline-start: 4px; background-color: currentColor; mask-image: url(question.svg);"
                                         tabindex="0"
@@ -4238,7 +4238,7 @@ table: [[☃ table 1]]
                             class="title"
                           >
                             Title:
-
+                             
                             <input
                               aria-disabled="false"
                               aria-invalid="false"
@@ -4268,7 +4268,7 @@ table: [[☃ table 1]]
                             <div
                               class="perseus-textarea-underlay"
                             >
-                              Solve:
+                              Solve: 
                               <b
                                 class=""
                               >
@@ -4779,7 +4779,7 @@ table: [[☃ table 1]]
                                                   <span
                                                     style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
                                                   >
-                                                    Correct answer: 15
+                                                    Correct answer: 15 
                                                   </span>
                                                 </div>
                                                 <span
@@ -5271,7 +5271,7 @@ table: [[☃ table 1]]
                                         style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
                                       >
                                         Show calculator
-
+                                         
                                         <span
                                           style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); margin-inline-start: 4px; background-color: currentColor; mask-image: url(question.svg);"
                                           tabindex="0"
@@ -5322,7 +5322,7 @@ table: [[☃ table 1]]
                                         style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
                                       >
                                         Show financial calculator
-
+                                         
                                         <span
                                           style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); margin-inline-start: 4px; background-color: currentColor; mask-image: url(question.svg);"
                                           tabindex="0"
@@ -5373,7 +5373,7 @@ table: [[☃ table 1]]
                                         style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
                                       >
                                         Show periodic table
-
+                                         
                                         <span
                                           style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); margin-inline-start: 4px; background-color: currentColor; mask-image: url(question.svg);"
                                           tabindex="0"
@@ -5479,13 +5479,13 @@ table: [[☃ table 1]]
                     <div>
                       <div>
                         Correct answer
-
+                         
                         <span
                           style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); margin-inline-start: 4px; background-color: currentColor; mask-image: url(question.svg);"
                           tabindex="0"
                         />
-
-                        :
+                         
+                        : 
                         y = 1.000x + 0.000
                       </div>
                       <div>
@@ -5667,7 +5667,7 @@ table: [[☃ table 1]]
                             class="perseus-widget-row"
                           >
                             <label>
-                              Markings:
+                              Markings: 
                             </label>
                             <div
                               style="display: inline-block;"
@@ -5775,7 +5775,7 @@ table: [[☃ table 1]]
                         class="perseus-widget-row"
                       >
                         <label>
-                          Available functions:
+                          Available functions: 
                         </label>
                         <div
                           style="display: inline-block;"
@@ -7351,7 +7351,7 @@ table: [[☃ table 1]]
                           <div
                             class="perseus-textarea-underlay"
                           >
-                            Simple question:
+                            Simple question: 
                             <b
                               class=""
                             >
@@ -7862,7 +7862,7 @@ table: [[☃ table 1]]
                                                 <span
                                                   style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
                                                 >
-                                                  Correct answer: 5
+                                                  Correct answer: 5 
                                                 </span>
                                               </div>
                                               <span
@@ -8558,9 +8558,9 @@ table: [[☃ table 1]]
                       <span
                         style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-mono); font-weight: var(--wb-font-weight-medium); font-size: var(--wb-font-body-size-medium); line-height: var(--wb-font-body-lineHeight-medium);"
                       >
-                        Natural size:
+                        Natural size: 
                         300
-                         x
+                         x 
                         200
                       </span>
                       <button
@@ -9289,7 +9289,7 @@ table: [[☃ table 1]]
                                       <span
                                         style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
                                       >
-                                        Correct answer: 1/2
+                                        Correct answer: 1/2 
                                       </span>
                                     </div>
                                     <span
@@ -9812,7 +9812,7 @@ table: [[☃ table 1]]
                                 class="perseus-widget-row"
                               >
                                 Scale (px per div):
-
+                                 
                                 <span
                                   class="mock-TeX"
                                 >
@@ -9969,7 +9969,7 @@ table: [[☃ table 1]]
                                 class="perseus-widget-row"
                               >
                                 <label>
-                                  Markings:
+                                  Markings: 
                                 </label>
                                 <div
                                   style="display: inline-block;"
@@ -10073,7 +10073,7 @@ table: [[☃ table 1]]
                           </svg>
                           <span>
                             Movable point
-
+                             
                             <span
                               class="mock-TeX"
                             >
@@ -10090,7 +10090,7 @@ table: [[☃ table 1]]
                             <div
                               class="perseus-widget-row"
                             >
-                              Start:
+                              Start: 
                               <span
                                 class="mock-TeX"
                               >
@@ -10125,7 +10125,7 @@ table: [[☃ table 1]]
                               >
                                 ,
                               </span>
-
+                               
                               <div
                                 style="align-items: stretch; border-width: 1px; border-style: solid; box-sizing: border-box; display: inline-block; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; border-color: var(--wb-semanticColor-core-border-neutral-default); border-radius: 3px; background: var(--wb-semanticColor-core-background-base-default);"
                               >
@@ -10159,19 +10159,19 @@ table: [[☃ table 1]]
                             <div
                               class="perseus-widget-row"
                             >
-                              Update
+                              Update 
                               <span
                                 class="mock-TeX"
                               >
                                 (x_n, y_n)
                               </span>
-                               for
+                               for 
                               <span
                                 class="mock-TeX"
                               >
                                 n =
                               </span>
-
+                               
                               <input
                                 class="number-input"
                                 placeholder="0"
@@ -10184,7 +10184,7 @@ table: [[☃ table 1]]
                                 class="perseus-widget-row"
                               >
                                 Constraint:
-
+                                 
                                 <div
                                   style="display: inline-block;"
                                 >
@@ -10242,7 +10242,7 @@ table: [[☃ table 1]]
                                   >
                                     x \\in \\Large[
                                   </span>
-
+                                   
                                   <div
                                     style="align-items: stretch; border-width: 1px; border-style: solid; box-sizing: border-box; display: inline-block; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; border-color: var(--wb-semanticColor-core-border-neutral-default); border-radius: 3px; background: var(--wb-semanticColor-core-background-base-default);"
                                   >
@@ -10270,9 +10270,9 @@ table: [[☃ table 1]]
                                   <span
                                     class="mock-TeX"
                                   >
-                                    ,
+                                    , 
                                   </span>
-
+                                   
                                   <div
                                     style="align-items: stretch; border-width: 1px; border-style: solid; box-sizing: border-box; display: inline-block; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; border-color: var(--wb-semanticColor-core-border-neutral-default); border-radius: 3px; background: var(--wb-semanticColor-core-background-base-default);"
                                   >
@@ -10297,7 +10297,7 @@ table: [[☃ table 1]]
                                       />
                                     </span>
                                   </div>
-
+                                   
                                   <span
                                     class="mock-TeX"
                                   >
@@ -10316,7 +10316,7 @@ table: [[☃ table 1]]
                                   >
                                     y \\in \\Large[
                                   </span>
-
+                                   
                                   <div
                                     style="align-items: stretch; border-width: 1px; border-style: solid; box-sizing: border-box; display: inline-block; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; border-color: var(--wb-semanticColor-core-border-neutral-default); border-radius: 3px; background: var(--wb-semanticColor-core-background-base-default);"
                                   >
@@ -10344,9 +10344,9 @@ table: [[☃ table 1]]
                                   <span
                                     class="mock-TeX"
                                   >
-                                    ,
+                                    , 
                                   </span>
-
+                                   
                                   <div
                                     style="align-items: stretch; border-width: 1px; border-style: solid; box-sizing: border-box; display: inline-block; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; border-color: var(--wb-semanticColor-core-border-neutral-default); border-radius: 3px; background: var(--wb-semanticColor-core-background-base-default);"
                                   >
@@ -10371,7 +10371,7 @@ table: [[☃ table 1]]
                                       />
                                     </span>
                                   </div>
-
+                                   
                                   <span
                                     class="mock-TeX"
                                   >
@@ -14304,27 +14304,27 @@ table: [[☃ table 1]]
                               <option
                                 value="NONE"
                               >
-                                 No Preference
+                                 No Preference 
                               </option>
                               <option
                                 value="UP"
                               >
-                                 Up
+                                 Up 
                               </option>
                               <option
                                 value="DOWN"
                               >
-                                 Down
+                                 Down 
                               </option>
                               <option
                                 value="LEFT"
                               >
-                                 Left
+                                 Left 
                               </option>
                               <option
                                 value="RIGHT"
                               >
-                                 Right
+                                 Right 
                               </option>
                             </select>
                           </li>
@@ -14378,9 +14378,9 @@ table: [[☃ table 1]]
                       class="perseus-matcher-editor"
                     >
                       <div>
-
+                         
                         Correct answer:
-
+                         
                         <span
                           style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); margin-inline-start: 4px; background-color: currentColor; mask-image: url(question.svg);"
                           tabindex="0"
@@ -14441,9 +14441,9 @@ table: [[☃ table 1]]
                         </ul>
                       </div>
                       <span>
-
+                         
                         Labels:
-
+                         
                         <span
                           style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); margin-inline-start: 4px; background-color: currentColor; mask-image: url(question.svg);"
                           tabindex="0"
@@ -14639,9 +14639,9 @@ table: [[☃ table 1]]
                       <div
                         class="perseus-widget-row"
                       >
-
+                         
                         Max matrix size:
-
+                         
                         <div
                           class="range-input"
                         >
@@ -14776,9 +14776,9 @@ table: [[☃ table 1]]
                       <div
                         class="perseus-widget-row"
                       >
-
+                         
                         Matrix prefix:
-
+                         
                         <div
                           class="perseus-single-editor  perseus-editor-disabled"
                           data-testid="perseus-single-editor"
@@ -14801,9 +14801,9 @@ table: [[☃ table 1]]
                       <div
                         class="perseus-widget-row"
                       >
-
+                         
                         Matrix suffix:
-
+                         
                         <div
                           class="perseus-single-editor  perseus-editor-disabled"
                           data-testid="perseus-single-editor"
@@ -14875,7 +14875,7 @@ table: [[☃ table 1]]
                       </div>
                       <div>
                         URL:
-
+                         
                         <input
                           class="perseus-widget-measurer-url"
                           type="text"
@@ -14888,7 +14888,7 @@ table: [[☃ table 1]]
                       </div>
                       <div>
                         Containing area [width, height]:
-
+                         
                         <div
                           class="range-input"
                         >
@@ -15085,7 +15085,7 @@ table: [[☃ table 1]]
                         class="perseus-widget-row"
                       >
                         Correct x
-
+                         
                         <div
                           style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: inline; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: fit-content; max-inline-size: 100%;"
                         >
@@ -15116,7 +15116,7 @@ table: [[☃ table 1]]
                             />
                           </button>
                         </div>
-
+                         
                         <input
                           class="number-input normal"
                           format="decimal"
@@ -15134,7 +15134,7 @@ table: [[☃ table 1]]
                       >
                         <label>
                           Position:
-
+                           
                           <input
                             class="number-input"
                             format="decimal"
@@ -15142,7 +15142,7 @@ table: [[☃ table 1]]
                             type="text"
                             value="2"
                           />
-                           ∈
+                           ∈ 
                         </label>
                         <div
                           class="range-input"
@@ -15172,7 +15172,7 @@ table: [[☃ table 1]]
                           class="perseus-widget-left-col"
                         >
                           Labels:
-
+                           
                           <input
                             class="number-input"
                             format="decimal"
@@ -15181,7 +15181,7 @@ table: [[☃ table 1]]
                             value="-5"
                           />
                           <span>
-                             &
+                             & 
                           </span>
                           <input
                             class="number-input"
@@ -15200,7 +15200,7 @@ table: [[☃ table 1]]
                         class="perseus-widget-row"
                       >
                         Style:
-
+                         
                         <div
                           style="display: inline-block;"
                         >
@@ -15391,7 +15391,7 @@ table: [[☃ table 1]]
                         <span>
                           <label>
                             Num divisions:
-
+                             
                             <input
                               class="number-input"
                               format="decimal"
@@ -15399,10 +15399,10 @@ table: [[☃ table 1]]
                               value="5"
                             />
                           </label>
-
+                           
                           <label>
                             or tick step:
-
+                             
                             <input
                               class="number-input"
                               format="decimal"
@@ -15422,7 +15422,7 @@ table: [[☃ table 1]]
                       >
                         <label>
                           Snap increments per tick:
-
+                           
                           <input
                             class="number-input"
                             format="decimal"
@@ -15789,7 +15789,7 @@ table: [[☃ table 1]]
                                       <span
                                         style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
                                       >
-                                        Correct answer: 4
+                                        Correct answer: 4 
                                       </span>
                                     </div>
                                     <span
@@ -16254,9 +16254,9 @@ table: [[☃ table 1]]
                   >
                     <div>
                       <div>
-
+                         
                         Correct answer:
-
+                         
                         <span
                           style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); margin-inline-start: 4px; background-color: currentColor; mask-image: url(question.svg);"
                           tabindex="0"
@@ -16295,9 +16295,9 @@ table: [[☃ table 1]]
                         </li>
                       </ul>
                       <div>
-
+                         
                         Other cards:
-
+                         
                         <span
                           style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); margin-inline-start: 4px; background-color: currentColor; mask-image: url(question.svg);"
                           tabindex="0"
@@ -16316,9 +16316,9 @@ table: [[☃ table 1]]
                       </ul>
                       <div>
                         <label>
-
+                           
                           Layout:
-
+                           
                           <div
                             style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: inline-block; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: fit-content; max-inline-size: 100%;"
                           >
@@ -16356,9 +16356,9 @@ table: [[☃ table 1]]
                       </div>
                       <div>
                         <label>
-
+                           
                           Height:
-
+                           
                           <div
                             style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: inline-block; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: fit-content; max-inline-size: 100%;"
                           >
@@ -16483,7 +16483,7 @@ table: [[☃ table 1]]
                     >
                       <div>
                         Chart type:
-
+                         
                         <label>
                           <input
                             name="chart-type"
@@ -16523,7 +16523,7 @@ table: [[☃ table 1]]
                       </div>
                       <div>
                         Labels:
-
+                         
                         <label>
                           x:
                           <input
@@ -16542,7 +16542,7 @@ table: [[☃ table 1]]
                       <div>
                         <label>
                           Label Interval:
-
+                           
                           <input
                             class="number-input"
                             type="text"
@@ -16557,7 +16557,7 @@ table: [[☃ table 1]]
                       <div>
                         <label>
                           Picture:
-
+                           
                           <input
                             class="pic-url"
                             type="text"
@@ -16572,7 +16572,7 @@ table: [[☃ table 1]]
                       <div>
                         <label>
                           Categories:
-
+                           
                           <ul
                             class="perseus-text-list-editor perseus-clearfix layout-horizontal"
                           >
@@ -16596,7 +16596,7 @@ table: [[☃ table 1]]
                       <div>
                         <label>
                           Scale (y):
-
+                           
                           <input
                             type="text"
                             value="1"
@@ -16606,7 +16606,7 @@ table: [[☃ table 1]]
                       <div>
                         <label>
                           Max y:
-
+                           
                           <input
                             type="text"
                             value="5"
@@ -16615,7 +16615,7 @@ table: [[☃ table 1]]
                       </div>
                       <div>
                         Editing values:
-
+                         
                         <label>
                           <input
                             type="radio"
@@ -17617,7 +17617,7 @@ table: [[☃ table 1]]
                       >
                         <div>
                           Correct answer
-
+                           
                           <span
                             style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); margin-inline-start: 4px; background-color: currentColor; mask-image: url(question.svg);"
                             tabindex="0"
@@ -18149,7 +18149,7 @@ table: [[☃ table 1]]
                       >
                         <label>
                           Number of columns:
-
+                           
                           <input
                             class="number-input"
                             type="text"
@@ -18162,7 +18162,7 @@ table: [[☃ table 1]]
                       >
                         <label>
                           Number of rows:
-
+                           
                           <input
                             class="number-input"
                             type="text"
@@ -18171,9 +18171,9 @@ table: [[☃ table 1]]
                         </label>
                       </div>
                       <div>
-
+                         
                         Table of answers:
-
+                         
                         <span
                           style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); margin-inline-start: 4px; background-color: currentColor; mask-image: url(question.svg);"
                           tabindex="0"

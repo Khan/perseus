@@ -484,48 +484,9 @@ describe("new sorter widget", () => {
 
         it("renders no legend bar or labels when the options have no legend", () => {
             // Arrange, Act
-            renderQuestion(
-                generateTestPerseusRenderer({
-                    content: "[[☃ sorter 1]]",
-                    widgets: {
-                        "sorter 1": generateSorterWidget({
-                            options: generateSorterOptions({
-                                correct: ["Apple", "Banana"],
-                                variant: "scale",
-                                legend: undefined,
-                            }),
-                        }),
-                    },
-                }),
-                {apiOptions},
-            );
-
-            // Assert
-            expect(screen.getByTestId("legend-bar-start-cap")).toHaveClass(
-                "arrow",
-            );
-            expect(screen.getByTestId("legend-bar-end-cap")).toHaveClass(
-                "arrow",
-            );
-        });
-
-        it("renders bar caps when a timeline has no legend", () => {
-            // Arrange, Act
-            renderQuestion(
-                generateTestPerseusRenderer({
-                    content: "[[☃ sorter 1]]",
-                    widgets: {
-                        "sorter 1": generateSorterWidget({
-                            options: generateSorterOptions({
-                                correct: ["Apple", "Banana"],
-                                variant: "timeline",
-                                legend: undefined,
-                            }),
-                        }),
-                    },
-                }),
-                {apiOptions},
-            );
+            renderQuestion(generateSorterQuestion(["Apple", "Banana"]), {
+                apiOptions,
+            });
 
             // Assert
             expect(screen.queryByTestId("legend-bar")).not.toBeInTheDocument();

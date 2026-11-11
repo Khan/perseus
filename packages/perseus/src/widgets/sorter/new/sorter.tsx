@@ -17,7 +17,6 @@ import {useTileMoveActions} from "../../../components/drag-and-drop/use-tile-mov
 import UnsupportedWidgetMessage from "../../../components/unsupported-widget-message";
 import {useDependencies} from "../../../dependencies";
 import {getPromptJSON as _getPromptJSON} from "../../../widget-ai-utils/sorter/sorter-ai-utils";
-import {getDefaultLegend} from "../legend/default-legend";
 import {LegendBar} from "../legend/legend-bar/legend-bar";
 import {LegendLabel} from "../legend/legend-label/legend-label";
 
@@ -59,7 +58,7 @@ function placementsFromOrder(order: string[]): TilePlacements {
 const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
     const {options, userInput, widgetId, handleUserInput, trackInteraction} =
         props;
-    const legend = options.legend ?? getDefaultLegend(options.variant);
+    const {legend} = options;
 
     const dependencies = useDependencies();
 
@@ -181,7 +180,7 @@ const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
 
     const blankList = (
         <ol
-            aria-label={legend.ariaLabel}
+            aria-label={legend?.ariaLabel}
             className={classNames(
                 styles.blanks,
                 layout === "vertical" && styles.vertical,

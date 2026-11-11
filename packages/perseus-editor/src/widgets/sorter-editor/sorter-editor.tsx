@@ -1,4 +1,3 @@
-import {getDefaultLegend} from "@khanacademy/perseus";
 import {
     isFeatureOn,
     sorterLogic,
@@ -58,6 +57,24 @@ const variantOptions = {
     timeline: "Timeline",
 } satisfies Record<SorterVariant, string>;
 
+const defaultCaps = {
+    scale: "arrow",
+    timeline: "bar",
+} satisfies Record<SorterVariant, SorterLegendCap>;
+
+// Not in the sorter's default options, which would add a legend to every
+// existing sorter.
+function getDefaultLegend(variant: SorterVariant): SorterLegend {
+    return {
+        startCap: defaultCaps[variant],
+        endCap: defaultCaps[variant],
+        startLabel: "",
+        endLabel: "",
+        ariaLabel: "",
+        position: "below",
+    };
+}
+
 // TODO(benchristel): Define Props in terms of WidgetEditorProps. We can't do
 //  this currently because `pnpm build:types` fails with a cryptic error. The
 //  cause seems to be a combination of WidgetEditorProps' use of APIOptions and
@@ -92,8 +109,7 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
     ) {
         const isDndSorter = isFeatureOn({apiOptions}, "dnd-widget-sorter");
         const [isLegendExpanded, setIsLegendExpanded] = React.useState(true);
-        const selectedVariant = variant ?? "scale";
-        const defaultLegend = getDefaultLegend(selectedVariant);
+        const defaultLegend = getDefaultLegend(variant);
         const displaysVertically =
             layout === "vertical" ||
             correct.length > SORTER_MAX_HORIZONTAL_CARDS;
@@ -228,7 +244,7 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                         field={
                             <TypedSingleSelect
                                 options={variantOptions}
-                                selectedValue={selectedVariant}
+                                selectedValue={variant}
                                 onChange={handleVariantChange}
                             />
                         }
@@ -375,14 +391,14 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                                     <>
                                         Required{" "}
                                         <InfoTip>
-                                            <p>
-                                                Describe the order of the cards,
-                                                and include the words from the
-                                                start and end labels. For
-                                                example: &ldquo;Interest rates,
-                                                lowest at the start to highest
-                                                at the end.&rdquo;
-                                            </p>
+                                            Describe the order of the cards, and
+                                            include the words from the start and
+                                            end labels. For example:
+                                            &ldquo;Interest rates, lowest at the
+                                            start to highest at the end.&rdquo;
+                                            Write any math in words, since
+                                            screen readers read this text as
+                                            it&rsquo;s typed.
                                         </InfoTip>
                                     </>
                                 }
@@ -423,6 +439,17 @@ function LegendEndEditor({
                 // with the field's name.
                 description={`${label.length} of ${SORTER_MAX_LEGEND_LABEL_LENGTH} characters`}
                 field={<TextField value={label} onChange={onLabelChange} />}
+                contextLabel={
+                    <InfoTip>
+                        Labels can include TeX between dollar signs, but not
+                        Markdown. To show a dollar sign, type \$.
+                    </InfoTip>
+                }
+                styles={{
+                    contextLabel: {
+                        marginInlineEnd: "auto",
+                    },
+                }}
             />
             {label.length > SORTER_MAX_LEGEND_LABEL_LENGTH && (
                 <Banner

@@ -3,7 +3,7 @@ import {
     SORTER_MAX_LEGEND_LABEL_LENGTH,
 } from "@khanacademy/perseus-core";
 
-import {expectIssue} from "../__tests__/test-utils";
+import {expectIssue, expectPass} from "../__tests__/test-utils";
 
 import sorterWidgetWarningRule, {
     SorterLegendLabels,
@@ -173,13 +173,14 @@ function sorterWithLegend(legend: SorterLegend | undefined) {
 
 describe("sorter-legend-missing", () => {
     it("warns when a sorter has no legend", () => {
-        expectWarning(
+        expectIssue(
             SorterLegendMissing,
             "[[☃ sorter 1]]",
             sorterWithLegend(undefined),
             {
-                message:
+                messages: [
                     "sorter 1: Sorter exercises without a labeled legend are marked inaccessible.",
+                ],
             },
         );
     });
@@ -195,12 +196,14 @@ describe("sorter-legend-missing", () => {
 
 describe("sorter-legend-description", () => {
     it("warns when the description is blank", () => {
-        expectWarning(
+        expectIssue(
             SorterLegendDescription,
             "[[☃ sorter 1]]",
             sorterWithLegend({...completeLegend, ariaLabel: " "}),
             {
-                message: "sorter 1: Sorter legend description cannot be blank.",
+                messages: [
+                    "sorter 1: Sorter legend description cannot be blank.",
+                ],
             },
         );
     });
@@ -224,19 +227,21 @@ describe("sorter-legend-description", () => {
 
 describe("sorter-legend-labels", () => {
     it("warns when the start and end labels are blank", () => {
-        expectWarning(
+        expectIssue(
             SorterLegendLabels,
             "[[☃ sorter 1]]",
             sorterWithLegend({...completeLegend, startLabel: "", endLabel: ""}),
             {
-                message:
-                    "sorter 1: Sorter legend start label cannot be blank.\n\nSorter legend end label cannot be blank.",
+                messages: [
+                    "sorter 1: Sorter legend start label cannot be blank.",
+                    "sorter 1: Sorter legend end label cannot be blank.",
+                ],
             },
         );
     });
 
     it("warns when a label is over the character limit", () => {
-        expectWarning(
+        expectIssue(
             SorterLegendLabels,
             "[[☃ sorter 1]]",
             sorterWithLegend({
@@ -244,7 +249,9 @@ describe("sorter-legend-labels", () => {
                 endLabel: "a".repeat(SORTER_MAX_LEGEND_LABEL_LENGTH + 1),
             }),
             {
-                message: `sorter 1: Sorter legend end label is longer than ${SORTER_MAX_LEGEND_LABEL_LENGTH} characters.`,
+                messages: [
+                    `sorter 1: Sorter legend end label is longer than ${SORTER_MAX_LEGEND_LABEL_LENGTH} characters.`,
+                ],
             },
         );
     });

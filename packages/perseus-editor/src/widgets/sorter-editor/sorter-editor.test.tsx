@@ -886,15 +886,17 @@ describe("sorter-editor", () => {
             );
 
             // Assert
+            // A pattern instead of the exact text, because the description
+            // also includes the label's InfoTip, which adds a leading space.
             expect(
                 screen.getByRole("textbox", {name: "Start label"}),
             ).toHaveAccessibleDescription(
-                `6 of ${SORTER_MAX_LEGEND_LABEL_LENGTH} characters`,
+                new RegExp(`6 of ${SORTER_MAX_LEGEND_LABEL_LENGTH} characters`),
             );
             expect(
                 screen.getByRole("textbox", {name: "End label"}),
             ).toHaveAccessibleDescription(
-                `7 of ${SORTER_MAX_LEGEND_LABEL_LENGTH} characters`,
+                new RegExp(`7 of ${SORTER_MAX_LEGEND_LABEL_LENGTH} characters`),
             );
         });
 
