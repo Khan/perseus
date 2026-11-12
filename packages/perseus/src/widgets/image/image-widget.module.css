@@ -29,7 +29,7 @@
         var(--wb-semanticColor-core-border-neutral-subtle);
 }
 
-.perseus-image-caption {
+.image-caption {
     font-size: var(--wb-font-body-size-small);
     line-height: var(--wb-font-body-lineHeight-small);
     padding-inline: var(--wb-sizing-size_160);
