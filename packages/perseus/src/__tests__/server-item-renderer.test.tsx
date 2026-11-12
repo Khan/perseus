@@ -33,6 +33,7 @@ import {
 import {registerWidget} from "../widgets";
 import MockWidget from "../widgets/mock-widgets/mock-widget";
 
+import type {ServerItemRendererHandle} from "../server-item-renderer";
 import type {MockWidget as MockWidgetType} from "../widgets/mock-widgets/mock-widget-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {UserEvent} from "@testing-library/user-event";
@@ -708,6 +709,57 @@ describe("server item renderer", () => {
                 expect.any(Object),
             );
         });
+    });
+
+    it("keeps the same handle when a callback ref changes", () => {
+        // Arrange
+        const item = generateTestPerseusItem();
+        const captureHandle = jest.fn();
+        function Example() {
+            return (
+                <RenderStateRoot>
+                    <ServerItemRenderer
+                        ref={(node) => captureHandle(node)}
+                        item={item}
+                        dependencies={testDependenciesV2}
+                    />
+                </RenderStateRoot>
+            );
+        }
+        const {rerender} = render(<Example />);
+        const initialHandle = captureHandle.mock.calls[0][0];
+
+        // Act
+        rerender(<Example />);
+        const latestHandle = captureHandle.mock.calls.at(-1)?.[0];
+
+        // Assert
+        expect(latestHandle).toBe(initialHandle);
+    });
+
+    it("renders when an inline callback ref stores the handle in parent state", () => {
+        // Arrange
+        const item = generateTestPerseusItem();
+        function Example() {
+            const [renderer, setRenderer] =
+                React.useState<ServerItemRendererHandle | null>(null);
+            return (
+                <RenderStateRoot>
+                    <ServerItemRenderer
+                        ref={(node) => setRenderer(node)}
+                        item={item}
+                        dependencies={testDependenciesV2}
+                    />
+                    <span>{renderer ? "Renderer ready" : "Waiting"}</span>
+                </RenderStateRoot>
+            );
+        }
+
+        // Act
+        render(<Example />);
+
+        // Assert
+        expect(screen.getByText("Renderer ready")).toBeInTheDocument();
     });
 
     describe("handle used after unmounting", () => {

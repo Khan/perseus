@@ -341,8 +341,10 @@ const ServerItemRenderer = React.forwardRef<ServerItemRendererHandle, Props>(
             };
         }, []);
 
-        React.useImperativeHandle(
-            ref,
+        // Keep the handle stable even when a caller supplies a new callback
+        // ref. Some callers store it in state, so a new object would trigger
+        // another render and repeat indefinitely.
+        const handle = React.useMemo<ServerItemRendererHandle>(
             () => ({
                 get questionRenderer() {
                     return getQuestionRenderer("questionRenderer");
@@ -373,6 +375,7 @@ const ServerItemRenderer = React.forwardRef<ServerItemRendererHandle, Props>(
             }),
             [getQuestionRenderer],
         );
+        React.useImperativeHandle(ref, () => handle, [handle]);
 
         const apiOptions = {
             ...ApiOptions.defaults,
