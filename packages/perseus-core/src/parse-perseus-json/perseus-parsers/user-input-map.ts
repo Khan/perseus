@@ -1,10 +1,12 @@
 import {any, isPlainObject} from "../general-purpose-parsers";
 import {isFailure} from "../result";
 
+import {parseBlankUserInput} from "./blank-user-input";
 import {parseCategorizerUserInput} from "./categorizer-user-input";
 import {parseCSProgramUserInput} from "./cs-program-user-input";
 import {parseDropdownUserInput} from "./dropdown-user-input";
 import {parseExpressionUserInput} from "./expression-user-input";
+import {parseFillInTheBlankUserInput} from "./fill-in-the-blank-user-input";
 import {parseFreeResponseUserInput} from "./free-response-user-input";
 import {parseGrapherUserInput} from "./grapher-user-input";
 import {parseGroupUserInput} from "./group-user-input";
@@ -107,6 +109,8 @@ const parseUserInputMapEntry: (
     }
 
     switch (type) {
+        case "blank":
+            return parseAndAssign(`blank ${n}`, parseBlankUserInput);
         case "categorizer":
             return parseAndAssign(
                 `categorizer ${n}`,
@@ -118,6 +122,12 @@ const parseUserInputMapEntry: (
             return parseAndAssign(`dropdown ${n}`, parseDropdownUserInput);
         case "expression":
             return parseAndAssign(`expression ${n}`, parseExpressionUserInput);
+        case "fill-in-the-blank":
+            // Recursive case: FITB user input is itself a UserInputMap
+            return parseAndAssign(
+                `fill-in-the-blank ${n}`,
+                parseFillInTheBlankUserInput,
+            );
         case "free-response":
             return parseAndAssign(
                 `free-response ${n}`,

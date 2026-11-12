@@ -235,10 +235,15 @@ function isValid(props: Props): boolean {
     );
 }
 
+function isDisabled(props: Props): boolean {
+    return Boolean(props.static || props.apiOptions.readOnly);
+}
+
 const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
     const {strings} = usePerseusI18n();
     const dependencies = useDependencies();
     const propsRef = useLatestRef(props);
+    const disabled = isDisabled(props);
     const [numDivisionsEmpty, setNumDivisionsEmpty] = useState(false);
     const tickStep = getTickStep(
         props.options.range,
@@ -396,6 +401,11 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
     }
 
     function onNumDivisionsChange(numDivisions: number, cb?: () => void) {
+        if (disabled) {
+            cb?.();
+            return;
+        }
+
         // Don't allow a fraction for the number of divisions
         numDivisions = Math.round(numDivisions);
 
@@ -477,7 +487,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
         const hollowFill = tokenValue(
             semanticColor.core.foreground.knockout.default,
         );
-        const pointColor = props.static ? staticColor : interactiveColor;
+        const pointColor = disabled ? staticColor : interactiveColor;
 
         const normalStyle = {
             fill: isOpen ? hollowFill : pointColor,
@@ -503,6 +513,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                 ref="numberLinePoint"
                 pointSize={6}
                 coord={[props.userInput.numLinePosition, 0]}
+                static={disabled}
                 constraints={[
                     (coord: any, prevCoord) => {
                         // constrain-y
@@ -589,6 +600,11 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                     isTickCtrl: props.options.isTickCtrl,
                 }}
                 onMouseDown={(coord) => {
+                    // Graphie registers this handler once, at setup, so read
+                    // the latest props instead of this render's.
+                    if (isDisabled(propsRef.current)) {
+                        return;
+                    }
                     // `grab` isn't declared on the Movable type; the movable
                     // is populated via the string ref on <MovablePoint>
                     // below, and MovablePoint exposes `grab` at runtime.
@@ -629,10 +645,12 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                 className="simple-button"
                 value={strings.switchDirection}
                 onClick={handleReverse}
+                disabled={disabled}
             />
             <input
                 type="button"
                 className="simple-button"
+                disabled={disabled}
                 value={
                     ["le", "ge"].includes(props.userInput?.rel)
                         ? strings.circleOpen
@@ -645,9 +663,13 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
 
     let tickCtrl;
     if (isTickCtrl) {
-        const Input = props.apiOptions.customKeypad
-            ? SimpleKeypadInput
-            : NumberInput;
+        // SimpleKeypadInput (shows up on mobile) can't be disabled, so
+        // fall back to a disabled NumberInput, which also keeps the
+        // keypad from opening.
+        const Input =
+            props.apiOptions.customKeypad && !disabled
+                ? SimpleKeypadInput
+                : NumberInput;
         tickCtrl = (
             <label>
                 {`${strings.numDivisions} `}
@@ -666,6 +688,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                     onFocus={handleTickCtrlFocus}
                     onBlur={handleTickCtrlBlur}
                     useArrowKeys={true}
+                    disabled={disabled}
                     keypadElement={props.keypadElement}
                 />
             </label>

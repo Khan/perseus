@@ -39,8 +39,9 @@ exports[`graded-group-set should render all graded groups 1`] = `
                 <div
                   class="deprecated-perseus-container"
                 >
-                  <p
+                  <div
                     class="deprecated-perseus-container"
+                    role="paragraph"
                   >
                     <span
                       style="white-space: nowrap;"
@@ -86,7 +87,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                         />
                       </span>
                     </span>
-                  </p>
+                  </div>
                 </div>
               </div>
               <div
@@ -124,11 +125,12 @@ exports[`graded-group-set should render all graded groups 1`] = `
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         There are many ways to solve this problem. Let's see two student solutions.
-                      </p>
+                      </div>
                     </div>
                     <div
                       class="deprecated-perseus-container"
@@ -140,11 +142,12 @@ exports[`graded-group-set should render all graded groups 1`] = `
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         I thought in terms of tenths.
-                      </p>
+                      </div>
                     </div>
                     <div
                       class="deprecated-perseus-container perseus-paragraph-centered"
@@ -167,8 +170,9 @@ exports[`graded-group-set should render all graded groups 1`] = `
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         <span
                           style="white-space: nowrap;"
@@ -194,13 +198,14 @@ exports[`graded-group-set should render all graded groups 1`] = `
                           <span />
                         </span>
                          tenths
-                      </p>
+                      </div>
                     </div>
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         <span
                           style="white-space: nowrap;"
@@ -214,7 +219,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                           <span />
                         </span>
                          tenths
-                      </p>
+                      </div>
                     </div>
                     <div
                       class="deprecated-perseus-container perseus-paragraph-centered"
@@ -244,11 +249,12 @@ exports[`graded-group-set should render all graded groups 1`] = `
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         I used tenths grids.
-                      </p>
+                      </div>
                     </div>
                     <div
                       class="deprecated-perseus-container"
@@ -496,8 +502,9 @@ exports[`graded-group-set should render all graded groups 1`] = `
                 <div
                   class="deprecated-perseus-container"
                 >
-                  <p
+                  <div
                     class="deprecated-perseus-container"
+                    role="paragraph"
                   >
                     <span
                       style="white-space: nowrap;"
@@ -543,7 +550,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                         />
                       </span>
                     </span>
-                  </p>
+                  </div>
                 </div>
               </div>
               <div
@@ -581,11 +588,12 @@ exports[`graded-group-set should render all graded groups 1`] = `
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         There are many ways to solve this problem. Let's see two student solutions.
-                      </p>
+                      </div>
                     </div>
                     <div
                       class="deprecated-perseus-container"
@@ -597,11 +605,12 @@ exports[`graded-group-set should render all graded groups 1`] = `
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         I thought in terms of tenths.
-                      </p>
+                      </div>
                     </div>
                     <div
                       class="deprecated-perseus-container perseus-paragraph-centered"
@@ -624,8 +633,9 @@ exports[`graded-group-set should render all graded groups 1`] = `
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         <span
                           style="white-space: nowrap;"
@@ -651,13 +661,14 @@ exports[`graded-group-set should render all graded groups 1`] = `
                           <span />
                         </span>
                          tenths
-                      </p>
+                      </div>
                     </div>
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         <span
                           style="white-space: nowrap;"
@@ -671,7 +682,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                           <span />
                         </span>
                          tenths
-                      </p>
+                      </div>
                     </div>
                     <div
                       class="deprecated-perseus-container perseus-paragraph-centered"
@@ -701,11 +712,12 @@ exports[`graded-group-set should render all graded groups 1`] = `
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         I used tenths grids.
-                      </p>
+                      </div>
                     </div>
                     <div
                       class="deprecated-perseus-container"
@@ -953,8 +965,9 @@ exports[`graded-group-set should render all graded groups 1`] = `
                 <div
                   class="deprecated-perseus-container"
                 >
-                  <p
+                  <div
                     class="deprecated-perseus-container"
+                    role="paragraph"
                   >
                     <span
                       style="white-space: nowrap;"
@@ -1000,7 +1013,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                         />
                       </span>
                     </span>
-                  </p>
+                  </div>
                 </div>
               </div>
               <div
@@ -1038,11 +1051,12 @@ exports[`graded-group-set should render all graded groups 1`] = `
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         There are many ways to solve this problem. Let's see two student solutions.
-                      </p>
+                      </div>
                     </div>
                     <div
                       class="deprecated-perseus-container"
@@ -1054,11 +1068,12 @@ exports[`graded-group-set should render all graded groups 1`] = `
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         I thought in terms of tenths.
-                      </p>
+                      </div>
                     </div>
                     <div
                       class="deprecated-perseus-container perseus-paragraph-centered"
@@ -1081,8 +1096,9 @@ exports[`graded-group-set should render all graded groups 1`] = `
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         <span
                           style="white-space: nowrap;"
@@ -1108,13 +1124,14 @@ exports[`graded-group-set should render all graded groups 1`] = `
                           <span />
                         </span>
                          tenths
-                      </p>
+                      </div>
                     </div>
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         <span
                           style="white-space: nowrap;"
@@ -1128,7 +1145,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                           <span />
                         </span>
                          tenths
-                      </p>
+                      </div>
                     </div>
                     <div
                       class="deprecated-perseus-container perseus-paragraph-centered"
@@ -1158,11 +1175,12 @@ exports[`graded-group-set should render all graded groups 1`] = `
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         I used tenths grids.
-                      </p>
+                      </div>
                     </div>
                     <div
                       class="deprecated-perseus-container"
@@ -1323,8 +1341,9 @@ exports[`graded-group-set should render all graded groups 1`] = `
                     <div
                       class="deprecated-perseus-container perseus-paragraph-centered"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         <span
                           style="white-space: nowrap;"
@@ -1337,7 +1356,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                           </span>
                           <span />
                         </span>
-                      </p>
+                      </div>
                     </div>
                     <div
                       class="deprecated-perseus-container"
@@ -1403,11 +1422,12 @@ exports[`graded-group-set should render all graded groups 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         Beautiful, let's move on to problems with whole numbers and tenths.
-      </p>
+      </div>
     </div>
   </div>
 </div>

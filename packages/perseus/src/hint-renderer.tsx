@@ -18,6 +18,8 @@ import type {
 } from "./types";
 import type {Hint} from "@khanacademy/perseus-core";
 
+import "./hint-renderer.css";
+
 type Props = SharedRendererProps & {
     className?: string;
     hint: Hint;
@@ -86,8 +88,7 @@ class HintRenderer extends React.Component<Props> {
         const {isMobile} = apiOptions;
 
         const classNames = classnames(
-            "hint",
-            !isMobile && "perseus-hint-renderer",
+            "hint perseus-hint-renderer",
             isMobile && css(styles.newHint),
             isMobile && lastRendered && css(styles.lastRenderedNewHint),
             lastHint && "last-hint",

@@ -18,7 +18,7 @@ export const plotterRendererDecorator: Decorator = (
         parameters,
     }: {
         args: Partial<PerseusPlotterWidgetOptions>;
-        parameters?: {apiOptions?: APIOptions};
+        parameters?: {apiOptions?: APIOptions; static?: boolean};
     },
 ) => {
     return (
@@ -27,6 +27,7 @@ export const plotterRendererDecorator: Decorator = (
                 content: "[[☃ plotter 1]]",
                 widgets: {
                     "plotter 1": generatePlotterWidget({
+                        static: parameters?.static ?? false,
                         options: generatePlotterOptions({...args}),
                     }),
                 },

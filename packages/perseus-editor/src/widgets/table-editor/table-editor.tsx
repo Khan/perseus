@@ -135,7 +135,6 @@ class TableEditor extends React.Component<Props> {
                     <label>
                         Number of rows:{" "}
                         <NumberInput
-                            ref="numberOfRows"
                             value={this.props.rows}
                             onChange={(val) => {
                                 if (val !== 0) {

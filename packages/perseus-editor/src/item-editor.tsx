@@ -62,9 +62,6 @@ class ItemEditor extends React.Component<Props> {
         question: {},
         answerArea: {},
     };
-    questionEditor = React.createRef<Editor>();
-    extrasEditor = React.createRef<ExtrasEditor>();
-    hintsEditor = React.createRef<CombinedHintsEditor>();
     derivePreviewContent = createPreviewContentDeriver();
 
     // Notify the parent that the question or answer area has been updated.
@@ -82,14 +79,6 @@ class ItemEditor extends React.Component<Props> {
     handleExtrasChange = (newProps: Partial<PerseusAnswerArea>) => {
         const answerArea = _.extend({}, this.props.answerArea, newProps);
         this.updateProps({answerArea});
-    };
-
-    // TODO(benchristel): Correctly type all getSaveWarnings methods.
-    getSaveWarnings: () => any = () => {
-        return [
-            ...(this.questionEditor.current?.getSaveWarnings() ?? []),
-            ...(this.hintsEditor.current?.getSaveWarnings() ?? []),
-        ];
     };
 
     handleA11yReport = (report: A11yReport | null) => {
@@ -111,7 +100,6 @@ class ItemEditor extends React.Component<Props> {
                         <div className="pod-title">Question</div>
                         <fieldset disabled={editingDisabled}>
                             <Editor
-                                ref={this.questionEditor}
                                 // Using the AssessmentItem content ID as the key
                                 // ensures that when the user navigates to another
                                 // item in the Sidebar, the question editor is
@@ -149,8 +137,6 @@ class ItemEditor extends React.Component<Props> {
                                         deviceType: this.props.deviceType,
                                         highlightLint: this.props.highlightLint,
                                         problemNum: this.props.problemNum,
-                                        legacyPerseusLint:
-                                            this.getSaveWarnings() ?? [],
                                     })}
                                     a11yScanningEnabled={a11yScanningEnabled}
                                     highlightInstanceIds={highlightInstanceIds}
@@ -165,7 +151,6 @@ class ItemEditor extends React.Component<Props> {
                     <div className="perseus-editor-left-cell">
                         <div className="pod-title">Question extras</div>
                         <ExtrasEditor
-                            ref={this.extrasEditor}
                             apiOptions={this.props.apiOptions}
                             onChange={this.handleExtrasChange}
                             editingDisabled={editingDisabled}
@@ -175,7 +160,6 @@ class ItemEditor extends React.Component<Props> {
                 </div>
 
                 <CombinedHintsEditor
-                    ref={this.hintsEditor}
                     itemId={this.props.itemId}
                     hints={this.props.hints}
                     imageUploader={this.props.imageUploader}

@@ -9,11 +9,7 @@ import {
     Dependencies,
     PerseusMarkdown,
 } from "@khanacademy/perseus";
-import {
-    Errors,
-    parseAndMigratePerseusArticle,
-    PerseusError,
-} from "@khanacademy/perseus-core";
+import {parseAndMigratePerseusArticle} from "@khanacademy/perseus-core";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import Button from "@khanacademy/wonder-blocks-button";
 import arrowCircleDownIcon from "@phosphor-icons/core/bold/arrow-circle-down-bold.svg";
@@ -138,8 +134,6 @@ export default class ArticleEditor extends React.Component<Props, State> {
         section: PerseusRenderer,
         sectionIndex: number,
     ): ArticleSectionPreviewData {
-        const editor = this.refs[`editor${sectionIndex}`];
-
         return {
             article: section,
             apiOptions: this._apiOptionsForPreview(),
@@ -147,8 +141,6 @@ export default class ArticleEditor extends React.Component<Props, State> {
                 contentType: "article",
                 highlightLint: this.state.highlightLint,
             },
-            // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
-            legacyPerseusLint: editor?.getSaveWarnings() ?? [],
         };
     }
 
@@ -270,7 +262,6 @@ export default class ArticleEditor extends React.Component<Props, State> {
                                             )
                                         }
                                         placeholder="Type your section text here..."
-                                        ref={"editor" + i}
                                     />
                                 </fieldset>
                             </div>
@@ -433,26 +424,6 @@ export default class ArticleEditor extends React.Component<Props, State> {
         sections.splice(i, 1);
         this.props.onChange({
             json: sections,
-        });
-    }
-
-    /**
-     * Returns an array, with one element be section.
-     * Each element is an array of lint warnings present in that section.
-     *
-     * This function can currently only be called in edit mode.
-     */
-    getSaveWarnings(): ReadonlyArray<PerseusRenderer> {
-        if (this.props.mode !== "edit") {
-            throw new PerseusError(
-                "Can only get save warnings in edit mode.",
-                Errors.NotAllowed,
-            );
-        }
-
-        return this._sections().map((section, i) => {
-            // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
-            return this.refs["editor" + i].getSaveWarnings();
         });
     }
 

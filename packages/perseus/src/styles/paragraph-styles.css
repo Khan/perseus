@@ -2,22 +2,12 @@
     .perseus-renderer
     > .deprecated-perseus-container {
     color: var(--wb-semanticColor-core-foreground-neutral-strong);
-    margin: 0 auto;
-}
-/* Needed to restore bottom margin on the container <div> when an inline widget
-    is the child element (i.e. Explanation) */
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-renderer
-    > .deprecated-perseus-container:has(> span.deprecated-perseus-container) {
-    margin-block-end: var(--wb-sizing-size_320);
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer
     > .deprecated-perseus-container
     .deprecated-perseus-container {
     color: var(--wb-semanticColor-core-foreground-neutral-strong);
-    margin-bottom: var(--wb-sizing-size_320);
-    margin-top: 0;
 }
 /* Reset the Renderer margins for the image widget.
     The image widget title and caption shouldn't have margins,
@@ -53,10 +43,6 @@
     text-align: left;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .deprecated-perseus-container.perseus-paragraph-full-width {
-    margin-bottom: var(--wb-sizing-size_320);
-}
-.framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer
     > .deprecated-perseus-container
     .perseus-formats-tooltip {
@@ -83,39 +69,9 @@
     margin: 0;
 }
 .framework-perseus.perseus-mobile
-    :not(blockquote)
-    > :is(div, p).deprecated-perseus-container {
-    margin: 0;
-}
-.framework-perseus.perseus-mobile
-    .perseus-renderer
-    > .deprecated-perseus-container {
-    margin: 0 auto;
-}
-/* Needed to restore bottom margin on the container <div> when an inline widget
-    is the child element (i.e. Explanation) */
-.framework-perseus.perseus-mobile
-    .perseus-renderer
-    > .deprecated-perseus-container:has(> span.deprecated-perseus-container) {
-    margin-block-end: 22px;
-}
-.framework-perseus.perseus-mobile
-    .perseus-renderer
-    > .deprecated-perseus-container:not(:first-child) {
-    margin-top: var(--wb-sizing-size_240);
-    margin-bottom: var(--wb-sizing-size_240);
-}
-.framework-perseus.perseus-mobile
-    .perseus-renderer
-    > .deprecated-perseus-container
-    > .deprecated-perseus-container {
-    margin: 0;
-}
-.framework-perseus.perseus-mobile
     .perseus-renderer
     > .deprecated-perseus-container
     ul:not([data-widget="radio"], .indicatorContainer) {
-    margin: 0 0 0 1em;
     padding: 0;
 }
 .framework-perseus.perseus-mobile
@@ -124,13 +80,11 @@
     ul:not([data-widget="radio"], .indicatorContainer)
     > li {
     padding-left: var(--wb-sizing-size_100);
-    margin-bottom: var(--wb-sizing-size_240);
 }
 .framework-perseus.perseus-mobile
     .perseus-renderer
     > .deprecated-perseus-container
     ol {
-    margin: 0;
     padding-left: var(--wb-sizing-size_320);
 }
 .framework-perseus.perseus-mobile
@@ -139,29 +93,6 @@
     ol
     > li {
     list-style-type: decimal;
-    margin-bottom: var(--wb-sizing-size_240);
-}
-.framework-perseus.perseus-mobile
-    .perseus-renderer
-    > .deprecated-perseus-container
-    ol
-    ol,
-.framework-perseus.perseus-mobile
-    .perseus-renderer
-    > .deprecated-perseus-container
-    ul:not([data-widget="radio"])
-    ol,
-.framework-perseus.perseus-mobile
-    .perseus-renderer
-    > .deprecated-perseus-container
-    ol
-    ul:not([data-widget="radio"]),
-.framework-perseus.perseus-mobile
-    .perseus-renderer
-    > .deprecated-perseus-container
-    ul:not([data-widget="radio"])
-    ul:not([data-widget="radio"]) {
-    padding-top: var(--wb-sizing-size_240);
 }
 @media (max-width: 767px) {
     .framework-perseus.perseus-mobile

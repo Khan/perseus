@@ -8,17 +8,19 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         Akshat works in a hospital lab.
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         To project blood quantities, he wants to know the probability that more than 
         <span
@@ -57,13 +59,14 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
           <span />
         </span>
          of donors have type-A blood.
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         Akshat uses a computer to produce many samples that simulate the next 
         <span
@@ -122,13 +125,14 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
           without
         </em>
          type-A blood.
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Based on the samples below, estimate the probability that  more than 
@@ -197,18 +201,19 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
             </div>
           </span>
         </span>
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <em>
           Note: This a small sample to practice with. A larger sample could give a much better estimate.
         </em>
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"

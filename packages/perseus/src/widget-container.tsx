@@ -25,10 +25,8 @@ const widgetsNeedingOverlay: string[] = [
     "input-number",
     "matcher",
     "matrix",
-    "number-line",
     "numeric-input",
     "orderer",
-    "plotter",
     "sorter",
     "table",
 ];
@@ -150,6 +148,7 @@ class WidgetContainer extends React.Component<Props, State> {
             overflow: "visible",
         } as const;
         const staticOverlayStyles = {
+            display: "block",
             width: "100%",
             height: "100%",
             position: "absolute",
@@ -217,10 +216,10 @@ class WidgetContainer extends React.Component<Props, State> {
                                     containerSizeClass={this.state.sizeClass}
                                     ref={this.widgetRef}
                                 />
-                                {/* TODO(nisha): Remove this div once all widgets
+                                {/* TODO(nisha): Remove this span once all widgets
                                     handle their own disabled elements. */}
                                 {shouldUseStaticOverlay && (
-                                    <div
+                                    <span
                                         data-testid="widget-container-static-overlay"
                                         style={staticOverlayStyles}
                                     />
