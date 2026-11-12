@@ -103,7 +103,12 @@ describe("Fill in the Blank Widget", () => {
 
         // Assert
         const bank = screen.getByRole("list", {name: "Choices"});
-        expect(within(bank).getAllByRole("listitem")).toHaveLength(4);
+        const choices = within(bank).getAllByRole("listitem");
+        expect(choices).toHaveLength(4);
+        expect(choices[0]).toHaveTextContent("djembe");
+        expect(choices[1]).toHaveTextContent("bongo");
+        expect(choices[2]).toHaveTextContent("hands");
+        expect(choices[3]).toHaveTextContent("sticks");
     });
 
     it("renders only the unplaced tiles in the choice bank", () => {
