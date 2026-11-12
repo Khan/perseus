@@ -141,7 +141,6 @@ class CSProgramEditor extends React.Component<Props> {
                     }}
                 />
                 <br />
-                {}
                 <label>
                     Settings:
                     <PairsEditor

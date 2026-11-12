@@ -45,7 +45,6 @@ function LockedFigureAria(props: Props) {
                         Aria label is used by screen readers to describe content
                         to users who may be visually impaired.
                     </p>
-
                     <p>
                         Populating this field will make it so that users can use
                         a screen reader to navigate to this point and hear the
