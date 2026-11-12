@@ -11,6 +11,7 @@ import NumericInputEditor from "./numeric-input-editor";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {UserEvent} from "@testing-library/user-event";
 
+// TODO(benchristel): Remove forwardRef; no one gets a ref to this component.
 const HarnessedEditor = React.forwardRef<
     NumericInputEditor,
     Partial<PropsFor<typeof NumericInputEditor>>

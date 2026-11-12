@@ -155,8 +155,6 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
      */
     linterContext: LinterContextProps;
 
-    legacyPerseusLint?: ReadonlyArray<string>;
-
     /**
      *  Skip adding paragraph class
      */
@@ -1598,10 +1596,10 @@ class Renderer
             PerseusLinter.runLinter(parsedMarkdown, fullLinterContext, true);
 
             // Apply the lint errors from the last TranslationLinter run.
-            this._translationLinter.applyLintErrors(parsedMarkdown, [
-                ...this.state.translationLintErrors,
-                ...(this.props.legacyPerseusLint || []),
-            ]);
+            this._translationLinter.applyLintErrors(
+                parsedMarkdown,
+                this.state.translationLintErrors,
+            );
         }
 
         // Render the linted markdown parse tree with React components
