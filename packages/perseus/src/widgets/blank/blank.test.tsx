@@ -40,8 +40,8 @@ describe("Blank Widget", function () {
 
         // Assert
         // TODO(LEMS-4448): replace `getByTestId` when the UI is more fleshed out
+        // (current idea is using a role)
         expect(screen.getByTestId("blank-widget")).toBeInTheDocument();
-        //NOTE: We aim to replace getByTestId with a different check (current idea is using a role)
     });
 
     it("applies the super-sub styling when displayType is not normal", () => {
