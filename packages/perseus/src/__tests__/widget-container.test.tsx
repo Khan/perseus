@@ -33,6 +33,8 @@ const MockWidgetComponent = React.forwardRef<
     Widget,
     {options: {text: string; fail: boolean}}
 >(function MockWidgetComponent({options: {text, fail = false}}, ref) {
+    // useImperativeHandle allows the WidgetContainer to get a ref to this
+    // function component. React logs an error if this is removed.
     React.useImperativeHandle(ref, () => ({}));
 
     if (fail) {
