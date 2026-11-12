@@ -11,8 +11,9 @@ exports[`server item renderer should snapshot: initial render 1`] = `
       <div
         class="deprecated-perseus-container"
       >
-        <p
+        <div
           class="deprecated-perseus-container"
+          role="paragraph"
         >
           Enter the number 
           <span
@@ -35,7 +36,7 @@ exports[`server item renderer should snapshot: initial render 1`] = `
             <span />
           </span>
            in the box: 
-        </p>
+        </div>
       </div>
       <div
         class="deprecated-perseus-container"
@@ -97,11 +98,12 @@ exports[`server item renderer should snapshot: initial render 1`] = `
           <div
             class="deprecated-perseus-container"
           >
-            <p
+            <div
               class="deprecated-perseus-container"
+              role="paragraph"
             >
               Hint #1
-            </p>
+            </div>
           </div>
         </div>
       </div>
@@ -126,11 +128,12 @@ exports[`server item renderer should snapshot: initial render 1`] = `
           <div
             class="deprecated-perseus-container"
           >
-            <p
+            <div
               class="deprecated-perseus-container"
+              role="paragraph"
             >
               Hint #2
-            </p>
+            </div>
           </div>
         </div>
       </div>
@@ -155,11 +158,12 @@ exports[`server item renderer should snapshot: initial render 1`] = `
           <div
             class="deprecated-perseus-container"
           >
-            <p
+            <div
               class="deprecated-perseus-container"
+              role="paragraph"
             >
               Hint #3
-            </p>
+            </div>
           </div>
         </div>
       </div>

@@ -27,11 +27,12 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
                 <div
                   class="deprecated-perseus-container"
                 >
-                  <p
+                  <div
                     class="deprecated-perseus-container"
+                    role="paragraph"
                   >
                     widget title
-                  </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -66,11 +67,12 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       widget caption
-                    </p>
+                    </div>
                   </div>
                 </div>
               </figcaption>
@@ -110,11 +112,12 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
                 <div
                   class="deprecated-perseus-container"
                 >
-                  <p
+                  <div
                     class="deprecated-perseus-container"
+                    role="paragraph"
                   >
                     widget title
-                  </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -149,11 +152,12 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       widget caption
-                    </p>
+                    </div>
                   </div>
                 </div>
               </figcaption>
@@ -283,11 +287,12 @@ exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
                 <div
                   class="deprecated-perseus-container"
                 >
-                  <p
+                  <div
                     class="deprecated-perseus-container"
+                    role="paragraph"
                   >
                     Image Title
-                  </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -338,11 +343,12 @@ exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Image Caption
-                    </p>
+                    </div>
                   </div>
                 </div>
               </figcaption>
@@ -354,8 +360,9 @@ exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         A quilter wants to make the design shown at left using the Golden Ratio. Specifically, he wants the ratio of the triangle heights 
         <span
@@ -418,7 +425,7 @@ exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
           <span />
         </span>
         ?
-      </p>
+      </div>
     </div>
   </div>
 </div>
@@ -451,11 +458,12 @@ exports[`image widget - isMobile(true) custom alignment should render image with
                 <div
                   class="deprecated-perseus-container"
                 >
-                  <p
+                  <div
                     class="deprecated-perseus-container"
+                    role="paragraph"
                   >
                     widget title
-                  </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -490,11 +498,12 @@ exports[`image widget - isMobile(true) custom alignment should render image with
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       widget caption
-                    </p>
+                    </div>
                   </div>
                 </div>
               </figcaption>
@@ -534,11 +543,12 @@ exports[`image widget - isMobile(true) custom alignment should render image with
                 <div
                   class="deprecated-perseus-container"
                 >
-                  <p
+                  <div
                     class="deprecated-perseus-container"
+                    role="paragraph"
                   >
                     widget title
-                  </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -573,11 +583,12 @@ exports[`image widget - isMobile(true) custom alignment should render image with
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       widget caption
-                    </p>
+                    </div>
                   </div>
                 </div>
               </figcaption>
@@ -707,11 +718,12 @@ exports[`image widget - isMobile(true) should snapshot: first render 1`] = `
                 <div
                   class="deprecated-perseus-container"
                 >
-                  <p
+                  <div
                     class="deprecated-perseus-container"
+                    role="paragraph"
                   >
                     Image Title
-                  </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -762,11 +774,12 @@ exports[`image widget - isMobile(true) should snapshot: first render 1`] = `
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Image Caption
-                    </p>
+                    </div>
                   </div>
                 </div>
               </figcaption>
@@ -778,8 +791,9 @@ exports[`image widget - isMobile(true) should snapshot: first render 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         A quilter wants to make the design shown at left using the Golden Ratio. Specifically, he wants the ratio of the triangle heights 
         <span
@@ -842,7 +856,7 @@ exports[`image widget - isMobile(true) should snapshot: first render 1`] = `
           <span />
         </span>
         ?
-      </p>
+      </div>
     </div>
   </div>
 </div>

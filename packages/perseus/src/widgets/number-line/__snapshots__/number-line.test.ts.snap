@@ -26,8 +26,9 @@ exports[`number-line widget snapshots can handle fractions: show fractions 1`] =
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Move the dot to 
@@ -44,7 +45,7 @@ exports[`number-line widget snapshots can handle fractions: show fractions 1`] =
           </span>
            on the number line.
         </strong>
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -428,8 +429,9 @@ exports[`number-line widget snapshots default: first render 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Move the dot to 
@@ -446,7 +448,7 @@ exports[`number-line widget snapshots default: first render 1`] = `
           </span>
            on the number line.
         </strong>
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -852,8 +854,9 @@ exports[`number-line widget snapshots endpoints are highlighted when labels are 
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Move the dot to 
@@ -870,7 +873,7 @@ exports[`number-line widget snapshots endpoints are highlighted when labels are 
           </span>
            on the number line.
         </strong>
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -1540,8 +1543,9 @@ exports[`number-line widget snapshots endpoints are highlighted when labels are 
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Move the dot to 
@@ -1558,7 +1562,7 @@ exports[`number-line widget snapshots endpoints are highlighted when labels are 
           </span>
            on the number line.
         </strong>
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -2228,8 +2232,9 @@ exports[`number-line widget snapshots labels are highlighted when part of the ti
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Move the dot to 
@@ -2246,7 +2251,7 @@ exports[`number-line widget snapshots labels are highlighted when part of the ti
           </span>
            on the number line.
         </strong>
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -2696,8 +2701,9 @@ exports[`number-line widget snapshots labels are inserted when NOT part of the t
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Move the dot to 
@@ -2714,7 +2720,7 @@ exports[`number-line widget snapshots labels are inserted when NOT part of the t
           </span>
            on the number line.
         </strong>
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -3213,8 +3219,9 @@ exports[`number-line widget snapshots mobile: first mobile render 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Move the dot to 
@@ -3231,7 +3238,7 @@ exports[`number-line widget snapshots mobile: first mobile render 1`] = `
           </span>
            on the number line.
         </strong>
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -3637,8 +3644,9 @@ exports[`number-line widget snapshots only endpoints/labels show when "Show labe
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Move the dot to 
@@ -3655,7 +3663,7 @@ exports[`number-line widget snapshots only endpoints/labels show when "Show labe
           </span>
            on the number line.
         </strong>
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -4040,8 +4048,9 @@ exports[`number-line widget snapshots only endpoints/labels show when "Show labe
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Move the dot to 
@@ -4058,7 +4067,7 @@ exports[`number-line widget snapshots only endpoints/labels show when "Show labe
           </span>
            on the number line.
         </strong>
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"

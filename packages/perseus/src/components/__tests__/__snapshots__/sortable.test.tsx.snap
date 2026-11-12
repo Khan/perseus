@@ -48,11 +48,12 @@ exports[`Sortable renders a spinner while waiting for the TeX renderer to load: 
         <div
           class="deprecated-perseus-container"
         >
-          <p
+          <div
             class="deprecated-perseus-container"
+            role="paragraph"
           >
             a
-          </p>
+          </div>
         </div>
       </div>
     </li>
@@ -66,11 +67,12 @@ exports[`Sortable renders a spinner while waiting for the TeX renderer to load: 
         <div
           class="deprecated-perseus-container"
         >
-          <p
+          <div
             class="deprecated-perseus-container"
+            role="paragraph"
           >
             b
-          </p>
+          </div>
         </div>
       </div>
     </li>
@@ -84,11 +86,12 @@ exports[`Sortable renders a spinner while waiting for the TeX renderer to load: 
         <div
           class="deprecated-perseus-container"
         >
-          <p
+          <div
             class="deprecated-perseus-container"
+            role="paragraph"
           >
             c
-          </p>
+          </div>
         </div>
       </div>
     </li>
@@ -112,11 +115,12 @@ exports[`Sortable should snapshot: first render 1`] = `
         <div
           class="deprecated-perseus-container"
         >
-          <p
+          <div
             class="deprecated-perseus-container"
+            role="paragraph"
           >
             a
-          </p>
+          </div>
         </div>
       </div>
     </li>
@@ -130,11 +134,12 @@ exports[`Sortable should snapshot: first render 1`] = `
         <div
           class="deprecated-perseus-container"
         >
-          <p
+          <div
             class="deprecated-perseus-container"
+            role="paragraph"
           >
             b
-          </p>
+          </div>
         </div>
       </div>
     </li>
@@ -148,11 +153,12 @@ exports[`Sortable should snapshot: first render 1`] = `
         <div
           class="deprecated-perseus-container"
         >
-          <p
+          <div
             class="deprecated-perseus-container"
+            role="paragraph"
           >
             c
-          </p>
+          </div>
         </div>
       </div>
     </li>

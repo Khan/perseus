@@ -63,11 +63,12 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       This is an explanation
-                    </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -145,11 +146,12 @@ exports[`Explanation should snapshot: initial render 1`] = `
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       This is an explanation
-                    </p>
+                    </div>
                   </div>
                 </div>
               </div>

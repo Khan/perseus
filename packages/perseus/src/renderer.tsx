@@ -36,7 +36,7 @@ import {ApiOptions, ClassNames as ApiClassNames} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown";
 import QuestionParagraph from "./question-paragraph";
 import TranslationLinter from "./translation-linter";
-import Util, {isContentGraphie, noParagraphForInlineWidget} from "./util";
+import Util, {isContentGraphie} from "./util";
 import {containerSizeClass} from "./util/sizing-utils";
 import preprocessTex from "./util/tex-preprocess";
 import WidgetContainer from "./widget-container";
@@ -955,25 +955,17 @@ class Renderer
                 );
             }
 
-            if (noParagraphForInlineWidget(node)) {
-                // Some widgets can appear inline with text, but
-                // shouldn't be contained by a <p> element (invalid HTML),
-                // so set the role of the container to "paragraph".
-                return (
-                    <div
-                        role="paragraph"
-                        key={state.key}
-                        className="deprecated-perseus-container"
-                    >
-                        {content}
-                    </div>
-                );
-            }
-
+            // Some widgets can appear inline with text, but
+            // shouldn't be contained by a <p> element (invalid HTML),
+            // so set the role of the container to "paragraph".
             return (
-                <p key={state.key} className="deprecated-perseus-container">
+                <div
+                    role="paragraph"
+                    key={state.key}
+                    className="deprecated-perseus-container"
+                >
                     {content}
-                </p>
+                </div>
             );
         }
         if (node.type === "widget") {
