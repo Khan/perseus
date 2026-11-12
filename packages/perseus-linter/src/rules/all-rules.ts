@@ -52,6 +52,7 @@ import SorterWidgetWarning from "./sorter-widget-warning";
 import StaticWidgetInQuestionStem from "./static-widget-in-question-stem";
 import TableMissingCaption from "./table-missing-caption";
 import TableMissingCells from "./table-missing-cells";
+import TableSingleCell from "./table-single-cell";
 import UnbalancedCodeDelimiters from "./unbalanced-code-delimiters";
 import UnescapedDollar from "./unescaped-dollar";
 
@@ -109,6 +110,7 @@ export function allRules(): Rule[] {
         StaticWidgetInQuestionStem,
         TableMissingCaption,
         TableMissingCells,
+        TableSingleCell,
         UnbalancedCodeDelimiters,
         UnescapedDollar,
     ];
