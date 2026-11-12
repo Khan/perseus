@@ -48,19 +48,6 @@
     -webkit-touch-callout: none;
 }
 @media (max-width: 767px) {
-    .framework-perseus.perseus-mobile h1 {
-        padding-top: 0px;
-        color: var(--wb-semanticColor-core-foreground-neutral-strong);
-    }
-    .framework-perseus.perseus-mobile h2 {
-        padding-top: var(--wb-sizing-size_160);
-        color: var(--wb-semanticColor-core-foreground-neutral-strong);
-    }
-    .framework-perseus.perseus-mobile h3,
-    .framework-perseus.perseus-mobile h4 {
-        padding-top: 0px;
-        color: var(--wb-semanticColor-core-foreground-neutral-default);
-    }
     .framework-perseus.perseus-mobile blockquote {
         color: var(--wb-semanticColor-core-foreground-neutral-subtle);
     }
@@ -86,19 +73,6 @@
     }
 }
 @media (min-width: 767px) and (max-width: 1199px) {
-    .framework-perseus.perseus-mobile h1 {
-        padding-top: 0px;
-        color: var(--wb-semanticColor-core-foreground-neutral-strong);
-    }
-    .framework-perseus.perseus-mobile h2 {
-        padding-top: var(--wb-sizing-size_320);
-        color: var(--wb-semanticColor-core-foreground-neutral-strong);
-    }
-    .framework-perseus.perseus-mobile h3,
-    .framework-perseus.perseus-mobile h4 {
-        padding-top: var(--wb-sizing-size_160);
-        color: var(--wb-semanticColor-core-foreground-neutral-default);
-    }
     .framework-perseus.perseus-mobile blockquote {
         color: var(--wb-semanticColor-core-foreground-neutral-subtle);
     }
@@ -124,19 +98,6 @@
     }
 }
 @media (min-width: 1200px) {
-    .framework-perseus.perseus-mobile h1 {
-        padding-top: 0px;
-        color: var(--wb-semanticColor-core-foreground-neutral-strong);
-    }
-    .framework-perseus.perseus-mobile h2 {
-        padding-top: var(--wb-sizing-size_320);
-        color: var(--wb-semanticColor-core-foreground-neutral-strong);
-    }
-    .framework-perseus.perseus-mobile h3,
-    .framework-perseus.perseus-mobile h4 {
-        padding-top: var(--wb-sizing-size_160);
-        color: var(--wb-semanticColor-core-foreground-neutral-default);
-    }
     .framework-perseus.perseus-mobile blockquote {
         color: var(--wb-semanticColor-core-foreground-neutral-subtle);
     }
