@@ -45,84 +45,106 @@ type ScoringLogic = {
 
 const widgets = new Registry<ScoringLogic>("Score widget registry");
 
+function setWidget(
+    type: string,
+    scorer: WidgetScorerFunction,
+    validator?: WidgetValidatorFunction,
+) {
+    widgets.set(type, {scorer, validator});
+}
+
+// The built-in widgets are registered on first use, not when this module
+// loads: the group widget's scorer and validator import score.ts and
+// validate.ts, which import this module. A module that imports the group
+// widget first (as its tests do) would otherwise reach these registrations
+// before the group widget's exports exist, which throws under native ES
+// modules.
+let builtInsRegistered = false;
+function registerBuiltInWidgets() {
+    if (builtInsRegistered) {
+        return;
+    }
+    builtInsRegistered = true;
+    setWidget(
+        "categorizer",
+        // eslint-disable-next-line no-restricted-syntax
+        scoreCategorizer as any,
+        // eslint-disable-next-line no-restricted-syntax
+        validateCategorizer as any,
+    );
+    // eslint-disable-next-line no-restricted-syntax
+    setWidget("cs-program", scoreCSProgram as any);
+    // eslint-disable-next-line no-restricted-syntax
+    setWidget("dropdown", scoreDropdown as any, validateDropdown as any);
+    // eslint-disable-next-line no-restricted-syntax
+    setWidget("expression", scoreExpression as any, validateExpression as any);
+    setWidget(
+        "free-response",
+        // eslint-disable-next-line no-restricted-syntax
+        scoreFreeResponse as any,
+        // eslint-disable-next-line no-restricted-syntax
+        validateFreeResponse as any,
+    );
+    // eslint-disable-next-line no-restricted-syntax
+    setWidget("grapher", scoreGrapher as any);
+    // eslint-disable-next-line no-restricted-syntax
+    setWidget("group", scoreGroup as any, validateGroup as any);
+    // eslint-disable-next-line no-restricted-syntax
+    setWidget("iframe", scoreIframe as any);
+    // eslint-disable-next-line no-restricted-syntax
+    setWidget("input-number", scoreInputNumber as any);
+    // eslint-disable-next-line no-restricted-syntax
+    setWidget("interactive-graph", scoreInteractiveGraph as any);
+    setWidget(
+        "label-image",
+        // eslint-disable-next-line no-restricted-syntax
+        scoreLabelImage as any,
+        // eslint-disable-next-line no-restricted-syntax
+        validateLabelImage as any,
+    );
+    // eslint-disable-next-line no-restricted-syntax
+    setWidget("matcher", scoreMatcher as any);
+    // eslint-disable-next-line no-restricted-syntax
+    setWidget("matrix", scoreMatrix as any, validateMatrix as any);
+    // eslint-disable-next-line no-restricted-syntax
+    setWidget("mock-widget", scoreMockWidget as any, scoreMockWidget as any);
+    // eslint-disable-next-line no-restricted-syntax
+    setWidget("number-line", scoreNumberLine as any);
+    // eslint-disable-next-line no-restricted-syntax
+    setWidget("numeric-input", scoreNumericInput as any);
+    // eslint-disable-next-line no-restricted-syntax
+    setWidget("orderer", scoreOrderer as any, validateOrderer as any);
+    // eslint-disable-next-line no-restricted-syntax
+    setWidget("plotter", scorePlotter as any, validatePlotter as any);
+    // eslint-disable-next-line no-restricted-syntax
+    setWidget("radio", scoreRadio as any, validateRadio as any);
+    // eslint-disable-next-line no-restricted-syntax
+    setWidget("sorter", scoreSorter as any, validateSorter as any);
+    // eslint-disable-next-line no-restricted-syntax
+    setWidget("table", scoreTable as any, validateTable as any);
+}
+
 export function registerWidget(
     type: string,
     scorer: WidgetScorerFunction,
     validator?: WidgetValidatorFunction,
 ) {
-    const logic = {
-        scorer,
-        validator,
-    };
-    widgets.set(type, logic);
+    // So that a later lookup doesn't replace this registration with a
+    // built-in one.
+    registerBuiltInWidgets();
+    setWidget(type, scorer, validator);
 }
 
 export const getWidgetValidator = (
     type: string,
 ): WidgetValidatorFunction | null => {
+    registerBuiltInWidgets();
     return widgets.get(type)?.validator ?? null;
 };
 
 // A widget type with no registered scorer is unscoreable and doesn't count
 // towards an item's score.
 export const getWidgetScorer = (type: string): WidgetScorerFunction | null => {
+    registerBuiltInWidgets();
     return widgets.get(type)?.scorer ?? null;
 };
-
-registerWidget(
-    "categorizer",
-    // eslint-disable-next-line no-restricted-syntax
-    scoreCategorizer as any,
-    // eslint-disable-next-line no-restricted-syntax
-    validateCategorizer as any,
-);
-// eslint-disable-next-line no-restricted-syntax
-registerWidget("cs-program", scoreCSProgram as any);
-// eslint-disable-next-line no-restricted-syntax
-registerWidget("dropdown", scoreDropdown as any, validateDropdown as any);
-// eslint-disable-next-line no-restricted-syntax
-registerWidget("expression", scoreExpression as any, validateExpression as any);
-registerWidget(
-    "free-response",
-    // eslint-disable-next-line no-restricted-syntax
-    scoreFreeResponse as any,
-    // eslint-disable-next-line no-restricted-syntax
-    validateFreeResponse as any,
-);
-// eslint-disable-next-line no-restricted-syntax
-registerWidget("grapher", scoreGrapher as any);
-// eslint-disable-next-line no-restricted-syntax
-registerWidget("group", scoreGroup as any, validateGroup as any);
-// eslint-disable-next-line no-restricted-syntax
-registerWidget("iframe", scoreIframe as any);
-// eslint-disable-next-line no-restricted-syntax
-registerWidget("input-number", scoreInputNumber as any);
-// eslint-disable-next-line no-restricted-syntax
-registerWidget("interactive-graph", scoreInteractiveGraph as any);
-registerWidget(
-    "label-image",
-    // eslint-disable-next-line no-restricted-syntax
-    scoreLabelImage as any,
-    // eslint-disable-next-line no-restricted-syntax
-    validateLabelImage as any,
-);
-// eslint-disable-next-line no-restricted-syntax
-registerWidget("matcher", scoreMatcher as any);
-// eslint-disable-next-line no-restricted-syntax
-registerWidget("matrix", scoreMatrix as any, validateMatrix as any);
-// eslint-disable-next-line no-restricted-syntax
-registerWidget("mock-widget", scoreMockWidget as any, scoreMockWidget as any);
-// eslint-disable-next-line no-restricted-syntax
-registerWidget("number-line", scoreNumberLine as any);
-// eslint-disable-next-line no-restricted-syntax
-registerWidget("numeric-input", scoreNumericInput as any);
-// eslint-disable-next-line no-restricted-syntax
-registerWidget("orderer", scoreOrderer as any, validateOrderer as any);
-// eslint-disable-next-line no-restricted-syntax
-registerWidget("plotter", scorePlotter as any, validatePlotter as any);
-// eslint-disable-next-line no-restricted-syntax
-registerWidget("radio", scoreRadio as any, validateRadio as any);
-// eslint-disable-next-line no-restricted-syntax
-registerWidget("sorter", scoreSorter as any, validateSorter as any);
-// eslint-disable-next-line no-restricted-syntax
-registerWidget("table", scoreTable as any, validateTable as any);
