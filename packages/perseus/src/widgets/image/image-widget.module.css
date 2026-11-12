@@ -31,7 +31,8 @@
     color: var(--wb-semanticColor-core-foreground-neutral-subtle);
 }
 
-.image-caption, .title-container {
+.image-caption,
+.title-container {
     :global(.perseus-renderer) > :global(.deprecated-perseus-container) > *,
     :global(.perseus-renderer) > * {
         margin-block: 0;
