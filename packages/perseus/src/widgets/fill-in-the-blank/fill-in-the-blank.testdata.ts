@@ -12,7 +12,7 @@ export const basicFillInTheBlankQuestion = generateTestPerseusRenderer({
     widgets: {
         "fill-in-the-blank 1": generateFillInTheBlankWidget({
             options: generateFillInTheBlankOptions({
-                content: "A [[☃ blank 1]] is a drum.",
+                content: "A [[☃ blank 1]] is a drum.\n\n(Correct: Djembe)",
                 widgets: {
                     "blank 1": generateBlankWidget({
                         options: generateBlankOptions({correctId: "djembe"}),
@@ -57,7 +57,8 @@ export const paragraphFillInTheBlankQuestion = generateTestPerseusRenderer({
                     "shaken is a [[☃ blank 2]]. Many years ago, a " +
                     "[[☃ blank 3]] drum was used to announce an army's " +
                     "arrival onto a battlefield. Finally, the biggest drum " +
-                    "in a marching band is a [[☃ blank 4]] drum.",
+                    "in a marching band is a [[☃ blank 4]] drum.\n\n" +
+                    "Correct: Bongo, Tambourine, Snare, Bass",
                 widgets: {
                     "blank 1": generateBlankWidget({
                         options: generateBlankOptions({correctId: "bongo"}),
