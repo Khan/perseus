@@ -13,9 +13,9 @@ import invariant from "tiny-invariant";
 // pre-interaction wait for interactions stories.
 export const waitForNumberLine = (canvasElement: HTMLElement): Promise<void> =>
     waitFor(() => {
-        const point = canvasElement.querySelector(
-            '[data-interactive-kind-for-testing="movable-point"] ellipse',
-        );
+        // Query the visible ellipse - the point is the only ellipse that
+        // the number line draws.
+        const point = canvasElement.querySelector("ellipse");
         if (point == null) {
             throw new Error("number line point has not rendered yet");
         }

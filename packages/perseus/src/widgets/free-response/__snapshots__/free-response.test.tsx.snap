@@ -40,11 +40,12 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
                       <div
                         class="deprecated-perseus-container"
                       >
-                        <p
+                        <div
                           class="deprecated-perseus-container"
+                          role="paragraph"
                         >
                           test-question
-                        </p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -132,11 +133,12 @@ exports[`free-response widget should snapshot: first render 1`] = `
                       <div
                         class="deprecated-perseus-container"
                       >
-                        <p
+                        <div
                           class="deprecated-perseus-container"
+                          role="paragraph"
                         >
                           test-question
-                        </p>
+                        </div>
                       </div>
                     </div>
                   </div>

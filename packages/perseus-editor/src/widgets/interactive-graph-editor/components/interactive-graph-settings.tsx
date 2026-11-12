@@ -705,7 +705,6 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                             and snap step to values that are
                                             valid for the current range.
                                         </p>
-                                        <br />
                                         <p>
                                             This is useful when the range is
                                             changed, and the graph errors due to

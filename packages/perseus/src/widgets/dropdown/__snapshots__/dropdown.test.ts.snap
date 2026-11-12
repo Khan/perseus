@@ -54,11 +54,12 @@ exports[`Dropdown widget matches the snapshot on initial render: initial render 
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             greater/less than or equal to
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>

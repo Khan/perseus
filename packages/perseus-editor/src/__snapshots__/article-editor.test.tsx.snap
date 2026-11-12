@@ -710,11 +710,12 @@ table: [[☃ table 1]]
                                   <div
                                     class="deprecated-perseus-container"
                                   >
-                                    <p
+                                    <div
                                       class="deprecated-perseus-container"
+                                      role="paragraph"
                                     >
                                       Fruits
-                                    </p>
+                                    </div>
                                   </div>
                                 </div>
                               </th>
@@ -727,11 +728,12 @@ table: [[☃ table 1]]
                                   <div
                                     class="deprecated-perseus-container"
                                   >
-                                    <p
+                                    <div
                                       class="deprecated-perseus-container"
+                                      role="paragraph"
                                     >
                                       Vegetables
-                                    </p>
+                                    </div>
                                   </div>
                                 </div>
                               </th>
@@ -746,11 +748,12 @@ table: [[☃ table 1]]
                                   <div
                                     class="deprecated-perseus-container"
                                   >
-                                    <p
+                                    <div
                                       class="deprecated-perseus-container"
+                                      role="paragraph"
                                     >
                                       Apple
-                                    </p>
+                                    </div>
                                   </div>
                                 </div>
                               </td>
@@ -821,11 +824,12 @@ table: [[☃ table 1]]
                                   <div
                                     class="deprecated-perseus-container"
                                   >
-                                    <p
+                                    <div
                                       class="deprecated-perseus-container"
+                                      role="paragraph"
                                     >
                                       Carrot
-                                    </p>
+                                    </div>
                                   </div>
                                 </div>
                               </td>
@@ -896,11 +900,12 @@ table: [[☃ table 1]]
                                   <div
                                     class="deprecated-perseus-container"
                                   >
-                                    <p
+                                    <div
                                       class="deprecated-perseus-container"
+                                      role="paragraph"
                                     >
                                       Orange
-                                    </p>
+                                    </div>
                                   </div>
                                 </div>
                               </td>

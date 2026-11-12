@@ -199,7 +199,7 @@
         :global(.graphie),
         :global(.unresponsive-svg-image)
     ),
-.choice :global(.deprecated-perseus-container) p {
+.choice :global(.deprecated-perseus-container) :is(p, [role="paragraph"]) {
     display: inline;
 }
 

@@ -43,22 +43,24 @@ exports[`renderer in a JIPT context replaces the \`crwdn\` placeholder with the 
       data-perseus-component-index="42"
       data-perseus-paragraph-index="0"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         first paragraph
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
       data-perseus-component-index="42"
       data-perseus-paragraph-index="1"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         second paragraph
-      </p>
+      </div>
     </div>
   </div>
 </div>
@@ -74,8 +76,9 @@ exports[`renderer in a JIPT context replaces the \`crwdn\` placeholder with the 
       data-perseus-component-index="42"
       data-perseus-paragraph-index="0"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <a
           href="https://khanacademy.org"
@@ -83,7 +86,7 @@ exports[`renderer in a JIPT context replaces the \`crwdn\` placeholder with the 
         >
           link
         </a>
-      </p>
+      </div>
     </div>
   </div>
 </div>
@@ -97,20 +100,22 @@ exports[`renderer rendering should ignore the deprecated column separator '=====
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         Stuff before the separator
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         Stuff after the separator
-      </p>
+      </div>
     </div>
   </div>
 </div>
@@ -126,16 +131,18 @@ exports[`renderer rendering should ignore the deprecated column separator '=====
     >
       <ul>
         <li>
-          <p
+          <div
             class="deprecated-perseus-container"
+            role="paragraph"
           >
             Stuff before the separator
-          </p>
-          <p
+          </div>
+          <div
             class="deprecated-perseus-container"
+            role="paragraph"
           >
             Stuff after the separator
-          </p>
+          </div>
         </li>
       </ul>
     </div>
@@ -347,11 +354,12 @@ exports[`renderer rendering should render block math 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         This is some block math
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container perseus-paragraph-centered"
@@ -374,11 +382,12 @@ exports[`renderer rendering should render block math 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         And a footer.
-      </p>
+      </div>
     </div>
   </div>
 </div>
@@ -392,11 +401,12 @@ exports[`renderer rendering should render block math on mobile 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         This is some block math
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container perseus-paragraph-centered"
@@ -424,11 +434,12 @@ exports[`renderer rendering should render block math on mobile 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         And a footer.
-      </p>
+      </div>
     </div>
   </div>
 </div>
@@ -442,8 +453,9 @@ exports[`renderer rendering should render the math 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         This is some inline math: 
         <span
@@ -457,7 +469,7 @@ exports[`renderer rendering should render the math 1`] = `
           </span>
           <span />
         </span>
-      </p>
+      </div>
     </div>
   </div>
 </div>
@@ -523,11 +535,12 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             less than or equal to
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -620,11 +633,12 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             greater than or equal to
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -717,11 +731,12 @@ exports[`renderer snapshots initial render: initial render 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             greater/less than or equal to
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>

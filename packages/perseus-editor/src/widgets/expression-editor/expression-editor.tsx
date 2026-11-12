@@ -358,10 +358,13 @@ class ExpressionEditor extends React.Component<Props, State> {
                             <>
                                 Visible label
                                 <InfoTip>
-                                    Optional visible text; strongly encouraged
-                                    to help learners using dictation software,
-                                    but can be omitted if the surrounding
-                                    content provides enough context.
+                                    <p>
+                                        Optional visible text; strongly
+                                        encouraged to help learners using
+                                        dictation software, but can be omitted
+                                        if the surrounding content provides
+                                        enough context.
+                                    </p>
                                 </InfoTip>
                             </>
                         }
@@ -376,18 +379,20 @@ class ExpressionEditor extends React.Component<Props, State> {
                             <>
                                 Aria label
                                 <InfoTip>
-                                    Label text that&apos;s read by screen
-                                    readers. Highly recommend adding a label
-                                    here to ensure your exercise is accessible.
-                                    For more information on writting accessible
-                                    labels, please see{" "}
-                                    <a
-                                        href="https://www.w3.org/WAI/tips/designing/#ensure-that-form-elements-include-clearly-associated-labels"
-                                        target="_blank"
-                                        rel="noreferrer"
-                                    >
-                                        this article.
-                                    </a>
+                                    <p>
+                                        Label text that&apos;s read by screen
+                                        readers. Highly recommend adding a label
+                                        here to ensure your exercise is
+                                        accessible. For more information on
+                                        writting accessible labels, please see{" "}
+                                        <a
+                                            href="https://www.w3.org/WAI/tips/designing/#ensure-that-form-elements-include-clearly-associated-labels"
+                                            target="_blank"
+                                            rel="noreferrer"
+                                        >
+                                            this article.
+                                        </a>
+                                    </p>
                                 </InfoTip>
                             </>
                         }
@@ -402,10 +407,12 @@ class ExpressionEditor extends React.Component<Props, State> {
                             <>
                                 Function variables
                                 <InfoTip>
-                                    Single-letter variables listed here will be
-                                    interpreted as functions. This let us know
-                                    that f(x) means &quot;f of x&quot; and not
-                                    &quot;f times x&quot;.
+                                    <p>
+                                        Single-letter variables listed here will
+                                        be interpreted as functions. This let us
+                                        know that f(x) means &quot;f of x&quot;
+                                        and not &quot;f times x&quot;.
+                                    </p>
                                 </InfoTip>
                             </>
                         }
@@ -420,10 +427,13 @@ class ExpressionEditor extends React.Component<Props, State> {
                             <>
                                 Use × instead of ⋅ for multiplication
                                 <InfoTip>
-                                    For pre-algebra problems this option
-                                    displays multiplication as \times instead of
-                                    \cdot in both the rendered output and the
-                                    acceptable formats examples.
+                                    <p>
+                                        For pre-algebra problems this option
+                                        displays multiplication as \times
+                                        instead of \cdot in both the rendered
+                                        output and the acceptable formats
+                                        examples.
+                                    </p>
                                 </InfoTip>
                             </>
                         }
@@ -577,9 +587,11 @@ class AnswerOption extends React.Component<
                             <>
                                 Answer expression must have the same form.
                                 <InfoTip>
-                                    The student&apos;s answer must be in the
-                                    same form. Commutativity and excess negative
-                                    signs are ignored.
+                                    <p>
+                                        The student&apos;s answer must be in the
+                                        same form. Commutativity and excess
+                                        negative signs are ignored.
+                                    </p>
                                 </InfoTip>
                             </>
                         }
@@ -595,12 +607,14 @@ class AnswerOption extends React.Component<
                                 Answer expression must be fully expanded and
                                 simplified.
                                 <InfoTip>
-                                    The student&apos;s answer must be fully
-                                    expanded and simplified. Answering this
-                                    equation (x^2+2x+1) with this factored
-                                    equation (x+1)^2 will render this response
-                                    &quot;Your answer is not fully expanded and
-                                    simplified.&quot;
+                                    <p>
+                                        The student&apos;s answer must be fully
+                                        expanded and simplified. Answering this
+                                        equation (x^2+2x+1) with this factored
+                                        equation (x+1)^2 will render this
+                                        response &quot;Your answer is not fully
+                                        expanded and simplified.&quot;
+                                    </p>
                                 </InfoTip>
                             </>
                         }
