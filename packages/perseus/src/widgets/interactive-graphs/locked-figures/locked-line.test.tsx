@@ -53,11 +53,11 @@ function renderLockedLine(line: LockedLineType) {
 }
 
 // Lines are drawn as <line> elements and arrowheads as <path> elements.
-function strokes(figure: Element) {
+function queryStrokes(figure: Element) {
     return figure.querySelectorAll("line, path");
 }
 
-function circles(figure: Element) {
+function queryCircles(figure: Element) {
     return figure.querySelectorAll("circle");
 }
 
@@ -77,7 +77,7 @@ describe.each(["segment", "line", "ray"] as const)(
             );
 
             // Assert
-            expect(strokes(figure)).not.toHaveLength(0);
+            expect(queryStrokes(figure)).not.toHaveLength(0);
         });
 
         it("draws no strokes given coincident points", () => {
@@ -87,7 +87,7 @@ describe.each(["segment", "line", "ray"] as const)(
             );
 
             // Assert
-            expect(strokes(figure)).toHaveLength(0);
+            expect(queryStrokes(figure)).toHaveLength(0);
         });
 
         it("logs no console errors given coincident points", () => {
@@ -117,7 +117,7 @@ describe.each(["segment", "line", "ray"] as const)(
             );
 
             // Assert
-            expect(circles(figure)).toHaveLength(2);
+            expect(queryCircles(figure)).toHaveLength(2);
         });
     },
 );
