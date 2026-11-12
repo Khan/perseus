@@ -8,6 +8,8 @@
         "node": "^24.18.0"
     },
     "devDependencies": {
+        "@argos-ci/cli": "^6.11.0",
+        "@argos-ci/storybook": "^6.4.4",
         "@babel/core": "^7.23.2",
         "@babel/parser": "^7.26.3",
         "@changesets/changelog-github": "^0.7.0",
@@ -29,6 +31,7 @@
         "@storybook/addon-docs": "10.6.0",
         "@storybook/addon-links": "10.6.0",
         "@storybook/addon-mcp": "10.6.0",
+        "@storybook/addon-vitest": "10.6.0",
         "@storybook/react-vite": "10.6.0",
         "@swc-node/register": "^1.10.10",
         "@swc/core": "1.11.13",
@@ -48,6 +51,8 @@
         "@typescript-eslint/eslint-plugin": "^8.18.0",
         "@typescript-eslint/parser": "^8.18.0",
         "@vitejs/plugin-react": "^6.1.1",
+        "@vitest/browser": "^4.1.12",
+        "@vitest/browser-playwright": "^4.1.12",
         "ancesdir": "^3.1.0",
         "aphrodite": "catalog:devDeps",
         "cross-env": "^5.2.0",
@@ -81,6 +86,7 @@
         "jest-specific-snapshot": "^5.0.0",
         "knip": "^6.42.1",
         "nyc": "^15.1.0",
+        "playwright": "^1.64.1",
         "prettier": "^3",
         "react": "catalog:devDeps",
         "react-dom": "catalog:devDeps",
@@ -99,6 +105,7 @@
         "update-browserslist-db": "^1.2.3",
         "vite": "8.3.1",
         "vite-plugin-istanbul": "^9.0.1",
+        "vitest": "^4.1.12",
         "yaml": "^2.7.0"
     },
     "scripts": {

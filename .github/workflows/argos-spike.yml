@@ -1,0 +1,231 @@
+# SPIKE: Evaluate Argos (https://argos-ci.com) as a replacement for
+# Chromatic. Mirrors the Wonder Blocks spike (WB-2480,
+# https://github.com/Khan/wonder-blocks/pull/3281). The Chromatic workflows
+# are untouched; this runs alongside them.
+#
+# Captures the same stories Chromatic does: only `*-regression.stories.tsx`
+# files (Chromatic's `onlyStoryFiles`), and within them only stories with
+# `chromatic.disableSnapshot: false` (see `.storybook/argos-vitest-plugin.mts`).
+# Theme modes come from each story's `chromatic.modes`, which
+# `@argos-ci/storybook` reads as a fallback.
+#
+# Two kinds of jobs run in parallel:
+#
+# - `deploy`: builds Storybook and publishes it as an Argos deployment (the
+#   equivalent of the Storybook that Chromatic hosts for each PR).
+#   See: https://argos-ci.com/docs/learn/deployments
+# - `screenshots`: the stories rendered in Vitest browser mode, split into
+#   parallel `--shard`s. Argos's parallel mode (`ARGOS_PARALLEL*`) merges the
+#   shards back into one build.
+#
+# Uploading to Argos is opt-in: it only happens when the `ARGOS_TOKEN` secret
+# is set. Until then, screenshots are only published as workflow artifacts
+# and Storybook isn't deployed.
+name: Argos (spike)
+
+on:
+    pull_request:
+        types: [opened, synchronize, reopened]
+    # Builds on main become the visual baseline (auto-approved by Argos) and
+    # are deployed as the production Storybook.
+    push:
+        branches:
+            - main
+    workflow_dispatch:
+        inputs:
+            stories:
+                description: "Story file filter passed to vitest"
+                required: false
+                default: "regression.stories"
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+    cancel-in-progress: true
+
+permissions:
+    contents: read
+
+env:
+    # Secrets can't be used in step `if:` conditions directly.
+    HAS_ARGOS_TOKEN: ${{ secrets.ARGOS_TOKEN != '' }}
+
+jobs:
+    deploy:
+        name: Deploy Storybook to Argos
+        # Release PRs only bump versions and changelogs.
+        if: ${{ !startsWith(github.head_ref, 'changeset-release/') }}
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && 'ubuntu-latest' || 'ephemeral-runner' }}
+        steps:
+            - name: Checking out latest commit
+              if: ${{ env.HAS_ARGOS_TOKEN == 'true' }}
+              uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+            - name: Secure Network
+              if: ${{ env.HAS_ARGOS_TOKEN == 'true' }}
+              uses: Khan/actions@secure-network-v1
+              timeout-minutes: 5
+              with:
+                  conf-files: .github/npm-extra-domains.conf
+                  # api.argos-ci.com: Argos API (deployment creation, finalize)
+                  # argos-deployments-production.s3.us-east-1.amazonaws.com:
+                  #   S3 bucket for Storybook deployment uploads.
+                  extra-domains: api.argos-ci.com argos-deployments-production.s3.us-east-1.amazonaws.com
+
+            - name: Install & cache node_modules
+              if: ${{ env.HAS_ARGOS_TOKEN == 'true' }}
+              uses: ./.github/actions/shared-node-cache
+
+            - name: Build Storybook
+              if: ${{ env.HAS_ARGOS_TOKEN == 'true' }}
+              run: pnpm build:storybook
+
+            - name: Deploy Storybook to Argos
+              id: deploy
+              if: ${{ env.HAS_ARGOS_TOKEN == 'true' }}
+              run: |
+                  set -o pipefail
+                  # Deploys are previews (a per-deployment URL plus a
+                  # per-branch URL that follows the latest deploy). Argos
+                  # promotes deploys from the production branch (main by
+                  # default) on its own, so no `--prod` here. Argos also
+                  # posts the deployment URL to the PR as the
+                  # `argos-deploy/<project>` status check.
+                  #
+                  # The Argos API rejects zero-byte files ("files.N.size is
+                  # Too small"). The Storybook build emits empty esbuild
+                  # license files (`*.LEGAL.txt`) that the browser never
+                  # requests, so drop them first.
+                  find storybook-static -type f -empty -print -delete
+                  pnpm exec argos deploy ./storybook-static 2>&1 | tee deploy.log
+                  # The CLI prints `✔ Deployed: <url>` once the deployment is
+                  # ready; it has no machine-readable output.
+                  url=$(sed 's/\x1b\[[0-9;]*m//g' deploy.log | grep -oE 'https://[^ ]+\.argos-ci\.live[^ ]*' | tail -1)
+                  if [ -z "$url" ]; then
+                      echo "::error title=Argos deploy::Couldn't find the deployment URL in the CLI output"
+                      exit 1
+                  fi
+                  echo "::notice title=Storybook deployed to Argos::${url}"
+              env:
+                  ARGOS_TOKEN: ${{ secrets.ARGOS_TOKEN }}
+
+            # Emit deploy errors as an annotation: unlike logs, annotations
+            # can be read straight from the GitHub API.
+            - name: Report deploy failure
+              if: ${{ failure() && steps.deploy.outcome == 'failure' }}
+              run: |
+                  details=$(sed 's/\x1b\[[0-9;]*m//g' deploy.log \
+                      | tail -40 \
+                      | sed -e 's/%/%25/g' -e 's/\r/%0D/g' \
+                      | awk '{printf "%s%%0A", $0}')
+                  echo "::error title=Argos deploy failure details::${details}"
+
+    screenshots:
+        name: Argos screenshots (shard ${{ matrix.shard }}/3)
+        if: ${{ !startsWith(github.head_ref, 'changeset-release/') }}
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && 'ubuntu-latest' || 'ephemeral-runner' }}
+        strategy:
+            # Every shard has to upload for Argos to finalize the build.
+            fail-fast: false
+            matrix:
+                shard: [1, 2, 3]
+        steps:
+            # Fallback fonts for Chromium (Lato itself is served from
+            # Storybook's static dir). Installed before secure-network so we
+            # don't need to allowlist Ubuntu package domains.
+            - name: Install Playwright dependencies
+              timeout-minutes: 5
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install -y fonts-liberation fonts-ipafont-gothic fonts-wqy-zenhei fonts-tlwg-loma-otf fonts-freefont-ttf
+
+            - name: Checking out latest commit
+              uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+              with:
+                  # Argos uses git history to find the merge base and pick
+                  # the baseline build.
+                  fetch-depth: 0
+
+            - name: Secure Network
+              uses: Khan/actions@secure-network-v1
+              timeout-minutes: 5
+              with:
+                  conf-files: .github/npm-extra-domains.conf
+                  # playwright.download.prss.microsoft.com, cdn.playwright.dev,
+                  #   storage.googleapis.com: Playwright browser downloads
+                  # api.argos-ci.com: Argos API (build creation, finalize)
+                  # argos-ci-production-us-east-1.s3.us-east-1.amazonaws.com:
+                  #   S3 bucket that the presigned screenshot upload URLs
+                  #   returned by the Argos API point to.
+                  # ka-perseus-graphie.s3.amazonaws.com, cdn.kastatic.org:
+                  #   images some stories load
+                  # phet.colorado.edu: PhET simulations and their string
+                  #   maps (the PhET Simulation regression stories)
+                  # fonts.googleapis.com, fonts.gstatic.com: Inconsolata and
+                  #   Source Serif Pro, from .storybook/preview-head.html
+                  extra-domains: playwright.download.prss.microsoft.com cdn.playwright.dev storage.googleapis.com api.argos-ci.com argos-ci-production-us-east-1.s3.us-east-1.amazonaws.com ka-perseus-graphie.s3.amazonaws.com cdn.kastatic.org phet.colorado.edu fonts.googleapis.com fonts.gstatic.com
+
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
+
+            - name: Install Playwright browsers
+              timeout-minutes: 5
+              run: pnpm exec playwright install chromium
+
+            - name: Run stories with Argos screenshots
+              id: vitest
+              run: |
+                  set -o pipefail
+                  start=$(date +%s)
+                  # Record the duration even when vitest fails.
+                  trap 'echo "seconds=$(( $(date +%s) - start ))" >> "$GITHUB_OUTPUT"' EXIT
+                  pnpm exec vitest run --project=storybook --shard=${{ matrix.shard }}/3 "$STORIES" 2>&1 | tee vitest.log
+              env:
+                  # Same files Chromatic snapshots (`onlyStoryFiles`).
+                  STORIES: ${{ inputs.stories || 'regression.stories' }}
+                  ARGOS_SCREENSHOTS: "true"
+                  ARGOS_UPLOAD: ${{ env.HAS_ARGOS_TOKEN }}
+                  ARGOS_TOKEN: ${{ secrets.ARGOS_TOKEN }}
+                  # Merge the shards into a single Argos build. The nonce has
+                  # to be the same for every shard of a run, and different on
+                  # a re-run.
+                  ARGOS_PARALLEL: "true"
+                  ARGOS_PARALLEL_TOTAL: 3
+                  ARGOS_PARALLEL_INDEX: ${{ matrix.shard }}
+                  ARGOS_PARALLEL_NONCE: ${{ github.run_id }}-${{ github.run_attempt }}
+                  # Explicitly set the timezone to avoid:
+                  # `Invalid time zone specified: ETC/UNKNOWN`
+                  TZ: America/Los_Angeles
+
+            - name: Summarize
+              if: always()
+              run: |
+                  count=$(find screenshots -name '*.png' 2>/dev/null | wc -l)
+                  {
+                      echo "## Argos spike (shard ${{ matrix.shard }}/3)"
+                      echo ""
+                      echo "| Metric | Value |"
+                      echo "|---|---|"
+                      echo "| Screenshots | ${count} |"
+                      echo "| Vitest wall-clock | ${{ steps.vitest.outputs.seconds }}s |"
+                      echo "| Uploaded to Argos | ${{ env.HAS_ARGOS_TOKEN }} |"
+                  } >> "$GITHUB_STEP_SUMMARY"
+                  # Also emit the numbers (and, on failure, the error lines)
+                  # as annotations: unlike logs and step summaries, those can
+                  # be read straight from the GitHub API.
+                  echo "::notice title=Argos spike metrics (shard ${{ matrix.shard }}/3)::screenshots=${count} vitest_seconds=${{ steps.vitest.outputs.seconds }}"
+                  if [ "${{ steps.vitest.outcome }}" = "failure" ] && [ -f vitest.log ]; then
+                      details=$(sed 's/\x1b\[[0-9;]*m//g' vitest.log \
+                          | grep -E "Error|FAIL|×|✗|Failed|argos|Argos|Test Files|Tests " \
+                          | tail -60 \
+                          | sed -e 's/%/%25/g' -e 's/\r/%0D/g' \
+                          | awk '{printf "%s%%0A", $0}')
+                      echo "::error title=Vitest failure details::${details}"
+                  fi
+
+            - name: Upload screenshots
+              if: always()
+              uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+              with:
+                  name: argos-screenshots-shard-${{ matrix.shard }}
+                  path: screenshots
+                  retention-days: 7
