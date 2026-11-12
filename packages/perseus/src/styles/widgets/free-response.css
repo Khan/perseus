@@ -1,7 +1,7 @@
 .framework-perseus .free-response-question {
     /* Remove the bottom margin from the last paragraph, so there isn't a
        large space between the question and the textarea. */
-    :nth-last-child(1 of .deprecated-perseus-container) > p {
+    :nth-last-child(1 of .deprecated-perseus-container) > :is(p, [role=paragraph]) {
         margin-bottom: 0;
     }
 }
