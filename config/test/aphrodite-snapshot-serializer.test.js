@@ -1,6 +1,6 @@
-// The serializer under test is registered globally in `setupFilesAfterEnv`
-// (see test.config.js), so these tests exercise it through `expect()` just as
-// any other snapshot test would.
+// The serializer under test is registered globally by the setup file
+// (config/test/vitest/setup.ts), so these tests exercise it through
+// `expect()` just as any other snapshot test would.
 import {StyleSheet, css} from "aphrodite";
 
 function elementWithClass(className) {

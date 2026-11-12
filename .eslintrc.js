@@ -241,6 +241,8 @@ module.exports = {
         // from types/utility.d.ts
         Empty: false,
         SpreadType: false,
+        // The test runner's mock API; `globals: true` in vitest.config.mts.
+        vi: false,
     },
     overrides: [
         ...noSelfPackageImports,
@@ -471,6 +473,7 @@ module.exports = {
                     "**/*.css",
                     "@testing-library/jest-dom",
                     "@testing-library/jest-dom/extend-expect",
+                    "@testing-library/jest-dom/vitest",
                     "whatwg-fetch",
                 ],
             },
