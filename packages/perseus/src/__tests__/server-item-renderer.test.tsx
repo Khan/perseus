@@ -1,6 +1,8 @@
 import {
     generateRadioChoice,
     generateSimpleRadioItem,
+    generateTestPerseusItem,
+    generateTestPerseusRenderer,
     splitPerseusItem,
     type PerseusItem,
 } from "@khanacademy/perseus-core";
@@ -22,18 +24,16 @@ import {
 import {renderItem} from "../__testutils__/render-item";
 import {ENTRANCE_TRANSITION_DURATION_MS} from "../components/zoomable";
 import * as Dependencies from "../dependencies";
-import {ServerItemRenderer} from "../server-item-renderer";
+import LoadingContext from "../loading-context";
+import ServerItemRenderer from "../server-item-renderer";
 import {
     testDependencies,
     testDependenciesV2,
 } from "../testing/test-dependencies";
 import {registerWidget} from "../widgets";
-import MockAssetLoadingWidgetExport from "../widgets/mock-widgets/mock-asset-loading-widget.testutils";
 import MockWidget from "../widgets/mock-widgets/mock-widget";
 
-import {mockedAssetItem} from "./test-items/mock-asset-loading-item";
-
-import type {MockAssetLoadingWidgetHandle} from "../widgets/mock-widgets/mock-asset-loading-widget.testutils";
+import type {MockWidget as MockWidgetType} from "../widgets/mock-widgets/mock-widget-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -151,6 +151,26 @@ describe("server item renderer", () => {
         expect(numHints).toBe(3);
     });
 
+    it("renders only the hints that hintsVisible allows", () => {
+        // Arrange, Act
+        renderItem(
+            generateTestPerseusItem({
+                hints: [
+                    generateTestPerseusRenderer({content: "First hint"}),
+                    generateTestPerseusRenderer({content: "Second hint"}),
+                    generateTestPerseusRenderer({content: "Third hint"}),
+                ],
+            }),
+            {},
+            {hintsVisible: 2},
+        );
+
+        // Assert
+        expect(screen.getByText("First hint")).toBeInTheDocument();
+        expect(screen.getByText("Second hint")).toBeInTheDocument();
+        expect(screen.queryByText("Third hint")).not.toBeInTheDocument();
+    });
+
     it("should return all widget ids", () => {
         // Arrange
         const {renderer} = renderItem(itemWithTwoMockWidgets);
@@ -188,62 +208,41 @@ describe("server item renderer", () => {
         expect(answerableCallback).toHaveBeenCalledWith(true);
     });
 
-    it("should call the onRendered callback when all assets loaded", () => {
-        // This is an involved test. We create a mock widget that gives us
-        // access to the setAssetStatus function that is passed down by the
-        // render tree created.
-        // Finally we re-render and poke the asset status to loaded. At that
-        // everything is loaded.
-
+    it("calls onRendered once every asset has settled", () => {
         // Arrange
-        registerWidget(
-            "mock-asset-loading-widget",
-            MockAssetLoadingWidgetExport,
-        );
-
+        // This TeX holds on to its onRender callback so the test decides when
+        // the math finishes rendering.
+        let settleMath: (() => void) | undefined;
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+            ...testDependencies,
+            TeX: ({
+                children,
+                onRender,
+            }: {
+                children: React.ReactNode;
+                onRender?: () => void;
+            }) => {
+                settleMath = onRender;
+                return <span className="mock-TeX">{children}</span>;
+            },
+        });
         const onRendered = jest.fn();
-        let renderer: ServerItemRenderer | null | undefined;
-        const {rerender} = render(
+        render(
             <RenderStateRoot>
-                <ServerItemRenderer
-                    ref={(component) => (renderer = component)}
-                    item={mockedAssetItem}
-                    problemNum={0}
-                    reviewMode={false}
-                    onRendered={onRendered}
-                    dependencies={testDependenciesV2}
-                />
+                <LoadingContext.Provider value={{onRendered}}>
+                    <ServerItemRenderer
+                        item={itemWithMath}
+                        problemNum={0}
+                        reviewMode={false}
+                        dependencies={testDependenciesV2}
+                    />
+                </LoadingContext.Provider>
             </RenderStateRoot>,
         );
-        if (renderer == null) {
-            throw new Error("Renderer failed to render.");
-        }
-
-        const mockedWidget = renderer.questionRenderer.getWidgetInstance(
-            "mock-asset-loading-widget 1",
-        );
-        if (mockedWidget == null) {
-            throw new Error("Couldn't find mocked widget!");
-        }
-
-        rerender(
-            <RenderStateRoot>
-                <ServerItemRenderer
-                    item={mockedAssetItem}
-                    problemNum={1}
-                    reviewMode={false}
-                    onRendered={onRendered}
-                    dependencies={testDependenciesV2}
-                />
-            </RenderStateRoot>,
-        );
+        expect(onRendered).not.toHaveBeenCalled();
 
         // Act
-        // setAssetStatus() is not part of the Widget interface, it's specific
-        // this test.
-        // eslint-disable-next-line no-restricted-syntax
-        const widget = mockedWidget as MockAssetLoadingWidgetHandle;
-        act(() => widget.setAssetStatus("ABC", true));
+        act(() => settleMath?.());
 
         // Assert
         expect(onRendered).toHaveBeenCalledWith(true);
@@ -265,13 +264,14 @@ describe("server item renderer", () => {
         // Act
         render(
             <RenderStateRoot>
-                <ServerItemRenderer
-                    item={itemWithMath}
-                    problemNum={0}
-                    reviewMode={false}
-                    dependencies={testDependenciesV2}
-                    onRendered={onRendered}
-                />
+                <LoadingContext.Provider value={{onRendered}}>
+                    <ServerItemRenderer
+                        item={itemWithMath}
+                        problemNum={0}
+                        reviewMode={false}
+                        dependencies={testDependenciesV2}
+                    />
+                </LoadingContext.Provider>
             </RenderStateRoot>,
         );
 
@@ -305,13 +305,14 @@ describe("server item renderer", () => {
         // Act
         render(
             <RenderStateRoot>
-                <ServerItemRenderer
-                    item={itemWithMath}
-                    problemNum={0}
-                    reviewMode={false}
-                    dependencies={testDependenciesV2}
-                    onRendered={onRendered}
-                />
+                <LoadingContext.Provider value={{onRendered}}>
+                    <ServerItemRenderer
+                        item={itemWithMath}
+                        problemNum={0}
+                        reviewMode={false}
+                        dependencies={testDependenciesV2}
+                    />
+                </LoadingContext.Provider>
             </RenderStateRoot>,
         );
 
@@ -343,14 +344,15 @@ describe("server item renderer", () => {
         // Act
         render(
             <RenderStateRoot>
-                <ServerItemRenderer
-                    item={itemWithMath}
-                    problemNum={0}
-                    reviewMode={false}
-                    apiOptions={{isMobile: true}}
-                    dependencies={testDependenciesV2}
-                    onRendered={onRendered}
-                />
+                <LoadingContext.Provider value={{onRendered}}>
+                    <ServerItemRenderer
+                        item={itemWithMath}
+                        problemNum={0}
+                        reviewMode={false}
+                        apiOptions={{isMobile: true}}
+                        dependencies={testDependenciesV2}
+                    />
+                </LoadingContext.Provider>
             </RenderStateRoot>,
         );
 
@@ -373,14 +375,15 @@ describe("server item renderer", () => {
         // Act
         render(
             <RenderStateRoot>
-                <ServerItemRenderer
-                    item={itemWithTable}
-                    problemNum={0}
-                    reviewMode={false}
-                    apiOptions={{isMobile: true}}
-                    dependencies={testDependenciesV2}
-                    onRendered={onRendered}
-                />
+                <LoadingContext.Provider value={{onRendered}}>
+                    <ServerItemRenderer
+                        item={itemWithTable}
+                        problemNum={0}
+                        reviewMode={false}
+                        apiOptions={{isMobile: true}}
+                        dependencies={testDependenciesV2}
+                    />
+                </LoadingContext.Provider>
             </RenderStateRoot>,
         );
 
@@ -431,13 +434,14 @@ describe("server item renderer", () => {
         // Act
         render(
             <RenderStateRoot>
-                <ServerItemRenderer
-                    item={content}
-                    problemNum={0}
-                    reviewMode={false}
-                    dependencies={testDependenciesV2}
-                    onRendered={onRendered}
-                />
+                <LoadingContext.Provider value={{onRendered}}>
+                    <ServerItemRenderer
+                        item={content}
+                        problemNum={0}
+                        reviewMode={false}
+                        dependencies={testDependenciesV2}
+                    />
+                </LoadingContext.Provider>
             </RenderStateRoot>,
         );
 
@@ -596,6 +600,108 @@ describe("server item renderer", () => {
                 0,
                 null,
             );
+        });
+
+        it("does not report a blur when focus moves from the question to a hint widget", async () => {
+            // Arrange
+            const onFocusChange = jest.fn();
+            const item = generateTestPerseusItem({
+                question: generateTestPerseusRenderer({
+                    content: "[[☃ mock-widget 1]]",
+                    widgets: {
+                        "mock-widget 1": {
+                            type: "mock-widget",
+                            options: {value: "1"},
+                        } satisfies MockWidgetType,
+                    },
+                }),
+                hints: [
+                    generateTestPerseusRenderer({
+                        content: "[[☃ mock-widget 2]]",
+                        widgets: {
+                            "mock-widget 2": {
+                                type: "mock-widget",
+                                options: {value: "2"},
+                            } satisfies MockWidgetType,
+                        },
+                    }),
+                ],
+            });
+            renderItem(item, {onFocusChange}, {hintsVisible: 1});
+            const [questionInput, hintInput] = screen.getAllByRole("textbox", {
+                name: "Mock Widget",
+            });
+            await userEvent.click(questionInput);
+
+            // Act
+            await userEvent.click(hintInput);
+            act(() => jest.runAllTimers());
+
+            // Assert
+            expect(onFocusChange).toHaveBeenLastCalledWith(
+                ["mock-widget 2"],
+                ["mock-widget 1"],
+                0,
+                expect.anything(),
+            );
+            const reportedFocuses = onFocusChange.mock.calls.map(
+                ([newFocus]) => newFocus,
+            );
+            expect(reportedFocuses).not.toContain(null);
+        });
+
+        it("does not report a blur when another input gains focus before the blur settles", () => {
+            // Arrange
+            const onFocusChange = jest.fn();
+            const {renderer} = renderItem(itemWithTwoMockWidgets, {
+                onFocusChange,
+            });
+            act(() => renderer.focusPath(["mock-widget 1"]));
+            act(() => jest.runAllTimers());
+            act(() => renderer.blur());
+            // Let the question Renderer report the blur, which starts our own
+            // wait for a focus in this tick.
+            act(() => jest.advanceTimersToNextTimer());
+
+            // Act
+            act(() => renderer.focusPath(["mock-widget 2"]));
+            act(() => jest.runAllTimers());
+
+            // Assert
+            expect(onFocusChange).toHaveBeenLastCalledWith(
+                ["mock-widget 2"],
+                ["mock-widget 1"],
+                0,
+                expect.any(Object),
+            );
+            const reportedFocuses = onFocusChange.mock.calls.map(
+                ([newFocus]) => newFocus,
+            );
+            expect(reportedFocuses).not.toContain(null);
+        });
+
+        it("does not report a pending blur after unmounting", () => {
+            // Arrange
+            const onFocusChange = jest.fn();
+            const {renderer, unmount} = renderItem(itemWithMockWidget, {
+                onFocusChange,
+            });
+            act(() => renderer.focusPath(["mock-widget 1"]));
+            act(() => jest.runAllTimers());
+            act(() => renderer.blur());
+            // Let the question Renderer report the blur, which starts our own
+            // wait before reporting it.
+            act(() => jest.advanceTimersToNextTimer());
+
+            // Act
+            unmount();
+            act(() => jest.runAllTimers());
+
+            // Assert
+            const reportedFocuses = onFocusChange.mock.calls.map(
+                ([newFocus]) => newFocus,
+            );
+            expect(reportedFocuses).not.toContain(null);
         });
 
         it("should focus the widget requested in focusPath()", () => {

@@ -146,10 +146,10 @@ functions in `@khanacademy/perseus-score`.
 import {useRef} from "react";
 import {ServerItemRenderer} from "@khanacademy/perseus";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
-import type {ServerItemRenderer as ServerItemRendererType} from "@khanacademy/perseus";
+import type {ServerItemRendererHandle} from "@khanacademy/perseus";
 
 function Exercise({item}, {item: PerseusItem}) {
-    const rendererRef = useRef<ServerItemRendererType>(null);
+    const rendererRef = useRef<ServerItemRendererHandle>(null);
 
     function handleSubmit() {
         const userInput = rendererRef.current?.getUserInput();

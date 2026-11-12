@@ -27,21 +27,16 @@ import type {
     PerseusDependenciesV2,
     SharedRendererProps,
 } from "./types";
-import type {
-    GetPromptJSONInterface,
-    RendererPromptJSON,
-} from "./widget-ai-utils/prompt-types";
+import type {GetPromptJSONInterface} from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
     PerseusItem,
     ShowSolutions,
     KeypadContextRendererInterface,
-    RendererInterface,
     UserInputMap,
 } from "@khanacademy/perseus-core";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
-type OwnProps = {
+type Props = Partial<SharedRendererProps> & {
     hintsVisible?: number;
     item: PerseusItem;
     problemNum?: number;
@@ -50,16 +45,6 @@ type OwnProps = {
     dependencies: PerseusDependenciesV2;
     showSolutions?: ShowSolutions;
 };
-
-type HOCProps = {
-    onRendered: (isRendered: boolean) => void;
-};
-
-type Props = SharedRendererProps & OwnProps & HOCProps;
-
-type DefaultProps = Required<
-    Pick<Props, "apiOptions" | "onRendered" | "linterContext">
->;
 
 /**
  * @deprecated and likely a very broken API
@@ -70,297 +55,327 @@ type SerializedState = {
     hints: any;
 };
 
-export class ServerItemRenderer
-    extends React.Component<Props>
-    implements
-        RendererInterface,
-        KeypadContextRendererInterface,
-        GetPromptJSONInterface
-{
-    static contextType = PerseusI18nContext;
-    declare context: React.ContextType<typeof PerseusI18nContext>;
-
-    // @ts-expect-error - TS2564 - Property 'questionRenderer' has no initializer and is not definitely assigned in the constructor.
-    questionRenderer: Renderer;
-    hintsRenderer: any;
-    _currentFocus: FocusPath;
-    _fullyRendered: boolean;
-    /**
-     * Tracks whether each asset rendered below us (images, math, anything else
-     * that takes extra passes to settle) has finished rendering.
-     *
-     * This is deliberately not React state: assets register themselves in
-     * their constructors, while we're still rendering, and a state update
-     * from there isn't visible to us until a later render pass — by which point we'd
-     * already have called `onRendered()` under the assumption
-     * there were no assets to wait for.
-     */
-    _assetStatuses: {[assetKey: string]: boolean};
-    blurTimeoutID: number | null | undefined;
-    userInput: UserInputMap;
-
-    static defaultProps: DefaultProps = {
-        // eslint-disable-next-line no-restricted-syntax
-        apiOptions: {} as any, // a deep default is done in `this.update()`
-        linterContext: PerseusLinter.linterContextDefault,
-        onRendered: (isRendered: boolean) => {},
+/**
+ * The imperative API callers reach through a ref to the ServerItemRenderer.
+ */
+export type ServerItemRendererHandle = KeypadContextRendererInterface &
+    GetPromptJSONInterface & {
+        /**
+         * The question's Renderer. Prefer the methods on this handle; this is
+         * here for callers that still need the Renderer itself.
+         */
+        readonly questionRenderer: Renderer;
+        focus(): boolean | null | undefined;
+        focusPath(path: FocusPath): void;
+        blurPath(path: FocusPath): void;
+        getDOMNodeForPath(path: FocusPath): Element | Text | null | undefined;
+        getInputPaths(): ReadonlyArray<FocusPath>;
+        getNumHints(): number;
+        /**
+         * Returns an object of the widget `.getUserInput()` results
+         */
+        getUserInput(): UserInputMap;
+        /**
+         * Returns an array of all widget IDs in the order they occur in
+         * the question content.
+         */
+        getWidgetIds(): ReadonlyArray<string>;
+        // TODO(LEMS-3185): remove serializedState
+        /**
+         * Get a representation of the current state of the item.
+         *
+         * @deprecated - do not use in new code.
+         */
+        getSerializedState(): SerializedState;
     };
 
-    constructor(props: Props) {
-        super(props);
+const ServerItemRenderer = React.forwardRef<ServerItemRendererHandle, Props>(
+    function ServerItemRenderer(props, ref) {
+        const {
+            apiOptions: apiOptionsProp = {},
+            dependencies,
+            hintsVisible,
+            item,
+            keypadElement,
+            linterContext = PerseusLinter.linterContextDefault,
+            problemNum,
+            reviewMode,
+            showSolutions,
+        } = props;
+        const {strings} = React.useContext(PerseusI18nContext);
+        const {onRendered} = React.useContext(LoadingContext);
 
-        this._assetStatuses = {};
-        this._fullyRendered = false;
-        this.userInput = {};
-    }
+        // The focus handlers below are handed to the Renderers once and then
+        // called later, so they read the latest props through these refs
+        // rather than the props they closed over.
+        const latestProps = React.useRef(props);
+        latestProps.current = props;
+        const latestOnRendered = React.useRef(onRendered);
+        latestOnRendered.current = onRendered;
 
-    componentDidMount() {
-        this._currentFocus = null;
+        const questionRendererRef = React.useRef<Renderer | null>(null);
+        // Everything that reads the question Renderer runs after mount.
+        const getQuestionRenderer = React.useCallback((): Renderer => {
+            if (questionRendererRef.current == null) {
+                throw new Error("ServerItemRenderer has not mounted yet");
+            }
+            return questionRendererRef.current;
+        }, []);
+        const hintsRendererRef = React.useRef<HintsRenderer | null>(null);
+        const currentFocusRef = React.useRef<FocusPath>(null);
+        const blurTimeoutIDRef = React.useRef<ReturnType<
+            typeof setTimeout
+        > | null>(null);
+        const userInputRef = React.useRef<UserInputMap>({});
+        const fullyRenderedRef = React.useRef(false);
+        /**
+         * Tracks whether each asset rendered below us (images, math, anything
+         * else that takes extra passes to settle) has finished rendering.
+         *
+         * This is deliberately not React state: assets register themselves
+         * while we're still rendering, and a state update from there isn't
+         * visible to us until a later render pass — by which point we'd
+         * already have called `onRendered()` under the assumption there were
+         * no assets to wait for.
+         */
+        const assetStatusesRef = React.useRef<{[assetKey: string]: boolean}>(
+            {},
+        );
 
-        // In cases where we are rendering content that doesn't have any assets
-        // (things that are async loaded/rendered, such as images or TeX), we
-        // want to ensure that we fire the onRendered callback at least once.
-        // Assets register themselves in their constructors, so by the time we
-        // mount they're all in _assetStatuses (unloaded) and we can tell
-        // whether there's anything to wait for.
-        this.maybeCallOnRendered();
-    }
-
-    componentWillUnmount() {
-        if (this.blurTimeoutID != null) {
-            // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
-            clearTimeout(this.blurTimeoutID);
-            this.blurTimeoutID = null;
-        }
-    }
-
-    /**
-     * Reports that we've finished rendering, if every asset has settled.
-     *
-     * Called once we've mounted (to cover content with no assets at all) and
-     * again on every status change, so it doesn't depend on a render pass
-     * happening at the right moment. Only ever reports once.
-     */
-    maybeCallOnRendered() {
-        if (!this._fullyRendered) {
-            const assetsLoaded = Object.values(this._assetStatuses).every(
+        /**
+         * Reports that we've finished rendering, if every asset has settled.
+         *
+         * Called once we've mounted (to cover content with no assets at all)
+         * and again on every status change, so it doesn't depend on a render
+         * pass happening at the right moment. Only ever reports once.
+         */
+        const maybeCallOnRendered = React.useCallback(() => {
+            if (fullyRenderedRef.current) {
+                return;
+            }
+            const assetsLoaded = Object.values(assetStatusesRef.current).every(
                 Boolean,
             );
-
             if (assetsLoaded) {
-                this._fullyRendered = true;
-                this.props.onRendered(true);
+                fullyRenderedRef.current = true;
+                latestOnRendered.current(true);
             }
-        }
-    }
+        }, []);
 
-    _handleFocusChange: (newFocus: FocusPath, oldFocus: FocusPath) => void = (
-        newFocus: FocusPath,
-        oldFocus: FocusPath,
-    ) => {
-        if (newFocus != null) {
-            this._setCurrentFocus(newFocus);
-        } else {
-            this._onRendererBlur(oldFocus);
-        }
-    };
+        // This must be stable, otherwise SvgImage's shouldComponentUpdate
+        // won't behave correctly and we'll get an infinite loop.
+        const setAssetStatus = React.useCallback(
+            (assetKey: string, status: boolean) => {
+                assetStatusesRef.current[assetKey] = status;
+                maybeCallOnRendered();
+            },
+            [maybeCallOnRendered],
+        );
 
-    // Sets the current focus path and element and
-    // send an onChangeFocus event back to our parent.
-    _setCurrentFocus(newFocus: FocusPath) {
-        const {
-            apiOptions: {isMobile, onFocusChange},
-            keypadElement,
-        } = this.props;
+        const getInputPaths = React.useCallback(
+            (): ReadonlyArray<FocusPath> =>
+                getQuestionRenderer().getInputPaths(),
+            [getQuestionRenderer],
+        );
 
-        // By the time this happens, newFocus cannot be a prefix of
-        // prevFocused, since we must have either been called from
-        // an onFocusChange within a renderer, which is only called when
-        // this is not a prefix, or between the question and answer areas,
-        // which can never prefix each other.
-        const prevFocus = this._currentFocus;
-        this._currentFocus = newFocus;
+        // Sets the current focus path and element and
+        // send an onChangeFocus event back to our parent.
+        const setCurrentFocus = React.useCallback(
+            (newFocus: FocusPath) => {
+                const {apiOptions, keypadElement} = latestProps.current;
+                const isMobile = apiOptions?.isMobile;
+                const onFocusChange = apiOptions?.onFocusChange;
 
-        // Determine whether the newly focused path represents an input.
-        const inputPaths = this.getInputPaths();
-        const didFocusInput =
-            this._currentFocus &&
-            inputPaths.some((inputPath) => {
-                return Util.inputPathsEqual(inputPath, this._currentFocus);
-            });
+                // By the time this happens, newFocus cannot be a prefix of
+                // prevFocused, since we must have either been called from
+                // an onFocusChange within a renderer, which is only called
+                // when this is not a prefix, or between the question and
+                // answer areas, which can never prefix each other.
+                const prevFocus = currentFocusRef.current;
+                currentFocusRef.current = newFocus;
 
-        if (onFocusChange != null) {
-            // Wait for the keypad to mount before getting the height
-            setTimeout(() => {
-                // First, calculate the current keypad height
-                const keypadDomNode: HTMLElement =
-                    // eslint-disable-next-line no-restricted-syntax
-                    keypadElement?.getDOMNode() as HTMLElement;
-                const keypadHeight =
-                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                    keypadDomNode && didFocusInput
-                        ? keypadDomNode.getBoundingClientRect().height
-                        : 0;
+                // Determine whether the newly focused path represents an
+                // input.
+                const inputPaths = getInputPaths();
+                const didFocusInput =
+                    currentFocusRef.current &&
+                    inputPaths.some((inputPath) => {
+                        return Util.inputPathsEqual(
+                            inputPath,
+                            currentFocusRef.current,
+                        );
+                    });
 
-                // Then call the callback
-                onFocusChange(
-                    this._currentFocus,
-                    prevFocus,
-                    keypadHeight,
-                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'false | Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement | undefined'.
-                    didFocusInput &&
-                        this.questionRenderer.getDOMNodeForPath(newFocus),
-                );
-            }, 0);
-        }
+                if (onFocusChange != null) {
+                    // Wait for the keypad to mount before getting the height
+                    setTimeout(() => {
+                        // First, calculate the current keypad height
+                        const keypadDomNode: HTMLElement =
+                            // eslint-disable-next-line no-restricted-syntax
+                            keypadElement?.getDOMNode() as HTMLElement;
+                        const keypadHeight =
+                            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+                            keypadDomNode && didFocusInput
+                                ? keypadDomNode.getBoundingClientRect().height
+                                : 0;
 
-        if (keypadElement && isMobile) {
-            if (didFocusInput) {
-                keypadElement.activate();
-            } else {
-                keypadElement.dismiss();
-            }
-        }
-    }
+                        // Then call the callback
+                        onFocusChange(
+                            currentFocusRef.current,
+                            prevFocus,
+                            keypadHeight,
+                            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'false | Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement | undefined'.
+                            didFocusInput &&
+                                getQuestionRenderer().getDOMNodeForPath(
+                                    newFocus,
+                                ),
+                        );
+                    }, 0);
+                }
 
-    _onRendererBlur(blurPath: FocusPath) {
-        const blurringFocusPath = this._currentFocus;
+                if (keypadElement && isMobile) {
+                    if (didFocusInput) {
+                        keypadElement.activate();
+                    } else {
+                        keypadElement.dismiss();
+                    }
+                }
+            },
+            [getInputPaths, getQuestionRenderer],
+        );
 
-        // Failsafe: abort if ID is different, because focus probably happened
-        // before blur
-        if (!_.isEqual(blurPath, blurringFocusPath)) {
-            return;
-        }
+        const onRendererBlur = React.useCallback(
+            (blurPath: FocusPath) => {
+                const blurringFocusPath = currentFocusRef.current;
 
-        // Wait until after any new focus events fire this tick before
-        // declaring that nothing is focused.
-        // If a different widget was focused, we'll see an onBlur event
-        // now, but then an onFocus event on a different element before
-        // this callback is executed
-        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
-        // @ts-expect-error - TS2322 - Type 'Timeout' is not assignable to type 'number'.
-        this.blurTimeoutID = setTimeout(() => {
-            if (_.isEqual(this._currentFocus, blurringFocusPath)) {
-                this._setCurrentFocus(null);
-            }
-        }, 0);
-    }
+                // Failsafe: abort if ID is different, because focus probably
+                // happened before blur
+                if (!_.isEqual(blurPath, blurringFocusPath)) {
+                    return;
+                }
 
-    focusPath(path: FocusPath): void {
-        return this.questionRenderer.focusPath(path);
-    }
+                // Wait until after any new focus events fire this tick before
+                // declaring that nothing is focused.
+                // If a different widget was focused, we'll see an onBlur event
+                // now, but then an onFocus event on a different element before
+                // this callback is executed
+                // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
+                blurTimeoutIDRef.current = setTimeout(() => {
+                    if (_.isEqual(currentFocusRef.current, blurringFocusPath)) {
+                        setCurrentFocus(null);
+                    }
+                }, 0);
+            },
+            [setCurrentFocus],
+        );
 
-    blurPath(path: FocusPath): void {
-        return this.questionRenderer.blurPath(path);
-    }
+        const handleFocusChange = React.useCallback(
+            (newFocus: FocusPath, oldFocus: FocusPath) => {
+                if (newFocus != null) {
+                    setCurrentFocus(newFocus);
+                } else {
+                    onRendererBlur(oldFocus);
+                }
+            },
+            [setCurrentFocus, onRendererBlur],
+        );
 
-    getDOMNodeForPath(path: FocusPath): Element | Text | null | undefined {
-        return this.questionRenderer.getDOMNodeForPath(path);
-    }
+        // In cases where we are rendering content that doesn't have any
+        // assets (things that are async loaded/rendered, such as images or
+        // TeX), we want to ensure that we fire the onRendered callback at
+        // least once. Assets register themselves while rendering, so by the
+        // time we mount they're all in assetStatusesRef (unloaded) and we can
+        // tell whether there's anything to wait for.
+        //
+        // This is a layout effect so it runs in the same commit phase as the
+        // children's mount effects, matching the order `componentDidMount`
+        // used to run in.
+        React.useLayoutEffect(() => {
+            maybeCallOnRendered();
+        }, [maybeCallOnRendered]);
 
-    getInputPaths(): ReadonlyArray<FocusPath> {
-        const questionAreaInputPaths = this.questionRenderer.getInputPaths();
-        return questionAreaInputPaths;
-    }
+        React.useLayoutEffect(() => {
+            return () => {
+                if (blurTimeoutIDRef.current != null) {
+                    // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
+                    clearTimeout(blurTimeoutIDRef.current);
+                    blurTimeoutIDRef.current = null;
+                }
+            };
+        }, []);
 
-    focus(): boolean | null | undefined {
-        return this.questionRenderer.focus();
-    }
+        React.useImperativeHandle(
+            ref,
+            () => ({
+                get questionRenderer() {
+                    return getQuestionRenderer();
+                },
+                focusPath: (path) => getQuestionRenderer().focusPath(path),
+                blurPath: (path) => getQuestionRenderer().blurPath(path),
+                getDOMNodeForPath: (path) =>
+                    getQuestionRenderer().getDOMNodeForPath(path),
+                getInputPaths,
+                focus: () => getQuestionRenderer().focus(),
+                blur: () => {
+                    if (currentFocusRef.current) {
+                        getQuestionRenderer().blurPath(currentFocusRef.current);
+                    }
+                },
+                getNumHints: () => latestProps.current.item.hints.length,
+                getPromptJSON: () => getQuestionRenderer().getPromptJSON(),
+                getUserInput: () => userInputRef.current,
+                getWidgetIds: () => getQuestionRenderer().getWidgetIds(),
+                getSerializedState: () => ({
+                    question: getQuestionRenderer().getSerializedState(),
+                    hints: hintsRendererRef.current?.getSerializedState(),
+                }),
+            }),
+            [getInputPaths, getQuestionRenderer],
+        );
 
-    blur(): void {
-        if (this._currentFocus) {
-            this.blurPath(this._currentFocus);
-        }
-    }
-
-    getNumHints(): number {
-        return this.props.item.hints.length;
-    }
-
-    getPromptJSON(): RendererPromptJSON {
-        return this.questionRenderer.getPromptJSON();
-    }
-
-    /**
-     * Returns an object of the widget `.getUserInput()` results
-     */
-    getUserInput(): UserInputMap {
-        return this.userInput;
-    }
-
-    /**
-     * Returns an array of all widget IDs in the order they occur in
-     * the question content.
-     */
-    getWidgetIds(): ReadonlyArray<string> {
-        return this.questionRenderer.getWidgetIds();
-    }
-
-    /**
-     * Get a representation of the current state of the item.
-     */
-    // TODO(LEMS-3185): remove serializedState
-    /**
-     * @deprecated - do not use in new code.
-     */
-    getSerializedState(): SerializedState {
-        return {
-            question: this.questionRenderer.getSerializedState(),
-            hints: this.hintsRenderer.getSerializedState(),
-        };
-    }
-
-    // This must be pre-bound otherwise SvgImage's shouldComponentUpdate
-    // won't behave correctly and we'll get an infinite loop.
-    setAssetStatus: (assetKey: string, status: boolean) => void = (
-        assetKey,
-        status,
-    ) => {
-        this._assetStatuses[assetKey] = status;
-        this.maybeCallOnRendered();
-    };
-
-    render(): React.ReactNode {
         const apiOptions = {
             ...ApiOptions.defaults,
-            ...this.props.apiOptions,
-            onFocusChange: this._handleFocusChange,
+            ...apiOptionsProp,
+            onFocusChange: handleFocusChange,
         } as const;
 
-        const contextValue = {
-            assetStatuses: this._assetStatuses,
-            setAssetStatus: this.setAssetStatus,
-        } as const;
+        const assetContextValue = React.useMemo(
+            () => ({
+                assetStatuses: assetStatusesRef.current,
+                setAssetStatus,
+            }),
+            [setAssetStatus],
+        );
 
         const questionRenderer = (
-            <AssetContext.Provider value={contextValue}>
+            <AssetContext.Provider value={assetContextValue}>
                 <UserInputManager
-                    widgets={this.props.item.question.widgets}
-                    problemNum={this.props.problemNum ?? 0}
+                    widgets={item.question.widgets}
+                    problemNum={problemNum ?? 0}
                 >
                     {({userInput, handleUserInput, initializeUserInput}) => {
-                        this.userInput = userInput;
+                        userInputRef.current = userInput;
                         return (
                             <Renderer
-                                keypadElement={this.props.keypadElement}
-                                problemNum={this.props.problemNum}
+                                keypadElement={keypadElement}
+                                problemNum={problemNum}
                                 apiOptions={apiOptions}
-                                reviewMode={this.props.reviewMode}
-                                showSolutions={this.props.showSolutions}
+                                reviewMode={reviewMode}
+                                showSolutions={showSolutions}
                                 ref={(elem) => {
                                     if (elem != null) {
-                                        this.questionRenderer = elem;
+                                        questionRendererRef.current = elem;
                                     }
                                 }}
-                                content={this.props.item.question.content}
-                                widgets={this.props.item.question.widgets}
-                                images={this.props.item.question.images}
+                                content={item.question.content}
+                                widgets={item.question.widgets}
+                                images={item.question.images}
                                 linterContext={PerseusLinter.pushContextStack(
-                                    this.props.linterContext,
+                                    linterContext,
                                     "question",
                                 )}
-                                strings={this.context.strings}
-                                {...this.props.dependencies}
+                                strings={strings}
+                                {...dependencies}
                                 userInput={userInput}
                                 handleUserInput={(
                                     id,
@@ -384,21 +399,21 @@ export class ServerItemRenderer
 
         const hintsRenderer = (
             <HintsRenderer
-                dependencies={this.props.dependencies}
-                hints={this.props.item.hints}
-                hintsVisible={this.props.hintsVisible}
+                dependencies={dependencies}
+                hints={item.hints}
+                hintsVisible={hintsVisible}
                 apiOptions={apiOptions}
-                ref={(elem) => (this.hintsRenderer = elem)}
+                ref={hintsRendererRef}
                 linterContext={PerseusLinter.pushContextStack(
-                    this.props.linterContext,
+                    linterContext,
                     "hints",
                 )}
-                strings={this.context.strings}
+                strings={strings}
             />
         );
 
         return (
-            <DependenciesContext.Provider value={this.props.dependencies}>
+            <DependenciesContext.Provider value={dependencies}>
                 <div className="framework-perseus">{questionRenderer}</div>
                 <div
                     className={classNames(
@@ -414,8 +429,8 @@ export class ServerItemRenderer
                 </div>
             </DependenciesContext.Provider>
         );
-    }
-}
+    },
+);
 
 const styles = StyleSheet.create({
     hintsContainer: {
@@ -425,19 +440,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default React.forwardRef<
-    ServerItemRenderer,
-    Omit<PropsFor<typeof ServerItemRenderer>, "onRendered">
->(function ServerItemRendererWithRef(props, ref) {
-    return (
-        <LoadingContext.Consumer>
-            {({onRendered}) => (
-                <ServerItemRenderer
-                    {...props}
-                    onRendered={onRendered}
-                    ref={ref}
-                />
-            )}
-        </LoadingContext.Consumer>
-    );
-});
+export default ServerItemRenderer;
