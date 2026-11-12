@@ -32,8 +32,6 @@ const drumTiles = ["djembe", "bongo", "hands", "sticks"].map((drum) =>
     generateAnswerTile({id: drum, content: drum, label: drum}),
 );
 
-const apiOptions = ApiOptions.defaults;
-
 /** Renders one FITB widget, optionally with blanks already filled. */
 function renderFillInTheBlank(
     options: Partial<PerseusFillInTheBlankWidgetOptions>,
@@ -48,7 +46,7 @@ function renderFillInTheBlank(
         },
     });
     return renderQuestion(question, {
-        apiOptions,
+        apiOptions: ApiOptions.defaults,
         initialUserInput: initialUserInput && {
             "fill-in-the-blank 1": initialUserInput,
         },
@@ -175,7 +173,7 @@ describe("Fill in the Blank Widget", () => {
                     }),
                 },
             }),
-            {apiOptions},
+            {apiOptions: ApiOptions.defaults},
         );
 
         // Act
