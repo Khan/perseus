@@ -68,11 +68,6 @@ export type ServerItemRendererHandle = KeypadContextRendererInterface &
          */
         readonly questionRenderer: Renderer | null;
         focus(): boolean | null | undefined;
-        focusPath(path: FocusPath): void;
-        blurPath(path: FocusPath): void;
-        getDOMNodeForPath(path: FocusPath): Element | Text | null | undefined;
-        getInputPaths(): ReadonlyArray<FocusPath>;
-        getNumHints(): number;
         /**
          * Returns an object of the widget `.getUserInput()` results
          */
@@ -340,15 +335,6 @@ const ServerItemRenderer = React.forwardRef<ServerItemRendererHandle, Props>(
                 get questionRenderer() {
                     return getQuestionRenderer("questionRenderer");
                 },
-                focusPath: (path) =>
-                    getQuestionRenderer("focusPath")?.focusPath(path),
-                blurPath: (path) =>
-                    getQuestionRenderer("blurPath")?.blurPath(path),
-                getDOMNodeForPath: (path) =>
-                    getQuestionRenderer("getDOMNodeForPath")?.getDOMNodeForPath(
-                        path,
-                    ) ?? null,
-                getInputPaths,
                 focus: () => getQuestionRenderer("focus")?.focus() ?? false,
                 blur: () => {
                     if (currentFocusRef.current) {
@@ -357,7 +343,6 @@ const ServerItemRenderer = React.forwardRef<ServerItemRendererHandle, Props>(
                         );
                     }
                 },
-                getNumHints: () => latestProps.current.item.hints.length,
                 getPromptJSON: () =>
                     getQuestionRenderer("getPromptJSON")?.getPromptJSON() ?? {
                         content: "",
@@ -374,7 +359,7 @@ const ServerItemRenderer = React.forwardRef<ServerItemRendererHandle, Props>(
                     hints: hintsRendererRef.current?.getSerializedState(),
                 }),
             }),
-            [getInputPaths, getQuestionRenderer],
+            [getQuestionRenderer],
         );
 
         const apiOptions = {

@@ -8,7 +8,7 @@ import {
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {within, render, screen, act, waitFor} from "@testing-library/react";
+import {render, screen, act, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -119,36 +119,6 @@ describe("server item renderer", () => {
             "mock-widget 1": {currentValue: "1"},
             "mock-widget 2": {currentValue: "2"},
         });
-    });
-
-    it("should return the DOM node for the requested focus path", async () => {
-        // Arrange
-        const {renderer} = renderItem(itemWithMockWidget);
-
-        // Act
-        const node = renderer.getDOMNodeForPath(["mock-widget 1"]);
-
-        // Assert
-        // @ts-expect-error - TS2345 - Argument of type 'Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement'.
-        expect(await within(node).findAllByRole("textbox")).toHaveLength(1);
-    });
-
-    it("should return the number of hints available", () => {
-        // Arrange
-        const {renderer} = renderItem({
-            ...itemWithMockWidget,
-            hints: [
-                {content: "Hint #1", images: {}, widgets: {}},
-                {content: "Hint #2", images: {}, widgets: {}},
-                {content: "Hint #3", images: {}, widgets: {}},
-            ],
-        });
-
-        // Act
-        const numHints = renderer.getNumHints();
-
-        // Assert
-        expect(numHints).toBe(3);
     });
 
     it("renders only the hints that hintsVisible allows", () => {
@@ -639,7 +609,7 @@ describe("server item renderer", () => {
             const {renderer} = renderItem(itemWithTwoMockWidgets, {
                 onFocusChange,
             });
-            act(() => renderer.focusPath(["mock-widget 1"]));
+            act(() => renderer.questionRenderer!.focusPath(["mock-widget 1"]));
             act(() => jest.runAllTimers());
             act(() => renderer.blur());
             // Let the question Renderer report the blur, which starts our own
@@ -647,7 +617,7 @@ describe("server item renderer", () => {
             act(() => jest.advanceTimersToNextTimer());
 
             // Act
-            act(() => renderer.focusPath(["mock-widget 2"]));
+            act(() => renderer.questionRenderer!.focusPath(["mock-widget 2"]));
             act(() => jest.runAllTimers());
 
             // Assert
@@ -669,7 +639,7 @@ describe("server item renderer", () => {
             const {renderer, unmount} = renderItem(itemWithMockWidget, {
                 onFocusChange,
             });
-            act(() => renderer.focusPath(["mock-widget 1"]));
+            act(() => renderer.questionRenderer!.focusPath(["mock-widget 1"]));
             act(() => jest.runAllTimers());
             act(() => renderer.blur());
             // Let the question Renderer report the blur, which starts our own
@@ -695,7 +665,7 @@ describe("server item renderer", () => {
             });
 
             // Act
-            act(() => renderer.focusPath(["mock-widget 1"]));
+            act(() => renderer.questionRenderer!.focusPath(["mock-widget 1"]));
 
             // We have some async processes that need to be resolved here
             jest.runAllTimers();
@@ -720,16 +690,10 @@ describe("server item renderer", () => {
             unmount();
 
             // Act, Assert
-            expect(() => {
-                renderer.focusPath(["mock-widget 1"]);
-                renderer.blurPath(["mock-widget 1"]);
-                renderer.blur();
-            }).not.toThrow();
+            expect(() => renderer.blur()).not.toThrow();
             expect(renderer.focus()).toBe(false);
             expect(renderer.questionRenderer).toBeNull();
-            expect(renderer.getInputPaths()).toEqual([]);
             expect(renderer.getWidgetIds()).toEqual([]);
-            expect(renderer.getDOMNodeForPath(["mock-widget 1"])).toBeNull();
             expect(renderer.getPromptJSON()).toEqual({
                 content: "",
                 widgets: {},
