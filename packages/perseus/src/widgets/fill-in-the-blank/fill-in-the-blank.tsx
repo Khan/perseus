@@ -2,19 +2,14 @@ import * as React from "react";
 import {forwardRef, useImperativeHandle} from "react";
 
 import {AnswerTile} from "../../components/drag-and-drop/answer-tile";
-import {ChoiceBank} from "../../components/drag-and-drop/choice-bank";
 import {PerseusDndProvider} from "../../components/drag-and-drop/perseus-dnd-provider";
-import {tempDndStrings as strings} from "../../components/drag-and-drop/temp-strings";
-import {
-    isTileInBank,
-    remainingUses,
-} from "../../components/drag-and-drop/tile-placements";
 import {useTileMoveActions} from "../../components/drag-and-drop/use-tile-move-actions";
 import {usePerseusI18n} from "../../components/i18n-context";
 import Renderer from "../../renderer";
 import {BlankContext} from "../blank/blank-context";
 
 import styles from "./fill-in-the-blank.module.css";
+import {TileBank} from "./tile-bank";
 import {useFITBTiles} from "./use-fitb-tiles";
 
 import type {
@@ -83,38 +78,6 @@ const FillInTheBlankWidget = forwardRef<Widget, FillInTheBlankProps>(
             blankIds,
         });
 
-        const bankTiles = tiles
-            .filter((tile) =>
-                isTileInBank(placements, tile.id, tileUsage, maxUses),
-            )
-            .map((tile, index) => (
-                <AnswerTile
-                    key={tile.id}
-                    tileId={tile.id}
-                    content={tile.content}
-                    label={tile.label}
-                    imageHeight={tile.imageHeight}
-                    moveTargets={blankIds.map((id) => ({
-                        id,
-                        label: blankLabels[id],
-                    }))}
-                    onMove={(targetId) =>
-                        handleMove({tileId: tile.id}, targetId)
-                    }
-                    remainingUses={
-                        tileUsage === "multi"
-                            ? remainingUses(
-                                  placements,
-                                  tile.id,
-                                  tileUsage,
-                                  maxUses,
-                              ) ?? undefined
-                            : undefined
-                    }
-                    menuRef={index === 0 ? firstBankMenuRef : undefined}
-                />
-            ));
-
         const renderPlacedTile = (blankId: string): React.ReactNode => {
             const tile = tilesById.get(placements[blankId]);
             if (tile == null) {
@@ -156,7 +119,16 @@ const FillInTheBlankWidget = forwardRef<Widget, FillInTheBlankProps>(
                             />
                         </div>
                     </BlankContext.Provider>
-                    <ChoiceBank label={strings.choices}>{bankTiles}</ChoiceBank>
+                    <TileBank
+                        tiles={tiles}
+                        placements={placements}
+                        tileUsage={tileUsage}
+                        maxUses={maxUses}
+                        blankIds={blankIds}
+                        blankLabels={blankLabels}
+                        onMove={handleMove}
+                        firstMenuRef={firstBankMenuRef}
+                    />
                 </PerseusDndProvider>
             </div>
         );
