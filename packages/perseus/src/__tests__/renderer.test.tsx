@@ -1706,7 +1706,7 @@ describe("renderer", () => {
             );
             expect(blockWidget).not.toBeNull();
             // eslint-disable-next-line testing-library/no-node-access
-            expect(blockWidget?.closest("p")).toBeNull();
+            expect(blockWidget?.closest("[role=paragraph]")).toBeNull();
         });
 
         it("keeps the inline input-number widget within a <p> element", () => {
@@ -1720,7 +1720,7 @@ describe("renderer", () => {
             );
             expect(inlineWidget).not.toBeNull();
             // eslint-disable-next-line testing-library/no-node-access
-            expect(inlineWidget?.closest("p")).not.toBeNull();
+            expect(inlineWidget?.closest("[role=paragraph]")).not.toBeNull();
         });
     });
 });

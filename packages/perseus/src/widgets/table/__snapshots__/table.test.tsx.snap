@@ -8,12 +8,13 @@ exports[`table answerful vs answerless answerful: snapshots 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         The answer is 42
 
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -36,11 +37,12 @@ exports[`table answerful vs answerless answerful: snapshots 1`] = `
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         Column 1
-                      </p>
+                      </div>
                     </div>
                   </div>
                 </th>
@@ -51,11 +53,12 @@ exports[`table answerful vs answerless answerful: snapshots 1`] = `
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         Column 2
-                      </p>
+                      </div>
                     </div>
                   </div>
                 </th>
@@ -107,12 +110,13 @@ exports[`table answerful vs answerless answerless: snapshots 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         The answer is 42
 
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -135,11 +139,12 @@ exports[`table answerful vs answerless answerless: snapshots 1`] = `
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         Column 1
-                      </p>
+                      </div>
                     </div>
                   </div>
                 </th>
@@ -150,11 +155,12 @@ exports[`table answerful vs answerless answerless: snapshots 1`] = `
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         Column 2
-                      </p>
+                      </div>
                     </div>
                   </div>
                 </th>

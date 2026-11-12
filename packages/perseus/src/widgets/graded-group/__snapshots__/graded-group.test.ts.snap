@@ -47,15 +47,17 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                   start="1"
                 >
                   <li>
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       <strong>
                         Which of the following statements about metabolic strategies of bacteria are true?
                       </strong>
-                    </p>
-                    <p
+                    </div>
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       <div
                         class="deprecated-perseus-container"
@@ -84,11 +86,12 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                       <div
                                         class="deprecated-perseus-container"
                                       >
-                                        <p
+                                        <div
                                           class="deprecated-perseus-container"
+                                          role="paragraph"
                                         >
                                           True
-                                        </p>
+                                        </div>
                                       </div>
                                     </div>
                                   </th>
@@ -101,11 +104,12 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                       <div
                                         class="deprecated-perseus-container"
                                       >
-                                        <p
+                                        <div
                                           class="deprecated-perseus-container"
+                                          role="paragraph"
                                         >
                                           False
-                                        </p>
+                                        </div>
                                       </div>
                                     </div>
                                   </th>
@@ -120,11 +124,12 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                       <div
                                         class="deprecated-perseus-container"
                                       >
-                                        <p
+                                        <div
                                           class="deprecated-perseus-container"
+                                          role="paragraph"
                                         >
                                           Some bacteria conduct photosynthesis and produce oxygen, much like plants.
-                                        </p>
+                                        </div>
                                       </div>
                                     </div>
                                   </td>
@@ -195,11 +200,12 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                       <div
                                         class="deprecated-perseus-container"
                                       >
-                                        <p
+                                        <div
                                           class="deprecated-perseus-container"
+                                          role="paragraph"
                                         >
                                           Bacteria are always autotrophic but they may get energy from either light or chemical sources.
-                                        </p>
+                                        </div>
                                       </div>
                                     </div>
                                   </td>
@@ -270,11 +276,12 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                       <div
                                         class="deprecated-perseus-container"
                                       >
-                                        <p
+                                        <div
                                           class="deprecated-perseus-container"
+                                          role="paragraph"
                                         >
                                           Some chemosynthetic bacteria introduce energy and fixed carbon into communities where photosynthesis is not possible (e.g., deep-sea vents).
-                                        </p>
+                                        </div>
                                       </div>
                                     </div>
                                   </td>
@@ -345,11 +352,12 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                       <div
                                         class="deprecated-perseus-container"
                                       >
-                                        <p
+                                        <div
                                           class="deprecated-perseus-container"
+                                          role="paragraph"
                                         >
                                           Some bacteria live symbiotically inside of host organisms and provide the host with nutrients.
-                                        </p>
+                                        </div>
                                       </div>
                                     </div>
                                   </td>
@@ -417,7 +425,7 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                           </div>
                         </div>
                       </div>
-                    </p>
+                    </div>
                   </li>
                 </ol>
               </div>
@@ -457,49 +465,54 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Some bacteria synthesize their own fuel molecules/fix their own carbon (autotrophic), while others take in fixed carbon from their environments (heterotrophic).
-                    </p>
+                    </div>
                   </div>
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Some autotrophs use light energy to synthesize their own fuel molecules, while others extract energy from chemical sources.
-                    </p>
+                    </div>
                   </div>
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Bacteria that extract energy from chemical sources and use it to fix carbon are called chemosynthetic organisms.  These bacteria may be essential to communities where light is not available, like those around deep-sea vents. They can form the base of the food chain (act as primary producers) in these ecosystems.
-                    </p>
+                    </div>
                   </div>
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Some bacteria have symbiotic (mutually beneficial) relationships with other organisms, living inside these organisms and providing them with nutrients.
-                    </p>
+                    </div>
                   </div>
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       <strong>
                         The following statements about the metabolic strategies of bacteria are true:
                       </strong>
-                    </p>
+                    </div>
                   </div>
                   <div
                     class="deprecated-perseus-container"
@@ -531,11 +544,12 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                     <div
                                       class="deprecated-perseus-container"
                                     >
-                                      <p
+                                      <div
                                         class="deprecated-perseus-container"
+                                        role="paragraph"
                                       >
                                         True
-                                      </p>
+                                      </div>
                                     </div>
                                   </div>
                                 </th>
@@ -548,11 +562,12 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                     <div
                                       class="deprecated-perseus-container"
                                     >
-                                      <p
+                                      <div
                                         class="deprecated-perseus-container"
+                                        role="paragraph"
                                       >
                                         False
-                                      </p>
+                                      </div>
                                     </div>
                                   </div>
                                 </th>
@@ -567,11 +582,12 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                     <div
                                       class="deprecated-perseus-container"
                                     >
-                                      <p
+                                      <div
                                         class="deprecated-perseus-container"
+                                        role="paragraph"
                                       >
                                         Some bacteria conduct photosynthesis and produce oxygen, much like plants.
-                                      </p>
+                                      </div>
                                     </div>
                                   </div>
                                 </td>
@@ -640,11 +656,12 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                     <div
                                       class="deprecated-perseus-container"
                                     >
-                                      <p
+                                      <div
                                         class="deprecated-perseus-container"
+                                        role="paragraph"
                                       >
                                         Bacteria are always autotrophic but they may get energy from either light or chemical sources.
-                                      </p>
+                                      </div>
                                     </div>
                                   </div>
                                 </td>
@@ -713,11 +730,12 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                     <div
                                       class="deprecated-perseus-container"
                                     >
-                                      <p
+                                      <div
                                         class="deprecated-perseus-container"
+                                        role="paragraph"
                                       >
                                         Some chemosynthetic bacteria introduce energy and fixed carbon into communities where photosynthesis is not possible (e.g., deep-sea vents).
-                                      </p>
+                                      </div>
                                     </div>
                                   </div>
                                 </td>
@@ -786,11 +804,12 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                     <div
                                       class="deprecated-perseus-container"
                                     >
-                                      <p
+                                      <div
                                         class="deprecated-perseus-container"
+                                        role="paragraph"
                                       >
                                         Some bacteria live symbiotically inside of host organisms and provide the host with nutrients.
-                                      </p>
+                                      </div>
                                     </div>
                                   </div>
                                 </td>
@@ -943,15 +962,17 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                   start="1"
                 >
                   <li>
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       <strong>
                         Which of the following statements about metabolic strategies of bacteria are true?
                       </strong>
-                    </p>
-                    <p
+                    </div>
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       <div
                         class="deprecated-perseus-container"
@@ -981,11 +1002,12 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                       <div
                                         class="deprecated-perseus-container"
                                       >
-                                        <p
+                                        <div
                                           class="deprecated-perseus-container"
+                                          role="paragraph"
                                         >
                                           True
-                                        </p>
+                                        </div>
                                       </div>
                                     </div>
                                   </th>
@@ -998,11 +1020,12 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                       <div
                                         class="deprecated-perseus-container"
                                       >
-                                        <p
+                                        <div
                                           class="deprecated-perseus-container"
+                                          role="paragraph"
                                         >
                                           False
-                                        </p>
+                                        </div>
                                       </div>
                                     </div>
                                   </th>
@@ -1017,11 +1040,12 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                       <div
                                         class="deprecated-perseus-container"
                                       >
-                                        <p
+                                        <div
                                           class="deprecated-perseus-container"
+                                          role="paragraph"
                                         >
                                           Some bacteria conduct photosynthesis and produce oxygen, much like plants.
-                                        </p>
+                                        </div>
                                       </div>
                                     </div>
                                   </td>
@@ -1070,11 +1094,12 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                       <div
                                         class="deprecated-perseus-container"
                                       >
-                                        <p
+                                        <div
                                           class="deprecated-perseus-container"
+                                          role="paragraph"
                                         >
                                           Bacteria are always autotrophic but they may get energy from either light or chemical sources.
-                                        </p>
+                                        </div>
                                       </div>
                                     </div>
                                   </td>
@@ -1123,11 +1148,12 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                       <div
                                         class="deprecated-perseus-container"
                                       >
-                                        <p
+                                        <div
                                           class="deprecated-perseus-container"
+                                          role="paragraph"
                                         >
                                           Some chemosynthetic bacteria introduce energy and fixed carbon into communities where photosynthesis is not possible (e.g., deep-sea vents).
-                                        </p>
+                                        </div>
                                       </div>
                                     </div>
                                   </td>
@@ -1176,11 +1202,12 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                       <div
                                         class="deprecated-perseus-container"
                                       >
-                                        <p
+                                        <div
                                           class="deprecated-perseus-container"
+                                          role="paragraph"
                                         >
                                           Some bacteria live symbiotically inside of host organisms and provide the host with nutrients.
-                                        </p>
+                                        </div>
                                       </div>
                                     </div>
                                   </td>
@@ -1226,7 +1253,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                           </div>
                         </div>
                       </div>
-                    </p>
+                    </div>
                   </li>
                 </ol>
               </div>
@@ -1266,49 +1293,54 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Some bacteria synthesize their own fuel molecules/fix their own carbon (autotrophic), while others take in fixed carbon from their environments (heterotrophic).
-                    </p>
+                    </div>
                   </div>
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Some autotrophs use light energy to synthesize their own fuel molecules, while others extract energy from chemical sources.
-                    </p>
+                    </div>
                   </div>
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Bacteria that extract energy from chemical sources and use it to fix carbon are called chemosynthetic organisms.  These bacteria may be essential to communities where light is not available, like those around deep-sea vents. They can form the base of the food chain (act as primary producers) in these ecosystems.
-                    </p>
+                    </div>
                   </div>
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Some bacteria have symbiotic (mutually beneficial) relationships with other organisms, living inside these organisms and providing them with nutrients.
-                    </p>
+                    </div>
                   </div>
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       <strong>
                         The following statements about the metabolic strategies of bacteria are true:
                       </strong>
-                    </p>
+                    </div>
                   </div>
                   <div
                     class="deprecated-perseus-container"
@@ -1341,11 +1373,12 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                     <div
                                       class="deprecated-perseus-container"
                                     >
-                                      <p
+                                      <div
                                         class="deprecated-perseus-container"
+                                        role="paragraph"
                                       >
                                         True
-                                      </p>
+                                      </div>
                                     </div>
                                   </div>
                                 </th>
@@ -1358,11 +1391,12 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                     <div
                                       class="deprecated-perseus-container"
                                     >
-                                      <p
+                                      <div
                                         class="deprecated-perseus-container"
+                                        role="paragraph"
                                       >
                                         False
-                                      </p>
+                                      </div>
                                     </div>
                                   </div>
                                 </th>
@@ -1377,11 +1411,12 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                     <div
                                       class="deprecated-perseus-container"
                                     >
-                                      <p
+                                      <div
                                         class="deprecated-perseus-container"
+                                        role="paragraph"
                                       >
                                         Some bacteria conduct photosynthesis and produce oxygen, much like plants.
-                                      </p>
+                                      </div>
                                     </div>
                                   </div>
                                 </td>
@@ -1433,11 +1468,12 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                     <div
                                       class="deprecated-perseus-container"
                                     >
-                                      <p
+                                      <div
                                         class="deprecated-perseus-container"
+                                        role="paragraph"
                                       >
                                         Bacteria are always autotrophic but they may get energy from either light or chemical sources.
-                                      </p>
+                                      </div>
                                     </div>
                                   </div>
                                 </td>
@@ -1489,11 +1525,12 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                     <div
                                       class="deprecated-perseus-container"
                                     >
-                                      <p
+                                      <div
                                         class="deprecated-perseus-container"
+                                        role="paragraph"
                                       >
                                         Some chemosynthetic bacteria introduce energy and fixed carbon into communities where photosynthesis is not possible (e.g., deep-sea vents).
-                                      </p>
+                                      </div>
                                     </div>
                                   </div>
                                 </td>
@@ -1545,11 +1582,12 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                     <div
                                       class="deprecated-perseus-container"
                                     >
-                                      <p
+                                      <div
                                         class="deprecated-perseus-container"
+                                        role="paragraph"
                                       >
                                         Some bacteria live symbiotically inside of host organisms and provide the host with nutrients.
-                                      </p>
+                                      </div>
                                     </div>
                                   </div>
                                 </td>
