@@ -4,8 +4,11 @@ import {TextField} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
+import type {TooltipAnchorProps} from "@khanacademy/wonder-blocks-tooltip";
 
-type Props = {
+// Includes the props a Tooltip passes to its anchor, so that the input can be
+// a Tooltip anchor.
+type Props = TooltipAnchorProps & {
     value: string | number | null;
     onChange: (arg1?: any) => void;
     className?: string;
@@ -122,6 +125,11 @@ class TextInput extends React.Component<Props> {
                 value={formattedValue}
                 type="text"
                 aria-label={ariaLabel}
+                // Passed along (with `aria-describedby`) so that the input is
+                // the element a Tooltip is anchored to.
+                data-wb-floating-reference={
+                    this.props["data-wb-floating-reference"]
+                }
                 aria-describedby={this.props["aria-describedby"]}
                 aria-required={this.props["aria-required"]}
                 onChange={(value) => this.props.onChange(value)}

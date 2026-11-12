@@ -95,17 +95,17 @@ const InputWithExamples = forwardRef<Focusable, Props>(
             setInputFocused(false);
         };
 
-        const renderInput = () => {
-            // Generate the provided examples in simple language for screen readers.
-            const examplesAria = shouldShowExamples
-                ? `${props.examples[0]}
+        // Generate the provided examples in simple language for screen readers.
+        const examplesAria = shouldShowExamples
+            ? `${props.examples[0]}
                    ${props.examples.slice(1).join(", or\n")}`
-                      .replace(/\*/g, "")
-                      .replace(/\$/g, "")
-                      .replace(/\\ \\text{pi}/g, " pi")
-                      .replace(/\\ /g, " and ")
-                : "";
+                  .replace(/\*/g, "")
+                  .replace(/\$/g, "")
+                  .replace(/\\ \\text{pi}/g, " pi")
+                  .replace(/\\ /g, " and ")
+            : "";
 
+        const renderInput = () => {
             const inputProps = {
                 id: id,
                 // If we have examples, we want to provide the aria-describedby attribute
@@ -126,17 +126,7 @@ const InputWithExamples = forwardRef<Focusable, Props>(
                 autoCorrect: "off",
                 spellCheck: "false",
             };
-            // NOTE: This is the anchor of the examples Tooltip, so it is wrapped in
-            // an element (rather than a Fragment) that the Tooltip can find in
-            // the DOM. It is inline, so the layout doesn't change.
-            return (
-                <span>
-                    <TextInput {...inputProps} />
-                    <span id={ariaId} style={{display: "none"}}>
-                        {examplesAria}
-                    </span>
-                </span>
-            );
+            return <TextInput {...inputProps} />;
         };
 
         const renderTooltipContent = () => {
@@ -175,15 +165,20 @@ const InputWithExamples = forwardRef<Focusable, Props>(
         const showExamplesTooltip = shouldShowExamples && inputFocused;
 
         return (
-            <Tooltip
-                content={renderTooltipContent()}
-                opened={showExamplesTooltip}
-                placement="bottom"
-                // The input inside the anchor is already focusable.
-                forceAnchorFocusivity={false}
-            >
-                {renderInput()}
-            </Tooltip>
+            <>
+                <Tooltip
+                    content={renderTooltipContent()}
+                    opened={showExamplesTooltip}
+                    placement="bottom"
+                    // The input (the anchor) is already focusable.
+                    forceAnchorFocusivity={false}
+                >
+                    {renderInput()}
+                </Tooltip>
+                <span id={ariaId} style={{display: "none"}}>
+                    {examplesAria}
+                </span>
+            </>
         );
     },
 );
