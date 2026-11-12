@@ -45,6 +45,12 @@ type Props = Partial<SharedRendererProps> & {
     keypadElement?: KeypadAPI | null | undefined;
     dependencies: PerseusDependenciesV2;
     showSolutions?: ShowSolutions;
+    /**
+     * Called with `true` once the item and every asset in it (images, math)
+     * have finished rendering. A `LoadingContext` provider's `onRendered` is
+     * called too, so either way of listening works.
+     */
+    onRendered?: (isRendered: boolean) => void;
 };
 
 /**
@@ -95,12 +101,18 @@ const ServerItemRenderer = React.forwardRef<ServerItemRendererHandle, Props>(
             item,
             keypadElement,
             linterContext = PerseusLinter.linterContextDefault,
+            onRendered: onRenderedProp,
             problemNum,
             reviewMode,
             showSolutions,
         } = props;
         const {strings} = React.useContext(PerseusI18nContext);
-        const {onRendered} = React.useContext(LoadingContext);
+        const {onRendered: onRenderedFromContext} =
+            React.useContext(LoadingContext);
+        function onRendered(isRendered: boolean) {
+            onRenderedProp?.(isRendered);
+            onRenderedFromContext(isRendered);
+        }
 
         // The focus handlers below are handed to the Renderers once and then
         // called later, so they read the latest props through these refs

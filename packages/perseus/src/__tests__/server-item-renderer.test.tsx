@@ -192,14 +192,13 @@ describe("server item renderer", () => {
         const onRendered = jest.fn();
         render(
             <RenderStateRoot>
-                <LoadingContext.Provider value={{onRendered}}>
-                    <ServerItemRenderer
-                        item={itemWithMath}
-                        problemNum={0}
-                        reviewMode={false}
-                        dependencies={testDependenciesV2}
-                    />
-                </LoadingContext.Provider>
+                <ServerItemRenderer
+                    item={itemWithMath}
+                    problemNum={0}
+                    reviewMode={false}
+                    dependencies={testDependenciesV2}
+                    onRendered={onRendered}
+                />
             </RenderStateRoot>,
         );
         expect(onRendered).not.toHaveBeenCalled();
@@ -209,6 +208,42 @@ describe("server item renderer", () => {
 
         // Assert
         expect(onRendered).toHaveBeenCalledWith(true);
+    });
+
+    it("also calls a LoadingContext provider's onRendered", () => {
+        // Arrange
+        let settleMath: (() => void) | undefined;
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+            ...testDependencies,
+            TeX: ({children, onRender}) => {
+                settleMath = onRender;
+                return <span className="mock-TeX">{children}</span>;
+            },
+        });
+        const onRenderedProp = jest.fn();
+        const onRenderedFromContext = jest.fn();
+        render(
+            <RenderStateRoot>
+                <LoadingContext.Provider
+                    value={{onRendered: onRenderedFromContext}}
+                >
+                    <ServerItemRenderer
+                        item={itemWithMath}
+                        problemNum={0}
+                        reviewMode={false}
+                        dependencies={testDependenciesV2}
+                        onRendered={onRenderedProp}
+                    />
+                </LoadingContext.Provider>
+            </RenderStateRoot>,
+        );
+
+        // Act
+        act(() => settleMath?.());
+
+        // Assert
+        expect(onRenderedProp).toHaveBeenCalledWith(true);
+        expect(onRenderedFromContext).toHaveBeenCalledWith(true);
     });
 
     it("does not call the onRendered callback while math is still rendering", () => {
@@ -225,14 +260,13 @@ describe("server item renderer", () => {
         // Act
         render(
             <RenderStateRoot>
-                <LoadingContext.Provider value={{onRendered}}>
-                    <ServerItemRenderer
-                        item={itemWithMath}
-                        problemNum={0}
-                        reviewMode={false}
-                        dependencies={testDependenciesV2}
-                    />
-                </LoadingContext.Provider>
+                <ServerItemRenderer
+                    item={itemWithMath}
+                    problemNum={0}
+                    reviewMode={false}
+                    dependencies={testDependenciesV2}
+                    onRendered={onRendered}
+                />
             </RenderStateRoot>,
         );
 
@@ -262,14 +296,13 @@ describe("server item renderer", () => {
         // Act
         render(
             <RenderStateRoot>
-                <LoadingContext.Provider value={{onRendered}}>
-                    <ServerItemRenderer
-                        item={itemWithMath}
-                        problemNum={0}
-                        reviewMode={false}
-                        dependencies={testDependenciesV2}
-                    />
-                </LoadingContext.Provider>
+                <ServerItemRenderer
+                    item={itemWithMath}
+                    problemNum={0}
+                    reviewMode={false}
+                    dependencies={testDependenciesV2}
+                    onRendered={onRendered}
+                />
             </RenderStateRoot>,
         );
 
@@ -297,15 +330,14 @@ describe("server item renderer", () => {
         // Act
         render(
             <RenderStateRoot>
-                <LoadingContext.Provider value={{onRendered}}>
-                    <ServerItemRenderer
-                        item={itemWithMath}
-                        problemNum={0}
-                        reviewMode={false}
-                        apiOptions={{isMobile: true}}
-                        dependencies={testDependenciesV2}
-                    />
-                </LoadingContext.Provider>
+                <ServerItemRenderer
+                    item={itemWithMath}
+                    problemNum={0}
+                    reviewMode={false}
+                    apiOptions={{isMobile: true}}
+                    dependencies={testDependenciesV2}
+                    onRendered={onRendered}
+                />
             </RenderStateRoot>,
         );
 
@@ -328,15 +360,14 @@ describe("server item renderer", () => {
         // Act
         render(
             <RenderStateRoot>
-                <LoadingContext.Provider value={{onRendered}}>
-                    <ServerItemRenderer
-                        item={itemWithTable}
-                        problemNum={0}
-                        reviewMode={false}
-                        apiOptions={{isMobile: true}}
-                        dependencies={testDependenciesV2}
-                    />
-                </LoadingContext.Provider>
+                <ServerItemRenderer
+                    item={itemWithTable}
+                    problemNum={0}
+                    reviewMode={false}
+                    apiOptions={{isMobile: true}}
+                    dependencies={testDependenciesV2}
+                    onRendered={onRendered}
+                />
             </RenderStateRoot>,
         );
 
@@ -387,14 +418,13 @@ describe("server item renderer", () => {
         // Act
         render(
             <RenderStateRoot>
-                <LoadingContext.Provider value={{onRendered}}>
-                    <ServerItemRenderer
-                        item={content}
-                        problemNum={0}
-                        reviewMode={false}
-                        dependencies={testDependenciesV2}
-                    />
-                </LoadingContext.Provider>
+                <ServerItemRenderer
+                    item={content}
+                    problemNum={0}
+                    reviewMode={false}
+                    dependencies={testDependenciesV2}
+                    onRendered={onRendered}
+                />
             </RenderStateRoot>,
         );
 
