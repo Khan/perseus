@@ -152,18 +152,17 @@ describe("server item renderer", () => {
     });
 
     it("renders only the hints that hintsVisible allows", () => {
-        // Arrange, Act
-        renderItem(
-            generateTestPerseusItem({
-                hints: [
-                    generateTestPerseusRenderer({content: "First hint"}),
-                    generateTestPerseusRenderer({content: "Second hint"}),
-                    generateTestPerseusRenderer({content: "Third hint"}),
-                ],
-            }),
-            {},
-            {hintsVisible: 2},
-        );
+        // Arrange
+        const item = generateTestPerseusItem({
+            hints: [
+                generateTestPerseusRenderer({content: "First hint"}),
+                generateTestPerseusRenderer({content: "Second hint"}),
+                generateTestPerseusRenderer({content: "Third hint"}),
+            ],
+        });
+
+        // Act
+        renderItem(item, {}, {hintsVisible: 2});
 
         // Assert
         expect(screen.getByText("First hint")).toBeInTheDocument();
@@ -215,13 +214,7 @@ describe("server item renderer", () => {
         let settleMath: (() => void) | undefined;
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
-            TeX: ({
-                children,
-                onRender,
-            }: {
-                children: React.ReactNode;
-                onRender?: () => void;
-            }) => {
+            TeX: ({children, onRender}) => {
                 settleMath = onRender;
                 return <span className="mock-TeX">{children}</span>;
             },
@@ -254,9 +247,7 @@ describe("server item renderer", () => {
         // hasn't finished with yet.
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
-            TeX: ({children}: {children: React.ReactNode}) => (
-                <span className="mock-TeX">{children}</span>
-            ),
+            TeX: ({children}) => <span className="mock-TeX">{children}</span>,
         });
 
         const onRendered = jest.fn();
@@ -289,14 +280,10 @@ describe("server item renderer", () => {
         // https://legacy.reactjs.org/docs/hooks-reference.html#uselayouteffect
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
-            TeX: ({
-                children,
-                onRender,
-            }: {
-                children: React.ReactNode;
-                onRender?: () => void;
-            }) => {
-                React.useLayoutEffect(() => onRender?.(), [onRender]);
+            TeX: ({children, onRender}) => {
+                React.useLayoutEffect(() => {
+                    onRender?.();
+                }, [onRender]);
                 return <span className="mock-TeX">{children}</span>;
             },
         });
@@ -327,14 +314,10 @@ describe("server item renderer", () => {
         // in order to get the Zoomable measuring.
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
-            TeX: ({
-                children,
-                onRender,
-            }: {
-                children: React.ReactNode;
-                onRender?: () => void;
-            }) => {
-                React.useEffect(() => onRender?.(), [onRender]);
+            TeX: ({children, onRender}) => {
+                React.useEffect(() => {
+                    onRender?.();
+                }, [onRender]);
                 return <span className="mock-TeX">{children}</span>;
             },
         });
