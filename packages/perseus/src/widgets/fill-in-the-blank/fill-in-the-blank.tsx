@@ -1,6 +1,5 @@
-import {getWidgetIdsFromContentByType} from "@khanacademy/perseus-core";
 import * as React from "react";
-import {useMemo, forwardRef, useImperativeHandle} from "react";
+import {forwardRef, useImperativeHandle} from "react";
 
 import {AnswerTile} from "../../components/drag-and-drop/answer-tile";
 import {ChoiceBank} from "../../components/drag-and-drop/choice-bank";
@@ -16,6 +15,7 @@ import Renderer from "../../renderer";
 import {BlankContext} from "../blank/blank-context";
 
 import styles from "./fill-in-the-blank.module.css";
+import {useFITBTiles} from "./use-fitb-tiles";
 
 import type {
     TilePlacements,
@@ -31,21 +31,6 @@ type FillInTheBlankProps = WidgetProps<
     PerseusFillInTheBlankWidgetOptions,
     PerseusFillInTheBlankUserInput
 >;
-
-/** Reads the blankId -> tileId placements out of the user input. */
-function getPlacements(
-    userInput: PerseusFillInTheBlankUserInput,
-    blankIds: ReadonlyArray<string>,
-): TilePlacements {
-    const placements: Record<string, string> = {};
-    for (const blankId of blankIds) {
-        const selected = userInput[blankId]?.selected;
-        if (selected != null) {
-            placements[blankId] = selected;
-        }
-    }
-    return placements;
-}
 
 /** Writes the placements back as each blank's user input. */
 function getUserInput(
@@ -75,33 +60,12 @@ const FillInTheBlankWidget = forwardRef<Widget, FillInTheBlankProps>(
         const maxUses =
             maxUsesPerTile === "unlimited" ? undefined : maxUsesPerTile;
 
-        const blankIds = useMemo(
-            // A blank can appear more than once in authored content.
-            () => [
-                ...new Set(
-                    getWidgetIdsFromContentByType("blank", content, widgets),
-                ),
-            ],
-            [content, widgets],
-        );
-        const blankLabels = useMemo(
-            () =>
-                Object.fromEntries(
-                    blankIds.map((blankId, index) => [
-                        blankId,
-                        strings.blankLabel({num: index + 1}),
-                    ]),
-                ),
-            [blankIds],
-        );
-        const tilesById = useMemo(
-            () => new Map(tiles.map((tile) => [tile.id, tile])),
-            [tiles],
-        );
-        const placements = useMemo(
-            () => getPlacements(userInput, blankIds),
-            [userInput, blankIds],
-        );
+        const {blankIds, blankLabels, tilesById, placements} = useFITBTiles({
+            content,
+            widgets,
+            tiles,
+            userInput,
+        });
 
         const {
             handleMove,
