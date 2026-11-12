@@ -41,17 +41,21 @@ function LockedFigureAria(props: Props) {
                 </BodyText>
                 <Spring />
                 <InfoTip>
-                    Aria label is used by screen readers to describe content to
-                    users who may be visually impaired. <br />
-                    <br />
-                    Populating this field will make it so that users can use a
-                    screen reader to navigate to this point and hear the
-                    description.
-                    <br />
-                    <br />
-                    If you leave this field blank, the point will be hidden from
-                    screen readers. Users will not be able to navigate to this
-                    point using a screen reader.
+                    <p>
+                        Aria label is used by screen readers to describe content
+                        to users who may be visually impaired.
+                    </p>
+
+                    <p>
+                        Populating this field will make it so that users can use
+                        a screen reader to navigate to this point and hear the
+                        description.
+                    </p>
+                    <p>
+                        If you leave this field blank, the point will be hidden
+                        from screen readers. Users will not be able to navigate
+                        to this point using a screen reader.
+                    </p>
                 </InfoTip>
             </View>
             <BodyText size="xsmall" className={styles.caption}>

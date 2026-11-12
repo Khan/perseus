@@ -126,9 +126,11 @@ class CSProgramEditor extends React.Component<Props> {
                     }}
                 />
                 <InfoTip>
-                    If you show the editor, you should use the
-                    &quot;full-width&quot; alignment to make room for the width
-                    of the editor.
+                    <p>
+                        If you show the editor, you should use the
+                        &quot;full-width&quot; alignment to make room for the
+                        width of the editor.
+                    </p>
                 </InfoTip>
                 <br />
                 <Checkbox
@@ -139,7 +141,7 @@ class CSProgramEditor extends React.Component<Props> {
                     }}
                 />
                 <br />
-                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO(LEMS-2871): Address a11y error */}
+                {}
                 <label>
                     Settings:
                     <PairsEditor
@@ -147,8 +149,11 @@ class CSProgramEditor extends React.Component<Props> {
                         onChange={(settings) => this.handleChange({settings})}
                     />
                     <InfoTip>
-                        Settings that you add here are available to the program
-                        as an object returned by <code>Program.settings()</code>
+                        <p>
+                            Settings that you add here are available to the
+                            program as an object returned by{" "}
+                            <code>Program.settings()</code>
+                        </p>
                     </InfoTip>
                 </label>
             </div>

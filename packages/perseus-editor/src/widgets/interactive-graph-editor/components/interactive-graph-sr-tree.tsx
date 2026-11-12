@@ -206,9 +206,12 @@ function InteractiveGraphSRTree({
                         </BodyText>
                         <Spring />
                         <InfoTip>
-                            This screen reader tree shows the ARIA labels and
-                            descriptions for elements within the "correct
-                            answer" Interactive Graph widget displayed above.
+                            <p>
+                                This screen reader tree shows the ARIA labels
+                                and descriptions for elements within the
+                                "correct answer" Interactive Graph widget
+                                displayed above.
+                            </p>
                         </InfoTip>
                     </View>
                     <SRTree elementArias={elementArias} showTags={showTags} />

@@ -223,7 +223,10 @@ const ExtraCheckbox = (props: {
             disabled={props.disabled}
             label={
                 <View style={{flexDirection: "row"}}>
-                    {props.label} <InfoTip>{props.infoTip}</InfoTip>
+                    {props.label}{" "}
+                    <InfoTip>
+                        <p>{props.infoTip}</p>
+                    </InfoTip>
                 </View>
             }
             checked={props.checked}
