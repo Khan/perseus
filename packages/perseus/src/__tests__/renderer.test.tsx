@@ -43,7 +43,7 @@ import type {UserEvent} from "@testing-library/user-event";
 const mockRunLinter = jest.fn();
 const mockApplyLintErrors = jest.fn();
 jest.mock("../translation-linter", () => ({
-    // Return a module object, not a bare function: most test runners do not 
+    // Return a module object, not a bare function: most test runners do not
     // treat bare function as the whole module (ie. they need the __esModule
     // field).
     __esModule: true,
