@@ -1695,7 +1695,7 @@ describe("renderer", () => {
             },
         };
 
-        it("does not render the block widget inside a <p> element", () => {
+        it("does not render the block widget inside a paragraph element", () => {
             // Arrange, Act
             const {container} = renderQuestion(question);
 
@@ -1706,10 +1706,10 @@ describe("renderer", () => {
             );
             expect(blockWidget).not.toBeNull();
             // eslint-disable-next-line testing-library/no-node-access
-            expect(blockWidget?.closest("[role=paragraph]")).toBeNull();
+            expect(blockWidget?.closest("p, [role=paragraph]")).toBeNull();
         });
 
-        it("keeps the inline input-number widget within a <p> element", () => {
+        it("keeps the inline input-number widget within a paragraph element", () => {
             // Arrange, Act
             const {container} = renderQuestion(question);
 
@@ -1720,7 +1720,7 @@ describe("renderer", () => {
             );
             expect(inlineWidget).not.toBeNull();
             // eslint-disable-next-line testing-library/no-node-access
-            expect(inlineWidget?.closest("[role=paragraph]")).not.toBeNull();
+            expect(inlineWidget?.closest("p, [role=paragraph]")).not.toBeNull();
         });
     });
 });
