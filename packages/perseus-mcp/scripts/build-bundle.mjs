@@ -1,6 +1,6 @@
 // Builds the bundles testers install in Claude Desktop, one per platform
-// (macos-arm64, windows-x64, windows-arm64; all by default, or the ones
-// named): dist/perseus-mcp-<platform>.zip, from folders in dist/bundle.
+// (macos-arm64, macos-x64, windows-x64, windows-arm64; all by default, or
+// the ones named): dist/perseus-mcp-<platform>.zip, from folders in dist/bundle.
 // Registers swc first, as bin/perseus-mcp.mjs does, to run the TypeScript
 // source.
 import {register} from "node:module";
@@ -10,8 +10,8 @@ const repoRoot = path.resolve(import.meta.dirname, "../../..");
 process.env.SWC_NODE_PROJECT ??= path.join(repoRoot, "tsconfig.json");
 register("@swc-node/register/esm", import.meta.url);
 
-// eslint-disable-next-line no-restricted-syntax
 const {buildBundles, isPlatform, PLATFORMS} = await import(
+    // eslint-disable-next-line no-restricted-syntax
     "./build-bundle-lib.ts"
 );
 const named = process.argv.slice(2);

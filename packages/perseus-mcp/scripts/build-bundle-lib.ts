@@ -90,10 +90,25 @@ const MIN_NODE = [20, 11];
 /** The platforms a bundle can be built for, by the name in its zip's name. */
 export const PLATFORMS = [
     "macos-arm64",
+    "macos-x64",
     "windows-x64",
     "windows-arm64",
 ] as const;
 export type Platform = (typeof PLATFORMS)[number];
+
+type PlatformDetails = {
+    os: "macos" | "windows";
+    arch: "x64" | "arm64";
+    /** The processor, as the install notes name it. */
+    chip: string;
+};
+
+const PLATFORM_DETAILS = {
+    "macos-arm64": {os: "macos", arch: "arm64", chip: "Apple silicon"},
+    "macos-x64": {os: "macos", arch: "x64", chip: "Intel"},
+    "windows-x64": {os: "windows", arch: "x64", chip: "x64"},
+    "windows-arm64": {os: "windows", arch: "arm64", chip: "Arm"},
+} satisfies Record<Platform, PlatformDetails>;
 
 export function isPlatform(name: string): name is Platform {
     return PLATFORMS.some((platform) => platform === name);
@@ -124,17 +139,17 @@ function nodeVersion(): string {
 }
 
 /**
- * For macOS: the Node binary that runs this build, which must be an official
- * Apple silicon build (Node's own layout, signed by the Node.js Foundation,
- * so Gatekeeper accepts it once downloaded) with its license beside it, in
- * `../LICENSE`.
+ * For macOS on Apple silicon: the Node binary that runs this build, which
+ * must be an official Apple silicon build (Node's own layout, signed by the
+ * Node.js Foundation, so Gatekeeper accepts it once downloaded) with its
+ * license beside it, in `../LICENSE`.
  */
-function macosNode(): BundledNode {
+function macosArm64Node(): BundledNode {
     if (process.platform !== "darwin" || process.arch !== "arm64") {
         throw new Error(
-            "The macOS bundle ships the Node that runs the build, so build it " +
-                `on macOS on Apple silicon (this is ${process.platform}-` +
-                `${process.arch}).`,
+            "The Apple silicon bundle ships the Node that runs the build, so " +
+                "build it on macOS on Apple silicon (this is " +
+                `${process.platform}-${process.arch}).`,
         );
     }
     return {
@@ -167,18 +182,16 @@ async function sha256Of(file: string): Promise<string> {
 }
 
 /**
- * For Windows: `node.exe` and its license from Node's official zip for
- * `arch`, downloaded once into `cacheDir` and checked against the SHA-256
- * Node publishes for it.
+ * Downloads `file` from Node's release `version` into `cacheDir`, once, and
+ * checks it against the SHA-256 Node publishes for it. Returns its path.
  */
-async function windowsNode(
-    arch: "x64" | "arm64",
+async function downloadNodeRelease(
+    file: string,
     version: string,
     cacheDir: string,
-): Promise<BundledNode> {
-    const name = `node-v${version}-win-${arch}`;
+): Promise<string> {
     const base = `https://nodejs.org/dist/v${version}`;
-    const zip = path.join(cacheDir, `${name}.zip`);
+    const target = path.join(cacheDir, file);
     await mkdir(cacheDir, {recursive: true});
     const shasumsFile = path.join(cacheDir, `SHASUMS256-v${version}.txt`);
     download(`${base}/SHASUMS256.txt`, shasumsFile);
@@ -186,21 +199,70 @@ async function windowsNode(
     const expected = shasums
         .split("\n")
         .map((line) => line.trim().split(/\s+/))
-        .find(([, file]) => file === `${name}.zip`)?.[0];
+        .find(([, name]) => name === file)?.[0];
     if (expected == null) {
-        throw new Error(`Node's SHASUMS256.txt lists no ${name}.zip.`);
+        throw new Error(`Node's SHASUMS256.txt lists no ${file}.`);
     }
-    if (!existsSync(zip) || (await sha256Of(zip)) !== expected) {
-        download(`${base}/${name}.zip`, zip);
-        const actual = await sha256Of(zip);
+    if (!existsSync(target) || (await sha256Of(target)) !== expected) {
+        download(`${base}/${file}`, target);
+        const actual = await sha256Of(target);
         if (actual !== expected) {
-            await rm(zip, {force: true});
+            await rm(target, {force: true});
             throw new Error(
-                `${name}.zip doesn't match Node's SHA-256 (${actual}, ` +
+                `${file} doesn't match Node's SHA-256 (${actual}, ` +
                     `expected ${expected}).`,
             );
         }
     }
+    return target;
+}
+
+/**
+ * For macOS on Intel: `node` and its license from Node's official tarball,
+ * signed and notarized by the Node.js Foundation, so Gatekeeper accepts it
+ * as it does the Apple silicon build.
+ */
+async function macosX64Node(
+    version: string,
+    cacheDir: string,
+): Promise<BundledNode> {
+    const name = `node-v${version}-darwin-x64`;
+    const tarball = await downloadNodeRelease(
+        `${name}.tar.gz`,
+        version,
+        cacheDir,
+    );
+    const unpacked = path.join(cacheDir, name);
+    await rm(unpacked, {recursive: true, force: true});
+    await mkdir(unpacked, {recursive: true});
+    run("tar", [
+        "-xzf",
+        tarball,
+        "-C",
+        unpacked,
+        "--strip-components",
+        "1",
+        `${name}/bin/node`,
+        `${name}/LICENSE`,
+    ]);
+    return {
+        binary: path.join(unpacked, "bin/node"),
+        binaryName: "node",
+        license: path.join(unpacked, "LICENSE"),
+    };
+}
+
+/**
+ * For Windows: `node.exe` and its license from Node's official zip for
+ * `arch`.
+ */
+async function windowsNode(
+    arch: "x64" | "arm64",
+    version: string,
+    cacheDir: string,
+): Promise<BundledNode> {
+    const name = `node-v${version}-win-${arch}`;
+    const zip = await downloadNodeRelease(`${name}.zip`, version, cacheDir);
     const unpacked = path.join(cacheDir, name);
     await rm(unpacked, {recursive: true, force: true});
     run("unzip", [
@@ -219,9 +281,28 @@ async function windowsNode(
     };
 }
 
+/** The Node a platform's bundle ships. */
+function bundledNode(
+    platform: Platform,
+    version: string,
+    cacheDir: string,
+): Promise<BundledNode> | BundledNode {
+    const {os, arch} = PLATFORM_DETAILS[platform];
+    if (os === "windows") {
+        return windowsNode(arch, version, cacheDir);
+    }
+    return arch === "arm64"
+        ? macosArm64Node()
+        : macosX64Node(version, cacheDir);
+}
+
 /** The tester's instructions for macOS, at the top of the unpacked folder. */
-function macosInstallNotes(version: string, nodeVersion: string): string {
-    return `# perseus-mcp ${version} for Claude Desktop (macOS, Apple silicon)
+function macosInstallNotes(
+    version: string,
+    nodeVersion: string,
+    chip: string,
+): string {
+    return `# perseus-mcp ${version} for Claude Desktop (macOS, ${chip})
 
 An MCP server for authoring Perseus items, with Node ${nodeVersion}
 included.
@@ -420,14 +501,12 @@ export async function buildBundles(
 
     const zips: Array<string> = [];
     for (const platform of platforms) {
-        const node =
-            platform === "macos-arm64"
-                ? macosNode()
-                : await windowsNode(
-                      platform === "windows-x64" ? "x64" : "arm64",
-                      version,
-                      path.join(distDir, "node-downloads"),
-                  );
+        const {os, chip} = PLATFORM_DETAILS[platform];
+        const node = await bundledNode(
+            platform,
+            version,
+            path.join(distDir, "node-downloads"),
+        );
         const bundleDir = path.join(outDir, platform, "perseus-mcp");
         await rm(path.dirname(bundleDir), {recursive: true, force: true});
         await cp(shared, bundleDir, {recursive: true});
@@ -439,13 +518,9 @@ export async function buildBundles(
         );
         await writeFile(
             path.join(bundleDir, "INSTALL.md"),
-            platform === "macos-arm64"
-                ? macosInstallNotes(packageJson.version, version)
-                : windowsInstallNotes(
-                      packageJson.version,
-                      version,
-                      platform === "windows-x64" ? "x64" : "Arm",
-                  ),
+            os === "macos"
+                ? macosInstallNotes(packageJson.version, version, chip)
+                : windowsInstallNotes(packageJson.version, version, chip),
         );
 
         const zip = path.join(distDir, `perseus-mcp-${platform}.zip`);

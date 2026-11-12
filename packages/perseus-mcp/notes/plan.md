@@ -123,6 +123,7 @@ from outside the repo.
 | A title bar like the exercise editor's, view buttons, and issue banners | Every page (the exercise list and page, a draft's preview, a diagram's page) gets one dark title bar (`PageHeader`): a back arrow to the exercise list, the title with a line about the page (such as "12 items in 4 problem types"), and the page's own controls at the end. On the exercise page those are "Open in the exercise editor", as an outlined link, and a pair of Wonder Blocks `IconButton`s for one item and the grid, in a labelled group with the pressed one showing (`aria-pressed`); they replace the radio group. The grid always renders as on a phone; in one-item view "As on a phone" stays in the preview options. The pages fill the window (they were capped at 1600 px and centred). "New" items get a sparkle icon, not a plus, which read as a button. An item's validation issues show in a Wonder Blocks `Banner` (red with errors, yellow with warnings), above its preview in full and on each grid card briefly: each message's first line, a repeated one once with how many places. They replace the grid's "Only items with errors or warnings" filter, which kept nearly every item: published content almost always has linter warnings (three items found by search had three each). The grid loads two frames at a time, each starting when one has rendered (or after 20 seconds): in the dev server a screenful of frames, each loading hundreds of modules, ran the browser out of requests (`ERR_INSUFFICIENT_RESOURCES`) and left some blank. Adds `@khanacademy/wonder-blocks-icon-button` and `@khanacademy/wonder-blocks-banner` to perseus-mcp. Checked in the browser on an exercise of 12 items: all four pages, both views, all 12 frames as on a phone. |
 | Prefer the browser for previews | A tester's agent always showed previews in the chat: the MCP Apps view was attached to `preview_item`, so every call showed it and the agent couldn't choose. `preview_item` now only returns the URL, and a new `show_item` carries the in-chat view, described for a quick look at one item or when the person asks to see it there. `open_in_browser` opens a draft's, an exercise's (or its grid's) or a diagram's page in the default browser (`open`, `cmd /c start`, `xdg-open`), given an id rather than a URL, so it only opens this server's pages. The server's instructions say previews are browser pages, the exercise's page is for several items, and an agent with a browser of its own can open a URL there, also to check how an item looks or behaves where `score_item` and `check_user_inputs` don't say enough. The preview tools move to `preview-tools.ts` (server.ts was over the 1000-line limit). |
 | A tidier exercise list, and the check result beside its button | The exercise list: each exercise is a row between thin dividers, its title a link underlined only on hover or focus; the line under it reads "12 items · changed 2 hours ago" (the full time on hover, as a `<time>`); notes are dimmed, italic and cut to two lines (the rest on hover; screen readers read it all), as search imports' provenance notes filled the page. A name that's the path of the imported file shows the file's name. The import is one line (label, file field, Import, a hint), and a file dropped anywhere on the page imports it: while one is dragged over, the window shows a dashed "Drop here to upload" overlay, hidden from screen readers, since the labelled file field is how they import. In a preview, "Correct.", "Incorrect." or "Not scored…" shows beside "Check answer" with a filled check, cross or warning icon in Wonder Blocks' success, critical or neutral color, instead of below it, where it could be out of view. Checked in the browser: the list, a simulated file drag, and both outcomes on a radio item. |
+| Build an Intel macOS bundle | `build:bundle` builds `perseus-mcp-macos-x64.zip` beside the others: testers on Intel Macs couldn't run the Apple silicon bundle's Node. It ships Node's official `darwin-x64` build (signed and notarized by the Node.js Foundation), downloaded once into `dist/node-downloads` and checked against Node's SHA-256 as the Windows zips are, so it builds on Apple silicon too; its install notes say Intel. The platforms are one table (`PLATFORM_DETAILS`: OS, architecture, the chip the notes name). |
 
 Remaining, in order:
 
@@ -325,12 +326,13 @@ works around each for now:
   following `bin`; `knip.config.ts` only drops the default `src/index.*`
   pattern, which matches nothing here.
 - **The testers' bundles:** `pnpm build:bundle` (run on macOS on Apple
-  silicon; name `macos-arm64`, `windows-x64` or `windows-arm64` to build
-  only those) builds `dist/bundle/<platform>/perseus-mcp/` (Node,
+  silicon; name `macos-arm64`, `macos-x64`, `windows-x64` or
+  `windows-arm64` to build only those) builds `dist/bundle/<platform>/perseus-mcp/` (Node,
   `server/index.mjs`, `types/`, `pages/`, licenses, `INSTALL.md`), laid out
   as `packagedPaths()` expects, and zips each into
-  `dist/perseus-mcp-<platform>.zip`. Windows builds download Node's zip once
-  into `dist/node-downloads`. Try the macOS one from a copy outside the repo
+  `dist/perseus-mcp-<platform>.zip`. The Intel macOS and Windows builds
+  download Node's official tarball or zip once into `dist/node-downloads`,
+  checked against Node's SHA-256. Try the macOS one from a copy outside the repo
   with `<copy>/node <copy>/server/index.mjs --stdio`; set `HOME` to a
   scratch folder to keep its drafts apart.
 - **Prebuilt pages:** `build:pages` writes `dist/pages/preview/` (the
@@ -810,8 +812,8 @@ upload comes after step 11.
    (`.mcpb`), installed with one click, but the organization's extension
    allowlist refuses any `.mcpb` an owner hasn't approved.
    So the zip carries its own Node (an official build, signed by the Node.js
-   Foundation), and only macOS on Apple silicon is supported: the build
-   ships the Node that runs it. If an owner later allows a custom
+   Foundation): the Apple silicon build ships the Node that runs it; the
+   Intel and Windows builds download Node's official release. If an owner later allows a custom
    extension, the `.mcpb` build is in this branch's history (commit "Pack
    perseus-mcp into a .mcpb"). Commits:
    1. **Paths by where the server runs** (done): `RuntimePaths` gives the
