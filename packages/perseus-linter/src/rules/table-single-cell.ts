@@ -14,8 +14,6 @@ function isSingleCellTable(table: any): boolean {
 
 export default Rule.makeRule({
     name: "table-single-cell",
-    // A titled table's `table` property is also a `table` node, so this
-    // matches tables with and without a caption.
     selector: "table",
     lint: function (_state, _content, nodes) {
         if (isSingleCellTable(nodes[0])) {

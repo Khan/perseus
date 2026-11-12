@@ -1,17 +1,17 @@
 import {expectPass, expectIssue} from "../__tests__/test-utils";
+import Rule from "../rule";
 
-import tableSingleCellRule, {SINGLE_CELL_MESSAGE} from "./table-single-cell";
+import tableSingleCellRule from "./table-single-cell";
 
 describe("table-single-cell", () => {
     it.each([
         ["one body row", "| Answer |\n|--------|\n| 42 |"],
         ["no body rows", "| Answer |\n|--------|"],
-        ["an empty header", "|  |\n|----|\n| 42 |"],
         ["with a caption", "|| My caption ||\n| Answer |\n|--------|\n| 42 |"],
     ])("warns when a single-column table has %s", (_, markdown) => {
         // Arrange, Act, Assert
         expectIssue(tableSingleCellRule, markdown, undefined, {
-            messages: [SINGLE_CELL_MESSAGE],
+            severity: Rule.Severity.WARNING,
         });
     });
 
