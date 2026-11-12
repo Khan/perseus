@@ -217,3 +217,60 @@ export const PictographMobile: Story = {
         });
     },
 };
+
+export const BarChartStatic: Story = {
+    parameters: {static: true},
+    args: BarChart.args,
+};
+
+export const BarChartMobileStatic: Story = {
+    decorators: [mobileDecorator],
+    parameters: {apiOptions: {isMobile: true}, static: true},
+    args: BarChartMobile.args,
+};
+
+export const HistogramStatic: Story = {
+    parameters: {static: true},
+    args: Histogram.args,
+};
+
+export const HistogramMobileStatic: Story = {
+    decorators: [mobileDecorator],
+    parameters: {apiOptions: {isMobile: true}, static: true},
+    args: HistogramMobile.args,
+};
+
+export const LinePlotStatic: Story = {
+    parameters: {static: true},
+    args: LinePlot.args,
+};
+
+export const LinePlotMobileStatic: Story = {
+    decorators: [mobileDecorator],
+    parameters: {apiOptions: {isMobile: true}, static: true},
+    args: LinePlotMobile.args,
+};
+
+export const DotPlotStatic: Story = {
+    parameters: {static: true},
+    args: DotPlot.args,
+};
+
+export const DotPlotMobileStatic: Story = {
+    decorators: [mobileDecorator],
+    parameters: {apiOptions: {isMobile: true}, static: true},
+    args: DotPlotMobile.args,
+};
+
+export const PictographStatic: Story = {
+    parameters: {static: true},
+    args: Pictograph.args,
+    play: Pictograph.play,
+};
+
+export const PictographMobileStatic: Story = {
+    decorators: [mobileDecorator],
+    parameters: {apiOptions: {isMobile: true}, static: true},
+    args: PictographMobile.args,
+    play: PictographMobile.play,
+};
