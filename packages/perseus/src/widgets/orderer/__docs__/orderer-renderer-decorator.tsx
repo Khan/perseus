@@ -28,6 +28,7 @@ export const ordererRendererDecorator: Decorator = (
         parameters?: {
             content?: string;
             initialUserInput?: UserInputMap;
+            static?: boolean;
         };
     },
 ) => {
@@ -41,6 +42,7 @@ export const ordererRendererDecorator: Decorator = (
                         version: {major: 0, minor: 0},
                         type: "orderer",
                         graded: true,
+                        static: parameters?.static ?? false,
                         options: {
                             ...defaultOptions,
                             ...args,

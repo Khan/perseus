@@ -76,6 +76,7 @@ type CardProps = {
     width?: number | null | undefined;
     stack: boolean;
     removing: boolean;
+    disabled: boolean;
 
     onMouseDown?: any;
     onMouseMove?: any;
@@ -93,6 +94,7 @@ type CardDefaultProps = {
     stack: CardProps["stack"];
     removing: CardProps["removing"];
     animating: CardProps["animating"];
+    disabled: CardProps["disabled"];
 };
 
 type CardState = {
@@ -110,6 +112,7 @@ class Card extends React.Component<CardProps, CardState> {
         stack: false,
         removing: false,
         animating: false,
+        disabled: false,
     };
 
     state = {dragging: false};
@@ -137,14 +140,15 @@ class Card extends React.Component<CardProps, CardState> {
     shouldComponentUpdate(nextProps: any, nextState) {
         // Cards in the bank or drag list don't usually change -- they only
         // reorder themselves -- so we want to skip the update to things a
-        // little faster. We also need to re-render if the content changes,
-        // which happens only in the editor. (We do want to update the floating
-        // card on mouse move to update its position.)
+        // little faster. We also need to re-render if the content or disabled
+        // state changes, which happens only in the editor. (We do want to
+        // update the floating card on mouse move to update its position.)
         return (
             this.props.floating ||
             nextProps.floating ||
             this.props.content !== nextProps.content ||
-            this.props.fakeRef !== nextProps.fakeRef
+            this.props.fakeRef !== nextProps.fakeRef ||
+            this.props.disabled !== nextProps.disabled
         );
     }
 
@@ -256,6 +260,9 @@ class Card extends React.Component<CardProps, CardState> {
         if (this.props.stack) {
             className.push("stack");
         }
+        if (this.props.disabled) {
+            className.push("disabled");
+        }
         if (
             this.props.floating &&
             !this.props.animating &&
@@ -277,7 +284,10 @@ class Card extends React.Component<CardProps, CardState> {
         // Pull out the content to get rendered
         const rendererProps = {content: this.props.content};
 
-        const onMouseDown = this.props.animating ? noop : this.onMouseDown;
+        const onMouseDown =
+            this.props.animating || this.props.disabled
+                ? noop
+                : this.onMouseDown;
 
         return (
             // eslint-disable-next-line jsx-a11y/no-static-element-interactions -- TODO(LEMS-2871): Address a11y error
@@ -609,6 +619,10 @@ class Orderer
     }
 
     render(): React.ReactNode {
+        const isDisabled = Boolean(
+            this.props.static || this.props.apiOptions.readOnly,
+        );
+
         // This is the card we are currently dragging
         const dragging = this.state.dragging && (
             <Card
@@ -654,6 +668,7 @@ class Orderer
                     fakeRef={"sortable" + i}
                     floating={false}
                     content={opt}
+                    disabled={isDisabled}
                     linterContext={this.props.linterContext}
                     onMouseDown={
                         this.state.animating
@@ -699,6 +714,7 @@ class Orderer
                             floating={false}
                             content={opt.content}
                             stack={true}
+                            disabled={isDisabled}
                             key={i}
                             linterContext={this.props.linterContext}
                             onMouseDown={

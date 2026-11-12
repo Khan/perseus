@@ -1,5 +1,11 @@
+import {
+    generateOrdererOption,
+    generateOrdererOptions,
+    generateOrdererWidget,
+    generateTestPerseusRenderer,
+} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
-import {act, screen} from "@testing-library/react";
+import {act, createEvent, fireEvent, screen} from "@testing-library/react";
 
 import {renderQuestion} from "../../__testutils__/render-question";
 import {
@@ -10,7 +16,10 @@ import {
 import {question2} from "./orderer.testdata";
 
 import type {APIOptions} from "../../types";
-import type {PerseusOrdererWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    PerseusOrdererWidgetOptions,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
 
 const ordererOptions: PerseusOrdererWidgetOptions = {
     otherOptions: [],
@@ -73,6 +82,79 @@ describe("orderer widget", () => {
                 widgetId: "orderer 1",
             },
         });
+    });
+
+    describe("disabled state", () => {
+        function generateQuestion(isStatic: boolean): PerseusRenderer {
+            return generateTestPerseusRenderer({
+                content: "[[☃ orderer 1]]",
+                widgets: {
+                    "orderer 1": generateOrdererWidget({
+                        static: isStatic,
+                        options: generateOrdererOptions({
+                            options: [generateOrdererOption("Card A")],
+                        }),
+                    }),
+                },
+            });
+        }
+
+        function firePointerEvent(
+            type: "mouseDown" | "mouseUp",
+            target: Document | Element,
+        ) {
+            // The orderer positions cards using the event's pageX/pageY,
+            // which jsdom doesn't set, so we set them ourselves.
+            const event = createEvent[type](target);
+            Object.defineProperties(event, {
+                pageX: {value: 0},
+                pageY: {value: 0},
+            });
+            fireEvent(target, event);
+        }
+
+        function dragBankCard() {
+            // The orderer listens for raw mouse events (bound with jQuery on
+            // the document), so we drive it with fireEvent.
+            firePointerEvent("mouseDown", screen.getByText("Card A"));
+            firePointerEvent("mouseUp", document);
+        }
+
+        it("adds a card to the answer list when interactive", () => {
+            // Arrange
+            const {renderer} = renderQuestion(generateQuestion(false), {
+                apiOptions: {readOnly: false},
+            });
+
+            // Act
+            dragBankCard();
+
+            // Assert
+            expect(renderer.getUserInputMap()).toEqual({
+                "orderer 1": {current: ["Card A"]},
+            });
+        });
+
+        it.each([
+            {name: "static", isStatic: true, readOnly: false},
+            {name: "read-only", isStatic: false, readOnly: true},
+        ])(
+            "does not add a card to the answer list when $name",
+            ({isStatic, readOnly}) => {
+                // Arrange
+                const {renderer} = renderQuestion(generateQuestion(isStatic), {
+                    apiOptions: {readOnly},
+                });
+
+                // Act
+                dragBankCard();
+
+                // Assert
+                expect(renderer.getUserInputMap()).toEqual({
+                    "orderer 1": {current: []},
+                });
+            },
+        );
     });
 
     test("the answerless test data doesn't contain answers", () => {
