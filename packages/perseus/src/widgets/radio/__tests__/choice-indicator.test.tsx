@@ -22,7 +22,6 @@ describe("Radio widget choice indicator", () => {
         iconMock = jest.spyOn(PhosphorIcon, "render");
         mockClickHandler = jest.fn();
         buttonRef = React.createRef<HTMLButtonElement>();
-        jest.spyOn(React, "useId").mockReturnValue("id:foo");
     });
 
     afterEach(() => {
@@ -138,27 +137,31 @@ describe("Radio widget choice indicator", () => {
             expect(indicator).not.toHaveAttribute("aria-describedby");
         });
 
-        it("also includes any aria-labelledby information when provided", () => {
+        it("names itself from its aria-label and the given labelledBy element", () => {
+            // Arrange
             const contentWithLabel: IndicatorContent = {
                 ...indicatorContent,
-                labelledBy: ":bar:",
+                labelledBy: "choice-content",
             };
+
+            // Act
             render(
-                <Indicator
-                    buttonRef={buttonRef}
-                    checked={true}
-                    shape="circle"
-                    content={contentWithLabel}
-                    showCorrectness="wrong"
-                    updateChecked={mockClickHandler}
-                />,
+                <>
+                    <span id="choice-content">Ten apples</span>
+                    <Indicator
+                        buttonRef={buttonRef}
+                        checked={true}
+                        shape="circle"
+                        content={contentWithLabel}
+                        showCorrectness="wrong"
+                        updateChecked={mockClickHandler}
+                    />
+                </>,
             );
+
+            // Assert
             const indicator = screen.getByRole("button");
-            expect(indicator).toHaveAttribute("aria-label", "Choice A");
-            expect(indicator).toHaveAttribute(
-                "aria-labelledby",
-                "id:foo :bar:",
-            );
+            expect(indicator).toHaveAccessibleName("Choice A Ten apples");
             expect(indicator).not.toHaveAttribute("aria-describedby");
         });
 
