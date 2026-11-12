@@ -16,11 +16,23 @@
             deprecated-perseus-container. */
         .perseus-renderer
             > .deprecated-perseus-container
-            > :not(p, [role=paragraph], ul, ol, h1, h2, h3, h4, h5, h6, blockquote),
+            > :not(
+                p,
+                [role="paragraph"],
+                ul,
+                ol,
+                h1,
+                h2,
+                h3,
+                h4,
+                h5,
+                h6,
+                blockquote
+            ),
         .perseus-renderer
             > :not(
                 p,
-                [role=paragraph],
+                [role="paragraph"],
                 ul,
                 ol,
                 h1,
@@ -44,7 +56,8 @@
             margin-block-start: 0;
         }
 
-        p, [role=paragraph] {
+        p,
+        [role="paragraph"] {
             /* override base font size set by frontend */
             font-size: inherit;
             margin-block: 0 var(--wb-sizing-size_160);
@@ -94,7 +107,7 @@
            so we need to adjust the margin to match list items.
            We also want other markdown cases that cause paragraphs
            to respect the list-based spacing. */
-        li > :is(p, [role=paragraph]) {
+        li > :is(p, [role="paragraph"]) {
             margin-block: var(--wb-sizing-size_080);
         }
     }
@@ -158,7 +171,7 @@
 /**************
  * Exceptions *
  **************/
-.perseus-in-wb-popover :is(p, [role=paragraph]) {
+.perseus-in-wb-popover :is(p, [role="paragraph"]) {
     font-size: initial;
     margin: 0;
 }
