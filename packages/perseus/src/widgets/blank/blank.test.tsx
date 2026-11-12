@@ -71,9 +71,7 @@ describe("Blank Widget", function () {
         });
 
         // Assert
-        expect(screen.getByTestId("blank-widget")).toHaveTextContent(
-            "tile in blank 1",
-        );
+        expect(screen.getByText("tile in blank 1")).toBeInTheDocument();
     });
 
     it("throws when rendered without a BlankContext provider", () => {
