@@ -928,9 +928,6 @@ importers:
 
   packages/perseus-editor:
     dependencies:
-      '@khanacademy/kas':
-        specifier: workspace:*
-        version: link:../kas
       '@khanacademy/keypad-context':
         specifier: workspace:*
         version: link:../keypad-context
