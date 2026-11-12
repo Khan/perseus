@@ -139,10 +139,14 @@ const Table = forwardRef<Widget, Props>(function Table(props, ref) {
         props.onChange({headers});
     }
 
+    const isDisabled = Boolean(props.static || props.apiOptions.readOnly);
+
     let InputComponent;
     let inputStyle;
     const extraInputProps: Record<string, any> = {};
-    if (props.apiOptions.customKeypad) {
+    // KeypadInput doesn't support being disabled, so a disabled table always
+    // renders plain <input>s. A disabled cell never needs the keypad anyway.
+    if (props.apiOptions.customKeypad && !isDisabled) {
         InputComponent = SimpleKeypadInput;
         // NOTE(charlie): This is intended to match the "width: 80px" in
         // input in table.css. Those values should be kept in-sync.
@@ -193,7 +197,7 @@ const Table = forwardRef<Widget, Props>(function Table(props, ref) {
                         }}
                         type="text"
                         value={answer}
-                        disabled={props.apiOptions.readOnly}
+                        disabled={isDisabled}
                         onFocus={() => props.onFocus(getInputPath(r, c))}
                         onBlur={() => props.onBlur(getInputPath(r, c))}
                         onChange={(e) => handleValueChange(r, c, e)}
