@@ -17,6 +17,7 @@ import {PerseusI18nContext} from "./components/i18n-context";
 import {DependenciesContext} from "./dependencies";
 import HintsRenderer from "./hints-renderer";
 import LoadingContext from "./loading-context";
+import {Log} from "./logging/log";
 import {ApiOptions} from "./perseus-api";
 import Renderer from "./renderer";
 import UserInputManager from "./user-input-manager";
@@ -61,10 +62,11 @@ type SerializedState = {
 export type ServerItemRendererHandle = KeypadContextRendererInterface &
     GetPromptJSONInterface & {
         /**
-         * The question's Renderer. Prefer the methods on this handle; this is
-         * here for callers that still need the Renderer itself.
+         * The question's Renderer, or null while ServerItemRenderer isn't
+         * mounted. Prefer the methods on this handle; this is here for
+         * callers that still need the Renderer itself.
          */
-        readonly questionRenderer: Renderer;
+        readonly questionRenderer: Renderer | null;
         focus(): boolean | null | undefined;
         focusPath(path: FocusPath): void;
         blurPath(path: FocusPath): void;
@@ -113,14 +115,40 @@ const ServerItemRenderer = React.forwardRef<ServerItemRendererHandle, Props>(
         const latestOnRendered = React.useRef(onRendered);
         latestOnRendered.current = onRendered;
 
+        // The question Renderer while mounted; null before mount and after
+        // unmount.
         const questionRendererRef = React.useRef<Renderer | null>(null);
-        // Everything that reads the question Renderer runs after mount.
-        const getQuestionRenderer = React.useCallback((): Renderer => {
-            if (questionRendererRef.current == null) {
-                throw new Error("ServerItemRenderer has not mounted yet");
-            }
-            return questionRendererRef.current;
-        }, []);
+        // Stable, so React calls it with null only when the Renderer really
+        // unmounts (an inline callback gets null before every re-render).
+        // Clearing it then means a caller keeping the handle doesn't keep the
+        // unmounted Renderer, or its widgets, alive.
+        const setQuestionRenderer = React.useCallback(
+            (renderer: Renderer | null) => {
+                questionRendererRef.current = renderer;
+            },
+            [],
+        );
+        const reportedUseWhileUnmountedRef = React.useRef(false);
+        // For the handle's methods. Callers can keep the handle past unmount
+        // (or call it before mount); then the methods do nothing and return
+        // empty values rather than throw, since throwing turned that caller
+        // bug into crashes (Perseus #4126, reverted in #4285). The first such
+        // call is logged so the caller can be fixed.
+        const getQuestionRenderer = React.useCallback(
+            (method: string): Renderer | null => {
+                const renderer = questionRendererRef.current;
+                if (renderer == null && !reportedUseWhileUnmountedRef.current) {
+                    reportedUseWhileUnmountedRef.current = true;
+                    Log.log(
+                        "ServerItemRenderer's handle was used while it " +
+                            "wasn't mounted; the call did nothing",
+                        {method},
+                    );
+                }
+                return renderer;
+            },
+            [],
+        );
         const hintsRendererRef = React.useRef<HintsRenderer | null>(null);
         const currentFocusRef = React.useRef<FocusPath>(null);
         const blurTimeoutIDRef = React.useRef<ReturnType<
@@ -174,7 +202,7 @@ const ServerItemRenderer = React.forwardRef<ServerItemRendererHandle, Props>(
 
         const getInputPaths = React.useCallback(
             (): ReadonlyArray<FocusPath> =>
-                getQuestionRenderer().getInputPaths(),
+                getQuestionRenderer("getInputPaths")?.getInputPaths() ?? [],
             [getQuestionRenderer],
         );
 
@@ -225,8 +253,10 @@ const ServerItemRenderer = React.forwardRef<ServerItemRendererHandle, Props>(
                             prevFocus,
                             keypadHeight,
                             // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'false | Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement | undefined'.
+                            // This runs a tick later, when the renderer
+                            // may have unmounted.
                             didFocusInput &&
-                                getQuestionRenderer().getDOMNodeForPath(
+                                questionRendererRef.current?.getDOMNodeForPath(
                                     newFocus,
                                 ),
                         );
@@ -241,7 +271,7 @@ const ServerItemRenderer = React.forwardRef<ServerItemRendererHandle, Props>(
                     }
                 }
             },
-            [getInputPaths, getQuestionRenderer],
+            [getInputPaths],
         );
 
         const onRendererBlur = React.useCallback(
@@ -308,25 +338,39 @@ const ServerItemRenderer = React.forwardRef<ServerItemRendererHandle, Props>(
             ref,
             () => ({
                 get questionRenderer() {
-                    return getQuestionRenderer();
+                    return getQuestionRenderer("questionRenderer");
                 },
-                focusPath: (path) => getQuestionRenderer().focusPath(path),
-                blurPath: (path) => getQuestionRenderer().blurPath(path),
+                focusPath: (path) =>
+                    getQuestionRenderer("focusPath")?.focusPath(path),
+                blurPath: (path) =>
+                    getQuestionRenderer("blurPath")?.blurPath(path),
                 getDOMNodeForPath: (path) =>
-                    getQuestionRenderer().getDOMNodeForPath(path),
+                    getQuestionRenderer("getDOMNodeForPath")?.getDOMNodeForPath(
+                        path,
+                    ) ?? null,
                 getInputPaths,
-                focus: () => getQuestionRenderer().focus(),
+                focus: () => getQuestionRenderer("focus")?.focus() ?? false,
                 blur: () => {
                     if (currentFocusRef.current) {
-                        getQuestionRenderer().blurPath(currentFocusRef.current);
+                        getQuestionRenderer("blur")?.blurPath(
+                            currentFocusRef.current,
+                        );
                     }
                 },
                 getNumHints: () => latestProps.current.item.hints.length,
-                getPromptJSON: () => getQuestionRenderer().getPromptJSON(),
+                getPromptJSON: () =>
+                    getQuestionRenderer("getPromptJSON")?.getPromptJSON() ?? {
+                        content: "",
+                        widgets: {},
+                    },
                 getUserInput: () => userInputRef.current,
-                getWidgetIds: () => getQuestionRenderer().getWidgetIds(),
+                getWidgetIds: () =>
+                    getQuestionRenderer("getWidgetIds")?.getWidgetIds() ?? [],
                 getSerializedState: () => ({
-                    question: getQuestionRenderer().getSerializedState(),
+                    question:
+                        getQuestionRenderer(
+                            "getSerializedState",
+                        )?.getSerializedState() ?? {},
                     hints: hintsRendererRef.current?.getSerializedState(),
                 }),
             }),
@@ -362,11 +406,7 @@ const ServerItemRenderer = React.forwardRef<ServerItemRendererHandle, Props>(
                                 apiOptions={apiOptions}
                                 reviewMode={reviewMode}
                                 showSolutions={showSolutions}
-                                ref={(elem) => {
-                                    if (elem != null) {
-                                        questionRendererRef.current = elem;
-                                    }
-                                }}
+                                ref={setQuestionRenderer}
                                 content={item.question.content}
                                 widgets={item.question.widgets}
                                 images={item.question.images}

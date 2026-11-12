@@ -727,6 +727,50 @@ describe("server item renderer", () => {
         });
     });
 
+    describe("handle used after unmounting", () => {
+        // Callers sometimes keep the handle past unmount (focusing the
+        // question that was just replaced, say). Perseus #4126 made that
+        // throw, which broke them, so the handle does nothing instead.
+        it("does nothing and returns empty values", () => {
+            // Arrange
+            const {renderer, unmount} = renderItem(itemWithMockWidget);
+            unmount();
+
+            // Act, Assert
+            expect(() => {
+                renderer.focusPath(["mock-widget 1"]);
+                renderer.blurPath(["mock-widget 1"]);
+                renderer.blur();
+            }).not.toThrow();
+            expect(renderer.focus()).toBe(false);
+            expect(renderer.questionRenderer).toBeNull();
+            expect(renderer.getInputPaths()).toEqual([]);
+            expect(renderer.getWidgetIds()).toEqual([]);
+            expect(renderer.getDOMNodeForPath(["mock-widget 1"])).toBeNull();
+            expect(renderer.getPromptJSON()).toEqual({
+                content: "",
+                widgets: {},
+            });
+        });
+
+        it("logs the first use, so the caller can be fixed", () => {
+            // Arrange
+            const logSpy = jest.spyOn(testDependencies.Log, "log");
+            const {renderer, unmount} = renderItem(itemWithMockWidget);
+            unmount();
+
+            // Act
+            renderer.focus();
+            renderer.getWidgetIds();
+
+            // Assert
+            expect(logSpy).toHaveBeenCalledTimes(1);
+            expect(logSpy).toHaveBeenCalledWith(expect.any(String), {
+                method: "focus",
+            });
+        });
+    });
+
     describe("state serialization", () => {
         it("should serialize the current state", async () => {
             // Arrange
