@@ -18,7 +18,7 @@ describe("TextListEditor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
     });
 
@@ -75,7 +75,7 @@ describe("TextListEditor", () => {
 
     it("calls onChange with the non-empty values when an option is edited", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(
             <TextListEditor
                 options={["apple", "banana"]}
@@ -138,7 +138,7 @@ describe("TextListEditor", () => {
 
     it("removes the option when backspacing away the last character of the second-to-last input", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(<TextListEditor options={["apple", "b"]} onChange={onChange} />);
 
         // Act
@@ -185,7 +185,7 @@ describe("TextListEditor", () => {
 
     it("leaves the inputs untouched for keys other than Backspace and Enter", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(
             <TextListEditor
                 options={["apple", "banana"]}

@@ -28,7 +28,7 @@ describe("numeric input widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
     });
 

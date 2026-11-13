@@ -33,7 +33,7 @@ const overallGraphLabel = "Two lines on a coordinate plane.";
 
 describe("Linear System graph screen reader", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -251,7 +251,7 @@ describe("Linear System graph screen reader", () => {
 
 describe("Linear System graph pointLabels", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });

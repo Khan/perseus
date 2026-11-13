@@ -10,22 +10,23 @@ import {
 } from "./graded-group-set.testdata";
 
 import type {UserEvent} from "@testing-library/user-event";
+import type {Mock} from "vitest";
 
 describe("graded group set widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
 
         // Mocked for loading graphie in svg-image
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn(() =>
+        global.fetch = vi.fn(() =>
             Promise.resolve({
                 text: () => "",
                 ok: true,
             }),
-        ) as jest.Mock;
+        ) as Mock;
     });
 
     it("should snapshot", () => {
@@ -38,7 +39,7 @@ describe("graded group set widget", () => {
 
     it("should send analytics event when widget is rendered", () => {
         // Arrange
-        const onAnalyticsEventSpy = jest.fn();
+        const onAnalyticsEventSpy = vi.fn();
         const dependencies = {
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
         };

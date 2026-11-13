@@ -48,7 +48,7 @@ const question1: PerseusRenderer = {
 
 describe("Matcher AI utils", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
             TeX: ({
                 children,

@@ -25,7 +25,7 @@ describe("RendererDiff", () => {
     });
 
     afterEach(() => {
-        jest.restoreAllMocks();
+        vi.restoreAllMocks();
         unmockImageLoading();
     });
 

@@ -38,11 +38,11 @@ describe("AnswerTile", () => {
 
     beforeEach(() => {
         capturedManager = null;
-        user = userEvent.setup({advanceTimers: jest.advanceTimersByTime});
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        user = userEvent.setup({advanceTimers: vi.advanceTimersByTime});
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
-        jest.spyOn(Dependencies, "useDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "useDependencies").mockReturnValue(
             testDependenciesV2,
         );
     });
@@ -71,7 +71,7 @@ describe("AnswerTile", () => {
 
         // Act
         act(() => {
-            jest.runOnlyPendingTimers();
+            vi.runOnlyPendingTimers();
         });
 
         // Assert
@@ -141,7 +141,7 @@ describe("AnswerTile", () => {
     // a still click on the opener a click instead of a drag.
     it("calls onClear when the clear action is selected", async () => {
         // Arrange
-        const onClear = jest.fn();
+        const onClear = vi.fn();
         render(
             <PerseusDndProvider>
                 <AnswerTile

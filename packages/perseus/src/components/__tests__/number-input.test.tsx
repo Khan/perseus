@@ -12,7 +12,7 @@ describe("NumberInput", function () {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
     });
 
@@ -21,7 +21,7 @@ describe("NumberInput", function () {
         result: number,
         extraProps?: {placeholder: number},
     ) {
-        const onChange = jest.fn();
+        const onChange = vi.fn();
 
         render(
             <NumberInput
@@ -58,7 +58,7 @@ describe("NumberInput", function () {
     });
 
     it("should let you increment with the arrow keys", async function () {
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(
             <NumberInput value={0} onChange={onChange} useArrowKeys={true} />,
         );
@@ -69,7 +69,7 @@ describe("NumberInput", function () {
     });
 
     it("should let you decrement with the arrow keys", async function () {
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(
             <NumberInput value={0} onChange={onChange} useArrowKeys={true} />,
         );
@@ -80,7 +80,7 @@ describe("NumberInput", function () {
     });
 
     it("does not increment non-integers", async function () {
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(
             <NumberInput
                 value={1 / 2}
@@ -95,7 +95,7 @@ describe("NumberInput", function () {
     });
 
     it("does not decrement non-integers", async function () {
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(
             <NumberInput
                 value={1 / 2}
@@ -110,7 +110,7 @@ describe("NumberInput", function () {
     });
 
     it("shouldn't increment when the arrow keys are disabled", async function () {
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(
             <NumberInput value={0} onChange={onChange} useArrowKeys={false} />,
         );
@@ -134,7 +134,7 @@ describe("NumberInput", function () {
             render(
                 <NumberInput
                     value={value}
-                    onChange={jest.fn()}
+                    onChange={vi.fn()}
                     allowPiTruncation={true}
                 />,
             );
@@ -152,7 +152,7 @@ describe("NumberInput", function () {
         render(
             <NumberInput
                 value={Math.PI}
-                onChange={jest.fn()}
+                onChange={vi.fn()}
                 allowPiTruncation={false}
             />,
         );
@@ -167,7 +167,7 @@ describe("NumberInput", function () {
         render(
             <NumberInput
                 value={Math.PI}
-                onChange={jest.fn()}
+                onChange={vi.fn()}
                 placeholder="hold my place"
             />,
         );
@@ -179,11 +179,7 @@ describe("NumberInput", function () {
 
     it("displays a placeholder number in an empty input", () => {
         render(
-            <NumberInput
-                value={Math.PI}
-                onChange={jest.fn()}
-                placeholder={42}
-            />,
+            <NumberInput value={Math.PI} onChange={vi.fn()} placeholder={42} />,
         );
 
         const input: HTMLInputElement = screen.getByRole("textbox");
@@ -195,7 +191,7 @@ describe("NumberInput", function () {
         render(
             <NumberInput
                 value={Math.PI}
-                onChange={jest.fn()}
+                onChange={vi.fn()}
                 placeholder={null}
             />,
         );

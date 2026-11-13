@@ -24,8 +24,8 @@ const defaultProps = {
 const defaultLabel = getDefaultFigureForType("label");
 
 // Mock the async functions
-jest.mock("./util", () => ({
-    ...jest.requireActual("./util"),
+vi.mock("./util", async () => ({
+    ...(await vi.importActual("./util")),
     generateSpokenMathDetails: (input) =>
         mockedGenerateSpokenMathDetailsForTests(input),
     joinLabelsAsSpokenMath: (input) =>
@@ -36,7 +36,7 @@ describe("Locked Vector Settings", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
     });
 
@@ -80,7 +80,7 @@ describe("Locked Vector Settings", () => {
 
         test("calls 'onToggle' when header is clicked", async () => {
             // Arrange
-            const onToggle = jest.fn();
+            const onToggle = vi.fn();
             render(
                 <LockedVectorSettings {...defaultProps} onToggle={onToggle} />,
                 {
@@ -102,7 +102,7 @@ describe("Locked Vector Settings", () => {
     describe("Settings interactions", () => {
         test("calls 'onChangeProps' when color is changed", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = vi.fn();
             render(
                 <LockedVectorSettings
                     {...defaultProps}
@@ -129,7 +129,7 @@ describe("Locked Vector Settings", () => {
 
         test("calls onChange when the weight is changed", async () => {
             // Arrange
-            const onChangeSpy = jest.fn();
+            const onChangeSpy = vi.fn();
             render(
                 <LockedVectorSettings
                     {...defaultProps}
@@ -196,7 +196,7 @@ describe("Locked Vector Settings", () => {
 
         test("updates props when changes made to coordinates", async () => {
             // Arrange
-            const onChangePropsMock = jest.fn();
+            const onChangePropsMock = vi.fn();
             render(
                 <LockedVectorSettings
                     {...defaultProps}
@@ -225,7 +225,7 @@ describe("Locked Vector Settings", () => {
     describe("Labels", () => {
         test("Updates the label coords when the vector coords change", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = vi.fn();
             render(
                 <LockedVectorSettings
                     {...defaultProps}
@@ -268,7 +268,7 @@ describe("Locked Vector Settings", () => {
 
         test("Updates the label color when the vector color changes", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = vi.fn();
             render(
                 <LockedVectorSettings
                     {...defaultProps}
@@ -304,7 +304,7 @@ describe("Locked Vector Settings", () => {
 
         test("Updates the label when the label text changes", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = vi.fn();
             render(
                 <LockedVectorSettings
                     {...defaultProps}
@@ -331,7 +331,7 @@ describe("Locked Vector Settings", () => {
 
         test("Removes label when delete button is clicked", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = vi.fn();
             render(
                 <LockedVectorSettings
                     {...defaultProps}
@@ -360,7 +360,7 @@ describe("Locked Vector Settings", () => {
 
         test("Adds a new label when the add label button is clicked", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = vi.fn();
             render(
                 <LockedVectorSettings
                     {...defaultProps}
@@ -420,7 +420,7 @@ describe("Locked Vector Settings", () => {
 
         test("calls onChangeProps when the aria label is updated", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = vi.fn();
             render(
                 <LockedVectorSettings
                     {...defaultProps}
@@ -443,7 +443,7 @@ describe("Locked Vector Settings", () => {
 
         test("aria label auto-generates (no labels)", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = vi.fn();
 
             // Act
             render(
@@ -469,7 +469,7 @@ describe("Locked Vector Settings", () => {
 
         test("aria label auto-generates (one label)", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = vi.fn();
             render(
                 <LockedVectorSettings
                     {...defaultProps}
@@ -500,7 +500,7 @@ describe("Locked Vector Settings", () => {
 
         test("aria label auto-generates (multiple labels)", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = vi.fn();
             render(
                 <LockedVectorSettings
                     {...defaultProps}

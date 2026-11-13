@@ -195,7 +195,7 @@ describe("describedByIds", () => {
 describe("handleFocusEvent", () => {
     it("invites keyboard interaction when the mouse-mode graph is focus-visible", () => {
         // Arrange
-        const dispatch = jest.fn();
+        const dispatch = vi.fn();
         const target = document.createElement("div");
         target.classList.add("mafs-graph");
         // The invitation is gated on `:focus-visible`, so the element must
@@ -220,7 +220,7 @@ describe("handleFocusEvent", () => {
 
     it("does nothing when the graph is not an unlimited graph", () => {
         // Arrange
-        const dispatch = jest.fn();
+        const dispatch = vi.fn();
         const target = document.createElement("div");
         target.classList.add("mafs-graph");
 
@@ -233,7 +233,7 @@ describe("handleFocusEvent", () => {
 
     it("does nothing when a child element (not the graph) is focused", () => {
         // Arrange
-        const dispatch = jest.fn();
+        const dispatch = vi.fn();
         const target = document.createElement("div");
 
         // Act
@@ -245,7 +245,7 @@ describe("handleFocusEvent", () => {
 
     it("does nothing when the interaction mode is not mouse", () => {
         // Arrange
-        const dispatch = jest.fn();
+        const dispatch = vi.fn();
         const target = document.createElement("div");
         target.classList.add("mafs-graph");
 
@@ -264,7 +264,7 @@ describe("handleFocusEvent", () => {
 describe("handleBlurEvent", () => {
     it("hides the keyboard invitation on an unlimited graph", () => {
         // Arrange
-        const dispatch = jest.fn();
+        const dispatch = vi.fn();
 
         // Act
         handleBlurEvent(
@@ -281,7 +281,7 @@ describe("handleBlurEvent", () => {
 
     it("does nothing on a limited graph", () => {
         // Arrange
-        const dispatch = jest.fn();
+        const dispatch = vi.fn();
 
         // Act
         handleBlurEvent(
@@ -298,7 +298,7 @@ describe("handleBlurEvent", () => {
 describe("handleKeyboardEvent", () => {
     it("enters keyboard mode on Shift+Enter", () => {
         // Arrange
-        const dispatch = jest.fn();
+        const dispatch = vi.fn();
 
         // Act
         handleKeyboardEvent(
@@ -315,7 +315,7 @@ describe("handleKeyboardEvent", () => {
 
     it("adds a point when 'a' is pressed in keyboard mode", () => {
         // Arrange
-        const dispatch = jest.fn();
+        const dispatch = vi.fn();
 
         // Act
         handleKeyboardEvent(
@@ -332,7 +332,7 @@ describe("handleKeyboardEvent", () => {
 
     it("does not add a point when 'a' is pressed in mouse mode", () => {
         // Arrange
-        const dispatch = jest.fn();
+        const dispatch = vi.fn();
 
         // Act
         handleKeyboardEvent(
@@ -349,7 +349,7 @@ describe("handleKeyboardEvent", () => {
         "deletes the focused point on %s when a point handle is focused",
         (key) => {
             // Arrange
-            const dispatch = jest.fn();
+            const dispatch = vi.fn();
             const cleanup = focusMovablePointHandle();
 
             // Act
@@ -371,7 +371,7 @@ describe("handleKeyboardEvent", () => {
 
     it("blurs the focused handle after a delete key, even when nothing is deleted", () => {
         // Arrange
-        const dispatch = jest.fn();
+        const dispatch = vi.fn();
         const cleanup = focusMovablePointHandle();
 
         // Act
@@ -394,7 +394,7 @@ describe("handleKeyboardEvent", () => {
 
     it("does not delete on Backspace when no point handle is focused", () => {
         // Arrange
-        const dispatch = jest.fn();
+        const dispatch = vi.fn();
 
         // Act
         handleKeyboardEvent(
@@ -411,7 +411,7 @@ describe("handleKeyboardEvent", () => {
 
     it("deletes on Backspace for an open polygon when a point handle is focused", () => {
         // Arrange
-        const dispatch = jest.fn();
+        const dispatch = vi.fn();
         const cleanup = focusMovablePointHandle();
 
         // Act
@@ -430,7 +430,7 @@ describe("handleKeyboardEvent", () => {
 
     it("does not delete on Backspace for a closed polygon", () => {
         // Arrange
-        const dispatch = jest.fn();
+        const dispatch = vi.fn();
         const cleanup = focusMovablePointHandle();
 
         // Act
@@ -451,7 +451,7 @@ describe("handleKeyboardEvent", () => {
 
     it("does nothing on a limited graph", () => {
         // Arrange
-        const dispatch = jest.fn();
+        const dispatch = vi.fn();
 
         // Act
         handleKeyboardEvent(

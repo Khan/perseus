@@ -9,7 +9,7 @@ import type {GraphConfig} from "../../../reducer/use-graph-config";
 import type {InteractiveGraphState} from "../../../types";
 
 function mockGraphConfig(config: GraphConfig) {
-    return jest.spyOn(ReducerGraphConfig, "default").mockReturnValue(config);
+    return vi.spyOn(ReducerGraphConfig, "default").mockReturnValue(config);
 }
 
 const baseGraphConfig: GraphConfig = {
@@ -59,7 +59,7 @@ describe("MovablePointLabelsLayer", () => {
     });
 
     afterEach(() => {
-        jest.restoreAllMocks();
+        vi.restoreAllMocks();
     });
 
     it("renders nothing when showPointLabels is off, even if pointLabels is set", () => {

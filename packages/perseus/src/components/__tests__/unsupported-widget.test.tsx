@@ -48,7 +48,7 @@ describe("UnsupportedWidgetMessage", () => {
 
     it("logs the widget's type, ID and reason", () => {
         // Arrange
-        const onAnalyticsEventSpy = jest.fn();
+        const onAnalyticsEventSpy = vi.fn();
         const dependencies = {
             ...testDependenciesV2,
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
@@ -79,7 +79,7 @@ describe("UnsupportedWidgetMessage", () => {
 
     it("does not log more than once per component instance", () => {
         // Arrange
-        const onAnalyticsEventSpy = jest.fn();
+        const onAnalyticsEventSpy = vi.fn();
         const dependencies = {
             ...testDependenciesV2,
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},

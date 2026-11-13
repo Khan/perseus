@@ -12,6 +12,7 @@ import {
 } from "./util";
 
 import type {Interval, vec} from "mafs";
+import type {MockInstance} from "vitest";
 
 describe("trimRange", () => {
     it("does not trim ranges below a size of 0", () => {
@@ -132,10 +133,10 @@ describe("insetTipAlongRay", () => {
 });
 
 describe("Rendering", () => {
-    let useDraggable: jest.SpyInstance;
+    let useDraggable: MockInstance;
 
     beforeEach(() => {
-        useDraggable = jest
+        useDraggable = vi
             .spyOn(UseDraggableModule, "useDraggable")
             .mockReturnValue({dragging: false});
     });

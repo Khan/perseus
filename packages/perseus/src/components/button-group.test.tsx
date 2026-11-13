@@ -17,13 +17,13 @@ describe("ButtonGroup", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
     });
 
     it("calls onChange with the clicked button's value", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(
             <ButtonGroup<Curve>
                 value="linear"
@@ -41,7 +41,7 @@ describe("ButtonGroup", () => {
 
     it("does not call onChange when the selected button is clicked", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(
             <ButtonGroup<Curve>
                 value="linear"
@@ -60,7 +60,7 @@ describe("ButtonGroup", () => {
     it("accepts an onChange handler typed by the type argument", async () => {
         // Arrange
         type Shape = "circle" | "square";
-        const onChange = jest.fn((shape: Shape) => {});
+        const onChange = vi.fn((shape: Shape) => {});
         render(
             <ButtonGroup<Shape>
                 value="circle"

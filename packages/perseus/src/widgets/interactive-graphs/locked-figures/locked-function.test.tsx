@@ -25,14 +25,14 @@ const baseLockedFunctionProps = {
 
 describe("LockedFunction", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
     test("calls clampedDomain with the x range correct arguments when in x direction", () => {
         // Arrange
-        const clampSpy = jest.spyOn(Utils, "clampDomain");
+        const clampSpy = vi.spyOn(Utils, "clampDomain");
 
         // Act
         const graphStateWithRange = {
@@ -70,7 +70,7 @@ describe("LockedFunction", () => {
 
     test("calls clampedDomain with the y range correct arguments when in y direction", () => {
         // Arrange
-        const clampSpy = jest.spyOn(Utils, "clampDomain");
+        const clampSpy = vi.spyOn(Utils, "clampDomain");
 
         // Act
         const graphStateWithRange = {

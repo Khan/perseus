@@ -1,6 +1,6 @@
 import {screen} from "@testing-library/react";
 
-if (typeof jest === "undefined") {
+if (typeof vi === "undefined") {
     /**
      * This file is for test use only.
      */
@@ -11,25 +11,10 @@ if (typeof jest === "undefined") {
  * Checks that jest is configured to use real timers.
  */
 const verifyRealTimers = () => {
-    // Jest may warn if calling timer methods when real timers are used.
-    // We need to silence that, but without impacting folks testing, so we'll be
-    // cheeky. We don't use this to detect the timers though because if they
-    // change this behavior we would silently start just working.
-    const oldWarn = console.warn;
-    console.warn = () => {};
-
-    try {
-        const timerCount = jest.getTimerCount();
-        const timeoutID = setTimeout(() => {}, 0);
-        const newTimerCount = jest.getTimerCount();
-        clearTimeout(timeoutID);
-        if (timerCount !== newTimerCount) {
-            throw new Error(
-                "Cannot use wait() with fake timers. Call jest.useRealTimers() in test case or in a beforeEach.",
-            );
-        }
-    } finally {
-        console.warn = oldWarn;
+    if (vi.isFakeTimers()) {
+        throw new Error(
+            "Cannot use wait() with fake timers. Call jest.useRealTimers() in test case or in a beforeEach.",
+        );
     }
 };
 

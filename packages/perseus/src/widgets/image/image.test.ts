@@ -22,10 +22,11 @@ import {decodeGifFrames} from "./utils";
 
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
+import type {Mock} from "vitest";
 
-jest.mock("./utils", () => ({
-    ...jest.requireActual("./utils"),
-    decodeGifFrames: jest.fn(),
+vi.mock("./utils", async () => ({
+    ...(await vi.importActual("./utils")),
+    decodeGifFrames: vi.fn(),
 }));
 
 // A minimal fake frame from gifuct-js with a 50ms delay.
@@ -46,7 +47,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
 
         unmockImageLoading = mockImageLoading();
@@ -54,14 +55,14 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         // The widget calls `.then` on the result for every GIF, so an
         // unconfigured mock would crash the render.
         // eslint-disable-next-line no-restricted-syntax
-        (decodeGifFrames as jest.Mock).mockResolvedValue([fakeFrame]);
+        (decodeGifFrames as Mock).mockResolvedValue([fakeFrame]);
 
         // jsdom doesn't implement canvas getContext or ImageData.
         // eslint-disable-next-line no-restricted-syntax
-        jest.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue({
-            putImageData: jest.fn(),
-            clearRect: jest.fn(),
-            drawImage: jest.fn(),
+        vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue({
+            putImageData: vi.fn(),
+            clearRect: vi.fn(),
+            drawImage: vi.fn(),
             imageSmoothingEnabled: true,
         } as Partial<CanvasRenderingContext2D> as CanvasRenderingContext2D);
 
@@ -151,7 +152,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         // Act
         renderQuestion(imageQuestion, {apiOptions});
         act(() => {
-            jest.runAllTimers();
+            vi.runAllTimers();
         });
 
         // Assert
@@ -171,7 +172,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             },
         });
 
-        const onAnalyticsEventSpy = jest.fn();
+        const onAnalyticsEventSpy = vi.fn();
         const dependencies = {
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
         };
@@ -179,7 +180,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         // Act
         renderQuestion(imageQuestion, {apiOptions, dependencies});
         act(() => {
-            jest.runAllTimers();
+            vi.runAllTimers();
         });
 
         // Assert
@@ -210,7 +211,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         // Act
         renderQuestion(imageQuestion, {apiOptions});
         act(() => {
-            jest.runAllTimers();
+            vi.runAllTimers();
         });
 
         // Assert
@@ -234,7 +235,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         // Act
         renderQuestion(imageQuestion, {apiOptions});
         act(() => {
-            jest.runAllTimers();
+            vi.runAllTimers();
         });
 
         // Assert
@@ -258,7 +259,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         // Act
         renderQuestion(imageQuestion, {apiOptions});
         act(() => {
-            jest.runAllTimers();
+            vi.runAllTimers();
         });
 
         // Assert
@@ -282,7 +283,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         // Act
         renderQuestion(imageQuestion, {apiOptions});
         act(() => {
-            jest.runAllTimers();
+            vi.runAllTimers();
         });
 
         // Assert
@@ -311,7 +312,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         // Act
         renderQuestion(imageQuestion, {apiOptions});
         act(() => {
-            jest.runAllTimers();
+            vi.runAllTimers();
         });
 
         // Assert
@@ -342,7 +343,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
         renderQuestion(imageQuestion, {apiOptions});
         act(() => {
-            jest.runAllTimers();
+            vi.runAllTimers();
         });
 
         //  Act
@@ -372,7 +373,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
         renderQuestion(imageQuestion, {apiOptions});
         act(() => {
-            jest.runAllTimers();
+            vi.runAllTimers();
         });
 
         //  Act
@@ -403,7 +404,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
         renderQuestion(imageQuestion, {apiOptions});
         act(() => {
-            jest.runAllTimers();
+            vi.runAllTimers();
         });
 
         //  Act
@@ -437,7 +438,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
         renderQuestion(imageQuestion, {apiOptions});
         act(() => {
-            jest.runAllTimers();
+            vi.runAllTimers();
         });
 
         //  Act
@@ -468,7 +469,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
         renderQuestion(imageQuestion, {apiOptions});
         act(() => {
-            jest.runAllTimers();
+            vi.runAllTimers();
         });
 
         //  Act - open the modal, check for zoom button
@@ -681,7 +682,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             // Act
             renderQuestion(imageQuestion, {apiOptions});
             act(() => {
-                jest.runAllTimers();
+                vi.runAllTimers();
             });
 
             // Assert
@@ -707,7 +708,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             // Act
             renderQuestion(imageQuestion, {apiOptions});
             act(() => {
-                jest.runAllTimers();
+                vi.runAllTimers();
             });
 
             // Assert
@@ -735,7 +736,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             // Act
             renderQuestion(imageQuestion, {apiOptions});
             act(() => {
-                jest.runAllTimers();
+                vi.runAllTimers();
             });
 
             // Assert
@@ -765,7 +766,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             // Act
             renderQuestion(imageQuestion, {apiOptions});
             act(() => {
-                jest.runAllTimers();
+                vi.runAllTimers();
             });
 
             // Assert
@@ -798,7 +799,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             // Act
             renderQuestion(imageQuestion, {apiOptions});
             act(() => {
-                jest.runAllTimers();
+                vi.runAllTimers();
             });
 
             // Assert
@@ -841,7 +842,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             // Act
             renderQuestion(imageQuestion, {apiOptions});
             act(() => {
-                jest.runAllTimers();
+                vi.runAllTimers();
             });
 
             // Assert
@@ -877,7 +878,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             // Act, Assert
             const {container} = renderQuestion(imageQuestion, {apiOptions});
             act(() => {
-                jest.runAllTimers();
+                vi.runAllTimers();
             });
 
             // Assert
@@ -906,7 +907,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             // Act, Assert
             const {container} = renderQuestion(imageQuestion, {apiOptions});
             act(() => {
-                jest.runAllTimers();
+                vi.runAllTimers();
             });
 
             // Assert
@@ -990,7 +991,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             // Act
             renderQuestion(imageQuestion, {apiOptions});
             act(() => {
-                jest.runAllTimers();
+                vi.runAllTimers();
             });
 
             // Assert - max-width should not be 0, which would collapse the container
@@ -1108,10 +1109,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         beforeEach(() => {
             // Decode resolves to two fake frames (an animated GIF) by default.
             // eslint-disable-next-line no-restricted-syntax
-            (decodeGifFrames as jest.Mock).mockResolvedValue([
-                fakeFrame,
-                fakeFrame,
-            ]);
+            (decodeGifFrames as Mock).mockResolvedValue([fakeFrame, fakeFrame]);
         });
 
         it("should render gif controls if the image is a gif with multiple frames", async () => {
@@ -1138,7 +1136,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         it("should not render gif controls if the gif has only one frame", async () => {
             // Arrange
             // eslint-disable-next-line no-restricted-syntax
-            (decodeGifFrames as jest.Mock).mockResolvedValue([fakeFrame]);
+            (decodeGifFrames as Mock).mockResolvedValue([fakeFrame]);
 
             const imageQuestion = generateTestPerseusRenderer({
                 content: "[[☃ image 1]]",

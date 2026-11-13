@@ -10,7 +10,7 @@ describe("ExtrasEditor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
     });
 
@@ -32,7 +32,7 @@ describe("ExtrasEditor", () => {
 
     it("should call onChange with updated calculator value", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
         render(
             <ExtrasEditor
                 editingDisabled={false}
@@ -56,7 +56,7 @@ describe("ExtrasEditor", () => {
 
     it("should call onChange with updated periodicTableWithKey value when periodicTable is unchecked", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
         render(
             <ExtrasEditor
                 editingDisabled={false}
@@ -215,7 +215,7 @@ describe("ExtrasEditor", () => {
 
         it("when parent is checked, callback should check children", async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = vi.fn();
             render(
                 <ExtrasEditor
                     editingDisabled={false}
@@ -239,7 +239,7 @@ describe("ExtrasEditor", () => {
 
         it("when parent is unchecked, callback should uncheck children", async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = vi.fn();
             render(
                 <ExtrasEditor
                     editingDisabled={false}

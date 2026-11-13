@@ -124,12 +124,12 @@ describe("convertImageMarkdownToImageWidget", () => {
     beforeEach(() => {
         unmockImageLoading = mockImageLoading();
         // Size of earthMoonImage
-        jest.spyOn(Util, "getImageSizeModern").mockResolvedValue([400, 225]);
+        vi.spyOn(Util, "getImageSizeModern").mockResolvedValue([400, 225]);
     });
 
     afterEach(() => {
         unmockImageLoading();
-        jest.restoreAllMocks();
+        vi.restoreAllMocks();
     });
 
     it("returns when no image markdown is found", () => {
@@ -139,7 +139,7 @@ describe("convertImageMarkdownToImageWidget", () => {
             widgets: {},
             images: {},
         };
-        const onEditorChange = jest.fn();
+        const onEditorChange = vi.fn();
 
         // Act
         convertImageMarkdownToImageWidget(question, onEditorChange);
@@ -155,7 +155,7 @@ describe("convertImageMarkdownToImageWidget", () => {
             widgets: {},
             images: {},
         };
-        const onEditorChange = jest.fn();
+        const onEditorChange = vi.fn();
 
         // Act
         await convertImageMarkdownToImageWidget(question, onEditorChange);
@@ -202,7 +202,7 @@ describe("convertImageMarkdownToImageWidget", () => {
             widgets: {},
             images: {},
         };
-        const onEditorChange = jest.fn();
+        const onEditorChange = vi.fn();
 
         // Act
         await convertImageMarkdownToImageWidget(question, onEditorChange);
@@ -226,7 +226,7 @@ describe("convertImageMarkdownToImageWidget", () => {
             widgets: {},
             images: {},
         };
-        const onEditorChange = jest.fn();
+        const onEditorChange = vi.fn();
 
         // Act
         await convertImageMarkdownToImageWidget(question, onEditorChange);
@@ -260,7 +260,7 @@ describe("convertImageMarkdownToImageWidget", () => {
             },
         });
 
-        const onEditorChange = jest.fn();
+        const onEditorChange = vi.fn();
 
         // Act
         await convertImageMarkdownToImageWidget(question, onEditorChange);
@@ -293,7 +293,7 @@ describe("convertImageMarkdownToImageWidget", () => {
             widgets: {},
             images: {},
         });
-        const onEditorChange = jest.fn();
+        const onEditorChange = vi.fn();
 
         // Act
         await convertImageMarkdownToImageWidget(question, onEditorChange);
@@ -339,7 +339,7 @@ describe("convertImageMarkdownToImageWidget", () => {
             },
             images: {},
         });
-        const onEditorChange = jest.fn();
+        const onEditorChange = vi.fn();
 
         // Act
         await convertImageMarkdownToImageWidget(question, onEditorChange);
@@ -391,7 +391,7 @@ describe("convertImageMarkdownToImageWidget", () => {
             },
             images: {},
         });
-        const onEditorChange = jest.fn();
+        const onEditorChange = vi.fn();
 
         // Act
         await convertImageMarkdownToImageWidget(question, onEditorChange);
@@ -424,7 +424,7 @@ describe("convertImageMarkdownToImageWidget", () => {
             widgets: {},
             images: {},
         });
-        const onEditorChange = jest.fn();
+        const onEditorChange = vi.fn();
 
         // Act
         await convertImageMarkdownToImageWidget(question, onEditorChange);
@@ -466,7 +466,7 @@ describe("convertImageMarkdownToImageWidget", () => {
                 [frescoImage.url]: {width: 400, height: 225},
             },
         });
-        const onEditorChange = jest.fn();
+        const onEditorChange = vi.fn();
 
         // Act
         await convertImageMarkdownToImageWidget(question, onEditorChange);
@@ -501,7 +501,7 @@ describe("convertImageMarkdownToImageWidget", () => {
                 [frescoImage.url]: {width: 400, height: 225},
             },
         });
-        const onEditorChange = jest.fn();
+        const onEditorChange = vi.fn();
 
         // Act
         await convertImageMarkdownToImageWidget(question, onEditorChange);
@@ -541,7 +541,7 @@ describe("getCtaForIssueId", () => {
             widgets: {},
             images: {},
         });
-        const onEditorChange = jest.fn();
+        const onEditorChange = vi.fn();
 
         // Act
         const cta = getCtaForIssueId(
@@ -569,7 +569,7 @@ describe("getCtaForIssueId", () => {
                 widgets: {},
                 images: {},
             });
-            const onEditorChange = jest.fn();
+            const onEditorChange = vi.fn();
 
             // Act
             const cta = getCtaForIssueId(issueId, question, onEditorChange);

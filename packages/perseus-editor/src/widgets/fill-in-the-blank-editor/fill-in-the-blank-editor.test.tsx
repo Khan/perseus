@@ -16,7 +16,7 @@ describe("fill-in-the-blank-editor", () => {
     });
 
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });

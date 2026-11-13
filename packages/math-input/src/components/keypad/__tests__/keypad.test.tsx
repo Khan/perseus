@@ -38,7 +38,7 @@ describe("keypad", () => {
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
     });
 
@@ -223,7 +223,7 @@ describe("keypad", () => {
 
     it(`clicking tab triggers callback`, async () => {
         // Arrange
-        const onClickKey = jest.fn();
+        const onClickKey = vi.fn();
 
         // Act
         render(

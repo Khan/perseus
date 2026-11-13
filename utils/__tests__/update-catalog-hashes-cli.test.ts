@@ -1,30 +1,30 @@
-import {describe, expect, it, jest, beforeEach} from "@jest/globals";
+import {describe, expect, it, vi, beforeEach} from "vitest";
+
+import type {MockInstance} from "vitest";
 
 // We need to mock the module before importing it
-const mockUpdateCatalogHashes = jest.fn();
-jest.mock("../internal/update-catalog-hashes", () => ({
+const mockUpdateCatalogHashes = vi.fn();
+vi.mock("../internal/update-catalog-hashes", () => ({
     updateCatalogHashes: mockUpdateCatalogHashes,
 }));
 
 describe("update-catalog-hashes-cli", () => {
-    let mockExit: jest.SpiedFunction<typeof process.exit>;
-    let mockConsoleLog: jest.SpiedFunction<typeof console.log>;
-    let mockConsoleError: jest.SpiedFunction<typeof console.error>;
+    let mockExit: MockInstance<typeof process.exit>;
+    let mockConsoleLog: MockInstance<typeof console.log>;
+    let mockConsoleError: MockInstance<typeof console.error>;
     let originalArgv: string[];
 
     beforeEach(() => {
         // Save original argv
         originalArgv = process.argv;
 
-        jest.clearAllMocks();
-        mockExit = jest
+        vi.clearAllMocks();
+        mockExit = vi
             .spyOn(process, "exit")
             // eslint-disable-next-line no-restricted-syntax
             .mockImplementation((() => {}) as any);
-        mockConsoleLog = jest
-            .spyOn(console, "log")
-            .mockImplementation(() => {});
-        mockConsoleError = jest
+        mockConsoleLog = vi.spyOn(console, "log").mockImplementation(() => {});
+        mockConsoleError = vi
             .spyOn(console, "error")
             .mockImplementation(() => {});
     });
@@ -33,23 +33,23 @@ describe("update-catalog-hashes-cli", () => {
         // Restore original argv
         process.argv = originalArgv;
         // Clear the module cache to allow re-importing with new argv
-        jest.resetModules();
+        vi.resetModules();
     });
 
     // Helper to load and execute the CLI with given args
-    const runCli = (args: string[]) => {
+    const runCli = async (args: string[]) => {
         // Set process.argv before importing
         process.argv = ["node", "update-catalog-hashes-cli.ts", ...args];
         // Import the CLI script (which will execute main immediately)
         // Using require instead of import so it runs synchronously
-        // eslint-disable-next-line import/no-unassigned-import
-        require("../update-catalog-hashes-cli");
+
+        await import("../update-catalog-hashes-cli");
     };
 
     describe("help flag", () => {
-        it("should show help with --help flag", () => {
+        it("should show help with --help flag", async () => {
             // Act
-            runCli(["--help"]);
+            await runCli(["--help"]);
 
             // Assert
             expect(mockConsoleLog).toHaveBeenCalledWith(
@@ -58,9 +58,9 @@ describe("update-catalog-hashes-cli", () => {
             expect(mockExit).toHaveBeenCalledWith(0);
         });
 
-        it("should show help with -h flag", () => {
+        it("should show help with -h flag", async () => {
             // Act
-            runCli(["-h"]);
+            await runCli(["-h"]);
 
             // Assert
             expect(mockConsoleLog).toHaveBeenCalledWith(
@@ -71,23 +71,23 @@ describe("update-catalog-hashes-cli", () => {
     });
 
     describe("normal mode", () => {
-        it("should call updateCatalogHashes with isDryRun=false by default", () => {
+        it("should call updateCatalogHashes with isDryRun=false by default", async () => {
             // Arrange
             mockUpdateCatalogHashes.mockImplementation(() => {});
 
             // Act
-            runCli([]);
+            await runCli([]);
 
             // Assert
             expect(mockUpdateCatalogHashes).toHaveBeenCalledWith(false, false);
         });
 
-        it("should not call process.exit on success", () => {
+        it("should not call process.exit on success", async () => {
             // Arrange
             mockUpdateCatalogHashes.mockImplementation(() => {});
 
             // Act
-            runCli([]);
+            await runCli([]);
 
             // Assert
             expect(mockExit).not.toHaveBeenCalled();
@@ -95,12 +95,12 @@ describe("update-catalog-hashes-cli", () => {
     });
 
     describe("dry-run mode", () => {
-        it("should call updateCatalogHashes with isDryRun=true when --dry-run flag is passed", () => {
+        it("should call updateCatalogHashes with isDryRun=true when --dry-run flag is passed", async () => {
             // Arrange
             mockUpdateCatalogHashes.mockImplementation(() => {});
 
             // Act
-            runCli(["--dry-run"]);
+            await runCli(["--dry-run"]);
 
             // Assert
             expect(mockUpdateCatalogHashes).toHaveBeenCalledWith(true, false);
@@ -108,23 +108,23 @@ describe("update-catalog-hashes-cli", () => {
     });
 
     describe("verbose mode", () => {
-        it("should call updateCatalogHashes with verbose=true when --verbose flag is passed", () => {
+        it("should call updateCatalogHashes with verbose=true when --verbose flag is passed", async () => {
             // Arrange
             mockUpdateCatalogHashes.mockImplementation(() => {});
 
             // Act
-            runCli(["--verbose"]);
+            await runCli(["--verbose"]);
 
             // Assert
             expect(mockUpdateCatalogHashes).toHaveBeenCalledWith(false, true);
         });
 
-        it("should support both --dry-run and --verbose flags together", () => {
+        it("should support both --dry-run and --verbose flags together", async () => {
             // Arrange
             mockUpdateCatalogHashes.mockImplementation(() => {});
 
             // Act
-            runCli(["--dry-run", "--verbose"]);
+            await runCli(["--dry-run", "--verbose"]);
 
             // Assert
             expect(mockUpdateCatalogHashes).toHaveBeenCalledWith(true, true);
@@ -132,7 +132,7 @@ describe("update-catalog-hashes-cli", () => {
     });
 
     describe("error handling", () => {
-        it("should exit with code 1 and show error when updateCatalogHashes throws", () => {
+        it("should exit with code 1 and show error when updateCatalogHashes throws", async () => {
             // Arrange
             const error = new Error("Test error");
             mockUpdateCatalogHashes.mockImplementation(() => {
@@ -140,14 +140,14 @@ describe("update-catalog-hashes-cli", () => {
             });
 
             // Act
-            runCli([]);
+            await runCli([]);
 
             // Assert
             expect(mockConsoleError).toHaveBeenCalled();
             expect(mockExit).toHaveBeenCalledWith(1);
         });
 
-        it("should show error stack when available", () => {
+        it("should show error stack when available", async () => {
             // Arrange
             const error = new Error("Test error with stack");
             error.stack = "Error: Test error with stack\n    at test:1:1";
@@ -156,7 +156,7 @@ describe("update-catalog-hashes-cli", () => {
             });
 
             // Act
-            runCli([]);
+            await runCli([]);
 
             // Assert
             expect(mockConsoleError).toHaveBeenCalled();

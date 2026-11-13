@@ -38,7 +38,7 @@ describe("useDraggable", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
     });
 
@@ -99,7 +99,7 @@ describe("useDraggable", () => {
                 padding: 0,
             },
         };
-        const onMoveSpy = jest.fn();
+        const onMoveSpy = vi.fn();
         render(
             <Mafs {...mafsProps}>
                 <TestDraggable point={[0, 0]} onMove={onMoveSpy} />
@@ -130,7 +130,7 @@ describe("useDraggable", () => {
                 padding: 0,
             },
         };
-        const onMoveSpy = jest.fn();
+        const onMoveSpy = vi.fn();
         render(
             <Mafs {...mafsProps}>
                 <TestDraggable
@@ -164,7 +164,7 @@ describe("useDraggable", () => {
                 padding: 0,
             },
         };
-        const onMoveSpy = jest.fn();
+        const onMoveSpy = vi.fn();
         render(
             <Mafs {...mafsProps}>
                 <TestDraggable
@@ -205,7 +205,7 @@ describe("useDraggable", () => {
                 padding: 0,
             },
         };
-        const onMoveSpy = jest.fn();
+        const onMoveSpy = vi.fn();
         render(
             <Mafs {...mafsProps}>
                 <Transform scale={2}>
@@ -231,7 +231,7 @@ describe("useDraggable", () => {
     });
 
     it("calls onDragStart when a mouse drag begins", () => {
-        const onDragStartSpy = jest.fn();
+        const onDragStartSpy = vi.fn();
         render(
             <Mafs width={200} height={200}>
                 <TestDraggable point={[0, 0]} onDragStart={onDragStartSpy} />
@@ -248,7 +248,7 @@ describe("useDraggable", () => {
     });
 
     it("does not call onDragStart on a click with no mouse movement", async () => {
-        const onDragStartSpy = jest.fn();
+        const onDragStartSpy = vi.fn();
         render(
             <Mafs width={200} height={200}>
                 <TestDraggable point={[0, 0]} onDragStart={onDragStartSpy} />
@@ -264,7 +264,7 @@ describe("useDraggable", () => {
     });
 
     it("does not call onDragStart when moving via keyboard", async () => {
-        const onDragStartSpy = jest.fn();
+        const onDragStartSpy = vi.fn();
         render(
             <Mafs width={200} height={200}>
                 <TestDraggable
@@ -297,7 +297,7 @@ describe("useDraggable", () => {
                 padding: 0,
             },
         };
-        const onMoveSpy = jest.fn();
+        const onMoveSpy = vi.fn();
         render(
             <Mafs {...mafsProps}>
                 <TestDraggable
@@ -330,7 +330,7 @@ describe("useDraggable", () => {
         // it (stopPropagation), or the page can't scroll over the graph. This
         // regressed on iOS 26.5+, where WebKit began honoring default/gesture
         // suppression during the pointer-down phase.
-        const parentMouseDownSpy = jest.fn();
+        const parentMouseDownSpy = vi.fn();
         // Arrange, Act
         render(
             // eslint-disable-next-line jsx-a11y/no-static-element-interactions

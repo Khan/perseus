@@ -11,19 +11,19 @@ describe("Behavior", () => {
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
-        jest.useFakeTimers();
+        vi.useFakeTimers();
     });
 
     afterEach(() => {
-        jest.useRealTimers();
+        vi.useRealTimers();
     });
 
     describe("multipleAnswers checkbox", () => {
         it("renders unchecked when multipleAnswers is false", () => {
             // Arrange
-            const onChange = jest.fn();
+            const onChange = vi.fn();
 
             // Act
             render(
@@ -42,7 +42,7 @@ describe("Behavior", () => {
 
         it("renders checked when multipleAnswers is true", () => {
             // Arrange
-            const onChange = jest.fn();
+            const onChange = vi.fn();
 
             // Act
             render(
@@ -61,7 +61,7 @@ describe("Behavior", () => {
 
         it("calls onChange with toggled multipleAnswers when clicked", async () => {
             // Arrange
-            const onChange = jest.fn();
+            const onChange = vi.fn();
 
             render(
                 <Behavior
@@ -82,7 +82,7 @@ describe("Behavior", () => {
 
         it("calls onChange with false when unchecking multipleAnswers", async () => {
             // Arrange
-            const onChange = jest.fn();
+            const onChange = vi.fn();
 
             render(
                 <Behavior
@@ -105,7 +105,7 @@ describe("Behavior", () => {
     describe("hideChoicesFromInstructions checkbox", () => {
         it("renders unchecked when hideChoicesFromInstructions is false", () => {
             // Arrange
-            const onChange = jest.fn();
+            const onChange = vi.fn();
 
             // Act
             render(
@@ -124,7 +124,7 @@ describe("Behavior", () => {
 
         it("renders checked when hideChoicesFromInstructions is true", () => {
             // Arrange
-            const onChange = jest.fn();
+            const onChange = vi.fn();
 
             // Act
             render(
@@ -143,7 +143,7 @@ describe("Behavior", () => {
 
         it("calls onChange with toggled hideChoicesFromInstructions when clicked", async () => {
             // Arrange
-            const onChange = jest.fn();
+            const onChange = vi.fn();
 
             render(
                 <Behavior
@@ -166,7 +166,7 @@ describe("Behavior", () => {
 
         it("calls onChange with false when unchecking hideChoicesFromInstructions", async () => {
             // Arrange
-            const onChange = jest.fn();
+            const onChange = vi.fn();
 
             render(
                 <Behavior
@@ -191,7 +191,7 @@ describe("Behavior", () => {
     describe("preferredPopoverDirection select", () => {
         it("renders with NONE selected by default", () => {
             // Arrange
-            const onChange = jest.fn();
+            const onChange = vi.fn();
 
             // Act
             render(
@@ -210,7 +210,7 @@ describe("Behavior", () => {
 
         it("renders with UP selected when preferredPopoverDirection is UP", () => {
             // Arrange
-            const onChange = jest.fn();
+            const onChange = vi.fn();
 
             // Act
             render(
@@ -229,7 +229,7 @@ describe("Behavior", () => {
 
         it("renders all popover direction options", () => {
             // Arrange
-            const onChange = jest.fn();
+            const onChange = vi.fn();
 
             // Act
             render(
@@ -253,7 +253,7 @@ describe("Behavior", () => {
 
         it("calls onChange when selecting a different direction", async () => {
             // Arrange
-            const onChange = jest.fn();
+            const onChange = vi.fn();
 
             render(
                 <Behavior
@@ -276,7 +276,7 @@ describe("Behavior", () => {
 
         it("calls onChange when selecting DOWN direction", async () => {
             // Arrange
-            const onChange = jest.fn();
+            const onChange = vi.fn();
 
             render(
                 <Behavior
@@ -299,7 +299,7 @@ describe("Behavior", () => {
 
         it("calls onChange when selecting LEFT direction", async () => {
             // Arrange
-            const onChange = jest.fn();
+            const onChange = vi.fn();
 
             render(
                 <Behavior
@@ -322,7 +322,7 @@ describe("Behavior", () => {
 
         it("calls onChange when selecting RIGHT direction", async () => {
             // Arrange
-            const onChange = jest.fn();
+            const onChange = vi.fn();
 
             render(
                 <Behavior
@@ -345,7 +345,7 @@ describe("Behavior", () => {
 
         it("calls onChange when changing from one direction to another", async () => {
             // Arrange
-            const onChange = jest.fn();
+            const onChange = vi.fn();
 
             render(
                 <Behavior
@@ -370,7 +370,7 @@ describe("Behavior", () => {
     describe("component rendering", () => {
         it("renders the Behavior title", () => {
             // Arrange
-            const onChange = jest.fn();
+            const onChange = vi.fn();
 
             // Act
             render(
@@ -388,7 +388,7 @@ describe("Behavior", () => {
 
         it("renders all three behavior options", () => {
             // Arrange
-            const onChange = jest.fn();
+            const onChange = vi.fn();
 
             // Act
             render(

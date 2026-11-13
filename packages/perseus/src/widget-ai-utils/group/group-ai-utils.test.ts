@@ -4,17 +4,18 @@ import {getPromptJSON} from "./group-ai-utils";
 import {question1} from "./group-ai-utils.testdata";
 
 import type {RendererPromptJSON} from "../prompt-types";
+import type {Mock} from "vitest";
 
 describe("Group AI utils", () => {
     beforeEach(() => {
         // Mocked for loading graphie in svg-image
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn(() =>
+        global.fetch = vi.fn(() =>
             Promise.resolve({
                 text: () => "",
                 ok: true,
             }),
-        ) as jest.Mock;
+        ) as Mock;
     });
 
     it("should return a GroupPromptJSON with default values when rendererJSON is undefined", () => {

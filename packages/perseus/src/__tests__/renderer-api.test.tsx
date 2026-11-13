@@ -1,7 +1,7 @@
-import {describe, beforeEach, it} from "@jest/globals";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
+import {describe, beforeEach, it} from "vitest";
 
 import {renderQuestion} from "../__testutils__/render-question";
 import {ClassNames} from "../perseus-api";
@@ -22,7 +22,7 @@ describe("Perseus API", function () {
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
 
         registerWidget("mock-widget", MockWidget);
@@ -91,7 +91,7 @@ describe("Perseus API", function () {
 
     describe("onFocusChange", function () {
         it("should be called from focused to blurred to back on one input", async function () {
-            const onFocusChange = jest.fn();
+            const onFocusChange = vi.fn();
             renderQuestion(mockWidget1Item.question, {
                 apiOptions: {onFocusChange},
             });
@@ -100,7 +100,7 @@ describe("Perseus API", function () {
 
             // Act - focus
             await userEvent.click(input);
-            act(() => jest.runOnlyPendingTimers());
+            act(() => vi.runOnlyPendingTimers());
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledTimes(1);
@@ -109,7 +109,7 @@ describe("Perseus API", function () {
             // Act - blur
             onFocusChange.mockReset();
             await userEvent.tab();
-            act(() => jest.runOnlyPendingTimers());
+            act(() => vi.runOnlyPendingTimers());
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledTimes(1);
@@ -117,7 +117,7 @@ describe("Perseus API", function () {
         });
 
         it("should be called focusing between two inputs", async function () {
-            const onFocusChange = jest.fn();
+            const onFocusChange = vi.fn();
             renderQuestion(mockWidget2Item.question, {
                 apiOptions: {onFocusChange},
             });
@@ -126,12 +126,12 @@ describe("Perseus API", function () {
             const input1 = inputs[0];
             const input2 = inputs[1];
             await userEvent.click(input1);
-            act(() => jest.runOnlyPendingTimers());
+            act(() => vi.runOnlyPendingTimers());
 
             // Act - move focus to new input
             onFocusChange.mockReset();
             await userEvent.click(input2);
-            act(() => jest.runOnlyPendingTimers());
+            act(() => vi.runOnlyPendingTimers());
 
             expect(onFocusChange).toHaveBeenCalledTimes(1);
             expect(onFocusChange).toHaveBeenCalledWith(

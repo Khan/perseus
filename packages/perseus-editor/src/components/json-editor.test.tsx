@@ -11,7 +11,7 @@ describe("JsonEditor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
     });
 
@@ -85,7 +85,7 @@ describe("JsonEditor", () => {
 
     it("should call onChange when valid JSON is entered", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
         const initialValue = {question: {content: "test"}};
 
         render(
@@ -115,7 +115,7 @@ describe("JsonEditor", () => {
 
     it("should call onChange when a quoted string containing valid JSON is entered", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
         const initialValue = {question: {content: "test"}};
 
         render(
@@ -147,7 +147,7 @@ describe("JsonEditor", () => {
 
     it("should not call onChange for malformed JSON", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
         const initialValue = {question: {content: "test"}};
 
         render(
@@ -173,7 +173,7 @@ describe("JsonEditor", () => {
 
     it("should not call onChange for well-formed JSON that fails the given parser", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
         const initialValue = {question: {content: "test"}};
 
         render(

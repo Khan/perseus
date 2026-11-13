@@ -1,20 +1,22 @@
 import fs from "node:fs";
 
-import {beforeEach, describe, expect, it, jest} from "@jest/globals";
+import {beforeEach, describe, expect, it, vi} from "vitest";
 
 import {collectActionRefs} from "../update-pinned-actions";
 
-jest.mock("node:fs");
+import type {MockInstance} from "vitest";
+
+vi.mock("node:fs");
 
 // A valid 40-character hex SHA for use in tests
 const SHA = "abcdef0123456789abcdef0123456789abcdef01";
 
 describe("collectActionRefs", () => {
-    let mockReadFileSync: jest.SpiedFunction<typeof fs.readFileSync>;
+    let mockReadFileSync: MockInstance<typeof fs.readFileSync>;
 
     beforeEach(() => {
-        jest.clearAllMocks();
-        mockReadFileSync = jest.spyOn(fs, "readFileSync");
+        vi.clearAllMocks();
+        mockReadFileSync = vi.spyOn(fs, "readFileSync");
     });
 
     it("returns empty maps for an empty file list", () => {

@@ -8,7 +8,7 @@ import PlotterEditor from "./plotter-editor";
 
 describe("PlotterEditor", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -41,7 +41,7 @@ describe("PlotterEditor", () => {
         };
         // A `function`, not an arrow: the editor calls `new Image()`, and
         // some test runners construct a mock's implementation with `new`.
-        jest.spyOn(global, "Image").mockImplementation(function () {
+        vi.spyOn(global, "Image").mockImplementation(function () {
             // eslint-disable-next-line no-restricted-syntax
             return mockImage as HTMLImageElement;
         });

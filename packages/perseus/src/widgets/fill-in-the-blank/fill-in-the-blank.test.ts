@@ -68,7 +68,7 @@ describe("Fill in the Blank Widget", () => {
     });
 
     beforeEach(() => {
-        user = userEvent.setup({advanceTimers: jest.advanceTimersByTime});
+        user = userEvent.setup({advanceTimers: vi.advanceTimersByTime});
     });
 
     it("is registered in the widget registry", () => {

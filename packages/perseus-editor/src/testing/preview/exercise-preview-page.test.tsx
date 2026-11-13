@@ -5,11 +5,11 @@ import ExercisePreviewPage from "./exercise-preview-page";
 
 import type {PreviewContent} from "../../preview/message-types";
 
-const mockReportHeight = jest.fn();
+const mockReportHeight = vi.fn();
 let mockContent: PreviewContent | null = null;
 let mockHighlightTargets: Element[] = [];
 
-jest.mock("../../preview/use-preview-presenter", () => ({
+vi.mock("../../preview/use-preview-presenter", () => ({
     usePreviewPresenter: () => ({
         content: mockContent,
         isMobile: false,
@@ -20,7 +20,7 @@ jest.mock("../../preview/use-preview-presenter", () => ({
     }),
 }));
 
-jest.mock("./preview-renderer", () => ({
+vi.mock("./preview-renderer", () => ({
     PreviewRenderer: () => <div>Preview content</div>,
 }));
 
@@ -43,11 +43,11 @@ describe("ExercisePreviewPage", () => {
         // A `function`, not an arrow: the page calls `new ResizeObserver()`,
         // and some test runners construct a mock's implementation with `new`.
         // eslint-disable-next-line no-restricted-syntax
-        window.ResizeObserver = jest.fn().mockImplementation(function () {
+        window.ResizeObserver = vi.fn().mockImplementation(function () {
             return {
-                observe: jest.fn(),
-                unobserve: jest.fn(),
-                disconnect: jest.fn(),
+                observe: vi.fn(),
+                unobserve: vi.fn(),
+                disconnect: vi.fn(),
             };
         }) as unknown as typeof ResizeObserver;
     });

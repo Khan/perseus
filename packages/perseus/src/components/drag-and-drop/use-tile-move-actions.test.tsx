@@ -7,8 +7,8 @@ import {useTileMoveActions} from "./use-tile-move-actions";
 import type {TilePlacements, TileUsage} from "./tile-placements";
 import type {DragEndEvent} from "@dnd-kit/react";
 
-jest.mock("@khanacademy/wonder-blocks-announcer", () => ({
-    announceMessage: jest.fn(),
+vi.mock("@khanacademy/wonder-blocks-announcer", () => ({
+    announceMessage: vi.fn(),
 }));
 
 const BLANK_IDS = ["blank 1", "blank 2"];
@@ -19,7 +19,7 @@ function setupHook(
     tileUsage: TileUsage = "single",
 ) {
     let placements = initialPlacements;
-    const onPlacementsChange = jest.fn((next: TilePlacements) => {
+    const onPlacementsChange = vi.fn((next: TilePlacements) => {
         placements = next;
     });
     const rendered = renderHook(() =>
@@ -53,7 +53,7 @@ function generateDragEnd(
 
 describe("useTileMoveActions", () => {
     beforeEach(() => {
-        jest.mocked(announceMessage).mockClear();
+        vi.mocked(announceMessage).mockClear();
     });
 
     describe("handleDragEnd", () => {
@@ -227,7 +227,7 @@ describe("useTileMoveActions", () => {
         it("focuses the first bank menu after a menu clear", () => {
             const {result, rerender} = setupHook({"blank 1": "x"});
             const bankButton = document.createElement("button");
-            const focus = jest.spyOn(bankButton, "focus");
+            const focus = vi.spyOn(bankButton, "focus");
             result.current.firstBankMenuRef(bankButton);
 
             act(() => {
@@ -241,7 +241,7 @@ describe("useTileMoveActions", () => {
         it("focuses the first bank menu after a menu move", () => {
             const {result, rerender} = setupHook();
             const bankButton = document.createElement("button");
-            const focus = jest.spyOn(bankButton, "focus");
+            const focus = vi.spyOn(bankButton, "focus");
             result.current.firstBankMenuRef(bankButton);
 
             act(() => {
@@ -255,7 +255,7 @@ describe("useTileMoveActions", () => {
         it("falls back to the placed tile's menu when the bank is empty", () => {
             const {result, rerender} = setupHook();
             const placedButton = document.createElement("button");
-            const focus = jest.spyOn(placedButton, "focus");
+            const focus = vi.spyOn(placedButton, "focus");
             result.current.placedMenuRef("blank 1")(placedButton);
 
             act(() => {
@@ -287,7 +287,7 @@ describe("useTileMoveActions", () => {
                 }),
             );
             const bankButton = document.createElement("button");
-            const focus = jest.spyOn(bankButton, "focus");
+            const focus = vi.spyOn(bankButton, "focus");
             result.current.firstBankMenuRef(bankButton);
             act(() => {
                 result.current.handleMove({tileId: "x"}, "blank 1");

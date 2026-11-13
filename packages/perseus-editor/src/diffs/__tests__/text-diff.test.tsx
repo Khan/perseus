@@ -15,14 +15,14 @@ describe("TextDiff", () => {
     });
 
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
         unmockImageLoading = mockImageLoading();
     });
 
     afterEach(() => {
-        jest.restoreAllMocks();
+        vi.restoreAllMocks();
         unmockImageLoading();
     });
 

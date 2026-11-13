@@ -127,13 +127,13 @@ describe("Keypad v2 with MathQuill", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
     });
 
     it("can write the Pythagorean theorem (simple)", async () => {
         // Arrange
-        const mockMathInputCallback = jest.fn();
+        const mockMathInputCallback = vi.fn();
         render(
             <V2KeypadWithMathquill onChangeMathInput={mockMathInputCallback} />,
         );
@@ -173,7 +173,7 @@ describe("Keypad v2 with MathQuill", () => {
 
     it("can write an indexed variable using the subscript button", async () => {
         // Arrange
-        const mockMathInputCallback = jest.fn();
+        const mockMathInputCallback = vi.fn();
         render(
             <V2KeypadWithMathquill onChangeMathInput={mockMathInputCallback} />,
         );
@@ -194,7 +194,7 @@ describe("Keypad v2 with MathQuill", () => {
 
     it("can write the Pythagorean theorem (complex)", async () => {
         // Arrange
-        const mockMathInputCallback = jest.fn();
+        const mockMathInputCallback = vi.fn();
         render(
             <V2KeypadWithMathquill onChangeMathInput={mockMathInputCallback} />,
         );
@@ -236,7 +236,7 @@ describe("Keypad v2 with MathQuill", () => {
 
     it("writes the Pythagorean theorem using typing/clicking together", async () => {
         // Arrange
-        const mockMathInputCallback = jest.fn();
+        const mockMathInputCallback = vi.fn();
         render(
             <V2KeypadWithMathquill onChangeMathInput={mockMathInputCallback} />,
         );
@@ -265,7 +265,7 @@ describe("Keypad v2 with MathQuill", () => {
 
     it("deletes from the input using the backspace button", async () => {
         // Arrange
-        const mockMathInputCallback = jest.fn();
+        const mockMathInputCallback = vi.fn();
         render(
             <V2KeypadWithMathquill onChangeMathInput={mockMathInputCallback} />,
         );
@@ -315,7 +315,7 @@ describe("Keypad v2 with MathQuill", () => {
     // Keypad event tests
     it("fires the keypad open event on open", async () => {
         // Arrange
-        const mockAnalyticsEventHandler = jest.fn();
+        const mockAnalyticsEventHandler = vi.fn();
         render(
             <V2KeypadWithMathquill
                 onChangeMathInput={() => {}}
@@ -339,7 +339,7 @@ describe("Keypad v2 with MathQuill", () => {
     // Keypad event tests
     it("fires the keypad open event on close", async () => {
         // Arrange
-        const mockAnalyticsEventHandler = jest.fn();
+        const mockAnalyticsEventHandler = vi.fn();
         render(
             <V2KeypadWithMathquill
                 onChangeMathInput={() => {}}
@@ -361,7 +361,7 @@ describe("Keypad v2 with MathQuill", () => {
 
     it("handles english sin trig function", async () => {
         // Arrange
-        const mockMathInputCallback = jest.fn();
+        const mockMathInputCallback = vi.fn();
         render(
             <V2KeypadWithMathquill onChangeMathInput={mockMathInputCallback} />,
         );
@@ -381,7 +381,7 @@ describe("Keypad v2 with MathQuill", () => {
 
     it("handles portuguese sen trig function", async () => {
         // Arrange
-        const mockMathInputCallback = jest.fn();
+        const mockMathInputCallback = vi.fn();
         render(
             <V2KeypadWithMathquill
                 onChangeMathInput={mockMathInputCallback}
@@ -406,7 +406,7 @@ describe("Keypad v2 with MathQuill", () => {
 
     it("handles english tan trig function", async () => {
         // Arrange
-        const mockMathInputCallback = jest.fn();
+        const mockMathInputCallback = vi.fn();
         render(
             <V2KeypadWithMathquill onChangeMathInput={mockMathInputCallback} />,
         );
@@ -426,7 +426,7 @@ describe("Keypad v2 with MathQuill", () => {
 
     it("handles portuguese tg trig function", async () => {
         // Arrange
-        const mockMathInputCallback = jest.fn();
+        const mockMathInputCallback = vi.fn();
         render(
             <V2KeypadWithMathquill
                 onChangeMathInput={mockMathInputCallback}

@@ -78,7 +78,7 @@ describe("GradedGroup AI utils", () => {
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
     });
 
@@ -191,7 +191,7 @@ describe("GradedGroup AI utils", () => {
 
         // Act
         await userEvent.click(screen.getByRole("button", {name: "Explain"}));
-        act(() => jest.runOnlyPendingTimers());
+        act(() => vi.runOnlyPendingTimers());
 
         // Assert
         expect(renderer.getPromptJSON()).toEqual(collapsedJSON);
@@ -203,7 +203,7 @@ describe("GradedGroup AI utils", () => {
 
         // Act
         await userEvent.click(screen.getByRole("button", {name: "Explain"}));
-        act(() => jest.runOnlyPendingTimers());
+        act(() => vi.runOnlyPendingTimers());
 
         const json = renderer.getPromptJSON();
 

@@ -10,9 +10,11 @@ import {testDependencies} from "../../testing/test-dependencies";
 
 import {article1} from "./graded-group-set.testdata";
 
+import type {Mock} from "vitest";
+
 describe("graded-group-set", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
             JIPT: {
                 useJIPT: true,
@@ -21,12 +23,12 @@ describe("graded-group-set", () => {
 
         // Mocked for loading graphie in svg-image
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn(() =>
+        global.fetch = vi.fn(() =>
             Promise.resolve({
                 text: () => "",
                 ok: true,
             }),
-        ) as jest.Mock;
+        ) as Mock;
     });
 
     it("should render all graded groups", () => {

@@ -1,4 +1,4 @@
-import {describe, it, expect} from "@jest/globals";
+import {describe, it, expect} from "vitest";
 
 import {
     getAnswersFromWidgets,
@@ -68,8 +68,9 @@ import type {
     CategorizerWidget,
     InputNumberWidget,
 } from "../data-schema";
+import type {MockedFunction} from "vitest";
 
-const stub: jest.MockedFunction<any> = jest.fn();
+const stub: MockedFunction<any> = vi.fn();
 
 beforeEach(() => {
     stub.mockClear();

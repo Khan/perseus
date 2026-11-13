@@ -21,10 +21,7 @@ function renderShowMe(
 describe("ShowMe", () => {
     it("renders the unavailable message when there is no instanceId", () => {
         // Arrange, Act
-        renderShowMe(
-            {},
-            createA11yContextValue({setIssueHighlight: jest.fn()}),
-        );
+        renderShowMe({}, createA11yContextValue({setIssueHighlight: vi.fn()}));
 
         // Assert
         expect(
@@ -46,7 +43,7 @@ describe("ShowMe", () => {
         // Arrange, Act
         renderShowMe(
             {instanceId: "violation-color-contrast"},
-            createA11yContextValue({setIssueHighlight: jest.fn()}),
+            createA11yContextValue({setIssueHighlight: vi.fn()}),
         );
 
         // Assert
@@ -55,9 +52,9 @@ describe("ShowMe", () => {
 
     it("turns the highlight on when toggled on", async () => {
         const user = userEvent.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
-        const setIssueHighlight = jest.fn();
+        const setIssueHighlight = vi.fn();
         renderShowMe(
             {instanceId: "violation-color-contrast"},
             createA11yContextValue({setIssueHighlight}),
@@ -75,9 +72,9 @@ describe("ShowMe", () => {
 
     it("turns the highlight off when toggled off", async () => {
         const user = userEvent.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
-        const setIssueHighlight = jest.fn();
+        const setIssueHighlight = vi.fn();
         renderShowMe(
             {instanceId: "violation-color-contrast"},
             createA11yContextValue({setIssueHighlight}),
@@ -95,7 +92,7 @@ describe("ShowMe", () => {
     });
 
     it("turns the highlight off on unmount", () => {
-        const setIssueHighlight = jest.fn();
+        const setIssueHighlight = vi.fn();
         const {unmount} = renderShowMe(
             {instanceId: "violation-color-contrast"},
             createA11yContextValue({setIssueHighlight}),

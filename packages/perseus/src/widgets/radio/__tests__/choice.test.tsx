@@ -1,6 +1,6 @@
-import {describe, it} from "@jest/globals";
 import {act, render, screen} from "@testing-library/react";
 import * as React from "react";
+import {describe, it} from "vitest";
 
 import Choice from "../choice";
 import * as IndicatorComponent from "../choice-indicator";
@@ -25,7 +25,7 @@ describe("Radio widget choice option", () => {
                 isMultiSelect: boolean;
                 shape: "circle" | "square";
             };
-            const indicatorSpy = jest.spyOn(IndicatorComponent, "default");
+            const indicatorSpy = vi.spyOn(IndicatorComponent, "default");
             render(
                 <Choice
                     checked={false}
@@ -84,7 +84,7 @@ describe("Radio widget choice option", () => {
                 showCorrectness: "correct" | "wrong" | undefined;
                 callCount: number;
             };
-            const updateCheckedMock = jest.fn();
+            const updateCheckedMock = vi.fn();
             render(
                 <Choice
                     checked={false}

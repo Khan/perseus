@@ -3,7 +3,7 @@ import _ from "underscore";
 import * as KAS from "../index";
 
 expect.extend({
-    toEqualExpr(input: string, expected: string): jest.CustomMatcherResult {
+    toEqualExpr(input: string, expected: string) {
         const inputExpr = KAS.parse(input, {functions: ["f", "g", "h"]}).expr;
         const expectedExpr = KAS.parse(expected, {
             functions: ["f", "g", "h"],
@@ -26,10 +26,7 @@ expect.extend({
                   message: () => `${input} is the same as ${expected}`,
               };
     },
-    toEqualExprAndForm(
-        input: string,
-        expected: string,
-    ): jest.CustomMatcherResult {
+    toEqualExprAndForm(input: string, expected: string) {
         const inputExpr = KAS.parse(input, {functions: ["f", "g", "h"]}).expr;
         const expectedExpr = KAS.parse(expected, {
             functions: ["f", "g", "h"],
@@ -55,14 +52,18 @@ expect.extend({
 });
 
 // TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
-declare global {
-    // eslint-disable-next-line @typescript-eslint/no-namespace
-    namespace jest {
-        interface Matchers<R> {
-            toEqualExpr(expected: string): R;
-            toEqualExprAndForm(expected: string): R;
-        }
-    }
+interface CustomMatchers<R = unknown> {
+    toEqualExpr(expected: string): R;
+    toEqualExprAndForm(expected: string): R;
+}
+
+declare module "vitest" {
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- vitest custom matcher augmentation
+    interface Matchers<
+        R extends void | Promise<void> = void | Promise<void>,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars -- must match vitest's declaration
+        T = unknown,
+    > extends CustomMatchers<R> {}
 }
 
 describe("comparing", () => {

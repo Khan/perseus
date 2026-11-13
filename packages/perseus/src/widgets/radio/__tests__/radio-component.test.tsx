@@ -1,12 +1,13 @@
-import {describe, it} from "@jest/globals";
 import {act, render, screen} from "@testing-library/react";
 import * as React from "react";
+import {describe, it} from "vitest";
 
 import * as Choice from "../choice";
 import RadioComponent from "../radio-component";
 
 import type {RadioComponentProps} from "../radio-component";
 import type {ChoiceType} from "../radio-widget";
+import type {MockInstance} from "vitest";
 
 type overrideProps = {
     choiceOverrides?: Partial<ChoiceType>;
@@ -45,10 +46,10 @@ const getComponentProps = (props?: overrideProps) => {
 };
 
 describe("Radio widget UI component", () => {
-    let choiceSpy: jest.SpyInstance;
+    let choiceSpy: MockInstance;
 
     beforeEach(() => {
-        choiceSpy = jest.spyOn(Choice, "default");
+        choiceSpy = vi.spyOn(Choice, "default");
     });
 
     describe("styling", () => {
@@ -241,7 +242,7 @@ describe("Radio widget UI component", () => {
 
     describe("functionality", () => {
         it("calls the 'onChoiceChange' callback when a choice is activated", () => {
-            const onChoiceChangeFn = jest.fn();
+            const onChoiceChangeFn = vi.fn();
             const props = getComponentProps({
                 onChoiceChange: onChoiceChangeFn,
             });

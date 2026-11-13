@@ -34,7 +34,7 @@ const defaultProps: Props = {
     multipleAnswers: false,
     hideChoicesFromInstructions: false,
     preferredPopoverDirection: "NONE",
-    onChange: jest.fn(),
+    onChange: vi.fn(),
 };
 
 describe("label-image-editor", () => {
@@ -42,10 +42,10 @@ describe("label-image-editor", () => {
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -59,7 +59,7 @@ describe("label-image-editor", () => {
     });
 
     it("should render with default props", () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
         render(<LabelImageEditor {...defaultProps} onChange={onChangeMock} />);
 
         // Should render without crashing
@@ -67,7 +67,7 @@ describe("label-image-editor", () => {
     });
 
     it("should call onChange when image URL is changed", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
         render(
             <LabelImageEditor
                 {...defaultProps}
@@ -88,7 +88,7 @@ describe("label-image-editor", () => {
     });
 
     it("should call onChange when alt text is changed", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
         render(
             <LabelImageEditor
                 {...defaultProps}
@@ -109,7 +109,7 @@ describe("label-image-editor", () => {
     });
 
     it("should not render alt text field when no image is selected", () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
         render(
             <LabelImageEditor
                 {...defaultProps}
@@ -127,7 +127,7 @@ describe("label-image-editor", () => {
 
     it("should not allow markers to be added when editingDisabled is true", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
 
         render(
             <LabelImageEditor
@@ -187,7 +187,7 @@ describe("label-image-editor", () => {
 
         it('calls onChange with "dark-mode=off" added to the image URL when Suppress Dark Mode Filter is toggled on', async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = vi.fn();
             render(
                 <LabelImageEditor
                     {...defaultProps}
@@ -219,7 +219,7 @@ describe("label-image-editor", () => {
 
         it('calls onChange with "dark-mode=off" removed from the image URL when Suppress Dark Mode Filter is toggled off', async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = vi.fn();
             render(
                 <LabelImageEditor
                     {...defaultProps}
@@ -352,7 +352,7 @@ describe("label-image-editor", () => {
     describe("getSaveWarnings", () => {
         it("should return warning when there are fewer than 2 choices", () => {
             const editorRef = React.createRef<LabelImageEditor>();
-            const onChangeMock = jest.fn();
+            const onChangeMock = vi.fn();
 
             render(
                 <LabelImageEditor
@@ -372,7 +372,7 @@ describe("label-image-editor", () => {
 
         it("should return warning when image URL is not specified", () => {
             const editorRef = React.createRef<LabelImageEditor>();
-            const onChangeMock = jest.fn();
+            const onChangeMock = vi.fn();
 
             render(
                 <LabelImageEditor
@@ -390,7 +390,7 @@ describe("label-image-editor", () => {
 
         it("should return warning when image has no alt text", () => {
             const editorRef = React.createRef<LabelImageEditor>();
-            const onChangeMock = jest.fn();
+            const onChangeMock = vi.fn();
 
             render(
                 <LabelImageEditor
@@ -408,7 +408,7 @@ describe("label-image-editor", () => {
 
         it("should return warning when there are no markers", () => {
             const editorRef = React.createRef<LabelImageEditor>();
-            const onChangeMock = jest.fn();
+            const onChangeMock = vi.fn();
 
             render(
                 <LabelImageEditor
@@ -428,7 +428,7 @@ describe("label-image-editor", () => {
 
         it("should return warning when markers have no answers", () => {
             const editorRef = React.createRef<LabelImageEditor>();
-            const onChangeMock = jest.fn();
+            const onChangeMock = vi.fn();
 
             render(
                 <LabelImageEditor
@@ -455,7 +455,7 @@ describe("label-image-editor", () => {
 
         it("should return warning when markers have no ARIA label", () => {
             const editorRef = React.createRef<LabelImageEditor>();
-            const onChangeMock = jest.fn();
+            const onChangeMock = vi.fn();
 
             render(
                 <LabelImageEditor
@@ -482,7 +482,7 @@ describe("label-image-editor", () => {
 
         it("should return multiple warnings when multiple issues exist", () => {
             const editorRef = React.createRef<LabelImageEditor>();
-            const onChangeMock = jest.fn();
+            const onChangeMock = vi.fn();
 
             render(
                 <LabelImageEditor
@@ -509,7 +509,7 @@ describe("label-image-editor", () => {
 
         it("should return no warnings when all fields are valid", () => {
             const editorRef = React.createRef<LabelImageEditor>();
-            const onChangeMock = jest.fn();
+            const onChangeMock = vi.fn();
 
             render(
                 <LabelImageEditor

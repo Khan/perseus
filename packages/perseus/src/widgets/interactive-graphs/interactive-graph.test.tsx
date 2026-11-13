@@ -1,4 +1,3 @@
-import {describe, beforeEach, it} from "@jest/globals";
 import {
     generateTestPerseusItem,
     generateInteractiveGraphQuestion,
@@ -21,6 +20,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import {Plot} from "mafs";
 import * as React from "react";
 import invariant from "tiny-invariant";
+import {describe, beforeEach, it} from "vitest";
 
 import {renderQuestion} from "../../__testutils__/render-question";
 import {scorePerseusItemTesting} from "../../util/scoring.testutils";
@@ -84,6 +84,7 @@ import type {
     UserInputMap,
 } from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
+import type {Mock} from "vitest";
 
 const commonInstructions =
     "Enable Forms or Focus mode and use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Arrow keys to move it.";
@@ -94,17 +95,17 @@ describe("Interactive Graph", function () {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
 
         // Mocked for loading graphie in svg-image
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn(() =>
+        global.fetch = vi.fn(() =>
             Promise.resolve({
                 text: () => Promise.resolve("{}"),
                 ok: true,
             }),
-        ) as jest.Mock;
+        ) as Mock;
     });
 
     describe.each(questionsAndAnswers)(
@@ -1355,10 +1356,10 @@ describe("Interactive Graph", function () {
 
             it("plots the supplied equation on the axis specified", () => {
                 // Arrange
-                const PlotOfXMock = jest
+                const PlotOfXMock = vi
                     .spyOn(Plot, "OfX")
                     .mockReturnValue(<div>OfX</div>);
-                const PlotOfYMock = jest
+                const PlotOfYMock = vi
                     .spyOn(Plot, "OfY")
                     .mockReturnValue(<div>OfY</div>);
 
@@ -1386,7 +1387,7 @@ describe("Interactive Graph", function () {
 
             it("plots the equation with any supplied domain", () => {
                 // Arrange
-                const PlotOfXMock = jest
+                const PlotOfXMock = vi
                     .spyOn(Plot, "OfX")
                     .mockReturnValue(<div>OfX</div>);
                 const expectedParameters = {

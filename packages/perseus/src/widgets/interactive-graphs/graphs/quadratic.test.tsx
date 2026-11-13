@@ -31,7 +31,7 @@ const overallGraphLabel = "A parabola on a 4-quadrant coordinate plane.";
 
 describe("Quadratic graph screen reader", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -254,7 +254,7 @@ describe("Quadratic graph screen reader", () => {
 // TODO(LEMS-3995, post-PR-7): route the curve SR-tree summaries through buildPointAriaLabel once new locale string keys land.
 describe("Quadratic graph pointLabels", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });

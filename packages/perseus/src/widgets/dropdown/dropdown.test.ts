@@ -54,7 +54,7 @@ describe("Dropdown widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
     });
 
@@ -152,7 +152,7 @@ describe("Dropdown widget", () => {
 
     it("sends a widget-rendered analytics event", () => {
         // Arrange
-        const onAnalyticsEvent = jest.fn();
+        const onAnalyticsEvent = vi.fn();
 
         // Act
         renderQuestion(generateDropdownQuestion(), {

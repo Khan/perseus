@@ -14,10 +14,10 @@ describe("GradedGroupEditor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -34,7 +34,7 @@ describe("GradedGroupEditor", () => {
      * Regression LEMS-3321: make sure a hint is a full PerseusRenderer
      */
     it("should add a full Renderer for a hint", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
 
         render(<GradedGroupEditor onChange={onChangeMock} />);
         await userEvent.click(screen.getByRole("button", {name: "Add a hint"}));

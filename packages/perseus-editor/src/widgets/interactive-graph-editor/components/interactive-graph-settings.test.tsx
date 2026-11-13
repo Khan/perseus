@@ -14,11 +14,11 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
-import "@testing-library/jest-dom"; // Imports custom matchers
+// Imports custom matchers
 
 function userEventForFakeTimers() {
     return userEventLib.setup({
-        advanceTimers: jest.advanceTimersByTime,
+        advanceTimers: vi.advanceTimersByTime,
     });
 }
 
@@ -32,7 +32,7 @@ describe("InteractiveGraphSettings", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventForFakeTimers();
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -105,7 +105,7 @@ describe("InteractiveGraphSettings", () => {
 
     test("calls onChange when markings are changed", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(
             <InteractiveGraphSettings
                 onChange={onChange}
@@ -125,13 +125,13 @@ describe("InteractiveGraphSettings", () => {
 
     test("calls onChange when background image is changed", async () => {
         // Arrange
-        jest.useRealTimers();
+        vi.useRealTimers();
         userEvent = userEventForRealTimers();
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         const mockGetImageSize = (url, cb: (width, height) => void) => {
             cb(100, 100);
         };
-        jest.spyOn(Util, "getImageSize").mockImplementation(mockGetImageSize);
+        vi.spyOn(Util, "getImageSize").mockImplementation(mockGetImageSize);
 
         render(
             <InteractiveGraphSettings
@@ -161,14 +161,14 @@ describe("InteractiveGraphSettings", () => {
 
     test("validates background image size", async () => {
         // Arrange
-        jest.useRealTimers();
+        vi.useRealTimers();
         userEvent = userEventForRealTimers();
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         const mockGetImageSize = (url, cb: (width, height) => void) => {
             // Large image should be invalid
             cb(1000, 1000);
         };
-        jest.spyOn(Util, "getImageSize").mockImplementation(mockGetImageSize);
+        vi.spyOn(Util, "getImageSize").mockImplementation(mockGetImageSize);
 
         render(
             <InteractiveGraphSettings
@@ -196,11 +196,11 @@ describe("InteractiveGraphSettings", () => {
 
     test("calls onChange with null background image if background image input is empty", async () => {
         // Arrange
-        jest.useRealTimers();
+        vi.useRealTimers();
         userEvent = userEventForRealTimers();
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         const mockGetImageSize = (url, cb: (width, height) => void) => {};
-        jest.spyOn(Util, "getImageSize").mockImplementation(mockGetImageSize);
+        vi.spyOn(Util, "getImageSize").mockImplementation(mockGetImageSize);
 
         render(
             <InteractiveGraphSettings
@@ -230,9 +230,9 @@ describe("InteractiveGraphSettings", () => {
 
     test("does not update background image until input is blurred", async () => {
         // Arrange
-        jest.useRealTimers();
+        vi.useRealTimers();
         userEvent = userEventForRealTimers();
-        const onChange = jest.fn();
+        const onChange = vi.fn();
 
         render(
             <InteractiveGraphSettings
@@ -297,7 +297,7 @@ describe("InteractiveGraphSettings", () => {
 
     test("calls onChange when protractor label is changed", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(
             <InteractiveGraphSettings
                 showProtractor={true}
@@ -320,9 +320,9 @@ describe("InteractiveGraphSettings", () => {
 
     test("Calls onChange when x range is changed and valid", async () => {
         // Arrange
-        jest.useRealTimers();
+        vi.useRealTimers();
         userEvent = userEventForRealTimers();
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(
             <InteractiveGraphSettings
                 onChange={onChange}
@@ -356,9 +356,9 @@ describe("InteractiveGraphSettings", () => {
 
     test("Calls onChange when y range is changed and valid", async () => {
         // Arrange
-        jest.useRealTimers();
+        vi.useRealTimers();
         userEvent = userEventForRealTimers();
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(
             <InteractiveGraphSettings
                 onChange={onChange}
@@ -387,9 +387,9 @@ describe("InteractiveGraphSettings", () => {
 
     test("validates range input when left is bigger than right", async () => {
         // Arrange
-        jest.useRealTimers();
+        vi.useRealTimers();
         userEvent = userEventForRealTimers();
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(
             <InteractiveGraphSettings
                 onChange={onChange}
@@ -418,9 +418,9 @@ describe("InteractiveGraphSettings", () => {
 
     test("Calls onChange when step value is changed and valid", async () => {
         // Arrange
-        jest.useRealTimers();
+        vi.useRealTimers();
         userEvent = userEventForRealTimers();
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(
             <InteractiveGraphSettings
                 onChange={onChange}
@@ -446,9 +446,9 @@ describe("InteractiveGraphSettings", () => {
 
     test("validates step value when tick step is too large", async () => {
         // Arrange
-        jest.useRealTimers();
+        vi.useRealTimers();
         userEvent = userEventForRealTimers();
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(
             <InteractiveGraphSettings
                 onChange={onChange}
@@ -474,9 +474,9 @@ describe("InteractiveGraphSettings", () => {
 
     test("validates step value when tick step is too small", async () => {
         // Arrange
-        jest.useRealTimers();
+        vi.useRealTimers();
         userEvent = userEventForRealTimers();
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(
             <InteractiveGraphSettings
                 range={[
@@ -506,9 +506,9 @@ describe("InteractiveGraphSettings", () => {
 
     test("Calls onChange when snap step is changed and valid", async () => {
         // Arrange
-        jest.useRealTimers();
+        vi.useRealTimers();
         userEvent = userEventForRealTimers();
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(
             <InteractiveGraphSettings
                 onChange={onChange}
@@ -535,9 +535,9 @@ describe("InteractiveGraphSettings", () => {
 
     test("validates when the snap step is too large", async () => {
         // Arrange
-        jest.useRealTimers();
+        vi.useRealTimers();
         userEvent = userEventForRealTimers();
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(
             <InteractiveGraphSettings
                 onChange={onChange}
@@ -564,9 +564,9 @@ describe("InteractiveGraphSettings", () => {
 
     test("Calls onChange when grid step is changed and valid", async () => {
         // Arrange
-        jest.useRealTimers();
+        vi.useRealTimers();
         userEvent = userEventForRealTimers();
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(
             <InteractiveGraphSettings
                 onChange={onChange}
@@ -593,9 +593,9 @@ describe("InteractiveGraphSettings", () => {
 
     test("validates when the grid step is too large", async () => {
         // Arrange
-        jest.useRealTimers();
+        vi.useRealTimers();
         userEvent = userEventForRealTimers();
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(
             <InteractiveGraphSettings
                 onChange={onChange}
@@ -622,9 +622,9 @@ describe("InteractiveGraphSettings", () => {
 
     test("Calls onChange when the x label is changed", async () => {
         // Arrange
-        jest.useRealTimers();
+        vi.useRealTimers();
         userEvent = userEventForRealTimers();
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(
             <InteractiveGraphSettings
                 onChange={onChange}
@@ -650,9 +650,9 @@ describe("InteractiveGraphSettings", () => {
 
     test("Calls onChange when the y label is changed", async () => {
         // Arrange
-        jest.useRealTimers();
+        vi.useRealTimers();
         userEvent = userEventForRealTimers();
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(
             <InteractiveGraphSettings
                 onChange={onChange}
@@ -695,7 +695,7 @@ describe("InteractiveGraphSettings", () => {
             inputRange[rangeXYIndex][rangeMinMaxIndex] =
                 10 * inputRange[rangeXYIndex][rangeMinMaxIndex];
 
-            const onChange = jest.fn();
+            const onChange = vi.fn();
             render(
                 <InteractiveGraphSettings
                     range={inputRange}
@@ -770,7 +770,7 @@ describe("InteractiveGraphSettings", () => {
                 // Arrange
 
                 // Act
-                const onChange = jest.fn();
+                const onChange = vi.fn();
                 render(
                     <InteractiveGraphSettings
                         onChange={onChange}
@@ -802,7 +802,7 @@ describe("InteractiveGraphSettings", () => {
             "Calls onChange when show axis arrows is changed (${axis})",
             async ({axis, axisLabel}) => {
                 // Arrange
-                const onChange = jest.fn();
+                const onChange = vi.fn();
                 render(
                     <InteractiveGraphSettings
                         onChange={onChange}
@@ -851,7 +851,7 @@ describe("InteractiveGraphSettings", () => {
 
         it("fires onChange with x: false when the x-axis switch is toggled", async () => {
             // Arrange
-            const onChange = jest.fn();
+            const onChange = vi.fn();
             render(
                 <InteractiveGraphSettings
                     onChange={onChange}
@@ -875,7 +875,7 @@ describe("InteractiveGraphSettings", () => {
 
         it("fires onChange with y: false when the y-axis switch is toggled", async () => {
             // Arrange
-            const onChange = jest.fn();
+            const onChange = vi.fn();
             render(
                 <InteractiveGraphSettings
                     onChange={onChange}

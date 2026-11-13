@@ -35,7 +35,7 @@ describe("LockedFiguresSection", () => {
     };
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
     });
 
@@ -43,7 +43,7 @@ describe("LockedFiguresSection", () => {
         // Arrange, Act
         render(
             <LockedFiguresSection
-                onChange={jest.fn()}
+                onChange={vi.fn()}
                 apiOptions={ApiOptions.defaults}
             />,
             {
@@ -59,7 +59,7 @@ describe("LockedFiguresSection", () => {
         // Arrange, Act
         render(
             <LockedFiguresSection
-                onChange={jest.fn()}
+                onChange={vi.fn()}
                 apiOptions={ApiOptions.defaults}
             />,
             {
@@ -77,7 +77,7 @@ describe("LockedFiguresSection", () => {
         render(
             <LockedFiguresSection
                 figures={defaultFigures}
-                onChange={jest.fn()}
+                onChange={vi.fn()}
                 apiOptions={ApiOptions.defaults}
             />,
             {
@@ -99,7 +99,7 @@ describe("LockedFiguresSection", () => {
         render(
             <LockedFiguresSection
                 figures={defaultFigures}
-                onChange={jest.fn()}
+                onChange={vi.fn()}
                 apiOptions={ApiOptions.defaults}
             />,
             {
@@ -123,7 +123,7 @@ describe("LockedFiguresSection", () => {
         render(
             <LockedFiguresSection
                 figures={defaultFigures}
-                onChange={jest.fn()}
+                onChange={vi.fn()}
                 apiOptions={ApiOptions.defaults}
             />,
             {
@@ -153,7 +153,7 @@ describe("LockedFiguresSection", () => {
         render(
             <LockedFiguresSection
                 figures={defaultFigures}
-                onChange={jest.fn()}
+                onChange={vi.fn()}
                 apiOptions={ApiOptions.defaults}
             />,
             {
@@ -188,7 +188,7 @@ describe("LockedFiguresSection", () => {
         render(
             <LockedFiguresSection
                 figures={defaultFigures}
-                onChange={jest.fn()}
+                onChange={vi.fn()}
                 apiOptions={ApiOptions.defaults}
             />,
             {
@@ -218,7 +218,7 @@ describe("LockedFiguresSection", () => {
                     {...getDefaultFigureForType("point"), coord: [1, 1]},
                     getDefaultFigureForType("line"),
                 ]}
-                onChange={jest.fn()}
+                onChange={vi.fn()}
                 apiOptions={ApiOptions.defaults}
             />,
             {
@@ -252,7 +252,7 @@ describe("LockedFiguresSection", () => {
                 <LockedFiguresSection
                     figures={defaultFigures}
                     apiOptions={{...ApiOptions.defaults, editingDisabled: true}}
-                    onChange={jest.fn()}
+                    onChange={vi.fn()}
                 />
             </fieldset>,
             {

@@ -3,10 +3,7 @@ import _ from "underscore";
 import * as KAS from "../index";
 
 expect.extend({
-    toHaveGCD(
-        input: [string, string],
-        expected: string,
-    ): jest.CustomMatcherResult {
+    toHaveGCD(input: [string, string], expected: string) {
         const [a, b] = input;
         const actualRep = KAS.parse(a).expr.findGCD(KAS.parse(b).expr).repr();
         const expectedRep = KAS.parse(expected).expr.repr();
@@ -18,7 +15,7 @@ expect.extend({
                   message: () => `(${a}).findGCD(${b}) = ${expected}`,
               };
     },
-    toBeSimplified(input: string, options?: any): jest.CustomMatcherResult {
+    toBeSimplified(input: string, options?: any) {
         const actual = KAS.parse(input, options).expr.isSimplified();
 
         if (this.isNot) {
@@ -40,7 +37,7 @@ expect.extend({
         input: string,
         expected: ReadonlyArray<string>,
         options?: any,
-    ): jest.CustomMatcherResult {
+    ) {
         const actual = KAS.parse(input, options).expr.getConsts();
 
         if (this.isNot) {
@@ -51,7 +48,7 @@ expect.extend({
 
         return {pass: !this.isNot, message: () => ""};
     },
-    toBeExpr(input: string, reference: string): jest.CustomMatcherResult {
+    toBeExpr(input: string, reference: string) {
         const actual = KAS.parse(input)
             .expr.asExpr()
             .simplify()
@@ -69,16 +66,20 @@ expect.extend({
 });
 
 // TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
-declare global {
-    // eslint-disable-next-line @typescript-eslint/no-namespace
-    namespace jest {
-        interface Matchers<R> {
-            toHaveGCD(expected: string): R;
-            toBeSimplified(options?: any): R;
-            toHaveConsts(expected: ReadonlyArray<string>, options?: any): R;
-            toBeExpr(reference: string): R;
-        }
-    }
+interface CustomMatchers<R = unknown> {
+    toHaveGCD(expected: string): R;
+    toBeSimplified(options?: any): R;
+    toHaveConsts(expected: ReadonlyArray<string>, options?: any): R;
+    toBeExpr(reference: string): R;
+}
+
+declare module "vitest" {
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- vitest custom matcher augmentation
+    interface Matchers<
+        R extends void | Promise<void> = void | Promise<void>,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars -- must match vitest's declaration
+        T = unknown,
+    > extends CustomMatchers<R> {}
 }
 
 describe("KAS", () => {

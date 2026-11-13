@@ -23,7 +23,7 @@ function succeedsAfter(failures: number) {
 describe("checkInstallable", () => {
     it("adds the exact version to a fresh pnpm store", async () => {
         // Arrange
-        const runPnpm = jest.fn(async () => {});
+        const runPnpm = vi.fn(async () => {});
 
         // Act
         await checkInstallable(
@@ -45,7 +45,7 @@ describe("checkInstallable", () => {
     it("removes the temporary store when pnpm fails", async () => {
         // Arrange
         let storeDir = "";
-        const runPnpm = jest.fn(async (args: ReadonlyArray<string>) => {
+        const runPnpm = vi.fn(async (args: ReadonlyArray<string>) => {
             storeDir = args[4];
             throw new Error("No matching version found");
         });
@@ -79,7 +79,7 @@ describe("checkInstallable", () => {
 describe("waitForNpmPackages", () => {
     it("returns [] once the version becomes installable", async () => {
         // Arrange
-        const checkInstallable = jest.fn(succeedsAfter(2));
+        const checkInstallable = vi.fn(succeedsAfter(2));
 
         // Act
         const result = waitForNpmPackages(
@@ -87,7 +87,7 @@ describe("waitForNpmPackages", () => {
             60_000,
             {checkInstallable, log: () => {}},
         );
-        await jest.runAllTimersAsync();
+        await vi.runAllTimersAsync();
 
         // Assert
         expect(await result).toEqual([]);
@@ -104,7 +104,7 @@ describe("waitForNpmPackages", () => {
             60_000,
             {checkInstallable: succeedsAfter(Infinity), log: () => {}},
         );
-        await jest.runAllTimersAsync();
+        await vi.runAllTimersAsync();
 
         // Assert
         expect(await result).toEqual([
@@ -115,7 +115,7 @@ describe("waitForNpmPackages", () => {
 
     it("stops checking packages once they're installable", async () => {
         // Arrange
-        const checkInstallable = jest.fn(async (pkg: PublishedPackage) => {
+        const checkInstallable = vi.fn(async (pkg: PublishedPackage) => {
             if (pkg.name === "@khanacademy/kmath") {
                 throw new Error("No matching version found");
             }
@@ -130,7 +130,7 @@ describe("waitForNpmPackages", () => {
             20_000,
             {checkInstallable, log: () => {}},
         );
-        await jest.runAllTimersAsync();
+        await vi.runAllTimersAsync();
         await result;
 
         // Assert
@@ -143,7 +143,7 @@ describe("waitForNpmPackages", () => {
 
     it("returns immediately when given no packages", async () => {
         // Arrange
-        const checkInstallable = jest.fn(async () => {});
+        const checkInstallable = vi.fn(async () => {});
 
         // Act
         const result = await waitForNpmPackages([], 60_000, {

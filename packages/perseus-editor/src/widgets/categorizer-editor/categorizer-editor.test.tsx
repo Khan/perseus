@@ -13,10 +13,10 @@ describe("categorizer-editor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -35,7 +35,7 @@ describe("categorizer-editor", () => {
     });
 
     it("should be possible to change randomize item order", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
 
         render(
             <CategorizerEditor

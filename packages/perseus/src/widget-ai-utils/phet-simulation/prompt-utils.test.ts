@@ -5,6 +5,7 @@ import {renderQuestion} from "../../__testutils__/render-question";
 import {getPromptJSON} from "./phet-simulation-ai-utils";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {Mock} from "vitest";
 
 const question1: PerseusRenderer = {
     content:
@@ -28,7 +29,7 @@ const question1: PerseusRenderer = {
 describe("PhET Simulation AI utils", () => {
     beforeEach(() => {
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn(() =>
+        global.fetch = vi.fn(() =>
             Promise.resolve({
                 json: () =>
                     Promise.resolve({
@@ -36,7 +37,7 @@ describe("PhET Simulation AI utils", () => {
                     }),
                 ok: true,
             }),
-        ) as jest.Mock;
+        ) as Mock;
     });
 
     it("it returns JSON with the expected format and fields", () => {

@@ -12,7 +12,7 @@ describe("<KeypadButton />", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
     });
 
@@ -35,7 +35,7 @@ describe("<KeypadButton />", () => {
     it("handles onClickKey callback with click", async () => {
         // Arrange
         // persist event to prevent React from releasing/nullifying before assertion
-        const mockClickKeyCallback = jest.fn((_, event) => event.persist());
+        const mockClickKeyCallback = vi.fn((_, event) => event.persist());
         render(
             <KeypadButton
                 onClickKey={mockClickKeyCallback}
@@ -62,7 +62,7 @@ describe("<KeypadButton />", () => {
     it("handles onClickKey callback with keyboard press", async () => {
         // Arrange
         // persist event to prevent React from releasing/nullifying before assertion
-        const mockClickKeyCallback = jest.fn((_, event) => event.persist());
+        const mockClickKeyCallback = vi.fn((_, event) => event.persist());
         render(
             <KeypadButton
                 onClickKey={mockClickKeyCallback}

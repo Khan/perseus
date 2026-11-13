@@ -30,10 +30,10 @@ describe("EditorPage", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
         Dependencies.setDependencies(testDependencies);
@@ -99,7 +99,7 @@ describe("EditorPage", () => {
     });
 
     it("updates Orderer state correctly", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
 
         const imageUrl =
             "https://ka-perseus-graphie.s3.amazonaws.com/6e68574abb61d2b4a12644d777006fcfa8a73cff.png";
@@ -161,7 +161,8 @@ describe("EditorPage", () => {
 
         // Get the widget options directly to avoid having to mock the entire PerseusItem
         const widgetOptions =
-            onChangeMock.mock.lastCall[0].question.widgets["orderer 1"].options;
+            onChangeMock.mock.lastCall?.[0].question.widgets["orderer 1"]
+                .options;
 
         // Verify the options were updated correctly
         expect(widgetOptions).toEqual(
@@ -229,7 +230,7 @@ describe("EditorPage", () => {
             widgets: {},
         };
 
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
 
         const {rerender} = render(
             <EditorPage
@@ -265,7 +266,7 @@ describe("EditorPage", () => {
     });
 
     it("should call initializeWidgetOptions if available", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
 
         const startRenderer: PerseusRenderer = {
             content: "That's an onomatopoeia!",
@@ -321,12 +322,12 @@ describe("EditorPage", () => {
     it("converts image markdown to an image widget when the issue CTA is clicked", async () => {
         // Arrange
         const imageUrl = earthMoonImage.url;
-        jest.spyOn(Util, "getImageSizeModern").mockResolvedValue([
+        vi.spyOn(Util, "getImageSizeModern").mockResolvedValue([
             earthMoonImage.width,
             earthMoonImage.height,
         ]);
 
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
         const question: PerseusRenderer = {
             content: `Which planet is this? ![The Earth](${imageUrl})`,
             images: {
@@ -364,7 +365,7 @@ describe("EditorPage", () => {
         // Assert
         // The conversion awaits the image's dimensions before it reports back.
         await waitFor(() => expect(onChangeMock).toHaveBeenCalled());
-        expect(onChangeMock.mock.lastCall[0].question).toEqual(
+        expect(onChangeMock.mock.lastCall?.[0].question).toEqual(
             expect.objectContaining({
                 content: "Which planet is this? [[☃ image 1]]",
                 widgets: expect.objectContaining({

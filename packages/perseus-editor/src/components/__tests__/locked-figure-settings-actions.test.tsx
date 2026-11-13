@@ -10,14 +10,14 @@ describe("LockedFigureSettingsActions", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
     });
 
     test("renders with all buttons", () => {
         // Arrange
-        const onMove = jest.fn();
-        const onRemove = jest.fn();
+        const onMove = vi.fn();
+        const onRemove = vi.fn();
 
         // Act
         render(
@@ -54,7 +54,7 @@ describe("LockedFigureSettingsActions", () => {
 
     test("renders without movement buttons", () => {
         // Arrange
-        const onRemove = jest.fn();
+        const onRemove = vi.fn();
 
         // Act
         render(
@@ -90,7 +90,7 @@ describe("LockedFigureSettingsActions", () => {
 
     test("clicking delete button calls onRemove", async () => {
         // Arrange
-        const onRemove = jest.fn();
+        const onRemove = vi.fn();
         render(
             <LockedFigureSettingsActions
                 figureType="point"
@@ -117,12 +117,12 @@ describe("LockedFigureSettingsActions", () => {
         "clicking $movement button calls onMove",
         async ({movement, ariaLabel}) => {
             // Arrange
-            const onMove = jest.fn();
+            const onMove = vi.fn();
             render(
                 <LockedFigureSettingsActions
                     figureType="point"
                     onMove={onMove}
-                    onRemove={jest.fn()}
+                    onRemove={vi.fn()}
                 />,
             );
 

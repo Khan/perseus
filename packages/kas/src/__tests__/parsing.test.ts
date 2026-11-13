@@ -3,11 +3,7 @@ import _ from "underscore";
 import * as KAS from "../index";
 
 expect.extend({
-    toParseAs(
-        input: string,
-        expected: string,
-        options?: any,
-    ): jest.CustomMatcherResult {
+    toParseAs(input: string, expected: string, options?: any) {
         const actual = KAS.parse(input, options).expr.print();
 
         if (actual !== expected) {
@@ -23,11 +19,7 @@ expect.extend({
             message: () => "",
         };
     },
-    toParseWithStructure(
-        input: string,
-        expected: string,
-        options?: any,
-    ): jest.CustomMatcherResult {
+    toParseWithStructure(input: string, expected: string, options?: any) {
         const actual = KAS.parse(input, options).expr.repr();
 
         if (actual !== expected) {
@@ -45,14 +37,18 @@ expect.extend({
 });
 
 // TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
-declare global {
-    // eslint-disable-next-line @typescript-eslint/no-namespace
-    namespace jest {
-        interface Matchers<R> {
-            toParseAs(expected: string, options?: any): R;
-            toParseWithStructure(expected: string, options?: any): R;
-        }
-    }
+interface CustomMatchers<R = unknown> {
+    toParseAs(expected: string, options?: any): R;
+    toParseWithStructure(expected: string, options?: any): R;
+}
+
+declare module "vitest" {
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- vitest custom matcher augmentation
+    interface Matchers<
+        R extends void | Promise<void> = void | Promise<void>,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars -- must match vitest's declaration
+        T = unknown,
+    > extends CustomMatchers<R> {}
 }
 
 describe("parsing", () => {

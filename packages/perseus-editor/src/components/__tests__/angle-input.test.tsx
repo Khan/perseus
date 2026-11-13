@@ -11,7 +11,7 @@ describe("AngleInput", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
     });
 
@@ -32,7 +32,7 @@ describe("AngleInput", () => {
 
     test("calls onChange with new angle in radians", async () => {
         // Arrange
-        const onChangeProps = jest.fn();
+        const onChangeProps = vi.fn();
         render(<AngleInput angle={0} onChange={onChangeProps} />, {
             wrapper: RenderStateRoot,
         });
@@ -49,7 +49,7 @@ describe("AngleInput", () => {
 
     test("does not call onChange with invalid expression", async () => {
         // Arrange
-        const onChangeProps = jest.fn();
+        const onChangeProps = vi.fn();
         render(<AngleInput angle={0} onChange={onChangeProps} />, {
             wrapper: RenderStateRoot,
         });

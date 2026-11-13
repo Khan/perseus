@@ -71,15 +71,15 @@ describe("MafsGraph", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
     it("renders", () => {
-        const mockDispatch = jest.fn();
+        const mockDispatch = vi.fn();
         const state: InteractiveGraphState = {
             type: "segment",
             hasBeenInteractedWith: true,
@@ -153,7 +153,7 @@ describe("MafsGraph", () => {
     });
 
     it("should send analytics even when widget is rendered", () => {
-        const mockDispatch = jest.fn();
+        const mockDispatch = vi.fn();
         const state: InteractiveGraphState = {
             type: "segment",
             hasBeenInteractedWith: true,
@@ -170,7 +170,7 @@ describe("MafsGraph", () => {
             ],
         };
 
-        const onAnalyticsEventSpy = jest.fn();
+        const onAnalyticsEventSpy = vi.fn();
         const depsV2: PerseusDependenciesV2 = {
             ...testDependenciesV2,
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
@@ -532,7 +532,7 @@ describe("MafsGraph", () => {
      * - arrowing with the keyboard moves point
      */
     it("point snap works with large snap gaps", async () => {
-        const mockDispatch = jest.fn();
+        const mockDispatch = vi.fn();
         const state: InteractiveGraphState = {
             type: "point",
             numPoints: 2,
@@ -1122,7 +1122,7 @@ describe("MafsGraph", () => {
         it("point - shows a remove point button when a point is focused", async () => {
             // Arrange
             // Render the question
-            const mockDispatch = jest.fn();
+            const mockDispatch = vi.fn();
             const state: InteractiveGraphState = {
                 type: "point",
                 numPoints: "unlimited",
@@ -1160,7 +1160,7 @@ describe("MafsGraph", () => {
         it("polygon - shows a remove point button when a point is focused", async () => {
             // Arrange
             // Render the question
-            const mockDispatch = jest.fn();
+            const mockDispatch = vi.fn();
             const state: InteractiveGraphState = {
                 type: "polygon",
                 numSides: "unlimited",
@@ -1202,7 +1202,7 @@ describe("MafsGraph", () => {
         it("point - removes a point when the remove point button is clicked", async () => {
             // Arrange
             // Render the question
-            const mockDispatch = jest.fn();
+            const mockDispatch = vi.fn();
             const state: InteractiveGraphState = {
                 type: "point",
                 numPoints: "unlimited",
@@ -1244,7 +1244,7 @@ describe("MafsGraph", () => {
         it("polygon - removes a point when the remove point button is clicked", async () => {
             // Arrange
             // Render the question
-            const mockDispatch = jest.fn();
+            const mockDispatch = vi.fn();
             const state: InteractiveGraphState = {
                 type: "polygon",
                 numSides: "unlimited",
@@ -1289,7 +1289,7 @@ describe("MafsGraph", () => {
 
         it("point - removes the focused point when Delete is pressed on its handle", async () => {
             // Arrange
-            const mockDispatch = jest.fn();
+            const mockDispatch = vi.fn();
             const state: InteractiveGraphState = {
                 type: "point",
                 numPoints: "unlimited",
@@ -1330,7 +1330,7 @@ describe("MafsGraph", () => {
         it("polygon - enables the 'Close shape' button when the polygon has 3 or more unique points", () => {
             // Arrange
             // Render the question
-            const mockDispatch = jest.fn();
+            const mockDispatch = vi.fn();
             const state: InteractiveGraphState = {
                 type: "polygon",
                 numSides: "unlimited",
@@ -1380,7 +1380,7 @@ describe("MafsGraph", () => {
         it("polygon - disables the 'Close shape' button when the polygon has fewer than 3 unique points", () => {
             // Arrange
             // Render the question
-            const mockDispatch = jest.fn();
+            const mockDispatch = vi.fn();
             const state: InteractiveGraphState = {
                 type: "polygon",
                 numSides: "unlimited",
@@ -1464,7 +1464,7 @@ describe("MafsGraph", () => {
                         showPointLabels: true,
                         pointLabels: ["A"],
                     })}
-                    dispatch={jest.fn()}
+                    dispatch={vi.fn()}
                 />,
             );
 
@@ -1480,7 +1480,7 @@ describe("MafsGraph", () => {
                 <MafsGraph
                     {...baseMafsProps}
                     state={pointStateWith({pointLabels: ["A"]})}
-                    dispatch={jest.fn()}
+                    dispatch={vi.fn()}
                 />,
             );
 
@@ -1499,7 +1499,7 @@ describe("MafsGraph", () => {
                         showPointLabels: true,
                         pointLabels: ["A"],
                     })}
-                    dispatch={jest.fn()}
+                    dispatch={vi.fn()}
                     static={true}
                 />,
             );
@@ -1514,7 +1514,7 @@ describe("MafsGraph", () => {
 
 describe("keyboard interaction invitation", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -1552,7 +1552,7 @@ describe("keyboard interaction invitation", () => {
 
     it("invites keyboard interaction when the graph is focused via keyboard", () => {
         // Arrange
-        const dispatch = jest.fn();
+        const dispatch = vi.fn();
         const {container} = render(
             <MafsGraph
                 {...baseMafsProps}
@@ -1572,7 +1572,7 @@ describe("keyboard interaction invitation", () => {
 
     it("does not invite keyboard interaction when the focus is not keyboard-driven", () => {
         // Arrange
-        const dispatch = jest.fn();
+        const dispatch = vi.fn();
         const {container} = render(
             <MafsGraph
                 {...baseMafsProps}

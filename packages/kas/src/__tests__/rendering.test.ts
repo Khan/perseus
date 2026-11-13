@@ -3,11 +3,7 @@ import _ from "underscore";
 import * as KAS from "../index";
 
 expect.extend({
-    toRenderTex(
-        input: string,
-        expected: string,
-        options?: any,
-    ): jest.CustomMatcherResult {
+    toRenderTex(input: string, expected: string, options?: any) {
         const actual = KAS.parse(input, options).expr.tex();
 
         if (actual !== expected) {
@@ -47,14 +43,18 @@ expect.extend({
 });
 
 // TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
-declare global {
-    // eslint-disable-next-line @typescript-eslint/no-namespace
-    namespace jest {
-        interface Matchers<R> {
-            toRenderTex(expected: string, options?: any): R;
-            toRenderTexOpt(expected: string, ...optlist: ReadonlyArray<any>): R;
-        }
-    }
+interface CustomMatchers<R = unknown> {
+    toRenderTex(expected: string, options?: any): R;
+    toRenderTexOpt(expected: string, ...optlist: ReadonlyArray<any>): R;
+}
+
+declare module "vitest" {
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- vitest custom matcher augmentation
+    interface Matchers<
+        R extends void | Promise<void> = void | Promise<void>,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars -- must match vitest's declaration
+        T = unknown,
+    > extends CustomMatchers<R> {}
 }
 
 describe("rendering", () => {

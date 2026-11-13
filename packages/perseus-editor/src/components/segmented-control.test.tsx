@@ -16,7 +16,7 @@ describe("SegmentedControl", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
     });
 
@@ -55,7 +55,7 @@ describe("SegmentedControl", () => {
 
     it("calls onChange with the value when an option is clicked", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(
             <SegmentedControl
                 options={options}
@@ -73,7 +73,7 @@ describe("SegmentedControl", () => {
 
     it("does not call onChange when disabled", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(
             <SegmentedControl
                 options={options}
@@ -95,7 +95,7 @@ describe("ToggleButtonGroup", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
     });
 
@@ -121,7 +121,7 @@ describe("ToggleButtonGroup", () => {
 
     it("calls onToggle with the value when an option is clicked", async () => {
         // Arrange
-        const onToggle = jest.fn();
+        const onToggle = vi.fn();
         render(
             <ToggleButtonGroup
                 options={options}
@@ -139,7 +139,7 @@ describe("ToggleButtonGroup", () => {
 
     it("does not call onToggle when disabled", async () => {
         // Arrange
-        const onToggle = jest.fn();
+        const onToggle = vi.fn();
         render(
             <ToggleButtonGroup
                 options={options}

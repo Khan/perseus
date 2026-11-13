@@ -57,7 +57,7 @@ describe("orderer widget", () => {
 
     it("should send analytics event when widget is rendered", () => {
         // Arrange
-        const onAnalyticsEventSpy = jest.fn();
+        const onAnalyticsEventSpy = vi.fn();
         const dependencies = {
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
         };

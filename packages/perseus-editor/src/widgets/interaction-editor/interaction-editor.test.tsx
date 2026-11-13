@@ -19,7 +19,7 @@ describe("interaction-editor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
 
         Dependencies.setDependencies(testDependencies);
@@ -32,7 +32,7 @@ describe("interaction-editor", () => {
     });
 
     it("preserves existing graph properties when GraphSettings onChange is called", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
         const graph = {
             ...interactionLogic.defaultWidgetOptions.graph,
             markings: "graph" as const,

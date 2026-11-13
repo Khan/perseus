@@ -22,10 +22,10 @@ describe("GifImage", () => {
     beforeEach(() => {
         // jsdom doesn't implement canvas getContext or ImageData.
         // eslint-disable-next-line no-restricted-syntax
-        jest.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue({
-            putImageData: jest.fn(),
-            clearRect: jest.fn(),
-            drawImage: jest.fn(),
+        vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue({
+            putImageData: vi.fn(),
+            clearRect: vi.fn(),
+            drawImage: vi.fn(),
             imageSmoothingEnabled: true,
         } as Partial<CanvasRenderingContext2D> as CanvasRenderingContext2D);
         // @ts-expect-error - jsdom doesn't have ImageData
@@ -55,7 +55,7 @@ describe("GifImage", () => {
                 height={285}
                 scale={1}
                 isPlaying={false}
-                onLoop={jest.fn()}
+                onLoop={vi.fn()}
             />,
         );
 
@@ -73,7 +73,7 @@ describe("GifImage", () => {
                 height={285}
                 scale={1}
                 isPlaying={true}
-                onLoop={jest.fn()}
+                onLoop={vi.fn()}
             />,
         );
 
@@ -83,7 +83,7 @@ describe("GifImage", () => {
 
     it("calls onLoad once the first frame is drawn", () => {
         // Arrange
-        const onLoad = jest.fn();
+        const onLoad = vi.fn();
 
         // Act
         render(
@@ -94,7 +94,7 @@ describe("GifImage", () => {
                 height={285}
                 scale={1}
                 isPlaying={false}
-                onLoop={jest.fn()}
+                onLoop={vi.fn()}
                 onLoad={onLoad}
             />,
         );
@@ -106,7 +106,7 @@ describe("GifImage", () => {
     describe("loop completion", () => {
         it("calls onLoop after all frames have been rendered", () => {
             // Arrange
-            const onLoop = jest.fn();
+            const onLoop = vi.fn();
             render(
                 <GifImage
                     gifFrames={fakeFrames}
@@ -123,7 +123,7 @@ describe("GifImage", () => {
             // RAF fires at ~16ms intervals, so we need enough ticks
             // for two frames plus the initial timestamp capture.
             act(() => {
-                jest.advanceTimersByTime(200);
+                vi.advanceTimersByTime(200);
             });
 
             // Assert
@@ -132,7 +132,7 @@ describe("GifImage", () => {
 
         it("does not call onLoop again after pausing", () => {
             // Arrange
-            const onLoop = jest.fn();
+            const onLoop = vi.fn();
             const {rerender} = render(
                 <GifImage
                     gifFrames={fakeFrames}
@@ -145,7 +145,7 @@ describe("GifImage", () => {
                 />,
             );
             act(() => {
-                jest.advanceTimersByTime(200);
+                vi.advanceTimersByTime(200);
             });
             expect(onLoop).toHaveBeenCalledTimes(1);
 
@@ -162,7 +162,7 @@ describe("GifImage", () => {
                 />,
             );
             act(() => {
-                jest.advanceTimersByTime(200);
+                vi.advanceTimersByTime(200);
             });
 
             // Assert - onLoop should not have been called again
@@ -172,7 +172,7 @@ describe("GifImage", () => {
 
     it("resets to frame 0 after loop completes and is replayed", () => {
         // Arrange — play through one full loop
-        const onLoop = jest.fn();
+        const onLoop = vi.fn();
         const {rerender} = render(
             <GifImage
                 gifFrames={fakeFrames}
@@ -185,7 +185,7 @@ describe("GifImage", () => {
             />,
         );
         act(() => {
-            jest.advanceTimersByTime(200);
+            vi.advanceTimersByTime(200);
         });
         expect(onLoop).toHaveBeenCalledTimes(1);
 
@@ -215,7 +215,7 @@ describe("GifImage", () => {
 
         // Advance enough for both frames to render from frame 0.
         act(() => {
-            jest.advanceTimersByTime(200);
+            vi.advanceTimersByTime(200);
         });
         // The loop completed a second time — onLoop fires again,
         // confirming it played through both frames from the start.
@@ -232,7 +232,7 @@ describe("GifImage", () => {
                 height={285}
                 scale={1}
                 isPlaying={false}
-                onLoop={jest.fn()}
+                onLoop={vi.fn()}
             />,
         );
 

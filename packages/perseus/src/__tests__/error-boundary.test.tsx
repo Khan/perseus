@@ -11,8 +11,8 @@ const ProblematicComponent = () => {
 
 describe("error boundary", () => {
     beforeEach(() => {
-        jest.spyOn(console, "error").mockImplementation(() => {});
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(console, "error").mockImplementation(() => {});
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -39,7 +39,7 @@ describe("error boundary", () => {
     });
 
     it("should call the onError callback when children error", () => {
-        const onErrorCallback = jest.fn();
+        const onErrorCallback = vi.fn();
 
         render(
             <ErrorBoundary onError={onErrorCallback}>
@@ -51,7 +51,7 @@ describe("error boundary", () => {
     });
 
     it("should log the error when children error", () => {
-        const errorSpy = jest.spyOn(testDependencies.Log, "error");
+        const errorSpy = vi.spyOn(testDependencies.Log, "error");
 
         render(
             <ErrorBoundary>

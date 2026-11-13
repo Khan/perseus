@@ -32,17 +32,17 @@ const baseVectorState: InteractiveGraphState = {
 describe("Vector graph screen reader", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
-        jest.useFakeTimers();
+        vi.useFakeTimers();
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
     afterEach(() => {
-        jest.useRealTimers();
+        vi.useRealTimers();
     });
 
     it("renders the vector graph with an aria label", () => {

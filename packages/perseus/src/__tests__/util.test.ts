@@ -26,7 +26,7 @@ describe("#constrainedTickStepsFromTickSteps", () => {
     });
 
     it("should use the value returned by tickStepFromNumTicks", () => {
-        jest.spyOn(Util, "tickStepFromNumTicks").mockReturnValue(5);
+        vi.spyOn(Util, "tickStepFromNumTicks").mockReturnValue(5);
         const result = Util.constrainedTickStepsFromTickSteps(
             [1, 1],
             [

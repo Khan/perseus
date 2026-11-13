@@ -14,7 +14,7 @@ describe("DndActionMenu", () => {
     let user: UserEvent;
 
     beforeEach(() => {
-        user = userEvent.setup({advanceTimers: jest.advanceTimersByTime});
+        user = userEvent.setup({advanceTimers: vi.advanceTimersByTime});
     });
 
     it("renders a menu button labeled by the tile value", () => {
@@ -179,7 +179,7 @@ describe("DndActionMenu", () => {
                     tileLabel: "Bongo",
                     moveTargets: generateTestBlanks(3),
                     clearFromLabel: "Blank 1",
-                    onClear: jest.fn(),
+                    onClear: vi.fn(),
                 })}
             />,
         );
@@ -196,7 +196,7 @@ describe("DndActionMenu", () => {
 
     it("calls onMove with the target id when a move action is selected", async () => {
         // Arrange
-        const onMove = jest.fn();
+        const onMove = vi.fn();
         render(
             <DndActionMenu
                 {...generateActionMenuProps({
@@ -219,7 +219,7 @@ describe("DndActionMenu", () => {
 
     it("calls onClear when the clear action is selected", async () => {
         // Arrange
-        const onClear = jest.fn();
+        const onClear = vi.fn();
         render(
             <DndActionMenu
                 {...generateActionMenuProps({
@@ -249,7 +249,7 @@ describe("DndActionMenu", () => {
                     tileLabel: "Bongo",
                     moveTargets: [],
                     clearFromLabel: "Blank 1",
-                    onClear: jest.fn(),
+                    onClear: vi.fn(),
                 })}
             />,
         );
@@ -270,7 +270,7 @@ describe("DndActionMenu", () => {
         // Arrange — the dropdown injects a click handler onto every child
         // it clones, and that handler throws for a non-item child. The
         // header must swallow the click.
-        const onMove = jest.fn();
+        const onMove = vi.fn();
         render(
             <DndActionMenu
                 {...generateActionMenuProps({

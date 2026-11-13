@@ -1,4 +1,4 @@
-import {describe, expect, it} from "@jest/globals";
+import {describe, expect, it} from "vitest";
 
 import {parse} from "../../parse-perseus-json/parse";
 import {parseInputNumberWidget} from "../../parse-perseus-json/perseus-parsers/input-number-widget";

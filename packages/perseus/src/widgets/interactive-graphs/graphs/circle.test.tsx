@@ -16,6 +16,7 @@ import type {GraphConfig} from "../reducer/use-graph-config";
 import type {InteractiveGraphState} from "../types";
 import type {UserEvent} from "@testing-library/user-event";
 import type {vec} from "mafs";
+import type {MockInstance} from "vitest";
 
 const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
 const baseCircleState: InteractiveGraphState = {
@@ -53,18 +54,18 @@ const baseGraphConfigContext: GraphConfig = {
 };
 
 describe("Circle graph", () => {
-    let useGraphConfigMock: jest.SpyInstance;
-    let useDraggableMock: jest.SpyInstance;
+    let useGraphConfigMock: MockInstance;
+    let useDraggableMock: MockInstance;
     let userEvent: UserEvent;
     beforeEach(() => {
-        useGraphConfigMock = jest.spyOn(ReducerGraphConfig, "default");
-        useDraggableMock = jest
+        useGraphConfigMock = vi.spyOn(ReducerGraphConfig, "default");
+        useDraggableMock = vi
             .spyOn(UseDraggableModule, "useDraggable")
             .mockReturnValue({dragging: false});
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -187,7 +188,7 @@ describe("Circle graph", () => {
 
 describe("Circle graph screen reader", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -298,7 +299,7 @@ describe("Circle graph screen reader", () => {
 // TODO(LEMS-3995, post-PR-7): route the circle SR-tree summary through buildPointAriaLabel once new locale string keys land.
 describe("Circle graph pointLabels", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });

@@ -8,7 +8,7 @@ import {AnswerPill} from "../answer-pill";
 
 describe("AnswerPill", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -33,7 +33,7 @@ describe("AnswerPill", () => {
 
     it("should be interactable when no right answer has been chosen", () => {
         // arrange
-        const clickSpy = jest.fn();
+        const clickSpy = vi.fn();
         const selectedAnswers = ["Answer 1", "Answer 2", "Answer 3"];
         const screen = render(
             <AnswerPill
@@ -53,7 +53,7 @@ describe("AnswerPill", () => {
 
     it("should not be interactable when a correct answer has been chosen", () => {
         // arrange
-        const clickSpy = jest.fn();
+        const clickSpy = vi.fn();
         const selectedAnswers = ["Answer 1", "Answer 2", "Answer 3"];
         const screen = render(
             <AnswerPill

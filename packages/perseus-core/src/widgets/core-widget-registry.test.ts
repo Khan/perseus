@@ -78,14 +78,14 @@ describe("core-widget-registry", () => {
                 type: "non-existent-widget",
                 options: {foo: 1},
             } as unknown as PerseusWidget;
-            const traverseRenderer = jest.fn();
+            const traverseRenderer = vi.fn();
 
             expect(traverseChildWidgets(widget, traverseRenderer)).toBe(widget);
         });
 
         it("returns the widget unchanged if widget has no traverseChildWidgets", () => {
             const widget = validRadioWidget;
-            const traverseRenderer = jest.fn();
+            const traverseRenderer = vi.fn();
 
             const result = traverseChildWidgets(widget, traverseRenderer);
             expect(result).toBe(widget);
@@ -98,7 +98,7 @@ describe("core-widget-registry", () => {
                 // eslint-disable-next-line no-restricted-syntax
                 options: {foo: 1} as any,
             };
-            const traverseRenderer = jest.fn();
+            const traverseRenderer = vi.fn();
 
             const result = traverseChildWidgets(widget, traverseRenderer);
 

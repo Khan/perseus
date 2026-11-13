@@ -13,10 +13,10 @@ describe("definition-editor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -30,7 +30,7 @@ describe("definition-editor", () => {
     });
 
     it("should be possible to change the definition", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
 
         render(<DefinitionEditor onChange={onChangeMock} />);
 

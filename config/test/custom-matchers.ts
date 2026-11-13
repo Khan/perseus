@@ -2,20 +2,24 @@
 
 import type {PerseusScore} from "../../packages/perseus-core/src/validation.types";
 
-declare global {
-    // eslint-disable-next-line @typescript-eslint/no-namespace
-    namespace jest {
-        interface Matchers<R> {
-            toHaveBeenAnsweredCorrectly(options?: {
-                // TODO: some non-interactive widgets have scoring functions
-                // that just return no points. They should probably just
-                // not have scoring functions if they're not interactive.
-                shouldHavePoints: boolean;
-            }): R;
-            toHaveInvalidInput(message?: string | null): R;
-            toHaveBeenAnsweredIncorrectly(): R;
-        }
-    }
+interface CustomMatchers<R = unknown> {
+    toHaveBeenAnsweredCorrectly(options?: {
+        // TODO: some non-interactive widgets have scoring functions
+        // that just return no points. They should probably just
+        // not have scoring functions if they're not interactive.
+        shouldHavePoints: boolean;
+    }): R;
+    toHaveInvalidInput(message?: string | null): R;
+    toHaveBeenAnsweredIncorrectly(): R;
+}
+
+declare module "vitest" {
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- vitest custom matcher augmentation
+    interface Matchers<
+        R extends void | Promise<void> = void | Promise<void>,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars -- must match vitest's declaration
+        T = unknown,
+    > extends CustomMatchers<R> {}
 }
 
 expect.extend({

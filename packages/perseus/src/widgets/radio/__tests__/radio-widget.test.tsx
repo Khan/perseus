@@ -1,4 +1,3 @@
-import {describe, expect, it, beforeEach, afterEach, jest} from "@jest/globals";
 import {
     generateRadioChoice,
     generateRadioOptions,
@@ -6,6 +5,7 @@ import {
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
+import {describe, expect, it, beforeEach, afterEach, vi} from "vitest";
 
 import * as Dependencies from "../../../dependencies";
 import {ApiOptions} from "../../../perseus-api";
@@ -77,20 +77,20 @@ const getBaseProps = (
     PerseusRadioWidgetOptions
 > => ({
     options: getBaseOptions(),
-    trackInteraction: jest.fn(),
+    trackInteraction: vi.fn(),
     widgetId: "radio-1",
     widgetIndex: 0,
     alignment: null,
     static: false,
     problemNum: 0,
     apiOptions: ApiOptions.defaults,
-    onFocus: jest.fn(),
-    onBlur: jest.fn(),
+    onFocus: vi.fn(),
+    onBlur: vi.fn(),
     findWidgets: () => [],
     reviewMode: false,
     isScorable: false,
     showSolutions: "none",
-    handleUserInput: jest.fn(),
+    handleUserInput: vi.fn(),
     userInput: {selectedChoiceIds: []},
     linterContext: baseLinterContext,
     containerSizeClass: containerSizeClass.MEDIUM,
@@ -101,21 +101,21 @@ describe("Radio widget", () => {
     let userEvent: ReturnType<typeof userEventLib.setup>;
 
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
     });
 
     afterEach(() => {
-        jest.restoreAllMocks();
+        vi.restoreAllMocks();
     });
 
     it("calls handleUserInput with the selected choice ID when a choice is clicked", async () => {
         // Arrange
-        const handleUserInput = jest.fn();
+        const handleUserInput = vi.fn();
         const props = getBaseProps({handleUserInput});
 
         // Act
@@ -134,7 +134,7 @@ describe("Radio widget", () => {
     // to have a different length than the choices array
     it("handles mismatched choiceStates and choices array lengths without crashing", async () => {
         // Arrange
-        const handleUserInput = jest.fn();
+        const handleUserInput = vi.fn();
         const props = getBaseProps({
             handleUserInput,
             // Only 1 state for 2 choices
@@ -168,7 +168,7 @@ describe("Radio widget", () => {
 
 describe("required state", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });

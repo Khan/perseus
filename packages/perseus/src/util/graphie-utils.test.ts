@@ -10,6 +10,8 @@ import {
 } from "./graphie-utils";
 import {typicalCase, edgeCases} from "./graphie-utils.testdata";
 
+import type {Mock} from "vitest";
+
 // Test helper to wait for loadGraphie callback
 async function waitForLoadGraphie(url: string) {
     return new Promise<{
@@ -23,7 +25,7 @@ async function waitForLoadGraphie(url: string) {
 }
 
 describe("graphie utils", () => {
-    const errorCallback = jest.fn((error) => {
+    const errorCallback = vi.fn((error) => {
         // Do nothing
     });
 
@@ -69,7 +71,7 @@ describe("graphie utils", () => {
 
     it("should craft localized urls", () => {
         // Arrange
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
             kaLocale: "es",
         });
@@ -82,7 +84,7 @@ describe("graphie utils", () => {
 
     it("should fallback to en without erroring when we can't find localized urls", async () => {
         // Arrange
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
             kaLocale: "es",
         });
@@ -91,7 +93,7 @@ describe("graphie utils", () => {
             "https://ka-perseus-graphie.s3.amazonaws.com/ccefe63aa1bd05f1d11123f72790a49378d2e42b-data.json";
 
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn((url) => {
+        global.fetch = vi.fn((url) => {
             // Localized URL fails
             if (url === typicalCase.expectedLocalizedUrl) {
                 return Promise.resolve({
@@ -110,11 +112,11 @@ describe("graphie utils", () => {
                 text: () => Promise.resolve(""),
                 ok: false,
             });
-        }) as jest.Mock;
+        }) as Mock;
 
         // Mock the error logger to confirm no errors are thrown
-        jest.spyOn(Log, "error").mockImplementation(
-            jest.fn(() => {
+        vi.spyOn(Log, "error").mockImplementation(
+            vi.fn(() => {
                 // Do nothing
             }),
         );
@@ -132,7 +134,7 @@ describe("graphie utils", () => {
 
     it("should return localized=true when localized data is successfully loaded (JIPT scenario)", async () => {
         // Arrange - simulate JIPT mode where we load en-pt localized data
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
             kaLocale: "es",
             JIPT: {useJIPT: true},
@@ -143,7 +145,7 @@ describe("graphie utils", () => {
             "https://ka-perseus-graphie.s3.amazonaws.com/en-pt/ccefe63aa1bd05f1d11123f72790a49378d2e42b-data.json";
 
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn((url) => {
+        global.fetch = vi.fn((url) => {
             // JIPT localized URL succeeds
             if (url === jiptLocalizedUrl) {
                 return Promise.resolve({
@@ -155,7 +157,7 @@ describe("graphie utils", () => {
                 text: () => Promise.resolve(""),
                 ok: false,
             });
-        }) as jest.Mock;
+        }) as Mock;
 
         // Act
         const loadedData = await waitForLoadGraphie(typicalCase.url);

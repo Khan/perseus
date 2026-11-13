@@ -55,9 +55,9 @@ describe("Matcher serialization", () => {
     });
 
     beforeEach(() => {
-        jest.useRealTimers();
+        vi.useRealTimers();
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
             TeX: ({
                 children,

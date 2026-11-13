@@ -75,7 +75,7 @@ describe("getAbsoluteValueKeyboardConstraint", () => {
 
 describe("Absolute value graph screen reader", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -190,7 +190,7 @@ describe("Absolute value graph screen reader", () => {
 // TODO(LEMS-3995, post-PR-7): route the absolute-value SR-tree summary through buildPointAriaLabel once new locale string keys land.
 describe("Absolute value graph pointLabels", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });

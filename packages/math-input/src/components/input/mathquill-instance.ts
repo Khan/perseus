@@ -1,7 +1,7 @@
 import {SpeechRuleEngine} from "@khanacademy/mathjax-renderer";
 import MathQuill from "mathquill";
 
-import {inJest} from "../../utils";
+import {inTest} from "../../utils";
 
 import type {
     MathQuillInterface,
@@ -128,7 +128,7 @@ export function createMathField(
     //   mocked in consuming packages now that we do not bundle source code.
     //   When it eventually times out, it will cause arbitrary test failures.
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    !inJest &&
+    !inTest &&
         SpeechRuleEngine.setup(locale).then((SRE) =>
             mathField.setMathspeakOverride(SRE.texToSpeech),
         );

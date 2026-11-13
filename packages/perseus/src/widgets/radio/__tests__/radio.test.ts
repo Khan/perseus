@@ -1,4 +1,3 @@
-import {describe, beforeEach, it} from "@jest/globals";
 import {
     type PerseusRenderer,
     type RadioWidget,
@@ -6,6 +5,7 @@ import {
 import {scoreRadio} from "@khanacademy/perseus-score";
 import {screen, fireEvent} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
+import {describe, beforeEach, it} from "vitest";
 
 import {renderQuestion} from "../../../__testutils__/render-question";
 import {clone} from "../../../testing/object-utils";
@@ -20,6 +20,7 @@ import {
 } from "./radio.testdata";
 
 import type {UserEvent} from "@testing-library/user-event";
+import type {Mock} from "vitest";
 
 const selectOption = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,
@@ -40,17 +41,17 @@ describe("Radio Widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
 
         // Mocked for loading graphie in svg-image
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn(() =>
+        global.fetch = vi.fn(() =>
             Promise.resolve({
                 text: () => "",
                 ok: true,
             }),
-        ) as jest.Mock;
+        ) as Mock;
     });
 
     describe("single-choice question", () => {
@@ -345,7 +346,7 @@ describe("Radio Widget", () => {
 
         it("should send analytics event when widget is rendered", async () => {
             // Arrange
-            const onAnalyticsEventSpy = jest.fn();
+            const onAnalyticsEventSpy = vi.fn();
             const dependencies = {
                 analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
             };
@@ -620,7 +621,7 @@ describe("Radio Widget", () => {
 
         it("should send analytics event when widget is rendered", async () => {
             // Arrange
-            const onAnalyticsEventSpy = jest.fn();
+            const onAnalyticsEventSpy = vi.fn();
             const dependencies = {
                 analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
             };

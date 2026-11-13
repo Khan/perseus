@@ -307,7 +307,7 @@ describe("scoreNumericInput", () => {
     });
 
     it("guards against pathological input", () => {
-        jest.useRealTimers();
+        vi.useRealTimers();
         const rubric = generateNumericInputOptions({
             coefficient: false,
             answers: [
@@ -915,7 +915,7 @@ describe("the regex for multiples of pi (with any coefficient format)", () => {
 });
 
 function timeRegex(re: RegExp, s: string): number {
-    jest.useRealTimers();
+    vi.useRealTimers();
     const t0 = Date.now();
     re.test(s);
     const t1 = Date.now();

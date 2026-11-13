@@ -1,6 +1,6 @@
-import {describe, beforeEach, it} from "@jest/globals";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
+import {describe, beforeEach, it} from "vitest";
 
 import {PerseusI18nContextProvider} from "./components/i18n-context";
 import {DependenciesContext, setDependencies} from "./dependencies";

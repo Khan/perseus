@@ -19,22 +19,23 @@ import {
 } from "./group.testdata";
 
 import type {UserEvent} from "@testing-library/user-event";
+import type {Mock} from "vitest";
 
 describe("group widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
 
         // Mocked for loading graphie in svg-image
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn(() =>
+        global.fetch = vi.fn(() =>
             Promise.resolve({
                 text: () => "",
                 ok: true,
             }),
-        ) as jest.Mock;
+        ) as Mock;
     });
 
     it("should snapshot", () => {
@@ -48,7 +49,7 @@ describe("group widget", () => {
     describe("focus management", () => {
         it("should map focus event to onFocusChange", () => {
             // Arrange
-            const onFocusChange = jest.fn();
+            const onFocusChange = vi.fn();
 
             const {renderer} = renderQuestion(question1, {
                 apiOptions: {
@@ -68,7 +69,7 @@ describe("group widget", () => {
 
         it("should map blur event to onFocusChange", async () => {
             // Arrange
-            const onFocusChange = jest.fn();
+            const onFocusChange = vi.fn();
 
             const {renderer} = renderQuestion(question1, {
                 apiOptions: {

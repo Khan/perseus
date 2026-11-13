@@ -34,10 +34,10 @@ describe("free-response editor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -53,7 +53,7 @@ describe("free-response editor", () => {
 
     it("calls onChange when the allow unlimited characters is changed", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
 
         // Act
         render(
@@ -77,7 +77,7 @@ describe("free-response editor", () => {
 
     it("calls onChange when the character limit is changed to a number", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
 
         // Act
         render(<HarnessedEditor characterLimit={0} onChange={onChangeMock} />);
@@ -92,7 +92,7 @@ describe("free-response editor", () => {
 
     it("does not call onChange when the character limit is changed to a non-number", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
 
         // Act
         render(<HarnessedEditor />);
@@ -105,7 +105,7 @@ describe("free-response editor", () => {
 
     it("calls onChange when the question is changed", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
 
         // Act
         render(<HarnessedEditor onChange={onChangeMock} />);
@@ -119,7 +119,7 @@ describe("free-response editor", () => {
 
     it("calls onChange when the placeholder is changed", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
 
         // Act
         render(
@@ -141,7 +141,7 @@ describe("free-response editor", () => {
 
     it("calls onChange when a criterion is changed", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
 
         // Act
         render(
@@ -205,7 +205,7 @@ describe("free-response editor", () => {
 
     it("adds another criterion when the add button is clicked", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
 
         // Act
         render(
@@ -228,7 +228,7 @@ describe("free-response editor", () => {
 
     it("prevents deleting the only criterion by hiding the delete button", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
 
         // Act
         render(
@@ -248,7 +248,7 @@ describe("free-response editor", () => {
 
     it("deletes a criterion when the delete button is clicked", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
 
         // Act
         render(

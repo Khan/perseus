@@ -53,7 +53,7 @@ function useLoadedTexRenderer() {
     }
 
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
             TeX: LoadedTeX,
         });
@@ -105,7 +105,7 @@ describe("sorter widget", () => {
 
         beforeEach(() => {
             unexpectedConsoleErrors = [];
-            jest.spyOn(console, "error").mockImplementation((...args) => {
+            vi.spyOn(console, "error").mockImplementation((...args) => {
                 const message = args.map(String).join(" ");
                 if (!EXPECTED_CONSOLE_ERROR.test(message)) {
                     unexpectedConsoleErrors.push(message);
@@ -119,7 +119,7 @@ describe("sorter widget", () => {
 
         it("reports itself as rendered to analytics", () => {
             // Arrange
-            const onAnalyticsEvent = jest.fn();
+            const onAnalyticsEvent = vi.fn();
 
             // Act
             renderQuestion(sorterQuestion, {
@@ -178,7 +178,7 @@ describe("sorter widget", () => {
 
         it("tracks an interaction when a card is moved", () => {
             // Arrange
-            const trackInteraction = jest.fn();
+            const trackInteraction = vi.fn();
             const {renderer} = renderQuestion(sorterQuestion, {
                 apiOptions: {
                     trackInteraction,
@@ -198,7 +198,7 @@ describe("sorter widget", () => {
 
         it("does not track an interaction before any card is moved", () => {
             // Arrange, Act
-            const trackInteraction = jest.fn();
+            const trackInteraction = vi.fn();
             renderQuestion(sorterQuestion, {apiOptions: {trackInteraction}});
 
             // Assert
@@ -410,7 +410,7 @@ describe("sorter widget", () => {
 
         it("dispatches unsupported widget analytics event when above the card limit", () => {
             // Arrange
-            const onAnalyticsEventSpy = jest.fn();
+            const onAnalyticsEventSpy = vi.fn();
             const dependencies = {
                 analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
             };

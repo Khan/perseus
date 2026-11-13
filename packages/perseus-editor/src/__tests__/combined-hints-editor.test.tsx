@@ -15,7 +15,7 @@ describe("CombinedHintsEditor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
     });
 
@@ -71,7 +71,7 @@ describe("CombinedHintsEditor", () => {
 
     it("should confirm before removing a hint", async () => {
         // Arrange
-        const comfirmSpy = jest.spyOn(window, "confirm").mockReturnValue(false);
+        const comfirmSpy = vi.spyOn(window, "confirm").mockReturnValue(false);
         render(
             <CombinedHintsEditor
                 deviceType="phone"
@@ -95,8 +95,8 @@ describe("CombinedHintsEditor", () => {
 
     it("should not remove the hint if not confirmed", async () => {
         // Arrange
-        jest.spyOn(window, "confirm").mockReturnValue(false);
-        const onChangeMock = jest.fn();
+        vi.spyOn(window, "confirm").mockReturnValue(false);
+        const onChangeMock = vi.fn();
         render(
             <CombinedHintsEditor
                 deviceType="phone"
@@ -121,8 +121,8 @@ describe("CombinedHintsEditor", () => {
 
     it("should remove the hint if confirmed", async () => {
         // Arrange
-        jest.spyOn(window, "confirm").mockReturnValue(true);
-        const onChangeMock = jest.fn();
+        vi.spyOn(window, "confirm").mockReturnValue(true);
+        const onChangeMock = vi.fn();
         render(
             <CombinedHintsEditor
                 deviceType="phone"

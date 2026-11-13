@@ -10,6 +10,7 @@ import type {
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
+import type {Mock} from "vitest";
 
 const textQuestion: PerseusRenderer = {
     content:
@@ -76,17 +77,17 @@ describe("LabelImage AI utils", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
 
         // Mocked for loading graphie in svg-image
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn(() =>
+        global.fetch = vi.fn(() =>
             Promise.resolve({
                 text: () => "",
                 ok: true,
             }),
-        ) as jest.Mock;
+        ) as Mock;
     });
 
     it("it returns JSON with the expected format and fields", () => {

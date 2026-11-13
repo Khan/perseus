@@ -1,5 +1,5 @@
-import {describe, it} from "@jest/globals";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
+import {describe, it} from "vitest";
 
 import PerseusMarkdown from "../perseus-markdown";
 

@@ -23,6 +23,7 @@ import type {
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
+import type {Mock} from "vitest";
 
 const emptyMarker: InteractiveMarkerType = {
     label: "",
@@ -41,17 +42,17 @@ describe("LabelImage", function () {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
 
         // Mocked for loading graphie in svg-image
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn(() =>
+        global.fetch = vi.fn(() =>
             Promise.resolve({
                 text: () => "",
                 ok: true,
             }),
-        ) as jest.Mock;
+        ) as Mock;
     });
 
     describe("getComputedSelectedState", function () {
@@ -821,7 +822,7 @@ describe("LabelImage", function () {
 
     describe("analytics", () => {
         beforeEach(() => {
-            jest.spyOn(testDependenciesV2.analytics, "onAnalyticsEvent");
+            vi.spyOn(testDependenciesV2.analytics, "onAnalyticsEvent");
         });
 
         it("sends an analytics event when widget is rendered", async () => {

@@ -1,10 +1,11 @@
 import {createHash} from "node:crypto";
 
-import {describe, expect, it, jest} from "@jest/globals";
+import {describe, expect, it, vi} from "vitest";
 
 import {getCatalogDepsHash} from "./get-catalog-deps-hash";
 
 import type {PackageJson, PnpmWorkspace} from "./catalog-hash-utils";
+import type {MockInstance} from "vitest";
 
 // SHA-256 hash of an empty string (truncated to 16 chars) - used when a package has no catalog dependencies
 const EMPTY_CATALOG_HASH = createHash("sha256")
@@ -13,7 +14,7 @@ const EMPTY_CATALOG_HASH = createHash("sha256")
     .substring(0, 16);
 
 const getMessagesFromSpy = (
-    spy: jest.SpiedFunction<typeof console.log>,
+    spy: MockInstance<typeof console.log>,
 ): Array<string> =>
     // For each call to the spy, get the first argument and return as array
     spy.mock.calls.map((args) => {
@@ -161,7 +162,7 @@ describe("getCatalogDepsHash", () => {
                 react: "catalog:peerDeps",
             },
         };
-        const consoleLogSpy = jest
+        const consoleLogSpy = vi
             .spyOn(console, "log")
             .mockImplementation(() => {});
 
@@ -194,7 +195,7 @@ describe("getCatalogDepsHash", () => {
                 react: "catalog:peerDeps",
             },
         };
-        const consoleLogSpy = jest
+        const consoleLogSpy = vi
             .spyOn(console, "log")
             .mockImplementation(() => {});
 

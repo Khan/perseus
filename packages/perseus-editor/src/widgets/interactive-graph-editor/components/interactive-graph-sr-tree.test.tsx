@@ -13,7 +13,7 @@ describe("InteractiveGraphSRTree", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
     });
     test("should show the heading and the switch even if empty", () => {

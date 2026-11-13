@@ -11,17 +11,17 @@ import type {Graphie} from "./graphie";
 function createMockRaphaelElement(name = "mockRaphaelElement") {
     return {
         constructor: {prototype: Raphael.el},
-        attr: jest.fn().mockName(`${name}.attr`),
+        attr: vi.fn().mockName(`${name}.attr`),
     };
 }
 
 function createMockRaphael() {
     return {
-        setSize: jest.fn().mockName("raphael.setSize"),
-        ellipse: jest.fn().mockName("raphael.ellipse"),
-        rect: jest.fn().mockName("raphael.rect"),
-        path: jest.fn().mockName("raphael.path"),
-        set: jest
+        setSize: vi.fn().mockName("raphael.setSize"),
+        ellipse: vi.fn().mockName("raphael.ellipse"),
+        rect: vi.fn().mockName("raphael.rect"),
+        path: vi.fn().mockName("raphael.path"),
+        set: vi
             .fn()
             .mockName("raphael.set")
             .mockImplementation(createFakeRaphaelSet),
@@ -35,7 +35,7 @@ function createFakeRaphaelSet() {
         push(...items) {
             return contents.push(...items);
         },
-        attr: jest.fn().mockName("raphael.set().attr"),
+        attr: vi.fn().mockName("raphael.set().attr"),
     };
 }
 
@@ -1011,7 +1011,7 @@ describe("Graphie drawing tools", () => {
 
     describe("label", () => {
         it("creates a span containing the text", () => {
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
                 testDependencies,
             );
             const graphie = createAndInitGraphie();
@@ -1027,7 +1027,7 @@ describe("Graphie drawing tools", () => {
         });
 
         it("puts the specified amount of padding around the label", () => {
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
                 testDependencies,
             );
             const graphie = createAndInitGraphie();
@@ -1044,7 +1044,7 @@ describe("Graphie drawing tools", () => {
         });
 
         it("defaults the padding to 7px if not specified", () => {
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
                 testDependencies,
             );
             const graphie = createAndInitGraphie();
@@ -1076,8 +1076,8 @@ describe("Graphie drawing tools", () => {
                         return Promise.resolve();
                     },
                 } as unknown as FontFaceSet;
-                jest.spyOn(document, "fonts", "get").mockReturnValue(fonts);
-                jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                vi.spyOn(document, "fonts", "get").mockReturnValue(fonts);
+                vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
                     testDependencies,
                 );
                 const graphie = createAndInitGraphie();
@@ -1101,7 +1101,7 @@ describe("Graphie drawing tools", () => {
         });
 
         it("resets the padding to the default after each call", () => {
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
                 testDependencies,
             );
             const graphie = createAndInitGraphie();
@@ -1339,7 +1339,7 @@ describe("Graphie drawing tools", () => {
             "should add click target that covers the entire graph when %s handler provided",
             async (eventName) => {
                 const graphie = createAndInitGraphie();
-                const handler = jest.fn();
+                const handler = vi.fn();
 
                 graphie.addMouseLayer({[eventName]: handler});
 
@@ -1366,7 +1366,7 @@ describe("Graphie drawing tools", () => {
             "should return pixel coordinates $expectedPixelCoord for the mouse event $mouseEvent (graph at $graphPosition)",
             ({graphPosition, mouseEvent, expectedPixelCoord}) => {
                 const graphie = createAndInitGraphie();
-                jest.spyOn($.fn, "offset").mockReturnValue(graphPosition);
+                vi.spyOn($.fn, "offset").mockReturnValue(graphPosition);
 
                 const mousePx = graphie.getMousePx(mouseEvent);
 
@@ -1401,7 +1401,7 @@ describe("Graphie drawing tools", () => {
                     ],
                     scale: 5,
                 });
-                jest.spyOn($.fn, "offset").mockReturnValue(graphPosition);
+                vi.spyOn($.fn, "offset").mockReturnValue(graphPosition);
 
                 const mousePx = graphie.getMouseCoord(mouseEvent);
 

@@ -1,4 +1,3 @@
-import {it, describe, beforeEach} from "@jest/globals";
 import {
     generateExpressionAnswerForm,
     generateExpressionOptions,
@@ -10,6 +9,7 @@ import {
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
+import {it, describe, beforeEach} from "vitest";
 
 import {renderQuestion} from "../../__testutils__/render-question";
 import {testDependenciesV2} from "../../testing/test-dependencies";
@@ -26,6 +26,7 @@ import {
 
 import type {PerseusItem, PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
+import type {Mock} from "vitest";
 
 const renderAndAnswer = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,
@@ -33,10 +34,10 @@ const renderAndAnswer = async (
     input: string,
     isCorrect: boolean,
 ) => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
     const {renderer} = renderQuestion(itemData.question);
     await userEvent.type(screen.getByRole("textbox"), input);
-    act(() => jest.runOnlyPendingTimers());
+    act(() => vi.runOnlyPendingTimers());
 
     return renderer;
 };
@@ -82,13 +83,13 @@ const assertInvalid = async (
     itemData: PerseusItem,
     input: string,
 ) => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
     const {renderer} = renderQuestion(itemData.question);
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (input.length) {
         await userEvent.type(screen.getByRole("textbox"), input);
     }
-    act(() => jest.runOnlyPendingTimers());
+    act(() => vi.runOnlyPendingTimers());
     const score = scorePerseusItemTesting(
         itemData.question,
         renderer.getUserInputMap(),
@@ -102,13 +103,13 @@ const assertValid = async (
     input: string,
     message?: string,
 ) => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
     const {renderer} = renderQuestion(itemData.question);
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (input.length) {
         await userEvent.type(screen.getByRole("textbox"), input);
     }
-    act(() => jest.runOnlyPendingTimers());
+    act(() => vi.runOnlyPendingTimers());
     const score = scorePerseusItemTesting(
         itemData.question,
         renderer.getUserInputMap(),
@@ -120,10 +121,10 @@ describe("Expression Widget", function () {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
 
-        jest.spyOn(testDependenciesV2.analytics, "onAnalyticsEvent");
+        vi.spyOn(testDependenciesV2.analytics, "onAnalyticsEvent");
     });
 
     describe("grading", function () {
@@ -525,7 +526,7 @@ describe("Expression Widget", function () {
     describe("rendering", () => {
         it("should send analytics event when widget is rendered", () => {
             // Arrange
-            const onAnalyticsEventSpy = jest.spyOn(
+            const onAnalyticsEventSpy = vi.spyOn(
                 testDependenciesV2.analytics,
                 "onAnalyticsEvent",
             );
@@ -533,7 +534,7 @@ describe("Expression Widget", function () {
             // Act
             renderQuestion(expressionItemMultipleEquivalentAnswers.question);
             act(() => {
-                jest.runAllTimers();
+                vi.runAllTimers();
             });
 
             // Assert
@@ -565,7 +566,7 @@ describe("Expression Widget", function () {
 
     describe("interaction", () => {
         beforeEach(() => {
-            jest.useFakeTimers();
+            vi.useFakeTimers();
         });
 
         it("has a developer facility for inserting", async () => {
@@ -573,11 +574,11 @@ describe("Expression Widget", function () {
             const {renderer} = renderQuestion(
                 expressionItemMultipleEquivalentAnswers.question,
             );
-            act(() => jest.runOnlyPendingTimers());
+            act(() => vi.runOnlyPendingTimers());
 
             const expression = renderer.findWidgets("expression 1")[0];
             act(() => expression.insert("x+1"));
-            act(() => jest.runOnlyPendingTimers());
+            act(() => vi.runOnlyPendingTimers());
 
             // act
             const score = scorePerseusItem(
@@ -608,7 +609,7 @@ describe("Expression Widget", function () {
                     expression.insert("x+1");
                 }),
             ).not.toThrow();
-            act(() => jest.runOnlyPendingTimers());
+            act(() => vi.runOnlyPendingTimers());
 
             // Assert
             const score = scorePerseusItem(
@@ -634,17 +635,17 @@ describe("Expression Widget", function () {
             // opens. With real timers, waiting for the popover gives that
             // update a chance to settle inside act(); Jest's fake timers
             // would leave it pending until after the test finishes.
-            jest.useRealTimers();
+            vi.useRealTimers();
             userEvent = userEventLib.setup();
 
             // Mocked for loading graphie in svg-image
             // eslint-disable-next-line no-restricted-syntax
-            global.fetch = jest.fn(() =>
+            global.fetch = vi.fn(() =>
                 Promise.resolve({
                     text: () => "",
                     ok: true,
                 }),
-            ) as jest.Mock;
+            ) as Mock;
         });
 
         function getFullItem(): PerseusItem {

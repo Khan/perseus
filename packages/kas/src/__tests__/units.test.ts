@@ -1,10 +1,7 @@
 import * as KAS from "../index";
 
 expect.extend({
-    toHaveEqualUnits(
-        [x, y]: [any, any],
-        msg: string,
-    ): jest.CustomMatcherResult {
+    toHaveEqualUnits([x, y]: [any, any], msg: string) {
         const actual = KAS.compare(x.simplify(), y.simplify()).equal;
 
         if (this.isNot) {
@@ -19,10 +16,7 @@ expect.extend({
             message: () => msg,
         };
     },
-    toParseUnitsAsEqual(
-        [x, y]: [any, any],
-        msg: string,
-    ): jest.CustomMatcherResult {
+    toParseUnitsAsEqual([x, y]: [any, any], msg: string) {
         if (this.isNot) {
             expect([
                 KAS.unitParse(x).expr,
@@ -37,10 +31,7 @@ expect.extend({
 
         return {pass: !this.isNot, message: () => ""};
     },
-    toHaveUnitVariable(
-        [original, newUnit]: [any, any],
-        expected: any,
-    ): jest.CustomMatcherResult {
+    toHaveUnitVariable([original, newUnit]: [any, any], expected: any) {
         const originalParsed = KAS.unitParse(original);
         if (!originalParsed.parsed || originalParsed.expr == null) {
             return {pass: false, message: () => `could not parse ${original}`};
@@ -62,10 +53,7 @@ expect.extend({
                       `${original} = ["${expected.print()}"] ${newUnit}`,
               };
     },
-    toHaveTheSameForm(
-        [x, y]: [any, any],
-        msg: string,
-    ): jest.CustomMatcherResult {
+    toHaveTheSameForm([x, y]: [any, any], msg: string) {
         const parsedX = KAS.unitParse(x);
         if (!parsedX.parsed || !parsedX.unit) {
             return {pass: false, message: () => `could not parse ${x}`};
@@ -82,7 +70,7 @@ expect.extend({
             ? {pass: true, message: () => ""}
             : {pass: false, message: () => msg};
     },
-    toHaveMagnitude(input: string, expected: number): jest.CustomMatcherResult {
+    toHaveMagnitude(input: string, expected: number) {
         const parsed = KAS.unitParse(input).coefficient;
 
         return +parsed === expected
@@ -95,17 +83,21 @@ expect.extend({
 });
 
 // TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
-declare global {
-    // eslint-disable-next-line @typescript-eslint/no-namespace
-    namespace jest {
-        interface Matchers<R> {
-            toHaveEqualUnits(msg: string): R;
-            toParseUnitsAsEqual(msg: string): R;
-            toHaveUnitVariable(expected: any): R;
-            toHaveTheSameForm(msg: string): R;
-            toHaveMagnitude(expected: number): R;
-        }
-    }
+interface CustomMatchers<R = unknown> {
+    toHaveEqualUnits(msg: string): R;
+    toParseUnitsAsEqual(msg: string): R;
+    toHaveUnitVariable(expected: any): R;
+    toHaveTheSameForm(msg: string): R;
+    toHaveMagnitude(expected: number): R;
+}
+
+declare module "vitest" {
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- vitest custom matcher augmentation
+    interface Matchers<
+        R extends void | Promise<void> = void | Promise<void>,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars -- must match vitest's declaration
+        T = unknown,
+    > extends CustomMatchers<R> {}
 }
 
 describe("units", () => {

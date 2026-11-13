@@ -21,7 +21,7 @@ describe("matrix widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
     });
 
@@ -53,7 +53,7 @@ describe("matrix widget", () => {
 
     it("should send analytics event when widget is rendered", () => {
         // Arrange
-        const onAnalyticsEventSpy = jest.fn();
+        const onAnalyticsEventSpy = vi.fn();
         const dependencies = {
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
         };

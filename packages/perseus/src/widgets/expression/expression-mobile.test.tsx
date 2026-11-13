@@ -87,10 +87,10 @@ describe("expression mobile", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -100,7 +100,7 @@ describe("expression mobile", () => {
         // If we don't spin the timers here, then the timer fires in the test
         // _after_ and breaks it because we do setState() in the callback,
         // and by that point the component has been unmounted.
-        act(() => jest.runOnlyPendingTimers());
+        act(() => vi.runOnlyPendingTimers());
     });
 
     it("renders input", () => {

@@ -10,6 +10,7 @@ import {registerAllWidgetsForTesting} from "../../../util/register-all-widgets-f
 
 import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
+import type {Mock} from "vitest";
 
 /**
  * [LEMS-3185] These are tests for the legacy Serialization API.
@@ -78,17 +79,17 @@ describe("LabelImage serialization", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
 
         // Mocked for loading graphie in svg-image
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn(() =>
+        global.fetch = vi.fn(() =>
             Promise.resolve({
                 text: () => "",
                 ok: true,
             }),
-        ) as jest.Mock;
+        ) as Mock;
     });
 
     afterEach(() => {
@@ -96,7 +97,7 @@ describe("LabelImage serialization", () => {
         // If we don't spin the timers here, then the timer fires in the test
         // _after_ and breaks it because we do setState() in the callback,
         // and by that point the component has been unmounted.
-        act(() => jest.runOnlyPendingTimers());
+        act(() => vi.runOnlyPendingTimers());
     });
 
     it("should serialize the current state", async () => {

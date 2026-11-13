@@ -1,9 +1,9 @@
-import {describe, it, expect} from "@jest/globals";
 import {
     generateNumericInputWidget,
     generateRadioWidget,
     generateInteractiveGraphWidget,
 } from "@khanacademy/perseus-core";
+import {describe, it, expect} from "vitest";
 
 import {InputNumber, Radio} from "..";
 import {generateExpressionWidget} from "../../../perseus-core/src/utils/generators/expression-widget-generator";
@@ -22,7 +22,9 @@ import {
 import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-testing";
 import {generateTestCategorizerWidget} from "../util/scoring.testutils";
 
-const stub: jest.MockedFunction<any> = jest.fn();
+import type {MockedFunction} from "vitest";
+
+const stub: MockedFunction<any> = vi.fn();
 
 beforeEach(() => {
     stub.mockClear();

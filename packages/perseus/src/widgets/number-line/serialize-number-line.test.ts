@@ -63,7 +63,7 @@ describe("NumberLine serialization", () => {
         // If we don't spin the timers here, then the timer fires in the test
         // _after_ and breaks it because we do setState() in the callback,
         // and by that point the component has been unmounted.
-        act(() => jest.runOnlyPendingTimers());
+        act(() => vi.runOnlyPendingTimers());
     });
 
     it("should serialize the current state", async () => {

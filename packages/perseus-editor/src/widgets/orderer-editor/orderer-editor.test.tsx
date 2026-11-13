@@ -18,17 +18,17 @@ describe("OrdererEditor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
     it("updates state correctly", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
         const editorRef = React.createRef<OrdererEditor>();
 
         const imageUrl =
@@ -83,7 +83,7 @@ describe("OrdererEditor", () => {
 
     it("calls onChange with the merged cards when an other card is edited", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
         render(
             <OrdererEditor
                 onChange={onChangeMock}
@@ -134,7 +134,7 @@ describe("OrdererEditor", () => {
 
     it("calls onChange with the new layout when the layout is changed", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
         render(
             <OrdererEditor
                 onChange={onChangeMock}
@@ -154,7 +154,7 @@ describe("OrdererEditor", () => {
 
     it("calls onChange with the new height when the height is changed", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
         render(
             <OrdererEditor
                 onChange={onChangeMock}

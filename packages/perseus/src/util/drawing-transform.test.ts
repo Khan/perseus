@@ -38,7 +38,7 @@ describe("DrawingTransform", () => {
     });
 
     it("updates the size of the Raphael canvas when setScale is called with a number", () => {
-        const raphael = {setSize: jest.fn()};
+        const raphael = {setSize: vi.fn()};
         const scale: Coord = [40, 40];
         const bounds = new GraphBounds([-10, 10], [-10, 10]);
         const transform = new DrawingTransform(raphael, scale, bounds);
@@ -52,7 +52,7 @@ describe("DrawingTransform", () => {
     });
 
     it("updates the size of the Raphael canvas when setScale is called with dimensions", () => {
-        const raphael = {setSize: jest.fn()};
+        const raphael = {setSize: vi.fn()};
         const scale: Coord = [40, 40];
         const bounds = new GraphBounds([-5, 5], [-5, 5]);
         const transform = new DrawingTransform(raphael, scale, bounds);

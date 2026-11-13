@@ -10,7 +10,7 @@ describe("BlurInput", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
     });
 
@@ -20,7 +20,7 @@ describe("BlurInput", () => {
 
     it("should call onChange prop on blur", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(<BlurInput value="Hello world!" onChange={onChange} />);
 
         // Act
@@ -36,7 +36,7 @@ describe("BlurInput", () => {
 
     it("should call onChange prop when typing into input", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(<BlurInput value="Hello world!" onChange={onChange} />);
 
         // Act
@@ -52,7 +52,7 @@ describe("BlurInput", () => {
 
     it("should call onChange prop when pasting into input", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(<BlurInput value="Hello world!" onChange={onChange} />);
 
         // Act

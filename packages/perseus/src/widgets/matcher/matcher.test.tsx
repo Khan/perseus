@@ -23,12 +23,12 @@ describe("matcher widget", () => {
         unmounted. This is existing behavior and its safer to leave the existing
         implementation and swallow the warning in tests.
         */
-        jest.spyOn(console, "warn").mockImplementation(() => {});
-        jest.spyOn(console, "error").mockImplementation(() => {});
+        vi.spyOn(console, "warn").mockImplementation(() => {});
+        vi.spyOn(console, "error").mockImplementation(() => {});
 
-        jest.useRealTimers();
+        vi.useRealTimers();
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
             TeX: ({
                 children,
@@ -61,7 +61,7 @@ describe("matcher widget", () => {
 
     it("should snapshot on mobile", async () => {
         // Arrange
-        jest.useRealTimers();
+        vi.useRealTimers();
 
         const apiOptions: APIOptions = {
             isMobile: true,
@@ -77,7 +77,7 @@ describe("matcher widget", () => {
 
     it("should send analytics event when widget is rendered", async () => {
         // Arrange
-        const onAnalyticsEventSpy = jest.fn();
+        const onAnalyticsEventSpy = vi.fn();
         const dependencies = {
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
         };
@@ -194,7 +194,7 @@ describe("matcher widget", () => {
         it("is scored incorrect if the math renderer hasn't loaded yet", () => {
             // Arrange: stub the TeX renderer to never call its onRender prop,
             // which is how the matcher knows the math renderer is ready.
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+            vi.spyOn(Dependencies, "getDependencies").mockReturnValue({
                 ...testDependencies,
                 TeX: () => {
                     return null;

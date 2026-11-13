@@ -1,4 +1,4 @@
-import {convertDotToTimesByLocale, inJest} from "./utils";
+import {convertDotToTimesByLocale, inTest} from "./utils";
 
 describe("utils", () => {
     describe("multiplicationSymbol", () => {
@@ -25,11 +25,11 @@ describe("utils", () => {
 
     describe("inJest", () => {
         it("returns true", () => {
-            expect(inJest).toBe(true);
+            expect(inTest).toBe(true);
         });
         it("prevents code from running in Jest", () => {
             let value = 0;
-            if (!inJest) {
+            if (!inTest) {
                 value = 1;
             }
             expect(value).toBe(0);

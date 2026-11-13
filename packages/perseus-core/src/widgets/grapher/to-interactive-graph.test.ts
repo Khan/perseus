@@ -1,4 +1,4 @@
-import {describe, it, expect} from "@jest/globals";
+import {describe, it, expect} from "vitest";
 
 import {generateGrapherWidgetOptions} from "../../utils/generators/grapher-widget-generator";
 

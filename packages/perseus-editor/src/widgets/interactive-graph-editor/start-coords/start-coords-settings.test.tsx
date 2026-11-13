@@ -24,10 +24,10 @@ describe("StartCoordSettings", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -68,7 +68,7 @@ describe("StartCoordSettings", () => {
 
     it("clicking the reset button resets the start coordinates", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
         render(
             <StartCoordsSettings
                 {...defaultProps}
@@ -128,7 +128,7 @@ describe("StartCoordSettings", () => {
             `calls onChange when $coord coord is changed (line $lineIndex) for ${type} graph`,
             async ({lineIndex, coord}) => {
                 // Arrange
-                const onChangeMock = jest.fn();
+                const onChangeMock = vi.fn();
 
                 // Act
                 render(
@@ -179,7 +179,7 @@ describe("StartCoordSettings", () => {
 
         it(`${type}: calls onChangePointLabels with the schema's 2-tuple shape when a name is typed`, async () => {
             // Arrange
-            const onChangePointLabelsMock = jest.fn();
+            const onChangePointLabelsMock = vi.fn();
             render(
                 <StartCoordsSettings
                     {...defaultProps}
@@ -286,7 +286,7 @@ describe("StartCoordSettings", () => {
             `calls onChange when $coord coord is changed (segment $segmentIndex)`,
             async ({segmentIndex, pointIndex, coordIndex, coord}) => {
                 // Arrange
-                const onChangeMock = jest.fn();
+                const onChangeMock = vi.fn();
 
                 const coords = [
                     [
@@ -349,7 +349,7 @@ describe("StartCoordSettings", () => {
 
         it("calls onChangePointLabels with the flat per-segment array shape when a name is typed", async () => {
             // Arrange
-            const onChangePointLabelsMock = jest.fn();
+            const onChangePointLabelsMock = vi.fn();
             render(
                 <StartCoordsSettings
                     {...defaultProps}
@@ -420,7 +420,7 @@ describe("StartCoordSettings", () => {
             `calls onChange when $coord coord is changed (line $lineIndex)`,
             async ({lineIndex, pointIndex, coordIndex, coord}) => {
                 // Arrange
-                const onChangeMock = jest.fn();
+                const onChangeMock = vi.fn();
 
                 const coords = [
                     [
@@ -481,7 +481,7 @@ describe("StartCoordSettings", () => {
 
         it("calls onChangePointLabels with the flat per-line array shape when a name is typed", async () => {
             // Arrange
-            const onChangePointLabelsMock = jest.fn();
+            const onChangePointLabelsMock = vi.fn();
             render(
                 <StartCoordsSettings
                     {...defaultProps}
@@ -543,7 +543,7 @@ describe("StartCoordSettings", () => {
             `calls onChange when $coord coord is changed`,
             async ({coordIndex, coord}) => {
                 // Arrange
-                const onChangeMock = jest.fn();
+                const onChangeMock = vi.fn();
 
                 const start = {center: [2, 2], radius: 5} satisfies {
                     center: Coord;
@@ -577,7 +577,7 @@ describe("StartCoordSettings", () => {
 
         it("does not call onChange when the radius is not a number", async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = vi.fn();
 
             render(
                 <StartCoordsSettings
@@ -600,7 +600,7 @@ describe("StartCoordSettings", () => {
 
         it("does not call onChange when the radius is empty", async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = vi.fn();
 
             render(
                 <StartCoordsSettings
@@ -623,7 +623,7 @@ describe("StartCoordSettings", () => {
 
         it("allows the user to type a decimal radius", async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = vi.fn();
 
             render(
                 <StartCoordsSettings
@@ -684,7 +684,7 @@ describe("StartCoordSettings", () => {
             "calls onChange when $coord coord is changed (line $pointIndex)",
             async ({pointIndex, coord}) => {
                 // Arrange
-                const onChangeMock = jest.fn();
+                const onChangeMock = vi.fn();
 
                 // Act
                 render(
@@ -735,7 +735,7 @@ describe("StartCoordSettings", () => {
 
         it("calls onChangePointLabels with the schema's 2-tuple shape when a name is typed", async () => {
             // Arrange
-            const onChangePointLabelsMock = jest.fn();
+            const onChangePointLabelsMock = vi.fn();
             render(
                 <StartCoordsSettings
                     {...defaultProps}
@@ -796,7 +796,7 @@ describe("StartCoordSettings", () => {
             "calls onChange when $coord coord is changed (line $pointIndex)",
             async ({pointIndex, coord}) => {
                 // Arrange
-                const onChangeMock = jest.fn();
+                const onChangeMock = vi.fn();
 
                 // Act
                 render(
@@ -851,7 +851,7 @@ describe("StartCoordSettings", () => {
 
         it("calls onChangePointLabels with the schema's 3-tuple shape when a name is typed", async () => {
             // Arrange
-            const onChangePointLabelsMock = jest.fn();
+            const onChangePointLabelsMock = vi.fn();
             render(
                 <StartCoordsSettings
                     {...defaultProps}
@@ -919,7 +919,7 @@ describe("StartCoordSettings", () => {
 
         it("calls onChangePointLabels with the schema's 2-tuple shape when a name is typed", async () => {
             // Arrange
-            const onChangePointLabelsMock = jest.fn();
+            const onChangePointLabelsMock = vi.fn();
             render(
                 <StartCoordsSettings
                     {...defaultProps}
@@ -982,7 +982,7 @@ describe("StartCoordSettings", () => {
 
         it("calls onChangePointLabels with the schema array shape when a name is typed", async () => {
             // Arrange
-            const onChangePointLabelsMock = jest.fn();
+            const onChangePointLabelsMock = vi.fn();
             render(
                 <StartCoordsSettings
                     {...defaultProps}
@@ -1045,7 +1045,7 @@ describe("StartCoordSettings", () => {
 
         it("calls onChangePointLabels with the schema array shape when a name is typed", async () => {
             // Arrange
-            const onChangePointLabelsMock = jest.fn();
+            const onChangePointLabelsMock = vi.fn();
             render(
                 <StartCoordsSettings
                     {...defaultProps}
@@ -1097,7 +1097,7 @@ describe("StartCoordSettings", () => {
             "calls onChange when $coord coord is changed (point $pointIndex)",
             async ({pointIndex, coord}) => {
                 // Arrange
-                const onChangeMock = jest.fn();
+                const onChangeMock = vi.fn();
                 const startCoords: [Coord, Coord] = [
                     [0, 0],
                     [3, 3],
@@ -1155,7 +1155,7 @@ describe("StartCoordSettings", () => {
 
         it("calls onChangePointLabels with the schema's 2-tuple shape when a name is typed", async () => {
             // Arrange
-            const onChangePointLabelsMock = jest.fn();
+            const onChangePointLabelsMock = vi.fn();
             render(
                 <StartCoordsSettings
                     {...defaultProps}
@@ -1230,7 +1230,7 @@ describe("StartCoordSettings", () => {
             "calls onChange when $coord coord is changed (line $pointIndex)",
             async ({pointIndex, coord}) => {
                 // Arrange
-                const onChangeMock = jest.fn();
+                const onChangeMock = vi.fn();
 
                 // Act
                 render(
@@ -1283,7 +1283,7 @@ describe("StartCoordSettings", () => {
 
         it("calls onChangePointLabels when a point name is typed", async () => {
             // Arrange
-            const onChangePointLabelsMock = jest.fn();
+            const onChangePointLabelsMock = vi.fn();
             render(
                 <StartCoordsSettings
                     {...defaultProps}
@@ -1307,7 +1307,7 @@ describe("StartCoordSettings", () => {
 
         it("preserves existing labels at other indices when typing a new name", async () => {
             // Arrange
-            const onChangePointLabelsMock = jest.fn();
+            const onChangePointLabelsMock = vi.fn();
             render(
                 <StartCoordsSettings
                     {...defaultProps}
@@ -1384,7 +1384,7 @@ describe("StartCoordSettings", () => {
 
         it("calls onChangePointLabels when a point name is typed", async () => {
             // Arrange
-            const onChangePointLabelsMock = jest.fn();
+            const onChangePointLabelsMock = vi.fn();
             render(
                 <StartCoordsSettings
                     {...defaultProps}
@@ -1445,7 +1445,7 @@ describe("StartCoordSettings", () => {
             "calls onChange when $coord coord is changed (line $pointIndex)",
             async ({pointIndex, coord}) => {
                 // Arrange
-                const onChangeMock = jest.fn();
+                const onChangeMock = vi.fn();
                 render(
                     <StartCoordsSettings
                         {...defaultProps}
@@ -1558,7 +1558,7 @@ describe("StartCoordSettings", () => {
             "calls onChange when $coord coord is changed (line $pointIndex)",
             async ({pointIndex, coord}) => {
                 // Arrange
-                const onChangeMock = jest.fn();
+                const onChangeMock = vi.fn();
 
                 // Act
                 render(
@@ -1614,7 +1614,7 @@ describe("StartCoordSettings", () => {
 
         it("calls onChangePointLabels with the schema's 3-tuple shape when the vertex name is typed", async () => {
             // Arrange
-            const onChangePointLabelsMock = jest.fn();
+            const onChangePointLabelsMock = vi.fn();
             render(
                 <StartCoordsSettings
                     {...defaultProps}
@@ -1663,7 +1663,7 @@ describe("StartCoordSettings", () => {
             // Arrange — the schema is `string[]` and circle only labels
             // the radius point (index 0), so a single-element array is
             // the expected emitted shape.
-            const onChangePointLabelsMock = jest.fn();
+            const onChangePointLabelsMock = vi.fn();
             render(
                 <StartCoordsSettings
                     {...defaultProps}

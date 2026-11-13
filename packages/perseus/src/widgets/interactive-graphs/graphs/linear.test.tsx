@@ -32,7 +32,7 @@ const overallGraphLabel = "A line on a coordinate plane.";
 
 describe("Linear graph screen reader", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });

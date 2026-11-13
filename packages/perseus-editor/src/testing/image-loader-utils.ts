@@ -1,5 +1,7 @@
 import {act} from "@testing-library/react";
 
+import type {Mock} from "vitest";
+
 /**
  * Mocks image loading done by the ImageLoader component to immediately trigger
  * the load event.
@@ -13,7 +15,7 @@ export const mockImageLoading = (options?: {
 
     // A `function`, not an arrow: the code under test calls `new Image()`,
     // and some test runners construct a mock's implementation with `new`.
-    const mockImage = jest.fn(function () {
+    const mockImage = vi.fn(function () {
         // eslint-disable-next-line no-restricted-syntax
         const img = {
             naturalWidth: options?.naturalWidth,
@@ -29,12 +31,12 @@ export const mockImageLoading = (options?: {
         }, 0);
 
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn((url) => {
+        global.fetch = vi.fn((url) => {
             return Promise.resolve({
                 text: () => Promise.resolve(""),
                 ok: true,
             });
-        }) as jest.Mock;
+        }) as Mock;
 
         return img;
     });

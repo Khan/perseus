@@ -35,7 +35,7 @@ describe("card-editor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
     });
 
@@ -66,7 +66,7 @@ describe("card-editor", () => {
 
     it("calls onChange with the edited text", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
         renderCard({value: "Cat", onChange: onChangeMock});
 
         // Act
@@ -78,7 +78,7 @@ describe("card-editor", () => {
 
     it("calls onMoveUp when move up is clicked", async () => {
         // Arrange
-        const onMoveUpMock = jest.fn();
+        const onMoveUpMock = vi.fn();
         renderCard({index: 1, onMoveUp: onMoveUpMock});
 
         // Act
@@ -92,7 +92,7 @@ describe("card-editor", () => {
 
     it("calls onMoveDown when move down is clicked", async () => {
         // Arrange
-        const onMoveDownMock = jest.fn();
+        const onMoveDownMock = vi.fn();
         renderCard({index: 1, onMoveDown: onMoveDownMock});
 
         // Act
@@ -106,7 +106,7 @@ describe("card-editor", () => {
 
     it("calls onDelete when delete is clicked", async () => {
         // Arrange
-        const onDeleteMock = jest.fn();
+        const onDeleteMock = vi.fn();
         renderCard({index: 1, onDelete: onDeleteMock});
 
         // Act

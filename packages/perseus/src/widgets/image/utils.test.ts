@@ -4,10 +4,11 @@ import {graphieImage} from "./__testdata__/image.testdata";
 import {decodeGifFrames, isGif, isSvg} from "./utils";
 
 import type {ParsedFrame} from "gifuct-js";
+import type {Mock} from "vitest";
 
-jest.mock("gifuct-js", () => ({
-    parseGIF: jest.fn(),
-    decompressFrames: jest.fn(),
+vi.mock("gifuct-js", () => ({
+    parseGIF: vi.fn(),
+    decompressFrames: vi.fn(),
 }));
 
 // A minimal fake frame from gifuct-js.
@@ -53,7 +54,7 @@ describe("isSvg", () => {
 
 describe("decodeGifFrames", () => {
     afterEach(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
     });
 
     //Essentially, we're mocking our functions in decodeGifFrames to return
@@ -62,16 +63,16 @@ describe("decodeGifFrames", () => {
         // Arrange
         const frames = [fakeFrame, fakeFrame];
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn(() =>
+        global.fetch = vi.fn(() =>
             Promise.resolve({
                 ok: true,
                 arrayBuffer: () => Promise.resolve(new ArrayBuffer(8)),
             }),
-        ) as jest.Mock;
+        ) as Mock;
         // eslint-disable-next-line no-restricted-syntax
-        (parseGIF as jest.Mock).mockReturnValue({});
+        (parseGIF as Mock).mockReturnValue({});
         // eslint-disable-next-line no-restricted-syntax
-        (decompressFrames as jest.Mock).mockReturnValue(frames);
+        (decompressFrames as Mock).mockReturnValue(frames);
 
         // Act
         const result = await decodeGifFrames("https://example.com/image.gif");
@@ -84,7 +85,7 @@ describe("decodeGifFrames", () => {
     it("returns an empty array when the fetch response is not ok", async () => {
         // Arrange
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn(() => Promise.resolve({ok: false})) as jest.Mock;
+        global.fetch = vi.fn(() => Promise.resolve({ok: false})) as Mock;
 
         // Act
         const result = await decodeGifFrames("https://example.com/image.gif");

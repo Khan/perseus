@@ -49,7 +49,7 @@ describe("ImageWidgetDiff", () => {
     });
 
     afterEach(() => {
-        jest.restoreAllMocks();
+        vi.restoreAllMocks();
         unmockImageLoading();
     });
 

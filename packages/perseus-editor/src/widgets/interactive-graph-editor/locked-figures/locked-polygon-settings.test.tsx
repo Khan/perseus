@@ -24,8 +24,8 @@ const defaultProps = {
 const defaultLabel = getDefaultFigureForType("label");
 
 // Mock the async functions
-jest.mock("./util", () => ({
-    ...jest.requireActual("./util"),
+vi.mock("./util", async () => ({
+    ...(await vi.importActual("./util")),
     generateSpokenMathDetails: (input) =>
         mockedGenerateSpokenMathDetailsForTests(input),
     joinLabelsAsSpokenMath: (input) =>
@@ -36,7 +36,7 @@ describe("LockedPolygonSettings", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
     });
     it("renders", () => {
@@ -164,7 +164,7 @@ describe("LockedPolygonSettings", () => {
 
     it("calls onToggle when header is clicked", async () => {
         // Arrange
-        const onToggle = jest.fn();
+        const onToggle = vi.fn();
         render(
             <LockedPolygonSettings {...defaultProps} onToggle={onToggle} />,
             {
@@ -184,7 +184,7 @@ describe("LockedPolygonSettings", () => {
 
     it("calls onChange when the whole polygon is moved up", async () => {
         // Arrange
-        const onChangeSpy = jest.fn();
+        const onChangeSpy = vi.fn();
         const initialLabel: LockedLabelType = {
             type: "label",
             coord: [0, 0],
@@ -227,7 +227,7 @@ describe("LockedPolygonSettings", () => {
 
     it("calls onChange when the whole polygon is moved down", async () => {
         // Arrange
-        const onChangeSpy = jest.fn();
+        const onChangeSpy = vi.fn();
         const initialLabel: LockedLabelType = {
             type: "label",
             coord: [0, 0],
@@ -270,7 +270,7 @@ describe("LockedPolygonSettings", () => {
 
     it("calls onChange when the whole polygon is moved left", async () => {
         // Arrange
-        const onChangeSpy = jest.fn();
+        const onChangeSpy = vi.fn();
         const initialLabel: LockedLabelType = {
             type: "label",
             coord: [0, 0],
@@ -313,7 +313,7 @@ describe("LockedPolygonSettings", () => {
 
     it("calls onChange when the whole polygon is moved right", async () => {
         // Arrange
-        const onChangeSpy = jest.fn();
+        const onChangeSpy = vi.fn();
         const initialLabel: LockedLabelType = {
             type: "label",
             coord: [0, 0],
@@ -356,7 +356,7 @@ describe("LockedPolygonSettings", () => {
 
     it("calls onChange when the weight is changed", async () => {
         // Arrange
-        const onChangeSpy = jest.fn();
+        const onChangeSpy = vi.fn();
         render(
             <LockedPolygonSettings
                 {...defaultProps}
@@ -379,7 +379,7 @@ describe("LockedPolygonSettings", () => {
 
     it("offers a 'none' stroke option (fill-only shading)", async () => {
         // Arrange
-        const onChangeSpy = jest.fn();
+        const onChangeSpy = vi.fn();
         render(
             <LockedPolygonSettings
                 {...defaultProps}
@@ -439,7 +439,7 @@ describe("LockedPolygonSettings", () => {
                     [1, 1],
                 ] satisfies Coord[];
 
-                const onChangeProps = jest.fn();
+                const onChangeProps = vi.fn();
                 render(
                     <LockedPolygonSettings
                         {...defaultProps}
@@ -482,7 +482,7 @@ describe("LockedPolygonSettings", () => {
 
         it("Updates the label color when the polygon color changes", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = vi.fn();
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
@@ -518,7 +518,7 @@ describe("LockedPolygonSettings", () => {
 
         it("Updates the label when the label text changes", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = vi.fn();
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
@@ -545,7 +545,7 @@ describe("LockedPolygonSettings", () => {
 
         it("Removes label when delete button is clicked", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = vi.fn();
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
@@ -574,7 +574,7 @@ describe("LockedPolygonSettings", () => {
 
         it("Adds a new label when the add label button is clicked", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = vi.fn();
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
@@ -637,7 +637,7 @@ describe("LockedPolygonSettings", () => {
 
         it("calls onChangeProps when the aria label is updated", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = vi.fn();
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
@@ -660,7 +660,7 @@ describe("LockedPolygonSettings", () => {
 
         it("aria label auto-generates (no labels)", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = vi.fn();
 
             // Act
             render(
@@ -691,7 +691,7 @@ describe("LockedPolygonSettings", () => {
 
         it("aria label auto-generates (one label)", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = vi.fn();
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
@@ -727,7 +727,7 @@ describe("LockedPolygonSettings", () => {
 
         it("aria label auto-generates (multiple labels)", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = vi.fn();
             render(
                 <LockedPolygonSettings
                     {...defaultProps}

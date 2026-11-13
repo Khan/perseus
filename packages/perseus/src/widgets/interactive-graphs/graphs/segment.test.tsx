@@ -50,7 +50,7 @@ const multipleGraphOverallLabel = "2 segments on a coordinate plane.";
 
 describe("Segment graph screen reader", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -294,7 +294,7 @@ describe("Segment graph screen reader", () => {
 
 describe("Segment graph pointLabels", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });

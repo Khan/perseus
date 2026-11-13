@@ -21,10 +21,10 @@ describe("grapher-editor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -38,7 +38,7 @@ describe("grapher-editor", () => {
     });
 
     it("preserves existing graph properties when GraphSettings onChange is called", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
         const graph: PerseusGrapherWidgetOptions["graph"] = {
             ...grapherLogic.defaultWidgetOptions.graph,
             box: [400, 400],

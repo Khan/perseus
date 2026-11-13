@@ -1,6 +1,6 @@
 import fs from "node:fs";
 
-import {describe, expect, it, jest, beforeEach} from "@jest/globals";
+import {describe, expect, it, vi, beforeEach} from "vitest";
 
 import * as CatalogHashUtils from "./catalog-hash-utils";
 import * as CheckForCatalogHashUpdate from "./check-for-catalog-hash-update";
@@ -10,12 +10,12 @@ import {updateCatalogHashes} from "./update-catalog-hashes";
 import type {PnpmWorkspace} from "./catalog-hash-utils";
 
 // Mock fs to prevent actual file writes
-jest.mock("node:fs");
+vi.mock("node:fs");
 
 describe("updateCatalogHashes", () => {
     beforeEach(() => {
-        jest.clearAllMocks();
-        jest.spyOn(console, "log").mockImplementation(() => {});
+        vi.clearAllMocks();
+        vi.spyOn(console, "log").mockImplementation(() => {});
     });
 
     const getMockPnpmWorkspace = (): PnpmWorkspace => ({
@@ -49,24 +49,19 @@ describe("updateCatalogHashes", () => {
     describe("package processing", () => {
         it("should process all package.json files", () => {
             // Arrange
-            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
+            vi.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
                 getMockPnpmWorkspace(),
             );
-            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
-                [
-                    "/mock/perseus/root/packages/package1/package.json",
-                    "/mock/perseus/root/packages/package2/package.json",
-                    "/mock/perseus/root/packages/package3/package.json",
-                ],
+            vi.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue([
+                "/mock/perseus/root/packages/package1/package.json",
+                "/mock/perseus/root/packages/package2/package.json",
+                "/mock/perseus/root/packages/package3/package.json",
+            ]);
+            vi.spyOn(fs, "readFileSync").mockReturnValue(getMockPackageJson());
+            vi.spyOn(GetCatalogDepsHash, "getCatalogDepsHash").mockReturnValue(
+                "new-hash-456",
             );
-            jest.spyOn(fs, "readFileSync").mockReturnValue(
-                getMockPackageJson(),
-            );
-            jest.spyOn(
-                GetCatalogDepsHash,
-                "getCatalogDepsHash",
-            ).mockReturnValue("new-hash-456");
-            const checkSpy = jest
+            const checkSpy = vi
                 .spyOn(CheckForCatalogHashUpdate, "checkForCatalogHashUpdate")
                 .mockReturnValue(false);
 
@@ -82,20 +77,17 @@ describe("updateCatalogHashes", () => {
             const packagePath =
                 "/mock/perseus/root/packages/package1/package.json";
             const mockPackageJson = JSON.parse(getMockPackageJson());
-            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
+            vi.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
                 getMockPnpmWorkspace(),
             );
-            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
-                [packagePath],
+            vi.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue([
+                packagePath,
+            ]);
+            vi.spyOn(fs, "readFileSync").mockReturnValue(getMockPackageJson());
+            vi.spyOn(GetCatalogDepsHash, "getCatalogDepsHash").mockReturnValue(
+                "new-hash-456",
             );
-            jest.spyOn(fs, "readFileSync").mockReturnValue(
-                getMockPackageJson(),
-            );
-            jest.spyOn(
-                GetCatalogDepsHash,
-                "getCatalogDepsHash",
-            ).mockReturnValue("new-hash-456");
-            const checkSpy = jest
+            const checkSpy = vi
                 .spyOn(CheckForCatalogHashUpdate, "checkForCatalogHashUpdate")
                 .mockReturnValue(false);
 
@@ -114,26 +106,21 @@ describe("updateCatalogHashes", () => {
     describe("dry-run mode", () => {
         it("should show dry-run message when no updates are needed", () => {
             // Arrange
-            const consoleLogSpy = jest
+            const consoleLogSpy = vi
                 .spyOn(console, "log")
                 .mockImplementation(() => {});
-            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
+            vi.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
                 getMockPnpmWorkspace(),
             );
-            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
-                [
-                    "/mock/perseus/root/packages/package1/package.json",
-                    "/mock/perseus/root/packages/package2/package.json",
-                ],
+            vi.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue([
+                "/mock/perseus/root/packages/package1/package.json",
+                "/mock/perseus/root/packages/package2/package.json",
+            ]);
+            vi.spyOn(fs, "readFileSync").mockReturnValue(getMockPackageJson());
+            vi.spyOn(GetCatalogDepsHash, "getCatalogDepsHash").mockReturnValue(
+                "new-hash-456",
             );
-            jest.spyOn(fs, "readFileSync").mockReturnValue(
-                getMockPackageJson(),
-            );
-            jest.spyOn(
-                GetCatalogDepsHash,
-                "getCatalogDepsHash",
-            ).mockReturnValue("new-hash-456");
-            jest.spyOn(
+            vi.spyOn(
                 CheckForCatalogHashUpdate,
                 "checkForCatalogHashUpdate",
             ).mockReturnValue(false);
@@ -149,27 +136,22 @@ describe("updateCatalogHashes", () => {
 
         it("should show dry-run message when updates are needed", () => {
             // Arrange
-            const consoleLogSpy = jest
+            const consoleLogSpy = vi
                 .spyOn(console, "log")
                 .mockImplementation(() => {});
-            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
+            vi.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
                 getMockPnpmWorkspace(),
             );
-            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
-                [
-                    "/mock/perseus/root/packages/package1/package.json",
-                    "/mock/perseus/root/packages/package2/package.json",
-                    "/mock/perseus/root/packages/package3/package.json",
-                ],
+            vi.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue([
+                "/mock/perseus/root/packages/package1/package.json",
+                "/mock/perseus/root/packages/package2/package.json",
+                "/mock/perseus/root/packages/package3/package.json",
+            ]);
+            vi.spyOn(fs, "readFileSync").mockReturnValue(getMockPackageJson());
+            vi.spyOn(GetCatalogDepsHash, "getCatalogDepsHash").mockReturnValue(
+                "new-hash-456",
             );
-            jest.spyOn(fs, "readFileSync").mockReturnValue(
-                getMockPackageJson(),
-            );
-            jest.spyOn(
-                GetCatalogDepsHash,
-                "getCatalogDepsHash",
-            ).mockReturnValue("new-hash-456");
-            jest.spyOn(CheckForCatalogHashUpdate, "checkForCatalogHashUpdate")
+            vi.spyOn(CheckForCatalogHashUpdate, "checkForCatalogHashUpdate")
                 .mockReturnValueOnce(true)
                 .mockReturnValueOnce(false)
                 .mockReturnValueOnce(true);
@@ -185,24 +167,21 @@ describe("updateCatalogHashes", () => {
 
         it("should not write files in dry-run mode", () => {
             // Arrange
-            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
+            vi.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
                 getMockPnpmWorkspace(),
             );
-            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
-                ["/mock/perseus/root/packages/package1/package.json"],
+            vi.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue([
+                "/mock/perseus/root/packages/package1/package.json",
+            ]);
+            vi.spyOn(fs, "readFileSync").mockReturnValue(getMockPackageJson());
+            vi.spyOn(GetCatalogDepsHash, "getCatalogDepsHash").mockReturnValue(
+                "new-hash-456",
             );
-            jest.spyOn(fs, "readFileSync").mockReturnValue(
-                getMockPackageJson(),
-            );
-            jest.spyOn(
-                GetCatalogDepsHash,
-                "getCatalogDepsHash",
-            ).mockReturnValue("new-hash-456");
-            jest.spyOn(
+            vi.spyOn(
                 CheckForCatalogHashUpdate,
                 "checkForCatalogHashUpdate",
             ).mockReturnValue(true);
-            const writeFileSpy = jest
+            const writeFileSpy = vi
                 .spyOn(fs, "writeFileSync")
                 .mockImplementation(() => {});
 
@@ -217,26 +196,21 @@ describe("updateCatalogHashes", () => {
     describe("normal mode", () => {
         it("should show success message when no updates are needed", () => {
             // Arrange
-            const consoleLogSpy = jest
+            const consoleLogSpy = vi
                 .spyOn(console, "log")
                 .mockImplementation(() => {});
-            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
+            vi.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
                 getMockPnpmWorkspace(),
             );
-            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
-                [
-                    "/mock/perseus/root/packages/package1/package.json",
-                    "/mock/perseus/root/packages/package2/package.json",
-                ],
+            vi.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue([
+                "/mock/perseus/root/packages/package1/package.json",
+                "/mock/perseus/root/packages/package2/package.json",
+            ]);
+            vi.spyOn(fs, "readFileSync").mockReturnValue(getMockPackageJson());
+            vi.spyOn(GetCatalogDepsHash, "getCatalogDepsHash").mockReturnValue(
+                "new-hash-456",
             );
-            jest.spyOn(fs, "readFileSync").mockReturnValue(
-                getMockPackageJson(),
-            );
-            jest.spyOn(
-                GetCatalogDepsHash,
-                "getCatalogDepsHash",
-            ).mockReturnValue("new-hash-456");
-            jest.spyOn(
+            vi.spyOn(
                 CheckForCatalogHashUpdate,
                 "checkForCatalogHashUpdate",
             ).mockReturnValue(false);
@@ -252,31 +226,26 @@ describe("updateCatalogHashes", () => {
 
         it("should show success message when updates are made", () => {
             // Arrange
-            const consoleLogSpy = jest
+            const consoleLogSpy = vi
                 .spyOn(console, "log")
                 .mockImplementation(() => {});
-            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
+            vi.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
                 getMockPnpmWorkspace(),
             );
-            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
-                [
-                    "/mock/perseus/root/packages/package1/package.json",
-                    "/mock/perseus/root/packages/package2/package.json",
-                    "/mock/perseus/root/packages/package3/package.json",
-                ],
+            vi.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue([
+                "/mock/perseus/root/packages/package1/package.json",
+                "/mock/perseus/root/packages/package2/package.json",
+                "/mock/perseus/root/packages/package3/package.json",
+            ]);
+            vi.spyOn(fs, "readFileSync").mockReturnValue(getMockPackageJson());
+            vi.spyOn(GetCatalogDepsHash, "getCatalogDepsHash").mockReturnValue(
+                "new-hash-456",
             );
-            jest.spyOn(fs, "readFileSync").mockReturnValue(
-                getMockPackageJson(),
-            );
-            jest.spyOn(
-                GetCatalogDepsHash,
-                "getCatalogDepsHash",
-            ).mockReturnValue("new-hash-456");
-            jest.spyOn(CheckForCatalogHashUpdate, "checkForCatalogHashUpdate")
+            vi.spyOn(CheckForCatalogHashUpdate, "checkForCatalogHashUpdate")
                 .mockReturnValueOnce(true)
                 .mockReturnValueOnce(false)
                 .mockReturnValueOnce(true);
-            jest.spyOn(fs, "writeFileSync").mockImplementation(() => {});
+            vi.spyOn(fs, "writeFileSync").mockImplementation(() => {});
 
             // Act
             updateCatalogHashes(false);
@@ -289,24 +258,21 @@ describe("updateCatalogHashes", () => {
 
         it("should write files when updates are needed", () => {
             // Arrange
-            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
+            vi.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
                 getMockPnpmWorkspace(),
             );
-            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
-                ["/mock/perseus/root/packages/package1/package.json"],
+            vi.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue([
+                "/mock/perseus/root/packages/package1/package.json",
+            ]);
+            vi.spyOn(fs, "readFileSync").mockReturnValue(getMockPackageJson());
+            vi.spyOn(GetCatalogDepsHash, "getCatalogDepsHash").mockReturnValue(
+                "new-hash-456",
             );
-            jest.spyOn(fs, "readFileSync").mockReturnValue(
-                getMockPackageJson(),
-            );
-            jest.spyOn(
-                GetCatalogDepsHash,
-                "getCatalogDepsHash",
-            ).mockReturnValue("new-hash-456");
-            jest.spyOn(
+            vi.spyOn(
                 CheckForCatalogHashUpdate,
                 "checkForCatalogHashUpdate",
             ).mockReturnValue(true);
-            const writeFileSpy = jest
+            const writeFileSpy = vi
                 .spyOn(fs, "writeFileSync")
                 .mockImplementation(() => {});
 
@@ -321,19 +287,17 @@ describe("updateCatalogHashes", () => {
     describe("verbose mode", () => {
         it("should pass verbose flag to getCatalogDepsHash", () => {
             // Arrange
-            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
+            vi.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
                 getMockPnpmWorkspace(),
             );
-            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
-                ["/mock/perseus/root/packages/package1/package.json"],
-            );
-            jest.spyOn(fs, "readFileSync").mockReturnValue(
-                getMockPackageJson(),
-            );
-            const getCatalogDepsHashSpy = jest
+            vi.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue([
+                "/mock/perseus/root/packages/package1/package.json",
+            ]);
+            vi.spyOn(fs, "readFileSync").mockReturnValue(getMockPackageJson());
+            const getCatalogDepsHashSpy = vi
                 .spyOn(GetCatalogDepsHash, "getCatalogDepsHash")
                 .mockReturnValue("new-hash-456");
-            jest.spyOn(
+            vi.spyOn(
                 CheckForCatalogHashUpdate,
                 "checkForCatalogHashUpdate",
             ).mockReturnValue(false);
@@ -353,16 +317,16 @@ describe("updateCatalogHashes", () => {
     describe("integration scenarios", () => {
         it("should handle empty package list", () => {
             // Arrange
-            const consoleLogSpy = jest
+            const consoleLogSpy = vi
                 .spyOn(console, "log")
                 .mockImplementation(() => {});
-            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
+            vi.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
                 getMockPnpmWorkspace(),
             );
-            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
+            vi.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
                 [],
             );
-            const checkSpy = jest
+            const checkSpy = vi
                 .spyOn(CheckForCatalogHashUpdate, "checkForCatalogHashUpdate")
                 .mockReturnValue(false);
 
@@ -378,20 +342,17 @@ describe("updateCatalogHashes", () => {
 
         it("should process all packages found by findAllPackageJsons", () => {
             // Arrange
-            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
+            vi.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
                 getMockPnpmWorkspace(),
             );
-            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
-                ["/mock/perseus/root/packages/package1/package.json"],
+            vi.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue([
+                "/mock/perseus/root/packages/package1/package.json",
+            ]);
+            vi.spyOn(fs, "readFileSync").mockReturnValue(getMockPackageJson());
+            vi.spyOn(GetCatalogDepsHash, "getCatalogDepsHash").mockReturnValue(
+                "new-hash-456",
             );
-            jest.spyOn(fs, "readFileSync").mockReturnValue(
-                getMockPackageJson(),
-            );
-            jest.spyOn(
-                GetCatalogDepsHash,
-                "getCatalogDepsHash",
-            ).mockReturnValue("new-hash-456");
-            const checkSpy = jest
+            const checkSpy = vi
                 .spyOn(CheckForCatalogHashUpdate, "checkForCatalogHashUpdate")
                 .mockReturnValue(false);
 

@@ -61,7 +61,7 @@ describe("hasFocusVisible", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
     });
 
@@ -134,7 +134,7 @@ describe.each`
     ${"Unlimited (open)"}   | ${baseUnlimitedPolygonStateOpen}
 `("$polygonType Polygon screen reader full graph", ({polygonState}) => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -206,7 +206,7 @@ describe.each`
     "$polygonType Polygon screen reader interactive elements",
     ({polygonState}) => {
         beforeEach(() => {
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
                 testDependencies,
             );
         });
@@ -313,7 +313,7 @@ describe.each`
 
 describe("Unlimited Polygon (open) screen reader", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -485,7 +485,7 @@ describe.each`
     ${"Unlimited (open)"}   | ${baseUnlimitedPolygonStateOpen}
 `("$polygonType Polygon pointLabels", ({polygonState}) => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -713,11 +713,11 @@ describe("Angle indicators", () => {
     ] satisfies vec.Vector2[];
 
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
         // Clear any previous calls to the mock
-        jest.clearAllMocks();
+        vi.clearAllMocks();
     });
 
     it("should show correct angles for concave polygons when the points are clockwise", () => {

@@ -13,16 +13,16 @@ describe("dropdown-editor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
     it("should be possible to modify placeholder text", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
 
         render(<DropdownEditor onChange={onChangeMock} />);
 
@@ -35,7 +35,7 @@ describe("dropdown-editor", () => {
     });
 
     it("should be possible to delete choice", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
 
         render(<DropdownEditor onChange={onChangeMock} />);
 
@@ -49,7 +49,7 @@ describe("dropdown-editor", () => {
     });
 
     it("should be possible to add choice", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = vi.fn();
 
         render(<DropdownEditor onChange={onChangeMock} />);
 

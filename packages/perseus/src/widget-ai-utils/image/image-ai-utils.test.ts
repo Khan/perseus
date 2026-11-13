@@ -5,6 +5,7 @@ import {renderQuestion} from "../../__testutils__/render-question";
 import {getPromptJSON} from "./image-ai-utils";
 
 import type {ImageWidget} from "@khanacademy/perseus-core";
+import type {Mock} from "vitest";
 
 const question = {
     content:
@@ -45,12 +46,12 @@ describe("Image AI utils", () => {
     beforeEach(() => {
         // Mocked for loading graphie in svg-image
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn(() =>
+        global.fetch = vi.fn(() =>
             Promise.resolve({
                 text: () => "",
                 ok: true,
             }),
-        ) as jest.Mock;
+        ) as Mock;
     });
 
     it("it returns JSON with the expected format and fields", () => {

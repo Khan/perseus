@@ -8,7 +8,7 @@ import type {PerseusTableUserInput} from "@khanacademy/perseus-core";
 describe("scoreTable", () => {
     it("should be correctly answerable if validation passes", function () {
         // Arrange
-        const mockValidator = jest
+        const mockValidator = vi
             .spyOn(TableValidator, "default")
             .mockReturnValue(null);
 
@@ -34,7 +34,7 @@ describe("scoreTable", () => {
 
     it("should return 'empty' result if validation fails", function () {
         // Arrange
-        const mockValidator = jest
+        const mockValidator = vi
             .spyOn(TableValidator, "default")
             .mockReturnValue({type: "invalid", message: null});
 

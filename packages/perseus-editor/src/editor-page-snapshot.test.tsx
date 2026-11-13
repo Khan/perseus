@@ -30,7 +30,7 @@ describe("EditorPage", () => {
     });
 
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        vi.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
         Dependencies.setDependencies(testDependencies);

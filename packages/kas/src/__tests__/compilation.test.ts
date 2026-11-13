@@ -5,11 +5,7 @@ type Variables = {
 };
 
 expect.extend({
-    toCompileAs(
-        input: string,
-        expected: number,
-        vars: Variables = {},
-    ): jest.CustomMatcherResult {
+    toCompileAs(input: string, expected: number, vars: Variables = {}) {
         const functions = Object.keys(vars).filter(
             (k) => typeof vars[k] === "function",
         );
@@ -28,13 +24,17 @@ expect.extend({
 });
 
 // TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
-declare global {
-    // eslint-disable-next-line @typescript-eslint/no-namespace
-    namespace jest {
-        interface Matchers<R> {
-            toCompileAs(expected: number, vars?: Variables): R;
-        }
-    }
+interface CustomMatchers<R = unknown> {
+    toCompileAs(expected: number, vars?: Variables): R;
+}
+
+declare module "vitest" {
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- vitest custom matcher augmentation
+    interface Matchers<
+        R extends void | Promise<void> = void | Promise<void>,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars -- must match vitest's declaration
+        T = unknown,
+    > extends CustomMatchers<R> {}
 }
 
 describe("compilation", () => {

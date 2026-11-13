@@ -11,20 +11,20 @@ describe("Marker", () => {
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: vi.advanceTimersByTime,
         });
-        jest.useFakeTimers();
+        vi.useFakeTimers();
     });
 
     afterEach(() => {
-        jest.useRealTimers();
+        vi.useRealTimers();
     });
 
     describe("component rendering", () => {
         it("renders an empty marker", async () => {
             // Arrange
-            const onChange = jest.fn();
-            const onRemove = jest.fn();
+            const onChange = vi.fn();
+            const onRemove = vi.fn();
 
             // Act
             // `baseElement` (document.body) rather than `container`, because
@@ -54,8 +54,8 @@ describe("Marker", () => {
 
         it("renders with answers and choices", async () => {
             // Arrange
-            const onChange = jest.fn();
-            const onRemove = jest.fn();
+            const onChange = vi.fn();
+            const onRemove = vi.fn();
 
             // Act
             // `baseElement` (document.body) rather than `container`, because
