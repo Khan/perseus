@@ -3,7 +3,7 @@ import * as React from "react";
 
 import styles from "./legend-bar.module.css";
 
-import type {SorterLegendCap} from "../legend-types";
+import type {SorterLegendCap} from "@khanacademy/perseus-core";
 
 type LegendBarOrientation = "horizontal" | "vertical";
 

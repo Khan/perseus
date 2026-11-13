@@ -11,7 +11,9 @@ export const mockImageLoading = (options?: {
 }) => {
     const originalImage = window.Image;
 
-    const mockImage = jest.fn(() => {
+    // A `function`, not an arrow: the code under test calls `new Image()`,
+    // and some test runners construct a mock's implementation with `new`.
+    const mockImage = jest.fn(function () {
         // eslint-disable-next-line no-restricted-syntax
         const img = {
             naturalWidth: options?.naturalWidth,

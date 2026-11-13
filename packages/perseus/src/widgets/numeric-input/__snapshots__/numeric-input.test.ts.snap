@@ -8,8 +8,9 @@ exports[`Numeric input widget styles differently on mobile: mobile render 1`] = 
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <span
           style="white-space: nowrap;"
@@ -63,7 +64,7 @@ exports[`Numeric input widget styles differently on mobile: mobile render 1`] = 
           </span>
         </span>
          
-      </p>
+      </div>
     </div>
   </div>
 </div>
@@ -77,8 +78,9 @@ exports[`numeric-input widget Should render predictably: after interaction 1`] =
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <span
           style="white-space: nowrap;"
@@ -125,7 +127,7 @@ exports[`numeric-input widget Should render predictably: after interaction 1`] =
           </span>
         </span>
          
-      </p>
+      </div>
     </div>
   </div>
 </div>
@@ -139,8 +141,9 @@ exports[`numeric-input widget Should render predictably: first render 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <span
           style="white-space: nowrap;"
@@ -187,7 +190,7 @@ exports[`numeric-input widget Should render predictably: first render 1`] = `
           </span>
         </span>
          
-      </p>
+      </div>
     </div>
   </div>
 </div>
@@ -201,8 +204,9 @@ exports[`numeric-input widget Should render tooltip as list when multiple format
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <span
           style="white-space: nowrap;"
@@ -255,7 +259,7 @@ a mixed number (like 1 and 3/4 or 2 and 5/6)
           </span>
         </span>
          
-      </p>
+      </div>
     </div>
   </div>
 </div>
@@ -269,8 +273,9 @@ exports[`numeric-input widget Should render tooltip using only correct answer fo
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <span
           style="white-space: nowrap;"
@@ -321,7 +326,7 @@ exports[`numeric-input widget Should render tooltip using only correct answer fo
           </span>
         </span>
          
-      </p>
+      </div>
     </div>
   </div>
 </div>
@@ -335,8 +340,9 @@ exports[`numeric-input widget Should render tooltip when format option is given:
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <span
           style="white-space: nowrap;"
@@ -387,7 +393,7 @@ exports[`numeric-input widget Should render tooltip when format option is given:
           </span>
         </span>
          
-      </p>
+      </div>
     </div>
   </div>
 </div>

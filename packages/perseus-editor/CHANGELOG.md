@@ -1,5 +1,23 @@
 # @khanacademy/perseus-editor
 
+## 45.1.0
+
+### Minor Changes
+
+-   [#4511](https://github.com/Khan/perseus/pull/4511) [`aa65a1f`](https://github.com/Khan/perseus/commit/aa65a1f73488da6067c5a82bfac225c23e744074) Thanks [@benchristel](https://github.com/benchristel)! - Dropped support for the deprecated 'columns' markdown parse node type. The column separator '=====' is now ignored, and has no effect on rendered content.
+
+### Patch Changes
+
+-   [#4506](https://github.com/Khan/perseus/pull/4506) [`9aeea31`](https://github.com/Khan/perseus/commit/9aeea3171a295944fa1efce84f7337a88faeecf2) Thanks [@benchristel](https://github.com/benchristel)! - Internal: deleted unused CSS
+
+-   Updated dependencies [[`07110c6`](https://github.com/Khan/perseus/commit/07110c6393ee705660e959f2b438734261de3b0c), [`043173f`](https://github.com/Khan/perseus/commit/043173f00fc5a794113890ff5bb12aaa2128886f), [`33928d6`](https://github.com/Khan/perseus/commit/33928d642696436ccfd13a5ba8886710f4a55201), [`26b5931`](https://github.com/Khan/perseus/commit/26b593173902e19d5578ed84a8f373f5ca3a8534), [`b337344`](https://github.com/Khan/perseus/commit/b33734424004d4ba1999ff4549ba09f3f734af1f), [`0782684`](https://github.com/Khan/perseus/commit/0782684495ed6a2a588248f67b0a569193f51009), [`aa65a1f`](https://github.com/Khan/perseus/commit/aa65a1f73488da6067c5a82bfac225c23e744074), [`d5d3257`](https://github.com/Khan/perseus/commit/d5d3257f6c7b83b1b907ab1ae3a0b6dcd5d0a44b), [`19a9701`](https://github.com/Khan/perseus/commit/19a97013673b8ecd50b8e953a9d8ed2504cd531a), [`f73dbd1`](https://github.com/Khan/perseus/commit/f73dbd129bc30dc8261b9fe8da8746a0a6e0ece8), [`043beb2`](https://github.com/Khan/perseus/commit/043beb248736b12c0bf3d7527eee1f59260c21a7), [`f343966`](https://github.com/Khan/perseus/commit/f34396603982ccbd69ffe2fd784f46dbde0f27d0), [`3d90cad`](https://github.com/Khan/perseus/commit/3d90cade198d395d563f01332d4d9788e3251f78), [`b092f46`](https://github.com/Khan/perseus/commit/b092f4657f151edb98f84c9ed29eb7384a4e7e20), [`61b57d2`](https://github.com/Khan/perseus/commit/61b57d23d264d31776a4a5e0a41c479f53e6ccd0), [`c493a2b`](https://github.com/Khan/perseus/commit/c493a2b3c9f4a676368c4144622d03f0e40917e2), [`cab6677`](https://github.com/Khan/perseus/commit/cab6677530a2c1d66df841beccc7ee9b91374d3f), [`49c8b4d`](https://github.com/Khan/perseus/commit/49c8b4d7780ae9aeab10b29e822985e63501c833), [`067c806`](https://github.com/Khan/perseus/commit/067c80623d9dc16ed0e655158d1a66958ad9bff8)]:
+    -   @khanacademy/perseus@93.1.0
+    -   @khanacademy/perseus-linter@8.0.1
+    -   @khanacademy/perseus-core@42.3.0
+    -   @khanacademy/keypad-context@6.0.13
+    -   @khanacademy/kmath@3.1.6
+    -   @khanacademy/math-input@30.2.3
+
 ## 45.0.7
 
 ### Patch Changes

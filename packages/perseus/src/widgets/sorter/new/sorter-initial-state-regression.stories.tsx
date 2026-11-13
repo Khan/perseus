@@ -12,15 +12,13 @@ import {
     rtlDecorator,
 } from "../../__testutils__/story-decorators";
 
-import type {SorterLegend} from "../legend/legend-types";
-import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    PerseusSorterWidgetOptions,
+    SorterLegend,
+} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-// TODO(anakaren): Drop the `{legend?: SorterLegend}` addition once the legend schema adds it
-// to PerseusSorterWidgetOptions.
-type SorterStoryArgs = PerseusSorterWidgetOptions & {legend?: SorterLegend};
-
-const meta: Meta<SorterStoryArgs> = {
+const meta: Meta<PerseusSorterWidgetOptions> = {
     title: "Widgets/Sorter/Visual Regression Tests/Drag and Drop",
     tags: ["!autodocs", "!manifest"],
     globals: {featureFlags: ["dnd-widget-sorter"]},

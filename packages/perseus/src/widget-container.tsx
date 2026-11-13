@@ -25,10 +25,8 @@ const widgetsNeedingOverlay: string[] = [
     "input-number",
     "matcher",
     "matrix",
-    "number-line",
     "numeric-input",
     "orderer",
-    "plotter",
     "sorter",
     "table",
 ];

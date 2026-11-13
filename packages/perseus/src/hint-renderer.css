@@ -1,0 +1,11 @@
+@layer perseus-base {
+    .perseus-hint-renderer {
+        /* TODO: Remove the selector with deprecated-perseus-container once it is removed from the renderer. */
+        :nth-child(1 of .perseus-renderer)
+            > .deprecated-perseus-container:first-child
+            > :first-child,
+        :nth-child(1 of .perseus-renderer) > :first-child {
+            margin-block-start: 0;
+        }
+    }
+}

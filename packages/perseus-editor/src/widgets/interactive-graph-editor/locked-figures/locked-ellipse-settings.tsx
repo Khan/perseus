@@ -195,7 +195,7 @@ const LockedEllipseSettings = (props: Props) => {
                 />
                 <View className={styles.spaceUnder}>
                     <InfoTip>
-                        The coordinates for the center of the ellipse.
+                        <p>The coordinates for the center of the ellipse.</p>
                     </InfoTip>
                 </View>
             </View>

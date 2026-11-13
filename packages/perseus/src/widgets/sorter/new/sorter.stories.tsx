@@ -16,8 +16,7 @@ import {
     twoCardVerticalQuestion,
 } from "../sorter.testdata";
 
-import type {SorterLegend} from "../legend/legend-types";
-import type {PerseusItem} from "@khanacademy/perseus-core";
+import type {PerseusItem, SorterLegend} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 type StoryArgs = {
@@ -80,15 +79,11 @@ type LegendStoryArgs = SorterLegend & {layout: "horizontal" | "vertical"};
 
 function generateItemWithLegend(args: LegendStoryArgs): PerseusItem {
     const {layout, ...legend} = args;
-    // The legend isn't in the schema yet, so it's added next to the
-    // generated options rather than through generateSorterOptions.
-    const options = {
-        ...generateSorterOptions({
-            correct: ["Car loan", "Student loan", "Credit card"],
-            layout,
-        }),
+    const options = generateSorterOptions({
+        correct: ["Car loan", "Student loan", "Credit card"],
+        layout,
         legend,
-    };
+    });
 
     return generateTestPerseusItem({
         question: generateTestPerseusRenderer({

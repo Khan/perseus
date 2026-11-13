@@ -20,7 +20,6 @@ function inputs(
         deviceType: "phone",
         highlightLint: true,
         problemNum: 1,
-        legacyPerseusLint: ["warning 1"],
         ...overrides,
     };
 }
@@ -41,7 +40,6 @@ describe("createPreviewContentDeriver", () => {
             type: "question",
             data: {
                 question: stableQuestion,
-                legacyPerseusLint: ["warning 1"],
                 problemNum: 1,
             },
         });
@@ -61,26 +59,6 @@ describe("createPreviewContentDeriver", () => {
 
         const first = derive(inputs());
         const second = derive(inputs({question: question("different")}));
-
-        expect(second).not.toBe(first);
-    });
-
-    it("returns the same reference when legacyPerseusLint is a new array with the same contents", () => {
-        const derive = createPreviewContentDeriver();
-
-        const first = derive(inputs({legacyPerseusLint: ["warning 1"]}));
-        const second = derive(inputs({legacyPerseusLint: ["warning 1"]}));
-
-        expect(second).toBe(first);
-    });
-
-    it("returns a new reference when legacyPerseusLint's contents change", () => {
-        const derive = createPreviewContentDeriver();
-
-        const first = derive(inputs({legacyPerseusLint: ["warning 1"]}));
-        const second = derive(
-            inputs({legacyPerseusLint: ["warning 1", "warning 2"]}),
-        );
 
         expect(second).not.toBe(first);
     });

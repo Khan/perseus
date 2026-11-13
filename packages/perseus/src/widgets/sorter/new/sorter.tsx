@@ -13,6 +13,7 @@ import {ChoiceBank} from "../../../components/drag-and-drop/choice-bank";
 import {PerseusDndProvider} from "../../../components/drag-and-drop/perseus-dnd-provider";
 import {tempDndStrings} from "../../../components/drag-and-drop/temp-strings";
 import {isTileInBank} from "../../../components/drag-and-drop/tile-placements";
+import {useSpokenLabels} from "../../../components/drag-and-drop/use-spoken-labels";
 import {useTileMoveActions} from "../../../components/drag-and-drop/use-tile-move-actions";
 import UnsupportedWidgetMessage from "../../../components/unsupported-widget-message";
 import {useDependencies} from "../../../dependencies";
@@ -26,18 +27,13 @@ import type {MoveTarget} from "../../../components/drag-and-drop/dnd-action-menu
 import type {TilePlacements} from "../../../components/drag-and-drop/tile-placements";
 import type {Widget, WidgetProps} from "../../../types";
 import type {SorterPromptJSON} from "../../../widget-ai-utils/sorter/sorter-ai-utils";
-import type {SorterLegend} from "../legend/legend-types";
 import type {
     PerseusSorterWidgetOptions,
     PerseusSorterUserInput,
+    SorterLegend,
 } from "@khanacademy/perseus-core";
 
-// TODO(anakaren): Drop the `{legend?: SorterLegend}` addition once the legend schema adds it
-// to PerseusSorterWidgetOptions.
-type Props = WidgetProps<
-    PerseusSorterWidgetOptions & {legend?: SorterLegend},
-    PerseusSorterUserInput
->;
+type Props = WidgetProps<PerseusSorterWidgetOptions, PerseusSorterUserInput>;
 
 function getBlankId(index: number): string {
     return `blank-${index}`;
@@ -92,12 +88,15 @@ const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
 
     const tileIds = bankOrder.map((_, index) => getTileId(index));
 
+    // for TeX and screen reader support
+    const tileLabels = useSpokenLabels(bankOrder);
+
     function getTileContent(tileId: string): string {
         return bankOrder[tileIds.indexOf(tileId)];
     }
 
     function getTileLabel(tileId: string): string {
-        return getTileContent(tileId);
+        return tileLabels[tileIds.indexOf(tileId)];
     }
 
     function getBlankLabel(blankId: string): string {

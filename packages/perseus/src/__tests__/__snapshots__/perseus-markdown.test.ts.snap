@@ -361,7 +361,6 @@ exports[`perseus markdown parser with linter should lint unescaped dollars in ti
 [
   {
     "table": {
-      "blockHighlight": undefined,
       "content": {
         "align": [
           null,
@@ -398,7 +397,6 @@ exports[`perseus markdown parser with linter should lint unescaped dollars in ti
             ],
             [
               {
-                "blockHighlight": undefined,
                 "content": {
                   "type": "unescapedDollar",
                 },

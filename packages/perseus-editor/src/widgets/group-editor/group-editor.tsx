@@ -12,17 +12,10 @@ class GroupEditor extends React.Component<Props> {
     static defaultProps: PerseusGroupWidgetOptions =
         groupLogic.defaultWidgetOptions;
 
-    editor = React.createRef<Editor>();
-
-    getSaveWarnings: () => ReadonlyArray<any> = () => {
-        return this.editor.current?.getSaveWarnings();
-    };
-
     render(): React.ReactNode {
         return (
             <div className="perseus-group-editor">
                 <Editor
-                    ref={this.editor}
                     content={this.props.content}
                     widgets={this.props.widgets}
                     apiOptions={this.props.apiOptions}

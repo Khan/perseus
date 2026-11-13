@@ -36,7 +36,7 @@ import {ApiOptions, ClassNames as ApiClassNames} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown";
 import QuestionParagraph from "./question-paragraph";
 import TranslationLinter from "./translation-linter";
-import Util, {isContentGraphie, noParagraphForInlineWidget} from "./util";
+import Util, {isContentGraphie} from "./util";
 import {containerSizeClass} from "./util/sizing-utils";
 import preprocessTex from "./util/tex-preprocess";
 import WidgetContainer from "./widget-container";
@@ -154,8 +154,6 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
      * the linter and any warnings will be highlighted in the rendered output.
      */
     linterContext: LinterContextProps;
-
-    legacyPerseusLint?: ReadonlyArray<string>;
 
     /**
      *  Skip adding paragraph class
@@ -955,17 +953,17 @@ class Renderer
                 );
             }
 
-            if (noParagraphForInlineWidget(node)) {
-                // Some widgets can appear inline with text, but
-                // shouldn't be contained by a <p> element, so just render the
-                // content and let the parent handle layout, etc.
-                return content;
-            }
-
+            // Some widgets can appear inline with text, but
+            // shouldn't be contained by a <p> element (invalid HTML),
+            // so set the role of the container to "paragraph".
             return (
-                <p key={state.key} className="deprecated-perseus-container">
+                <div
+                    role="paragraph"
+                    key={state.key}
+                    className="deprecated-perseus-container"
+                >
                     {content}
-                </p>
+                </div>
             );
         }
         if (node.type === "widget") {
@@ -1598,10 +1596,10 @@ class Renderer
             PerseusLinter.runLinter(parsedMarkdown, fullLinterContext, true);
 
             // Apply the lint errors from the last TranslationLinter run.
-            this._translationLinter.applyLintErrors(parsedMarkdown, [
-                ...this.state.translationLintErrors,
-                ...(this.props.legacyPerseusLint || []),
-            ]);
+            this._translationLinter.applyLintErrors(
+                parsedMarkdown,
+                this.state.translationLintErrors,
+            );
         }
 
         // Render the linted markdown parse tree with React components

@@ -66,8 +66,9 @@ exports[`group widget should snapshot: initial render 1`] = `
               <div
                 class="deprecated-perseus-container"
               >
-                <p
+                <div
                   class="deprecated-perseus-container"
+                  role="paragraph"
                 >
                   <strong>
                     In one week, how many more hours are in the periods with a 
@@ -84,7 +85,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                     </span>
                      percent discount than in the periods with the regular price?
                   </strong>
-                </p>
+                </div>
               </div>
               <div
                 class="deprecated-perseus-container"
@@ -385,8 +386,9 @@ exports[`group widget should snapshot: initial render 1`] = `
               <div
                 class="deprecated-perseus-container"
               >
-                <p
+                <div
                   class="deprecated-perseus-container"
+                  role="paragraph"
                 >
                   <strong>
                     What is 
@@ -404,13 +406,14 @@ exports[`group widget should snapshot: initial render 1`] = `
                      rounded to the nearest ten?
                   </strong>
                      
-                </p>
+                </div>
               </div>
               <div
                 class="deprecated-perseus-container"
               >
-                <p
+                <div
                   class="deprecated-perseus-container"
+                  role="paragraph"
                 >
                   <span
                     class="deprecated-perseus-container"
@@ -444,13 +447,14 @@ exports[`group widget should snapshot: initial render 1`] = `
                       />
                     </span>
                   </span>
-                </p>
+                </div>
               </div>
               <div
                 class="deprecated-perseus-container"
               >
-                <p
+                <div
                   class="deprecated-perseus-container"
+                  role="paragraph"
                 >
                   <strong>
                     What is 
@@ -468,13 +472,14 @@ exports[`group widget should snapshot: initial render 1`] = `
                      rounded to the nearest hundred?
                   </strong>
                      
-                </p>
+                </div>
               </div>
               <div
                 class="deprecated-perseus-container"
               >
-                <p
+                <div
                   class="deprecated-perseus-container"
+                  role="paragraph"
                 >
                   <span
                     class="deprecated-perseus-container"
@@ -508,7 +513,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                       />
                     </span>
                   </span>
-                </p>
+                </div>
               </div>
               <div
                 class="deprecated-perseus-container"

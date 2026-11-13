@@ -1,3 +1,4 @@
+import {SpeechRuleEngine} from "@khanacademy/mathjax-renderer";
 import {
     generateSorterOptions,
     generateSorterWidget,
@@ -15,8 +16,7 @@ import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import {scorePerseusItemTesting} from "../../../util/scoring.testutils";
 
 import type {APIOptions} from "../../../types";
-import type {SorterLegend} from "../legend/legend-types";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {PerseusRenderer, SorterLegend} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const apiOptions: APIOptions = {
@@ -37,17 +37,12 @@ function generateSorterQuestion(
     });
 }
 
-// The legend isn't in the schema yet, so it's added next to the generated
-// options rather than through generateSorterOptions.
 function generateSorterQuestionWithLegend(
     legend: SorterLegend,
     layout: "horizontal" | "vertical" = "horizontal",
     correct: string[] = ["Apple", "Banana"],
 ): PerseusRenderer {
-    const options = {
-        ...generateSorterOptions({correct, layout}),
-        legend,
-    };
+    const options = generateSorterOptions({correct, layout, legend});
     return generateTestPerseusRenderer({
         content: "[[☃ sorter 1]]",
         widgets: {"sorter 1": generateSorterWidget({options})},
@@ -127,6 +122,57 @@ describe("new sorter widget", () => {
             expect(bank.getByRole("button", {name: "Apple"})).toBeVisible();
             expect(bank.getByRole("button", {name: "Banana"})).toBeVisible();
             expect(bank.getByRole("button", {name: "Cherry"})).toBeVisible();
+        });
+
+        describe("handling TeX with a SpeechRuleEngine", () => {
+            beforeEach(() => {
+                const spokenTex: Record<string, string> = {
+                    "x^2": "x squared",
+                    "\\frac{1}{2}": "one half",
+                };
+                jest.spyOn(SpeechRuleEngine, "setup").mockResolvedValue({
+                    texToSpeech: (tex: string) => spokenTex[tex],
+                });
+            });
+
+            it("labels TeX cards' menu buttons with spoken math", async () => {
+                // Arrange, Act
+                renderQuestion(
+                    generateSorterQuestion(["$x^2$", "$\\frac{1}{2}$"]),
+                    {apiOptions},
+                );
+
+                // Assert
+                const bank = within(getChoiceBank());
+                expect(
+                    await bank.findByRole("button", {name: "x squared"}),
+                ).toBeVisible();
+                expect(
+                    bank.getByRole("button", {name: "one half"}),
+                ).toBeVisible();
+            });
+
+            it("labels mixed text and TeX cards' menu buttons with the text and spoken math", async () => {
+                // Arrange, Act
+                renderQuestion(
+                    generateSorterQuestion([
+                        "Area is $x^2$",
+                        "Half is $\\frac{1}{2}$ cup",
+                    ]),
+                    {apiOptions},
+                );
+
+                // Assert
+                const bank = within(getChoiceBank());
+                expect(
+                    await bank.findByRole("button", {
+                        name: "Area is x squared",
+                    }),
+                ).toBeVisible();
+                expect(
+                    bank.getByRole("button", {name: "Half is one half cup"}),
+                ).toBeVisible();
+            });
         });
 
         it("renders an empty blank for each card", () => {

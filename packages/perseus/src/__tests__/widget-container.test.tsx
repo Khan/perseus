@@ -21,20 +21,28 @@ import {registerWidget} from "../widgets";
 import Explanation from "../widgets/explanation";
 import Image from "../widgets/image";
 
-import type {PerseusDependenciesV2, WidgetExports, WidgetProps} from "../types";
+import type {
+    PerseusDependenciesV2,
+    Widget,
+    WidgetExports,
+    WidgetProps,
+} from "../types";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
-const MockWidgetComponent = ({
-    options: {text, fail = false},
-}: {
-    options: {text: string; fail: boolean};
-}) => {
+const MockWidgetComponent = React.forwardRef<
+    Widget,
+    {options: {text: string; fail: boolean}}
+>(function MockWidgetComponent({options: {text, fail = false}}, ref) {
+    // useImperativeHandle allows the WidgetContainer to get a ref to this
+    // function component. React logs an error if this is removed.
+    React.useImperativeHandle(ref, () => ({}));
+
     if (fail) {
         throw new Error("MockWidget failed to render");
     }
 
     return <div>{text}</div>;
-};
+});
 
 const MockWidget: WidgetExports<typeof MockWidgetComponent> = {
     name: "mock-widget",

@@ -16,6 +16,7 @@ const DEFAULT_OPTIONS = {
 // NOTE: we're using a foreground color for the shadow here because
 // semanticColor.core.shadow.transparent.color isn't visible enough.
 export const wrappedEllipseShadow = `drop-shadow(0px 0px 2px ${semanticColor.core.foreground.instructive.default})`;
+const staticWrappedEllipseShadow = `drop-shadow(0px 0px 2px ${semanticColor.core.foreground.disabled.strong})`;
 
 class WrappedEllipse extends WrappedDrawing {
     initialPoint: Coord;
@@ -61,7 +62,7 @@ class WrappedEllipse extends WrappedDrawing {
             this.graphie.addToVisibleLayerWrapper(this.wrapper);
         }
 
-        this.setShadow(options.shadow);
+        this.setShadow(options.shadow, options.isStatic);
 
         if (options.disableMouseEventsOnWrapper) {
             this.wrapper.style.pointerEvents = "none";
@@ -71,10 +72,17 @@ class WrappedEllipse extends WrappedDrawing {
     }
 
     /**
-     * Turns the ellipse's drop shadow on or off.
+     * Turns the ellipse's drop shadow on or off. Static ellipses get a gray
+     * shadow to match their disabled color.
      */
-    setShadow(shadow: boolean) {
-        this.wrapper.style.filter = shadow ? wrappedEllipseShadow : "";
+    setShadow(shadow: boolean, isStatic: boolean = false) {
+        if (!shadow) {
+            this.wrapper.style.filter = "";
+            return;
+        }
+        this.wrapper.style.filter = isStatic
+            ? staticWrappedEllipseShadow
+            : wrappedEllipseShadow;
     }
 }
 
