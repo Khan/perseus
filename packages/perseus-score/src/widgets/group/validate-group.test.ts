@@ -6,8 +6,13 @@ import {
 } from "@khanacademy/perseus-core";
 
 import {getTestDropdownWidget} from "../../util/widgets.testutils";
+import {validateUserInput} from "../../validate";
 
 import validateGroup from "./validate-group";
+
+import type {ValidatorContext} from "@khanacademy/perseus-core";
+
+const context: ValidatorContext = {validateWidgets: validateUserInput};
 
 describe("validateGroup", () => {
     it("returns invalid when the user input is undefined", () => {
@@ -22,7 +27,7 @@ describe("validateGroup", () => {
         });
 
         // Act:
-        const result = validateGroup(userInput, validationData, "en");
+        const result = validateGroup(userInput, validationData, "en", context);
 
         // Assert:
         expect(result).toHaveInvalidInput();
@@ -48,6 +53,7 @@ describe("validateGroup", () => {
             {"free-response 1": {currentValue: "longer than five"}},
             validationData,
             "en",
+            context,
         );
 
         // Assert
@@ -70,6 +76,7 @@ describe("validateGroup", () => {
             {"dropdown 1": {value: 1}},
             validationData,
             "en",
+            context,
         );
 
         // Assert

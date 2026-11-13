@@ -33,7 +33,9 @@ import type {
     GrapherAnswerTypes,
     MakeWidgetMap,
     PerseusGraphType,
+    PerseusRenderer,
     PerseusWidgetOptions,
+    PerseusWidgetsMap,
 } from "./data-schema";
 import type {ErrorCode} from "./error-codes";
 import type {Relationship} from "./types";
@@ -64,6 +66,9 @@ export type WidgetValidatorFunction = (
      * commas may be interpreted as decimal separators in some locales.
      */
     locale: string,
+
+    /** Functionality the validator can use. */
+    context: ValidatorContext,
 ) => ValidationResult;
 
 /** The signature of a widget's scoring function. */
@@ -80,8 +85,43 @@ export type WidgetScorerFunction = (
     /**
      * The locale for locale-sensitive scoring (eg. decimal separators).
      */
-    locale?: string,
+    locale: string,
+
+    /** Functionality the scorer can use. */
+    context: ScorerContext,
 ) => PerseusScore;
+
+/**
+ * Lets a widget's validator validate the widgets it contains, such as the
+ * widgets in a group. Validators use it instead of importing a validation
+ * function, so no validator module depends on the validation entry point.
+ */
+export type ValidatorContext = {
+    /**
+     * Validates the user's input for the widgets in `renderData`'s content.
+     * Returns an invalid score if any widget's input is invalid, or null.
+     */
+    validateWidgets: (
+        renderData: PerseusRenderer,
+        userInputMap: UserInputMap,
+        locale: string,
+    ) => PerseusScore | null;
+};
+
+/**
+ * Lets a widget's scorer score the widgets it contains, such as the widgets
+ * in a group. Scorers use it instead of importing a scoring function, so no
+ * scorer module depends on the scoring entry point.
+ */
+export type ScorerContext = {
+    /** Scores the user's input for the widgets named by `widgetIds`. */
+    scoreWidgets: (
+        widgets: PerseusWidgetsMap,
+        widgetIds: ReadonlyArray<string>,
+        userInputMap: UserInputMap,
+        locale: string,
+    ) => {[widgetId: string]: PerseusScore};
+};
 
 /** The result of scoring a widget's user input. */
 export type PerseusScore =

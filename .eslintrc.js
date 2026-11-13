@@ -354,6 +354,16 @@ module.exports = {
             },
         },
         {
+            // perseus-score registers every widget's scorer and validator
+            // when it loads. An import cycle among its modules leaves some
+            // of them undefined at registration (CommonJS) or throws at
+            // import (ES modules).
+            files: ["packages/perseus-score/src/**"],
+            rules: {
+                "import/no-cycle": "error",
+            },
+        },
+        {
             files: ["score-*.ts"],
             rules: {
                 "no-restricted-syntax": [
