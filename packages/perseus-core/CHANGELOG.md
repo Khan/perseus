@@ -1,5 +1,22 @@
 # @khanacademy/perseus-core
 
+## 42.3.0
+
+### Minor Changes
+
+-   [#4494](https://github.com/Khan/perseus/pull/4494) [`d5d3257`](https://github.com/Khan/perseus/commit/d5d3257f6c7b83b1b907ab1ae3a0b6dcd5d0a44b) Thanks [@nishasy](https://github.com/nishasy)! - [Group + Graded Group/Set] Updated Group, Graded Group, and Graded Group set parsers to drop static
+
+### Patch Changes
+
+-   Updated dependencies [[`aa65a1f`](https://github.com/Khan/perseus/commit/aa65a1f73488da6067c5a82bfac225c23e744074)]:
+    -   @khanacademy/pure-markdown@4.0.0
+
+## 42.2.0
+
+### Minor Changes
+
+-   [#4472](https://github.com/Khan/perseus/pull/4472) [`d477ac6`](https://github.com/Khan/perseus/commit/d477ac65fcd6b05ee9d538c015134a97573e0f85) Thanks [@benchristel](https://github.com/benchristel)! - The PerseusWidgetOptions type now includes all widget options types. The following widgets were previously not included by mistake: Grapher, Group, and Python Program.
+
 ## 42.1.1
 
 ### Patch Changes

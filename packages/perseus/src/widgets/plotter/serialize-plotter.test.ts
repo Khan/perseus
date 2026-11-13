@@ -68,6 +68,9 @@ describe("Plotter serialization", () => {
     it("should serialize the current state", async () => {
         // Arrange
         const {renderer} = renderItem(generateBasicPlotter());
+        // Wait for plotter's card resizing to settle. RTL logs an error if
+        // the resize happens outside an act() call.
+        await act(() => Promise.resolve());
 
         const [plotter] = renderer.questionRenderer.findWidgets("plotter 1");
         act(() => plotter._testInsertUserInput([3, 3, 3]));

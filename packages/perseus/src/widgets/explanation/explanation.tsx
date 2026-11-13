@@ -110,7 +110,6 @@ const Explanation = forwardRef<Widget, Props>(function Explanation(props, ref) {
                                     apiOptions={props.apiOptions}
                                     content={explanation}
                                     widgets={widgets}
-                                    linterContext={props.linterContext}
                                     strings={strings}
                                     userInput={userInput}
                                     handleUserInput={handleUserInput}

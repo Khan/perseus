@@ -88,8 +88,6 @@ type State = {
 };
 
 class EditorPage extends React.Component<Props, State> {
-    itemEditor = React.createRef<ItemEditor>();
-
     // Derives the preview's device-adjusted apiOptions with a stable reference
     // across renders (see createDeviceApiOptionsDeriver for why that matters).
     deriveDeviceApiOptions = createDeviceApiOptionsDeriver();
@@ -204,10 +202,6 @@ class EditorPage extends React.Component<Props, State> {
         });
     }
 
-    getSaveWarnings(): any {
-        return this.itemEditor.current?.getSaveWarnings();
-    }
-
     handleChange = (toChange: Partial<PerseusItem>) => {
         const newProps = _(this.props).pick("question", "hints", "answerArea");
         _(newProps).extend(toChange);
@@ -303,7 +297,6 @@ class EditorPage extends React.Component<Props, State> {
                                     </div>
                                 </div>
                                 <ItemEditor
-                                    ref={this.itemEditor}
                                     itemId={this.props.itemId}
                                     question={this.props.question}
                                     hints={this.props.hints}

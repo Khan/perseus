@@ -35,7 +35,6 @@ function ContentPreview({
     apiOptions,
     seamless,
     linterContext,
-    legacyPerseusLint,
     previewDevice,
     reviewMode,
 }: {
@@ -49,7 +48,6 @@ function ContentPreview({
      */
     seamless?: boolean;
     linterContext?: LinterContextProps;
-    legacyPerseusLint?: ReadonlyArray<string>;
     /**
      * The type of device to simulate the preview for. Note that this preview
      * may not be 100% accurate with regards to styling (due to styles that use
@@ -90,7 +88,6 @@ function ContentPreview({
                                         apiOptions={{...apiOptions, isMobile}}
                                         keypadElement={keypadElement}
                                         linterContext={linterContext}
-                                        legacyPerseusLint={legacyPerseusLint}
                                         userInput={userInput}
                                         handleUserInput={handleUserInput}
                                         initializeUserInput={

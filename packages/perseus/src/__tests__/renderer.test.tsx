@@ -42,16 +42,20 @@ import type {UserEvent} from "@testing-library/user-event";
 // see that symbol as an instance method).
 const mockRunLinter = jest.fn();
 const mockApplyLintErrors = jest.fn();
-jest.mock("../translation-linter", () => {
+jest.mock("../translation-linter", () => ({
+    // Return a module object, not a bare function: most test runners do not
+    // treat bare function as the whole module (ie. they need the __esModule
+    // field).
+    __esModule: true,
     // We mock the TranslationLinter constructor here setting things up so we
     // can spy/verify calls to instances of TranslationLinter
-    return function () {
+    default: function () {
         return {
             runLinter: mockRunLinter,
             applyLintErrors: mockApplyLintErrors,
         };
-    };
-});
+    },
+}));
 
 describe("renderer", () => {
     beforeAll(() => {
@@ -538,13 +542,51 @@ describe("renderer", () => {
             expect(screen.queryAllByRole("combobox")).toHaveLength(0);
         });
 
-        it("should render columns", () => {
+        it("should ignore the deprecated column separator '====='", () => {
             // Arrange
             const question = {
                 content:
-                    "Stuff in column 1\n\n" +
+                    "Stuff before the separator\n\n" +
                     "=====\n\n" +
-                    "Stuff in column 2\n\n",
+                    "Stuff after the separator\n\n",
+                images: {},
+                widgets: {},
+            } as const;
+
+            // Act
+            const {container} = renderQuestion(question);
+
+            // Assert
+            expect(container).toMatchSnapshot();
+        });
+
+        it("should ignore the deprecated column separator '=====' inside a list item", () => {
+            // Arrange
+            const question = {
+                content:
+                    "- Stuff before the separator\n\n" +
+                    "  =====\n\n" +
+                    "  Stuff after the separator\n\n",
+                images: {},
+                widgets: {},
+            } as const;
+
+            // Act
+            const {container} = renderQuestion(question);
+
+            // Assert
+            expect(container).toMatchSnapshot();
+        });
+
+        it("should preserve '=====' inside a code block", () => {
+            // Arrange
+            const question = {
+                content:
+                    "```\n" +
+                    "Stuff before the separator\n\n" +
+                    "=====\n\n" +
+                    "Stuff after the separator\n\n" +
+                    "```",
                 images: {},
                 widgets: {},
             } as const;
@@ -1657,7 +1699,7 @@ describe("renderer", () => {
             },
         };
 
-        it("does not render the block widget inside a <p> element", () => {
+        it("does not render the block widget inside a paragraph element", () => {
             // Arrange, Act
             const {container} = renderQuestion(question);
 
@@ -1668,10 +1710,10 @@ describe("renderer", () => {
             );
             expect(blockWidget).not.toBeNull();
             // eslint-disable-next-line testing-library/no-node-access
-            expect(blockWidget?.closest("p")).toBeNull();
+            expect(blockWidget?.closest("p, [role=paragraph]")).toBeNull();
         });
 
-        it("keeps the inline input-number widget within a <p> element", () => {
+        it("keeps the inline input-number widget within a paragraph element", () => {
             // Arrange, Act
             const {container} = renderQuestion(question);
 
@@ -1682,7 +1724,7 @@ describe("renderer", () => {
             );
             expect(inlineWidget).not.toBeNull();
             // eslint-disable-next-line testing-library/no-node-access
-            expect(inlineWidget?.closest("p")).not.toBeNull();
+            expect(inlineWidget?.closest("p, [role=paragraph]")).not.toBeNull();
         });
     });
 });

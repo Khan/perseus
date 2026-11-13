@@ -40,12 +40,16 @@ describe("ExercisePreviewPage", () => {
         mockContent = null;
         mockHighlightTargets = [];
 
+        // A `function`, not an arrow: the page calls `new ResizeObserver()`,
+        // and some test runners construct a mock's implementation with `new`.
         // eslint-disable-next-line no-restricted-syntax
-        window.ResizeObserver = jest.fn().mockImplementation(() => ({
-            observe: jest.fn(),
-            unobserve: jest.fn(),
-            disconnect: jest.fn(),
-        })) as unknown as typeof ResizeObserver;
+        window.ResizeObserver = jest.fn().mockImplementation(function () {
+            return {
+                observe: jest.fn(),
+                unobserve: jest.fn(),
+                disconnect: jest.fn(),
+            };
+        }) as unknown as typeof ResizeObserver;
     });
 
     it("renders one overlay per highlight target", () => {

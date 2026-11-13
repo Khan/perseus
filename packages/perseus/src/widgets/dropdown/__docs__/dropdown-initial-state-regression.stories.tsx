@@ -1,7 +1,10 @@
 import {generateDropdownOptions} from "@khanacademy/perseus-core";
 
 import {themeModes} from "../../../../../../.storybook/modes";
-import {rtlDecorator} from "../../__testutils__/story-decorators";
+import {
+    rtlDecorator,
+    styledContainer,
+} from "../../__testutils__/story-decorators";
 
 import {dropdownRendererDecorator} from "./dropdown-renderer-decorator";
 
@@ -27,7 +30,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const BasicDropdown: Story = {
-    decorators: [dropdownRendererDecorator],
+    decorators: [dropdownRendererDecorator, styledContainer({padding: "16px"})],
     args: generateDropdownOptions({
         placeholder: "greater/less than or equal to",
         choices: [
@@ -44,7 +47,7 @@ export const BasicDropdown: Story = {
 };
 
 export const DropdownWithEmptyPlaceholder: Story = {
-    decorators: [dropdownRendererDecorator],
+    decorators: [dropdownRendererDecorator, styledContainer({padding: "16px"})],
     args: generateDropdownOptions({
         placeholder: "",
         choices: [
@@ -61,7 +64,7 @@ export const DropdownWithEmptyPlaceholder: Story = {
 };
 
 export const InlineDropdownWithVisibleLabel: Story = {
-    decorators: [dropdownRendererDecorator],
+    decorators: [dropdownRendererDecorator, styledContainer({padding: "16px"})],
     args: generateDropdownOptions({
         placeholder: "Choose an answer",
         choices: [
@@ -80,7 +83,7 @@ export const InlineDropdownWithVisibleLabel: Story = {
 };
 
 export const TableDropdownWithVisibleLabel: Story = {
-    decorators: [dropdownRendererDecorator],
+    decorators: [dropdownRendererDecorator, styledContainer({padding: "16px"})],
     args: generateDropdownOptions({
         choices: [
             {
@@ -98,7 +101,11 @@ export const TableDropdownWithVisibleLabel: Story = {
 };
 
 export const RTL: Story = {
-    decorators: [dropdownRendererDecorator, rtlDecorator],
+    decorators: [
+        dropdownRendererDecorator,
+        rtlDecorator,
+        styledContainer({padding: "16px"}),
+    ],
     args: generateDropdownOptions({
         placeholder: "اختر إجابة",
         choices: [{content: "الخيار 1", correct: true}],
@@ -109,7 +116,7 @@ export const RTL: Story = {
 };
 
 export const MathInPlaceholder: Story = {
-    decorators: [dropdownRendererDecorator],
+    decorators: [dropdownRendererDecorator, styledContainer({padding: "16px"})],
     args: generateDropdownOptions({
         placeholder: "Choose $\\frac{1}{2}$ or $\\frac{3}{4}$",
         choices: [{content: "$\\frac{1}{2}$", correct: false}],

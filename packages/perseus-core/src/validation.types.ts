@@ -172,6 +172,15 @@ export type PerseusDropdownUserInput = {
 export type PerseusExpressionUserInput = string;
 
 /**
+ * User input for the Fill in the Blank widget: a map of blank widget IDs
+ * to each blank's user input.
+ */
+export type PerseusFillInTheBlankUserInput = Record<
+    string,
+    PerseusBlankUserInput
+>;
+
+/**
  * User input for the Group widget: a map of widget IDs to each widget's user
  * input. Scored by recursively scoring all contained widgets.
  */
@@ -334,10 +343,12 @@ export type PerseusTableUserInput = string[][];
  * explanation.
  */
 interface UserInputRegistry {
+    blank: PerseusBlankUserInput;
     categorizer: PerseusCategorizerUserInput;
     "cs-program": PerseusCSProgramUserInput;
     dropdown: PerseusDropdownUserInput;
     expression: PerseusExpressionUserInput;
+    "fill-in-the-blank": PerseusFillInTheBlankUserInput;
     "free-response": PerseusFreeResponseUserInput;
     grapher: PerseusGrapherUserInput;
     group: PerseusGroupUserInput;

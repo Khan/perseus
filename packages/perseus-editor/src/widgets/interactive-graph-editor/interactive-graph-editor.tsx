@@ -1,4 +1,3 @@
-import {vector as kvector} from "@khanacademy/kmath";
 import {
     ApiOptions,
     containerSizeClass,
@@ -144,71 +143,6 @@ class InteractiveGraphEditor extends React.Component<Props, State> {
             return;
         }
         this.handleChange({graph: newGraph, correct: newCorrect});
-    };
-
-    // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
-    // the new linter rules for save warnings.
-    getSaveWarnings = () => {
-        const issues: Array<any | string> = [];
-
-        // A locked line on the graph cannot have length 0.
-        for (const figure of this.props.lockedFigures ?? []) {
-            if (
-                figure.type === "line" &&
-                kvector.equal(figure.points[0].coord, figure.points[1].coord)
-            ) {
-                issues.push("The line cannot have length 0.");
-            }
-        }
-
-        // Do not save a unlimited polygon that is open (coords is null).
-        if (
-            this.props.graph?.type === "polygon" &&
-            this.props.graph.numSides === "unlimited" &&
-            this.props.graph.coords === null
-        ) {
-            issues.push("Polygon must be closed.");
-        }
-
-        // Exponential: the start asymptote must not fall between or on the
-        // curve's start points — that configuration produces an invalid
-        // exponential (the coefficient formula requires all points to be
-        // strictly on one side of the asymptote).
-        if (
-            this.props.graph?.type === "exponential" &&
-            this.props.graph.startCoords != null
-        ) {
-            const {coords, asymptote} = this.props.graph.startCoords;
-            const asymptoteY = asymptote;
-            const minY = Math.min(coords[0][1], coords[1][1]);
-            const maxY = Math.max(coords[0][1], coords[1][1]);
-            if (asymptoteY >= minY && asymptoteY <= maxY) {
-                issues.push(
-                    "The exponential start asymptote must not fall between or on the curve's start points.",
-                );
-            }
-        }
-
-        // Logarithm: the start asymptote must not fall between or on the
-        // curve's start points — that configuration produces an invalid
-        // logarithm (the coefficient formula requires all points to be
-        // strictly on one side of the asymptote).
-        if (
-            this.props.graph?.type === "logarithm" &&
-            this.props.graph.startCoords != null
-        ) {
-            const {coords, asymptote} = this.props.graph.startCoords;
-            const asymptoteX = asymptote;
-            const minX = Math.min(coords[0][0], coords[1][0]);
-            const maxX = Math.max(coords[0][0], coords[1][0]);
-            if (asymptoteX >= minX && asymptoteX <= maxX) {
-                issues.push(
-                    "The logarithm start asymptote must not fall between or on the curve's start points.",
-                );
-            }
-        }
-
-        return issues;
     };
 
     render() {

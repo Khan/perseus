@@ -36,7 +36,7 @@ import {ApiOptions, ClassNames as ApiClassNames} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown";
 import QuestionParagraph from "./question-paragraph";
 import TranslationLinter from "./translation-linter";
-import Util, {isContentGraphie, noParagraphForInlineWidget} from "./util";
+import Util, {isContentGraphie} from "./util";
 import {containerSizeClass} from "./util/sizing-utils";
 import preprocessTex from "./util/tex-preprocess";
 import WidgetContainer from "./widget-container";
@@ -155,8 +155,6 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
      */
     linterContext: LinterContextProps;
 
-    legacyPerseusLint?: ReadonlyArray<string>;
-
     /**
      *  Skip adding paragraph class
      */
@@ -245,10 +243,6 @@ class Renderer
     };
     // @ts-expect-error - TS2564 - Property '_isMounted' has no initializer and is not definitely assigned in the constructor.
     _isMounted: boolean;
-    // TODO(benchristel): _isTwoColumn causes a class to be set on a <div>.
-    // No CSS in frontend or Perseus references that class name. Delete this?
-    // @ts-expect-error - TS2564 - Property '_isTwoColumn' has no initializer and is not definitely assigned in the constructor.
-    _isTwoColumn: boolean;
 
     // The i18n linter.
     _translationLinter: TranslationLinter;
@@ -855,6 +849,9 @@ class Renderer
         this._foundTextNodes = false;
         state.foundFullWidth = false;
         const output = this.outputNested(ast, state);
+        if (output == null) {
+            return null;
+        }
 
         // In Jipt-land, we need to render the exact same outer
         // QuestionParagraph nodes always. This means the number of
@@ -956,17 +953,17 @@ class Renderer
                 );
             }
 
-            if (noParagraphForInlineWidget(node)) {
-                // Some widgets can appear inline with text, but
-                // shouldn't be contained by a <p> element, so just render the
-                // content and let the parent handle layout, etc.
-                return content;
-            }
-
+            // Some widgets can appear inline with text, but
+            // shouldn't be contained by a <p> element (invalid HTML),
+            // so set the role of the container to "paragraph".
             return (
-                <p key={state.key} className="deprecated-perseus-container">
+                <div
+                    role="paragraph"
+                    key={state.key}
+                    className="deprecated-perseus-container"
+                >
                     {content}
-                </p>
+                </div>
             );
         }
         if (node.type === "widget") {
@@ -1157,16 +1154,8 @@ class Renderer
                 </ErrorBoundary>
             );
         }
-        if (node.type === "columns") {
-            // Note that we have two columns. This is so we can put
-            // a className on the outer renderer content for SAT.
-            this._isTwoColumn = true;
-            // but then render normally:
-            return (
-                <ErrorBoundary key={state.key}>
-                    {PerseusMarkdown.ruleOutput(node, nestedOutput, state)}
-                </ErrorBoundary>
-            );
+        if (node.type === "deprecatedColumnSeparator") {
+            return null;
         }
         if (node.type === "text") {
             if (rContainsNonWhitespace.test(node.content)) {
@@ -1573,16 +1562,6 @@ class Renderer
             }
         }
 
-        // Hacks:
-        // We use mutable state here to figure out whether the output
-        // had two columns.
-        // It is updated to true by `this.outputMarkdown` if a
-        // column break is found
-        // TODO(aria): We now have a state variable threaded through
-        // simple-markdown output. We should mutate it instead of
-        // state on this component to do this in a less hacky way.
-        this._isTwoColumn = false;
-
         // Parse the string of markdown to a parse tree
         let parsedMarkdown = this.props.inline
             ? PerseusMarkdown.parseInline(content, {
@@ -1617,10 +1596,10 @@ class Renderer
             PerseusLinter.runLinter(parsedMarkdown, fullLinterContext, true);
 
             // Apply the lint errors from the last TranslationLinter run.
-            this._translationLinter.applyLintErrors(parsedMarkdown, [
-                ...this.state.translationLintErrors,
-                ...(this.props.legacyPerseusLint || []),
-            ]);
+            this._translationLinter.applyLintErrors(
+                parsedMarkdown,
+                this.state.translationLintErrors,
+            );
         }
 
         // Render the linted markdown parse tree with React components
@@ -1634,7 +1613,6 @@ class Renderer
         const className = classNames({
             [ApiClassNames.RENDERER]: true,
             [ApiClassNames.RESPONSIVE_RENDERER]: true,
-            [ApiClassNames.TWO_COLUMN_RENDERER]: this._isTwoColumn,
         });
 
         return (

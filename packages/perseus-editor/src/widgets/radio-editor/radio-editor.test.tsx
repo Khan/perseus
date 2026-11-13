@@ -46,12 +46,12 @@ function renderRadioEditor(
 
 describe("radio-editor", () => {
     let userEvent: UserEvent;
-    function getCorrectChoice(): PerseusRadioChoice {
-        return {content: "", correct: true, id: mockIds[0]};
+    function getCorrectChoice(id: string): PerseusRadioChoice {
+        return {content: "", correct: true, id};
     }
 
-    function getIncorrectChoice(): PerseusRadioChoice {
-        const choice = getCorrectChoice();
+    function getIncorrectChoice(id: string): PerseusRadioChoice {
+        const choice = getCorrectChoice(id);
         choice.correct = false;
         return choice;
     }
@@ -337,10 +337,10 @@ describe("radio-editor", () => {
                 countChoices={true}
                 choices={[
                     // start with 2 correct, 2 incorrect
-                    getIncorrectChoice(),
-                    getIncorrectChoice(),
-                    getCorrectChoice(),
-                    getCorrectChoice(),
+                    getIncorrectChoice("1"),
+                    getIncorrectChoice("2"),
+                    getCorrectChoice("3"),
+                    getCorrectChoice("4"),
                 ]}
             />,
             {wrapper: RenderStateRoot},
@@ -500,10 +500,10 @@ describe("radio-editor", () => {
                 multipleSelect={true}
                 countChoices={true}
                 choices={[
-                    getCorrectChoice(),
-                    getIncorrectChoice(),
-                    getCorrectChoice(),
-                    getIncorrectChoice(),
+                    getCorrectChoice("1"),
+                    getIncorrectChoice("2"),
+                    getCorrectChoice("3"),
+                    getIncorrectChoice("4"),
                 ]}
             />,
             {wrapper: RenderStateRoot},
@@ -526,10 +526,10 @@ describe("radio-editor", () => {
                 multipleSelect={true}
                 countChoices={false}
                 choices={[
-                    getCorrectChoice(),
-                    getIncorrectChoice(),
-                    getCorrectChoice(),
-                    getIncorrectChoice(),
+                    getCorrectChoice("1"),
+                    getIncorrectChoice("2"),
+                    getCorrectChoice("3"),
+                    getIncorrectChoice("4"),
                 ]}
             />,
             {wrapper: RenderStateRoot},
@@ -551,10 +551,10 @@ describe("radio-editor", () => {
                 onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
                 choices={[
-                    getCorrectChoice(),
-                    getIncorrectChoice(),
-                    getCorrectChoice(),
-                    getIncorrectChoice(),
+                    getCorrectChoice("1"),
+                    getIncorrectChoice("2"),
+                    getCorrectChoice("3"),
+                    getIncorrectChoice("4"),
                 ]}
             />,
             {wrapper: RenderStateRoot},
@@ -584,10 +584,10 @@ describe("radio-editor", () => {
                 apiOptions={ApiOptions.defaults}
                 multipleSelect={true}
                 choices={[
-                    getCorrectChoice(),
-                    getIncorrectChoice(),
-                    getCorrectChoice(),
-                    getIncorrectChoice(),
+                    getCorrectChoice("1"),
+                    getIncorrectChoice("2"),
+                    getCorrectChoice("3"),
+                    getIncorrectChoice("4"),
                 ]}
             />,
             {wrapper: RenderStateRoot},
@@ -618,10 +618,10 @@ describe("radio-editor", () => {
                 apiOptions={ApiOptions.defaults}
                 multipleSelect={false}
                 choices={[
-                    getCorrectChoice(),
-                    getIncorrectChoice(),
-                    getIncorrectChoice(),
-                    getIncorrectChoice(),
+                    getCorrectChoice("1"),
+                    getIncorrectChoice("2"),
+                    getIncorrectChoice("3"),
+                    getIncorrectChoice("4"),
                 ]}
             />,
             {wrapper: RenderStateRoot},
@@ -652,10 +652,10 @@ describe("radio-editor", () => {
                 apiOptions={ApiOptions.defaults}
                 multipleSelect={true}
                 choices={[
-                    getCorrectChoice(),
-                    getIncorrectChoice(),
-                    getIncorrectChoice(),
-                    getIncorrectChoice(),
+                    getCorrectChoice("1"),
+                    getIncorrectChoice("2"),
+                    getIncorrectChoice("3"),
+                    getIncorrectChoice("4"),
                 ]}
             />,
             {wrapper: RenderStateRoot},

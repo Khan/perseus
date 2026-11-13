@@ -4,6 +4,9 @@ import {assertSuccess} from "../result";
 
 import {parseDefinitionWidget} from "./definition-widget";
 import {parseExplanationWidget} from "./explanation-widget";
+import {parseGradedGroupSetWidget} from "./graded-group-set-widget";
+import {parseGradedGroupWidget} from "./graded-group-widget";
+import {parseGroupWidget} from "./group-widget";
 import {parseImageWidget} from "./image-widget";
 import {parseInteractionWidget} from "./interaction-widget";
 import {parseMeasurerWidget} from "./measurer-widget";
@@ -90,10 +93,12 @@ describe("parseWidgetWithVersion", () => {
 });
 
 /**
- * These widgets collect no user input and are never scored, so `static` — "show
- * the correct answer and freeze the widget" — has no meaning for them. Their
- * parsers drop it. Adding a widget here is a data-format change: check that it
- * really takes no user input before doing so.
+ * These widgets either collect no user input and are never scored, so
+ * `static` — "show the correct answer and freeze the widget" — has no meaning
+ * for them; or the widget is a container for other widgets that can handle
+ * their own `static` state, so it doesn't make sense to allow `static` on
+ * the parent. Their parsers drop it. Adding a widget here is a data-format
+ * change: check that it really takes no user input before doing so.
  */
 describe.each([
     ["definition", parseDefinitionWidget, {togglePrompt: "", definition: ""}],
@@ -102,6 +107,17 @@ describe.each([
         parseExplanationWidget,
         {showPrompt: "", hidePrompt: "", explanation: "", widgets: {}},
     ],
+    [
+        "graded-group",
+        parseGradedGroupWidget,
+        {content: "", widgets: {}, images: {}},
+    ],
+    [
+        "graded-group-set",
+        parseGradedGroupSetWidget,
+        {gradedGroups: [{content: "", widgets: {}, images: {}}]},
+    ],
+    ["group", parseGroupWidget, {content: "", widgets: {}, images: {}}],
     ["image", parseImageWidget, {backgroundImage: {}}],
     [
         "interaction",

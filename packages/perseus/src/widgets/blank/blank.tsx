@@ -1,7 +1,9 @@
 import * as React from "react";
-import {forwardRef, useImperativeHandle} from "react";
+import {forwardRef, useContext, useImperativeHandle} from "react";
 
 import {BlankComponent} from "../../components/drag-and-drop/blank";
+
+import {BlankContext} from "./blank-context";
 
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {
@@ -17,12 +19,22 @@ type BlankProps = WidgetProps<PerseusBlankWidgetOptions, PerseusBlankUserInput>;
  * plumbing around it. The renderer-assigned widgetId becomes the blankId,
  * which is unique within this renderer and names the blank as a drop
  * target and move target.
+ *
+ * The parent widget supplies the placed tile through BlankContext. A blank
+ * is only meaningful inside such a parent, so rendering one without a
+ * provider throws an error.
  */
 const BlankWidget = forwardRef<Widget, BlankProps>(
     function BlankWidget(props, ref) {
         // TODO(LEMS-4471): Write out the getPromptJSON function after checking
         // with the TUT team about what data they need from this widget.
         useImperativeHandle(ref, () => ({}));
+        const blankContext = useContext(BlankContext);
+        if (blankContext == null) {
+            throw new Error(
+                "The blank widget must be rendered inside a BlankContext provider.",
+            );
+        }
 
         return (
             <BlankComponent
@@ -31,7 +43,9 @@ const BlankWidget = forwardRef<Widget, BlankProps>(
                 // TODO(LEMS-4448): Remove testid once we have a better way
                 // to identify a blank-widget
                 testId="blank-widget"
-            />
+            >
+                {blankContext.renderPlacedTile(props.widgetId)}
+            </BlankComponent>
         );
     },
 );

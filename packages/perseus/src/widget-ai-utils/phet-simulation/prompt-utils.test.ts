@@ -1,3 +1,5 @@
+import {act} from "@testing-library/react";
+
 import {renderQuestion} from "../../__testutils__/render-question";
 
 import {getPromptJSON} from "./phet-simulation-ai-utils";
@@ -52,6 +54,9 @@ describe("PhET Simulation AI utils", () => {
         const {renderer} = renderQuestion(question1, {
             apiOptions: {isMobile: false},
         });
+        // Wait for the widget to fetch its data and update its state. RTL logs
+        // an error if the state update happens outside an act() call.
+        await act(() => Promise.resolve());
 
         // Act
         const json = renderer.getPromptJSON();

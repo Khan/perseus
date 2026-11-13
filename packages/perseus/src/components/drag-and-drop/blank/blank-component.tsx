@@ -67,9 +67,10 @@ export function BlankComponent(props: BlankComponentProps): React.ReactElement {
     // stays in the DOM as the drop target so a swap can still land here.
     const isFilled = React.Children.toArray(children).length > 0;
 
-    // While this blank's own tile is mid-drag it still occupies layout
-    // space (dnd-kit moves it with a transform), so showing the empty
-    // chrome again puts the dashed slot underneath the departing tile.
+    // While this blank's own tile is mid-drag, dnd-kit lifts it into the
+    // top layer and leaves a hidden placeholder of the same size in the
+    // blank, so showing the empty chrome again puts the dashed slot
+    // underneath the departing tile.
     // A blank holds one tile, and placements only change when a drag
     // ends, so a drag that reports this blank started from this tile.
     const dragged = readTileDragData(source?.data);

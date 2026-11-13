@@ -33,9 +33,11 @@ export default function ShowPointLabelsToggle({
                 onChange={onChange}
             />
             <InfoTip>
-                When on, each labeled movable point displays a visible label
-                next to it. Add a label to at least one point below to enable
-                this option; unlabeled points render without a label.
+                <p>
+                    When on, each labeled movable point displays a visible label
+                    next to it. Add a label to at least one point below to
+                    enable this option; unlabeled points render without a label.
+                </p>
             </InfoTip>
         </View>
     );

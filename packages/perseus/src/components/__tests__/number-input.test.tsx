@@ -37,6 +37,14 @@ describe("NumberInput", function () {
         expect(onChange).toHaveBeenCalledWith(result);
     };
 
+    it("passes the id to the input", () => {
+        // Arrange, Act
+        render(<NumberInput value={1} onChange={() => {}} id="the-id" />);
+
+        // Assert
+        expect(screen.getByRole("textbox")).toHaveAttribute("id", "the-id");
+    });
+
     it("basic input", async function () {
         await testInputResult("42", 42);
     });

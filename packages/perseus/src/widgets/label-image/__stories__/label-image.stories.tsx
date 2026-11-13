@@ -1,11 +1,12 @@
 import {
+    generateLabelImageOptions,
+    generateLabelImageWidget,
     generateTestPerseusItem,
-    type PerseusRenderer,
+    generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import WrappedServerItemRenderer from "../../../server-item-renderer";
-import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {storybookDependenciesV2} from "../../../testing/test-dependencies";
 import {
     textQuestion,
@@ -15,130 +16,76 @@ import {
     mixedContentQuestion,
 } from "../__tests__/label-image.testdata";
 
-const applyStoryArgs = (
-    question: PerseusRenderer,
-    args: StoryArgs,
-): PerseusRenderer => {
-    const q = {
-        ...question,
-        widgets: {},
-    } as const;
-
-    for (const [widgetId, widget] of Object.entries(question.widgets)) {
-        const modified = {
-            ...widget,
-            options: {
-                ...widget.options,
-                preferredPopoverDirection: args.preferredPopoverDirection,
-            },
-        };
-
-        q.widgets[widgetId] = {
-            ...modified,
-        };
-    }
-
-    return q;
-};
+import type {
+    PerseusLabelImageWidgetOptions,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 type StoryArgs = {
-    preferredPopoverDirection: string;
+    options: PerseusLabelImageWidgetOptions;
+    static?: boolean;
 };
 
-type ImageStory = {
-    title: string;
-    args: StoryArgs;
-};
-
-export const LabelWidgetWithText = (args: StoryArgs): React.ReactElement => {
-    return (
-        <WrappedServerItemRenderer
-            dependencies={storybookDependenciesV2}
-            item={generateTestPerseusItem({
-                question: applyStoryArgs(textQuestion, args),
-            })}
-        />
-    );
-};
-
-export const LabelWidgetWithLongText = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return (
-        <WrappedServerItemRenderer
-            dependencies={storybookDependenciesV2}
-            item={generateTestPerseusItem({
-                question: applyStoryArgs(longTextFromArticle, args),
-            })}
-        />
-    );
-};
-
-export const LabelWidgetWithMath = (args: StoryArgs): React.ReactElement => {
-    return (
-        <WrappedServerItemRenderer
-            dependencies={storybookDependenciesV2}
-            item={generateTestPerseusItem({
-                question: applyStoryArgs(mathQuestion, args),
-            })}
-        />
-    );
-};
-
-export const LabelImageNumberline = (args: StoryArgs): React.ReactElement => {
-    return (
-        <WrappedServerItemRenderer
-            dependencies={storybookDependenciesV2}
-            item={generateTestPerseusItem({
-                question: applyStoryArgs(numberline, args),
-            })}
-        />
-    );
-};
-
-export const LabelImageMixedContent = (args: StoryArgs): React.ReactElement => {
-    return (
-        <WrappedServerItemRenderer
-            dependencies={storybookDependenciesV2}
-            item={generateTestPerseusItem({
-                question: applyStoryArgs(mixedContentQuestion, args),
-            })}
-        />
-    );
-};
-
-export const LabelWidgetAnswerless = (args: StoryArgs): React.ReactElement => {
-    return (
-        <WrappedServerItemRenderer
-            dependencies={storybookDependenciesV2}
-            item={generateTestPerseusItem({
-                question: applyStoryArgs(textQuestion, args),
-            })}
-        />
-    );
-};
-
-export const LabelImageGraded = (args: StoryArgs): React.ReactElement => {
-    return (
-        <ServerItemRendererWithDebugUI
-            item={generateTestPerseusItem({
-                question: applyStoryArgs(textQuestion, args),
-            })}
-        />
-    );
-};
-
-// eslint-disable-next-line no-restricted-syntax
-export default {
+const meta: Meta<StoryArgs> = {
     title: "Widgets/Label Image",
-    args: {
-        preferredPopoverDirection: "NONE",
-    },
-    argTypes: {
-        preferredPopoverDirection: {
-            control: "select",
-            options: ["NONE", "UP", "DOWN", "LEFT", "RIGHT"],
-        },
-    },
     tags: ["!dev"],
-} as ImageStory;
+    // Render a ServerItemRenderer, but allow the Label Image widget
+    // props to be passed in as args.
+    decorators: [
+        (_, {args}) => (
+            <WrappedServerItemRenderer
+                dependencies={storybookDependenciesV2}
+                item={generateTestPerseusItem({
+                    question: generateTestPerseusRenderer({
+                        content: "[[☃ label-image 1]]",
+                        widgets: {
+                            "label-image 1": generateLabelImageWidget({
+                                static: args.static,
+                                options: generateLabelImageOptions({
+                                    ...args.options,
+                                }),
+                            }),
+                        },
+                    }),
+                })}
+            />
+        ),
+    ],
+};
+
+export default meta;
+
+type Story = StoryObj<StoryArgs>;
+
+function getArgsFromQuestion(question: PerseusRenderer) {
+    return {options: question.widgets["label-image 1"].options};
+}
+
+export const LabelImageWidgetWithText: Story = {
+    args: getArgsFromQuestion(textQuestion),
+};
+
+export const LabelImageWidgetWithLongText: Story = {
+    args: getArgsFromQuestion(longTextFromArticle),
+};
+
+export const LabelImageWidgetWithMath: Story = {
+    args: getArgsFromQuestion(mathQuestion),
+};
+
+export const LabelImageWidgetWithNumberLine: Story = {
+    args: getArgsFromQuestion(numberline),
+};
+
+export const LabelImageWidgetWithMixedContent: Story = {
+    args: getArgsFromQuestion(mixedContentQuestion),
+};
+
+export const LabelImageWidgetAnswerless: Story = {
+    args: getArgsFromQuestion(textQuestion),
+};
+
+export const LabelImageWidgetStatic: Story = {
+    args: {...getArgsFromQuestion(textQuestion), static: true},
+};

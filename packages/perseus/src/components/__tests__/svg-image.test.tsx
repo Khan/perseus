@@ -175,10 +175,13 @@ describe("SvgImage", () => {
             // The <img> never finishes loading, so imageLoaded stays false
             // for the whole test while the label data is already loaded.
             unmockImageLoading();
-            jest.spyOn(globalThis, "Image").mockImplementation(
+            // A `function`, not an arrow: the image loader calls
+            // `new Image()`, and some test runners construct a mock's
+            // implementation with `new`.
+            jest.spyOn(globalThis, "Image").mockImplementation(function () {
                 // eslint-disable-next-line no-restricted-syntax
-                () => ({}) as HTMLImageElement,
-            );
+                return {} as HTMLImageElement;
+            });
         });
 
         it("should not reload label data on re-render while the image is still loading", () => {

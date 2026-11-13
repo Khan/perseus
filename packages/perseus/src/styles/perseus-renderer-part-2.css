@@ -90,14 +90,6 @@
     margin: var(--wb-sizing-size_160) 0 var(--wb-sizing-size_100);
 }
 @media (max-width: 767px) {
-    .perseus-renderer-responsive {
-        margin: 0 var(--wb-sizing-size_160);
-    }
-    .perseus-renderer-responsive .perseus-renderer-responsive {
-        margin: 0;
-    }
-}
-@media (max-width: 767px) {
     .perseus-mobile .perseus-block-math {
         font-size: 18px;
     }

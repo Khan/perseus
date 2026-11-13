@@ -8,13 +8,14 @@ exports[`matcher widget can reorder options: moved items 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Match each claim with its supporting evidence.
         </strong>
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -42,13 +43,14 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         <strong>
                           Claims
                         </strong>
-                      </p>
+                      </div>
                     </div>
                   </div>
                 </th>
@@ -61,13 +63,14 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         <strong>
                           Evidence
                         </strong>
-                      </p>
+                      </div>
                     </div>
                   </div>
                 </th>
@@ -92,11 +95,12 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             Average global temperatures will rise 
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -110,11 +114,12 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             Our Sun will run out of fuel and die in around 5 billion years 
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -128,11 +133,12 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             Plate tectonics will rearrange the continents: the Pacific will narrow, bringing Australia closer to the Americas, and the Atlantic will expand to form the largest of the oceans 
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -146,11 +152,12 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             Our Sun will run out of hydrogen, swell into a red giant, gobble up the inner rocky planets, and then collapse and die 
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -164,11 +171,12 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             In 3 to 4 billion years, our galaxy will begin a slow collision with its closest large neighbor, Andromeda 
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -191,11 +199,12 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             Rapid escalation of greenhouse gas emissions
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -209,11 +218,12 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             The current trajectory of the Milky Way galaxy and those in its immediate proximity
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -227,11 +237,12 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             Medium-sized stars typically exist for roughly 10 billion years
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -245,11 +256,12 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             The life cycle of medium-sized stars includes a red giant stage and ends in a whimper as a white dwarf
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -263,11 +275,12 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             The current trajectory of the Earth’s tectonic plate movement
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -291,13 +304,14 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Match each claim with its supporting evidence.
         </strong>
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -325,13 +339,14 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         <strong>
                           Claims
                         </strong>
-                      </p>
+                      </div>
                     </div>
                   </div>
                 </th>
@@ -344,13 +359,14 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         <strong>
                           Evidence
                         </strong>
-                      </p>
+                      </div>
                     </div>
                   </div>
                 </th>
@@ -375,11 +391,12 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             Our Sun will run out of fuel and die in around 5 billion years 
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -393,11 +410,12 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             Plate tectonics will rearrange the continents: the Pacific will narrow, bringing Australia closer to the Americas, and the Atlantic will expand to form the largest of the oceans 
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -411,11 +429,12 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             Our Sun will run out of hydrogen, swell into a red giant, gobble up the inner rocky planets, and then collapse and die 
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -429,11 +448,12 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             Average global temperatures will rise 
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -447,11 +467,12 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             In 3 to 4 billion years, our galaxy will begin a slow collision with its closest large neighbor, Andromeda 
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -474,11 +495,12 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             The current trajectory of the Milky Way galaxy and those in its immediate proximity
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -492,11 +514,12 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             Medium-sized stars typically exist for roughly 10 billion years
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -510,11 +533,12 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             The life cycle of medium-sized stars includes a red giant stage and ends in a whimper as a white dwarf
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -528,11 +552,12 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             The current trajectory of the Earth’s tectonic plate movement
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -546,11 +571,12 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             Rapid escalation of greenhouse gas emissions
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -574,13 +600,14 @@ exports[`matcher widget should snapshot: first render 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Match each claim with its supporting evidence.
         </strong>
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -608,13 +635,14 @@ exports[`matcher widget should snapshot: first render 1`] = `
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         <strong>
                           Claims
                         </strong>
-                      </p>
+                      </div>
                     </div>
                   </div>
                 </th>
@@ -627,13 +655,14 @@ exports[`matcher widget should snapshot: first render 1`] = `
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         <strong>
                           Evidence
                         </strong>
-                      </p>
+                      </div>
                     </div>
                   </div>
                 </th>
@@ -658,11 +687,12 @@ exports[`matcher widget should snapshot: first render 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             Our Sun will run out of fuel and die in around 5 billion years 
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -676,11 +706,12 @@ exports[`matcher widget should snapshot: first render 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             Plate tectonics will rearrange the continents: the Pacific will narrow, bringing Australia closer to the Americas, and the Atlantic will expand to form the largest of the oceans 
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -694,11 +725,12 @@ exports[`matcher widget should snapshot: first render 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             Our Sun will run out of hydrogen, swell into a red giant, gobble up the inner rocky planets, and then collapse and die 
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -712,11 +744,12 @@ exports[`matcher widget should snapshot: first render 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             Average global temperatures will rise 
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -730,11 +763,12 @@ exports[`matcher widget should snapshot: first render 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             In 3 to 4 billion years, our galaxy will begin a slow collision with its closest large neighbor, Andromeda 
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -757,11 +791,12 @@ exports[`matcher widget should snapshot: first render 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             The current trajectory of the Milky Way galaxy and those in its immediate proximity
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -775,11 +810,12 @@ exports[`matcher widget should snapshot: first render 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             Medium-sized stars typically exist for roughly 10 billion years
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -793,11 +829,12 @@ exports[`matcher widget should snapshot: first render 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             The life cycle of medium-sized stars includes a red giant stage and ends in a whimper as a white dwarf
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -811,11 +848,12 @@ exports[`matcher widget should snapshot: first render 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             The current trajectory of the Earth’s tectonic plate movement
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -829,11 +867,12 @@ exports[`matcher widget should snapshot: first render 1`] = `
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             Rapid escalation of greenhouse gas emissions
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </li>

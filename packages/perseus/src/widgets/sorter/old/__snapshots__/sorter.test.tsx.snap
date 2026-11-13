@@ -31,11 +31,12 @@ exports[`sorter widget layout keeps a horizontal sorter horizontal at exactly th
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Card 5
-                    </p>
+                    </div>
                   </div>
                 </div>
               </li>
@@ -49,11 +50,12 @@ exports[`sorter widget layout keeps a horizontal sorter horizontal at exactly th
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Card 1
-                    </p>
+                    </div>
                   </div>
                 </div>
               </li>
@@ -67,11 +69,12 @@ exports[`sorter widget layout keeps a horizontal sorter horizontal at exactly th
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Card 3
-                    </p>
+                    </div>
                   </div>
                 </div>
               </li>
@@ -85,11 +88,12 @@ exports[`sorter widget layout keeps a horizontal sorter horizontal at exactly th
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Card 2
-                    </p>
+                    </div>
                   </div>
                 </div>
               </li>
@@ -103,11 +107,12 @@ exports[`sorter widget layout keeps a horizontal sorter horizontal at exactly th
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Card 4
-                    </p>
+                    </div>
                   </div>
                 </div>
               </li>
@@ -151,11 +156,12 @@ exports[`sorter widget layout lays out a horizontal sorter vertically when it ha
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Card 5
-                    </p>
+                    </div>
                   </div>
                 </div>
               </li>
@@ -169,11 +175,12 @@ exports[`sorter widget layout lays out a horizontal sorter vertically when it ha
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Card 4
-                    </p>
+                    </div>
                   </div>
                 </div>
               </li>
@@ -187,11 +194,12 @@ exports[`sorter widget layout lays out a horizontal sorter vertically when it ha
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Card 1
-                    </p>
+                    </div>
                   </div>
                 </div>
               </li>
@@ -205,11 +213,12 @@ exports[`sorter widget layout lays out a horizontal sorter vertically when it ha
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Card 6
-                    </p>
+                    </div>
                   </div>
                 </div>
               </li>
@@ -223,11 +232,12 @@ exports[`sorter widget layout lays out a horizontal sorter vertically when it ha
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Card 2
-                    </p>
+                    </div>
                   </div>
                 </div>
               </li>
@@ -241,11 +251,12 @@ exports[`sorter widget layout lays out a horizontal sorter vertically when it ha
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Card 3
-                    </p>
+                    </div>
                   </div>
                 </div>
               </li>
@@ -289,11 +300,12 @@ exports[`sorter widget layout lays out the cards horizontally when the layout is
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Card 4
-                    </p>
+                    </div>
                   </div>
                 </div>
               </li>
@@ -307,11 +319,12 @@ exports[`sorter widget layout lays out the cards horizontally when the layout is
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Card 2
-                    </p>
+                    </div>
                   </div>
                 </div>
               </li>
@@ -325,11 +338,12 @@ exports[`sorter widget layout lays out the cards horizontally when the layout is
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Card 1
-                    </p>
+                    </div>
                   </div>
                 </div>
               </li>
@@ -343,11 +357,12 @@ exports[`sorter widget layout lays out the cards horizontally when the layout is
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Card 3
-                    </p>
+                    </div>
                   </div>
                 </div>
               </li>
@@ -391,11 +406,12 @@ exports[`sorter widget layout lays out the cards vertically when the layout is v
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Card 4
-                    </p>
+                    </div>
                   </div>
                 </div>
               </li>
@@ -409,11 +425,12 @@ exports[`sorter widget layout lays out the cards vertically when the layout is v
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Card 2
-                    </p>
+                    </div>
                   </div>
                 </div>
               </li>
@@ -427,11 +444,12 @@ exports[`sorter widget layout lays out the cards vertically when the layout is v
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Card 1
-                    </p>
+                    </div>
                   </div>
                 </div>
               </li>
@@ -445,11 +463,12 @@ exports[`sorter widget layout lays out the cards vertically when the layout is v
                   <div
                     class="deprecated-perseus-container"
                   >
-                    <p
+                    <div
                       class="deprecated-perseus-container"
+                      role="paragraph"
                     >
                       Card 3
-                    </p>
+                    </div>
                   </div>
                 </div>
               </li>

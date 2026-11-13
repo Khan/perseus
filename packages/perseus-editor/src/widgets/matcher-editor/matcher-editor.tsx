@@ -36,18 +36,6 @@ class MatcherEditor extends React.Component<Props> {
         this.handleChange({labels});
     };
 
-    // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
-    // the new linter rules for save warnings.
-    getSaveWarnings = (): string[] => {
-        if (this.props.left.length !== this.props.right.length) {
-            return [
-                "The two halves of the matcher have different numbers" +
-                    " of cards.",
-            ];
-        }
-        return [];
-    };
-
     render(): React.ReactNode {
         return (
             <div className="perseus-matcher-editor">

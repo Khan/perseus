@@ -212,8 +212,12 @@ describe("Explanation", function () {
 
     // TODO (LEMS-3815): Remove test when legacy styles are removed
     it("does NOT use transitions when matchMedia is not available", async () => {
-        const fakeWindow = Object.create(window);
-        fakeWindow.matchMedia = undefined;
+        // Define `matchMedia` on the fake rather than assign it: where the
+        // test environment's `window` has an inherited setter for it, an
+        // assignment would remove the real window's `matchMedia` instead.
+        const fakeWindow = Object.create(window, {
+            matchMedia: {value: undefined},
+        });
         // eslint-disable-next-line no-restricted-syntax
         jest.spyOn(window, "window", "get").mockReturnValue(fakeWindow as any);
         renderQuestion(question1);

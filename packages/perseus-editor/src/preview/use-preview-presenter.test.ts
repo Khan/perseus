@@ -135,6 +135,8 @@ describe("usePreviewPresenter", () => {
 
         it("throws error when not used within an iframe", () => {
             jest.spyOn(window, "frameElement", "get").mockReturnValue(null);
+            // React logs the thrown render error even though it is caught.
+            jest.spyOn(console, "error").mockImplementation(() => {});
 
             expect(() => {
                 renderHook(() => usePreviewPresenter());

@@ -416,35 +416,31 @@ describe("perseus markdown", () => {
             },
         );
 
-        it("should parse multiple columns", () => {
+        it("should parse a deprecated column separator", () => {
             // Arrange, Act
             // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
-            const parsed = parse("hi\n\n" + "=====\n\n" + "there\n\n");
+            const parsed = parse("hi\n\n=====\n\nthere\n\n");
 
             // Assert
             expect(parsed).toEqual([
                 {
-                    type: "columns",
-                    col1: [
+                    type: "paragraph",
+                    content: [
                         {
-                            type: "paragraph",
-                            content: [
-                                {
-                                    type: "text",
-                                    content: "hi",
-                                },
-                            ],
+                            type: "text",
+                            content: "hi",
                         },
                     ],
-                    col2: [
+                },
+                {
+                    type: "deprecatedColumnSeparator",
+                },
+                {
+                    type: "paragraph",
+                    content: [
                         {
-                            type: "paragraph",
-                            content: [
-                                {
-                                    type: "text",
-                                    content: "there",
-                                },
-                            ],
+                            type: "text",
+                            content: "there",
                         },
                     ],
                 },
@@ -542,9 +538,9 @@ describe("perseus markdown", () => {
             expect(output).toMatchSnapshot();
         });
 
-        it("should output columns", () => {
+        it("should ignore the deprecated column separator '====='", () => {
             // Arrange
-            const content = "col1\n\n" + "=====\n\n" + "col2";
+            const content = "col1\n\n=====\n\ncol2";
 
             // Act
             // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.

@@ -50,6 +50,7 @@ const draw = {
                 // Add in 10px of padding to avoid clipping at the edges.
                 padding: 10,
                 shadow: state.shadow,
+                isStatic: state.static,
             } as const;
             // @ts-expect-error - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
             this.state.visibleShape = new WrappedEllipse(
@@ -73,9 +74,12 @@ const draw = {
                 this.mouseTarget().toFront();
             }
         }
-        if (state.shadow !== prevState.shadow) {
+        if (
+            state.shadow !== prevState.shadow ||
+            state.static !== prevState.static
+        ) {
             // @ts-expect-error - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
-            this.state.visibleShape.setShadow(state.shadow);
+            this.state.visibleShape.setShadow(state.shadow, state.static);
         }
 
         if (

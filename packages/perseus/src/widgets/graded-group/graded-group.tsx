@@ -207,7 +207,6 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                             keypadElement={props.keypadElement}
                             apiOptions={{...apiOptions, readOnly}}
                             showSolutions={showSolutions}
-                            linterContext={props.linterContext}
                             strings={strings}
                             isScorable
                         />
@@ -283,9 +282,6 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                                                 }
                                                 ref={hintRendererRef}
                                                 apiOptions={apiOptions}
-                                                linterContext={
-                                                    props.linterContext
-                                                }
                                                 strings={strings}
                                                 showSolutions={showSolutions}
                                             />

@@ -50,17 +50,12 @@ export function _upgradeWidgetInfo(widgetInfo: PerseusWidget): PerseusWidget {
 }
 
 class WidgetEditorContainer extends React.Component<Props, State> {
-    widgetSpecificEditor: React.RefObject<{
-        getSaveWarnings?: () => unknown;
-    }>;
-
     constructor(props: Props) {
         super(props);
         this.state = {
             showWidget: props.widgetIsOpen ?? true,
             widgetInfo: _upgradeWidgetInfo(props.widgetInfo),
         };
-        this.widgetSpecificEditor = React.createRef();
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
@@ -117,11 +112,6 @@ class WidgetEditorContainer extends React.Component<Props, State> {
             ...this.state.widgetInfo,
             alignment: newAlignment,
         });
-    };
-
-    getSaveWarnings = () => {
-        const issuesFunc = this.widgetSpecificEditor.current?.getSaveWarnings;
-        return issuesFunc ? issuesFunc() : [];
     };
 
     render(): React.ReactNode {
@@ -202,7 +192,6 @@ class WidgetEditorContainer extends React.Component<Props, State> {
                     }
                 >
                     <WidgetEditor
-                        ref={this.widgetSpecificEditor}
                         onChange={this._handleWidgetChange}
                         static={widgetInfo.static}
                         graded={widgetInfo.graded}

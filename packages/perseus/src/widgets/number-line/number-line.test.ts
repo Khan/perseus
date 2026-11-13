@@ -1,4 +1,4 @@
-import {screen, act} from "@testing-library/react";
+import {screen, act, fireEvent} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../__testutils__/render-question";
@@ -9,11 +9,39 @@ import {
     scorePerseusItemTesting,
 } from "../../util/scoring.testutils";
 
-import {question1, tickCtrl} from "./number-line.testdata";
+import {inequality, question1, tickCtrl} from "./number-line.testdata";
 
 import type {APIOptions} from "../../types";
-import type {PerseusNumberLineWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    PerseusNumberLineWidgetOptions,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
+
+// Builds a native mouse event at the given page coordinates. jsdom doesn't
+// implement MouseEvent's pageX/pageY, which Graphie reads, so we set them.
+function mouseEventAt(type: string, pageX: number, pageY: number) {
+    const event = new MouseEvent(type, {bubbles: true, cancelable: true});
+    Object.defineProperties(event, {
+        pageX: {value: pageX},
+        pageY: {value: pageY},
+    });
+    return event;
+}
+
+// Presses and releases the mouse on the number line, 300px from the left edge
+// of the page. Graphie handles clicks on a transparent <rect> in its mouse
+// layer, which has no accessible handle. It listens for jQuery vmouse events,
+// which the vmouse plugin generates from these native ones.
+function clickNumberLine(container: HTMLElement) {
+    // eslint-disable-next-line testing-library/no-node-access
+    const clickTarget = container.querySelector("svg rect");
+    if (clickTarget == null) {
+        throw new Error("Couldn't find the number line's click target");
+    }
+    fireEvent(clickTarget, mouseEventAt("mousedown", 300, 40));
+    fireEvent(document, mouseEventAt("mouseup", 300, 40));
+}
 
 describe("number-line widget", () => {
     describe("snapshots", () => {
@@ -337,6 +365,88 @@ describe("number-line widget", () => {
             // Assert
             expect(logError).not.toHaveBeenCalled();
         });
+
+        test("moves the point when the number line is clicked", () => {
+            // Arrange
+            const {renderer, container} = renderQuestion(question1);
+
+            // Act
+            clickNumberLine(container);
+
+            // Assert
+            expect(
+                renderer.getUserInputMap()["number-line 1"].numLinePosition,
+            ).toBe(1.5);
+        });
+    });
+
+    describe.each([
+        {name: "static", isStatic: true, readOnly: false},
+        {name: "read-only", isStatic: false, readOnly: true},
+    ])("when $name", ({isStatic, readOnly}) => {
+        function withStatic(question: PerseusRenderer): PerseusRenderer {
+            return {
+                ...question,
+                widgets: {
+                    "number-line 1": {
+                        ...question.widgets["number-line 1"],
+                        static: isStatic,
+                    },
+                },
+            };
+        }
+
+        it("does not move the point when the number line is clicked", () => {
+            // Arrange
+            const {renderer, container} = renderQuestion(
+                withStatic(question1),
+                {apiOptions: {readOnly}},
+            );
+            // Static widgets start with the correct answer filled in, so
+            // compare against the initial input instead of a fixed value.
+            const initialUserInput = renderer.getUserInputMap();
+
+            // Act
+            clickNumberLine(container);
+
+            // Assert
+            expect(renderer.getUserInputMap()).toEqual(initialUserInput);
+        });
+
+        it("disables the divisions input", () => {
+            // Arrange, Act
+            renderQuestion(withStatic(tickCtrl), {apiOptions: {readOnly}});
+
+            // Assert
+            expect(
+                screen.getByRole("textbox", {name: "Number of divisions:"}),
+            ).toBeDisabled();
+        });
+
+        it("disables the divisions input when using the on-screen keypad", () => {
+            // Arrange, Act
+            renderQuestion(withStatic(tickCtrl), {
+                apiOptions: {readOnly, customKeypad: true},
+            });
+
+            // Assert
+            expect(
+                screen.getByRole("textbox", {name: "Number of divisions:"}),
+            ).toBeDisabled();
+        });
+    });
+
+    it("disables the inequality buttons when read-only", () => {
+        // Arrange, Act
+        renderQuestion(inequality, {apiOptions: {readOnly: true}});
+
+        // Assert
+        expect(
+            screen.getByRole("button", {name: "Switch direction"}),
+        ).toBeDisabled();
+        expect(
+            screen.getByRole("button", {name: "Make circle open"}),
+        ).toBeDisabled();
     });
 
     const numberLineOptions: PerseusNumberLineWidgetOptions = {

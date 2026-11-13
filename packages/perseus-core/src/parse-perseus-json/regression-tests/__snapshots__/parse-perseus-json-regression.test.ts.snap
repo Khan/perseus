@@ -2799,7 +2799,7 @@ The other entries of $\\text{H}$ can be found similarly.
               },
             },
           },
-          "static": false,
+          "static": undefined,
           "type": "graded-group",
           "version": {
             "major": 0,
@@ -3673,7 +3673,7 @@ When we solve the resulting equation we obtain that $x = -5$. Then, we can subst
               },
             ],
           },
-          "static": false,
+          "static": undefined,
           "type": "graded-group-set",
           "version": {
             "major": 0,
@@ -17614,7 +17614,7 @@ $\\dfrac59$ can be broken up into $\\dfrac19+\\dfrac19+\\dfrac19+\\dfrac19+\\dfr
               },
             },
           },
-          "static": false,
+          "static": undefined,
           "type": "graded-group",
           "version": {
             "major": 0,
@@ -17715,7 +17715,7 @@ How can we decompose $\\dfrac38$?
               },
             },
           },
-          "static": false,
+          "static": undefined,
           "type": "graded-group",
           "version": {
             "major": 0,
@@ -17856,7 +17856,7 @@ How can we decompose $\\dfrac64$?
               },
             },
           },
-          "static": false,
+          "static": undefined,
           "type": "graded-group",
           "version": {
             "major": 0,
@@ -18024,7 +18024,7 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
               },
             },
           },
-          "static": false,
+          "static": undefined,
           "type": "graded-group",
           "version": {
             "major": 0,
@@ -18083,7 +18083,7 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
               },
             },
           },
-          "static": false,
+          "static": undefined,
           "type": "graded-group",
           "version": {
             "major": 0,
@@ -18136,7 +18136,7 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
               },
             },
           },
-          "static": false,
+          "static": undefined,
           "type": "graded-group",
           "version": {
             "major": 0,
@@ -18187,7 +18187,7 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
               },
             },
           },
-          "static": false,
+          "static": undefined,
           "type": "graded-group",
           "version": {
             "major": 0,
@@ -19977,7 +19977,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.ts return
             },
           },
         },
-        "static": false,
+        "static": undefined,
         "type": "group",
         "version": {
           "major": 0,
@@ -20035,7 +20035,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.ts return
             },
           },
         },
-        "static": false,
+        "static": undefined,
         "type": "group",
         "version": {
           "major": 0,
@@ -20093,7 +20093,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.ts return
             },
           },
         },
-        "static": false,
+        "static": undefined,
         "type": "group",
         "version": {
           "major": 0,
@@ -20151,7 +20151,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.ts return
             },
           },
         },
-        "static": false,
+        "static": undefined,
         "type": "group",
         "version": {
           "major": 0,
@@ -20513,7 +20513,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-v2-with-rationale.ts retu
             },
           },
         },
-        "static": false,
+        "static": undefined,
         "type": "group",
         "version": {
           "major": 0,
@@ -20571,7 +20571,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-v2-with-rationale.ts retu
             },
           },
         },
-        "static": false,
+        "static": undefined,
         "type": "group",
         "version": {
           "major": 0,
@@ -20629,7 +20629,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-v2-with-rationale.ts retu
             },
           },
         },
-        "static": false,
+        "static": undefined,
         "type": "group",
         "version": {
           "major": 0,
@@ -20687,7 +20687,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-v2-with-rationale.ts retu
             },
           },
         },
-        "static": false,
+        "static": undefined,
         "type": "group",
         "version": {
           "major": 0,

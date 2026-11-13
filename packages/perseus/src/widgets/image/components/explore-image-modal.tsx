@@ -41,6 +41,9 @@ export const ExploreImageModal = (props: CommonImageProps) => {
         <h1
             className={`perseus-image-modal-title ${styles.modalTitleContainer}`}
         >
+            {/* TODO(benchristel): Pass inline={true} to the renderer here.
+                Otherwise, we get a <p> element inside an <h1>, which is weird.
+              */}
             {/* Use Renderer so that the title can support markdown and TeX. */}
             <Renderer
                 content={titleText}

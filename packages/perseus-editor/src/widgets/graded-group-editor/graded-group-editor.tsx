@@ -27,9 +27,6 @@ class GradedGroupEditor extends React.Component<Props> {
     static defaultProps: PerseusGradedGroupWidgetOptions =
         gradedGroupLogic.defaultWidgetOptions;
 
-    editor = React.createRef<Editor>();
-    hintEditor = React.createRef<Editor>();
-
     handleChange(changes: Partial<PerseusGradedGroupWidgetOptions>) {
         this.props.onChange({
             title: this.props.title,
@@ -51,10 +48,6 @@ class GradedGroupEditor extends React.Component<Props> {
         this.handleChange({hint: null});
     };
 
-    getSaveWarnings: () => any = () => {
-        return this.editor.current?.getSaveWarnings();
-    };
-
     render(): React.ReactNode {
         const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
         return (
@@ -70,7 +63,6 @@ class GradedGroupEditor extends React.Component<Props> {
                     </label>
                 </div>
                 <Editor
-                    ref={this.editor}
                     content={this.props.content}
                     widgets={this.props.widgets}
                     apiOptions={this.props.apiOptions}
@@ -95,7 +87,6 @@ class GradedGroupEditor extends React.Component<Props> {
                     <div className="perseus-hint-editor">
                         <div className={styles.hintsTitle}>Hint</div>
                         <Editor
-                            ref={this.hintEditor}
                             content={this.props.hint.content}
                             widgets={this.props.hint.widgets}
                             apiOptions={this.props.apiOptions}

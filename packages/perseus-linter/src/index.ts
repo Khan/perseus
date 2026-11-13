@@ -4,7 +4,6 @@ export {linterContextDefault} from "./proptypes";
 
 export {default as Rule} from "./rule";
 export {runLinter} from "./run-linter";
-export {allRules as rules} from "./rules/all-rules";
 
 export type {LinterIssue} from "./rule";
 export type {LinterContextProps} from "./types";

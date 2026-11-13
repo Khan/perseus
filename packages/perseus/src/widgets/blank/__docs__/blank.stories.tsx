@@ -1,6 +1,8 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
+import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
+import {BlankContext} from "../blank-context";
 import {
     basicBlankQuestion,
     subscriptQuestion,
@@ -13,6 +15,13 @@ const meta: Meta = {
     title: "Widgets/Blank",
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
+    decorators: [
+        (Story) => (
+            <BlankContext.Provider value={{renderPlacedTile: () => null}}>
+                <Story />
+            </BlankContext.Provider>
+        ),
+    ],
     parameters: {
         docs: {
             description: {

@@ -285,7 +285,9 @@ class NumberLineEditor extends React.Component<Props> {
                             <p>
                                 This controls the position of the left / right
                                 labels. By default, the labels are set by the
-                                range <br />
+                                range.
+                            </p>
+                            <p>
                                 <strong>Note:</strong> Ensure that the labels
                                 line up with the tick marks, or it may be
                                 confusing for users.
@@ -375,7 +377,8 @@ class NumberLineEditor extends React.Component<Props> {
                                         EN_DASH +
                                         divisionRange[1]}
                                     .
-                                    <br />
+                                </p>
+                                <p>
                                     <strong>Note:</strong> The user will be able
                                     to specify the number of divisions in a
                                     number input.
@@ -425,8 +428,9 @@ class NumberLineEditor extends React.Component<Props> {
                                     number of divisions (2 divisions would split
                                     the entire range in two halves), or the tick
                                     step (the distance between ticks) and the
-                                    other value will be updated accordingly.{" "}
-                                    <br />
+                                    other value will be updated accordingly.
+                                </p>
+                                <p>
                                     <strong>Note:</strong> There is no check to
                                     see if labels coordinate with the tick
                                     marks, which may be confusing for users if
@@ -453,8 +457,9 @@ class NumberLineEditor extends React.Component<Props> {
                     <InfoTip>
                         <p>
                             This determines the number of different places the
-                            point will snap between two adjacent tick marks.{" "}
-                            <br />
+                            point will snap between two adjacent tick marks.
+                        </p>
+                        <p>
                             <strong>Note:</strong>Ensure the required number of
                             snap increments is provided to answer the question.
                         </p>

@@ -514,7 +514,7 @@ describe("server item renderer", () => {
             const gotFocus = await act(() => renderer.focus());
 
             // We have some async processes that need to be resolved here
-            jest.runAllTimers();
+            act(() => jest.runAllTimers());
 
             // Assert
             expect(keypadElement.activate).toHaveBeenCalled();
@@ -585,7 +585,7 @@ describe("server item renderer", () => {
             act(() => renderer.blur());
 
             // We have some async processes that need to be resolved here
-            jest.runAllTimers();
+            act(() => jest.runAllTimers());
 
             // Assert
             expect(keypadElement.dismiss).toHaveBeenCalled();

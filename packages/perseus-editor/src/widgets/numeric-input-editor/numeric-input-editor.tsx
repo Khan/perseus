@@ -176,30 +176,6 @@ class NumericInputEditor extends React.Component<Props, State> {
         this.handleChange({answers: answers});
     };
 
-    // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
-    // the new linter rules for save warnings.
-    getSaveWarnings = () => {
-        // Filter out all the empty answers
-        const warnings = [];
-        if (_.contains(_.pluck(this.props.answers, "value"), "")) {
-            // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
-            warnings.push("One or more answers is empty");
-        }
-        this.props.answers.forEach((answer, i) => {
-            const formatError =
-                answer.strict &&
-                (!answer.answerForms || answer.answerForms.length === 0);
-            if (formatError) {
-                warnings.push(
-                    // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
-                    `Answer ${i + 1} is set to string format ` +
-                        "matching, but no format was selected",
-                );
-            }
-        });
-        return warnings;
-    };
-
     render() {
         const answers = this.props.answers;
         // TODO(LEMS-4681): Replace `?.` with `.` once all apiOptions are passed

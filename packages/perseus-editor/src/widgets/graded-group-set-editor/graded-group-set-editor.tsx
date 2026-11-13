@@ -9,18 +9,8 @@ import type {PerseusGradedGroupSetWidgetOptions} from "@khanacademy/perseus-core
 type Props = WidgetEditorProps<PerseusGradedGroupSetWidgetOptions>;
 
 class GradedGroupSetEditor extends React.Component<Props> {
-    _editors: Array<GradedGroupEditor | null> = [];
-
     static defaultProps: PerseusGradedGroupSetWidgetOptions =
         gradedGroupSetLogic.defaultWidgetOptions;
-
-    getSaveWarnings: () => ReadonlyArray<any> = () => {
-        return [].concat(
-            ...this._editors.map((editor) =>
-                editor ? editor.getSaveWarnings() : [],
-            ),
-        );
-    };
 
     renderGroups: () => React.ReactNode = () => {
         // `defaultProps` only fills in for `undefined`, so content with an
@@ -29,7 +19,6 @@ class GradedGroupSetEditor extends React.Component<Props> {
         return gradedGroups.map((group, i) => (
             <GradedGroupEditor
                 key={i}
-                ref={(el) => (this._editors[i] = el)}
                 {...group}
                 apiOptions={this.props.apiOptions}
                 onChange={(data) =>

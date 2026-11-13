@@ -113,7 +113,6 @@ class MatrixEditor extends React.Component<Props> {
                     {" "}
                     Matrix prefix:{" "}
                     <Editor
-                        ref="prefix"
                         apiOptions={this.props.apiOptions}
                         content={this.props.prefix}
                         widgetEnabled={false}
@@ -126,7 +125,6 @@ class MatrixEditor extends React.Component<Props> {
                     {" "}
                     Matrix suffix:{" "}
                     <Editor
-                        ref="suffix"
                         apiOptions={this.props.apiOptions}
                         content={this.props.suffix}
                         widgetEnabled={false}

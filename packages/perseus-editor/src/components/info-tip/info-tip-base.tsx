@@ -13,7 +13,11 @@ type Props = {
 const InfoTipBase = (props: Props) => {
     return (
         <Tooltip
-            content={<BodyText style={styles.body}>{props.children}</BodyText>}
+            content={
+                <BodyText tag="div" style={styles.body}>
+                    {props.children}
+                </BodyText>
+            }
             placement="right"
         >
             <PhosphorIcon

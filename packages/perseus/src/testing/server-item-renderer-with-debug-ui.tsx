@@ -56,6 +56,7 @@ export const ServerItemRendererWithDebugUI = ({
     const {
         ref,
         state,
+        renderedItem,
         options,
         updateJson,
         handleReset,
@@ -84,7 +85,7 @@ export const ServerItemRendererWithDebugUI = ({
                                     ref={ref}
                                     problemNum={0}
                                     apiOptions={options}
-                                    item={state.perseusItem}
+                                    item={renderedItem}
                                     dependencies={storybookDependenciesV2}
                                     keypadElement={keypadElement}
                                     linterContext={linterContext}

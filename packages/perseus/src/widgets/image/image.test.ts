@@ -421,7 +421,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         expect(dialog).toHaveTextContent("widget long description");
     });
 
-    it("should render a modal the placeholder title if a title is not provided", async () => {
+    it("should render a modal with a placeholder title if a title is not provided", async () => {
         // Arrange
         const imageQuestion = generateTestPerseusRenderer({
             content: "[[☃ image 1]]",
@@ -555,7 +555,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             expect(button).not.toBeInTheDocument();
         });
 
-        it("does not render a zoom image button for gif images", () => {
+        it("does not render a zoom image button for gif images", async () => {
             // Arrange
             const gifImageQuestion = generateTestPerseusRenderer({
                 content: "[[☃ image 1]]",
@@ -572,7 +572,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             renderQuestion(gifImageQuestion, {apiOptions});
 
             // Assert
-            expect(screen.getByRole("figure")).toBeVisible();
+            expect(await screen.findByRole("figure")).toBeVisible();
             const zoomButton = screen.queryByRole("button", {
                 name: "Zoom image.",
             });

@@ -1,7 +1,6 @@
 import {allRules} from "./rules/all-rules";
 import TreeTransformer from "./tree-transformer";
 
-import type Rule from "./rule";
 import type {LinterIssue} from "./rule";
 import type {TreeNode} from "./tree-transformer";
 
@@ -27,7 +26,6 @@ export function runLinter(
     tree: any,
     context: any,
     highlight: boolean,
-    rules: ReadonlyArray<Rule> = allRules,
 ): ReadonlyArray<LinterIssue> {
     const issues: Array<LinterIssue> = [];
     const tt = new TreeTransformer(tree);
@@ -82,7 +80,7 @@ export function runLinter(
             stack: stack.join("."),
         } as const;
 
-        rules.forEach((rule) => {
+        allRules().forEach((rule) => {
             const ruleIssues = rule.check(node, state, content, nodeContext);
             for (const issue of ruleIssues) {
                 // The start and end locations are relative to this

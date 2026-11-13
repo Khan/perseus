@@ -81,6 +81,9 @@ utils/                   # Repo scripts (changed-files, lint, publishing)
    `dropdown.testdata.ts`.
 2. Follow the AAA pattern with `// Arrange`, `// Act` and `// Assert`
    comments. When Arrange and Act are one step, use `// Arrange, Act`.
+   Playwright component tests (`*.spec.ts`) are the exception: a browser test
+   interleaves actions and assertions, so the comments don't fit. Comment a
+   step there only to say what it's for.
 3. Build test data with the generators in
    `packages/perseus-core/src/utils/generators`. Pass values the test depends
    on (used in assertions or the logic under test) explicitly instead of

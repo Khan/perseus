@@ -83,7 +83,6 @@ class MeasurerEditor extends React.Component<Props> {
                     <input
                         type="text"
                         className="perseus-widget-measurer-url"
-                        ref="image-url"
                         defaultValue={image.url}
                         onChange={this._changeUrl}
                     />

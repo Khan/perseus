@@ -3988,8 +3988,13 @@ describe("simple markdown", function () {
                             react: function (
                                 /** @type {SimpleMarkdown.SingleASTNode} */ node,
                                 /** @type {SimpleMarkdown.ReactOutput} */ output,
+                                /** @type {SimpleMarkdown.State} */ state,
                             ) {
-                                return <p>{output(node.content)}</p>;
+                                return (
+                                    <p key={state.key}>
+                                        {output(node.content)}
+                                    </p>
+                                );
                             },
                         },
                     ),
@@ -4000,7 +4005,10 @@ describe("simple markdown", function () {
                             /** @type {SimpleMarkdown.State} */ state,
                         ) {
                             return (
-                                <span className={state.spanClass || "default"}>
+                                <span
+                                    key={state.key}
+                                    className={state.spanClass || "default"}
+                                >
                                     {node.content}
                                 </span>
                             );
@@ -4043,9 +4051,10 @@ describe("simple markdown", function () {
                     react: function (
                         /** @type {SimpleMarkdown.SingleASTNode} */ node,
                         /** @type {SimpleMarkdown.ReactOutput} */ output,
+                        state,
                     ) {
                         return (
-                            <span style={{background: "black"}}>
+                            <span key={state.key} style={{background: "black"}}>
                                 {output(node.content)}
                             </span>
                         );

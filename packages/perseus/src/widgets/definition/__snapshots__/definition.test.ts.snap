@@ -8,17 +8,19 @@ exports[`Definition widget should have a default snapshot: first render 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         Read the excerpt and answer the question below. 
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         The Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with 
         <span
@@ -47,7 +49,7 @@ exports[`Definition widget should have a default snapshot: first render 1`] = `
           </span>
         </span>
         , upon these conditions.
-      </p>
+      </div>
     </div>
   </div>
 </div>
@@ -62,17 +64,19 @@ exports[`Definition widget should have an open state snapshot: open state 1`] = 
       class="deprecated-perseus-container"
       data-floating-ui-inert=""
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         Read the excerpt and answer the question below. 
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         The Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with 
         <span
@@ -127,7 +131,7 @@ exports[`Definition widget should have an open state snapshot: open state 1`] = 
           </span>
         </span>
         , upon these conditions.
-      </p>
+      </div>
     </div>
   </div>
 </div>

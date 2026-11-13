@@ -412,7 +412,8 @@ describe("input-number", () => {
         const {renderer} = renderQuestion(question);
 
         // Act
-        const gotFocus = await act(() => renderer.focus());
+        // Needs to be async because Popper updates its position in a microtask.
+        const gotFocus = await act(async () => renderer.focus());
 
         // Assert
         expect(screen.getByRole("textbox")).toHaveFocus();
@@ -422,11 +423,12 @@ describe("input-number", () => {
     it("supports blurring", async () => {
         // Arrange
         const {renderer} = renderQuestion(question);
-        await act(() => renderer.focus());
+        // Needs to be async because Popper updates its position in a microtask.
+        await act(async () => renderer.focus());
         expect(screen.getByRole("textbox")).toHaveFocus();
 
         // Act
-        await act(() => renderer.blur());
+        await act(async () => renderer.blur());
 
         // Assert
         await waitFor(() => {
@@ -528,7 +530,7 @@ describe("focus state", () => {
         const {renderer} = renderQuestion(question);
 
         // Act
-        const gotFocus = await act(() => renderer.focus());
+        const gotFocus = await act(async () => renderer.focus());
 
         // Assert
         expect(screen.getByRole("textbox")).toHaveFocus();
@@ -538,11 +540,11 @@ describe("focus state", () => {
     it("supports blurring", async () => {
         //  Arrange
         const {renderer} = renderQuestion(question);
-        await act(() => renderer.focus());
+        await act(async () => renderer.focus());
         expect(screen.getByRole("textbox")).toHaveFocus();
 
         // Act
-        await act(() => renderer.blur());
+        await act(async () => renderer.blur());
 
         // Assert
         await waitFor(() => {
