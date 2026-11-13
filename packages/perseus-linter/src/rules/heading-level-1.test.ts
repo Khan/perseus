@@ -1,4 +1,4 @@
-import {expectPass, expectIssue} from "../__tests__/test-utils";
+import {expectPass, expectIssue} from "../__tests__/linter.testutils";
 
 import headingLevel1Rule from "./heading-level-1";
 

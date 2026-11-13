@@ -31,7 +31,7 @@ import {registerWidget} from "../widgets";
 import MockAssetLoadingWidgetExport from "../widgets/mock-widgets/mock-asset-loading-widget.testutils";
 import MockWidget from "../widgets/mock-widgets/mock-widget";
 
-import {mockedAssetItem} from "./test-items/mock-asset-loading-item";
+import {mockedAssetItem} from "./test-items/mock-asset-loading-item.testdata";
 
 import type {MockAssetLoadingWidgetHandle} from "../widgets/mock-widgets/mock-asset-loading-widget.testutils";
 import type {KeypadAPI} from "@khanacademy/math-input";
