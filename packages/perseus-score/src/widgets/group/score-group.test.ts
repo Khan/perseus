@@ -36,47 +36,49 @@ describe("scoreGroup", () => {
         expect(result).toHaveInvalidInput();
     });
 
-    it("ignores a widget that isn't in the group's content", () => {
-        // Arrange: "dropdown 2" is in the options but not the content, so
-        // the learner never sees it and can't answer it.
-        const rubric = generateGroupOptions({
-            content: "[[☃ dropdown 1]]",
-            widgets: {
-                "dropdown 1": getTestDropdownWidget(),
-                "dropdown 2": getTestDropdownWidget(),
-            },
+    describe("a widget that isn't in the content", () => {
+        it("isn't required to be answered", () => {
+            // Arrange: "dropdown 2" is in the options but not the content, so
+            // the learner never sees it and can't answer it.
+            const rubric = generateGroupOptions({
+                content: "[[☃ dropdown 1]]",
+                widgets: {
+                    "dropdown 1": getTestDropdownWidget(),
+                    "dropdown 2": getTestDropdownWidget(),
+                },
+            });
+
+            // Act:
+            const result = scoreGroup({"dropdown 1": {value: 1}}, rubric, "en");
+
+            // Assert:
+            expect(result).toHaveBeenAnsweredCorrectly();
         });
 
-        // Act:
-        const result = scoreGroup({"dropdown 1": {value: 1}}, rubric, "en");
+        it("doesn't add to the score", () => {
+            // Arrange:
+            const rubric = generateGroupOptions({
+                content: "[[☃ dropdown 1]]",
+                widgets: {
+                    "dropdown 1": getTestDropdownWidget(),
+                    "dropdown 2": getTestDropdownWidget(),
+                },
+            });
 
-        // Assert:
-        expect(result).toHaveBeenAnsweredCorrectly();
-    });
+            // Act:
+            const result = scoreGroup(
+                {"dropdown 1": {value: 1}, "dropdown 2": {value: 1}},
+                rubric,
+                "en",
+            );
 
-    it("counts only the widgets in the group's content toward the total", () => {
-        // Arrange:
-        const rubric = generateGroupOptions({
-            content: "[[☃ dropdown 1]]",
-            widgets: {
-                "dropdown 1": getTestDropdownWidget(),
-                "dropdown 2": getTestDropdownWidget(),
-            },
-        });
-
-        // Act:
-        const result = scoreGroup(
-            {"dropdown 1": {value: 1}, "dropdown 2": {value: 1}},
-            rubric,
-            "en",
-        );
-
-        // Assert:
-        expect(result).toEqual({
-            type: "points",
-            earned: 1,
-            total: 1,
-            message: null,
+            // Assert:
+            expect(result).toEqual({
+                type: "points",
+                earned: 1,
+                total: 1,
+                message: null,
+            });
         });
     });
 });
