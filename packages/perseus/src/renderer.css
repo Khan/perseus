@@ -189,6 +189,15 @@
         overflow: auto;
         margin: var(--wb-sizing-size_240) calc(-1 * var(--wb-sizing-size_160));
     }
+
+    /***************
+     * Blockquotes *
+     ***************/
+    .framework-perseus blockquote {
+        padding-inline: var(--wb-sizing-size_200);
+        border-inline-start: var(--wb-border-width-thick) solid
+            var(--wb-semanticColor-core-border-neutral-subtle);
+    }
 }
 
 /* These stay in the main "Shared" layer because they need to override base styles */
