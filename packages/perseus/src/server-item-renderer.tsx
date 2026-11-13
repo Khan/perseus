@@ -362,7 +362,10 @@ const ServerItemRenderer = React.forwardRef<ServerItemRendererHandle, Props>(
                         content: "",
                         widgets: {},
                     },
-                getUserInput: () => userInputRef.current,
+                getUserInput: () =>
+                    getQuestionRenderer("getUserInput")
+                        ? userInputRef.current
+                        : {},
                 getWidgetIds: () =>
                     getQuestionRenderer("getWidgetIds")?.getWidgetIds() ?? [],
                 getSerializedState: () => ({

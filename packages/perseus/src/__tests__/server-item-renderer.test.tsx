@@ -760,6 +760,42 @@ describe("server item renderer", () => {
             });
         });
 
+        it("returns empty user input and logs once after unmounting", async () => {
+            // Arrange
+            const logSpy = jest.spyOn(testDependencies.Log, "log");
+            const item = generateTestPerseusItem({
+                question: generateTestPerseusRenderer({
+                    content: "[[☃ mock-widget 1]]",
+                    widgets: {
+                        "mock-widget 1": {
+                            type: "mock-widget",
+                            options: {value: ""},
+                        } satisfies MockWidgetType,
+                    },
+                }),
+            });
+            const {renderer, unmount} = renderItem(item);
+            await userEvent.type(
+                screen.getByRole("textbox", {name: "Mock Widget"}),
+                "42",
+            );
+            expect(renderer.getUserInput()).toEqual({
+                "mock-widget 1": {currentValue: "42"},
+            });
+            unmount();
+
+            // Act
+            const userInput = renderer.getUserInput();
+            renderer.getUserInput();
+
+            // Assert
+            expect(userInput).toEqual({});
+            expect(logSpy).toHaveBeenCalledTimes(1);
+            expect(logSpy).toHaveBeenCalledWith(expect.any(String), {
+                method: "getUserInput",
+            });
+        });
+
         it("logs the first use, so the caller can be fixed", () => {
             // Arrange
             const logSpy = jest.spyOn(testDependencies.Log, "log");
