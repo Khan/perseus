@@ -11,8 +11,6 @@ import DecorativeToggle from "./decorative-toggle";
 import type {UserEvent} from "@testing-library/user-event";
 import type {Mock} from "vitest";
 
-// Imports custom matchers
-
 function userEventForFakeTimers() {
     return userEventLib.setup({
         advanceTimers: vi.advanceTimersByTime,

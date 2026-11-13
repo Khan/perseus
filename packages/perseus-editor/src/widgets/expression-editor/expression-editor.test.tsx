@@ -259,7 +259,7 @@ describe("expression-editor", () => {
 
     it("should be possible to add an answer", async () => {
         const onChangeMock = vi.fn();
-        crypto.randomUUID = vi.fn(() => "0-0-0-0-0");
+        vi.spyOn(crypto, "randomUUID").mockReturnValue("0-0-0-0-0");
 
         render(<HarnessedEditor onChange={onChangeMock} />);
         act(() => vi.runOnlyPendingTimers());

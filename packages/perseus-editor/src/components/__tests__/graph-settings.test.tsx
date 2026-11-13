@@ -8,8 +8,6 @@ import GraphSettings from "../graph-settings";
 
 import type {UserEvent} from "@testing-library/user-event";
 
-// Imports custom matchers
-
 /**
  * userEvent vs. userEventLib - which to use?
  *

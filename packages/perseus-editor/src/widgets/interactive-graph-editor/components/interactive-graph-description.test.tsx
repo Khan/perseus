@@ -10,8 +10,6 @@ import InteractiveGraphDescription from "./interactive-graph-description";
 
 import type {UserEvent} from "@testing-library/user-event";
 
-// Imports custom matchers
-
 function userEventForFakeTimers() {
     return userEventLib.setup({
         advanceTimers: vi.advanceTimersByTime,

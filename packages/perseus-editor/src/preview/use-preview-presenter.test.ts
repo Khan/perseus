@@ -96,7 +96,7 @@ describe("usePreviewPresenter", () => {
         const reportCall = mockPostMessage.mock.calls.find(
             (call) => call[0].type === "a11y-report",
         );
-        return reportCall[0].violations[0].instanceId;
+        return reportCall?.[0].violations[0].instanceId;
     }
 
     describe("initialization", () => {
@@ -703,7 +703,7 @@ describe("usePreviewPresenter", () => {
             const reportCall = mockPostMessage.mock.calls.find(
                 (call) => call[0].type === "a11y-report",
             );
-            const instanceId = reportCall[0].violations[0].instanceId;
+            const instanceId = reportCall?.[0].violations[0].instanceId;
 
             // Act
             act(() => {
@@ -853,7 +853,7 @@ describe("usePreviewPresenter", () => {
             const reportCall = mockPostMessage.mock.calls.find(
                 (call) => call[0].type === "a11y-report",
             );
-            const instanceId = reportCall[0].violations[0].instanceId;
+            const instanceId = reportCall?.[0].violations[0].instanceId;
 
             act(() => {
                 window.dispatchEvent(

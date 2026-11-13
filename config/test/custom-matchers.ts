@@ -25,7 +25,7 @@ declare module "vitest" {
 expect.extend({
     toHaveBeenAnsweredCorrectly(
         score: PerseusScore,
-        options: {
+        options?: {
             shouldHavePoints: boolean;
         },
     ) {
@@ -75,7 +75,7 @@ expect.extend({
         return {pass: true, message: () => ""};
     },
 
-    toHaveInvalidInput(score: PerseusScore, message: string | null) {
+    toHaveInvalidInput(score: PerseusScore, message?: string | null) {
         if (score.type !== "invalid") {
             const errMessage = `Answer state is not invalid. Score: ${JSON.stringify(score)}`;
 
