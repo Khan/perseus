@@ -16,14 +16,6 @@ import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 /**
- * WidgetEditor holds the editor by ref and calls `getSaveWarnings()` on it, so that
- * handle is part of the editor's contract with the rest of the system. Deriving
- * the type from the component keeps these tests tied to the contract rather than
- * to how the component happens to be written.
- */
-type SorterEditorHandle = React.ElementRef<typeof SorterEditor>;
-
-/**
  * Renders the editor the way the content editor does: every change is fed back
  * in as props. Tests that make more than one edit, or that depend on the editor
  * re-rendering, need this rather than a bare `render`.
@@ -31,14 +23,12 @@ type SorterEditorHandle = React.ElementRef<typeof SorterEditor>;
 function renderControlled(
     options: PerseusSorterWidgetOptions,
     onChange?: (newOptions: Partial<PerseusSorterWidgetOptions>) => void,
-    ref?: React.Ref<SorterEditorHandle>,
 ) {
     function Controlled() {
         const [currentOptions, setCurrentOptions] = React.useState(options);
 
         return (
             <SorterEditor
-                ref={ref}
                 {...currentOptions}
                 onChange={(newOptions) => {
                     onChange?.(newOptions);
@@ -483,6 +473,31 @@ describe("sorter-editor", () => {
         expect(screen.getByDisplayValue("Emu")).toHaveAccessibleName("Card 2");
     });
 
+    it("does not drop the legend when another option is edited", async () => {
+        // Arrange
+        const onChange = jest.fn();
+        const legend: PerseusSorterWidgetOptions["legend"] = {
+            startCap: "arrow",
+            endCap: "bar",
+            startLabel: "Lowest",
+            endLabel: "Highest",
+            ariaLabel: "Interest rates from lowest to highest",
+            position: "above",
+        };
+        renderControlled(
+            generateSorterOptions({correct: ["Cat", "Dog"], legend}),
+            onChange,
+        );
+
+        // Act
+        await userEvent.type(screen.getByDisplayValue("Dog"), "s");
+
+        // Assert
+        expect(onChange).toHaveBeenLastCalledWith(
+            expect.objectContaining({legend}),
+        );
+    });
+
     // The editor page reads the default options off the component itself to
     // seed a newly inserted sorter, so they're part of its public surface, not
     // implementation detail.
@@ -502,94 +517,5 @@ describe("sorter-editor", () => {
         expect(screen.getByDisplayValue("$x$")).toBeInTheDocument();
         expect(screen.getByDisplayValue("$y$")).toBeInTheDocument();
         expect(screen.getByDisplayValue("$z$")).toBeInTheDocument();
-    });
-
-    describe("getSaveWarnings", () => {
-        function renderForWarnings(correct: string[]) {
-            const editorRef = React.createRef<SorterEditorHandle>();
-            renderControlled(
-                generateSorterOptions({correct}),
-                undefined,
-                editorRef,
-            );
-            return editorRef;
-        }
-
-        it("returns no warnings when every card has text", () => {
-            // Arrange, Act
-            const editorRef = renderForWarnings(["Cat", "Dog"]);
-
-            // Assert
-            expect(editorRef.current?.getSaveWarnings()).toEqual([]);
-        });
-
-        it("warns when a card is blank", () => {
-            // Arrange, Act
-            const editorRef = renderForWarnings(["Cat", ""]);
-
-            // Assert
-            expect(editorRef.current?.getSaveWarnings()).toEqual([
-                "Sorter cards cannot be blank.",
-            ]);
-        });
-
-        it("warns when a card holds only whitespace", () => {
-            // Arrange, Act
-            const editorRef = renderForWarnings(["Cat", "   "]);
-
-            // Assert
-            expect(editorRef.current?.getSaveWarnings()).toEqual([
-                "Sorter cards cannot be blank.",
-            ]);
-        });
-
-        it("warns when there are fewer than two cards", () => {
-            // Arrange, Act
-            const editorRef = renderForWarnings(["Cat"]);
-
-            // Assert
-            expect(editorRef.current?.getSaveWarnings()).toEqual([
-                "Sorter requires at least 2 cards.",
-            ]);
-        });
-
-        it("warns when every card has been deleted", () => {
-            // Arrange, Act
-            const editorRef = renderForWarnings([]);
-
-            // Assert
-            expect(editorRef.current?.getSaveWarnings()).toEqual([
-                "Sorter requires at least 2 cards.",
-            ]);
-        });
-
-        // The warnings have to reflect the edit in progress.
-        it("warns about a card the author has just cleared", async () => {
-            // Arrange
-            const editorRef = renderForWarnings(["Cat", "Dog"]);
-
-            // Act
-            await userEvent.clear(screen.getByDisplayValue("Dog"));
-
-            // Assert
-            expect(editorRef.current?.getSaveWarnings()).toEqual([
-                "Sorter cards cannot be blank.",
-            ]);
-        });
-
-        it("warns about a newly added card before it has text", async () => {
-            // Arrange
-            const editorRef = renderForWarnings(["Cat", "Dog"]);
-
-            // Act
-            await userEvent.click(
-                screen.getByRole("button", {name: "Add a card"}),
-            );
-
-            // Assert
-            expect(editorRef.current?.getSaveWarnings()).toEqual([
-                "Sorter cards cannot be blank.",
-            ]);
-        });
     });
 });

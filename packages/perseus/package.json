@@ -3,7 +3,7 @@
     "description": "Core Perseus API (includes renderers and widgets)",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "93.0.3",
+    "version": "93.1.0",
     "publishConfig": {
         "access": "public",
         "exports": {
@@ -54,6 +54,7 @@
     },
     "devDependencies": {
         "@internal/build-settings": "workspace:*",
+        "@khanacademy/mathjax-renderer": "catalog:devDeps",
         "@khanacademy/wonder-blocks-announcer": "catalog:devDeps",
         "@khanacademy/wonder-blocks-banner": "catalog:devDeps",
         "@khanacademy/wonder-blocks-button": "catalog:devDeps",
@@ -89,6 +90,7 @@
         "underscore": "catalog:devDeps"
     },
     "peerDependencies": {
+        "@khanacademy/mathjax-renderer": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-announcer": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-banner": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-button": "catalog:peerDeps",
@@ -123,6 +125,6 @@
     },
     "keywords": [],
     "khan": {
-        "catalogHash": "c5e0d95da455a764"
+        "catalogHash": "7aaf5fd9f24a04a9"
     }
 }

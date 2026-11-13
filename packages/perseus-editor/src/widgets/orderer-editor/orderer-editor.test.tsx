@@ -29,7 +29,6 @@ describe("OrdererEditor", () => {
     it("updates state correctly", async () => {
         // Arrange
         const onChangeMock = jest.fn();
-        const editorRef = React.createRef<OrdererEditor>();
 
         const imageUrl =
             "https://ka-perseus-graphie.s3.amazonaws.com/6e68574abb61d2b4a12644d777006fcfa8a73cff.png";
@@ -58,11 +57,7 @@ describe("OrdererEditor", () => {
         };
 
         render(
-            <OrdererEditor
-                ref={editorRef}
-                onChange={onChangeMock}
-                {...startWidgetOptions}
-            />,
+            <OrdererEditor onChange={onChangeMock} {...startWidgetOptions} />,
         );
 
         // Act

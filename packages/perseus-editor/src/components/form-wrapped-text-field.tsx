@@ -244,6 +244,7 @@ const styles = StyleSheet.create({
     },
 });
 
+// TODO(benchristel): nothing gets a ref to this component. Remove forwardRef.
 export default React.forwardRef<HTMLInputElement, Props>((props, ref) => (
     <FormWrappedTextField {...props} forwardedRef={ref} />
 ));

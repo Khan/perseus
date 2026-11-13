@@ -1,5 +1,4 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
-import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -563,64 +562,6 @@ describe("InteractiveGraphEditor", () => {
             />,
         );
         expect(await screen.findAllByTestId("movable-line")).toHaveLength(4);
-    });
-
-    it("getSaveWarnings returns an error when the graph is invalid", async () => {
-        // Arrange
-        const ref = React.createRef<InteractiveGraphEditor>();
-
-        // Act
-        render(
-            <InteractiveGraphEditor
-                {...baseProps}
-                graph={{type: "segment"}}
-                correct={{type: "segment"}}
-                lockedFigures={[
-                    {
-                        ...getDefaultFigureForType("line"),
-                        points: [
-                            // Line has length 0
-                            getDefaultFigureForType("point"),
-                            getDefaultFigureForType("point"),
-                        ],
-                    },
-                ]}
-                ref={ref}
-            />,
-            {
-                wrapper: RenderStateRoot,
-            },
-        );
-
-        // Assert
-        expect(ref.current?.getSaveWarnings()).toEqual([
-            "The line cannot have length 0.",
-        ]);
-    });
-
-    it("getSaveWarnings is empty if there are no errors", async () => {
-        // Arrange
-        const ref = React.createRef<InteractiveGraphEditor>();
-
-        // Act
-        render(
-            <InteractiveGraphEditor
-                {...segmentProps}
-                correct={{type: "segment"}}
-                lockedFigures={[
-                    {
-                        ...getDefaultFigureForType("line"),
-                    },
-                ]}
-                ref={ref}
-            />,
-            {
-                wrapper: RenderStateRoot,
-            },
-        );
-
-        // Assert
-        expect(ref.current?.getSaveWarnings()).toEqual([]);
     });
 
     it("calls changeStartCoords when the startCoords are changed", async () => {

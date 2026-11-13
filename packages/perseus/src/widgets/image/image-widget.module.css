@@ -1,4 +1,4 @@
-.title-container {
+.image-title {
     /* Same reasoning as .info-area-container: prevent long title text from
        expanding the figure's fit-content width beyond the image. */
     contain: inline-size;
@@ -24,9 +24,19 @@
         var(--wb-semanticColor-core-border-neutral-subtle);
 }
 
-:global(.perseus-image-caption) {
+.image-caption {
     font-size: var(--wb-font-body-size-small);
     line-height: var(--wb-font-body-lineHeight-small);
+    padding-inline: var(--wb-sizing-size_160);
+    color: var(--wb-semanticColor-core-foreground-neutral-subtle);
+}
+
+.image-caption,
+.image-title {
+    :global(.perseus-renderer) > :global(.deprecated-perseus-container) > *,
+    :global(.perseus-renderer) > * {
+        margin-block: 0;
+    }
 }
 
 .modal-container {
@@ -53,10 +63,20 @@
     align-items: center;
     font-size: var(--wb-font-heading-size-medium);
     line-height: var(--wb-font-heading-lineHeight-medium);
-    /* Undo the default padding for the top of the modal. */
-    margin-block-start: var(--perseus-image-modal-padding-offset);
-    /* Reset the default margin for h1. */
-    margin-block-end: 0px;
+    /* Undo the default padding for the top of the modal, and set spacing after h1 */
+    margin-block: 0 var(--wb-sizing-size_160);
+
+    /* Remove default margin for paragraphs - handled by margin on h1 */
+    p,
+    [role="paragraph"] {
+        margin-block: 0;
+    }
+}
+
+[data-wb-theme="default"] .modal-title-container {
+    /* Undo SOME of the default padding for the top of the modal, and set spacing after h1 */
+    margin-block: calc(var(--perseus-image-modal-padding-offset) / 2)
+        var(--wb-sizing-size_080);
 }
 
 .modal-panel-container {

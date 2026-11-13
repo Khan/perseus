@@ -13,6 +13,7 @@ import {ChoiceBank} from "../../../components/drag-and-drop/choice-bank";
 import {PerseusDndProvider} from "../../../components/drag-and-drop/perseus-dnd-provider";
 import {tempDndStrings} from "../../../components/drag-and-drop/temp-strings";
 import {isTileInBank} from "../../../components/drag-and-drop/tile-placements";
+import {useSpokenLabels} from "../../../components/drag-and-drop/use-spoken-labels";
 import {useTileMoveActions} from "../../../components/drag-and-drop/use-tile-move-actions";
 import UnsupportedWidgetMessage from "../../../components/unsupported-widget-message";
 import {useDependencies} from "../../../dependencies";
@@ -92,12 +93,15 @@ const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
 
     const tileIds = bankOrder.map((_, index) => getTileId(index));
 
+    // for TeX and screen reader support
+    const tileLabels = useSpokenLabels(bankOrder);
+
     function getTileContent(tileId: string): string {
         return bankOrder[tileIds.indexOf(tileId)];
     }
 
     function getTileLabel(tileId: string): string {
-        return getTileContent(tileId);
+        return tileLabels[tileIds.indexOf(tileId)];
     }
 
     function getBlankLabel(blankId: string): string {

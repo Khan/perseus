@@ -3,7 +3,7 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "45.0.7",
+    "version": "45.1.0",
     "publishConfig": {
         "access": "public",
         "exports": {
@@ -30,7 +30,6 @@
         "prepublishOnly": "../../utils/package-pre-publish-check.sh"
     },
     "dependencies": {
-        "@khanacademy/kas": "workspace:*",
         "@khanacademy/keypad-context": "workspace:*",
         "@khanacademy/kmath": "workspace:*",
         "@khanacademy/math-input": "workspace:*",
@@ -107,6 +106,6 @@
     },
     "keywords": [],
     "khan": {
-        "catalogHash": "3b998f09628e8372"
+        "catalogHash": "85b4998d4181f603"
     }
 }

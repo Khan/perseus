@@ -45,6 +45,7 @@ pnpm test                    # run all tests
 pnpm lint                    # find problems
 pnpm lint --fix              # fix problems
 pnpm storybook               # open component gallery
+pnpm pw                      # open the Playwright component tests in UI mode (see below)
 pnpm changeset               # create a changeset file (see below)
 pnpm update-catalog-hashes   # update catalog dependency hashes (see below)
 ```
@@ -59,6 +60,22 @@ git land  # land the pull request for the current branch
 ### Using Storybook
 
 The components and widgets of Perseus are developed using [Storybook](https://github.com/storybookjs/storybook). After you clone the project and get dependencies installed, the next step is to start storybook by running `pnpm storybook`. This will start a server and give you a playground to use each component.
+
+### Running browser tests
+
+Some tests (`*.spec.ts`) need to run in a real browser using [Playwright](https://playwright.dev), because they check things our unit tests can't, such as CSS, focus order and drag-and-drop. Before running them the first time, and after Playwright is upgraded, install the browser they use:
+
+```bash
+pnpm exec playwright install chromium
+```
+
+If it's missing, the run stops before any test starts and tells you to run that command. Then:
+
+```bash
+pnpm pw                      # UI mode: pick tests, watch them run, step through each action
+pnpm pw:ci                   # run them all headless, as CI does
+pnpm pw:ci path/to/my.spec.ts  # run one spec
+```
 
 ### Using Changesets
 

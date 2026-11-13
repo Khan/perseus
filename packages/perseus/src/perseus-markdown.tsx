@@ -246,7 +246,6 @@ const rules = {
                     message={node.message}
                     ruleName={node.ruleName}
                     inline={isInline(node.content)}
-                    blockHighlight={node.blockHighlight}
                     insideTable={node.insideTable}
                     severity={node.severity}
                 >

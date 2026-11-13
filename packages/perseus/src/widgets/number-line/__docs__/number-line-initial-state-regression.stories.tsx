@@ -1,4 +1,5 @@
 import {themeModes} from "../../../../../../.storybook/modes";
+import {mobileDecorator} from "../../__testutils__/story-decorators";
 
 import {numberLineRendererDecorator} from "./number-line-renderer-decorator";
 import {waitForError, waitForNumberLine} from "./number-line-story-helpers";
@@ -191,6 +192,20 @@ export const StaticPoint: Story = {
     } satisfies Partial<PerseusNumberLineWidgetOptions>,
     parameters: {
         static: true,
+    },
+    play: waitForRender,
+};
+
+export const StaticPointMobile: Story = {
+    decorators: [numberLineRendererDecorator, mobileDecorator],
+    args: {
+        range: [0, 10],
+        numDivisions: 5,
+        correctX: 6,
+    } satisfies Partial<PerseusNumberLineWidgetOptions>,
+    parameters: {
+        static: true,
+        apiOptions: {isMobile: true},
     },
     play: waitForRender,
 };
