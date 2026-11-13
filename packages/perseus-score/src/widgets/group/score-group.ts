@@ -1,3 +1,5 @@
+import {getWidgetIdsFromContent} from "@khanacademy/perseus-core";
+
 import {scoreWidgetsFunctional} from "../../score";
 import flattenScores from "../../util/flatten-scores";
 
@@ -18,9 +20,11 @@ function scoreGroup(
         return {type: "invalid", message: null};
     }
 
+    // Score only the widgets the group's content shows. The options can hold
+    // widgets the content no longer references; learners never see those.
     const scores = scoreWidgetsFunctional(
         rubric.widgets,
-        Object.keys(rubric.widgets),
+        getWidgetIdsFromContent(rubric.content),
         userInput,
         locale,
     );
