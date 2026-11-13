@@ -27,17 +27,32 @@ const argosEnabled = process.env.ARGOS_SCREENSHOTS === "true";
  * The URLs stay relative in `preview-head.html` itself so the published
  * Storybook keeps working when hosted under a sub-path (GitHub Pages).
  *
+ * It also declares the cascade layer order up front. Layers are ordered by
+ * where they first appear, and `storybook-styles/preview.css` (linked from
+ * the head, so it loads before any imported CSS) declares `shared` through
+ * `@layer shared.storybook`. Without this, `reset` would come after `shared`
+ * and the CSS reset would win over every Perseus and Storybook style. The
+ * order matches the `wrap-css-in-layer` plugin in `.storybook/main.ts`.
+ *
  * Runs `post` so it sees the head that `storybookTest` injects.
  */
 const rootRelativePreviewHeadUrls: Plugin = {
     name: "perseus:root-relative-preview-head-urls",
     transformIndexHtml: {
         order: "post",
-        handler: (html) =>
-            html.replace(
+        handler: (html) => ({
+            html: html.replace(
                 /(<link\b[^>]*\shref=")(?:\.\/)?(?![a-z][a-z0-9+.-]*:|\/|#)/gi,
                 "$1/",
             ),
+            tags: [
+                {
+                    tag: "style",
+                    children: "@layer reset, shared, shared.base, legacy;",
+                    injectTo: "head-prepend",
+                },
+            ],
+        }),
     },
 };
 
