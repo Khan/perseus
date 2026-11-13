@@ -1035,8 +1035,7 @@ describe("renderer", () => {
                 apiOptions: {onFocusChange},
             });
             await userEvent.click(screen.getByRole("textbox"));
-            // The blur is reported a moment later (a _.defer()), and the
-            // learner can move on, unmounting the question, before it is.
+            // The blur may be reported after a delay.
             await userEvent.tab();
 
             // Act
