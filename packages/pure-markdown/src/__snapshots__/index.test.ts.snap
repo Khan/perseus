@@ -1,0 +1,113 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`pure markdown > parser > should parse titled table with unescaped dollars 1`] = `
+[
+  {
+    "table": {
+      "align": [
+        null,
+        null,
+        null,
+      ],
+      "cells": [
+        [
+          [
+            {
+              "content": "data 1",
+              "type": "text",
+            },
+          ],
+          [
+            {
+              "content": "data 2",
+              "type": "text",
+            },
+          ],
+          [
+            {
+              "content": "data 3",
+              "type": "text",
+            },
+          ],
+        ],
+        [
+          [
+            {
+              "content": "data 4",
+              "type": "text",
+            },
+          ],
+          [
+            {
+              "type": "unescapedDollar",
+            },
+            {
+              "content": "data 5",
+              "type": "text",
+            },
+          ],
+          [
+            {
+              "content": "data 6",
+              "type": "text",
+            },
+          ],
+        ],
+        [
+          [
+            {
+              "content": "data 7",
+              "type": "text",
+            },
+          ],
+          [
+            {
+              "content": "data 8",
+              "type": "text",
+            },
+          ],
+          [
+            {
+              "content": "data 9",
+              "type": "text",
+            },
+          ],
+        ],
+      ],
+      "header": [
+        [
+          {
+            "content": "header 1",
+            "type": "text",
+          },
+        ],
+        [
+          {
+            "content": "header 2",
+            "type": "text",
+          },
+        ],
+        [
+          {
+            "content": "header 3",
+            "type": "text",
+          },
+        ],
+      ],
+      "type": "table",
+    },
+    "title": [
+      {
+        "content": [
+          {
+            "content": "Table title",
+            "type": "text",
+          },
+        ],
+        "type": "strong",
+      },
+    ],
+    "type": "titledTable",
+  },
+]
+`;

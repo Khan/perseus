@@ -1,0 +1,488 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`perseus markdown > output > should ignore the deprecated column separator '=====' 1`] = `
+[
+  <div
+    className="paragraph"
+  >
+    col1
+  </div>,
+  null,
+  <div
+    className="paragraph"
+  >
+    col2
+  </div>,
+]
+`;
+
+exports[`perseus markdown > output > should output paragraphs 1`] = `
+[
+  <div
+    className="paragraph"
+  >
+    para!
+  </div>,
+]
+`;
+
+exports[`perseus markdown > output > should output titled table with unescaped dollars 1`] = `
+[
+  <div
+    className="perseus-titled-table-wrapper"
+  >
+    <table>
+      <caption
+        className="perseus-table-title"
+      >
+        <strong>
+          Table title
+        </strong>
+      </caption>
+      <thead>
+        <tr>
+          <th
+            scope="col"
+            style={{}}
+          >
+            header 1
+          </th>
+          <th
+            scope="col"
+            style={{}}
+          >
+            header 2
+          </th>
+          <th
+            scope="col"
+            style={{}}
+          >
+            header 3
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td
+            style={{}}
+          >
+            data 1
+          </td>
+          <td
+            style={{}}
+          >
+            data 2
+          </td>
+          <td
+            style={{}}
+          >
+            data 3
+          </td>
+        </tr>
+        <tr>
+          <td
+            style={{}}
+          >
+            data 4
+          </td>
+          <td
+            style={{}}
+          >
+            $data 5
+          </td>
+          <td
+            style={{}}
+          >
+            data 6
+          </td>
+        </tr>
+        <tr>
+          <td
+            style={{}}
+          >
+            data 7
+          </td>
+          <td
+            style={{}}
+          >
+            data 8
+          </td>
+          <td
+            style={{}}
+          >
+            data 9
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>,
+]
+`;
+
+exports[`perseus markdown > output > should render \`\`\`alt screenreader blocks 1`] = `
+[
+  <div
+    className="perseus-markdown-alt perseus-sr-only"
+  >
+    <div
+      className="paragraph"
+    >
+      screenreader-only text!
+    </div>
+  </div>,
+]
+`;
+
+exports[`perseus markdown > output with linter > should output titled table with unescaped dollars in lint 1`] = `
+[
+  <div
+    className="perseus-titled-table-wrapper"
+  >
+    <Lint
+      inline={false}
+      insideTable={false}
+      message="Unescaped dollar sign:
+Dollar signs must appear in pairs or be escaped as \\$"
+      ruleName="unescaped-dollar"
+      severity={1}
+    >
+      <table>
+        <caption
+          className="perseus-table-title"
+        >
+          <strong>
+            Table title
+          </strong>
+        </caption>
+        <thead>
+          <tr>
+            <th
+              scope="col"
+              style={{}}
+            >
+              header 1
+            </th>
+            <th
+              scope="col"
+              style={{}}
+            >
+              header 2
+            </th>
+            <th
+              scope="col"
+              style={{}}
+            >
+              header 3
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td
+              style={{}}
+            >
+              data 1
+            </td>
+            <td
+              style={{}}
+            >
+              data 2
+            </td>
+            <td
+              style={{}}
+            >
+              data 3
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={{}}
+            >
+              data 4
+            </td>
+            <td
+              style={{}}
+            >
+              <Lint
+                inline={true}
+                insideTable={true}
+                message="Unescaped dollar sign:
+Dollar signs must appear in pairs or be escaped as \\$"
+                ruleName="unescaped-dollar"
+                severity={1}
+              >
+                $
+              </Lint>
+              data 5
+            </td>
+            <td
+              style={{}}
+            >
+              data 6
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={{}}
+            >
+              data 7
+            </td>
+            <td
+              style={{}}
+            >
+              data 8
+            </td>
+            <td
+              style={{}}
+            >
+              data 9
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </Lint>
+  </div>,
+]
+`;
+
+exports[`perseus markdown > parser > should parse titled table with unescaped dollars 1`] = `
+[
+  {
+    "table": {
+      "align": [
+        null,
+        null,
+        null,
+      ],
+      "cells": [
+        [
+          [
+            {
+              "content": "data 1",
+              "type": "text",
+            },
+          ],
+          [
+            {
+              "content": "data 2",
+              "type": "text",
+            },
+          ],
+          [
+            {
+              "content": "data 3",
+              "type": "text",
+            },
+          ],
+        ],
+        [
+          [
+            {
+              "content": "data 4",
+              "type": "text",
+            },
+          ],
+          [
+            {
+              "type": "unescapedDollar",
+            },
+            {
+              "content": "data 5",
+              "type": "text",
+            },
+          ],
+          [
+            {
+              "content": "data 6",
+              "type": "text",
+            },
+          ],
+        ],
+        [
+          [
+            {
+              "content": "data 7",
+              "type": "text",
+            },
+          ],
+          [
+            {
+              "content": "data 8",
+              "type": "text",
+            },
+          ],
+          [
+            {
+              "content": "data 9",
+              "type": "text",
+            },
+          ],
+        ],
+      ],
+      "header": [
+        [
+          {
+            "content": "header 1",
+            "type": "text",
+          },
+        ],
+        [
+          {
+            "content": "header 2",
+            "type": "text",
+          },
+        ],
+        [
+          {
+            "content": "header 3",
+            "type": "text",
+          },
+        ],
+      ],
+      "type": "table",
+    },
+    "title": [
+      {
+        "content": [
+          {
+            "content": "Table title",
+            "type": "text",
+          },
+        ],
+        "type": "strong",
+      },
+    ],
+    "type": "titledTable",
+  },
+]
+`;
+
+exports[`perseus markdown > parser with linter > should lint unescaped dollars in titled table 1`] = `
+[
+  {
+    "table": {
+      "blockHighlight": undefined,
+      "content": {
+        "align": [
+          null,
+          null,
+          null,
+        ],
+        "cells": [
+          [
+            [
+              {
+                "content": "data 1",
+                "type": "text",
+              },
+            ],
+            [
+              {
+                "content": "data 2",
+                "type": "text",
+              },
+            ],
+            [
+              {
+                "content": "data 3",
+                "type": "text",
+              },
+            ],
+          ],
+          [
+            [
+              {
+                "content": "data 4",
+                "type": "text",
+              },
+            ],
+            [
+              {
+                "blockHighlight": undefined,
+                "content": {
+                  "type": "unescapedDollar",
+                },
+                "insideTable": true,
+                "message": "Unescaped dollar sign:
+Dollar signs must appear in pairs or be escaped as \\$",
+                "ruleName": "unescaped-dollar",
+                "severity": 1,
+                "type": "lint",
+              },
+              {
+                "content": "data 5",
+                "type": "text",
+              },
+            ],
+            [
+              {
+                "content": "data 6",
+                "type": "text",
+              },
+            ],
+          ],
+          [
+            [
+              {
+                "content": "data 7",
+                "type": "text",
+              },
+            ],
+            [
+              {
+                "content": "data 8",
+                "type": "text",
+              },
+            ],
+            [
+              {
+                "content": "data 9",
+                "type": "text",
+              },
+            ],
+          ],
+        ],
+        "header": [
+          [
+            {
+              "content": "header 1",
+              "type": "text",
+            },
+          ],
+          [
+            {
+              "content": "header 2",
+              "type": "text",
+            },
+          ],
+          [
+            {
+              "content": "header 3",
+              "type": "text",
+            },
+          ],
+        ],
+        "type": "table",
+      },
+      "insideTable": false,
+      "message": "Unescaped dollar sign:
+Dollar signs must appear in pairs or be escaped as \\$",
+      "ruleName": "unescaped-dollar",
+      "severity": 1,
+      "type": "lint",
+    },
+    "title": [
+      {
+        "content": [
+          {
+            "content": "Table title",
+            "type": "text",
+          },
+        ],
+        "type": "strong",
+      },
+    ],
+    "type": "titledTable",
+  },
+]
+`;

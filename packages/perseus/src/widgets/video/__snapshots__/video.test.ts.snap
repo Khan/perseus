@@ -1,0 +1,149 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`video widget > should snapshot > first render 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="deprecated-perseus-container"
+    >
+      <div
+        class="deprecated-perseus-container"
+        role="paragraph"
+      >
+        Watch the Biogeography: Where Life Lives video to find the answer.
+      </div>
+    </div>
+    <div
+      class="deprecated-perseus-container"
+    >
+      <div
+        class="deprecated-perseus-container"
+      >
+        <div
+          class="perseus-widget-container widget-block"
+        >
+          <div
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
+          >
+            <div
+              class="fixed-to-responsive perseus-video-fixed-to-responsive"
+              style="max-width: 1280px; max-height: 720px;"
+            >
+              <iframe
+                allow="autoplay"
+                allowfullscreen=""
+                class="perseus-video-widget"
+                height="720"
+                sandbox="allow-same-origin allow-scripts"
+                src="https://www.khanacademy.org/embed_video?slug=biogeography-where-life-lives&internal_video_only=1"
+                title="Khan Academy video wrapper"
+                width="1280"
+              />
+            </div>
+            <div
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 100%; justify-content: center;"
+            >
+              <span
+                style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;"
+              />
+              <div
+                aria-hidden="true"
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 10px; -ms-flex-basis: 10px; -ms-flex-preferred-size: 10px; -webkit-flex-basis: 10px; flex-basis: 10px; flex-shrink: 0;"
+              />
+              <a
+                class="visited-no-recolor"
+                data-style-active="color: var(--wb-semanticColor-link-press); text-decoration: underline currentcolor solid; text-underline-offset: var(--wb-font-textDecoration-underlineOffset);"
+                data-style-before="content: ''; position: absolute; inset-block-start: 50%; inset-inline-start: 50%; transform: translate(-50%, -50%); block-size: 100%; inline-size: 100%; min-block-size: var(--wb-sizing-size_240); min-inline-size: var(--wb-sizing-size_240);"
+                data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium); border-radius: var(--wb-border-radius-radius_010);"
+                data-style-hover="text-decoration: underline currentcolor solid; color: var(--wb-semanticColor-link-hover); text-underline-offset: var(--wb-font-textDecoration-underlineOffset);"
+                href="/transcript/videoNotFound"
+                rel="noopener noreferrer"
+                style="font-family: var(--wb-c-link-root-font-family); font-weight: var(--wb-c-link-root-font-weight); cursor: pointer; text-decoration: none; outline: none; align-items: center; color: var(--wb-semanticColor-link-rest); position: relative;"
+                target="_blank"
+              >
+                See video transcript
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`video widget > should snapshot on mobile > first mobile render 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="deprecated-perseus-container"
+    >
+      <div
+        class="deprecated-perseus-container"
+        role="paragraph"
+      >
+        Watch the Biogeography: Where Life Lives video to find the answer.
+      </div>
+    </div>
+    <div
+      class="deprecated-perseus-container"
+    >
+      <div
+        class="deprecated-perseus-container"
+      >
+        <div
+          class="perseus-widget-container widget-block"
+        >
+          <div
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
+          >
+            <div
+              class="fixed-to-responsive perseus-video-fixed-to-responsive"
+              style="max-width: 1280px; max-height: 720px;"
+            >
+              <iframe
+                allow="autoplay"
+                allowfullscreen=""
+                class="perseus-video-widget"
+                height="720"
+                sandbox="allow-same-origin allow-scripts"
+                src="https://www.khanacademy.org/embed_video?slug=biogeography-where-life-lives&internal_video_only=1"
+                title="Khan Academy video wrapper"
+                width="1280"
+              />
+            </div>
+            <div
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 100%; justify-content: center;"
+            >
+              <span
+                style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;"
+              />
+              <div
+                aria-hidden="true"
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 10px; -ms-flex-basis: 10px; -ms-flex-preferred-size: 10px; -webkit-flex-basis: 10px; flex-basis: 10px; flex-shrink: 0;"
+              />
+              <a
+                class="visited-no-recolor"
+                data-style-active="color: var(--wb-semanticColor-link-press); text-decoration: underline currentcolor solid; text-underline-offset: var(--wb-font-textDecoration-underlineOffset);"
+                data-style-before="content: ''; position: absolute; inset-block-start: 50%; inset-inline-start: 50%; transform: translate(-50%, -50%); block-size: 100%; inline-size: 100%; min-block-size: var(--wb-sizing-size_240); min-inline-size: var(--wb-sizing-size_240);"
+                data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium); border-radius: var(--wb-border-radius-radius_010);"
+                data-style-hover="text-decoration: underline currentcolor solid; color: var(--wb-semanticColor-link-hover); text-underline-offset: var(--wb-font-textDecoration-underlineOffset);"
+                href="/transcript/videoNotFound"
+                rel="noopener noreferrer"
+                style="font-family: var(--wb-c-link-root-font-family); font-weight: var(--wb-c-link-root-font-weight); cursor: pointer; text-decoration: none; outline: none; align-items: center; color: var(--wb-semanticColor-link-rest); position: relative;"
+                target="_blank"
+              >
+                See video transcript
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

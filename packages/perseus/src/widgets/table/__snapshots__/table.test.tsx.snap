@@ -1,0 +1,205 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`table > answerful vs answerless > answerful: snapshots 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="deprecated-perseus-container"
+    >
+      <div
+        class="deprecated-perseus-container"
+        role="paragraph"
+      >
+        The answer is 42
+
+      </div>
+    </div>
+    <div
+      class="deprecated-perseus-container"
+    >
+      <div
+        class="deprecated-perseus-container"
+      >
+        <div
+          class="perseus-widget-container widget-block"
+        >
+          <table
+            class="perseus-widget-table-of-values non-markdown"
+          >
+            <thead>
+              <tr>
+                <th>
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="deprecated-perseus-container"
+                    >
+                      <div
+                        class="deprecated-perseus-container"
+                        role="paragraph"
+                      >
+                        Column 1
+                      </div>
+                    </div>
+                  </div>
+                </th>
+                <th>
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="deprecated-perseus-container"
+                    >
+                      <div
+                        class="deprecated-perseus-container"
+                        role="paragraph"
+                      >
+                        Column 2
+                      </div>
+                    </div>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <input
+                    type="text"
+                    value=""
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value=""
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input
+                    type="text"
+                    value=""
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value=""
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`table > answerful vs answerless > answerless: snapshots 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="deprecated-perseus-container"
+    >
+      <div
+        class="deprecated-perseus-container"
+        role="paragraph"
+      >
+        The answer is 42
+
+      </div>
+    </div>
+    <div
+      class="deprecated-perseus-container"
+    >
+      <div
+        class="deprecated-perseus-container"
+      >
+        <div
+          class="perseus-widget-container widget-block"
+        >
+          <table
+            class="perseus-widget-table-of-values non-markdown"
+          >
+            <thead>
+              <tr>
+                <th>
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="deprecated-perseus-container"
+                    >
+                      <div
+                        class="deprecated-perseus-container"
+                        role="paragraph"
+                      >
+                        Column 1
+                      </div>
+                    </div>
+                  </div>
+                </th>
+                <th>
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="deprecated-perseus-container"
+                    >
+                      <div
+                        class="deprecated-perseus-container"
+                        role="paragraph"
+                      >
+                        Column 2
+                      </div>
+                    </div>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <input
+                    type="text"
+                    value=""
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value=""
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input
+                    type="text"
+                    value=""
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value=""
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

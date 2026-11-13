@@ -1,0 +1,241 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`orderer widget > should snapshot > first render 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="deprecated-perseus-container"
+    >
+      <div
+        class="deprecated-perseus-container"
+        role="paragraph"
+      >
+        <strong>
+          Without using a calculator, put the numbers in order  from least to greatest.
+        </strong>
+          
+      </div>
+    </div>
+    <div
+      class="deprecated-perseus-container"
+    >
+      <div
+        class="deprecated-perseus-container"
+      >
+        <div
+          class="perseus-widget-container widget-block"
+        >
+          <div
+            class="draggy-boxy-thing orderer height-normal layout-horizontal blank-background perseus-clearfix "
+          >
+            <div
+              class="bank perseus-clearfix"
+            >
+              <div
+                class="card-wrap"
+              >
+                <div
+                  class="card stack"
+                >
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="deprecated-perseus-container"
+                    >
+                      <div
+                        class="deprecated-perseus-container"
+                        role="paragraph"
+                      >
+                        1
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="card-wrap"
+              >
+                <div
+                  class="card stack"
+                >
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="deprecated-perseus-container"
+                    >
+                      <div
+                        class="deprecated-perseus-container"
+                        role="paragraph"
+                      >
+                        3
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="card-wrap"
+              >
+                <div
+                  class="card stack"
+                >
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="deprecated-perseus-container"
+                    >
+                      <div
+                        class="deprecated-perseus-container"
+                        role="paragraph"
+                      >
+                        2
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="perseus-clearfix draggable-box"
+            >
+              <div
+                class="card-wrap"
+              >
+                <div
+                  class="card drag-hint"
+                />
+              </div>
+              <div />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`orderer widget > should snapshot on mobile > first mobile render 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="deprecated-perseus-container"
+    >
+      <div
+        class="deprecated-perseus-container"
+        role="paragraph"
+      >
+        <strong>
+          Without using a calculator, put the numbers in order  from least to greatest.
+        </strong>
+          
+      </div>
+    </div>
+    <div
+      class="deprecated-perseus-container"
+    >
+      <div
+        class="deprecated-perseus-container"
+      >
+        <div
+          class="perseus-widget-container widget-block"
+        >
+          <div
+            class="draggy-boxy-thing orderer height-normal layout-horizontal blank-background perseus-clearfix "
+          >
+            <div
+              class="bank perseus-clearfix"
+            >
+              <div
+                class="card-wrap"
+              >
+                <div
+                  class="card stack"
+                >
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="deprecated-perseus-container"
+                    >
+                      <div
+                        class="deprecated-perseus-container"
+                        role="paragraph"
+                      >
+                        1
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="card-wrap"
+              >
+                <div
+                  class="card stack"
+                >
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="deprecated-perseus-container"
+                    >
+                      <div
+                        class="deprecated-perseus-container"
+                        role="paragraph"
+                      >
+                        3
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="card-wrap"
+              >
+                <div
+                  class="card stack"
+                >
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="deprecated-perseus-container"
+                    >
+                      <div
+                        class="deprecated-perseus-container"
+                        role="paragraph"
+                      >
+                        2
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="perseus-clearfix draggable-box"
+            >
+              <div
+                class="card-wrap"
+              >
+                <div
+                  class="card drag-hint"
+                />
+              </div>
+              <div />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
