@@ -17,6 +17,20 @@ export default defineConfig({
     ],
     restoreMocks: true,
     resetMocks: true,
+    // Used only with `--coverage` (see utils/test-with-coverage.sh).
+    coverage: {
+        provider: "v8",
+        include: ["packages/*/src/**/*.{js,jsx,ts,tsx}"],
+        exclude: [
+            "**/__testutils__/**",
+            "**/__docs__/**",
+            "**/__stories__/**",
+            "**/*.stories.tsx",
+            "**/*.testdata.ts",
+        ],
+        reporters: ["json"],
+        reportsDirectory: "coverage/rstest",
+    },
     resolve: {
         alias: {
             // Tests that import from `@jest/globals` get Rstest's test
