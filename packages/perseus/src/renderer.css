@@ -194,7 +194,7 @@
      * Blockquotes *
      ***************/
     .framework-perseus blockquote {
-        padding-inline: var(--wb-sizing-size_200);
+        padding-inline: var(--wb-sizing-size_240);
         border-inline-start: var(--wb-border-width-thick) solid
             var(--wb-semanticColor-core-border-neutral-subtle);
     }
