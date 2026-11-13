@@ -96,7 +96,6 @@ export class ServerItemRenderer
      * there were no assets to wait for.
      */
     _assetStatuses: {[assetKey: string]: boolean};
-    blurTimeoutID: number | null | undefined;
     userInput: UserInputMap;
 
     static defaultProps: DefaultProps = {
@@ -124,14 +123,6 @@ export class ServerItemRenderer
         // mount they're all in _assetStatuses (unloaded) and we can tell
         // whether there's anything to wait for.
         this.maybeCallOnRendered();
-    }
-
-    componentWillUnmount() {
-        if (this.blurTimeoutID != null) {
-            // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
-            clearTimeout(this.blurTimeoutID);
-            this.blurTimeoutID = null;
-        }
     }
 
     /**
@@ -224,26 +215,13 @@ export class ServerItemRenderer
     }
 
     _onRendererBlur(blurPath: FocusPath) {
-        const blurringFocusPath = this._currentFocus;
-
         // Failsafe: abort if ID is different, because focus probably happened
         // before blur
-        if (!_.isEqual(blurPath, blurringFocusPath)) {
+        if (!_.isEqual(blurPath, this._currentFocus)) {
             return;
         }
 
-        // Wait until after any new focus events fire this tick before
-        // declaring that nothing is focused.
-        // If a different widget was focused, we'll see an onBlur event
-        // now, but then an onFocus event on a different element before
-        // this callback is executed
-        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
-        // @ts-expect-error - TS2322 - Type 'Timeout' is not assignable to type 'number'.
-        this.blurTimeoutID = setTimeout(() => {
-            if (_.isEqual(this._currentFocus, blurringFocusPath)) {
-                this._setCurrentFocus(null);
-            }
-        }, 0);
+        this._setCurrentFocus(null);
     }
 
     focusPath(path: FocusPath): void {
