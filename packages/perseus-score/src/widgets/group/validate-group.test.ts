@@ -54,27 +54,25 @@ describe("validateGroup", () => {
         expect(result).toHaveInvalidInput(ErrorCodes.USER_INPUT_TOO_LONG);
     });
 
-    describe("a widget that isn't in the content", () => {
-        it("isn't validated", () => {
-            // Arrange:
-            const validationData = getGroupPublicWidgetOptions({
-                content: "[[☃ dropdown 1]]",
-                widgets: {
-                    "dropdown 1": getTestDropdownWidget(),
-                    "dropdown 2": getTestDropdownWidget(),
-                },
-                images: {},
-            });
-
-            // Act:
-            const result = validateGroup(
-                {"dropdown 1": {value: 1}},
-                validationData,
-                "en",
-            );
-
-            // Assert:
-            expect(result).toBeNull();
+    it("doesn't validate a widget that isn't in the content", () => {
+        // Arrange
+        const validationData = getGroupPublicWidgetOptions({
+            content: "[[☃ dropdown 1]]",
+            widgets: {
+                "dropdown 1": getTestDropdownWidget(),
+                "dropdown 2": getTestDropdownWidget(),
+            },
+            images: {},
         });
+
+        // Act
+        const result = validateGroup(
+            {"dropdown 1": {value: 1}},
+            validationData,
+            "en",
+        );
+
+        // Assert
+        expect(result).toBeNull();
     });
 });
