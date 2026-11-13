@@ -1,14 +1,17 @@
 import flattenScores from "./util/flatten-scores";
 import getScoreableWidgets from "./util/get-scoreable-widgets";
 import isWidgetScoreable from "./util/is-widget-scoreable";
+import {validateUserInput} from "./validate";
 import {getWidgetScorer, getWidgetValidator} from "./widgets/widget-registry";
 
 import type {
     PerseusRenderer,
     PerseusScore,
     PerseusWidgetsMap,
+    ScorerContext,
     UserInputMap,
     UserInput,
+    ValidatorContext,
 } from "@khanacademy/perseus-core";
 
 type WidgetScores = {
@@ -91,6 +94,9 @@ export function scorePerseusItem(
     );
 }
 
+const scorerContext: ScorerContext = {scoreWidgets: scoreWidgetsFunctional};
+const validatorContext: ValidatorContext = {validateWidgets: validateUserInput};
+
 export function scoreWidgetsFunctional(
     widgets: PerseusWidgetsMap,
     // This is a port of old code, I'm not sure why
@@ -118,8 +124,8 @@ export function scoreWidgetsFunctional(
         // We do validation (empty checks) first and then scoring. If
         // validation fails, it's result is itself a PerseusScore.
         const score =
-            validator?.(userInput, widget.options, locale) ??
-            scorer?.(userInput, widget.options, locale);
+            validator?.(userInput, widget.options, locale, validatorContext) ??
+            scorer?.(userInput, widget.options, locale, scorerContext);
         if (score != null) {
             widgetScores[id] = score;
         }
