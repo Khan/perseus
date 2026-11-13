@@ -32,7 +32,7 @@
 }
 
 .image-caption,
-.title-container {
+.image-title {
     :global(.perseus-renderer) > :global(.deprecated-perseus-container) > *,
     :global(.perseus-renderer) > * {
         margin-block: 0;
