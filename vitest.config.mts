@@ -1,7 +1,7 @@
 // SPIKE: run the Jest suite under Vitest.
-import {readFileSync} from "node:fs";
+import {existsSync, readFileSync, readdirSync} from "node:fs";
 import {createRequire} from "node:module";
-import {basename, dirname} from "node:path";
+import {basename, dirname, join} from "node:path";
 import {fileURLToPath} from "node:url";
 
 import react from "@vitejs/plugin-react";
@@ -11,6 +11,28 @@ const root = dirname(fileURLToPath(import.meta.url));
 const cssModulesTransform = createRequire(import.meta.url)(
     "jest-css-modules-transform",
 );
+
+// Workspace packages without a `react` dependency, and the repo scripts in
+// `utils/`, as in Jest's config: their tests run in node, so code that depends
+// on the DOM fails there instead of passing under jsdom.
+const nodeDirs = [
+    ...readdirSync(join(root, "packages"))
+        .filter((name) => {
+            const file = join(root, "packages", name, "package.json");
+            if (!existsSync(file)) {
+                return false;
+            }
+            const pkg = JSON.parse(readFileSync(file, "utf8"));
+            return ![
+                "dependencies",
+                "peerDependencies",
+                "devDependencies",
+            ].some((field) => pkg[field]?.react);
+        })
+        .map((name) => `packages/${name}`),
+    "utils",
+];
+const testFiles = "**/*.test.{js,jsx,ts,tsx}";
 
 export default defineConfig({
     // Unlike vite.config.mts, no `aphrodite` -> `aphrodite/no-important`
@@ -71,9 +93,31 @@ export default defineConfig({
     css: {modules: {localsConvention: "camelCase"}},
     test: {
         globals: true,
-        environment: "jsdom",
-        include: ["**/*.test.{js,jsx,ts,tsx}"],
         exclude: ["**/node_modules/**", "**/dist/**", ".claude/**"],
+        projects: [
+            {
+                extends: true,
+                test: {
+                    name: "node",
+                    environment: "node",
+                    include: nodeDirs.map((dir) => `${dir}/${testFiles}`),
+                },
+            },
+            {
+                extends: true,
+                test: {
+                    name: "jsdom",
+                    environment: "jsdom",
+                    include: [testFiles],
+                    exclude: [
+                        "**/node_modules/**",
+                        "**/dist/**",
+                        ".claude/**",
+                        ...nodeDirs.map((dir) => `${dir}/**`),
+                    ],
+                },
+            },
+        ],
         setupFiles: [
             "config/test/vitest/setup.ts",
             "config/test/custom-matchers.ts",
