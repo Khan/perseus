@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`matcher widget can reorder options: moved items 1`] = `
+exports[`matcher widget > can reorder options > moved items 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -296,7 +296,7 @@ exports[`matcher widget can reorder options: moved items 1`] = `
 </div>
 `;
 
-exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
+exports[`matcher widget > should snapshot > first render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -383,7 +383,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                   >
                     <li
                       class="perseus-sortable-draggable"
-                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-disabled-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: default; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; background-color: inherit; position: static; margin: 0px 0px 8px 0px;"
+                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-disabled-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: default; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; background-color: inherit; position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
                         class="perseus-renderer perseus-renderer-responsive"
@@ -402,7 +402,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                     </li>
                     <li
                       class="perseus-sortable-draggable"
-                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-disabled-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: default; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; background-color: inherit; position: static; margin: 0px 0px 8px 0px;"
+                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-disabled-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: default; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; background-color: inherit; position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
                         class="perseus-renderer perseus-renderer-responsive"
@@ -421,7 +421,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                     </li>
                     <li
                       class="perseus-sortable-draggable"
-                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-disabled-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: default; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; background-color: inherit; position: static; margin: 0px 0px 8px 0px;"
+                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-disabled-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: default; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; background-color: inherit; position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
                         class="perseus-renderer perseus-renderer-responsive"
@@ -440,7 +440,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                     </li>
                     <li
                       class="perseus-sortable-draggable"
-                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-disabled-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: default; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; background-color: inherit; position: static; margin: 0px 0px 8px 0px;"
+                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-disabled-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: default; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; background-color: inherit; position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
                         class="perseus-renderer perseus-renderer-responsive"
@@ -487,7 +487,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                   >
                     <li
                       class="perseus-sortable-draggable"
-                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ns-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; position: static; margin: 0px 0px 8px 0px;"
+                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ns-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
                         class="perseus-renderer perseus-renderer-responsive"
@@ -506,7 +506,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                     </li>
                     <li
                       class="perseus-sortable-draggable"
-                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ns-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; position: static; margin: 0px 0px 8px 0px;"
+                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ns-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
                         class="perseus-renderer perseus-renderer-responsive"
@@ -525,7 +525,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                     </li>
                     <li
                       class="perseus-sortable-draggable"
-                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ns-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; position: static; margin: 0px 0px 8px 0px;"
+                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ns-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
                         class="perseus-renderer perseus-renderer-responsive"
@@ -544,7 +544,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                     </li>
                     <li
                       class="perseus-sortable-draggable"
-                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ns-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; position: static; margin: 0px 0px 8px 0px;"
+                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ns-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
                         class="perseus-renderer perseus-renderer-responsive"
@@ -592,7 +592,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
 </div>
 `;
 
-exports[`matcher widget should snapshot: first render 1`] = `
+exports[`matcher widget > should snapshot on mobile > first mobile render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -679,7 +679,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                   >
                     <li
                       class="perseus-sortable-draggable"
-                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-disabled-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: default; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; background-color: inherit; position: static; margin: 0px 0px 5px 0px;"
+                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-disabled-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: default; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; background-color: inherit; position: static; margin: 0px 0px 8px 0px;"
                     >
                       <div
                         class="perseus-renderer perseus-renderer-responsive"
@@ -698,7 +698,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                     </li>
                     <li
                       class="perseus-sortable-draggable"
-                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-disabled-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: default; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; background-color: inherit; position: static; margin: 0px 0px 5px 0px;"
+                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-disabled-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: default; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; background-color: inherit; position: static; margin: 0px 0px 8px 0px;"
                     >
                       <div
                         class="perseus-renderer perseus-renderer-responsive"
@@ -717,7 +717,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                     </li>
                     <li
                       class="perseus-sortable-draggable"
-                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-disabled-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: default; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; background-color: inherit; position: static; margin: 0px 0px 5px 0px;"
+                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-disabled-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: default; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; background-color: inherit; position: static; margin: 0px 0px 8px 0px;"
                     >
                       <div
                         class="perseus-renderer perseus-renderer-responsive"
@@ -736,7 +736,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                     </li>
                     <li
                       class="perseus-sortable-draggable"
-                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-disabled-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: default; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; background-color: inherit; position: static; margin: 0px 0px 5px 0px;"
+                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-disabled-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: default; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; background-color: inherit; position: static; margin: 0px 0px 8px 0px;"
                     >
                       <div
                         class="perseus-renderer perseus-renderer-responsive"
@@ -783,7 +783,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                   >
                     <li
                       class="perseus-sortable-draggable"
-                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ns-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; position: static; margin: 0px 0px 5px 0px;"
+                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ns-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; position: static; margin: 0px 0px 8px 0px;"
                     >
                       <div
                         class="perseus-renderer perseus-renderer-responsive"
@@ -802,7 +802,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                     </li>
                     <li
                       class="perseus-sortable-draggable"
-                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ns-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; position: static; margin: 0px 0px 5px 0px;"
+                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ns-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; position: static; margin: 0px 0px 8px 0px;"
                     >
                       <div
                         class="perseus-renderer perseus-renderer-responsive"
@@ -821,7 +821,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                     </li>
                     <li
                       class="perseus-sortable-draggable"
-                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ns-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; position: static; margin: 0px 0px 5px 0px;"
+                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ns-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; position: static; margin: 0px 0px 8px 0px;"
                     >
                       <div
                         class="perseus-renderer perseus-renderer-responsive"
@@ -840,7 +840,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                     </li>
                     <li
                       class="perseus-sortable-draggable"
-                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ns-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; position: static; margin: 0px 0px 5px 0px;"
+                      style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ns-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; position: static; margin: 0px 0px 8px 0px;"
                     >
                       <div
                         class="perseus-renderer perseus-renderer-responsive"

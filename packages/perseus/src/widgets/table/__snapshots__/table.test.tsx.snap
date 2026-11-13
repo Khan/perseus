@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`table answerful vs answerless answerful: snapshots 1`] = `
+exports[`table > answerful vs answerless > answerful: snapshots 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -102,7 +102,7 @@ exports[`table answerful vs answerless answerful: snapshots 1`] = `
 </div>
 `;
 
-exports[`table answerful vs answerless answerless: snapshots 1`] = `
+exports[`table > answerful vs answerless > answerless: snapshots 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"

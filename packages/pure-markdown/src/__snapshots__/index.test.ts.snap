@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`pure markdown parser should parse titled table with unescaped dollars 1`] = `
+exports[`pure markdown > parser > should parse titled table with unescaped dollars 1`] = `
 [
   {
     "table": {

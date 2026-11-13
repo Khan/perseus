@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`AnswerAreaDiff renders an answer area in the diff view 1`] = `
+exports[`AnswerAreaDiff > renders an answer area in the diff view 1`] = `
 <div>
   <div
     class="diff-header"
@@ -215,7 +215,7 @@ exports[`AnswerAreaDiff renders an answer area in the diff view 1`] = `
 </div>
 `;
 
-exports[`AnswerAreaDiff renders with both 'before' and 'after' undefined 1`] = `
+exports[`AnswerAreaDiff > renders with both 'before' and 'after' undefined 1`] = `
 <div>
   <div
     class="diff-header"
@@ -235,7 +235,7 @@ exports[`AnswerAreaDiff renders with both 'before' and 'after' undefined 1`] = `
 </div>
 `;
 
-exports[`AnswerAreaDiff renders with missing 'after' props 1`] = `
+exports[`AnswerAreaDiff > renders with missing 'after' props 1`] = `
 <div>
   <div
     class="diff-header"
@@ -472,7 +472,7 @@ exports[`AnswerAreaDiff renders with missing 'after' props 1`] = `
 </div>
 `;
 
-exports[`AnswerAreaDiff renders with missing 'before' props 1`] = `
+exports[`AnswerAreaDiff > renders with missing 'before' props 1`] = `
 <div>
   <div
     class="diff-header"
