@@ -1,4 +1,4 @@
-.title-container {
+.image-title {
     /* Same reasoning as .info-area-container: prevent long title text from
        expanding the figure's fit-content width beyond the image. */
     contain: inline-size;
@@ -32,7 +32,7 @@
 }
 
 .image-caption,
-.title-container {
+.image-title {
     :global(.perseus-renderer) > :global(.deprecated-perseus-container) > *,
     :global(.perseus-renderer) > * {
         margin-block: 0;

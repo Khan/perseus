@@ -19,7 +19,7 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
             style="max-inline-size: 400px;"
           >
             <div
-              class="perseus-image-title title-container"
+              class="image-title"
             >
               <div
                 class="perseus-renderer perseus-renderer-responsive"
@@ -104,7 +104,7 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
             style="max-inline-size: 400px;"
           >
             <div
-              class="perseus-image-title title-container"
+              class="image-title"
             >
               <div
                 class="perseus-renderer perseus-renderer-responsive"
@@ -279,7 +279,7 @@ exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
             style="max-inline-size: 420px;"
           >
             <div
-              class="perseus-image-title title-container"
+              class="image-title"
             >
               <div
                 class="perseus-renderer perseus-renderer-responsive"
@@ -450,7 +450,7 @@ exports[`image widget - isMobile(true) custom alignment should render image with
             style="max-inline-size: 400px;"
           >
             <div
-              class="perseus-image-title title-container"
+              class="image-title"
             >
               <div
                 class="perseus-renderer perseus-renderer-responsive"
@@ -535,7 +535,7 @@ exports[`image widget - isMobile(true) custom alignment should render image with
             style="max-inline-size: 400px;"
           >
             <div
-              class="perseus-image-title title-container"
+              class="image-title"
             >
               <div
                 class="perseus-renderer perseus-renderer-responsive"
@@ -710,7 +710,7 @@ exports[`image widget - isMobile(true) should snapshot: first render 1`] = `
             style="max-inline-size: 420px;"
           >
             <div
-              class="perseus-image-title title-container"
+              class="image-title"
             >
               <div
                 class="perseus-renderer perseus-renderer-responsive"
