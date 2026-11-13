@@ -1,6 +1,8 @@
 import {
     generateRadioChoice,
     generateSimpleRadioItem,
+    generateTestPerseusItem,
+    generateTestPerseusRenderer,
     splitPerseusItem,
     type PerseusItem,
 } from "@khanacademy/perseus-core";
@@ -34,6 +36,7 @@ import MockWidget from "../widgets/mock-widgets/mock-widget";
 import {mockedAssetItem} from "./test-items/mock-asset-loading-item";
 
 import type {MockAssetLoadingWidgetHandle} from "../widgets/mock-widgets/mock-asset-loading-widget.testutils";
+import type {MockWidget as MockWidgetType} from "../widgets/mock-widgets/mock-widget-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -596,6 +599,115 @@ describe("server item renderer", () => {
                 0,
                 null,
             );
+        });
+
+        // What callers see: each focus change as (new focus, previous focus),
+        // in order.
+        function reportedFocusChanges(onFocusChange: jest.Mock) {
+            return onFocusChange.mock.calls.map(([newFocus, prevFocus]) => [
+                newFocus,
+                prevFocus,
+            ]);
+        }
+
+        it("reports focus moving between question widgets with Tab", async () => {
+            // Arrange
+            const onFocusChange = jest.fn();
+            renderItem(itemWithTwoMockWidgets, {onFocusChange});
+            const [firstInput] = screen.getAllByRole("textbox", {
+                name: "Mock Widget",
+            });
+            await userEvent.click(firstInput);
+
+            // Act
+            await userEvent.tab();
+            act(() => jest.runAllTimers());
+
+            // Assert
+            expect(reportedFocusChanges(onFocusChange)).toEqual([
+                [["mock-widget 1"], null],
+                [["mock-widget 2"], ["mock-widget 1"]],
+            ]);
+        });
+
+        it("reports focus moving from the question into a hint", async () => {
+            // Arrange
+            const onFocusChange = jest.fn();
+            const item = generateTestPerseusItem({
+                question: generateTestPerseusRenderer({
+                    content: "[[☃ mock-widget 1]]",
+                    widgets: {
+                        "mock-widget 1": {
+                            type: "mock-widget",
+                            options: {value: "1"},
+                        } satisfies MockWidgetType,
+                    },
+                }),
+                hints: [
+                    generateTestPerseusRenderer({
+                        content: "[[☃ mock-widget 2]]",
+                        widgets: {
+                            "mock-widget 2": {
+                                type: "mock-widget",
+                                options: {value: "2"},
+                            } satisfies MockWidgetType,
+                        },
+                    }),
+                ],
+            });
+            renderItem(item, {onFocusChange}, {hintsVisible: 1});
+            const [questionInput, hintInput] = screen.getAllByRole("textbox", {
+                name: "Mock Widget",
+            });
+            await userEvent.click(questionInput);
+
+            // Act
+            await userEvent.click(hintInput);
+            act(() => jest.runAllTimers());
+
+            // Assert
+            expect(reportedFocusChanges(onFocusChange)).toEqual([
+                [["mock-widget 1"], null],
+                [["mock-widget 2"], ["mock-widget 1"]],
+            ]);
+        });
+
+        it("reports focus leaving the item", async () => {
+            // Arrange
+            const onFocusChange = jest.fn();
+            renderItem(itemWithMockWidget, {onFocusChange});
+            await userEvent.click(
+                screen.getByRole("textbox", {name: "Mock Widget"}),
+            );
+
+            // Act
+            await userEvent.tab();
+            act(() => jest.runAllTimers());
+
+            // Assert
+            expect(reportedFocusChanges(onFocusChange)).toEqual([
+                [["mock-widget 1"], null],
+                [null, ["mock-widget 1"]],
+            ]);
+        });
+
+        it("reports nothing more once unmounted while focus is leaving", async () => {
+            // Arrange
+            const onFocusChange = jest.fn();
+            const {unmount} = renderItem(itemWithMockWidget, {onFocusChange});
+            await userEvent.click(
+                screen.getByRole("textbox", {name: "Mock Widget"}),
+            );
+            await userEvent.tab();
+
+            // Act
+            unmount();
+            act(() => jest.runAllTimers());
+
+            // Assert
+            expect(reportedFocusChanges(onFocusChange)).toEqual([
+                [["mock-widget 1"], null],
+            ]);
         });
 
         it("should focus the widget requested in focusPath()", () => {
