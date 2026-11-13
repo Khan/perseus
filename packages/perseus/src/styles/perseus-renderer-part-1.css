@@ -62,9 +62,6 @@ div.graphie {
 .framework-perseus.perseus-mobile .perseus-input-center-align .keypad-input {
     text-align: center;
 }
-.framework-perseus blockquote {
-    padding: 0 2.5em;
-}
 .framework-perseus .zoomable {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-touch-callout: none;
