@@ -2,8 +2,8 @@
 // import from the rest of perseus-core. Tests can override that restriction,
 // while main files cannot — hence the disables on the imports below.
 import {
-    generateAnswerTile,
     generateFillInTheBlankOptions,
+    generateFillInTheBlankTile,
     generateFillInTheBlankWidget,
     // eslint-disable-next-line import/no-restricted-paths
 } from "../../utils/generators/fill-in-the-blank-widget-generator";
@@ -30,18 +30,19 @@ describe("fillInTheBlankWidget", () => {
                     },
                 },
                 tiles: [
-                    generateAnswerTile({
+                    generateFillInTheBlankTile({
                         id: "tile-1",
                         content: "djembe",
                         label: "djembe",
+                        maxUses: 1,
                     }),
-                    generateAnswerTile({
+                    generateFillInTheBlankTile({
                         id: "tile-2",
                         content: "bongo",
                         label: "bongo",
+                        maxUses: 1,
                     }),
                 ],
-                maxUsesPerTile: 1,
                 randomize: false,
             }),
         });
@@ -61,9 +62,14 @@ describe("fillInTheBlankWidget", () => {
         );
     });
 
-    it("accepts a multi-use choice bank with a per-tile cap", () => {
+    it("accepts tiles with different caps in one choice bank", () => {
         const widget = generateFillInTheBlankWidget({
-            options: generateFillInTheBlankOptions({maxUsesPerTile: 3}),
+            options: generateFillInTheBlankOptions({
+                tiles: [
+                    generateFillInTheBlankTile({id: "penny", maxUses: 10}),
+                    generateFillInTheBlankTile({id: "dime", maxUses: 5}),
+                ],
+            }),
         });
 
         expect(parse(widget, parseFillInTheBlankWidget)).toEqual(
@@ -71,10 +77,10 @@ describe("fillInTheBlankWidget", () => {
         );
     });
 
-    it("accepts an uncapped multi-use choice bank", () => {
+    it("accepts an uncapped multi-use tile", () => {
         const widget = generateFillInTheBlankWidget({
             options: generateFillInTheBlankOptions({
-                maxUsesPerTile: "unlimited",
+                tiles: [generateFillInTheBlankTile({maxUses: "unlimited"})],
             }),
         });
 
@@ -86,7 +92,7 @@ describe("fillInTheBlankWidget", () => {
     it("accepts a tile with an image height", () => {
         const widget = generateFillInTheBlankWidget({
             options: generateFillInTheBlankOptions({
-                tiles: [generateAnswerTile({imageHeight: 72})],
+                tiles: [generateFillInTheBlankTile({imageHeight: 72})],
             }),
         });
 
@@ -102,7 +108,6 @@ describe("fillInTheBlankWidget", () => {
         ["content", "expected string"],
         ["widgets", "expected PerseusWidgetsMap"],
         ["tiles", "expected array"],
-        ["maxUsesPerTile", 'expected a positive number, or "unlimited"'],
         ["randomize", "expected boolean"],
     ])("rejects a widget with no %s", (field: string, expected: string) => {
         const widget = generateFillInTheBlankWidget({
@@ -121,7 +126,7 @@ describe("fillInTheBlankWidget", () => {
     it("rejects a tile with no label", () => {
         const widget = generateFillInTheBlankWidget({
             options: generateFillInTheBlankOptions({
-                tiles: [generateAnswerTile({label: undefined})],
+                tiles: [generateFillInTheBlankTile({label: undefined})],
             }),
         });
 
@@ -134,35 +139,54 @@ describe("fillInTheBlankWidget", () => {
         );
     });
 
-    it.each([0, -3, 1.5])(
-        "rejects maxUsesPerTile of %p",
-        (maxUsesPerTile: number) => {
-            const widget = generateFillInTheBlankWidget({
-                options: generateFillInTheBlankOptions({maxUsesPerTile}),
-            });
-
-            expect(parse(widget, parseFillInTheBlankWidget)).toEqual(
-                failure(
-                    expect.stringContaining(
-                        `At (root).options.maxUsesPerTile -- expected a positive number, or "unlimited"`,
-                    ),
-                ),
-            );
-        },
-    );
-
-    it("rejects an unrecognized maxUsesPerTile sigil", () => {
+    it("rejects a tile with no maxUses", () => {
         const widget = generateFillInTheBlankWidget({
             options: generateFillInTheBlankOptions({
-                // @ts-expect-error: the point of the test is the invalid value
-                maxUsesPerTile: "infinite",
+                tiles: [generateFillInTheBlankTile({maxUses: undefined})],
             }),
         });
 
         expect(parse(widget, parseFillInTheBlankWidget)).toEqual(
             failure(
                 expect.stringContaining(
-                    `At (root).options.maxUsesPerTile -- expected a positive number, or "unlimited"`,
+                    `At (root).options.tiles[0].maxUses -- expected a positive number, or "unlimited", but got undefined`,
+                ),
+            ),
+        );
+    });
+
+    it.each([0, -3, 1.5])("rejects a tile maxUses of %p", (maxUses: number) => {
+        const widget = generateFillInTheBlankWidget({
+            options: generateFillInTheBlankOptions({
+                tiles: [generateFillInTheBlankTile({maxUses})],
+            }),
+        });
+
+        expect(parse(widget, parseFillInTheBlankWidget)).toEqual(
+            failure(
+                expect.stringContaining(
+                    `At (root).options.tiles[0].maxUses -- expected a positive number, or "unlimited"`,
+                ),
+            ),
+        );
+    });
+
+    it("rejects an unrecognized tile maxUses sigil", () => {
+        const widget = generateFillInTheBlankWidget({
+            options: generateFillInTheBlankOptions({
+                tiles: [
+                    generateFillInTheBlankTile({
+                        // @ts-expect-error: the point of the test is the invalid value
+                        maxUses: "infinite",
+                    }),
+                ],
+            }),
+        });
+
+        expect(parse(widget, parseFillInTheBlankWidget)).toEqual(
+            failure(
+                expect.stringContaining(
+                    `At (root).options.tiles[0].maxUses -- expected a positive number, or "unlimited"`,
                 ),
             ),
         );

@@ -1,7 +1,7 @@
 import {traverse} from "./traversal";
 import {generateBlankWidget} from "./utils/generators/blank-widget-generator";
 import {
-    generateAnswerTile,
+    generateFillInTheBlankTile,
     generateFillInTheBlankOptions,
     generateFillInTheBlankWidget,
 } from "./utils/generators/fill-in-the-blank-widget-generator";
@@ -138,13 +138,13 @@ const sampleFillInTheBlank: PerseusRenderer = {
                     }),
                 },
                 tiles: [
-                    generateAnswerTile({
+                    generateFillInTheBlankTile({
                         id: "tile-1",
                         content: "djembe",
                         label: "djembe",
+                        maxUses: 3,
                     }),
                 ],
-                maxUsesPerTile: 3,
                 randomize: true,
             }),
         }),
@@ -274,8 +274,14 @@ describe("Traversal", () => {
 
         expect(newOptions.widgets["fill-in-the-blank 1"].options).toMatchObject(
             {
-                tiles: [{id: "tile-1", content: "djembe", label: "djembe"}],
-                maxUsesPerTile: 3,
+                tiles: [
+                    {
+                        id: "tile-1",
+                        content: "djembe",
+                        label: "djembe",
+                        maxUses: 3,
+                    },
+                ],
                 randomize: true,
             },
         );

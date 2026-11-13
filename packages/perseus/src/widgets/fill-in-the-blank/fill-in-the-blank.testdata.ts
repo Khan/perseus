@@ -1,8 +1,8 @@
 import {
-    generateAnswerTile,
     generateBlankOptions,
     generateBlankWidget,
     generateFillInTheBlankOptions,
+    generateFillInTheBlankTile,
     generateFillInTheBlankWidget,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
@@ -19,12 +19,12 @@ export const basicFillInTheBlankQuestion = generateTestPerseusRenderer({
                     }),
                 },
                 tiles: [
-                    generateAnswerTile({
+                    generateFillInTheBlankTile({
                         id: "djembe",
                         content: "djembe",
                         label: "djembe",
                     }),
-                    generateAnswerTile({
+                    generateFillInTheBlankTile({
                         id: "kora",
                         content: "kora",
                         label: "kora",
@@ -42,7 +42,9 @@ const drumTiles = [
     "tambourine",
     "bass",
     "steel",
-].map((drum) => generateAnswerTile({id: drum, content: drum, label: drum}));
+].map((drum) =>
+    generateFillInTheBlankTile({id: drum, content: drum, label: drum}),
+);
 
 export const paragraphFillInTheBlankQuestion = generateTestPerseusRenderer({
     content: "[[☃ fill-in-the-blank 1]]",

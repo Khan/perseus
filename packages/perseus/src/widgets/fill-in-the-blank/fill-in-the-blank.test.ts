@@ -1,7 +1,7 @@
 import {
-    generateAnswerTile,
     generateBlankWidget,
     generateFillInTheBlankOptions,
+    generateFillInTheBlankTile,
     generateFillInTheBlankWidget,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
@@ -28,9 +28,18 @@ const twoBlanks: Partial<PerseusFillInTheBlankWidgetOptions> = {
         "blank 2": generateBlankWidget(),
     },
 };
-const drumTiles = ["djembe", "bongo", "hands", "sticks"].map((drum) =>
-    generateAnswerTile({id: drum, content: drum, label: drum}),
-);
+/** Builds the four drum tiles, each allowed `maxUses` placements. */
+function generateDrumTiles(maxUses: number | "unlimited") {
+    return ["djembe", "bongo", "hands", "sticks"].map((drum) =>
+        generateFillInTheBlankTile({
+            id: drum,
+            content: drum,
+            label: drum,
+            maxUses,
+        }),
+    );
+}
+const drumTiles = generateDrumTiles(1);
 
 /** Renders one FITB widget, optionally with blanks already filled. */
 function renderFillInTheBlank(
@@ -115,8 +124,7 @@ describe("Fill in the Blank Widget", () => {
         // Arrange, Act
         const widgetOptions = {
             ...twoBlanks,
-            tiles: drumTiles,
-            maxUsesPerTile: 1,
+            tiles: generateDrumTiles(1),
         };
         const userInput = {"blank 1": {selected: "djembe"}};
         renderFillInTheBlank(widgetOptions, userInput);
@@ -201,8 +209,7 @@ describe("Fill in the Blank Widget", () => {
         // Arrange
         const widgetOptions = {
             ...twoBlanks,
-            tiles: drumTiles,
-            maxUsesPerTile: 1,
+            tiles: generateDrumTiles(1),
         };
         renderFillInTheBlank(widgetOptions);
 
@@ -262,10 +269,11 @@ describe("Fill in the Blank Widget", () => {
         const widgetOptions = {
             ...twoBlanks,
             tiles: [
-                generateAnswerTile({
+                generateFillInTheBlankTile({
                     id: "djembe",
                     content: "djembe",
                     label: "djembe",
+                    maxUses: 1,
                 }),
             ],
         };
@@ -282,8 +290,7 @@ describe("Fill in the Blank Widget", () => {
         // Arrange
         const widgetOptions = {
             ...twoBlanks,
-            tiles: drumTiles,
-            maxUsesPerTile: 2,
+            tiles: generateDrumTiles(2),
         };
         const userInput = {"blank 1": {selected: "djembe"}};
         renderFillInTheBlank(widgetOptions, userInput);
@@ -301,5 +308,40 @@ describe("Fill in the Blank Widget", () => {
         expect(
             within(bank).queryByRole("button", {name: "djembe"}),
         ).not.toBeInTheDocument();
+    });
+
+    it("applies each tile's own max uses", () => {
+        // Arrange, Act
+        const widgetOptions = {
+            ...twoBlanks,
+            tiles: [
+                generateFillInTheBlankTile({
+                    id: "penny",
+                    content: "penny",
+                    label: "penny",
+                    maxUses: 2,
+                }),
+                generateFillInTheBlankTile({
+                    id: "dime",
+                    content: "dime",
+                    label: "dime",
+                    maxUses: 1,
+                }),
+            ],
+        };
+        const userInput = {
+            "blank 1": {selected: "penny"},
+            "blank 2": {selected: "dime"},
+        };
+        renderFillInTheBlank(widgetOptions, userInput);
+
+        // Assert
+        // The penny has one use left, so it stays in the bank. The dime
+        // is used up.
+        const bank = screen.getByRole("list", {name: "Choices"});
+        expect(within(bank).getAllByRole("listitem")).toHaveLength(1);
+        expect(
+            within(bank).getByRole("button", {name: "penny"}),
+        ).toBeInTheDocument();
     });
 });
