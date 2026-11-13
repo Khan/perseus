@@ -3,6 +3,10 @@
  * custom-matchers.ts) and our Playwright tests (see
  * config/playwright/fixtures.ts).
  */
+// Imported by path rather than from the package index so that the Playwright
+// fixtures, which also load this module, don't pull in all of perseus-score.
+import {isCorrect} from "../../packages/perseus-score/src/util/is-correct";
+
 import type {PerseusScore} from "../../packages/perseus-core/src/validation.types";
 
 export const scoreMatchers = {
@@ -29,8 +33,7 @@ export const scoreMatchers = {
             };
         }
 
-        // TODO: use `isCorrect` function here
-        if (score.earned !== score.total) {
+        if (!isCorrect(score)) {
             const errMessage = "Problem was answered incorrectly";
 
             return {
@@ -99,7 +102,7 @@ export const scoreMatchers = {
             };
         }
 
-        if (score.earned >= score.total) {
+        if (isCorrect(score)) {
             return {
                 pass: false,
                 message: () => `Problem was answered correctly.`,

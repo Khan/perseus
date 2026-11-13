@@ -1,3 +1,4 @@
+import {isCorrect} from "@khanacademy/perseus-score";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
@@ -14,7 +15,6 @@ import checkCircle from "@phosphor-icons/core/regular/check-circle.svg";
 import * as React from "react";
 
 import {mapErrorToString, mockStrings} from "../strings";
-import {isCorrect} from "../util/scoring.testutils";
 
 import type {PerseusScore, ShowSolutions} from "@khanacademy/perseus-core";
 
