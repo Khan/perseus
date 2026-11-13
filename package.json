@@ -24,6 +24,7 @@
         "@khanacademy/wonder-blocks-tokens": "catalog:devDeps",
         "@phosphor-icons/core": "catalog:devDeps",
         "@playwright/test": "catalog:toolDeps",
+        "@rstest/core": "0.12.6",
         "@sheerun/mutationobserver-shim": "^0.3.3",
         "@storybook/addon-a11y": "10.6.0",
         "@storybook/addon-docs": "10.6.0",

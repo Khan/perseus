@@ -59,6 +59,9 @@ const config: KnipConfig = {
             entry: [
                 // CLI tools
                 "utils/**/*.{ts,tsx,js,jsx}",
+                // Tests import it as `@jest/globals` (see `resolve.alias` in
+                // rstest.config.mts).
+                "config/test/rstest/jest-globals.ts",
             ],
             ignoreDependencies: [
                 // Storybook imports its CSS (.storybook/styles/shared.css),
