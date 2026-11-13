@@ -158,6 +158,12 @@ export type GenerateUrlArgs = {
  */
 export type APIOptions = Readonly<{
     isArticle?: boolean;
+    /**
+     * Called when focus moves into, between or out of the content's inputs,
+     * with the new focus path and the previous one (null for none). A move
+     * between inputs is one change; focus leaving is reported as null only
+     * once it hasn't landed on another input, and never after unmounting.
+     */
     onFocusChange?: (
         newFocusPath: FocusPath,
         oldFocusPath: FocusPath,
