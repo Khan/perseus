@@ -273,6 +273,8 @@ module.exports = {
         // from types/utility.d.ts
         Empty: false,
         SpreadType: false,
+        // Rstest's `rs` global (`globals: true` in rstest.config.mts).
+        rs: false,
     },
     overrides: [
         ...noSelfPackageImports,
