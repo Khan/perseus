@@ -38,5 +38,12 @@ process.stdout.write(
         `snapshot ${result.snapshotVersion} in ${seconds}s. Skipped: ` +
         `${result.missingFiles} with no content file, ` +
         `${result.missingItems} items missing from their file, ` +
-        `${result.unparsable} Perseus couldn't parse.\n`,
+        `${result.unparsable.length} Perseus couldn't parse.\n`,
 );
+// Each one Perseus couldn't parse, to look into: its kind, ID, file (relative
+// to the snapshot folder) and the parser's message.
+for (const {kind, contentId, sourceFile, reason} of result.unparsable) {
+    process.stdout.write(
+        `  ${kind} ${contentId} in ${sourceFile}: ${reason}\n`,
+    );
+}

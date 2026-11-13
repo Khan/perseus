@@ -173,6 +173,16 @@ export async function readSnapshotIndex(
     return index;
 }
 
+/** An item or article Perseus couldn't parse, to look into. */
+export type UnparsableContent = {
+    kind: "item" | "article";
+    contentId: string;
+    /** Its content file, relative to the snapshot folder. */
+    sourceFile: string;
+    /** The parser's message. */
+    reason: string;
+};
+
 /** What reading a snapshot's documents skipped, and why. */
 export type SnapshotSkips = {
     /** Exercises and articles with no current content file. */
@@ -180,7 +190,7 @@ export type SnapshotSkips = {
     /** Items the index lists that their exercise's file doesn't have. */
     missingItems: number;
     /** Items and articles Perseus couldn't parse. */
-    unparsable: number;
+    unparsable: UnparsableContent[];
 };
 
 /** An item's place in an exercise, as the index lists it. */
@@ -259,7 +269,12 @@ export async function* snapshotDocuments(
                 done.add(ref.id);
                 const parsed = parseItem(items.get(ref.id));
                 if (!parsed.ok) {
-                    skips.unparsable++;
+                    skips.unparsable.push({
+                        kind: "item",
+                        contentId: ref.id,
+                        sourceFile,
+                        reason: parsed.error,
+                    });
                     continue;
                 }
                 const uses = usesOf.get(ref.id) ?? [];
@@ -304,13 +319,23 @@ export async function* snapshotDocuments(
             parsed = parseAndMigratePerseusArticle(
                 await readFile(fullPath, "utf8"),
             );
-        } catch {
+        } catch (e) {
             // It throws on a file that isn't JSON.
-            skips.unparsable++;
+            skips.unparsable.push({
+                kind: "article",
+                contentId: article.contentId,
+                sourceFile,
+                reason: `Not valid JSON: ${String(e)}`,
+            });
             continue;
         }
         if (isFailure(parsed)) {
-            skips.unparsable++;
+            skips.unparsable.push({
+                kind: "article",
+                contentId: article.contentId,
+                sourceFile,
+                reason: parsed.detail.message,
+            });
             continue;
         }
         const sections = Array.isArray(parsed.value)

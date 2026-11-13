@@ -142,7 +142,7 @@ describe("content snapshot", () => {
         const skips: SnapshotSkips = {
             missingFiles: 0,
             missingItems: 0,
-            unparsable: 0,
+            unparsable: [],
         };
 
         // Act
@@ -182,7 +182,38 @@ describe("content snapshot", () => {
         expect(skips).toEqual({
             missingFiles: 1,
             missingItems: 1,
-            unparsable: 0,
+            unparsable: [],
         });
+    });
+
+    it("lists each item Perseus can't parse, with its file", async () => {
+        // Arrange
+        await writeFile(
+            path.join(dir, EXERCISE_DIR, "e1-new.json"),
+            JSON.stringify([{id: "i1", item_data: {question: 5}}]),
+        );
+        const index = await readSnapshotIndex(dir);
+        const skips: SnapshotSkips = {
+            missingFiles: 0,
+            missingItems: 0,
+            unparsable: [],
+        };
+
+        // Act
+        const documents: ContentDocument[] = [];
+        for await (const document of snapshotDocuments(dir, index, skips)) {
+            documents.push(document);
+        }
+
+        // Assert
+        expect(documents.map((d) => d.id)).toEqual(["article-a1"]);
+        expect(skips.unparsable).toEqual([
+            {
+                kind: "item",
+                contentId: "i1",
+                sourceFile: `${EXERCISE_DIR}/e1-new.json`,
+                reason: expect.any(String),
+            },
+        ]);
     });
 });

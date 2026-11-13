@@ -70,7 +70,7 @@ export async function buildSearchIndex(
     const skips: SnapshotSkips = {
         missingFiles: 0,
         missingItems: 0,
-        unparsable: 0,
+        unparsable: [],
     };
     const result: BuildSearchIndexResult = {
         ...skips,
