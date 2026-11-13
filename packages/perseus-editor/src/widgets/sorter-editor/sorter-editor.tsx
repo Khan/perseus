@@ -43,7 +43,9 @@ interface Props extends PerseusSorterWidgetOptions {
 function SorterEditor({
     correct = defaultOptions.correct,
     layout = defaultOptions.layout,
+    variant = defaultOptions.variant,
     padding = defaultOptions.padding,
+    legend,
     onChange,
 }: Props) {
     function handleChange(changes: Partial<PerseusSorterWidgetOptions>) {
@@ -51,6 +53,8 @@ function SorterEditor({
             correct,
             layout,
             padding,
+            variant,
+            legend,
             ...changes,
         });
     }
