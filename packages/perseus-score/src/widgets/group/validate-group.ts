@@ -1,6 +1,4 @@
-import {getWidgetIdsFromContent} from "@khanacademy/perseus-core";
-
-import {emptyWidgetsFunctional} from "../../validate";
+import {validateUserInput} from "../../validate";
 
 import type {
     PerseusGroupUserInput,
@@ -17,19 +15,8 @@ function validateGroup(
         return {type: "invalid", message: null};
     }
 
-    const widgetIds = getWidgetIdsFromContent(validationData.content);
-    const emptyWidgets = emptyWidgetsFunctional(
-        validationData.widgets,
-        widgetIds,
-        userInput,
-        locale,
-    );
-
-    if (emptyWidgets.length === 0) {
-        return null;
-    }
-
-    return {type: "invalid", message: null};
+    const result = validateUserInput(validationData, userInput, locale);
+    return result?.type === "invalid" ? result : null;
 }
 
 export default validateGroup;
