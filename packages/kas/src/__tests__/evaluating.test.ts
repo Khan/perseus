@@ -51,7 +51,9 @@ describe("evaluating", () => {
     // Due to a bug in `toEvaluateAs`, all tests were passing
     // whether or not they should have been.
     // This is to make sure we don't regress again.
-    test.failing("should be possible to fail", () => {
+    // @ts-expect-error - TS2339 - Jest's types have `test.failing`, not
+    // Rstest's `test.fails`.
+    test.fails("should be possible to fail", () => {
         expect("2+2").toEvaluateAs(5);
     });
 

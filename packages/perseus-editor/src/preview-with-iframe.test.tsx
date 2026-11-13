@@ -1,4 +1,5 @@
 import {ApiOptions} from "@khanacademy/perseus";
+import {rs} from "@rstest/core";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
@@ -16,7 +17,7 @@ const mockClearHighlights = jest.fn();
 let mockHeight: number | null = null;
 let mockA11yReport: A11yReport | null = null;
 
-jest.mock("./preview/use-preview-controller", () => ({
+rs.mock("./preview/use-preview-controller", () => ({
     usePreviewController: () => ({
         sendData: mockSendData,
         height: mockHeight,

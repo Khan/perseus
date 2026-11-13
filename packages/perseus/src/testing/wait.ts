@@ -1,3 +1,4 @@
+import {rs} from "@rstest/core";
 import {screen} from "@testing-library/react";
 
 if (typeof jest === "undefined") {
@@ -6,32 +7,6 @@ if (typeof jest === "undefined") {
      */
     throw new Error("Invalid import - for use in tests only");
 }
-
-/**
- * Checks that jest is configured to use real timers.
- */
-const verifyRealTimers = () => {
-    // Jest may warn if calling timer methods when real timers are used.
-    // We need to silence that, but without impacting folks testing, so we'll be
-    // cheeky. We don't use this to detect the timers though because if they
-    // change this behavior we would silently start just working.
-    const oldWarn = console.warn;
-    console.warn = () => {};
-
-    try {
-        const timerCount = jest.getTimerCount();
-        const timeoutID = setTimeout(() => {}, 0);
-        const newTimerCount = jest.getTimerCount();
-        clearTimeout(timeoutID);
-        if (timerCount !== newTimerCount) {
-            throw new Error(
-                "Cannot use wait() with fake timers. Call jest.useRealTimers() in test case or in a beforeEach.",
-            );
-        }
-    } finally {
-        console.warn = oldWarn;
-    }
-};
 
 type WaitOptions = {
     /**
@@ -72,7 +47,11 @@ export const wait: (options?: WaitOptions) => Promise<void> = ({
     delay = 0,
     count = 1,
 } = {}) => {
-    verifyRealTimers();
+    if (rs.isFakeTimers()) {
+        throw new Error(
+            "Cannot use wait() with fake timers. Call jest.useRealTimers() in test case or in a beforeEach.",
+        );
+    }
 
     const normalizedDelay = delay < 0 ? 0 : delay;
     const normalizedCount = count < 1 ? 1 : count;

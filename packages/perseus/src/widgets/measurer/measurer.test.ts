@@ -1,9 +1,11 @@
+import {rs} from "@rstest/core";
+
 import {renderQuestion} from "../../__testutils__/render-question";
 import GraphUtils from "../../util/graph-utils";
 
 import {measurerQuestion} from "./measurer.testdata";
 
-jest.mock("../../util/graph-utils", () => ({
+rs.mock("../../util/graph-utils", () => ({
     __esModule: true,
     default: {
         createGraphie: jest.fn(),

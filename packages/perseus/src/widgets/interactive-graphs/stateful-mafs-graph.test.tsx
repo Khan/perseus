@@ -1,4 +1,5 @@
 import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
+import {rs} from "@rstest/core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import React from "react";
@@ -15,7 +16,7 @@ import {StatefulMafsGraph} from "./stateful-mafs-graph";
 import type {StatefulMafsGraphProps} from "./stateful-mafs-graph";
 import type {UserEvent} from "@testing-library/user-event";
 
-jest.mock("@khanacademy/wonder-blocks-announcer", () => ({
+rs.mock("@khanacademy/wonder-blocks-announcer", () => ({
     announceMessage: jest.fn(),
 }));
 
