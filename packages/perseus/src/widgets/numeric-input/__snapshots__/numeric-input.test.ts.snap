@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`Numeric input widget styles differently on mobile: mobile render 1`] = `
+exports[`Numeric input widget > styles differently on mobile > mobile render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -70,7 +70,7 @@ exports[`Numeric input widget styles differently on mobile: mobile render 1`] = 
 </div>
 `;
 
-exports[`numeric-input widget Should render predictably: after interaction 1`] = `
+exports[`numeric-input widget > Should render predictably > after interaction 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -133,7 +133,7 @@ exports[`numeric-input widget Should render predictably: after interaction 1`] =
 </div>
 `;
 
-exports[`numeric-input widget Should render predictably: first render 1`] = `
+exports[`numeric-input widget > Should render predictably > first render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -196,7 +196,7 @@ exports[`numeric-input widget Should render predictably: first render 1`] = `
 </div>
 `;
 
-exports[`numeric-input widget Should render tooltip as list when multiple format options are given: render with format list tooltip 1`] = `
+exports[`numeric-input widget > Should render tooltip as list when multiple format options are given > render with format list tooltip 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -265,7 +265,7 @@ a mixed number (like 1 and 3/4 or 2 and 5/6)
 </div>
 `;
 
-exports[`numeric-input widget Should render tooltip using only correct answer formats: render tooltip only with correct answers 1`] = `
+exports[`numeric-input widget > Should render tooltip using only correct answer formats > render tooltip only with correct answers 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -332,7 +332,7 @@ exports[`numeric-input widget Should render tooltip using only correct answer fo
 </div>
 `;
 
-exports[`numeric-input widget Should render tooltip when format option is given: render with format tooltip 1`] = `
+exports[`numeric-input widget > Should render tooltip when format option is given > render with format tooltip 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"

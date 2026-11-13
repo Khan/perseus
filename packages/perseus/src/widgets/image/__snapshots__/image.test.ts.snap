@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`image widget - isMobile(false) custom alignment should render image with wrap-left alignment: widget-wrap-left 1`] = `
+exports[`image widget - isMobile(false) > custom alignment > should render image with wrap-left alignment > widget-wrap-left 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -85,7 +85,7 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
 </div>
 `;
 
-exports[`image widget - isMobile(false) custom alignment should render image with wrap-right alignment: widget-wrap-right 1`] = `
+exports[`image widget - isMobile(false) > custom alignment > should render image with wrap-right alignment > widget-wrap-right 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -170,7 +170,7 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
 </div>
 `;
 
-exports[`image widget - isMobile(false) scale zoom view should equal to 1 when image scale is keep scale at 1 (scale: 1) 1`] = `
+exports[`image widget - isMobile(false) > scale > zoom view should equal to 1 when image scale is keep scale at 1 (scale: 1) 1`] = `
 <div
   class="fixed-to-responsive svg-image"
   data-scale="1"
@@ -185,7 +185,7 @@ exports[`image widget - isMobile(false) scale zoom view should equal to 1 when i
 </div>
 `;
 
-exports[`image widget - isMobile(false) scale zoom view should equal to 2 when SVG scale is keep scale at 2 (scale: 2) 1`] = `
+exports[`image widget - isMobile(false) > scale > zoom view should equal to 2 when SVG scale is keep scale at 2 (scale: 2) 1`] = `
 <div
   class="fixed-to-responsive svg-image"
   data-scale="2"
@@ -200,7 +200,7 @@ exports[`image widget - isMobile(false) scale zoom view should equal to 2 when S
 </div>
 `;
 
-exports[`image widget - isMobile(false) scale zoom view should greater than 1 when image scale is keep scale above 1 (scale: 2) 1`] = `
+exports[`image widget - isMobile(false) > scale > zoom view should greater than 1 when image scale is keep scale above 1 (scale: 2) 1`] = `
 <div
   class="fixed-to-responsive svg-image"
   data-scale="2"
@@ -215,7 +215,7 @@ exports[`image widget - isMobile(false) scale zoom view should greater than 1 wh
 </div>
 `;
 
-exports[`image widget - isMobile(false) scale zoom view should greater than 2 when SVG scale is keep scale above 2 (scale: 2.5) 1`] = `
+exports[`image widget - isMobile(false) > scale > zoom view should greater than 2 when SVG scale is keep scale above 2 (scale: 2.5) 1`] = `
 <div
   class="fixed-to-responsive svg-image"
   data-scale="2.5"
@@ -230,7 +230,7 @@ exports[`image widget - isMobile(false) scale zoom view should greater than 2 wh
 </div>
 `;
 
-exports[`image widget - isMobile(false) scale zoom view should less than 1 when image scale is scale up to 1 (scale: 0.5) 1`] = `
+exports[`image widget - isMobile(false) > scale > zoom view should less than 1 when image scale is scale up to 1 (scale: 0.5) 1`] = `
 <div
   class="fixed-to-responsive svg-image"
   data-scale="1"
@@ -245,7 +245,7 @@ exports[`image widget - isMobile(false) scale zoom view should less than 1 when 
 </div>
 `;
 
-exports[`image widget - isMobile(false) scale zoom view should less than 2 when SVG scale is scale up to 2 (scale: 0.5) 1`] = `
+exports[`image widget - isMobile(false) > scale > zoom view should less than 2 when SVG scale is scale up to 2 (scale: 0.5) 1`] = `
 <div
   class="fixed-to-responsive svg-image"
   data-scale="2"
@@ -260,7 +260,7 @@ exports[`image widget - isMobile(false) scale zoom view should less than 2 when 
 </div>
 `;
 
-exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
+exports[`image widget - isMobile(false) > should snapshot > first render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -431,7 +431,7 @@ exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
 </div>
 `;
 
-exports[`image widget - isMobile(true) custom alignment should render image with wrap-left alignment: widget-wrap-left 1`] = `
+exports[`image widget - isMobile(true) > custom alignment > should render image with wrap-left alignment > widget-wrap-left 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -516,7 +516,7 @@ exports[`image widget - isMobile(true) custom alignment should render image with
 </div>
 `;
 
-exports[`image widget - isMobile(true) custom alignment should render image with wrap-right alignment: widget-wrap-right 1`] = `
+exports[`image widget - isMobile(true) > custom alignment > should render image with wrap-right alignment > widget-wrap-right 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -601,7 +601,7 @@ exports[`image widget - isMobile(true) custom alignment should render image with
 </div>
 `;
 
-exports[`image widget - isMobile(true) scale zoom view should equal to 1 when image scale is keep scale at 1 (scale: 1) 1`] = `
+exports[`image widget - isMobile(true) > scale > zoom view should equal to 1 when image scale is keep scale at 1 (scale: 1) 1`] = `
 <div
   class="fixed-to-responsive svg-image"
   data-scale="1"
@@ -616,7 +616,7 @@ exports[`image widget - isMobile(true) scale zoom view should equal to 1 when im
 </div>
 `;
 
-exports[`image widget - isMobile(true) scale zoom view should equal to 2 when SVG scale is keep scale at 2 (scale: 2) 1`] = `
+exports[`image widget - isMobile(true) > scale > zoom view should equal to 2 when SVG scale is keep scale at 2 (scale: 2) 1`] = `
 <div
   class="fixed-to-responsive svg-image"
   data-scale="2"
@@ -631,7 +631,7 @@ exports[`image widget - isMobile(true) scale zoom view should equal to 2 when SV
 </div>
 `;
 
-exports[`image widget - isMobile(true) scale zoom view should greater than 1 when image scale is keep scale above 1 (scale: 2) 1`] = `
+exports[`image widget - isMobile(true) > scale > zoom view should greater than 1 when image scale is keep scale above 1 (scale: 2) 1`] = `
 <div
   class="fixed-to-responsive svg-image"
   data-scale="2"
@@ -646,7 +646,7 @@ exports[`image widget - isMobile(true) scale zoom view should greater than 1 whe
 </div>
 `;
 
-exports[`image widget - isMobile(true) scale zoom view should greater than 2 when SVG scale is keep scale above 2 (scale: 2.5) 1`] = `
+exports[`image widget - isMobile(true) > scale > zoom view should greater than 2 when SVG scale is keep scale above 2 (scale: 2.5) 1`] = `
 <div
   class="fixed-to-responsive svg-image"
   data-scale="2.5"
@@ -661,7 +661,7 @@ exports[`image widget - isMobile(true) scale zoom view should greater than 2 whe
 </div>
 `;
 
-exports[`image widget - isMobile(true) scale zoom view should less than 1 when image scale is scale up to 1 (scale: 0.5) 1`] = `
+exports[`image widget - isMobile(true) > scale > zoom view should less than 1 when image scale is scale up to 1 (scale: 0.5) 1`] = `
 <div
   class="fixed-to-responsive svg-image"
   data-scale="1"
@@ -676,7 +676,7 @@ exports[`image widget - isMobile(true) scale zoom view should less than 1 when i
 </div>
 `;
 
-exports[`image widget - isMobile(true) scale zoom view should less than 2 when SVG scale is scale up to 2 (scale: 0.5) 1`] = `
+exports[`image widget - isMobile(true) > scale > zoom view should less than 2 when SVG scale is scale up to 2 (scale: 0.5) 1`] = `
 <div
   class="fixed-to-responsive svg-image"
   data-scale="2"
@@ -691,7 +691,7 @@ exports[`image widget - isMobile(true) scale zoom view should less than 2 when S
 </div>
 `;
 
-exports[`image widget - isMobile(true) should snapshot: first render 1`] = `
+exports[`image widget - isMobile(true) > should snapshot > first render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`Sortable renders a spinner while waiting for the TeX renderer to load: first render: displays a spinner 1`] = `
+exports[`Sortable > renders a spinner while waiting for the TeX renderer to load > first render: displays a spinner 1`] = `
 <div>
   <div
     style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; justify-content: center;"
@@ -32,7 +32,7 @@ exports[`Sortable renders a spinner while waiting for the TeX renderer to load: 
 </div>
 `;
 
-exports[`Sortable renders a spinner while waiting for the TeX renderer to load: second render: displays the sortable 1`] = `
+exports[`Sortable > renders a spinner while waiting for the TeX renderer to load > second render: displays the sortable 1`] = `
 <div>
   <ul
     class="perseus-sortable"
@@ -99,7 +99,7 @@ exports[`Sortable renders a spinner while waiting for the TeX renderer to load: 
 </div>
 `;
 
-exports[`Sortable should snapshot: first render 1`] = `
+exports[`Sortable > should snapshot > first render 1`] = `
 <div>
   <ul
     class="perseus-sortable"
