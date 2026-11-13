@@ -9,6 +9,22 @@ describe("isCorrect", () => {
         expect(isCorrect(score)).toBe(true);
     });
 
+    it("is true given 0 of 0 points earned", () => {
+        // Arrange
+        const score = {type: "points", earned: 0, total: 0} as const;
+
+        // Act, Assert
+        expect(isCorrect(score)).toBe(true);
+    });
+
+    it("is true given extra points earned", () => {
+        // Arrange
+        const score = {type: "points", earned: 2, total: 1} as const;
+
+        // Act, Assert
+        expect(isCorrect(score)).toBe(true);
+    });
+
     it("is false given a score with some points unearned", () => {
         // Arrange
         const score = {type: "points", earned: 2, total: 3} as const;
