@@ -36,32 +36,6 @@
 .framework-perseus.perseus-mobile
     .perseus-renderer
     > .deprecated-perseus-container
-    ul:not([data-widget="radio"], .indicatorContainer) {
-    padding: 0;
-}
-.framework-perseus.perseus-mobile
-    .perseus-renderer
-    > .deprecated-perseus-container
-    ul:not([data-widget="radio"], .indicatorContainer)
-    > li {
-    padding-left: var(--wb-sizing-size_100);
-}
-.framework-perseus.perseus-mobile
-    .perseus-renderer
-    > .deprecated-perseus-container
-    ol {
-    padding-left: var(--wb-sizing-size_320);
-}
-.framework-perseus.perseus-mobile
-    .perseus-renderer
-    > .deprecated-perseus-container
-    ol
-    > li {
-    list-style-type: decimal;
-}
-.framework-perseus.perseus-mobile
-    .perseus-renderer
-    > .deprecated-perseus-container
     .perseus-formats-tooltip {
     padding: var(--wb-sizing-size_080) var(--wb-sizing-size_120);
 }

@@ -97,6 +97,15 @@
         ul,
         ol {
             margin-block-end: var(--wb-sizing-size_160);
+            padding-inline-start: var(--wb-sizing-size_360);
+        }
+
+        ul {
+            list-style-type: disc;
+        }
+
+        ol {
+            list-style-type: decimal;
         }
 
         li {
