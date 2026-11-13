@@ -173,6 +173,22 @@
         text-align: center;
         font-size: var(--wb-font-heading-size-medium);
     }
+
+    /************************
+     * Code and code blocks *
+     ************************/
+    .framework-perseus code {
+        font-family: Courier, monospace;
+    }
+    .framework-perseus pre {
+        background-color: var(--wb-semanticColor-core-background-base-subtle);
+        border-radius: var(--wb-border-radius-radius_040);
+        color: var(--wb-semanticColor-core-foreground-neutral-strong);
+        padding: var(--wb-sizing-size_160);
+        white-space: pre;
+        overflow: auto;
+        margin: var(--wb-sizing-size_240) calc(-1 * var(--wb-sizing-size_160));
+    }
 }
 
 /* These stay in the main "Shared" layer because they need to override base styles */
