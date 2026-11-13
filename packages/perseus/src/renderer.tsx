@@ -736,8 +736,6 @@ class Renderer
         // now, but then an onFocus event on a different element before
         // this callback is executed
         _.defer(() => {
-            // The learner may have moved on, unmounting us, in the meantime;
-            // there's no focus left to report then.
             if (!this._isMounted) {
                 return;
             }
