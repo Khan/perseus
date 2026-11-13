@@ -5,7 +5,7 @@ import _ from "underscore";
 import {Graphie} from "../../util/graphie";
 import {MovablePoint} from "../movable-point";
 
-import _createMockMovable from "./movable-mock";
+import _createMockMovable from "./movable.testutils";
 
 // Create a testable MovablePoint with a mocked out Movable
 const createPoint = function (options) {

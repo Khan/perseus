@@ -4,7 +4,7 @@ import * as React from "react";
 import Keypad from "..";
 import {mockStrings} from "../../../strings";
 
-import {getTestDataTabs} from "./test-data-tabs";
+import {getTestDataTabs} from "./keypad-tabs.testdata";
 
 describe("Keypad v2", () => {
     const tabs = getTestDataTabs(mockStrings);
