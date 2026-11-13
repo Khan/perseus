@@ -10,26 +10,19 @@ import FreeResponseEditor from "./free-response-editor";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {UserEvent} from "@testing-library/user-event";
 
-// TODO(benchristel): Remove forwardRef; no one gets a ref to this component.
-const HarnessedEditor = React.forwardRef<
-    FreeResponseEditor,
-    Partial<PropsFor<typeof FreeResponseEditor>>
->(
-    (
-        {onChange = () => undefined, apiOptions = ApiOptions.defaults, ...rest},
-        ref,
-    ) => {
-        return (
-            <FreeResponseEditor
-                apiOptions={apiOptions}
-                onChange={onChange}
-                ref={ref}
-                {...rest}
-            />
-        );
-    },
-);
-HarnessedEditor.displayName = "Harnessed FreeResponseEditor";
+function HarnessedEditor({
+    onChange = () => undefined,
+    apiOptions = ApiOptions.defaults,
+    ...rest
+}: Partial<PropsFor<typeof FreeResponseEditor>>) {
+    return (
+        <FreeResponseEditor
+            apiOptions={apiOptions}
+            onChange={onChange}
+            {...rest}
+        />
+    );
+}
 
 describe("free-response editor", () => {
     let userEvent: UserEvent;
