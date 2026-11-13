@@ -116,6 +116,36 @@ const attachShims = (targetWindow) => {
             configurable: true,
         });
     }
+
+    // jQuery's `.width()` and `.height()` run a support test that measures a
+    // hidden table, and the test is done only once that table has a width.
+    // JSDOM has no layout, so the test runs again on every call and adds 8
+    // more nodes to the same table each time: each call is slower than the
+    // last, and a test file that measures many elements (like Graphie labels
+    // in plotter.test.tsx) slows down test by test. Giving jQuery's test
+    // table, and no other table, a width lets the test finish on its first
+    // run. jQuery 4.0.0 marks the table with `left: -11111px`.
+    if (
+        targetWindow.HTMLTableElement &&
+        !targetWindow.HTMLTableElement.prototype.hasOwnProperty("offsetWidth")
+    ) {
+        const offsetWidth = Object.getOwnPropertyDescriptor(
+            targetWindow.HTMLElement.prototype,
+            "offsetWidth",
+        );
+        Object.defineProperty(
+            targetWindow.HTMLTableElement.prototype,
+            "offsetWidth",
+            {
+                get() {
+                    return this.style.left === "-11111px"
+                        ? 1
+                        : offsetWidth.get.call(this);
+                },
+                configurable: true,
+            },
+        );
+    }
 };
 
 module.exports = attachShims;
