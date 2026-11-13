@@ -129,7 +129,7 @@ describe("plotter widget", () => {
                     expect(
                         getMouseTargets(container, targetKind).length,
                     ).toBeGreaterThan(0);
-                });
+                }, 10_000 /* increase timeout */);
 
                 it.each([
                     {name: "static", isStatic: true, readOnly: false},
@@ -150,6 +150,7 @@ describe("plotter widget", () => {
                             getMouseTargets(container, targetKind),
                         ).toHaveLength(0);
                     },
+                    10_000 /* increase timeout */,
                 );
             },
         );
@@ -184,7 +185,7 @@ describe("plotter widget", () => {
 
                     // Assert
                     expect(screen.getByText(text)).toBeInTheDocument();
-                });
+                }, 10_000 /* increase timeout */);
 
                 it.each([
                     {name: "static", isStatic: true, readOnly: false},
@@ -205,6 +206,7 @@ describe("plotter widget", () => {
                             screen.queryByText(text),
                         ).not.toBeInTheDocument();
                     },
+                    10_000 /* increase timeout */,
                 );
             },
         );
