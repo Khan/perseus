@@ -1,8 +1,8 @@
 /* TODO(LEMS-3686): Remove the !important once Wonder Blocks is in the shared layer. */
 
-/* Separates the three sections (cards, layout, padding) from each other. */
+/* Separates the editor's sections from each other. */
 .editor {
-    gap: var(--wb-sizing-size_240) !important;
+    gap: var(--wb-sizing-size_100) !important;
 }
 
 /* Separates a section's label from the control it describes. Smaller than the

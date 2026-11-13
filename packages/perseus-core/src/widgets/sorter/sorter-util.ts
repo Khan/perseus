@@ -16,6 +16,12 @@ export function exceedsCardLimit(correct: readonly string[]): boolean {
 export const SORTER_MAX_HORIZONTAL_CARDS = 5;
 
 /**
+ * Suggested max legend label length, including TeX source (not rendered
+ * characters). Longer labels wrap, so we only warn.
+ */
+export const SORTER_MAX_LEGEND_LABEL_LENGTH = 30;
+
+/**
  * For details on the individual options, see the
  * PerseusSorterWidgetOptions type
  */

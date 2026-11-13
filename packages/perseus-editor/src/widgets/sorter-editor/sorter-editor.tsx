@@ -1,22 +1,29 @@
 import {
+    isFeatureOn,
     sorterLogic,
     SORTER_MAX_HORIZONTAL_CARDS,
     SORTER_MAX_CARDS,
     type PerseusSorterWidgetOptions,
+    type SorterVariant,
 } from "@khanacademy/perseus-core";
 import Banner from "@khanacademy/wonder-blocks-banner";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import * as React from "react";
 
 import InfoTip from "../../components/info-tip";
+import PerseusEditorAccordion from "../../components/perseus-editor-accordion";
 import {TypedSingleSelect} from "../../components/typed-single-select";
 
 import CardEditor from "./card-editor";
+import LegendEditor, {getDefaultLegend} from "./legend-editor";
 import styles from "./sorter-editor.module.css";
+
+import type {APIOptions} from "@khanacademy/perseus";
 
 // Annotated because WidgetLogic types `defaultWidgetOptions` as `any`. Without
 // this, the `any` spreads: a destructured prop whose default is `any` is itself
@@ -27,13 +34,19 @@ const defaultOptions: PerseusSorterWidgetOptions =
 const layoutOptions = {
     horizontal: "Horizontal",
     vertical: "Vertical",
-} as const satisfies Record<PerseusSorterWidgetOptions["layout"], string>;
+} satisfies Record<PerseusSorterWidgetOptions["layout"], string>;
+
+const variantOptions = {
+    scale: "Scale",
+    timeline: "Timeline",
+} satisfies Record<SorterVariant, string>;
 
 // TODO(benchristel): Define Props in terms of WidgetEditorProps. We can't do
 //  this currently because `pnpm build:types` fails with a cryptic error. The
 //  cause seems to be a combination of WidgetEditorProps' use of APIOptions and
 //  the fact that this is a functional component.
 interface Props extends PerseusSorterWidgetOptions {
+    apiOptions?: APIOptions;
     onChange: (options: PerseusSorterWidgetOptions) => void;
 }
 
@@ -46,8 +59,14 @@ function SorterEditor({
     variant = defaultOptions.variant,
     padding = defaultOptions.padding,
     legend,
+    apiOptions,
     onChange,
 }: Props) {
+    const isDndSorter = isFeatureOn({apiOptions}, "dnd-widget-sorter");
+    const [isLegendExpanded, setIsLegendExpanded] = React.useState(true);
+    const displaysVertically =
+        layout === "vertical" || correct.length > SORTER_MAX_HORIZONTAL_CARDS;
+
     function handleChange(changes: Partial<PerseusSorterWidgetOptions>) {
         onChange({
             correct,
@@ -56,6 +75,19 @@ function SorterEditor({
             variant,
             legend,
             ...changes,
+        });
+    }
+
+    function handleVariantChange(newVariant: SorterVariant) {
+        if (legend == null) {
+            handleChange({variant: newVariant});
+            return;
+        }
+
+        const {startCap, endCap} = getDefaultLegend(newVariant);
+        handleChange({
+            variant: newVariant,
+            legend: {...legend, startCap, endCap},
         });
     }
 
@@ -132,6 +164,18 @@ function SorterEditor({
                     Add a card
                 </Button>
             </View>
+            {isDndSorter && (
+                <LabeledField
+                    label="Variant"
+                    field={
+                        <TypedSingleSelect
+                            options={variantOptions}
+                            selectedValue={variant}
+                            onChange={handleVariantChange}
+                        />
+                    }
+                />
+            )}
             <LabeledField
                 label="Layout"
                 field={
@@ -173,6 +217,24 @@ function SorterEditor({
                     <p>Padding is good for text, but not needed for images.</p>
                 </InfoTip>
             </div>
+            {isDndSorter && (
+                <PerseusEditorAccordion
+                    header={
+                        <BodyText size="medium" weight="bold" tag="span">
+                            Legend
+                        </BodyText>
+                    }
+                    expanded={isLegendExpanded}
+                    onToggle={setIsLegendExpanded}
+                >
+                    <LegendEditor
+                        legend={legend}
+                        variant={variant}
+                        displaysVertically={displaysVertically}
+                        onChange={(legend) => handleChange({legend})}
+                    />
+                </PerseusEditorAccordion>
+            )}
         </View>
     );
 }
