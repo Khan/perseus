@@ -28,7 +28,6 @@ const widgetsNeedingOverlay: string[] = [
     "numeric-input",
     "orderer",
     "sorter",
-    "table",
 ];
 
 type Props = {

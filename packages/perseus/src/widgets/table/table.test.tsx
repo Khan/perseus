@@ -1,7 +1,10 @@
 import {
+    generateTableOptions,
     generateTestPerseusItem,
+    generateTestPerseusRenderer,
     splitPerseusItem,
     type PerseusItem,
+    type PerseusRenderer,
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
@@ -171,5 +174,63 @@ describe("table", () => {
                 ],
             });
         });
+    });
+});
+
+describe("disabled state", () => {
+    function generateRenderer(isStatic: boolean): PerseusRenderer {
+        return generateTestPerseusRenderer({
+            content: "[[☃ table 1]]",
+            widgets: {
+                "table 1": {
+                    type: "table",
+                    static: isStatic,
+                    options: generateTableOptions({
+                        answers: [
+                            ["1", "2"],
+                            ["3", "4"],
+                        ],
+                    }),
+                },
+            },
+        });
+    }
+
+    it.each([{customKeypad: false}, {customKeypad: true}])(
+        "does not disable the cells when interactive " +
+            "(customKeypad: $customKeypad)",
+        ({customKeypad}) => {
+            // Arrange, Act
+            renderQuestion(generateRenderer(false), {
+                apiOptions: {readOnly: false, customKeypad},
+            });
+
+            // Assert
+            for (const cell of screen.getAllByRole("textbox")) {
+                expect(cell).toBeEnabled();
+            }
+        },
+    );
+
+    describe.each([
+        {name: "static", isStatic: true, readOnly: false},
+        {name: "read-only", isStatic: false, readOnly: true},
+    ])("when $name", ({isStatic, readOnly}) => {
+        it.each([{customKeypad: false}, {customKeypad: true}])(
+            "disables every cell (customKeypad: $customKeypad)",
+            ({customKeypad}) => {
+                // Arrange, Act
+                renderQuestion(generateRenderer(isStatic), {
+                    apiOptions: {readOnly, customKeypad},
+                });
+
+                // Assert
+                const cells = screen.getAllByRole("textbox");
+                expect(cells).toHaveLength(4);
+                for (const cell of cells) {
+                    expect(cell).toBeDisabled();
+                }
+            },
+        );
     });
 });
