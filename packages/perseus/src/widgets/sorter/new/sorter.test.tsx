@@ -16,8 +16,7 @@ import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import {scorePerseusItemTesting} from "../../../util/scoring.testutils";
 
 import type {APIOptions} from "../../../types";
-import type {SorterLegend} from "../legend/legend-types";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {PerseusRenderer, SorterLegend} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const apiOptions: APIOptions = {
@@ -38,17 +37,12 @@ function generateSorterQuestion(
     });
 }
 
-// The legend isn't in the schema yet, so it's added next to the generated
-// options rather than through generateSorterOptions.
 function generateSorterQuestionWithLegend(
     legend: SorterLegend,
     layout: "horizontal" | "vertical" = "horizontal",
     correct: string[] = ["Apple", "Banana"],
 ): PerseusRenderer {
-    const options = {
-        ...generateSorterOptions({correct, layout}),
-        legend,
-    };
+    const options = generateSorterOptions({correct, layout, legend});
     return generateTestPerseusRenderer({
         content: "[[☃ sorter 1]]",
         widgets: {"sorter 1": generateSorterWidget({options})},

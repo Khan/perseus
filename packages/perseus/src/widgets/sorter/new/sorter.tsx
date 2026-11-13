@@ -27,18 +27,13 @@ import type {MoveTarget} from "../../../components/drag-and-drop/dnd-action-menu
 import type {TilePlacements} from "../../../components/drag-and-drop/tile-placements";
 import type {Widget, WidgetProps} from "../../../types";
 import type {SorterPromptJSON} from "../../../widget-ai-utils/sorter/sorter-ai-utils";
-import type {SorterLegend} from "../legend/legend-types";
 import type {
     PerseusSorterWidgetOptions,
     PerseusSorterUserInput,
+    SorterLegend,
 } from "@khanacademy/perseus-core";
 
-// TODO(anakaren): Drop the `{legend?: SorterLegend}` addition once the legend schema adds it
-// to PerseusSorterWidgetOptions.
-type Props = WidgetProps<
-    PerseusSorterWidgetOptions & {legend?: SorterLegend},
-    PerseusSorterUserInput
->;
+type Props = WidgetProps<PerseusSorterWidgetOptions, PerseusSorterUserInput>;
 
 function getBlankId(index: number): string {
     return `blank-${index}`;
