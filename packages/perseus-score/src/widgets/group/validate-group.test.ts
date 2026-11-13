@@ -29,7 +29,7 @@ describe("validateGroup", () => {
     });
 
     it("returns a widget's validation message", () => {
-        // Arrange:
+        // Arrange
         const validationData = getGroupPublicWidgetOptions({
             content: "[[☃ free-response 1]]",
             widgets: {
@@ -43,14 +43,14 @@ describe("validateGroup", () => {
             images: {},
         });
 
-        // Act:
+        // Act
         const result = validateGroup(
             {"free-response 1": {currentValue: "longer than five"}},
             validationData,
             "en",
         );
 
-        // Assert:
+        // Assert
         expect(result).toHaveInvalidInput(ErrorCodes.USER_INPUT_TOO_LONG);
     });
 

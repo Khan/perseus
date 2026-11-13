@@ -38,8 +38,7 @@ describe("scoreGroup", () => {
 
     describe("a widget that isn't in the content", () => {
         it("isn't required to be answered", () => {
-            // Arrange: "dropdown 2" is in the options but not the content, so
-            // the learner never sees it and can't answer it.
+            // Arrange
             const rubric = generateGroupOptions({
                 content: "[[☃ dropdown 1]]",
                 widgets: {
@@ -48,15 +47,15 @@ describe("scoreGroup", () => {
                 },
             });
 
-            // Act:
+            // Act
             const result = scoreGroup({"dropdown 1": {value: 1}}, rubric, "en");
 
-            // Assert:
+            // Assert
             expect(result).toHaveBeenAnsweredCorrectly();
         });
 
         it("doesn't add to the score", () => {
-            // Arrange:
+            // Arrange
             const rubric = generateGroupOptions({
                 content: "[[☃ dropdown 1]]",
                 widgets: {
@@ -65,14 +64,14 @@ describe("scoreGroup", () => {
                 },
             });
 
-            // Act:
+            // Act
             const result = scoreGroup(
                 {"dropdown 1": {value: 1}, "dropdown 2": {value: 1}},
                 rubric,
                 "en",
             );
 
-            // Assert:
+            // Assert
             expect(result).toEqual({
                 type: "points",
                 earned: 1,
