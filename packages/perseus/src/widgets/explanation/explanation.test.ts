@@ -1,9 +1,7 @@
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
-import {renderQuestion} from "../__testutils__/render-question";
+import {renderQuestion} from "../../__testutils__/render-question";
 
 import {question1} from "./explanation.testdata";
 
@@ -65,10 +63,6 @@ describe("Explanation", function () {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
     });
 
     it("should snapshot", () => {
@@ -218,8 +212,12 @@ describe("Explanation", function () {
 
     // TODO (LEMS-3815): Remove test when legacy styles are removed
     it("does NOT use transitions when matchMedia is not available", async () => {
-        const fakeWindow = Object.create(window);
-        fakeWindow.matchMedia = undefined;
+        // Define `matchMedia` on the fake rather than assign it: where the
+        // test environment's `window` has an inherited setter for it, an
+        // assignment would remove the real window's `matchMedia` instead.
+        const fakeWindow = Object.create(window, {
+            matchMedia: {value: undefined},
+        });
         // eslint-disable-next-line no-restricted-syntax
         jest.spyOn(window, "window", "get").mockReturnValue(fakeWindow as any);
         renderQuestion(question1);

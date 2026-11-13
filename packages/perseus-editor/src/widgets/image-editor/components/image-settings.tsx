@@ -6,11 +6,11 @@ import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import DarkModeToggle from "../../../components/dark-mode-toggle/dark-mode-toggle";
 import ImagePreview from "../../../components/image-preview";
 import styles from "../image-editor.module.css";
 import {wbFieldStyles, wbFieldStylesWithDescription} from "../utils";
 
-import DarkModeToggle from "./dark-mode-toggle";
 import DecorativeToggle from "./decorative-toggle";
 import ImageScaleInput from "./image-scale-input";
 
@@ -87,9 +87,13 @@ export default function ImageSettings({
                     <>
                         <DarkModeToggle
                             editingDisabled={editingDisabled}
-                            backgroundImage={backgroundImage}
+                            imageUrl={backgroundImage.url}
                             onShowToggle={setWBTheme}
-                            onSuppressToggle={onChange}
+                            onSuppressToggle={(url) =>
+                                onChange({
+                                    backgroundImage: {...backgroundImage, url},
+                                })
+                            }
                         />
                         <ImagePreview
                             src={backgroundImage.url}

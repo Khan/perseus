@@ -1,10 +1,11 @@
 import Rule from "../rule";
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "math-frac",
-    severity: Rule.Severity.GUIDELINE,
     selector: "math, blockMath",
     pattern: /\\frac[ {]/,
-    message: "Use \\dfrac instead of \\frac in your math expressions.",
-}) as Rule;
+    lint: Rule.makeLintFunction({
+        severity: Rule.Severity.GUIDELINE,
+        message: "Use \\dfrac instead of \\frac in your math expressions.",
+    }),
+});

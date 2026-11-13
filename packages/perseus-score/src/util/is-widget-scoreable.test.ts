@@ -1,5 +1,5 @@
 import isWidgetScoreable from "./is-widget-scoreable";
-import {getTestDropdownWidget} from "./test-helpers";
+import {getTestDropdownWidget} from "./widgets.testutils";
 
 import type {PhetSimulationWidget} from "@khanacademy/perseus-core";
 

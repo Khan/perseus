@@ -145,7 +145,6 @@ const GradedGroupSet = forwardRef<Widget, Props>(
                                 problemNum={(props.problemNum ?? 0) + i}
                                 options={gradedGroup}
                                 inGradedGroupSet={false}
-                                linterContext={props.linterContext}
                             />
                         );
                     })}
@@ -241,6 +240,7 @@ const styles = StyleSheet.create({
     indicator: {
         width: 24,
         height: 24,
+        marginBlockStart: 0,
     },
 
     indicatorButton: {

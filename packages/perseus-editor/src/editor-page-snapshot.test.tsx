@@ -13,7 +13,7 @@
  * packages/perseus-editor/src/editor-page.test.tsx.
  */
 import {Dependencies} from "@khanacademy/perseus";
-import {render} from "@testing-library/react";
+import {act, render} from "@testing-library/react";
 import * as React from "react";
 
 import {comprehensiveQuestion} from "./__testdata__/all-widgets.testdata";
@@ -22,7 +22,7 @@ import {
     testDependencies,
     testDependenciesV2,
 } from "./testing/test-dependencies";
-import {registerAllWidgetsAndEditorsForTesting} from "./util/register-all-widgets-and-editors-for-testing";
+import {registerAllWidgetsAndEditorsForTesting} from "./util/register-all-widgets-and-editors.testutils";
 
 describe("EditorPage", () => {
     beforeAll(() => {
@@ -36,7 +36,7 @@ describe("EditorPage", () => {
         Dependencies.setDependencies(testDependencies);
     });
 
-    it("should match snapshot for editing disabled for all widgets", () => {
+    it("should match snapshot for editing disabled for all widgets", async () => {
         // Arrange, Act
         const {container} = render(
             <EditorPage
@@ -51,6 +51,9 @@ describe("EditorPage", () => {
                 widgetsAreOpen={true}
             />,
         );
+        // Wait for plotter's card resizing to settle. RTL logs an error if
+        // the resize happens outside an act() call.
+        await act(() => Promise.resolve());
 
         // Assert
         // Note: the interactive-graph movable point renders fill/stroke="none"
@@ -59,5 +62,5 @@ describe("EditorPage", () => {
         // to "" and Raphael renders it as "none". The real color resolves in a
         // browser (covered by Chromatic). See movable-point.tsx / .test.ts.
         expect(container).toMatchSnapshot();
-    });
+    }, 20_000 /* increase timeout - this is a huge snapshot! */);
 });

@@ -8,7 +8,7 @@ import LockedLineSettings from "./locked-line-settings";
 import {
     mockedGenerateSpokenMathDetailsForTests,
     mockedJoinLabelsAsSpokenMathForTests,
-} from "./util";
+} from "./math-a11y.testutils";
 
 import type {UserEvent} from "@testing-library/user-event";
 

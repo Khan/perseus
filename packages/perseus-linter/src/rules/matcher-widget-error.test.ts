@@ -1,10 +1,10 @@
-import {expectPass, expectWarning} from "../__tests__/test-utils";
+import {expectPass, expectIssue} from "../__tests__/test-utils";
 
 import matcherWidgetErrorRule from "./matcher-widget-error";
 
 describe("radio-widget-error", () => {
     it("warns for matcher widget with more left cards than right cards", () => {
-        expectWarning(matcherWidgetErrorRule, "[[☃ matcher 1]]", {
+        expectIssue(matcherWidgetErrorRule, "[[☃ matcher 1]]", {
             widgets: {
                 "matcher 1": {
                     options: {
@@ -17,7 +17,7 @@ describe("radio-widget-error", () => {
     });
 
     it("warns for matcher widget with more right cards than left cards", () => {
-        expectWarning(matcherWidgetErrorRule, "[[☃ matcher 1]]", {
+        expectIssue(matcherWidgetErrorRule, "[[☃ matcher 1]]", {
             widgets: {
                 "matcher 1": {
                     options: {

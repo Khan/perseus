@@ -8,8 +8,9 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Perform the row operation, 
@@ -26,7 +27,7 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
           </span>
           , on the following matrix.
         </strong>
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container perseus-paragraph-centered"
@@ -358,8 +359,9 @@ exports[`matrix widget should snapshot: first render 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Perform the row operation, 
@@ -376,7 +378,7 @@ exports[`matrix widget should snapshot: first render 1`] = `
           </span>
           , on the following matrix.
         </strong>
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container perseus-paragraph-centered"

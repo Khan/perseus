@@ -171,7 +171,6 @@ class Editor extends React.Component<Props, State> {
     _pendingCursorPos: number | null = null;
     widgetIds: any | null | undefined;
 
-    underlay = React.createRef<HTMLDivElement>();
     textarea = React.createRef<HTMLTextAreaElement>();
 
     static defaultProps: DefaultProps = {
@@ -269,7 +268,6 @@ class Editor extends React.Component<Props, State> {
         return (
             <WidgetEditorContainer
                 widgetInfo={this.props.widgets[id]}
-                ref={id}
                 id={id}
                 key={id}
                 onChange={this._handleWidgetEditorChange.bind(this, id)}
@@ -756,25 +754,6 @@ class Editor extends React.Component<Props, State> {
         this.handleChange({content: newContent});
     };
 
-    getSaveWarnings: () => any = () => {
-        const widgetIds = _.intersection(
-            this.widgetIds,
-            Object.keys(this.refs),
-        );
-        const warnings = _(widgetIds)
-            .chain()
-            .map((id) => {
-                // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
-                const issuesFunc = this.refs[id].getSaveWarnings;
-                const issues = issuesFunc ? issuesFunc() : [];
-                return _.map(issues, (issue) => id + ": " + issue);
-            })
-            .flatten(true)
-            .value();
-
-        return warnings;
-    };
-
     private getWidgetsReferencedIn(content: string): PerseusWidgetsMap {
         const referencedWidgetIds = getWidgetIdsFromContent(content);
         const allWidgets = {
@@ -916,11 +895,7 @@ class Editor extends React.Component<Props, State> {
         underlayPieces.push(<br key="end" />);
 
         const completeTextarea = [
-            <div
-                className="perseus-textarea-underlay"
-                ref={this.underlay}
-                key="underlay"
-            >
+            <div className="perseus-textarea-underlay" key="underlay">
                 {underlayPieces}
             </div>,
             <textarea

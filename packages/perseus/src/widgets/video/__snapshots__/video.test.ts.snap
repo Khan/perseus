@@ -8,11 +8,12 @@ exports[`video widget should snapshot on mobile: first mobile render 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         Watch the Biogeography: Where Life Lives video to find the answer.
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -81,11 +82,12 @@ exports[`video widget should snapshot: first render 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         Watch the Biogeography: Where Life Lives video to find the answer.
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"

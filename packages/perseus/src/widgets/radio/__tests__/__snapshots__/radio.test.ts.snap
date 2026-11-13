@@ -8,8 +8,9 @@ exports[`Radio Widget multi-choice question should snapshot the same when invali
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Select all input values for which 
@@ -26,7 +27,7 @@ exports[`Radio Widget multi-choice question should snapshot the same when invali
           </span>
           .
         </strong>
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -253,6 +254,7 @@ exports[`Radio Widget multi-choice question should snapshot the same when invali
             >
               <svg
                 height="48"
+                style="width: var(--wb-c-progress-spinner-root-sizing-medium); height: var(--wb-c-progress-spinner-root-sizing-medium);"
                 viewBox="0 0 48 48"
                 width="48"
                 xmlns="http://www.w3.org/2000/svg"
@@ -281,8 +283,9 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         Which of the following values of 
         <span
@@ -309,7 +312,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
           <span />
         </span>
          ?
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -370,8 +373,9 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             <span
                               style="white-space: nowrap;"
@@ -396,7 +400,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                               </span>
                               <span />
                             </span>
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -527,8 +531,9 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             No value of 
                             <span
@@ -543,7 +548,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                               <span />
                             </span>
                              satisfies the equation.
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -567,8 +572,9 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         Which of the following values of 
         <span
@@ -595,7 +601,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
           <span />
         </span>
          ?
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -656,8 +662,9 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             <span
                               style="white-space: nowrap;"
@@ -682,7 +689,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                               </span>
                               <span />
                             </span>
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -813,8 +820,9 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             No value of 
                             <span
@@ -829,7 +837,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                               <span />
                             </span>
                              satisfies the equation.
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -853,8 +861,9 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         Which of the following values of 
         <span
@@ -881,7 +890,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
           <span />
         </span>
          ?
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -942,8 +951,9 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             <span
                               style="white-space: nowrap;"
@@ -968,7 +978,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                               </span>
                               <span />
                             </span>
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1099,8 +1109,9 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             No value of 
                             <span
@@ -1115,7 +1126,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                               <span />
                             </span>
                              satisfies the equation.
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1139,8 +1150,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         Which of the following values of 
         <span
@@ -1167,7 +1179,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
           <span />
         </span>
          ?
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -1228,8 +1240,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             <span
                               style="white-space: nowrap;"
@@ -1254,7 +1267,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               </span>
                               <span />
                             </span>
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1385,8 +1398,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             No value of 
                             <span
@@ -1401,7 +1415,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               <span />
                             </span>
                              satisfies the equation.
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1425,8 +1439,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         Which of the following values of 
         <span
@@ -1453,7 +1468,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
           <span />
         </span>
          ?
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -1514,8 +1529,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             <span
                               style="white-space: nowrap;"
@@ -1540,7 +1556,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               </span>
                               <span />
                             </span>
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1671,8 +1687,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             No value of 
                             <span
@@ -1687,7 +1704,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               <span />
                             </span>
                              satisfies the equation.
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1711,8 +1728,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         Which of the following values of 
         <span
@@ -1739,7 +1757,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
           <span />
         </span>
          ?
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -1801,8 +1819,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             <span
                               style="white-space: nowrap;"
@@ -1827,7 +1846,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               </span>
                               <span />
                             </span>
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1841,8 +1860,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             The square root operation (
                             <span
@@ -1889,7 +1909,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               <span />
                             </span>
                             .
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1952,8 +1972,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             While 
                             <span
@@ -1984,7 +2005,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               only
                             </em>
                              the positive square root when performed on a number.
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -2052,8 +2073,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             <span
                               style="white-space: nowrap;"
@@ -2079,7 +2101,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               <span />
                             </span>
                             .
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -2115,8 +2137,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             No value of 
                             <span
@@ -2131,7 +2154,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               <span />
                             </span>
                              satisfies the equation.
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -2145,8 +2168,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             <span
                               style="white-space: nowrap;"
@@ -2160,7 +2184,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               <span />
                             </span>
                              satisfies the equation.
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>

@@ -1,7 +1,7 @@
 import {describe, it, test, expect} from "tstyche";
 
 import {enumeration} from "./enumeration";
-import {ctx} from "./test-helpers";
+import {ctx} from "./parser.testutils";
 
 import type {ParseResult} from "../parser-types";
 

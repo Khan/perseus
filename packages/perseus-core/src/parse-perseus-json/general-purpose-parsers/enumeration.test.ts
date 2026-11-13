@@ -1,7 +1,7 @@
 import {success} from "../result";
 
 import {enumeration} from "./enumeration";
-import {anyFailure, ctx, parseFailureWith} from "./test-helpers";
+import {anyFailure, ctx, parseFailureWith} from "./parser.testutils";
 
 describe("enumeration()", () => {
     const fooBarBaz = enumeration("foo", "bar", "baz");

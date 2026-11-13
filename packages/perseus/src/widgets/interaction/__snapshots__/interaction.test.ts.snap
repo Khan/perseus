@@ -879,11 +879,12 @@ exports[`interaction widget should render 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         Drag the dot all the way to the right.
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -1177,14 +1178,15 @@ exports[`interaction widget should render 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <em>
           Notice that we add a zero to the empty place value.
         </em>
          
-      </p>
+      </div>
     </div>
   </div>
 </div>

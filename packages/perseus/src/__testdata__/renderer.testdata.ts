@@ -208,6 +208,8 @@ I have reset the sensors to scan for frequencies outside the usual range. By emi
 
 Exceeding reaction chamber thermal limit. We have begun power-supply calibration. Force fields have been established on all turbo lifts and crawlways. Computer, run a level-two diagnostic on warp-drive systems. Antimatter containment positive. Warp drive within normal parameters. I read an ion trail characteristic of a freighter escape pod. The bomb had a molecular-decay detonator. Detecting some unusual fluctuations in subspace frequencies.
 
+The warp core usually consists of a matter/antimatter reaction assembly utilizing deuterium and antideuterium reacting in a dilithium crystal matrix, producing a maximum output of four thousand teradynes per second. Antimatter containment is achieved through the use of magnetic fields, which guid and direct the antimatter through the antimatter integrator to injector coils, which precisely compress and stream the antimatter into the form which enters the intermix chamber.
+
 ### Alien Life Forms
 
 Cmdr Riker's nervous system has been invaded by an *unknown microorganism*. The organisms fuse to the nerve, intertwining at the molecular level. That's why the transporter's biofilters couldn't extract it. The vertex waves show a K-complex corresponding to an REM state. The engineering section's critical. Destruction is imminent. Their robes contain ultritium, highly explosive, virtually undetectable by your transporter.
@@ -243,6 +245,16 @@ This is a paragraph after the block math.
 
 export const tableContent = `# Article with a Markdown table
 
+| column A | column B (right aligned) | column C (centered)    |
+| -------- | -----------------------: | :--------------------: |
+| turtles  | 42                       | $\\text{\\red{red}}$   |
+| bats     | 96                       | $\\text{\\blue{blue}}$ |
+| cabbages | 0                        | $\\dfrac{1}{2}$        |
+`;
+
+export const titledTableContent = `# Article with a Markdown table
+
+|| Magical Creatures ||
 | column A | column B | column C |
 | -------- | -------- | -------- |
 | turtles  | 42       | $\\text{\\red{red}}$ |

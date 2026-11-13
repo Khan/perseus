@@ -1,11 +1,3 @@
-/***********************************************************************
- *                                                                     *
- * WARNING!!!! THERE ARE ACTIVE CHANGES HAPPENING IN THE RENDERER!     *
- *                                                                     *
- ***********************************************************************/
-// TODO(LEMS-4304): feature flag cleanup - rename this file to widget-container.tsx.
-// This file is the new widget container that will replace the old container.
-
 import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
 import classNames from "classnames";
 import * as React from "react";
@@ -19,6 +11,25 @@ import {getWidgetSubType} from "./widget-type-utils";
 import * as Widgets from "./widgets";
 
 import type {WidgetProps} from "./types";
+
+// List of widgets that don't handle their own static elements.
+// Until they do, we need to keep using the "static overlay".
+//
+// TODO(nisha): Remove each widgets from the list as they're worked on,
+// and then delete this list after every widget handles its own
+// static elements.
+const widgetsNeedingOverlay: string[] = [
+    "cs-program",
+    "expression",
+    "iframe",
+    "input-number",
+    "matcher",
+    "matrix",
+    "numeric-input",
+    "orderer",
+    "sorter",
+    "table",
+];
 
 type Props = {
     type: string; // widget type/name,
@@ -126,12 +137,18 @@ class WidgetContainer extends React.Component<Props, State> {
         // div on top of the widget and overflow: hidden the container.
         // Ideally widgets themselves should know how to prevent interaction.
         // UPDATE HTML5: `inert` on the underlying div would be better
-        const isStatic = this.props.widgetProps.static || apiOptions.readOnly;
+        //
+        // TODO(nisha): Remove `shouldUseStaticOverlay` after all the widgets
+        // handle their own static elements.
+        const shouldUseStaticOverlay =
+            (this.props.widgetProps.static || apiOptions.readOnly) &&
+            widgetsNeedingOverlay.includes(type);
         const staticContainerStyles = {
             position: "relative",
             overflow: "visible",
         } as const;
         const staticOverlayStyles = {
+            display: "block",
             width: "100%",
             height: "100%",
             position: "absolute",
@@ -165,7 +182,10 @@ class WidgetContainer extends React.Component<Props, State> {
             <Container className="deprecated-perseus-container">
                 <Container
                     className={className}
-                    style={isStatic ? staticContainerStyles : {}}
+                    // TODO(nisha): Remove `staticContainerStyles` and
+                    // `staticOverlayStyles` after all the widgets handle
+                    // their own static elements.
+                    style={shouldUseStaticOverlay ? staticContainerStyles : {}}
                 >
                     <DependenciesContext.Consumer>
                         {({analytics}) => (
@@ -196,8 +216,13 @@ class WidgetContainer extends React.Component<Props, State> {
                                     containerSizeClass={this.state.sizeClass}
                                     ref={this.widgetRef}
                                 />
-                                {isStatic && (
-                                    <div style={staticOverlayStyles} />
+                                {/* TODO(nisha): Remove this span once all widgets
+                                    handle their own disabled elements. */}
+                                {shouldUseStaticOverlay && (
+                                    <span
+                                        data-testid="widget-container-static-overlay"
+                                        style={staticOverlayStyles}
+                                    />
                                 )}
                             </ErrorBoundary>
                         )}

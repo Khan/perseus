@@ -156,6 +156,7 @@ class PlotterEditor extends React.Component<Props, State> {
         }
 
         if (categories) {
+            // TODO(benchristel): Avoid findDOMNode and string refs here.
             const node = ReactDOM.findDOMNode(this.refs.categories);
             // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
             node.value = categories.join(", ");
@@ -209,6 +210,7 @@ class PlotterEditor extends React.Component<Props, State> {
             starting: this.props.starting.map(scale),
         });
 
+        // TODO(benchristel): Avoid findDOMNode and string refs here.
         // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
         ReactDOM.findDOMNode(this.refs.maxY).value = maxY;
     };

@@ -1,6 +1,6 @@
 import {describe, expect, it} from "@jest/globals";
 
-import {anySuccess, ctx} from "../general-purpose-parsers/test-helpers";
+import {anySuccess, ctx} from "../general-purpose-parsers/parser.testutils";
 import {assertSuccess, success} from "../result";
 
 import {parseInputNumberWidget} from "./input-number-widget";

@@ -97,10 +97,6 @@ class HintEditor extends React.Component<HintEditorProps> {
         this.editor.current?.focus();
     };
 
-    getSaveWarnings: () => any = () => {
-        return this.editor.current?.getSaveWarnings();
-    };
-
     render(): React.ReactNode {
         const hintNumber = this.props.position + 1;
         return (
@@ -211,10 +207,6 @@ type CombinedHintEditorProps = {
 /* A single hint-row containing a hint editor and preview */
 class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
     editor = React.createRef<HintEditor>();
-
-    getSaveWarnings = () => {
-        return this.editor.current?.getSaveWarnings();
-    };
 
     focus = () => {
         this.editor.current?.focus();
@@ -343,19 +335,6 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
         this.props.onChange({hints: hints});
     };
 
-    getSaveWarnings: () => any = () => {
-        return _.chain(this.props.hints)
-            .map((hint, i) => {
-                return _.map(
-                    // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
-                    this.refs["hintEditor" + i].getSaveWarnings(),
-                    (issue) => "Hint " + (i + 1) + ": " + issue,
-                );
-            })
-            .flatten(true)
-            .value();
-    };
-
     render(): React.ReactNode {
         const {itemId, hints} = this.props;
         const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
@@ -363,7 +342,6 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
             return (
                 <fieldset disabled={editingDisabled} key={"hintEditor" + i}>
                     <CombinedHintEditor
-                        ref={"hintEditor" + i}
                         isFirst={i === 0}
                         isLast={i + 1 === hints.length}
                         itemId={itemId}

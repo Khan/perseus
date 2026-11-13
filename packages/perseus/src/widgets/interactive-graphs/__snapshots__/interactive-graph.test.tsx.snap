@@ -1109,8 +1109,9 @@ exports[`Interactive Graph question Should render blank predictably: first rende
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Sides shown
@@ -1153,7 +1154,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
         </span>
         . 
 
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -1564,8 +1565,9 @@ exports[`Interactive Graph question Should render blank predictably: first rende
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Plot the image of triangle 
@@ -1594,7 +1596,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
           </span>
           .
         </strong>
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -1647,6 +1649,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                     >
                       <svg
                         height="48"
+                        style="width: var(--wb-c-progress-spinner-root-sizing-medium); height: var(--wb-c-progress-spinner-root-sizing-medium);"
                         viewBox="0 0 48 48"
                         width="48"
                         xmlns="http://www.w3.org/2000/svg"
@@ -1996,11 +1999,12 @@ exports[`Interactive Graph question Should render blank predictably: first rende
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         We want to find the zeros of this polynomial:
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container perseus-paragraph-centered"
@@ -2023,8 +2027,9 @@ exports[`Interactive Graph question Should render blank predictably: first rende
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Plot all the zeros (
@@ -2041,7 +2046,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
           </span>
           -intercepts) of the polynomial in the interactive graph.
         </strong>
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -2094,6 +2099,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                     >
                       <svg
                         height="48"
+                        style="width: var(--wb-c-progress-spinner-root-sizing-medium); height: var(--wb-c-progress-spinner-root-sizing-medium);"
                         viewBox="0 0 48 48"
                         width="48"
                         xmlns="http://www.w3.org/2000/svg"
@@ -2230,8 +2236,9 @@ exports[`Interactive Graph question Should render blank predictably: first rende
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         The graph below contains quadrilateral 
         <span
@@ -2258,13 +2265,14 @@ exports[`Interactive Graph question Should render blank predictably: first rende
           <span />
         </span>
         .  
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Draw the image of quadrilateral 
@@ -2306,7 +2314,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
           .
         </strong>
           
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -2351,6 +2359,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                     >
                       <svg
                         height="48"
+                        style="width: var(--wb-c-progress-spinner-root-sizing-medium); height: var(--wb-c-progress-spinner-root-sizing-medium);"
                         viewBox="0 0 48 48"
                         width="48"
                         xmlns="http://www.w3.org/2000/svg"
@@ -2522,8 +2531,9 @@ exports[`Interactive Graph question Should render user input predictably: with u
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Sides shown
@@ -2566,7 +2576,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
         </span>
         . 
 
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -2950,8 +2960,9 @@ exports[`Interactive Graph question Should render user input predictably: with u
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Plot the image of triangle 
@@ -2980,7 +2991,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
           </span>
           .
         </strong>
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -3033,6 +3044,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
                     >
                       <svg
                         height="48"
+                        style="width: var(--wb-c-progress-spinner-root-sizing-medium); height: var(--wb-c-progress-spinner-root-sizing-medium);"
                         viewBox="0 0 48 48"
                         width="48"
                         xmlns="http://www.w3.org/2000/svg"
@@ -3382,11 +3394,12 @@ exports[`Interactive Graph question Should render user input predictably: with u
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         We want to find the zeros of this polynomial:
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container perseus-paragraph-centered"
@@ -3409,8 +3422,9 @@ exports[`Interactive Graph question Should render user input predictably: with u
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Plot all the zeros (
@@ -3427,7 +3441,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
           </span>
           -intercepts) of the polynomial in the interactive graph.
         </strong>
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -3480,6 +3494,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
                     >
                       <svg
                         height="48"
+                        style="width: var(--wb-c-progress-spinner-root-sizing-medium); height: var(--wb-c-progress-spinner-root-sizing-medium);"
                         viewBox="0 0 48 48"
                         width="48"
                         xmlns="http://www.w3.org/2000/svg"
@@ -3710,8 +3725,9 @@ exports[`Interactive Graph question Should render user input predictably: with u
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         The graph below contains quadrilateral 
         <span
@@ -3738,13 +3754,14 @@ exports[`Interactive Graph question Should render user input predictably: with u
           <span />
         </span>
         .  
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Draw the image of quadrilateral 
@@ -3786,7 +3803,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
           .
         </strong>
           
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -3839,6 +3856,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
                     >
                       <svg
                         height="48"
+                        style="width: var(--wb-c-progress-spinner-root-sizing-medium); height: var(--wb-c-progress-spinner-root-sizing-medium);"
                         viewBox="0 0 48 48"
                         width="48"
                         xmlns="http://www.w3.org/2000/svg"

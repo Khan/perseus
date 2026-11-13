@@ -25,7 +25,7 @@ Fill in the Blank presents a passage with inline blanks above a choice bank of a
 
 It is the first of a drag-and-drop family — Sorter, Categorizer and Composer follow — which is why the answer tile is named for the family (\`PerseusAnswerTile\`) rather than for this widget.
 
-**The render below is a placeholder.** The drag-and-drop components in \`components/drag-and-drop/\` have not been assembled into the widget yet, so the options documented here are authored but not yet honoured.
+**The render is an early version.** \`randomize\` is not yet honored, and there is no sub/superscript, narrow-viewport, or scoring support yet.
 
 ## Key Features
 

@@ -1,5 +1,7 @@
 # Wonder Blocks: Forms
 
+Examples read translated text from `strings` (`const {strings} = usePerseusI18n();`).
+
 ## Choosing form components
 
 | Input type | Component |
@@ -31,8 +33,8 @@ import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 
 <LabeledField
-    label={t`Field name`}
-    description={t`Description for the user`}
+    label={strings.fieldName}
+    description={strings.descriptionForThe}
     field={
         <TextField
             value={name}
@@ -50,31 +52,31 @@ import {OptionItem, SingleSelect, MultiSelect} from "@khanacademy/wonder-blocks-
 
 // Single select
 <LabeledField
-    label={t`Category`}
+    label={strings.category}
     field={
         <SingleSelect
-            placeholder={t`Choose a category`}
+            placeholder={strings.chooseACategory}
             selectedValue={selectedValue}
             onChange={setSelectedValue}
         >
-            <OptionItem label={t`Option 1`} value="option1" />
-            <OptionItem label={t`Option 2`} value="option2" />
-            <OptionItem label={t`Option 3`} value="option3" />
+            <OptionItem label={strings.option1} value="option1" />
+            <OptionItem label={strings.option2} value="option2" />
+            <OptionItem label={strings.option3} value="option3" />
         </SingleSelect>
     }
 />
 
 // Multi select
 <LabeledField
-    label={t`Categories`}
+    label={strings.categories}
     field={
         <MultiSelect
             selectedValues={selectedValues}
             onChange={setSelectedValues}
         >
-            <OptionItem label={t`Option 1`} value="option1" />
-            <OptionItem label={t`Option 2`} value="option2" />
-            <OptionItem label={t`Option 3`} value="option3" />
+            <OptionItem label={strings.option1} value="option1" />
+            <OptionItem label={strings.option2} value="option2" />
+            <OptionItem label={strings.option3} value="option3" />
         </MultiSelect>
     }
 />
@@ -115,32 +117,32 @@ import {CheckboxGroup, RadioGroup, Choice} from "@khanacademy/wonder-blocks-form
 const [selectedValues, setSelectedValues] = useState<string[]>([]);
 
 <CheckboxGroup
-    label={t`Choose your options`}
-    description={t`Select all that apply`}
+    label={strings.chooseYourOptions}
+    description={strings.selectAllThat}
     errorMessage={checkboxError}
     groupName="options"
     onChange={setSelectedValues}
     selectedValues={selectedValues}
 >
-    <Choice label={t`Option 1`} value="option1" />
-    <Choice label={t`Option 2`} value="option2" />
-    <Choice label={t`Option 3`} value="option3" />
+    <Choice label={strings.option1} value="option1" />
+    <Choice label={strings.option2} value="option2" />
+    <Choice label={strings.option3} value="option3" />
 </CheckboxGroup>
 
 // Radio buttons
 const [selectedValue, setSelectedValue] = useState<string>("");
 
 <RadioGroup
-    label={t`Choose one option`}
-    description={t`Select the option that best applies`}
+    label={strings.chooseOneOption}
+    description={strings.selectTheOption}
     errorMessage={radioError}
     groupName="option"
     onChange={setSelectedValue}
     selectedValue={selectedValue}
 >
-    <Choice label={t`Option 1`} value="option1" />
-    <Choice label={t`Option 2`} value="option2" />
-    <Choice label={t`Option 3`} value="option3" />
+    <Choice label={strings.option1} value="option1" />
+    <Choice label={strings.option2} value="option2" />
+    <Choice label={strings.option3} value="option3" />
 </RadioGroup>
 ```
 
@@ -193,7 +195,7 @@ const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null
 const [value, setValue] = useState<string>("");
 
 <LabeledField
-    label={t`Title`}
+    label={strings.title}
     errorMessage={errorMessage}
     field={
         <TextField
@@ -202,169 +204,11 @@ const [value, setValue] = useState<string>("");
             instantValidation={false}
             validate={(value) => {
                 if (value.trim().length < 5) {
-                    return t`Title must be at least 5 characters`;
+                    return strings.titleMustBe;
                 }
             }}
             onValidate={setErrorMessage}
         />
     }
 />
-```
-
-### Form submission
-
-- Use a `<form>` element to wrap form fields. Avoid using key event handlers
-  directly on the `<form>` element since it is non-interactive.
-- To submit a form when the `Enter` key is pressed, include a `Button` with
-  `type="submit"` inside the form and handle submission using the `onSubmit`
-  prop on the `<form>` element. The "Enter to submit" functionality is handled
-  by the browser.
-- Be cautious when adding this behavior to learner-facing interactions,
-  especially those where the activity is scored and cannot be undone. Not all
-  users are aware of this control functionality and it could result in accidental
-  submissions. For these use cases, you don't need to wrap the fields in a
-  `<form>` element. Use a `Button` and handle the submission `onClick`.
-- Form controls that initiate a change in context should have a submit button to
-  prevent an unexpected change of context. Examples of context changes: change
-  of user agent, viewport, focus or content that changes the meaning of the web
-  page.
-- Avoid disabling form submission buttons, unless the button is for submitting
-  only one form field.
-
-For form elements, use `addStyle` to create a `StyledForm` element so that
-Aphrodite styles can be applied.
-
-```tsx
-import {addStyle} from "@khanacademy/wonder-blocks-core";
-
-const StyledForm = addStyle("form");
-
-const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    submitForm({value});
-}
-
-<StyledForm onSubmit={handleSubmit} style={styles.form}>
-  <LabeledField label={t`Name`} field={<TextField value={value} onChange={setValue} />} />
-  <Button type="submit">{t`Submit`}</Button>
-</StyledForm>
-
-const styles = StyleSheet.create({
-    form: {
-        gap: sizing.size_080,
-    },
-});
-```
-
-### Validation after submission
-
-- If an error comes from outside the field (e.g. API error, cross-field
-  validation on submit), set `errorMessage` on `LabeledField` for the specific
-  field.
-
-```tsx
-<LabeledField
-    label={t`Title`}
-    errorMessage={serverError}
-    field={
-        <TextField
-            value={code}
-            onChange={setCode}
-        />
-    }
-/>
-```
-
-- If there are any errors once a form is submitted, programmatically move the
-  user's focus to the first field with an error. This includes required fields
-  that are empty.
-- When **more than one** error is present, display a
-  `Banner` with `kind="critical"` containing an error summary at the top of the
-  form and move focus to the first errored field. This announces the list of
-  errors before the user moves through the form to fix them. Do not show the
-  Banner for a single error — the inline `errorMessage` on `LabeledField` is
-  sufficient in that case.
-
-```tsx
-const titleRef = useRef<HTMLInputElement>(null);
-const descriptionRef = useRef<HTMLInputElement>(null);
-
-const handleSubmit = (event) => {
-    event.preventDefault();
-    // ... Submit form and determine if there are errors with the field
-    setTitleError(titleError);
-    setDescriptionError(descriptionError);
-
-    // Move focus to the first field with an error
-    if (titleError && titleRef.current) {
-        titleRef.current.focus();
-    } else if (descriptionError && descriptionRef.current) {
-        descriptionRef.current.focus();
-    }
-};
-
-<StyledForm onSubmit={handleSubmit}>
-    <LabeledField
-        label={t`Title`}
-        errorMessage={titleError}
-        field={<TextField ref={titleRef} value={title} onChange={setTitle} />}
-    />
-    <LabeledField
-        label={t`Description`}
-        errorMessage={descriptionError}
-        field={<TextArea ref={descriptionRef} value={description} onChange={setDescription} />}
-    />
-    <Button type="submit">{t`Submit`}</Button>
-</StyledForm>
-```
-
-The banner should look something like this and include an `ul` of the errors. It
-should only be updated when the form is re-submitted.
-
-```tsx
-<Banner
-    kind="critical"
-    text={
-        <>
-            {t`There are X errors. Please review the fields below.`}
-            <StyledUl
-                style={styles.bannerUl}
-            >
-                {[
-                    {label: titleLabel, error: titleError},
-                    {label: descriptionLabel, error: descriptionError},
-                ]
-                    .filter(({error}) => error)
-                    .map((field) => (
-                        <StyledLi
-                            key={field.label}
-                            style={styles.bannerLi}
-                        >
-                            {field.label}: {field.error}
-                        </StyledLi>
-                    ))}
-            </StyledUl>
-        </>
-    }
-/>
-
-const styles = StyleSheet.create({
-    bannerUl: {
-        color: "inherit",
-        fontSize: "inherit",
-        lineHeight: "inherit",
-        paddingInlineStart: sizing.size_200,
-        marginBlockEnd: 0,
-        marginBlockStart: sizing.size_120,
-        display: "flex",
-        flexDirection: "column",
-        gap: sizing.size_040,
-    },
-    bannerLi: {
-        color: "inherit",
-        fontSize: "inherit",
-        lineHeight: "inherit",
-        listStyle: "disc",
-    },
-})
 ```

@@ -62,65 +62,6 @@ export const rtlDecorator: Decorator = (Story) => (
     </RtlWrapper>
 );
 
-const articleContent1 =
-    "Prophase (sometimes divided into prophase and prometaphase):";
-const articleContent2 =
-    "Chromosomes: In prophase, the chromosomes condense, forming the characteristic “X” shape that is often shown in diagrams. Each “X” is a duplicated chromosome. The two sides of the “X” are called sister chromatids, and they are attached at a point called the centromere. Even though the chromosome has been copied at this point of the cell cycle, as long as the two copies (sister chromatids) are attached, they are considered a single chromosome.";
-const articleContent3 =
-    "The nucleolus (a structure inside the nucleus where ribosomes are made) disappears during prophase. The mitotic spindle begins to form during prophase, starting at regions called centrosomes. These regions contain the material needed for building the spindle, and also function to regulate the spindle throughout mitosis.";
-
-export const mobileArticleFloatLeftDecorator: Decorator = (Story) => (
-    <div className="framework-perseus perseus-mobile perseus-article">
-        <div className="deprecated-perseus-container">
-            <div className="perseus-widget-container widget-nohighlight widget-wrap-left">
-                <Story />
-            </div>
-        </div>
-        <div className="deprecated-perseus-container">{articleContent1}</div>
-        <div className="deprecated-perseus-container">{articleContent2}</div>
-        <div className="deprecated-perseus-container">{articleContent3}</div>
-    </div>
-);
-
-export const mobileArticleFloatRightDecorator: Decorator = (Story) => (
-    <div className="framework-perseus perseus-mobile perseus-article">
-        <div className="deprecated-perseus-container">
-            <div className="perseus-widget-container widget-nohighlight widget-wrap-right">
-                <Story />
-            </div>
-        </div>
-        <div className="deprecated-perseus-container">{articleContent1}</div>
-        <div className="deprecated-perseus-container">{articleContent2}</div>
-        <div className="deprecated-perseus-container">{articleContent3}</div>
-    </div>
-);
-
-export const articleFloatLeftDecorator: Decorator = (Story) => (
-    <div className="framework-perseus perseus-article">
-        <div className="deprecated-perseus-container">
-            <div className="perseus-widget-container widget-nohighlight widget-wrap-left">
-                <Story />
-            </div>
-        </div>
-        <div className="deprecated-perseus-container">{articleContent1}</div>
-        <div className="deprecated-perseus-container">{articleContent2}</div>
-        <div className="deprecated-perseus-container">{articleContent3}</div>
-    </div>
-);
-
-export const articleFloatRightDecorator: Decorator = (Story) => (
-    <div className="framework-perseus perseus-article">
-        <div className="deprecated-perseus-container">
-            <div className="perseus-widget-container widget-nohighlight widget-wrap-right">
-                <Story />
-            </div>
-        </div>
-        <div className="deprecated-perseus-container">{articleContent1}</div>
-        <div className="deprecated-perseus-container">{articleContent2}</div>
-        <div className="deprecated-perseus-container">{articleContent3}</div>
-    </div>
-);
-
 // Force overflow so the radio widget’s scroll controls render in these stories.
 export const narrowViewportDecorator: Decorator = (Story) => (
     <div style={{maxInlineSize: "400px"}}>

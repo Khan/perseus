@@ -124,30 +124,34 @@
     }
 }
 
-/* Add small top margin to the content container to optically align text with the indicator.
-   This only applies to content that does not have an image or tall-math-containing choices as its first child.
-   This calculation takes into account the line height of the text and the height of the indicator.
-   The 0.4 multiplier is due to how the font distributes extra line height space around the text.
-   Since it isn't an exact 50% split (the descender probably messes things up),
-       a 40% multiplier works well across various line heights.
-   Choices with tall MathJax elements are excluded because they render taller than the CSS line-height
-   (e.g. fractions, roots, under/over-scripts), which would cause the math to visually shift away from the indicator.
-   For tall math content, the natural top-alignment with the indicator is the correct visual behavior.
-   Short inline math (e.g. $x = 4$) stays within the CSS line-height and benefits from the margin.
-*/
+/* Add small top margin to the content container to optically align text with
+   the indicator.  This only applies to content that does not have an image or
+   tall-math-containing choices as its first child.  This calculation takes
+   into account the line height of the text and the height of the indicator.  The
+   0.5 multiplier centers the text vertically on the choice indicator.  The extra
+   space in the line height is split 50/50 above and below the center line.
+   Choices with tall MathJax elements are excluded because they render taller than
+   the CSS line-height (e.g. fractions, roots, under/over-scripts), which would
+   cause the math to visually shift away from the indicator.  For tall math
+   content, the natural top-alignment with the indicator is the correct visual
+   behavior.  Short inline math (e.g. $x = 4$) stays within the CSS line-height
+   and benefits from the margin.
+   */
 .content {
     margin-block-start: calc(
         (
                 var(--perseus-multiple-choice-indicator-size) -
                     var(--perseus-content-line-height)
-            ) * 0.4
+            ) * 0.5
     );
 }
 
+/* TODO: Adjust the selector with deprecated-perseus-container once it is removed from the renderer. */
 .content:has(
         :global(.perseus-renderer > .deprecated-perseus-container:first-child)
             :is(
                 img,
+                table,
                 mjx-mfrac,
                 mjx-msqrt,
                 mjx-mroot,
@@ -157,6 +161,24 @@
             )
     ) {
     margin-block-start: 0;
+}
+
+/* TODO: Remove the selector with deprecated-perseus-container once it is removed from the renderer. */
+.content
+    :global(.perseus-renderer)
+    > :global(.deprecated-perseus-container:first-child)
+    table,
+.content :global(.perseus-renderer) > table:first-child {
+    margin-block-start: 0;
+}
+
+/* TODO: Remove the selector with deprecated-perseus-container once it is removed from the renderer. */
+.content
+    :global(.perseus-renderer)
+    > :global(.deprecated-perseus-container:last-child)
+    table,
+.content :global(.perseus-renderer) > table:last-child {
+    margin-block-end: 0;
 }
 
 @media (prefers-reduced-motion: no-preference) {

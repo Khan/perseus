@@ -8,8 +8,9 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Graph 
@@ -26,7 +27,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
           </span>
           .
         </strong>
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -1368,8 +1369,9 @@ exports[`grapher widget should snapshot question with multiple graph types: init
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         Let 
         <span
@@ -1396,13 +1398,14 @@ exports[`grapher widget should snapshot question with multiple graph types: init
           <span />
         </span>
         .  
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         The graph of 
         <span
@@ -1417,13 +1420,14 @@ exports[`grapher widget should snapshot question with multiple graph types: init
           <span />
         </span>
          is shown below.
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Use the interactive graph to sketch a graph of 
@@ -1440,7 +1444,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
           </span>
           . 
         </strong>
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -1473,6 +1477,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <svg
                         height="48"
+                        style="width: var(--wb-c-progress-spinner-root-sizing-medium); height: var(--wb-c-progress-spinner-root-sizing-medium);"
                         viewBox="0 0 48 48"
                         width="48"
                         xmlns="http://www.w3.org/2000/svg"

@@ -81,17 +81,17 @@ describe("checkExports", () => {
         expect(result).toBe(false);
     });
 
-    it("rejects when a sub-path is missing from the published exports", () => {
+    it("accepts repo-only sub-paths that are missing from the published exports", () => {
         const result = checkExports({
             name: "@khanacademy/kmath",
             exports: {
                 ".": "./src/index.ts",
-                "./strings": "./src/strings.ts",
+                "./testing": "./src/testing.ts",
             },
             publishConfig: {exports: {".": "./dist/index.js"}},
         });
 
-        expect(result).toBe(false);
+        expect(result).toBe(true);
     });
 
     it("rejects when a code export does not point at a source file", () => {

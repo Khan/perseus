@@ -1,31 +1,16 @@
+import {linterError} from "../lint";
 import Rule from "../rule";
 
-// eslint-disable-next-line no-restricted-syntax
-export default Rule.makeRule({
+import type {Lint} from "../lint";
+
+export default Rule.makeWidgetRule({
     name: "numeric-input-widget-error",
-    severity: Rule.Severity.ERROR,
-    selector: "widget",
-    lint: function (state, content, nodes, match, context) {
-        // This rule only looks at numeric input widgets
-        if (state.currentNode().widgetType !== "numeric-input") {
-            return;
-        }
-
-        const nodeId = state.currentNode().id;
-        if (!nodeId) {
-            return;
-        }
-
-        // If it can't find a definition for the widget it does nothing
-        const widget = context?.widgets?.[nodeId];
-        if (!widget) {
-            return;
-        }
-
-        const issues: Array<any | string> = [];
+    widgetType: "numeric-input",
+    lint(widget) {
+        const issues: Lint[] = [];
         const answers = widget.options.answers;
         if (answers.some((answer) => answer.value == null)) {
-            issues.push("One or more answers is empty");
+            issues.push(linterError("One or more answers is empty"));
         }
 
         answers.forEach((answer, i) => {
@@ -34,12 +19,13 @@ export default Rule.makeRule({
                 (!answer.answerForms || answer.answerForms.length === 0);
             if (formatError) {
                 issues.push(
-                    `Answer ${i + 1} requires a format, but no format was selected`,
+                    linterError(
+                        `Answer ${i + 1} requires a format, but no format was selected`,
+                    ),
                 );
             }
         });
 
-        const allWarningsString = issues.join("\n\n");
-        return allWarningsString;
+        return issues;
     },
-}) as Rule;
+});

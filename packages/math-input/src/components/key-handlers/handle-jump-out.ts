@@ -17,6 +17,9 @@ const KeysForJumpContext = {
     [CursorContext.BEFORE_FRACTION]: "JUMP_INTO_NUMERATOR",
     [CursorContext.IN_NUMERATOR]: "JUMP_OUT_NUMERATOR",
     [CursorContext.IN_DENOMINATOR]: "JUMP_OUT_DENOMINATOR",
+    [CursorContext.IN_SQUARE_ROOT]: "JUMP_OUT_SQUARE_ROOT",
+    [CursorContext.IN_RADICAL_INDEX]: "JUMP_OUT_RADICAL_INDEX",
+    [CursorContext.IN_RADICAL]: "JUMP_OUT_RADICAL",
 };
 
 /**
@@ -75,7 +78,16 @@ function handleJumpOut(mathField: MathFieldInterface, key: KeypadKey): void {
             }
             break;
 
+        case CursorContext.IN_RADICAL_INDEX:
+            const siblingRadicand = cursor.parent.parent.blocks[1];
+            while (cursor.parent !== siblingRadicand) {
+                mathField.keystroke("Right");
+            }
+            break;
+
         case CursorContext.IN_DENOMINATOR:
+        case CursorContext.IN_SQUARE_ROOT:
+        case CursorContext.IN_RADICAL:
             cursor.insRightOf(cursor.parent.parent);
             break;
 

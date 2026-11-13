@@ -109,7 +109,7 @@ export {
     getInteractiveBoxFromSizeClass,
 } from "./util/sizing-utils";
 /** @hidden */
-export {mathOnlyParser} from "./widgets/interactive-graphs/utils";
+export {mathOnlyParser} from "./util/math-only-parser";
 export {
     isWrongAnswerSupported,
     shouldHaveIndividualAnswer,
@@ -123,7 +123,7 @@ export {
     getValidWidgetIds,
 } from "./util/extract-perseus-data";
 
-export {generateTestCategorizerWidget} from "./util/test-utils";
+export {generateTestCategorizerWidget} from "./util/scoring.testutils";
 export {
     getWidgetTypeByWidgetId,
     getWidgetSubTypeByWidgetId,

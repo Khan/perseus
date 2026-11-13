@@ -2,6 +2,7 @@ import {Util} from "@khanacademy/perseus";
 import {labelImageLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import DarkModeToggle from "../../components/dark-mode-toggle/dark-mode-toggle";
 import FormWrappedTextField from "../../components/form-wrapped-text-field";
 
 import AnswerChoices from "./answer-choices";
@@ -15,6 +16,11 @@ import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 
 export type Props = WidgetEditorProps<PerseusLabelImageWidgetOptions>;
 
+type State = {
+    // The Wonder Blocks theme used to preview the question image.
+    wbTheme?: string;
+};
+
 /**
  * Direct image labeling widget editor.
  *
@@ -22,8 +28,10 @@ export type Props = WidgetEditorProps<PerseusLabelImageWidgetOptions>;
  * that involve the use of images, and enable learners to demonstrate their
  * knowledge by directly interacting with the image.
  */
-class LabelImageEditor extends React.Component<Props> {
+class LabelImageEditor extends React.Component<Props, State> {
     private _questionMarkers: QuestionMarkers | null | undefined;
+
+    state: State = {wbTheme: undefined};
 
     static defaultProps: PerseusLabelImageWidgetOptions =
         labelImageLogic.defaultWidgetOptions;
@@ -67,61 +75,6 @@ class LabelImageEditor extends React.Component<Props> {
             ...changes,
         });
     }
-
-    // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
-    // the new linter rules for save warnings.
-    getSaveWarnings: () => ReadonlyArray<any | string> = () => {
-        const {choices, imageAlt, imageUrl, markers} = this.props;
-
-        const warnings: Array<string> = [];
-
-        if (choices.length < 2) {
-            warnings.push("Question requires at least two answer choices");
-        }
-
-        if (!imageUrl) {
-            warnings.push("Image is not specified for question");
-        } else if (!imageAlt) {
-            warnings.push("Question image has no alt text");
-        }
-
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (!markers.length) {
-            warnings.push("Question has no markers, to label answers on image");
-        } else {
-            let numNoAnswers = 0;
-            let numNoLabels = 0;
-
-            for (const marker of markers) {
-                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                if (!marker.answers.length) {
-                    numNoAnswers++;
-                }
-
-                if (!marker.label) {
-                    numNoLabels++;
-                }
-            }
-
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            if (numNoAnswers) {
-                warnings.push(
-                    `Question has ${numNoAnswers} markers with no ` +
-                        "answers selected",
-                );
-            }
-
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            if (numNoLabels) {
-                warnings.push(
-                    `Question has ${numNoLabels} markers with no ` +
-                        "ARIA label",
-                );
-            }
-        }
-
-        return warnings;
-    };
 
     handleImageChange = (url: string) => {
         this.handleChange({
@@ -201,12 +154,24 @@ class LabelImageEditor extends React.Component<Props> {
 
                 {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
                 {imageSelected && (
-                    <FormWrappedTextField
-                        placeholder="Alt text (for screen readers)"
-                        onChange={(e) => this.handleAltChange(e.target.value)}
-                        value={imageAlt}
-                        width="100%"
-                    />
+                    <>
+                        <FormWrappedTextField
+                            placeholder="Alt text (for screen readers)"
+                            onChange={(e) =>
+                                this.handleAltChange(e.target.value)
+                            }
+                            value={imageAlt}
+                            width="100%"
+                        />
+                        <DarkModeToggle
+                            editingDisabled={editingDisabled}
+                            imageUrl={imageUrl}
+                            onShowToggle={(wbTheme) => this.setState({wbTheme})}
+                            onSuppressToggle={(url) =>
+                                this.handleChange({imageUrl: url})
+                            }
+                        />
+                    </>
                 )}
 
                 <QuestionMarkers
@@ -219,6 +184,7 @@ class LabelImageEditor extends React.Component<Props> {
                     markers={markers}
                     onChange={this.handleMarkersChange}
                     ref={(node) => (this._questionMarkers = node)}
+                    wbTheme={this.state.wbTheme}
                 />
 
                 <AnswerChoices

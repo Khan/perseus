@@ -54,16 +54,3 @@
     padding-left: 0;
     padding-right: 0;
 }
-/******************* End for WidgetContainer's alignment CSS styling *******************/
-
-/* Typography and sizing */
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container:not(.perseus-widget__definition) {
-    font-size: var(--wb-sizing-size_140);
-    line-height: 19.6px;
-}
-
-.framework-perseus.perseus-mobile .perseus-widget-container {
-    font-size: var(--wb-sizing-size_140);
-    line-height: 19.6px;
-}

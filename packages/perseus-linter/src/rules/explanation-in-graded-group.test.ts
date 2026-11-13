@@ -6,7 +6,7 @@ import {
     generateRadioWidget,
 } from "@khanacademy/perseus-core";
 
-import {expectPass, expectWarning} from "../__tests__/test-utils";
+import {expectPass, expectIssue} from "../__tests__/test-utils";
 
 import {
     ExplanationInGradedGroup,
@@ -15,7 +15,7 @@ import {
 
 describe("explanation-in-graded-group", () => {
     it("warns when a graded group contains an explanation widget", () => {
-        expectWarning(
+        expectIssue(
             ExplanationInGradedGroup,
             "[[☃ graded-group 1]]",
             {
@@ -31,8 +31,9 @@ describe("explanation-in-graded-group", () => {
                 },
             },
             {
-                message:
+                messages: [
                     "graded-group 1: Contains explanation widget. Don't use explanation widgets in graded groups. Use the Graded Group Hint instead.",
+                ],
             },
         );
     });
@@ -82,7 +83,7 @@ describe("explanation-in-graded-group", () => {
 
 describe("explanation-in-graded-group-set", () => {
     it("warns when a group in a graded group set contains an explanation widget", () => {
-        expectWarning(
+        expectIssue(
             ExplanationInGradedGroupSet,
             "[[☃ graded-group-set 1]]",
             {
@@ -109,8 +110,9 @@ describe("explanation-in-graded-group-set", () => {
                 },
             },
             {
-                message:
+                messages: [
                     "graded-group-set 1: Explanation widget in group 2. Don't use explanation widgets in graded groups. Use the Graded Group Hint instead.",
+                ],
             },
         );
     });

@@ -928,7 +928,6 @@ describe("image editor", () => {
 
             // Act
             const scaleField = screen.getByRole("spinbutton", {name: "Scale"});
-            scaleField.focus();
             await userEvent.clear(scaleField);
             await userEvent.paste("2");
 
@@ -958,7 +957,6 @@ describe("image editor", () => {
             const scaledWidthField = screen.getByRole("spinbutton", {
                 name: "Scaled Width",
             });
-            scaledWidthField.focus();
             await userEvent.clear(scaledWidthField);
             await userEvent.paste(`${earthMoonImage.width * 2}`);
 
@@ -988,7 +986,6 @@ describe("image editor", () => {
             const scaledHeightField = screen.getByRole("spinbutton", {
                 name: "Scaled Height",
             });
-            scaledHeightField.focus();
             await userEvent.clear(scaledHeightField);
             await userEvent.paste(`${earthMoonImage.height * 2}`);
 
@@ -1020,7 +1017,6 @@ describe("image editor", () => {
                 const scaleField = screen.getByRole("spinbutton", {
                     name: "Scale",
                 });
-                scaleField.focus();
                 await userEvent.clear(scaleField);
                 await userEvent.paste(scale.toString());
 

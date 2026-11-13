@@ -3,7 +3,7 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "45.0.3",
+    "version": "45.1.0",
     "publishConfig": {
         "access": "public",
         "exports": {
@@ -30,7 +30,6 @@
         "prepublishOnly": "../../utils/package-pre-publish-check.sh"
     },
     "dependencies": {
-        "@khanacademy/kas": "workspace:*",
         "@khanacademy/keypad-context": "workspace:*",
         "@khanacademy/kmath": "workspace:*",
         "@khanacademy/math-input": "workspace:*",
@@ -44,6 +43,7 @@
         "tiny-invariant": "catalog:prodDeps"
     },
     "devDependencies": {
+        "@internal/build-settings": "workspace:*",
         "@khanacademy/mathjax-renderer": "catalog:devDeps",
         "@khanacademy/wonder-blocks-accordion": "catalog:devDeps",
         "@khanacademy/wonder-blocks-badge": "catalog:devDeps",
@@ -69,7 +69,6 @@
         "aphrodite": "catalog:devDeps",
         "classnames": "catalog:devDeps",
         "jsdiff": "workspace:*",
-        "perseus-build-settings": "workspace:*",
         "prop-types": "catalog:devDeps",
         "react": "catalog:devDeps",
         "react-dom": "catalog:devDeps",
@@ -107,6 +106,6 @@
     },
     "keywords": [],
     "khan": {
-        "catalogHash": "d30c44daf0b1611e"
+        "catalogHash": "85b4998d4181f603"
     }
 }

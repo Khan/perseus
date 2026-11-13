@@ -29,6 +29,9 @@ type QuestionMarkersProps = {
     // Whether the editor is disabled. Can be set via API options
     // to make the editor read-only when needed.
     editingDisabled: boolean;
+    // The Wonder Blocks theme to use for the image canvas.
+    // This is used to preview Dark Mode rendering.
+    wbTheme?: string;
 };
 
 class QuestionMarkers extends React.Component<QuestionMarkersProps> {
@@ -78,8 +81,15 @@ class QuestionMarkers extends React.Component<QuestionMarkersProps> {
     };
 
     render(): React.ReactNode {
-        const {choices, imageUrl, imageWidth, imageHeight, markers, onChange} =
-            this.props;
+        const {
+            choices,
+            imageUrl,
+            imageWidth,
+            imageHeight,
+            markers,
+            onChange,
+            wbTheme,
+        } = this.props;
 
         const staticUrl = Dependencies.getDependencies().staticUrl;
 
@@ -107,7 +117,12 @@ class QuestionMarkers extends React.Component<QuestionMarkersProps> {
 
                 {imageUrl && (
                     <div
-                        className={css(styles.markersCanvas)}
+                        // `perseus-image-preview-container` opts the canvas
+                        // into the dark mode image filter when `wbTheme` is
+                        // a dark theme.
+                        className={`perseus-image-preview-container ${css(styles.markersCanvas)}`}
+                        data-wb-theme={wbTheme}
+                        data-testid="label-image-markers-canvas"
                         style={{
                             maxInlineSize: imageWidth,
                             maxBlockSize: imageHeight,

@@ -1,5 +1,57 @@
 # @khanacademy/perseus-core
 
+## 42.3.0
+
+### Minor Changes
+
+-   [#4494](https://github.com/Khan/perseus/pull/4494) [`d5d3257`](https://github.com/Khan/perseus/commit/d5d3257f6c7b83b1b907ab1ae3a0b6dcd5d0a44b) Thanks [@nishasy](https://github.com/nishasy)! - [Group + Graded Group/Set] Updated Group, Graded Group, and Graded Group set parsers to drop static
+
+### Patch Changes
+
+-   Updated dependencies [[`aa65a1f`](https://github.com/Khan/perseus/commit/aa65a1f73488da6067c5a82bfac225c23e744074)]:
+    -   @khanacademy/pure-markdown@4.0.0
+
+## 42.2.0
+
+### Minor Changes
+
+-   [#4472](https://github.com/Khan/perseus/pull/4472) [`d477ac6`](https://github.com/Khan/perseus/commit/d477ac65fcd6b05ee9d538c015134a97573e0f85) Thanks [@benchristel](https://github.com/benchristel)! - The PerseusWidgetOptions type now includes all widget options types. The following widgets were previously not included by mistake: Grapher, Group, and Python Program.
+
+## 42.1.1
+
+### Patch Changes
+
+-   Updated dependencies []:
+    -   @khanacademy/pure-markdown@3.1.2
+
+## 42.1.0
+
+### Minor Changes
+
+-   [#4301](https://github.com/Khan/perseus/pull/4301) [`29c19fd`](https://github.com/Khan/perseus/commit/29c19fd709b24776d10d64bdff23c3ccb6114ff4) Thanks [@handeyeco](https://github.com/handeyeco)! - Add support for navigating via keypad for square root and radical
+
+### Patch Changes
+
+-   [#4431](https://github.com/Khan/perseus/pull/4431) [`5041a65`](https://github.com/Khan/perseus/commit/5041a65fc41837ddd09f447a9694ca5acefe122e) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Deleted unused code.
+
+-   Updated dependencies [[`4ea106b`](https://github.com/Khan/perseus/commit/4ea106be0fe054843917515c717270d006e78e77)]:
+    -   @khanacademy/kas@3.1.1
+
+## 42.0.2
+
+### Patch Changes
+
+-   [#4311](https://github.com/Khan/perseus/pull/4311) [`7e34ae2`](https://github.com/Khan/perseus/commit/7e34ae28f3ab30981d36798780241bedc32eadb1) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Stop shipping declaration files for test-only modules (type tests, test helpers, and testing utilities).
+
+-   [#4429](https://github.com/Khan/perseus/pull/4429) [`ced3262`](https://github.com/Khan/perseus/commit/ced3262bd5fbb41d2979522d87497e45916009d4) Thanks [@benchristel](https://github.com/benchristel)! - Internal: deleted unused code.
+
+-   [#4321](https://github.com/Khan/perseus/pull/4321) [`8d621d5`](https://github.com/Khan/perseus/commit/8d621d5be504f9253064b1f21fe3d3a1270845be) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Build packages with Vite (Rolldown and Oxc) instead of Rollup and SWC. Packages now import `react/jsx-runtime` and `react-dom/client` from their React peer dependencies instead of bundling copies. CSS is now built for Chrome 144 and Safari 16.6, which expands nested rules so they apply in Safari versions before 17.2.
+
+-   Updated dependencies [[`7e34ae2`](https://github.com/Khan/perseus/commit/7e34ae28f3ab30981d36798780241bedc32eadb1), [`8d621d5`](https://github.com/Khan/perseus/commit/8d621d5be504f9253064b1f21fe3d3a1270845be)]:
+    -   @khanacademy/kas@3.1.0
+    -   @khanacademy/perseus-utils@3.0.2
+    -   @khanacademy/pure-markdown@3.1.1
+
 ## 42.0.1
 
 ### Patch Changes

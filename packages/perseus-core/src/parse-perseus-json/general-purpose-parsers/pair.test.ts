@@ -2,9 +2,9 @@ import {success} from "../result";
 
 import {number} from "./number";
 import {pair} from "./pair";
+import {anyFailure, ctx, parseFailureWith} from "./parser.testutils";
 import {pipeParsers} from "./pipe-parsers";
 import {string} from "./string";
-import {anyFailure, ctx, parseFailureWith} from "./test-helpers";
 
 describe("pair", () => {
     const strAndNum = pair(string, number);

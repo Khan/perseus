@@ -5,7 +5,7 @@ import {
 
 import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
 
-import {generateTableRenderer} from "./test-util";
+import {generateTableRenderer} from "./table.testutils";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

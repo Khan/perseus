@@ -8,14 +8,15 @@ exports[`orderer widget should snapshot on mobile: first mobile render 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Without using a calculator, put the numbers in order  from least to greatest.
         </strong>
           
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -44,11 +45,12 @@ exports[`orderer widget should snapshot on mobile: first mobile render 1`] = `
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         1
-                      </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -65,11 +67,12 @@ exports[`orderer widget should snapshot on mobile: first mobile render 1`] = `
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         3
-                      </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -86,11 +89,12 @@ exports[`orderer widget should snapshot on mobile: first mobile render 1`] = `
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         2
-                      </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -124,14 +128,15 @@ exports[`orderer widget should snapshot: first render 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Without using a calculator, put the numbers in order  from least to greatest.
         </strong>
           
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -160,11 +165,12 @@ exports[`orderer widget should snapshot: first render 1`] = `
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         1
-                      </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -181,11 +187,12 @@ exports[`orderer widget should snapshot: first render 1`] = `
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         3
-                      </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -202,11 +209,12 @@ exports[`orderer widget should snapshot: first render 1`] = `
                     <div
                       class="deprecated-perseus-container"
                     >
-                      <p
+                      <div
                         class="deprecated-perseus-container"
+                        role="paragraph"
                       >
                         2
-                      </p>
+                      </div>
                     </div>
                   </div>
                 </div>

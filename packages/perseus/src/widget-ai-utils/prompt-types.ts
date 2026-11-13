@@ -44,6 +44,8 @@ export type WidgetPromptJSON =
     | LabelImagePromptJSON
     | MatcherPromptJSON
     | MatrixPromptJSON
+    // TODO(benchristel): I don't think MockWidgetPromptJSON should be included
+    //  here. The mock widget is test code.
     | MockWidgetPromptJSON
     | NumberLinePromptJSON
     | NumericInputPromptJSON

@@ -4,6 +4,8 @@
 */
 .button-style-overrides {
     height: auto;
+    /* Override the browser's default font-size and line-height for buttons */
+    font-size: inherit;
     line-height: inherit;
     margin-left: -0.2rem; /* transfer space on the left side to the padding */
     margin-right: 0.2rem; /* adds space between the right border and any text that follows */
@@ -51,7 +53,8 @@
 }
 
 .label-style {
-    font-size: var(--wb-font-heading-size-medium);
+    /* Override WB's styling for button labels */
+    font-size: inherit;
     line-height: inherit;
     /*
       The following property adjusts the large space between the button text and the caret icon.
