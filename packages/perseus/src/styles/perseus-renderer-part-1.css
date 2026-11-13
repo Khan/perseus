@@ -193,16 +193,6 @@ div.graphie {
 .framework-perseus .hint.last-hint .deprecated-perseus-container {
     font-weight: bold;
 }
-.framework-perseus
-    .deprecated-perseus-container
-    ul:not([data-widget="radio"], .indicatorContainer) {
-    padding-left: var(--wb-sizing-size_360);
-    list-style-type: disc;
-}
-.framework-perseus .deprecated-perseus-container ol {
-    list-style: decimal;
-    padding-left: 2em;
-}
 .perseus-article
     .perseus-dropdown
     .perseus-renderer

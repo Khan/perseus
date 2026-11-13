@@ -19,12 +19,6 @@
     margin-bottom: 0;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-renderer
-    > .deprecated-perseus-container
-    ul:not([data-widget="radio"]) {
-    color: var(--wb-semanticColor-core-foreground-neutral-strong);
-}
-.framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-image-caption
     .perseus-renderer
     .deprecated-perseus-container
@@ -67,32 +61,6 @@
     font-size: 15px;
     line-height: 1.5;
     margin: 0;
-}
-.framework-perseus.perseus-mobile
-    .perseus-renderer
-    > .deprecated-perseus-container
-    ul:not([data-widget="radio"], .indicatorContainer) {
-    padding: 0;
-}
-.framework-perseus.perseus-mobile
-    .perseus-renderer
-    > .deprecated-perseus-container
-    ul:not([data-widget="radio"], .indicatorContainer)
-    > li {
-    padding-left: var(--wb-sizing-size_100);
-}
-.framework-perseus.perseus-mobile
-    .perseus-renderer
-    > .deprecated-perseus-container
-    ol {
-    padding-left: var(--wb-sizing-size_320);
-}
-.framework-perseus.perseus-mobile
-    .perseus-renderer
-    > .deprecated-perseus-container
-    ol
-    > li {
-    list-style-type: decimal;
 }
 @media (max-width: 767px) {
     .framework-perseus.perseus-mobile
