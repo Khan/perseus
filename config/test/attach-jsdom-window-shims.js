@@ -117,18 +117,19 @@ const attachShims = (targetWindow) => {
         });
     }
 
-    // jQuery's `.width()` and `.height()` run a support test that measures a
-    // hidden table, and the test is done only once that table has a width.
-    // JSDOM has no layout, so the test runs again on every call and adds 8
-    // more nodes to the same table each time: each call is slower than the
-    // last, and a test file that measures many elements (like Graphie labels
-    // in plotter.test.tsx) slows down test by test. Giving jQuery's test
-    // table, and no other table, a width lets the test finish on its first
-    // run. jQuery 4.0.0 marks the table with `left: -11111px`.
-    if (
-        targetWindow.HTMLTableElement &&
-        !targetWindow.HTMLTableElement.prototype.hasOwnProperty("offsetWidth")
-    ) {
+    // jQuery's `.width()` and `.height()` check feature support by measuring
+    // a hidden table, and repeat the check until the table is visible (taking
+    // a width of 0 to mean the page isn't visible yet). JSDOM has no layout,
+    // so the check never considers the page to be visible nor discards the
+    // hidden table. It runs again on every call and adds 8 more nodes to the
+    // same table each time (jquery/jquery#5932), so each call is slower than
+    // the last, and a test file that measures many elements (like Graphie
+    // labels in plotter.test.tsx) slows down test by test. Giving jQuery's
+    // test table, and no other table, a width lets the check finish on its
+    // first run.
+    //
+    // Test files in a Node environment have no HTMLTableElement to patch.
+    if (targetWindow.HTMLTableElement) {
         const offsetWidth = Object.getOwnPropertyDescriptor(
             targetWindow.HTMLElement.prototype,
             "offsetWidth",
@@ -138,6 +139,7 @@ const attachShims = (targetWindow) => {
             "offsetWidth",
             {
                 get() {
+                    // jQuery 4.0.0 marks its test table with `left: -11111px`.
                     return this.style.left === "-11111px"
                         ? 1
                         : offsetWidth.get.call(this);
