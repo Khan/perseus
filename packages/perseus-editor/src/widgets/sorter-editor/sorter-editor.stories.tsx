@@ -24,7 +24,6 @@ export const EditorDemo: Story = {
     ),
 };
 
-// The legend fields only show with this flag on.
 export const WithLegend: Story = {
     render: (): React.ReactElement => (
         <EditorPageWithStorybookPreview
