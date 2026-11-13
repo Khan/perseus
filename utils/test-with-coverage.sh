@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-# Runs all tests (Jest and Playwright) with coverage enabled and merges the
+# Runs all tests (Rstest and Playwright) with coverage enabled and merges the
 # results into a single unified coverage report, in coverage/final.
 #
-# Note that Jest and Playwright write their coverage to different places:
-#   * Jest: coverage/jest (the "coverageDirectory" key in
-#     config/test/test.config.js)
+# Note that Rstest and Playwright write their coverage to different places:
+#   * Rstest: coverage/rstest (`coverage.reportsDirectory` in
+#     rstest.config.mts)
 #   * Playwright: coverage/playwright/raw, one file per test (COVERAGE_DIR in
 #     config/playwright/constants.ts)
 
@@ -37,8 +37,8 @@ clean() {
     rm -rf coverage/
 }
 
-run_jest() {
-    env NODE_OPTIONS="--max_old_space_size=8192" pnpm jest --coverage
+run_unit_tests() {
+    env NODE_OPTIONS="--max_old_space_size=8192" pnpm test --coverage
 }
 
 run_playwright() {
@@ -48,7 +48,7 @@ run_playwright() {
 merge_reports() {
     rm -rf coverage/reports
     mkdir coverage/reports
-    cp coverage/jest/coverage-final.json coverage/reports/from-jest.json
+    cp coverage/rstest/coverage-final.json coverage/reports/from-rstest.json
     pnpm nyc merge coverage/playwright/raw coverage/reports/from-playwright.json
 
     # nyc looks in `.nyc_output` for coverage info so we clear it out and copy
@@ -66,7 +66,7 @@ merge_reports() {
 pushd "$REPO_ROO" >/dev/null 2>&1
 
 clean
-run_jest
+run_unit_tests
 run_playwright
 merge_reports
 
