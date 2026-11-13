@@ -637,18 +637,19 @@ describe("server item renderer", () => {
         it("does not report a blur when another input gains focus before the blur settles", () => {
             // Arrange
             const onFocusChange = jest.fn();
-            const {renderer} = renderItem(itemWithTwoMockWidgets, {
-                onFocusChange,
+            renderItem(itemWithTwoMockWidgets, {onFocusChange});
+            const [firstInput, secondInput] = screen.getAllByRole("textbox", {
+                name: "Mock Widget",
             });
-            act(() => renderer.questionRenderer!.focusPath(["mock-widget 1"]));
+            act(() => firstInput.focus());
             act(() => jest.runAllTimers());
-            act(() => renderer.blur());
+            act(() => firstInput.blur());
             // Let the question Renderer report the blur, which starts our own
             // wait for a focus in this tick.
             act(() => jest.advanceTimersToNextTimer());
 
             // Act
-            act(() => renderer.questionRenderer!.focusPath(["mock-widget 2"]));
+            act(() => secondInput.focus());
             act(() => jest.runAllTimers());
 
             // Assert
@@ -667,12 +668,11 @@ describe("server item renderer", () => {
         it("does not report a pending blur after unmounting", () => {
             // Arrange
             const onFocusChange = jest.fn();
-            const {renderer, unmount} = renderItem(itemWithMockWidget, {
-                onFocusChange,
-            });
-            act(() => renderer.questionRenderer!.focusPath(["mock-widget 1"]));
+            const {unmount} = renderItem(itemWithMockWidget, {onFocusChange});
+            const input = screen.getByRole("textbox", {name: "Mock Widget"});
+            act(() => input.focus());
             act(() => jest.runAllTimers());
-            act(() => renderer.blur());
+            act(() => input.blur());
             // Let the question Renderer report the blur, which starts our own
             // wait before reporting it.
             act(() => jest.advanceTimersToNextTimer());
