@@ -57,6 +57,8 @@ const CSProgram = forwardRef<Widget, Props>(function CSProgram(props, ref) {
         showButtons = false,
     } = props.options;
 
+    const isDisabled = props.apiOptions.readOnly || props.static;
+
     // We receive data from the iframe that contains
     // {testsPassed: true/false} and use that to set the status. It could
     // also contain an optional message.
@@ -153,10 +155,15 @@ const CSProgram = forwardRef<Widget, Props>(function CSProgram(props, ref) {
 
     // Matches templates/scratchpads/embed_script.js: when the execute buttons
     // are shown, the toolbar adds 66px of height and the border adds 1px.
+    //
+    // We can't disable the content inside the iframe, so when the widget is
+    // static/readonly, we stop the iframe from receiving mouse events and
+    // take it out of the tab order.
     const style = {
         height: showButtons ? height + 67 : height,
         width: "100%",
-    } as const;
+        ...(isDisabled && {pointerEvents: "none"}),
+    } satisfies React.CSSProperties;
 
     const sandboxOptions = [
         "allow-popups",
@@ -178,6 +185,7 @@ const CSProgram = forwardRef<Widget, Props>(function CSProgram(props, ref) {
                 style={style}
                 className={className}
                 allowFullScreen={true}
+                tabIndex={isDisabled ? -1 : undefined}
             />
         </div>
     );
