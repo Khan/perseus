@@ -1,4 +1,4 @@
-import {isCorrect} from "@khanacademy/perseus-score";
+import {isCorrect} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";

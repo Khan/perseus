@@ -1,6 +1,6 @@
 import {isCorrect} from "./is-correct";
 
-import type {PerseusScore} from "@khanacademy/perseus-core";
+import type {PerseusScore} from "../validation.types";
 
 describe("isCorrect", () => {
     it("is true given a score with all points earned", () => {

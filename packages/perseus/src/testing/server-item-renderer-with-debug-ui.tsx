@@ -1,5 +1,5 @@
 import {KeypadContext} from "@khanacademy/keypad-context";
-import {isCorrect} from "@khanacademy/perseus-score";
+import {isCorrect} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 

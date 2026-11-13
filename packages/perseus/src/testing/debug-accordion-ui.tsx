@@ -1,4 +1,4 @@
-import {isCorrect} from "@khanacademy/perseus-score";
+import {isCorrect} from "@khanacademy/perseus-core";
 import {
     Accordion,
     AccordionSection,

@@ -1,4 +1,4 @@
-import type {PerseusScore} from "@khanacademy/perseus-core";
+import type {PerseusScore} from "../validation.types";
 
 /**
  * Returns true if the score earned all of its available points.

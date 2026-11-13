@@ -1,6 +1,6 @@
 ---
-"@khanacademy/perseus-score": minor
+"@khanacademy/perseus-core": minor
 "@khanacademy/perseus": patch
 ---
 
-Export `isCorrect` from `@khanacademy/perseus-score`
+Export `isCorrect` from `@khanacademy/perseus-core`
