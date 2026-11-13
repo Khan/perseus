@@ -1,3 +1,4 @@
+import {rs} from "@rstest/core";
 import {parseGIF, decompressFrames} from "gifuct-js";
 
 import {graphieImage} from "./__testdata__/image.testdata";
@@ -5,7 +6,7 @@ import {decodeGifFrames, isGif, isSvg} from "./utils";
 
 import type {ParsedFrame} from "gifuct-js";
 
-jest.mock("gifuct-js", () => ({
+rs.mock("gifuct-js", () => ({
     parseGIF: jest.fn(),
     decompressFrames: jest.fn(),
 }));
