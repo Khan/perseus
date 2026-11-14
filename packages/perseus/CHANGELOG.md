@@ -1,5 +1,55 @@
 # @khanacademy/perseus
 
+## 94.0.0
+
+### Major Changes
+
+-   [#4503](https://github.com/Khan/perseus/pull/4503) [`c8ae23d`](https://github.com/Khan/perseus/commit/c8ae23d2aa3b43d8a35e005189ccc4dfe025d953) Thanks [@benchristel](https://github.com/benchristel)! - Removed `getSaveWarnings()` methods from Perseus editors. Clients should use `@khanacademy/perseus-linter` for all linting needs. The `legacyPerseusLint` props have also been removed from the renderers and the `PreviewContent` types.
+
+### Minor Changes
+
+-   [#4462](https://github.com/Khan/perseus/pull/4462) [`f534b24`](https://github.com/Khan/perseus/commit/f534b242de153fd659b366c9ea2e066b381dd1f7) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Render the first column of a markdown table as row headers (`<th scope="row">`) when its column header is empty or when every body cell in it is bold, so screen readers announce each row's label.
+
+-   [#4432](https://github.com/Khan/perseus/pull/4432) [`920d8bb`](https://github.com/Khan/perseus/commit/920d8bb75f94116f2fac4f00da2b8713f7e36f33) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Adds sorter legend bar, end caps, and labels
+
+### Patch Changes
+
+-   [#4534](https://github.com/Khan/perseus/pull/4534) [`9249cc3`](https://github.com/Khan/perseus/commit/9249cc360f025a6433eff364eb8625890069f678) Thanks [@benchristel](https://github.com/benchristel)! - Unconditionally render `<div role="paragraph">` elements instead of `<p>` to prevent invalid DOM nesting.
+
+-   [#4523](https://github.com/Khan/perseus/pull/4523) [`0ade729`](https://github.com/Khan/perseus/commit/0ade729de3b12fbecbe5c7c6749964ca14b44f5b) Thanks [@nishasy](https://github.com/nishasy)! - [Plotter] Add disabled state to Plotter widget and remove static overlay
+
+-   [#4507](https://github.com/Khan/perseus/pull/4507) [`743d06b`](https://github.com/Khan/perseus/commit/743d06bf7e4436e44596fd9d709505e0f7e76af5) Thanks [@benchristel](https://github.com/benchristel)! - Consolidated the styling for image widget captions. Styling is now consistent across screen sizes and aligned with Wonder Blocks tokens.
+
+-   [#4509](https://github.com/Khan/perseus/pull/4509) [`318e9a6`](https://github.com/Khan/perseus/commit/318e9a604933bf3dfe1d1f46a798eacb0f2e5b72) Thanks [@benchristel](https://github.com/benchristel)! - Internal: consolidated CSS for image widget titles
+
+-   [#4547](https://github.com/Khan/perseus/pull/4547) [`3fa79d2`](https://github.com/Khan/perseus/commit/3fa79d2e66a2833588519d7dc851db84677da673) Thanks [@benchristel](https://github.com/benchristel)! - Consolidated CSS for inline code and code blocks, and made the styling consistent across desktop and mobile.
+
+-   [#4543](https://github.com/Khan/perseus/pull/4543) [`61a5988`](https://github.com/Khan/perseus/commit/61a5988aa93144234757e70fcbac38524c3b4be2) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Styling] Migrate remaining styling associated with lists
+
+-   [#4419](https://github.com/Khan/perseus/pull/4419) [`e86e304`](https://github.com/Khan/perseus/commit/e86e30436b76b90c8acaa529d1525b0339d06bd1) Thanks [@nishasy](https://github.com/nishasy)! - [FITB] Foundation for a fill-in-the-blank widget
+
+-   [#4536](https://github.com/Khan/perseus/pull/4536) [`4b251fb`](https://github.com/Khan/perseus/commit/4b251fbb1361ff07ee75b24ce7b68586c7923bcc) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Styling] Remove redundant styling associated with headers in a mobile context
+
+-   [#4519](https://github.com/Khan/perseus/pull/4519) [`184e26e`](https://github.com/Khan/perseus/commit/184e26e0123897346a2691122909ef1991bd0523) Thanks [@nishasy](https://github.com/nishasy)! - [Number Line] Add disabled state to Number Line widget and remove static overlay
+
+-   [#4546](https://github.com/Khan/perseus/pull/4546) [`d3ef535`](https://github.com/Khan/perseus/commit/d3ef535f47ca46f64dc9b55d2abcbd6c0850a1f7) Thanks [@benchristel](https://github.com/benchristel)! - Removed the unused `blockHighlight` concept from the linting system.
+
+-   [#4454](https://github.com/Khan/perseus/pull/4454) [`49d06ee`](https://github.com/Khan/perseus/commit/49d06eec4fff2f307fa391557b6c69dd7a1a36a3) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Normalize vertical spacing to fit the new font styles
+
+-   [#4533](https://github.com/Khan/perseus/pull/4533) [`cc332b2`](https://github.com/Khan/perseus/commit/cc332b245d97ceee80d95a26db3a526acad4c60e) Thanks [@benchristel](https://github.com/benchristel)! - Locked lines with coincident points no longer render NaN coordinates, and `NumberInput` passes only known props to its `<input>`
+
+-   [#4526](https://github.com/Khan/perseus/pull/4526) [`61c84cc`](https://github.com/Khan/perseus/commit/61c84cccfa4b9aeb25a6a7736d5ecb9915f6c6e7) Thanks [@kevinb-khan](https://github.com/kevinb-khan)! - Update Wonder Blocks peer/dev dependencies from frontend, including `@khanacademy/wonder-blocks-dropdown` 11.0.0, whose OptionItem and ActionItem now forward refs to their DOM element
+
+-   [#4548](https://github.com/Khan/perseus/pull/4548) [`bc30f01`](https://github.com/Khan/perseus/commit/bc30f0186e3b7460392663b824f7e82adc5285a4) Thanks [@benchristel](https://github.com/benchristel)! - Consolidated styling of blockquote elements, making it consistent across desktop and mobile.
+
+-   Updated dependencies [[`4163210`](https://github.com/Khan/perseus/commit/4163210b8e6b71ecda752cd1d882bb87973ee571), [`874f1a8`](https://github.com/Khan/perseus/commit/874f1a8bb4678411437be2d6fbdf844be0ef9271), [`d3ef535`](https://github.com/Khan/perseus/commit/d3ef535f47ca46f64dc9b55d2abcbd6c0850a1f7), [`b65a0f6`](https://github.com/Khan/perseus/commit/b65a0f62fd6d2a2d4d636b872111188bc7f2602c), [`4163210`](https://github.com/Khan/perseus/commit/4163210b8e6b71ecda752cd1d882bb87973ee571), [`61c84cc`](https://github.com/Khan/perseus/commit/61c84cccfa4b9aeb25a6a7736d5ecb9915f6c6e7), [`e86e304`](https://github.com/Khan/perseus/commit/e86e30436b76b90c8acaa529d1525b0339d06bd1)]:
+    -   @khanacademy/perseus-score@9.0.15
+    -   @khanacademy/perseus-linter@8.1.0
+    -   @khanacademy/perseus-core@42.4.0
+    -   @khanacademy/math-input@30.2.4
+    -   @khanacademy/keypad-context@6.0.14
+    -   @khanacademy/kmath@3.1.7
+
 ## 93.1.0
 
 ### Minor Changes
