@@ -36,7 +36,7 @@ import {ApiOptions, ClassNames as ApiClassNames} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown";
 import QuestionParagraph from "./question-paragraph";
 import TranslationLinter from "./translation-linter";
-import Util, {isContentGraphie} from "./util";
+import Util, {isContentGraphie, isLayoutTable} from "./util";
 import {containerSizeClass} from "./util/sizing-utils";
 import preprocessTex from "./util/tex-preprocess";
 import WidgetContainer from "./widget-container";
@@ -930,10 +930,7 @@ class Renderer
     // output individual AST nodes [not arrays]
     outputNode = (
         node: SingleASTNode,
-        nestedOutput: (
-            ast: SingleASTNode,
-            state: WidgetState,
-        ) => React.ReactNode,
+        nestedOutput: (ast: ASTNode, state: WidgetState) => React.ReactNode,
         state: WidgetState,
     ): React.ReactNode => {
         const apiOptions = this.getApiOptions();
@@ -1172,14 +1169,40 @@ class Renderer
             return node.content;
         }
         if (node.type === "table" || node.type === "titledTable") {
-            const output = PerseusMarkdown.ruleOutput(node, nestedOutput, {
+            const tableState = {
                 ...state,
                 isMobile: apiOptions.isMobile,
                 inTable: true,
-            });
+            };
+            // A titled table's `table` is a `lint` node when the linter has
+            // flagged it. We leave those to perseus-markdown.
+            const tableNode = node.type === "table" ? node : node.table;
+            const isLayout =
+                tableNode?.type === "table" && isLayoutTable(tableNode);
+
+            const output = isLayout
+                ? this.outputLayoutTable(tableNode, nestedOutput, tableState)
+                : PerseusMarkdown.ruleOutput(node, nestedOutput, tableState);
+
+            // A layout table has no table semantics, so a title can't be its
+            // `<caption>`. Render the title as a paragraph above it instead.
+            const title =
+                isLayout && node.type === "titledTable"
+                    ? nestedOutput(
+                          {type: "paragraph", content: node.title},
+                          state,
+                      )
+                    : null;
 
             if (!apiOptions.isMobile) {
-                return output;
+                return title == null ? (
+                    output
+                ) : (
+                    <React.Fragment key={state.key}>
+                        {title}
+                        {output}
+                    </React.Fragment>
+                );
             }
 
             const margin = 16;
@@ -1204,7 +1227,14 @@ class Renderer
                 </div>
             );
 
-            return <div style={outerStyle}>{wrappedOutput}</div>;
+            return title == null ? (
+                <div style={outerStyle}>{wrappedOutput}</div>
+            ) : (
+                <React.Fragment key={state.key}>
+                    {title}
+                    <div style={outerStyle}>{wrappedOutput}</div>
+                </React.Fragment>
+            );
         }
         // If it's a "normal" or "simple" markdown node, just
         // output it using its output rule.
@@ -1212,6 +1242,43 @@ class Renderer
             <ErrorBoundary key={state.key}>
                 {PerseusMarkdown.ruleOutput(node, nestedOutput, state)}
             </ErrorBoundary>
+        );
+    };
+
+    /**
+     * Renders a table whose column headers are all empty as a layout table.
+     * The empty header row is dropped, and `role="presentation"` tells
+     * assistive technology not to announce the table's rows and columns.
+     *
+     * Unlike data tables, a layout table isn't made focusable on mobile:
+     * browsers ignore `role="presentation"` on focusable elements.
+     */
+    outputLayoutTable = (
+        node: SingleASTNode,
+        nestedOutput: (ast: ASTNode, state: WidgetState) => React.ReactNode,
+        state: WidgetState,
+    ): React.ReactElement => {
+        const getStyle = (colIndex: number): React.CSSProperties =>
+            node.align[colIndex] == null
+                ? {}
+                : {textAlign: node.align[colIndex]};
+
+        return (
+            <table key={state.key} role="presentation">
+                <tbody>
+                    {node.cells.map(
+                        (row: Array<Array<SingleASTNode>>, r: number) => (
+                            <tr key={r}>
+                                {row.map((content, c) => (
+                                    <td key={c} style={getStyle(c)}>
+                                        {nestedOutput(content, state)}
+                                    </td>
+                                ))}
+                            </tr>
+                        ),
+                    )}
+                </tbody>
+            </table>
         );
     };
 

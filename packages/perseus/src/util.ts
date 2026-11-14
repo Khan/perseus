@@ -114,6 +114,22 @@ export const isContentGraphie = (node: SingleASTNode): boolean => {
 const isWhitespaceOnlyTextNode = (node: SingleASTNode): boolean =>
     node?.type === "text" && node.content.trim() === "";
 
+type TableCell = Array<SingleASTNode>;
+
+export function isEmptyTableCell(cell: TableCell): boolean {
+    return cell.every(isWhitespaceOnlyTextNode);
+}
+
+/**
+ * Markdown tables always have a header row, so authors who use a table to lay
+ * out content (rather than to present data) leave every column header empty.
+ * Such tables have no headers to describe their cells, so we render them as
+ * layout tables.
+ */
+export function isLayoutTable(node: SingleASTNode): boolean {
+    return node.header.every(isEmptyTableCell);
+}
+
 /**
  * Trim whitespace-only text nodes from the start and end of an array of inline
  * markdown AST nodes. Used to avoid generating empty `<p> </p>` wrappers around
