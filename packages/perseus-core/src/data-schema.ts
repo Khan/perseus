@@ -165,6 +165,7 @@ export interface PerseusWidgetTypes {
     "phet-simulation": PhetSimulationWidget;
     "python-program": PythonProgramWidget;
     plotter: PlotterWidget;
+    "polar-graph": PolarGraphWidget;
     radio: RadioWidget;
     sorter: SorterWidget;
     table: TableWidget;
@@ -467,6 +468,10 @@ export type ImageWidget = WidgetOptions<'image', PerseusImageWidgetOptions>;
 export type InteractionWidget = WidgetOptions<'interaction', PerseusInteractionWidgetOptions>;
 // prettier-ignore
 export type InteractiveGraphWidget = WidgetOptions<'interactive-graph', PerseusInteractiveGraphWidgetOptions>;
+export type PolarGraphWidget = WidgetOptions<
+    "polar-graph",
+    PerseusPolarGraphWidgetOptions
+>;
 // prettier-ignore
 export type LabelImageWidget = WidgetOptions<'label-image', PerseusLabelImageWidgetOptions>;
 // prettier-ignore
@@ -1547,6 +1552,167 @@ export type PreferredPopoverDirection =
     | "DOWN"
     | "LEFT"
     | "RIGHT";
+
+/** How a polar graph names angles in labels and screen-reader text. */
+export type PolarAngleUnit = "degrees" | "radians";
+
+export type PerseusPolarGraphWidgetOptions = {
+    /**
+     * Radius of the outermost grid circle. The graph spans
+     * [-maxRadius, maxRadius] on both axes, so it is always square.
+     */
+    maxRadius: number;
+    /** Spacing between the concentric grid circles, in graph units. */
+    radiusStep: number;
+    /** Spacing between the grid spokes, in degrees. */
+    angleStepDegrees: number;
+    /** Unit used for angle labels and screen-reader text. */
+    angleUnit: PolarAngleUnit;
+    /** The sub-type and its settings, without the answer. */
+    graph: PerseusPolarGraphType;
+    /** The correct answer. Undefined in answerless data. */
+    correct?: PerseusPolarGraphType;
+    /**
+     * Figures the author draws for the learner to read from. They have no
+     * handles and are never scored.
+     */
+    lockedFigures: PerseusPolarLockedFigure[];
+    /** TeX labels that belong to no figure, as on interactive graph. */
+    lockedLabels: LockedLabelType[];
+    /** Accessible name for the whole graph. */
+    fullGraphAriaLabel?: string;
+    /** Accessible description for the whole graph. */
+    fullGraphAriaDescription?: string;
+};
+
+/** A figure the author drew on the polar graph, with no handles. */
+export type PerseusPolarLockedFigure = {
+    /** The figure to draw, with its coordinates set. */
+    figure: PerseusPolarGraphType;
+    color: LockedFigureColor;
+    /**
+     * Solid or dashed; a closed figure (circle, limaçon, rose, lemniscate)
+     * may also have no stroke and only a fill.
+     */
+    strokeStyle: LockedFigureStrokeStyle;
+    weight: StrokeWeight;
+    /** Point figures only: a solid dot, or an open ring. */
+    filled: boolean;
+    /** Closed figures only, as on a locked ellipse. */
+    fillStyle: LockedFigureFillType;
+    /** TeX labels placed with the figure, as on interactive graph. */
+    labels: LockedLabelType[];
+    /**
+     * What a screen reader says for this figure. As on interactive graph,
+     * a figure without one is hidden from screen readers.
+     */
+    ariaLabel?: string;
+};
+
+/** Every polar graph sub-type. */
+export type PerseusPolarGraphType =
+    | PerseusPolarGraphTypePoint
+    | PerseusPolarGraphTypeRay
+    | PerseusPolarGraphTypeAngle
+    | PerseusPolarGraphTypeCircle
+    | PerseusPolarGraphTypeLimacon
+    | PerseusPolarGraphTypeRose
+    | PerseusPolarGraphTypeLemniscate;
+
+export type PerseusPolarGraphTypePoint = {
+    type: "point";
+    /** How many points the learner plots. default: 1 */
+    numPoints?: number;
+    /**
+     * Point positions as (x, y) in graph units. The polar form (r, θ) is
+     * derived, so equivalent names like (3, 45°) and (-3, 225°) compare
+     * equal for free.
+     */
+    coords?: Coord[];
+    /** Where the points sit before the learner moves them. */
+    startCoords?: Coord[];
+    /** A name for each point, used by screen readers and visible labels. */
+    pointLabels?: string[];
+    /** Whether to show each point's label on the graph. default: false */
+    showPointLabels?: boolean;
+};
+
+/** θ = c: a ray from the pole in one direction. */
+export type PerseusPolarGraphTypeRay = {
+    type: "ray";
+    /**
+     * One point on the ray, as (x, y). The ray runs from the pole through
+     * it.
+     */
+    coords?: Coord[];
+    startCoords?: Coord[];
+};
+
+/**
+ * An angle with its vertex at the pole, measured counterclockwise from the
+ * initial side to the terminal side, so angles in standard position and
+ * reflex angles both work.
+ */
+export type PerseusPolarGraphTypeAngle = {
+    type: "angle";
+    /**
+     * [a point on the initial side, a point on the terminal side], as
+     * (x, y).
+     */
+    coords?: [Coord, Coord];
+    startCoords?: [Coord, Coord];
+    /** Whether to show the angle measure on the graph. default: false */
+    showAngles?: boolean;
+    /**
+     * How to score. "congruent" accepts any angle with the same measure;
+     * otherwise both sides must point the same way as the answer.
+     */
+    match?: "congruent";
+};
+
+/** r = a: a circle centered on the pole. */
+export type PerseusPolarGraphTypeCircle = {
+    type: "circle";
+    /** One point on the circle, as (x, y). Its distance from the pole is a. */
+    coords?: Coord[];
+    startCoords?: Coord[];
+};
+
+/**
+ * r = a + b cos(θ − φ), which includes the cardioid when a = b. The far tip
+ * sits in direction φ at distance a + b. The near point is where
+ * the curve crosses that same line again: on the far side of the pole for a
+ * dimple, at the pole for a cardioid, on the tip's side for an inner loop.
+ */
+export type PerseusPolarGraphTypeLimacon = {
+    type: "limacon";
+    /** [far tip, near point], as (x, y). */
+    coords?: [Coord, Coord];
+    startCoords?: [Coord, Coord];
+};
+
+/** r² = a² cos(2(θ − φ)): a figure eight through the pole. */
+export type PerseusPolarGraphTypeLemniscate = {
+    type: "lemniscate";
+    /** The tip of one lobe, as (x, y). Its radius is a and its angle is φ. */
+    coords?: Coord[];
+    startCoords?: Coord[];
+};
+
+/** r = a cos(k(θ − φ)): k petals when k is odd, 2k when k is even. */
+export type PerseusPolarGraphTypeRose = {
+    type: "rose";
+    /** One petal tip, as (x, y). Its radius is a and its angle is φ. */
+    coords?: Coord[];
+    startCoords?: Coord[];
+    /** The k in r = a cos(kθ). default: 3 */
+    k?: number;
+    /**
+     * When true the learner cannot change k, so the graph's k is also the
+     * answer's. default: false
+     */
+    fixedK?: boolean;
+};
 
 /** Options for the label-image widget. Asks learners to label image parts. */
 export type PerseusLabelImageWidgetOptions = {

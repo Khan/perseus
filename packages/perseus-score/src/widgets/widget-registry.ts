@@ -31,6 +31,7 @@ import scoreOrderer from "./orderer/score-orderer";
 import validateOrderer from "./orderer/validate-orderer";
 import scorePlotter from "./plotter/score-plotter";
 import validatePlotter from "./plotter/validate-plotter";
+import scorePolarGraph from "./polar-graph/score-polar-graph";
 import scoreRadio from "./radio/score-radio";
 import validateRadio from "./radio/validate-radio";
 import scoreSorter from "./sorter/score-sorter";
@@ -120,6 +121,8 @@ registerWidget("numeric-input", scoreNumericInput as any);
 registerWidget("orderer", scoreOrderer as any, validateOrderer as any);
 // eslint-disable-next-line no-restricted-syntax
 registerWidget("plotter", scorePlotter as any, validatePlotter as any);
+// eslint-disable-next-line no-restricted-syntax
+registerWidget("polar-graph", scorePolarGraph as any);
 // eslint-disable-next-line no-restricted-syntax
 registerWidget("radio", scoreRadio as any, validateRadio as any);
 // eslint-disable-next-line no-restricted-syntax

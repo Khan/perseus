@@ -16,6 +16,7 @@ import {TypedSingleSelect} from "../../../components/typed-single-select";
 import ColorSelect from "./color-select";
 import EllipseSwatch from "./ellipse-swatch";
 import LineStrokeSelect, {
+    fillStyleOptions,
     fillableStrokeStyleOptions,
 } from "./line-stroke-select";
 import LineWeightSelect from "./line-weight-select";
@@ -25,6 +26,7 @@ import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import {
     generateLockedFigureAppearanceDescription,
+    recolorLabels,
     generateSpokenMathDetails,
     joinLabelsAsSpokenMath,
 } from "./util";
@@ -138,10 +140,7 @@ const LockedEllipseSettings = (props: Props) => {
         };
 
         // Update the color of the all labels to match the point
-        newProps.labels = labels.map((label) => ({
-            ...label,
-            color: newValue,
-        }));
+        newProps.labels = recolorLabels(labels, newValue);
 
         onChangeProps(newProps);
     }
@@ -237,12 +236,7 @@ const LockedEllipseSettings = (props: Props) => {
                         selectedValue={fillStyle}
                         disabled={editingDisabled}
                         onChange={(value) => onChangeProps({fillStyle: value})}
-                        options={{
-                            none: "none",
-                            white: "white",
-                            translucent: "translucent",
-                            solid: "solid",
-                        }}
+                        options={fillStyleOptions}
                     />
                 </BodyText>
             </View>

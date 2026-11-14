@@ -28,6 +28,7 @@ import numericInputWidgetLogic from "./numeric-input";
 import ordererWidgetLogic from "./orderer";
 import phetSimulationWidgetLogic from "./phet-simulation";
 import plotterWidgetLogic from "./plotter";
+import polarGraphWidgetLogic from "./polar-graph";
 import pythonProgramWidgetLogic from "./python-program";
 import radioWidgetLogic from "./radio";
 import sorterWidgetLogic from "./sorter";
@@ -232,6 +233,7 @@ export function registerCoreWidgets() {
         ordererWidgetLogic,
         phetSimulationWidgetLogic,
         plotterWidgetLogic,
+        polarGraphWidgetLogic,
         pythonProgramWidgetLogic,
         radioWidgetLogic,
         sorterWidgetLogic,

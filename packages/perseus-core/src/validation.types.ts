@@ -34,6 +34,7 @@ import type {
     MakeWidgetMap,
     PerseusGraphType,
     PerseusWidgetOptions,
+    PerseusPolarGraphType,
 } from "./data-schema";
 import type {ErrorCode} from "./error-codes";
 import type {Relationship} from "./types";
@@ -218,6 +219,12 @@ export type PerseusInputNumberUserInput = {
  */
 export type PerseusInteractiveGraphUserInput = PerseusGraphType;
 
+/**
+ * User input for the PolarGraph widget: the sub-type and the positions the
+ * learner set.
+ */
+export type PerseusPolarGraphUserInput = PerseusPolarGraphType;
+
 /** User input for a single image marker in the LabelImage widget. */
 export type PerseusLabelImageUserInputMarker = {
     /** The answer labels the user selected for this marker. */
@@ -362,6 +369,7 @@ interface UserInputRegistry {
     "numeric-input": PerseusNumericInputUserInput;
     orderer: PerseusOrdererUserInput;
     plotter: PerseusPlotterUserInput;
+    "polar-graph": PerseusPolarGraphUserInput;
     radio: PerseusRadioUserInput;
     sorter: PerseusSorterUserInput;
     table: PerseusTableUserInput;

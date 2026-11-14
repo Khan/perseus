@@ -21,6 +21,21 @@ export const fillableStrokeStyleOptions = {
     none: "none",
 } as const;
 
+// Fills offered for fillable figures, keyed by value.
+export const fillStyleOptions = {
+    none: "none",
+    white: "white",
+    translucent: "translucent",
+    solid: "solid",
+} as const;
+
+// Sizes offered for locked labels, keyed by value.
+export const labelSizeOptions = {
+    small: "small",
+    medium: "medium",
+    large: "large",
+} as const;
+
 interface Props<T extends LockedFigureStrokeStyle> {
     selectedValue: T;
     onChange: (newValue: T) => void;

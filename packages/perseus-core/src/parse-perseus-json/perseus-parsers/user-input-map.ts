@@ -20,6 +20,7 @@ import {parseNumberLineUserInput} from "./number-line-user-input";
 import {parseNumericInputUserInput} from "./numeric-input-user-input";
 import {parseOrdererUserInput} from "./orderer-user-input";
 import {parsePlotterUserInput} from "./plotter-user-input";
+import {parsePolarGraphUserInput} from "./polar-graph-user-input";
 import {parseRadioUserInput} from "./radio-user-input";
 import {parseSorterUserInput} from "./sorter-user-input";
 import {parseTableUserInput} from "./table-user-input";
@@ -167,6 +168,8 @@ const parseUserInputMapEntry: (
             return parseAndAssign(`orderer ${n}`, parseOrdererUserInput);
         case "plotter":
             return parseAndAssign(`plotter ${n}`, parsePlotterUserInput);
+        case "polar-graph":
+            return parseAndAssign(`polar-graph ${n}`, parsePolarGraphUserInput);
         case "radio":
             return parseAndAssign(`radio ${n}`, parseRadioUserInput);
         case "sorter":
@@ -175,8 +178,13 @@ const parseUserInputMapEntry: (
             return parseAndAssign(`table ${n}`, parseTableUserInput);
 
         default:
-            // For unknown widget types, accept any input
-            // eslint-disable-next-line no-restricted-syntax
-            return parseAndAssign(`${type} ${n}` as any, any);
+            // For unknown widget types, accept any input. The key type is
+            // given, not inferred: TypeScript would otherwise narrow it to
+            // `never` and reject the catch-all parser.
+            return parseAndAssign<keyof UserInputMap>(
+                // eslint-disable-next-line no-restricted-syntax
+                `${type} ${n}` as any,
+                any,
+            );
     }
 };
