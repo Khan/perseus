@@ -92,9 +92,9 @@ export type WidgetScorerFunction = (
 ) => PerseusScore;
 
 /**
- * Lets a widget's validator validate the widgets it contains, such as the
- * widgets in a group. Validators use it instead of importing a validation
- * function, so no validator module depends on the validation entry point.
+ * Functionality passed to every widget's validator. Validators use it instead
+ * of importing validation code, so no validator module depends on the
+ * validation entry point.
  */
 export type ValidatorContext = {
     /**
@@ -109,9 +109,9 @@ export type ValidatorContext = {
 };
 
 /**
- * Lets a widget's scorer score the widgets it contains, such as the widgets
- * in a group. Scorers use it instead of importing a scoring function, so no
- * scorer module depends on the scoring entry point.
+ * Functionality passed to every widget's scorer. Scorers use it instead of
+ * importing scoring code, so no scorer module depends on the scoring entry
+ * point.
  */
 export type ScorerContext = {
     /** Scores the user's input for the widgets named by `widgetIds`. */
