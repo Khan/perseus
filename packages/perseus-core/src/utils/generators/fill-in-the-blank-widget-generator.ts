@@ -3,6 +3,7 @@ import fillInTheBlankWidgetLogic from "../../widgets/fill-in-the-blank";
 import type {
     FillInTheBlankWidget,
     PerseusAnswerTile,
+    PerseusFillInTheBlankTile,
     PerseusFillInTheBlankWidgetOptions,
 } from "../../data-schema";
 
@@ -17,6 +18,16 @@ export function generateAnswerTile(
 
     return {
         ...defaultAnswerTile,
+        ...tile,
+    };
+}
+
+export function generateFillInTheBlankTile(
+    tile?: Partial<PerseusFillInTheBlankTile>,
+): PerseusFillInTheBlankTile {
+    return {
+        ...generateAnswerTile(),
+        maxUses: 1,
         ...tile,
     };
 }

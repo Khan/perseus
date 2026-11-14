@@ -315,6 +315,7 @@ export {
 /** @hidden */
 export {
     generateAnswerTile,
+    generateFillInTheBlankTile,
     generateFillInTheBlankOptions,
     generateFillInTheBlankWidget,
 } from "./utils/generators/fill-in-the-blank-widget-generator";

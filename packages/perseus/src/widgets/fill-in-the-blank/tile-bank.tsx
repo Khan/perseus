@@ -13,16 +13,23 @@ import type {
     TileUsage,
 } from "../../components/drag-and-drop/tile-placements";
 import type {useTileMoveActions} from "../../components/drag-and-drop/use-tile-move-actions";
-import type {PerseusFillInTheBlankWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusFillInTheBlankTile} from "@khanacademy/perseus-core";
 
 type TileMoveActions = ReturnType<typeof useTileMoveActions>;
 
+/** A tile with a cap of 1 is single-use: placing it again moves it. */
+export function getTileUsage(tile: PerseusFillInTheBlankTile): TileUsage {
+    return tile.maxUses === 1 ? "single" : "multi";
+}
+
+/** Returns the tile's cap on placements; undefined means unlimited. */
+function getMaxUses(tile: PerseusFillInTheBlankTile): number | undefined {
+    return tile.maxUses === "unlimited" ? undefined : tile.maxUses;
+}
+
 type TileBankProps = {
-    tiles: PerseusFillInTheBlankWidgetOptions["tiles"];
+    tiles: ReadonlyArray<PerseusFillInTheBlankTile>;
     placements: TilePlacements;
-    tileUsage: TileUsage;
-    /** Max placements per tile; undefined means unlimited. */
-    maxUses: number | undefined;
     blankIds: ReadonlyArray<string>;
     blankLabels: Record<string, string>;
     onMove: TileMoveActions["handleMove"];
@@ -37,8 +44,6 @@ type TileBankProps = {
 export function TileBank({
     tiles,
     placements,
-    tileUsage,
-    maxUses,
     blankIds,
     blankLabels,
     onMove,
@@ -50,7 +55,12 @@ export function TileBank({
         <ChoiceBank label={strings.choices}>
             {tiles
                 .filter((tile) =>
-                    isTileInBank(placements, tile.id, tileUsage, maxUses),
+                    isTileInBank(
+                        placements,
+                        tile.id,
+                        getTileUsage(tile),
+                        getMaxUses(tile),
+                    ),
                 )
                 .map((tile, index) => (
                     // ChoiceBank puts each of its children in a separate
@@ -67,12 +77,12 @@ export function TileBank({
                             onMove({tileId: tile.id}, targetId)
                         }
                         remainingUses={
-                            tileUsage === "multi"
+                            getTileUsage(tile) === "multi"
                                 ? remainingUses(
                                       placements,
                                       tile.id,
-                                      tileUsage,
-                                      maxUses,
+                                      "multi",
+                                      getMaxUses(tile),
                                   ) ?? undefined
                                 : undefined
                         }

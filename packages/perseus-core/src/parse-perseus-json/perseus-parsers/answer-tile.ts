@@ -2,7 +2,7 @@ import {number, object, optional, string} from "../general-purpose-parsers";
 
 // NOTE: A widget whose tiles carry a field of their own should export
 // this schema and spread it, rather than restate these fields.
-const answerTileSchema = {
+export const answerTileSchema = {
     id: string,
     content: string,
     label: string,

@@ -35,7 +35,8 @@ type MenuFocusRequest = {fallbackBlankId: string | null};
 export function useTileMoveActions(options: {
     placements: TilePlacements;
     onPlacementsChange: (next: TilePlacements) => void;
-    tileUsage: TileUsage;
+    /** Looked up per tile, since a widget's tiles may differ in usage. */
+    getTileUsage: (tileId: string) => TileUsage;
     getTileLabel: (tileId: string) => string;
     getBlankLabel: (blankId: string) => string;
     blankIds: ReadonlyArray<string>;
@@ -51,7 +52,7 @@ export function useTileMoveActions(options: {
     const {
         placements,
         onPlacementsChange,
-        tileUsage,
+        getTileUsage,
         getTileLabel,
         getBlankLabel,
         blankIds,
@@ -87,7 +88,12 @@ export function useTileMoveActions(options: {
         }
         const evictedTileId = placements[targetBlankId];
         onPlacementsChange(
-            placeTile(placements, move, targetBlankId, tileUsage),
+            placeTile(
+                placements,
+                move,
+                targetBlankId,
+                getTileUsage(move.tileId),
+            ),
         );
 
         let message = strings.movedToTarget({

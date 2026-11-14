@@ -564,6 +564,19 @@ export type PerseusAnswerTile = {
 };
 
 /**
+ * An answer tile in a fill-in-the-blank widget's choice bank: the shared
+ * `PerseusAnswerTile` plus how many blanks it may fill.
+ */
+export type PerseusFillInTheBlankTile = PerseusAnswerTile & {
+    /**
+     * How many blanks this tile may fill: a positive number, or "unlimited".
+     * 1 makes the tile single-use: placing it again moves it rather than
+     * copying it. Authors set this per tile, e.g. 10 pennies and 5 dimes.
+     */
+    maxUses: number | "unlimited";
+};
+
+/**
  * Options for the fill-in-the-blank widget. Presents content with inline
  * blanks above a choice bank of answer tiles.
  */
@@ -574,11 +587,7 @@ export type PerseusFillInTheBlankWidgetOptions = {
     /** The widgets embedded in `content`, keyed by widget id. */
     widgets: PerseusWidgetsMap;
     /** The choice bank the learner draws answer tiles from */
-    tiles: PerseusAnswerTile[];
-    /**
-     * How many times each tile may be placed, for the whole choice bank.
-     */
-    maxUsesPerTile: number | "unlimited";
+    tiles: PerseusFillInTheBlankTile[];
     /**
      * Randomize the order of the answer tiles or keep them as defined.
      */

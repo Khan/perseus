@@ -26,7 +26,7 @@ function setupHook(
         useTileMoveActions({
             placements,
             onPlacementsChange,
-            tileUsage,
+            getTileUsage: () => tileUsage,
             getTileLabel: (tileId) => `tile ${tileId}`,
             getBlankLabel: (blankId) => `Blank ${blankId.slice(-1)}`,
             blankIds: BLANK_IDS,
@@ -280,7 +280,7 @@ describe("useTileMoveActions", () => {
                             placements = next;
                         }
                     },
-                    tileUsage: "single",
+                    getTileUsage: () => "single",
                     getTileLabel: (tileId) => tileId,
                     getBlankLabel: (blankId) => blankId,
                     blankIds: BLANK_IDS,

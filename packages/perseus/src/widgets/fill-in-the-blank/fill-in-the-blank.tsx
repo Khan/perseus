@@ -9,13 +9,10 @@ import Renderer from "../../renderer";
 import {BlankContext} from "../blank/blank-context";
 
 import styles from "./fill-in-the-blank.module.css";
-import {TileBank} from "./tile-bank";
+import {getTileUsage, TileBank} from "./tile-bank";
 import {useFITBTiles} from "./use-fitb-tiles";
 
-import type {
-    TilePlacements,
-    TileUsage,
-} from "../../components/drag-and-drop/tile-placements";
+import type {TilePlacements} from "../../components/drag-and-drop/tile-placements";
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {
     PerseusFillInTheBlankUserInput,
@@ -48,12 +45,8 @@ const FillInTheBlankWidget = forwardRef<Widget, FillInTheBlankProps>(
         // TODO(LEMS-4471): Write out the getPromptJSON function after checking
         useImperativeHandle(ref, () => ({}));
 
-        const {content, widgets, tiles, maxUsesPerTile} = options;
+        const {content, widgets, tiles} = options;
         const {strings: i18nStrings} = usePerseusI18n();
-
-        const tileUsage: TileUsage = maxUsesPerTile === 1 ? "single" : "multi";
-        const maxUses =
-            maxUsesPerTile === "unlimited" ? undefined : maxUsesPerTile;
 
         const {blankIds, blankLabels, tilesById, placements} = useFITBTiles({
             content,
@@ -72,7 +65,10 @@ const FillInTheBlankWidget = forwardRef<Widget, FillInTheBlankProps>(
             placements,
             onPlacementsChange: (next) =>
                 handleUserInput(getUserInput(next, blankIds)),
-            tileUsage,
+            getTileUsage: (tileId) => {
+                const tile = tilesById.get(tileId);
+                return tile == null ? "single" : getTileUsage(tile);
+            },
             getTileLabel: (tileId) => tilesById.get(tileId)?.label ?? "",
             getBlankLabel: (blankId) => blankLabels[blankId],
             blankIds,
@@ -122,8 +118,6 @@ const FillInTheBlankWidget = forwardRef<Widget, FillInTheBlankProps>(
                     <TileBank
                         tiles={tiles}
                         placements={placements}
-                        tileUsage={tileUsage}
-                        maxUses={maxUses}
                         blankIds={blankIds}
                         blankLabels={blankLabels}
                         onMove={handleMove}

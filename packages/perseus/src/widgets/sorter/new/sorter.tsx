@@ -128,7 +128,7 @@ const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
         firstBankMenuRef,
         placedMenuRef,
     } = useTileMoveActions({
-        tileUsage: "single",
+        getTileUsage: () => "single",
         blankIds,
         placements,
         onPlacementsChange,
