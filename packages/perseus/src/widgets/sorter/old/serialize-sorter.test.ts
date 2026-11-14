@@ -70,7 +70,7 @@ describe("Sorter serialization", () => {
 
         // Put the options in the correct order
         const sorter: SorterHandle =
-            renderer.questionRenderer.findWidgets("sorter 1")[0];
+            renderer.questionRenderer!.findWidgets("sorter 1")[0];
         ["First", "Second", "Third"].forEach((option, index) => {
             act(() => sorter.moveOptionToIndex(option, index));
         });
@@ -101,7 +101,7 @@ describe("Sorter serialization", () => {
         const item = generateBasicSorter();
         const {renderer} = renderItem(item);
         const sorter: SorterHandle =
-            renderer.questionRenderer.findWidgets("sorter 1")[0];
+            renderer.questionRenderer!.findWidgets("sorter 1")[0];
         ["First", "Second", "Third"].forEach((option, index) => {
             act(() => sorter.moveOptionToIndex(option, index));
         });

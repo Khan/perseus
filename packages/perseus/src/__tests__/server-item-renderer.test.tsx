@@ -1,12 +1,14 @@
 import {
     generateRadioChoice,
     generateSimpleRadioItem,
+    generateTestPerseusItem,
+    generateTestPerseusRenderer,
     splitPerseusItem,
     type PerseusItem,
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {within, render, screen, act, waitFor} from "@testing-library/react";
+import {render, screen, act, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -22,18 +24,17 @@ import {
 import {renderItem} from "../__testutils__/render-item";
 import {ENTRANCE_TRANSITION_DURATION_MS} from "../components/zoomable";
 import * as Dependencies from "../dependencies";
-import {ServerItemRenderer} from "../server-item-renderer";
+import LoadingContext from "../loading-context";
+import ServerItemRenderer from "../server-item-renderer";
 import {
     testDependencies,
     testDependenciesV2,
 } from "../testing/test-dependencies";
 import {registerWidget} from "../widgets";
-import MockAssetLoadingWidgetExport from "../widgets/mock-widgets/mock-asset-loading-widget.testutils";
 import MockWidget from "../widgets/mock-widgets/mock-widget";
 
-import {mockedAssetItem} from "./test-items/mock-asset-loading-item";
-
-import type {MockAssetLoadingWidgetHandle} from "../widgets/mock-widgets/mock-asset-loading-widget.testutils";
+import type {ServerItemRendererHandle} from "../server-item-renderer";
+import type {MockWidget as MockWidgetType} from "../widgets/mock-widgets/mock-widget-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -121,34 +122,23 @@ describe("server item renderer", () => {
         });
     });
 
-    it("should return the DOM node for the requested focus path", async () => {
+    it("renders only the hints that hintsVisible allows", () => {
         // Arrange
-        const {renderer} = renderItem(itemWithMockWidget);
-
-        // Act
-        const node = renderer.getDOMNodeForPath(["mock-widget 1"]);
-
-        // Assert
-        // @ts-expect-error - TS2345 - Argument of type 'Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement'.
-        expect(await within(node).findAllByRole("textbox")).toHaveLength(1);
-    });
-
-    it("should return the number of hints available", () => {
-        // Arrange
-        const {renderer} = renderItem({
-            ...itemWithMockWidget,
+        const item = generateTestPerseusItem({
             hints: [
-                {content: "Hint #1", images: {}, widgets: {}},
-                {content: "Hint #2", images: {}, widgets: {}},
-                {content: "Hint #3", images: {}, widgets: {}},
+                generateTestPerseusRenderer({content: "First hint"}),
+                generateTestPerseusRenderer({content: "Second hint"}),
+                generateTestPerseusRenderer({content: "Third hint"}),
             ],
         });
 
         // Act
-        const numHints = renderer.getNumHints();
+        renderItem(item, {}, {hintsVisible: 2});
 
         // Assert
-        expect(numHints).toBe(3);
+        expect(screen.getByText("First hint")).toBeInTheDocument();
+        expect(screen.getByText("Second hint")).toBeInTheDocument();
+        expect(screen.queryByText("Third hint")).not.toBeInTheDocument();
     });
 
     it("should return all widget ids", () => {
@@ -188,65 +178,73 @@ describe("server item renderer", () => {
         expect(answerableCallback).toHaveBeenCalledWith(true);
     });
 
-    it("should call the onRendered callback when all assets loaded", () => {
-        // This is an involved test. We create a mock widget that gives us
-        // access to the setAssetStatus function that is passed down by the
-        // render tree created.
-        // Finally we re-render and poke the asset status to loaded. At that
-        // everything is loaded.
-
+    it("calls onRendered once every asset has settled", () => {
         // Arrange
-        registerWidget(
-            "mock-asset-loading-widget",
-            MockAssetLoadingWidgetExport,
-        );
-
+        // This TeX holds on to its onRender callback so the test decides when
+        // the math finishes rendering.
+        let settleMath: (() => void) | undefined;
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+            ...testDependencies,
+            TeX: ({children, onRender}) => {
+                settleMath = onRender;
+                return <span className="mock-TeX">{children}</span>;
+            },
+        });
         const onRendered = jest.fn();
-        let renderer: ServerItemRenderer | null | undefined;
-        const {rerender} = render(
+        render(
             <RenderStateRoot>
                 <ServerItemRenderer
-                    ref={(component) => (renderer = component)}
-                    item={mockedAssetItem}
+                    item={itemWithMath}
                     problemNum={0}
                     reviewMode={false}
-                    onRendered={onRendered}
                     dependencies={testDependenciesV2}
+                    onRendered={onRendered}
                 />
             </RenderStateRoot>,
         );
-        if (renderer == null) {
-            throw new Error("Renderer failed to render.");
-        }
+        expect(onRendered).not.toHaveBeenCalled();
 
-        const mockedWidget = renderer.questionRenderer.getWidgetInstance(
-            "mock-asset-loading-widget 1",
-        );
-        if (mockedWidget == null) {
-            throw new Error("Couldn't find mocked widget!");
-        }
+        // Act
+        act(() => settleMath?.());
 
-        rerender(
+        // Assert
+        expect(onRendered).toHaveBeenCalledWith(true);
+    });
+
+    it("also calls a LoadingContext provider's onRendered", () => {
+        // Arrange
+        let settleMath: (() => void) | undefined;
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+            ...testDependencies,
+            TeX: ({children, onRender}) => {
+                settleMath = onRender;
+                return <span className="mock-TeX">{children}</span>;
+            },
+        });
+        const onRenderedProp = jest.fn();
+        const onRenderedFromContext = jest.fn();
+        render(
             <RenderStateRoot>
-                <ServerItemRenderer
-                    item={mockedAssetItem}
-                    problemNum={1}
-                    reviewMode={false}
-                    onRendered={onRendered}
-                    dependencies={testDependenciesV2}
-                />
+                <LoadingContext.Provider
+                    value={{onRendered: onRenderedFromContext}}
+                >
+                    <ServerItemRenderer
+                        item={itemWithMath}
+                        problemNum={0}
+                        reviewMode={false}
+                        dependencies={testDependenciesV2}
+                        onRendered={onRenderedProp}
+                    />
+                </LoadingContext.Provider>
             </RenderStateRoot>,
         );
 
         // Act
-        // setAssetStatus() is not part of the Widget interface, it's specific
-        // this test.
-        // eslint-disable-next-line no-restricted-syntax
-        const widget = mockedWidget as MockAssetLoadingWidgetHandle;
-        act(() => widget.setAssetStatus("ABC", true));
+        act(() => settleMath?.());
 
         // Assert
-        expect(onRendered).toHaveBeenCalledWith(true);
+        expect(onRenderedProp).toHaveBeenCalledWith(true);
+        expect(onRenderedFromContext).toHaveBeenCalledWith(true);
     });
 
     it("does not call the onRendered callback while math is still rendering", () => {
@@ -255,9 +253,7 @@ describe("server item renderer", () => {
         // hasn't finished with yet.
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
-            TeX: ({children}: {children: React.ReactNode}) => (
-                <span className="mock-TeX">{children}</span>
-            ),
+            TeX: ({children}) => <span className="mock-TeX">{children}</span>,
         });
 
         const onRendered = jest.fn();
@@ -289,14 +285,10 @@ describe("server item renderer", () => {
         // https://legacy.reactjs.org/docs/hooks-reference.html#uselayouteffect
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
-            TeX: ({
-                children,
-                onRender,
-            }: {
-                children: React.ReactNode;
-                onRender?: () => void;
-            }) => {
-                React.useLayoutEffect(() => onRender?.(), [onRender]);
+            TeX: ({children, onRender}) => {
+                React.useLayoutEffect(() => {
+                    onRender?.();
+                }, [onRender]);
                 return <span className="mock-TeX">{children}</span>;
             },
         });
@@ -326,14 +318,10 @@ describe("server item renderer", () => {
         // in order to get the Zoomable measuring.
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
-            TeX: ({
-                children,
-                onRender,
-            }: {
-                children: React.ReactNode;
-                onRender?: () => void;
-            }) => {
-                React.useEffect(() => onRender?.(), [onRender]);
+            TeX: ({children, onRender}) => {
+                React.useEffect(() => {
+                    onRender?.();
+                }, [onRender]);
                 return <span className="mock-TeX">{children}</span>;
             },
         });
@@ -598,26 +586,195 @@ describe("server item renderer", () => {
             );
         });
 
-        it("should focus the widget requested in focusPath()", () => {
+        it("does not report a blur when focus moves from the question to a hint widget", async () => {
             // Arrange
             const onFocusChange = jest.fn();
-            const {renderer} = renderItem(itemWithMockWidget, {
-                onFocusChange,
+            const item = generateTestPerseusItem({
+                question: generateTestPerseusRenderer({
+                    content: "[[☃ mock-widget 1]]",
+                    widgets: {
+                        "mock-widget 1": {
+                            type: "mock-widget",
+                            options: {value: "1"},
+                        } satisfies MockWidgetType,
+                    },
+                }),
+                hints: [
+                    generateTestPerseusRenderer({
+                        content: "[[☃ mock-widget 2]]",
+                        widgets: {
+                            "mock-widget 2": {
+                                type: "mock-widget",
+                                options: {value: "2"},
+                            } satisfies MockWidgetType,
+                        },
+                    }),
+                ],
             });
+            renderItem(item, {onFocusChange}, {hintsVisible: 1});
+            const [questionInput, hintInput] = screen.getAllByRole("textbox", {
+                name: "Mock Widget",
+            });
+            await userEvent.click(questionInput);
 
             // Act
-            act(() => renderer.focusPath(["mock-widget 1"]));
-
-            // We have some async processes that need to be resolved here
-            jest.runAllTimers();
+            await userEvent.click(hintInput);
+            act(() => jest.runAllTimers());
 
             // Assert
-            expect(onFocusChange).toHaveBeenCalledWith(
+            expect(onFocusChange).toHaveBeenLastCalledWith(
+                ["mock-widget 2"],
                 ["mock-widget 1"],
-                null,
+                0,
+                expect.anything(),
+            );
+            const reportedFocuses = onFocusChange.mock.calls.map(
+                ([newFocus]) => newFocus,
+            );
+            expect(reportedFocuses).not.toContain(null);
+        });
+
+        it("does not report a blur when another input gains focus before the blur settles", () => {
+            // Arrange
+            const onFocusChange = jest.fn();
+            renderItem(itemWithTwoMockWidgets, {onFocusChange});
+            const [firstInput, secondInput] = screen.getAllByRole("textbox", {
+                name: "Mock Widget",
+            });
+            act(() => firstInput.focus());
+            act(() => jest.runAllTimers());
+            act(() => firstInput.blur());
+            // Let the question Renderer report the blur, which starts our own
+            // wait for a focus in this tick.
+            act(() => jest.advanceTimersToNextTimer());
+
+            // Act
+            act(() => secondInput.focus());
+            act(() => jest.runAllTimers());
+
+            // Assert
+            expect(onFocusChange).toHaveBeenLastCalledWith(
+                ["mock-widget 2"],
+                ["mock-widget 1"],
                 0,
                 expect.any(Object),
             );
+            const reportedFocuses = onFocusChange.mock.calls.map(
+                ([newFocus]) => newFocus,
+            );
+            expect(reportedFocuses).not.toContain(null);
+        });
+
+        it("does not report a pending blur after unmounting", () => {
+            // Arrange
+            const onFocusChange = jest.fn();
+            const {unmount} = renderItem(itemWithMockWidget, {onFocusChange});
+            const input = screen.getByRole("textbox", {name: "Mock Widget"});
+            act(() => input.focus());
+            act(() => jest.runAllTimers());
+            act(() => input.blur());
+            // Let the question Renderer report the blur, which starts our own
+            // wait before reporting it.
+            act(() => jest.advanceTimersToNextTimer());
+
+            // Act
+            unmount();
+            act(() => jest.runAllTimers());
+
+            // Assert
+            const reportedFocuses = onFocusChange.mock.calls.map(
+                ([newFocus]) => newFocus,
+            );
+            expect(reportedFocuses).not.toContain(null);
+        });
+    });
+
+    it("keeps the same handle when a callback ref changes", () => {
+        // Arrange
+        const item = generateTestPerseusItem();
+        const captureHandle = jest.fn();
+        function Example() {
+            return (
+                <RenderStateRoot>
+                    <ServerItemRenderer
+                        ref={(node) => captureHandle(node)}
+                        item={item}
+                        dependencies={testDependenciesV2}
+                    />
+                </RenderStateRoot>
+            );
+        }
+        const {rerender} = render(<Example />);
+        const initialHandle = captureHandle.mock.calls[0][0];
+
+        // Act
+        rerender(<Example />);
+        const latestHandle = captureHandle.mock.calls.at(-1)?.[0];
+
+        // Assert
+        expect(latestHandle).toBe(initialHandle);
+    });
+
+    it("renders when an inline callback ref stores the handle in parent state", () => {
+        // Arrange
+        const item = generateTestPerseusItem();
+        function Example() {
+            const [renderer, setRenderer] =
+                React.useState<ServerItemRendererHandle | null>(null);
+            return (
+                <RenderStateRoot>
+                    <ServerItemRenderer
+                        ref={(node) => setRenderer(node)}
+                        item={item}
+                        dependencies={testDependenciesV2}
+                    />
+                    <span>{renderer ? "Renderer ready" : "Waiting"}</span>
+                </RenderStateRoot>
+            );
+        }
+
+        // Act
+        render(<Example />);
+
+        // Assert
+        expect(screen.getByText("Renderer ready")).toBeInTheDocument();
+    });
+
+    describe("handle used after unmounting", () => {
+        // Callers sometimes keep the handle past unmount (focusing the
+        // question that was just replaced, say). Perseus #4126 made that
+        // throw, which broke them, so the handle does nothing instead.
+        it("does nothing and returns empty values", () => {
+            // Arrange
+            const {renderer, unmount} = renderItem(itemWithMockWidget);
+            unmount();
+
+            // Act, Assert
+            expect(() => renderer.blur()).not.toThrow();
+            expect(renderer.focus()).toBe(false);
+            expect(renderer.questionRenderer).toBeNull();
+            expect(renderer.getWidgetIds()).toEqual([]);
+            expect(renderer.getPromptJSON()).toEqual({
+                content: "",
+                widgets: {},
+            });
+        });
+
+        it("logs the first use, so the caller can be fixed", () => {
+            // Arrange
+            const logSpy = jest.spyOn(testDependencies.Log, "log");
+            const {renderer, unmount} = renderItem(itemWithMockWidget);
+            unmount();
+
+            // Act
+            renderer.focus();
+            renderer.getWidgetIds();
+
+            // Assert
+            expect(logSpy).toHaveBeenCalledTimes(1);
+            expect(logSpy).toHaveBeenCalledWith(expect.any(String), {
+                method: "focus",
+            });
         });
     });
 

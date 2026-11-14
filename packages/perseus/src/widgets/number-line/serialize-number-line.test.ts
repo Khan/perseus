@@ -71,7 +71,7 @@ describe("NumberLine serialization", () => {
         const {renderer} = renderItem(generateBasicNumberLine());
 
         const [numberLine] =
-            renderer.questionRenderer.findWidgets("number-line 1");
+            renderer.questionRenderer!.findWidgets("number-line 1");
         act(() => numberLine.movePosition(-2.5));
 
         // Act

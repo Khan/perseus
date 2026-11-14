@@ -3,13 +3,13 @@ import {render} from "@testing-library/react";
 import * as React from "react";
 
 import {setDependencies} from "../dependencies";
-import WrappedServerItemRenderer from "../server-item-renderer";
+import ServerItemRenderer from "../server-item-renderer";
 import {
     testDependencies,
     testDependenciesV2,
 } from "../testing/test-dependencies";
 
-import type {ServerItemRenderer} from "../server-item-renderer";
+import type {ServerItemRendererHandle} from "../server-item-renderer";
 import type {APIOptions} from "../types";
 import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -21,20 +21,21 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 export const renderItem = (
     question: PerseusItem,
     apiOptions: APIOptions = Object.freeze({}),
-    optionalProps: Partial<
-        PropsFor<typeof WrappedServerItemRenderer>
-    > = Object.freeze({}),
+    optionalProps: Partial<PropsFor<typeof ServerItemRenderer>> = Object.freeze(
+        {},
+    ),
 ): {
     container: HTMLElement;
-    renderer: ServerItemRenderer;
+    renderer: ServerItemRendererHandle;
     rerender: any;
+    unmount: () => void;
 } => {
     setDependencies(testDependencies);
 
-    let renderer: ServerItemRenderer | null = null;
-    const {container, rerender} = render(
+    let renderer: ServerItemRendererHandle | null = null;
+    const {container, rerender, unmount} = render(
         <RenderStateRoot>
-            <WrappedServerItemRenderer
+            <ServerItemRenderer
                 ref={(node) => (renderer = node)}
                 apiOptions={apiOptions}
                 item={question}
@@ -53,12 +54,12 @@ export const renderItem = (
         question: PerseusItem,
         apiOptions: APIOptions = Object.freeze({}),
         optionalProps: Partial<
-            PropsFor<typeof WrappedServerItemRenderer>
+            PropsFor<typeof ServerItemRenderer>
         > = Object.freeze({}),
     ) => {
         rerender(
             <RenderStateRoot>
-                <WrappedServerItemRenderer
+                <ServerItemRenderer
                     ref={(node) => (renderer = node)}
                     apiOptions={apiOptions}
                     item={question}
@@ -74,5 +75,5 @@ export const renderItem = (
         }
     };
 
-    return {container, renderer, rerender: renderAgain};
+    return {container, renderer, rerender: renderAgain, unmount};
 };
