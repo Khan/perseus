@@ -1029,6 +1029,26 @@ describe("renderer", () => {
             );
         });
 
+        it("doesn't report a blur after unmounting while it's pending", async () => {
+            // Arrange
+            const onFocusChange = jest.fn();
+            const {unmount} = renderQuestion(question2, {
+                apiOptions: {onFocusChange},
+            });
+            await userEvent.click(screen.getByRole("textbox"));
+            // The blur may be reported after a delay.
+            await userEvent.tab();
+
+            // Act
+            unmount();
+            act(() => jest.runAllTimers());
+
+            // Assert
+            expect(onFocusChange.mock.calls).toEqual([
+                [/* new focus path */ ["mock-widget 1"], /* old */ null],
+            ]);
+        });
+
         it("should focus the input at the requested FocusPath", () => {
             // Arrange
             const {renderer} = renderQuestion(question2);
