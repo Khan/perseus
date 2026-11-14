@@ -1301,11 +1301,11 @@ class Renderer
         // navigation when rendered on mobile in a modal. Specifically this is
         // needed for Android Talkback, to enable reading/navigating tables
         // with the swipe left/right gesture.
-        if (!state.isMobile) {
-            return table;
+        if (state.isMobile) {
+            return React.cloneElement(table, {tabIndex: 0});
         }
 
-        return React.cloneElement(table, {tabIndex: 0});
+        return table;
     };
 
     outputTitledTable = (

@@ -144,7 +144,7 @@
             font-weight: bold;
         }
         /* Body cells include row headers (th) for tables with row headers. */
-        tbody :is(th, td) {
+        tbody > :is(th, td) {
             background-color: var(
                 --wb-semanticColor-core-background-base-default
             );
