@@ -1,11 +1,11 @@
 import * as React from "react";
 
+import {getIntersectionOfRayWithBox} from "./graphs/utils";
 import {
     assumedLabelSize,
     getArrowheadRadiusPx,
     getAutoLabelPlacements,
 } from "./locked-figures/label-placement-utils";
-import {getIntersectionOfRayWithBox} from "./graphs/utils";
 import LockedLabel from "./locked-figures/locked-label";
 import {strokeWeights} from "./locked-figures/utils";
 import useGraphConfig from "./reducer/use-graph-config";
@@ -16,10 +16,7 @@ import type {
     PointObstacleInput,
     SegmentObstacle,
 } from "./locked-figures/label-placement-utils";
-import type {
-    LockedFigure,
-    LockedLabelType,
-} from "@khanacademy/perseus-core";
+import type {LockedFigure, LockedLabelType} from "@khanacademy/perseus-core";
 
 /** Keys joining a label to its measurement and its computed placement. */
 const pointLabelKey = (figureIndex: number, labelIndex: number) =>
@@ -181,7 +178,9 @@ export default function GraphLockedLabelsLayer(props: Props) {
 
                 figure.points.forEach((point, pointIndex) => {
                     const isVisible =
-                        pointIndex === 0 ? figure.showPoint1 : figure.showPoint2;
+                        pointIndex === 0
+                            ? figure.showPoint1
+                            : figure.showPoint2;
                     const keys = point.labels.map((label, k) =>
                         endpointLabelKey(i, pointIndex, k),
                     );

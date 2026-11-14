@@ -14,10 +14,7 @@ import useGraphConfig from "../reducer/use-graph-config";
 
 import styles from "./locked-label.module.css";
 
-import type {
-    LabelPlacement,
-    LabelSize,
-} from "./label-placement-utils";
+import type {LabelPlacement, LabelSize} from "./label-placement-utils";
 
 // The new font tokens split sizing into separate `body` and `heading` scales.
 // The body scale only goes up to `medium`, so `large` labels map to the

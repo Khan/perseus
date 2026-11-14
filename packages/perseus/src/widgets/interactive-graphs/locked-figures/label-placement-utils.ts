@@ -1,10 +1,9 @@
-import {pixelsToVectors, pointToPixel} from "../graphs/use-transform";
+import {pointToPixel} from "../graphs/use-transform";
 import {X, Y} from "../math";
 
 import type {GraphDimensions} from "../types";
 import type {
     Coord,
-    LockedPointType,
     MarkingsType,
     ShowAxisTicks,
 } from "@khanacademy/perseus-core";
@@ -54,15 +53,6 @@ const labelHeightPx = 19;
  * recomputed once a real measurement arrives.
  */
 export const assumedLabelSize: LabelSize = {width: 24, height: labelHeightPx};
-
-function rectsOverlap(a: Rect, b: Rect): boolean {
-    return (
-        a.right > b.left &&
-        a.left < b.right &&
-        a.bottom > b.top &&
-        a.top < b.bottom
-    );
-}
 
 /** Half the diagonal of a label, the clearance it demands around itself. */
 function halfDiagonal(size: LabelSize): number {
@@ -256,8 +246,7 @@ function getReferencePointInPixels(
 ): [number, number] {
     const [[xMin, xMax], [yMin, yMax]] = graphInfo.range;
 
-    const originIsVisible =
-        xMin < 0 && xMax > 0 && yMin < 0 && yMax > 0;
+    const originIsVisible = xMin < 0 && xMax > 0 && yMin < 0 && yMax > 0;
 
     if (originIsVisible) {
         return pointToPixel([0, 0], graphInfo);
@@ -294,10 +283,7 @@ function getLabelOffsetInPixels(
         return [diagonal, -diagonal];
     }
 
-    return [
-        (dx / distance) * labelOffsetPx,
-        (dy / distance) * labelOffsetPx,
-    ];
+    return [(dx / distance) * labelOffsetPx, (dy / distance) * labelOffsetPx];
 }
 
 /**
@@ -463,7 +449,10 @@ function keepLabelInBounds(
         return top >= 0 && top + size.height <= graphInfo.height;
     };
 
-    if (!fitsHorizontally(horizontalOffset) && fitsHorizontally(-horizontalOffset)) {
+    if (
+        !fitsHorizontally(horizontalOffset) &&
+        fitsHorizontally(-horizontalOffset)
+    ) {
         horizontalOffset = -horizontalOffset;
     }
     if (!fitsVertically(verticalOffset) && fitsVertically(-verticalOffset)) {
@@ -661,16 +650,17 @@ function trimSegmentNearPoint(
 type PointObstacle = {
     centerPx: [number, number];
     radiusPx: number;
-    /** Which label owns this point, so it can skip its own. */
-    ownerKeys: ReadonlySet<string>;
+    /** Which labels own this point, so each can skip its own. */
+    ownerKeys: Set<string>;
 };
 
 /**
- * Positions to consider for a label: its ideal spot on the conceptual line
- * first, then the eight compass directions at increasing distances.
+ * A position beside a line: `t` of the way along it, offset perpendicular to
+ * it on the given `side`.
  *
- * The ideal comes first so that an exact tie in scoring resolves towards the
- * conceptual line, which keeps placement stable and predictable.
+ * Used for the label that names a line, which belongs next to the stroke
+ * rather than radiating out of the middle of the graph the way a point's label
+ * does.
  */
 function getPerpendicularCandidate(
     segmentPx: PixelSegment,
@@ -708,7 +698,12 @@ function getPerpendicularCandidate(
     );
 
     return {
-        rect: getLabelRect(placed.cornerPx, placed.anchorX, placed.anchorY, size),
+        rect: getLabelRect(
+            placed.cornerPx,
+            placed.anchorX,
+            placed.anchorY,
+            size,
+        ),
     };
 }
 
@@ -904,8 +899,7 @@ function scoreCandidate(
         // the length of the graph, for a ray — since nothing else holds it to
         // the point it labels.
         const nearOwnAnchor =
-            isOwnLine &&
-            rectToCircleGap(rect, anchorPx, 0) <= ownHalfDiagonal;
+            isOwnLine && rectToCircleGap(rect, anchorPx, 0) <= ownHalfDiagonal;
         const required = nearOwnAnchor
             ? labelOffsetPx + segment.strokeWidth / 2
             : ownHalfDiagonal + segment.strokeWidth / 2;
@@ -931,8 +925,7 @@ function scoreCandidate(
         right: graphInfo.width,
         bottom: graphInfo.height,
     };
-    const rectArea =
-        (rect.right - rect.left) * (rect.bottom - rect.top);
+    const rectArea = (rect.right - rect.left) * (rect.bottom - rect.top);
     const outOfBounds =
         (rectArea - overlapArea(rect, graphRect)) / normalizeArea;
 
@@ -972,7 +965,7 @@ export function getAutoLabelPlacements(
 
     // Without a measured graph there's no pixel geometry to reason about, so
     // leave every label on its own point until layout gives the graph a size.
-    if (!graphInfo.width || !graphInfo.height) {
+    if (graphInfo.width === 0 || graphInfo.height === 0) {
         for (const item of items) {
             placements.set(item.key, {
                 cornerPx: pointToPixel(item.anchorCoord, graphInfo),
@@ -997,9 +990,7 @@ export function getAutoLabelPlacements(
     for (const point of points) {
         const coordKey = `${point.coord[X]},${point.coord[Y]}`;
         const existing = pointsByCoord.get(coordKey);
-        const owners = existing
-            ? (existing.ownerKeys as Set<string>)
-            : new Set<string>();
+        const owners = existing ? existing.ownerKeys : new Set<string>();
 
         for (const key of point.ownerKeys ?? []) {
             owners.add(key);
@@ -1028,7 +1019,8 @@ export function getAutoLabelPlacements(
             const px = pointToPixel(item.anchorCoord, graphInfo);
             return Math.hypot(px[X] - referencePx[X], px[Y] - referencePx[Y]);
         };
-        return distance(b) - distance(a) || a.key.localeCompare(b.key);
+        const byDistance = distance(b) - distance(a);
+        return byDistance === 0 ? a.key.localeCompare(b.key) : byDistance;
     });
 
     const placed: Array<{rect: Rect; size: LabelSize}> = [];
