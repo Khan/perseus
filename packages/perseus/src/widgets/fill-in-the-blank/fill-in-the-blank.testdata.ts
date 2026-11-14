@@ -82,3 +82,49 @@ export const paragraphFillInTheBlankQuestion = generateTestPerseusRenderer({
         }),
     },
 });
+
+export const multiUseFillInTheBlankQuestion = generateTestPerseusRenderer({
+    content: "[[☃ fill-in-the-blank 1]]",
+    widgets: {
+        "fill-in-the-blank 1": generateFillInTheBlankWidget({
+            options: generateFillInTheBlankOptions({
+                content:
+                    "[[☃ blank 1]] + [[☃ blank 2]] + [[☃ blank 3]] + [[☃ blank 4]] = [[☃ blank 5]] + [[☃ blank 6]]",
+                widgets: {
+                    "blank 1": generateBlankWidget({
+                        options: generateBlankOptions({correctId: "1"}),
+                    }),
+                    "blank 2": generateBlankWidget({
+                        options: generateBlankOptions({correctId: "1"}),
+                    }),
+                    "blank 3": generateBlankWidget({
+                        options: generateBlankOptions({correctId: "1"}),
+                    }),
+                    "blank 4": generateBlankWidget({
+                        options: generateBlankOptions({correctId: "1"}),
+                    }),
+                    "blank 5": generateBlankWidget({
+                        options: generateBlankOptions({correctId: "2"}),
+                    }),
+                    "blank 6": generateBlankWidget({
+                        options: generateBlankOptions({correctId: "2"}),
+                    }),
+                },
+                tiles: [
+                    {
+                        id: "1",
+                        content: "1",
+                        label: "1",
+                        maxUses: 4,
+                    },
+                    {
+                        id: "2",
+                        content: "2",
+                        label: "2",
+                        maxUses: 2,
+                    },
+                ],
+            }),
+        }),
+    },
+});
