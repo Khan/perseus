@@ -1,5 +1,17 @@
 # @khanacademy/perseus-score
 
+## 9.0.15
+
+### Patch Changes
+
+-   [#4542](https://github.com/Khan/perseus/pull/4542) [`4163210`](https://github.com/Khan/perseus/commit/4163210b8e6b71ecda752cd1d882bb87973ee571) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Report every validation result from a group's widgets, including messages, not only whether one is empty
+
+-   [#4542](https://github.com/Khan/perseus/pull/4542) [`4163210`](https://github.com/Khan/perseus/commit/4163210b8e6b71ecda752cd1d882bb87973ee571) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Score only the widgets in a group's content, not every widget in its options
+
+-   Updated dependencies [[`b65a0f6`](https://github.com/Khan/perseus/commit/b65a0f62fd6d2a2d4d636b872111188bc7f2602c), [`e86e304`](https://github.com/Khan/perseus/commit/e86e30436b76b90c8acaa529d1525b0339d06bd1)]:
+    -   @khanacademy/perseus-core@42.4.0
+    -   @khanacademy/kmath@3.1.7
+
 ## 9.0.14
 
 ### Patch Changes
