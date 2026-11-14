@@ -36,7 +36,12 @@ import {ApiOptions, ClassNames as ApiClassNames} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown";
 import QuestionParagraph from "./question-paragraph";
 import TranslationLinter from "./translation-linter";
-import Util, {isContentGraphie} from "./util";
+import Util, {
+    isBoldTableCell,
+    isContentGraphie,
+    isEmptyTableCell,
+    tableHasRowHeaders,
+} from "./util";
 import {containerSizeClass} from "./util/sizing-utils";
 import preprocessTex from "./util/tex-preprocess";
 import WidgetContainer from "./widget-container";
@@ -116,6 +121,9 @@ type WidgetState = {
     paragraphIndex?: number;
     foundFullWidth?: boolean;
     baseElements?: any;
+    // Set by perseus-markdown's lint rule when it re-renders a linted
+    // titled table, which wraps the table itself.
+    unwrapTitledTableContents?: boolean;
 };
 
 type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
@@ -930,10 +938,7 @@ class Renderer
     // output individual AST nodes [not arrays]
     outputNode = (
         node: SingleASTNode,
-        nestedOutput: (
-            ast: SingleASTNode,
-            state: WidgetState,
-        ) => React.ReactNode,
+        nestedOutput: (ast: ASTNode, state: WidgetState) => React.ReactNode,
         state: WidgetState,
     ): React.ReactNode => {
         const apiOptions = this.getApiOptions();
@@ -1172,11 +1177,15 @@ class Renderer
             return node.content;
         }
         if (node.type === "table" || node.type === "titledTable") {
-            const output = PerseusMarkdown.ruleOutput(node, nestedOutput, {
+            const tableState = {
                 ...state,
                 isMobile: apiOptions.isMobile,
                 inTable: true,
-            });
+            };
+            const output =
+                node.type === "table"
+                    ? this.outputTable(node, nestedOutput, tableState)
+                    : this.outputTitledTable(node, nestedOutput, tableState);
 
             if (!apiOptions.isMobile) {
                 return output;
@@ -1212,6 +1221,124 @@ class Renderer
             <ErrorBoundary key={state.key}>
                 {PerseusMarkdown.ruleOutput(node, nestedOutput, state)}
             </ErrorBoundary>
+        );
+    };
+
+    /**
+     * Renders a markdown table nodes.
+     */
+    outputTableElement = (
+        node: SingleASTNode,
+        nestedOutput: (ast: ASTNode, state: WidgetState) => React.ReactNode,
+        state: WidgetState,
+    ): React.ReactElement => {
+        const hasRowHeaders = tableHasRowHeaders(node);
+
+        const getStyle = (colIndex: number): React.CSSProperties =>
+            node.align[colIndex] == null
+                ? {}
+                : {textAlign: node.align[colIndex]};
+
+        const headers = node.header.map(
+            (content: Array<SingleASTNode>, i: number) =>
+                // An empty top-left cell labels nothing, so per the W3C
+                // pattern it's a plain `<td>` rather than a header.
+                hasRowHeaders && i === 0 && isEmptyTableCell(content) ? (
+                    <td key={i} />
+                ) : (
+                    <th key={i} style={getStyle(i)} scope="col">
+                        {nestedOutput(content, state)}
+                    </th>
+                ),
+        );
+
+        const rows = node.cells.map(
+            (row: Array<Array<SingleASTNode>>, r: number) => (
+                <tr key={r}>
+                    {row.map((content, c) =>
+                        hasRowHeaders && c === 0 ? (
+                            <th key={c} style={getStyle(c)} scope="row">
+                                {/* Row headers are already bold, so render
+                                    the contents of a bold cell without its
+                                    `<strong>`. */}
+                                {nestedOutput(
+                                    isBoldTableCell(content)
+                                        ? content.find(
+                                              (node) => node.type === "strong",
+                                          )?.content
+                                        : content,
+                                    state,
+                                )}
+                            </th>
+                        ) : (
+                            <td key={c} style={getStyle(c)}>
+                                {nestedOutput(content, state)}
+                            </td>
+                        ),
+                    )}
+                </tr>
+            ),
+        );
+
+        return (
+            <table key={state.key}>
+                <thead key="thead">
+                    <tr>{headers}</tr>
+                </thead>
+                <tbody key="tbody">{rows}</tbody>
+            </table>
+        );
+    };
+
+    outputTable = (
+        node: SingleASTNode,
+        nestedOutput: (ast: ASTNode, state: WidgetState) => React.ReactNode,
+        state: WidgetState,
+    ): React.ReactElement => {
+        const table = this.outputTableElement(node, nestedOutput, state);
+
+        // Ensure that the table is focusable in sequential keyboard
+        // navigation when rendered on mobile in a modal. Specifically this is
+        // needed for Android Talkback, to enable reading/navigating tables
+        // with the swipe left/right gesture.
+        if (state.isMobile) {
+            return React.cloneElement(table, {tabIndex: 0});
+        }
+
+        return table;
+    };
+
+    outputTitledTable = (
+        node: SingleASTNode,
+        nestedOutput: (ast: ASTNode, state: WidgetState) => React.ReactNode,
+        state: WidgetState,
+    ): React.ReactNode => {
+        // Defer to perseus-markdown when the linter has wrapped the table in a
+        // `lint` node.
+        if (node.table?.type !== "table") {
+            return PerseusMarkdown.ruleOutput(node, nestedOutput, state);
+        }
+
+        const table = this.outputTableElement(node.table, nestedOutput, state);
+        const caption = (
+            <caption key="caption" className="perseus-table-title">
+                {nestedOutput(node.title, state)}
+            </caption>
+        );
+        // Splice the caption into the table's children as the first child.
+        const contents = React.cloneElement(table, undefined, [
+            caption,
+            ...table.props.children,
+        ]);
+
+        if (state.unwrapTitledTableContents) {
+            return contents;
+        }
+
+        return (
+            <div className="perseus-titled-table-wrapper" key={state.key}>
+                {contents}
+            </div>
         );
     };
 

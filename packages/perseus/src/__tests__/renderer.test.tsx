@@ -4,6 +4,7 @@ import {
     generateRadioWidget,
     generateImageOptions,
     generateTestPerseusItem,
+    generateTestPerseusRenderer,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import {act, screen, waitFor, within} from "@testing-library/react";
@@ -1725,6 +1726,148 @@ describe("renderer", () => {
             expect(inlineWidget).not.toBeNull();
             // eslint-disable-next-line testing-library/no-node-access
             expect(inlineWidget?.closest("p, [role=paragraph]")).not.toBeNull();
+        });
+    });
+
+    describe("markdown table row headers", () => {
+        it("renders the first column as row headers when its header is empty", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateTestPerseusRenderer({
+                    content:
+                        "  | Mass | Volume\n" +
+                        "- | - | -\n" +
+                        "Gold | 19.3 | 1\n" +
+                        "Silver | 10.5 | 1",
+                }),
+            );
+
+            // Assert
+            expect(
+                screen.getAllByRole("rowheader").map((th) => th.textContent),
+            ).toEqual(["Gold", "Silver"]);
+        });
+
+        // This is important for accessibility to ensure this empty cell
+        // doesn't get read out as a row header.
+        // See: https://www.w3.org/WAI/tutorials/tables/two-headers/
+        it("renders an empty first column header as a data cell", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateTestPerseusRenderer({
+                    content:
+                        "| | Mass | Volume |\n" +
+                        "|-|-|-|\n" +
+                        "| Gold | 19.3 | 1 |",
+                }),
+            );
+
+            // Assert
+            const [headerRow] = screen.getAllByRole("row");
+            expect(within(headerRow).getByRole("cell")).toBeEmptyDOMElement();
+            expect(
+                screen.getAllByRole("columnheader").map((th) => th.textContent),
+            ).toEqual(["Mass", "Volume"]);
+        });
+
+        it("renders the first column as row headers when all its body cells are bold", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateTestPerseusRenderer({
+                    content:
+                        "Metal | Mass | Volume\n" +
+                        "- | - | -\n" +
+                        "**Gold** | 19.3 | 1\n" +
+                        "**Silver** | 10.5 | 1",
+                }),
+            );
+
+            // Assert
+            expect(
+                screen.getAllByRole("rowheader").map((th) => th.textContent),
+            ).toEqual(["Gold", "Silver"]);
+        });
+
+        it("keeps a non-empty first column header as a column header", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateTestPerseusRenderer({
+                    content:
+                        "Metal | Mass | Volume\n" +
+                        "- | - | -\n" +
+                        "**Gold** | 19.3 | 1\n" +
+                        "**Silver** | 10.5 | 1",
+                }),
+            );
+
+            // Assert
+            expect(
+                screen.getAllByRole("columnheader").map((th) => th.textContent),
+            ).toEqual(["Metal", "Mass", "Volume"]);
+        });
+
+        it("renders row headers in titled tables", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateTestPerseusRenderer({
+                    content:
+                        "|| Metal densities ||\n" +
+                        "  | Mass | Volume\n" +
+                        "- | - | -\n" +
+                        "Gold | 19.3 | 1\n" +
+                        "Silver | 10.5 | 1",
+                }),
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("table", {name: "Metal densities"}),
+            ).toBeInTheDocument();
+            expect(
+                screen.getAllByRole("rowheader").map((th) => th.textContent),
+            ).toEqual(["Gold", "Silver"]);
+        });
+
+        it.each([
+            {
+                reason: "only some first column cells are bold",
+                content:
+                    "Metal | Mass\n" +
+                    "- | -\n" +
+                    "**Gold** | 19.3\n" +
+                    "Silver | 10.5",
+            },
+            {
+                reason: "a first column cell is only partially bold",
+                content:
+                    "Metal | Mass\n" +
+                    "- | -\n" +
+                    "**Gold** | 19.3\n" +
+                    "**Silver** bar | 10.5",
+            },
+            {
+                reason: "a first column body cell is empty",
+                content:
+                    "| Metal | Mass |\n" +
+                    "|-|-|\n" +
+                    "| **Gold** | 19.3 |\n" +
+                    "| | 10.5 |",
+            },
+            {
+                reason: "the table has a single column",
+                content:
+                    "| |\n" + "|-|\n" + "| **Gold** |\n" + "| **Silver** |",
+            },
+            {
+                reason: "the first column has a header and plain body cells",
+                content: "Metal | Mass\n" + "- | -\n" + "Gold | 19.3",
+            },
+        ])("does not render row headers when $reason", ({content}) => {
+            // Arrange, Act
+            renderQuestion(generateTestPerseusRenderer({content}));
+
+            // Assert
+            expect(screen.queryByRole("rowheader")).not.toBeInTheDocument();
         });
     });
 });
