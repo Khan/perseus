@@ -40,6 +40,7 @@ import Util, {
     isBoldTableCell,
     isContentGraphie,
     isEmptyTableCell,
+    isLayoutTable,
     tableHasRowHeaders,
 } from "./util";
 import {containerSizeClass} from "./util/sizing-utils";
@@ -1183,10 +1184,37 @@ class Renderer
                 inTable: true,
             };
 
-            const output =
-                node.type === "table"
-                    ? this.outputTable(node, nestedOutput, tableState)
-                    : this.outputTitledTable(node, nestedOutput, tableState);
+            // A titled table's `table` is a `lint` node when the linter has
+            // flagged it. We leave those to perseus-markdown.
+            const tableNode = node.type === "table" ? node : node.table;
+            // Check for a layout table before row headers: an all-empty
+            // header row also has an empty first header, which
+            // `tableHasRowHeaders` would treat as a row header table.
+            const isLayout =
+                tableNode?.type === "table" && isLayoutTable(tableNode);
+
+            let output: React.ReactNode;
+            if (isLayout) {
+                output = this.outputLayoutTable(
+                    tableNode,
+                    nestedOutput,
+                    tableState,
+                );
+            } else if (node.type === "table") {
+                output = this.outputTable(node, nestedOutput, tableState);
+            } else {
+                output = this.outputTitledTable(node, nestedOutput, tableState);
+            }
+
+            // A layout table has no table semantics, so a title can't be its
+            // `<caption>`. Render the title as a paragraph above it instead.
+            const title =
+                isLayout && node.type === "titledTable"
+                    ? nestedOutput(
+                          {type: "paragraph", content: node.title},
+                          state,
+                      )
+                    : null;
 
             if (!apiOptions.isMobile) {
                 return title == null ? (
@@ -1248,11 +1276,8 @@ class Renderer
         state: WidgetState,
     ): React.ReactElement => {
         const hasRowHeaders = tableHasRowHeaders(node);
-
-        const getStyle = (colIndex: number): React.CSSProperties =>
-            node.align[colIndex] == null
-                ? {}
-                : {textAlign: node.align[colIndex]};
+        const getStyle = (colIndex: number) =>
+            getTableCellStyle(node, colIndex);
 
         const headers = node.header.map(
             (content: Array<SingleASTNode>, i: number) =>
@@ -1354,6 +1379,38 @@ class Renderer
             <div className="perseus-titled-table-wrapper" key={state.key}>
                 {contents}
             </div>
+        );
+    };
+
+    /**
+     * Renders a table whose column headers are all empty as a layout table.
+     * The empty header row is dropped, and `role="presentation"` tells
+     * assistive technology not to announce the table's rows and columns.
+     *
+     * Unlike data tables, a layout table isn't made focusable on mobile:
+     * browsers ignore `role="presentation"` on focusable elements.
+     */
+    outputLayoutTable = (
+        node: SingleASTNode,
+        nestedOutput: (ast: ASTNode, state: WidgetState) => React.ReactNode,
+        state: WidgetState,
+    ): React.ReactElement => {
+        const rows = node.cells.map(
+            (row: Array<Array<SingleASTNode>>, r: number) => (
+                <tr key={r}>
+                    {row.map((content, c) => (
+                        <td key={c} style={getTableCellStyle(node, c)}>
+                            {nestedOutput(content, state)}
+                        </td>
+                    ))}
+                </tr>
+            ),
+        );
+
+        return (
+            <table key={state.key} role="presentation">
+                <tbody key="tbody">{rows}</tbody>
+            </table>
         );
     };
 
@@ -1787,6 +1844,19 @@ function hasResponsiveImage(node: SingleASTNode, props: Props): boolean {
     return (
         node.type === "image" && getImageDimensions(node.target, props) != null
     );
+}
+
+/**
+ * Returns the style for a table cell in the given column, applying the
+ * column's markdown alignment (e.g. `|:-:|`) if it has one.
+ */
+function getTableCellStyle(
+    node: SingleASTNode,
+    colIndex: number,
+): React.CSSProperties {
+    return node.align[colIndex] == null
+        ? {}
+        : {textAlign: node.align[colIndex]};
 }
 
 const styles = {
