@@ -60,9 +60,6 @@ export function combineScoreWithWidgetScores(
 /**
  * score a Perseus item
  *
- * TODO: this should be named differently -
- * it's scoring UserInput, not a PerseusItem; also it doesn't take a PerseusItem
- *
  * @param perseusRenderData - the full answer data, includes the correct answer
  * @param userInputMap - the user's input for each widget, mapped by ID
  * @param locale - string locale for math parsing ("de" 1.000,00 vs "en" 1,000.00)
