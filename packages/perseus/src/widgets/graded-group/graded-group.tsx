@@ -1,4 +1,4 @@
-import {scorePerseusItem} from "@khanacademy/perseus-score";
+import {scoreUserInputMap} from "@khanacademy/perseus-score";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import {border, font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
@@ -128,7 +128,7 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
         }
 
         function checkAnswer() {
-            const score: PerseusScore = scorePerseusItem(
+            const score: PerseusScore = scoreUserInputMap(
                 props.options,
                 userInput,
                 locale,

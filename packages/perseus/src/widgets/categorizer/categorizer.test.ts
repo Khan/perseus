@@ -1,4 +1,4 @@
-import {scorePerseusItem} from "@khanacademy/perseus-score";
+import {scoreUserInputMap} from "@khanacademy/perseus-score";
 import {screen, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -7,7 +7,7 @@ import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-
 import {
     getAnswerfulItem,
     getAnswerlessItem,
-    scorePerseusItemTesting,
+    scoreUserInputMapTesting,
 } from "../../util/scoring.testutils";
 
 import CategorizerExport from "./categorizer";
@@ -59,7 +59,7 @@ describe("categorizer widget", () => {
         const {renderer} = renderQuestion(question1, {apiOptions});
 
         // Act
-        const score = scorePerseusItem(
+        const score = scoreUserInputMap(
             question1,
             renderer.getUserInputMap(),
             "en",
@@ -88,7 +88,7 @@ describe("categorizer widget", () => {
         await userEvent.click(firstItem);
 
         // act
-        const score = scorePerseusItem(
+        const score = scoreUserInputMap(
             question1,
             renderer.getUserInputMap(),
             "en",
@@ -133,7 +133,7 @@ describe("categorizer widget", () => {
             })[1],
         );
 
-        const score = scorePerseusItemTesting(
+        const score = scoreUserInputMapTesting(
             question1,
             renderer.getUserInputMap(),
         );
@@ -295,7 +295,7 @@ describe("categorizer widget", () => {
             );
 
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItem(
+            const score = scoreUserInputMap(
                 getAnswerfulItem("categorizer", options).question,
                 userInput,
                 "en",

@@ -2,7 +2,7 @@ import {
     generateTestPerseusItem,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {scorePerseusItem} from "@khanacademy/perseus-score";
+import {scoreUserInputMap} from "@khanacademy/perseus-score";
 
 import type {
     CategorizerWidget,
@@ -14,15 +14,15 @@ import type {
 } from "@khanacademy/perseus-core";
 
 /**
- * Thin wrapper around scorePerseusItem for internal testing. Returns the
+ * Thin wrapper around scoreUserInputMap for internal testing. Returns the
  * aggregate score; tests that need the per-widget breakdown should call
- * `scorePerseusItem` directly.
+ * `scoreUserInputMap` directly.
  */
-export function scorePerseusItemTesting(
+export function scoreUserInputMapTesting(
     perseusRenderData: PerseusRenderer,
     userInputMap: UserInputMap,
 ): PerseusScore {
-    return scorePerseusItem(perseusRenderData, userInputMap, "en");
+    return scoreUserInputMap(perseusRenderData, userInputMap, "en");
 }
 
 /**

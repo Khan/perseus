@@ -1,7 +1,7 @@
 import {expect, test} from "@internal/playwright";
 
 import renderQuestion from "../../../testing/playwright/render-question";
-import {scorePerseusItemTesting} from "../../../util/scoring.testutils";
+import {scoreUserInputMapTesting} from "../../../util/scoring.testutils";
 import {twoCardVerticalQuestion} from "../sorter.testdata";
 
 import type {Locator} from "@playwright/test";
@@ -97,7 +97,7 @@ test.describe("Sorter widget", () => {
         // `toPass` retries while the asynchronous user-input update finishes
         // after the mouse release.
         await expect(async () => {
-            const score = scorePerseusItemTesting(
+            const score = scoreUserInputMapTesting(
                 twoCardVerticalQuestion,
                 await getUserInputMap(),
             );

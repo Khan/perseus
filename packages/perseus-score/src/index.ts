@@ -34,7 +34,11 @@ export {default as scoreTable} from "./widgets/table/score-table";
 export {default as validateTable} from "./widgets/table/validate-table";
 export {default as scoreInputNumber} from "./widgets/input-number/score-input-number";
 
-export {scorePerseusItem} from "./score";
+import {scoreUserInputMap} from "./score";
+
+export {scoreUserInputMap};
+/** @deprecated Use {@link scoreUserInputMap} instead. */
+export const scorePerseusItem = scoreUserInputMap;
 export {default as flattenScores} from "./util/flatten-scores";
 export {validateUserInput, emptyWidgetsFunctional} from "./validate";
 export {default as hasEmptyDINERWidgets} from "./has-empty-diner-widgets";

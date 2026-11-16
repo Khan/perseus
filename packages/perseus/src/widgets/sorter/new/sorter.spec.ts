@@ -2,7 +2,7 @@ import {expect, test} from "@internal/playwright";
 
 import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import renderQuestion from "../../../testing/playwright/render-question";
-import {scorePerseusItemTesting} from "../../../util/scoring.testutils";
+import {scoreUserInputMapTesting} from "../../../util/scoring.testutils";
 import {twoCardVerticalQuestion} from "../sorter.testdata";
 
 import type {Locator} from "@playwright/test";
@@ -92,7 +92,7 @@ test.describe("Sorter widget (drag-and-drop)", () => {
         await dragTileToBlank(tile("Apple"), blanks.nth(0), "Apple");
         await dragTileToBlank(tile("Banana"), blanks.nth(1), "Banana");
 
-        const score = scorePerseusItemTesting(
+        const score = scoreUserInputMapTesting(
             twoCardVerticalQuestion,
             await getUserInputMap(),
         );

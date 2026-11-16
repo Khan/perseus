@@ -9,7 +9,7 @@ import {renderQuestion} from "../../__testutils__/render-question";
 import * as Dependencies from "../../dependencies";
 import {testDependencies} from "../../testing/test-dependencies";
 import {wait} from "../../testing/wait";
-import {scorePerseusItemTesting} from "../../util/scoring.testutils";
+import {scoreUserInputMapTesting} from "../../util/scoring.testutils";
 
 import {question1} from "./matcher.testdata";
 
@@ -161,7 +161,7 @@ describe("matcher widget", () => {
                 act(() => matcher.moveRightOptionToIndex(option, index));
             });
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItemTesting(
+            const score = scoreUserInputMapTesting(
                 answerfulItem.question,
                 userInput,
             );
@@ -182,7 +182,7 @@ describe("matcher widget", () => {
                 matcher.moveLeftOptionToIndex(option, index);
             });
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItemTesting(
+            const score = scoreUserInputMapTesting(
                 answerfulItem.question,
                 userInput,
             );
@@ -203,7 +203,7 @@ describe("matcher widget", () => {
 
             // Act
             const {renderer} = renderQuestion(question);
-            const score = scorePerseusItemTesting(
+            const score = scoreUserInputMapTesting(
                 answerfulItem.question,
                 renderer.getUserInputMap(),
             );

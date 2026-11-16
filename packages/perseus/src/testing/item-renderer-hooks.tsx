@@ -1,5 +1,5 @@
 import {splitPerseusItem} from "@khanacademy/perseus-core";
-import {scorePerseusItem} from "@khanacademy/perseus-score";
+import {scoreUserInputMap} from "@khanacademy/perseus-score";
 import * as React from "react";
 import {useEffect, useReducer, useRef} from "react";
 import invariant from "tiny-invariant";
@@ -111,7 +111,7 @@ export const useItemRenderer = (
         );
 
         const userInput = renderer.getUserInput();
-        const score = scorePerseusItem(
+        const score = scoreUserInputMap(
             state.perseusItem.question,
             userInput,
             "en",

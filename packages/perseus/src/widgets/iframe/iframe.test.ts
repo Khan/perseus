@@ -1,7 +1,7 @@
 import {act} from "react-dom/test-utils";
 
 import {renderQuestion} from "../../__testutils__/render-question";
-import {scorePerseusItemTesting} from "../../util/scoring.testutils";
+import {scoreUserInputMapTesting} from "../../util/scoring.testutils";
 
 import {question1} from "./iframe.testdata";
 
@@ -48,7 +48,7 @@ describe("iframe widget", () => {
                 window.dispatchEvent(fakeEvent);
             });
 
-            const score = scorePerseusItemTesting(
+            const score = scoreUserInputMapTesting(
                 question1,
                 renderer.getUserInputMap(),
             );
@@ -68,7 +68,7 @@ describe("iframe widget", () => {
                 window.dispatchEvent(fakeEvent);
             });
 
-            const score = scorePerseusItemTesting(
+            const score = scoreUserInputMapTesting(
                 question1,
                 renderer.getUserInputMap(),
             );
@@ -78,7 +78,7 @@ describe("iframe widget", () => {
 
         it("should retain initial invalid score if postMessage is missing testsPassed", () => {
             const {renderer} = renderQuestion(question1);
-            const initialScore = scorePerseusItemTesting(
+            const initialScore = scoreUserInputMapTesting(
                 question1,
                 renderer.getUserInputMap(),
             );
@@ -96,7 +96,7 @@ describe("iframe widget", () => {
                 window.dispatchEvent(fakeEvent);
             });
 
-            const currentScore = scorePerseusItemTesting(
+            const currentScore = scoreUserInputMapTesting(
                 question1,
                 renderer.getUserInputMap(),
             );
@@ -105,7 +105,7 @@ describe("iframe widget", () => {
 
         it("should retain initial invalid score if postMessage data is not valid JSON", () => {
             const {renderer} = renderQuestion(question1);
-            const initialScore = scorePerseusItemTesting(
+            const initialScore = scoreUserInputMapTesting(
                 question1,
                 renderer.getUserInputMap(),
             );
@@ -119,7 +119,7 @@ describe("iframe widget", () => {
                 window.dispatchEvent(fakeEvent);
             });
 
-            const currentScore = scorePerseusItemTesting(
+            const currentScore = scoreUserInputMapTesting(
                 question1,
                 renderer.getUserInputMap(),
             );

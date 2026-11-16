@@ -23,7 +23,7 @@ import * as React from "react";
 import invariant from "tiny-invariant";
 
 import {renderQuestion} from "../../__testutils__/render-question";
-import {scorePerseusItemTesting} from "../../util/scoring.testutils";
+import {scoreUserInputMapTesting} from "../../util/scoring.testutils";
 import {sinusoidQuestion} from "../grapher/grapher.testdata";
 
 import {
@@ -129,7 +129,7 @@ describe("Interactive Graph", function () {
                     initialUserInput: userInput,
                 });
 
-                const score = scorePerseusItemTesting(
+                const score = scoreUserInputMapTesting(
                     question,
                     renderer.getUserInputMap(),
                 );
@@ -163,7 +163,7 @@ describe("Interactive Graph", function () {
                 const {renderer} = renderQuestion(question);
 
                 // Act
-                const score = scorePerseusItemTesting(
+                const score = scoreUserInputMapTesting(
                     question,
                     renderer.getUserInputMap(),
                 );
@@ -187,7 +187,7 @@ describe("Interactive Graph", function () {
                     initialUserInput: userInput,
                 });
 
-                const score = scorePerseusItemTesting(
+                const score = scoreUserInputMapTesting(
                     question,
                     renderer.getUserInputMap(),
                 );
@@ -214,7 +214,7 @@ describe("Interactive Graph", function () {
             });
             const {renderer} = renderQuestion(question);
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItemTesting(question, userInput);
+            const score = scoreUserInputMapTesting(question, userInput);
 
             expect(score).toHaveBeenAnsweredCorrectly({
                 shouldHavePoints: false,
@@ -284,7 +284,7 @@ describe("Interactive Graph", function () {
                 const {renderer} = renderQuestion(question);
 
                 // Act
-                const score = scorePerseusItemTesting(
+                const score = scoreUserInputMapTesting(
                     question,
                     renderer.getUserInputMap(),
                 );
@@ -317,7 +317,7 @@ describe("Interactive Graph", function () {
                 // Assert
                 await waitFor(
                     () => {
-                        const score = scorePerseusItemTesting(
+                        const score = scoreUserInputMapTesting(
                             question,
                             renderer.getUserInputMap(),
                         );
@@ -341,7 +341,7 @@ describe("Interactive Graph", function () {
                 // Assert
                 await waitFor(
                     () => {
-                        const score = scorePerseusItemTesting(
+                        const score = scoreUserInputMapTesting(
                             question,
                             renderer.getUserInputMap(),
                         );
@@ -366,7 +366,7 @@ describe("Interactive Graph", function () {
                 // Assert
                 await waitFor(
                     () => {
-                        const score = scorePerseusItemTesting(
+                        const score = scoreUserInputMapTesting(
                             question,
                             renderer.getUserInputMap(),
                         );

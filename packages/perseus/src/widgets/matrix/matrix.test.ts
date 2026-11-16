@@ -1,5 +1,5 @@
 import {type PerseusMatrixWidgetOptions} from "@khanacademy/perseus-core";
-import {scorePerseusItem, validateMatrix} from "@khanacademy/perseus-score";
+import {scoreUserInputMap, validateMatrix} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -8,7 +8,7 @@ import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-
 import {
     getAnswerfulItem,
     getAnswerlessItem,
-    scorePerseusItemTesting,
+    scoreUserInputMapTesting,
 } from "../../util/scoring.testutils";
 
 import matrixExport from "./matrix";
@@ -90,7 +90,7 @@ describe("matrix widget", () => {
         for (let i = 0; i < textboxes.length; i++) {
             await userEvent.type(textboxes[i], correctAnswers[i].toString());
         }
-        const score = scorePerseusItemTesting(
+        const score = scoreUserInputMapTesting(
             question1,
             renderer.getUserInputMap(),
         );
@@ -111,7 +111,7 @@ describe("matrix widget", () => {
         for (let i = 0; i < textboxes.length; i++) {
             await userEvent.type(textboxes[i], "1");
         }
-        const score = scorePerseusItemTesting(
+        const score = scoreUserInputMapTesting(
             question1,
             renderer.getUserInputMap(),
         );
@@ -151,7 +151,7 @@ describe("matrix widget", () => {
             await userEvent.type(screen.getAllByRole("textbox")[1], "-2");
 
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItem(
+            const score = scoreUserInputMap(
                 getAnswerfulItem("matrix", matrixOptions).question,
                 userInput,
                 "en",

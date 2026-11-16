@@ -89,15 +89,15 @@
 
 ## Checklist
 
-- [ ] Rename `scorePerseusItem` to `scoreUserInputMap` across the repo with a
+- [x] Rename `scorePerseusItem` to `scoreUserInputMap` across the repo with a
       symbol-aware (LSP) rename, leaving CHANGELOGs untouched
-- [ ] Rewrite the doc comment of `scoreUserInputMap` to say it scores a
+- [x] Rewrite the doc comment of `scoreUserInputMap` to say it scores a
       `UserInputMap` against a `PerseusRenderer`
-- [ ] Export `scorePerseusItem` from `perseus-score`'s `index.ts` as a
+- [x] Export `scorePerseusItem` from `perseus-score`'s `index.ts` as a
       `@deprecated` alias of `scoreUserInputMap` (the deprecation note should
       link to `scoreUserInputMap`, not `score`)
-- [ ] Update `getting-started.mdx` and `introduction.mdx` to use the new name
-- [ ] Update `.agents/skills/playwright-component-testing/SKILL.md` to use
+- [x] Update `getting-started.mdx` and `introduction.mdx` to use the new name
+- [x] Update `.agents/skills/playwright-component-testing/SKILL.md` to use
       the new name, or note in `.fixie/debug.md` if it is write-protected
 - [ ] Delete the deprecated `score` method on Renderer and any tests of it
 - [ ] Stop exporting `scoreWidgetsFunctional` from `perseus-score`

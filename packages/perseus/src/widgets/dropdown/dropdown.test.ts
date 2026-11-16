@@ -11,7 +11,7 @@ import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../__testutils__/render-question";
-import {scorePerseusItemTesting} from "../../util/scoring.testutils";
+import {scoreUserInputMapTesting} from "../../util/scoring.testutils";
 
 import {basicDropdown} from "./dropdown.testdata";
 
@@ -113,7 +113,7 @@ describe("Dropdown widget", () => {
         // Assert
         expect(screen.getByRole("combobox")).toHaveTextContent("Right");
         expect(
-            scorePerseusItemTesting(question, renderer.getUserInputMap()),
+            scoreUserInputMapTesting(question, renderer.getUserInputMap()),
         ).toHaveBeenAnsweredCorrectly();
     });
 
@@ -132,7 +132,7 @@ describe("Dropdown widget", () => {
         // Assert
         expect(screen.getByRole("combobox")).toHaveTextContent("Wrong");
         expect(
-            scorePerseusItemTesting(question, renderer.getUserInputMap()),
+            scoreUserInputMapTesting(question, renderer.getUserInputMap()),
         ).toHaveBeenAnsweredIncorrectly();
     });
 
@@ -141,7 +141,7 @@ describe("Dropdown widget", () => {
         const {renderer} = renderQuestion(basicDropdown);
 
         // Act
-        const score = scorePerseusItemTesting(
+        const score = scoreUserInputMapTesting(
             basicDropdown,
             renderer.getUserInputMap(),
         );
@@ -304,7 +304,7 @@ describe("Dropdown widget", () => {
 
             // Assert
             expect(
-                scorePerseusItemTesting(question, renderer.getUserInputMap()),
+                scoreUserInputMapTesting(question, renderer.getUserInputMap()),
             ).toHaveBeenAnsweredCorrectly();
         },
     );

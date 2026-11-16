@@ -5,7 +5,7 @@ import {
 } from "@khanacademy/perseus-core";
 
 import renderQuestion from "../../testing/playwright/render-question";
-import {scorePerseusItemTesting} from "../../util/scoring.testutils";
+import {scoreUserInputMapTesting} from "../../util/scoring.testutils";
 
 import {
     absoluteValueQuestion,
@@ -347,7 +347,7 @@ test.describe("Grapher widget", () => {
 
                         await graphCase.answerCorrectly(question);
 
-                        const score = scorePerseusItemTesting(
+                        const score = scoreUserInputMapTesting(
                             answerful.question,
                             await question.getUserInputMap(),
                         );
@@ -364,7 +364,7 @@ test.describe("Grapher widget", () => {
 
                         await graphCase.answerIncorrectly(question);
 
-                        const score = scorePerseusItemTesting(
+                        const score = scoreUserInputMapTesting(
                             answerful.question,
                             await question.getUserInputMap(),
                         );

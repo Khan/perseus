@@ -13,7 +13,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../../__testutils__/render-question";
 import {getFeatureFlags} from "../../../testing/feature-flags-util";
-import {scorePerseusItemTesting} from "../../../util/scoring.testutils";
+import {scoreUserInputMapTesting} from "../../../util/scoring.testutils";
 
 import type {APIOptions} from "../../../types";
 import type {PerseusRenderer, SorterLegend} from "@khanacademy/perseus-core";
@@ -663,7 +663,7 @@ describe("new sorter widget", () => {
                 const {renderer} = renderQuestion(question, {apiOptions});
 
                 // Act
-                const score = scorePerseusItemTesting(
+                const score = scoreUserInputMapTesting(
                     answerfulItem.question,
                     renderer.getUserInputMap(),
                 );
@@ -679,7 +679,7 @@ describe("new sorter widget", () => {
                 await moveTileToBlank(userEvent, "Banana", 2);
 
                 // Act
-                const score = scorePerseusItemTesting(
+                const score = scoreUserInputMapTesting(
                     answerfulItem.question,
                     renderer.getUserInputMap(),
                 );
@@ -696,7 +696,7 @@ describe("new sorter widget", () => {
                 await moveTileToBlank(userEvent, "Cherry", 3);
 
                 // Act
-                const score = scorePerseusItemTesting(
+                const score = scoreUserInputMapTesting(
                     answerfulItem.question,
                     renderer.getUserInputMap(),
                 );
@@ -713,7 +713,7 @@ describe("new sorter widget", () => {
                 await moveTileToBlank(userEvent, "Apple", 3);
 
                 // Act
-                const score = scorePerseusItemTesting(
+                const score = scoreUserInputMapTesting(
                     answerfulItem.question,
                     renderer.getUserInputMap(),
                 );

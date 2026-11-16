@@ -9,7 +9,7 @@ import invariant from "tiny-invariant";
 
 import {renderQuestion} from "../../__testutils__/render-question";
 import {mockImageLoading} from "../../testing/image-loader-utils";
-import {scorePerseusItemTesting} from "../../util/scoring.testutils";
+import {scoreUserInputMapTesting} from "../../util/scoring.testutils";
 
 import {
     earthMoonImage,
@@ -101,7 +101,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
         // Act
         const {renderer} = renderQuestion(question, {apiOptions});
-        const score = scorePerseusItemTesting(
+        const score = scoreUserInputMapTesting(
             question,
             renderer.getUserInputMap(),
         );

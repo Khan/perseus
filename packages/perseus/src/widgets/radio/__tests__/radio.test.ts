@@ -9,7 +9,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../../__testutils__/render-question";
 import {clone} from "../../../testing/object-utils";
-import {scorePerseusItemTesting} from "../../../util/scoring.testutils";
+import {scoreUserInputMapTesting} from "../../../util/scoring.testutils";
 
 import {
     questionAndAnswer,
@@ -99,7 +99,7 @@ describe("Radio Widget", () => {
 
                     // Act
                     await selectOption(userEvent, correct);
-                    const score = scorePerseusItemTesting(
+                    const score = scoreUserInputMapTesting(
                         question,
                         renderer.getUserInputMap(),
                     );
@@ -121,7 +121,7 @@ describe("Radio Widget", () => {
                     // does not support touch events so we have to do this ourselves.
                     // eslint-disable-next-line testing-library/prefer-user-event
                     fireEvent.click(correctRadio);
-                    const score = scorePerseusItemTesting(
+                    const score = scoreUserInputMapTesting(
                         question,
                         renderer.getUserInputMap(),
                     );
@@ -138,7 +138,7 @@ describe("Radio Widget", () => {
 
                         // Act
                         await selectOption(userEvent, incorrect);
-                        const score = scorePerseusItemTesting(
+                        const score = scoreUserInputMapTesting(
                             question,
                             renderer.getUserInputMap(),
                         );
@@ -263,7 +263,7 @@ describe("Radio Widget", () => {
                 // item in the original choices. But because of enforced ordering,
                 // it is now at the top of the list (and thus our correct answer).
                 await userEvent.click(screen.getAllByRole("button")[0]);
-                const score = scorePerseusItemTesting(
+                const score = scoreUserInputMapTesting(
                     q,
                     renderer.getUserInputMap(),
                 );
@@ -334,7 +334,7 @@ describe("Radio Widget", () => {
             const {renderer} = renderQuestion(question);
 
             // Act
-            const score = scorePerseusItemTesting(
+            const score = scoreUserInputMapTesting(
                 question,
                 renderer.getUserInputMap(),
             );
@@ -379,7 +379,7 @@ describe("Radio Widget", () => {
                 name: "(Choice D) None of the above",
             });
             await userEvent.click(noneOption);
-            const score = scorePerseusItemTesting(
+            const score = scoreUserInputMapTesting(
                 q,
                 renderer.getUserInputMap(),
             );
@@ -475,7 +475,7 @@ describe("Radio Widget", () => {
             for (const i of correct) {
                 await userEvent.click(options[i]);
             }
-            const score = scorePerseusItemTesting(
+            const score = scoreUserInputMapTesting(
                 question,
                 renderer.getUserInputMap(),
             );
@@ -609,7 +609,7 @@ describe("Radio Widget", () => {
         it("should be invalid when first rendered", async () => {
             // Act
             const {renderer} = renderQuestion(question);
-            const score = scorePerseusItemTesting(
+            const score = scoreUserInputMapTesting(
                 question,
                 renderer.getUserInputMap(),
             );
@@ -688,7 +688,7 @@ describe("Radio Widget", () => {
             await userEvent.click(option[0]); // correct
             await userEvent.click(option[1]); // correct
             await userEvent.click(option[2]); // incorrect
-            const score = scorePerseusItemTesting(
+            const score = scoreUserInputMapTesting(
                 multipleCorrectChoicesQuestion,
                 renderer.getUserInputMap(),
             );
@@ -708,7 +708,7 @@ describe("Radio Widget", () => {
                 for (let i = 0; i < choices.length; i++) {
                     await userEvent.click(option[i]);
                 }
-                const score = scorePerseusItemTesting(
+                const score = scoreUserInputMapTesting(
                     question,
                     renderer.getUserInputMap(),
                 );
@@ -729,7 +729,7 @@ describe("Radio Widget", () => {
                 for (const i of choices) {
                     await userEvent.click(option[i]);
                 }
-                const score = scorePerseusItemTesting(
+                const score = scoreUserInputMapTesting(
                     question,
                     renderer.getUserInputMap(),
                 );
@@ -758,7 +758,7 @@ describe("Radio Widget", () => {
             const userInput = renderer.getUserInputMap()["radio 1"];
             const rubric = shuffledQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
-            const rendererScore = scorePerseusItemTesting(
+            const rendererScore = scoreUserInputMapTesting(
                 shuffledQuestion,
                 renderer.getUserInputMap(),
             );
@@ -785,7 +785,7 @@ describe("Radio Widget", () => {
             const userInput = renderer.getUserInputMap()["radio 1"];
             const rubric = shuffledQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
-            const rendererScore = scorePerseusItemTesting(
+            const rendererScore = scoreUserInputMapTesting(
                 shuffledQuestion,
                 renderer.getUserInputMap(),
             );
@@ -812,7 +812,7 @@ describe("Radio Widget", () => {
             const userInput = renderer.getUserInputMap()["radio 1"];
             const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
-            const rendererScore = scorePerseusItemTesting(
+            const rendererScore = scoreUserInputMapTesting(
                 shuffledNoneQuestion,
                 renderer.getUserInputMap(),
             );
@@ -839,7 +839,7 @@ describe("Radio Widget", () => {
             const userInput = renderer.getUserInputMap()["radio 1"];
             const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
-            const rendererScore = scorePerseusItemTesting(
+            const rendererScore = scoreUserInputMapTesting(
                 shuffledNoneQuestion,
                 renderer.getUserInputMap(),
             );

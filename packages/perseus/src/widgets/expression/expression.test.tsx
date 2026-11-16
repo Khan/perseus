@@ -7,14 +7,14 @@ import {
     generateTestPerseusRenderer,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {scorePerseusItem} from "@khanacademy/perseus-score";
+import {scoreUserInputMap} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../__testutils__/render-question";
 import {testDependenciesV2} from "../../testing/test-dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
-import {scorePerseusItemTesting} from "../../util/scoring.testutils";
+import {scoreUserInputMapTesting} from "../../util/scoring.testutils";
 
 import ExpressionWidgetExport from "./expression";
 import {
@@ -52,7 +52,7 @@ const assertCorrect = async (
         input,
         true,
     );
-    const score = scorePerseusItemTesting(
+    const score = scoreUserInputMapTesting(
         itemData.question,
         renderer.getUserInputMap(),
     );
@@ -70,7 +70,7 @@ const assertIncorrect = async (
         input,
         false,
     );
-    const score = scorePerseusItemTesting(
+    const score = scoreUserInputMapTesting(
         itemData.question,
         renderer.getUserInputMap(),
     );
@@ -89,7 +89,7 @@ const assertInvalid = async (
         await userEvent.type(screen.getByRole("textbox"), input);
     }
     act(() => jest.runOnlyPendingTimers());
-    const score = scorePerseusItemTesting(
+    const score = scoreUserInputMapTesting(
         itemData.question,
         renderer.getUserInputMap(),
     );
@@ -109,7 +109,7 @@ const assertValid = async (
         await userEvent.type(screen.getByRole("textbox"), input);
     }
     act(() => jest.runOnlyPendingTimers());
-    const score = scorePerseusItemTesting(
+    const score = scoreUserInputMapTesting(
         itemData.question,
         renderer.getUserInputMap(),
     );
@@ -580,7 +580,7 @@ describe("Expression Widget", function () {
             act(() => jest.runOnlyPendingTimers());
 
             // act
-            const score = scorePerseusItem(
+            const score = scoreUserInputMap(
                 expressionItemMultipleEquivalentAnswers.question,
                 renderer.getUserInputMap(),
                 "en",
@@ -611,7 +611,7 @@ describe("Expression Widget", function () {
             act(() => jest.runOnlyPendingTimers());
 
             // Assert
-            const score = scorePerseusItem(
+            const score = scoreUserInputMap(
                 expressionItemMultipleEquivalentAnswers.question,
                 renderer.getUserInputMap(),
                 "en",
@@ -698,7 +698,7 @@ describe("Expression Widget", function () {
                 // Assert - The math input reports changes on a debounce.
                 await waitFor(() =>
                     expect(
-                        scorePerseusItem(
+                        scoreUserInputMap(
                             getFullItem().question,
                             renderer.getUserInputMap(),
                             "en",

@@ -51,7 +51,7 @@ Most specs render a question with `renderQuestion()`, which mounts the
 import {expect, test} from "@internal/playwright";
 
 import renderQuestion from "../../testing/playwright/render-question";
-import {scorePerseusItemTesting} from "../../util/scoring.testutils";
+import {scoreUserInputMapTesting} from "../../util/scoring.testutils";
 
 import {myQuestion} from "./my-widget.testdata";
 
@@ -64,7 +64,7 @@ test("scores a correct answer as correct", async ({mount, page}) => {
     // Wait for the click to reach the question's user input.
     await expect(input).not.toHaveValue(before);
 
-    const score = scorePerseusItemTesting(
+    const score = scoreUserInputMapTesting(
         myQuestion,
         await question.getUserInputMap(),
     );

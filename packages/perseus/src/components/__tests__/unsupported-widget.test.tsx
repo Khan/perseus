@@ -5,7 +5,7 @@ import * as React from "react";
 import {renderQuestion} from "../../__testutils__/render-question";
 import {DependenciesContext} from "../../dependencies";
 import {testDependenciesV2} from "../../testing/test-dependencies";
-import {scorePerseusItemTesting} from "../../util/scoring.testutils";
+import {scoreUserInputMapTesting} from "../../util/scoring.testutils";
 import UnsupportedWidgetMessage from "../unsupported-widget-message";
 
 import type {PerseusWidgetsMap} from "@khanacademy/perseus-core";
@@ -37,7 +37,7 @@ describe("UnsupportedWidgetMessage", () => {
         const {renderer} = renderQuestion(question);
 
         // Act
-        const score = scorePerseusItemTesting(
+        const score = scoreUserInputMapTesting(
             question,
             renderer.getUserInputMap(),
         );

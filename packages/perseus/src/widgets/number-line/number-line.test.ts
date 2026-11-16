@@ -6,7 +6,7 @@ import {Log} from "../../logging/log";
 import {
     getAnswerfulItem,
     getAnswerlessItem,
-    scorePerseusItemTesting,
+    scoreUserInputMapTesting,
 } from "../../util/scoring.testutils";
 
 import {inequality, question1, tickCtrl} from "./number-line.testdata";
@@ -492,7 +492,7 @@ describe("number-line widget", () => {
             const [numberLine] = renderer.findWidgets("number-line 1");
             act(() => numberLine.movePosition(-2.5));
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItemTesting(correctAnswer, userInput);
+            const score = scoreUserInputMapTesting(correctAnswer, userInput);
 
             // assert
             expect(score).toHaveBeenAnsweredCorrectly();
@@ -508,7 +508,7 @@ describe("number-line widget", () => {
             // Act
             const [numberLine] = renderer.findWidgets("number-line 1");
             act(() => numberLine.movePosition(3.5));
-            const score = scorePerseusItemTesting(
+            const score = scoreUserInputMapTesting(
                 correctAnswer,
                 renderer.getUserInputMap(),
             );
@@ -525,7 +525,7 @@ describe("number-line widget", () => {
             const {renderer} = renderQuestion(question, {apiOptions});
 
             // Act
-            const score = scorePerseusItemTesting(
+            const score = scoreUserInputMapTesting(
                 correctAnswer,
                 renderer.getUserInputMap(),
             );

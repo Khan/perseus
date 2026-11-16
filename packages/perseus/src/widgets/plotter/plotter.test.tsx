@@ -3,7 +3,7 @@ import {
     generatePlotterWidget,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
-import {scorePerseusItem} from "@khanacademy/perseus-score";
+import {scoreUserInputMap} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
 
 import {renderQuestion} from "../../__testutils__/render-question";
@@ -261,7 +261,7 @@ describe("plotter widget", () => {
 
             // Act
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItem(
+            const score = scoreUserInputMap(
                 getAnswerfulItem("plotter", plotterOptions).question,
                 userInput,
                 "en",
@@ -285,7 +285,7 @@ describe("plotter widget", () => {
             act(() => plotter._testInsertUserInput([15]));
             const userInput = renderer.getUserInputMap();
 
-            const score = scorePerseusItem(
+            const score = scoreUserInputMap(
                 getAnswerfulItem("plotter", plotterOptions).question,
                 userInput,
                 "en",
@@ -308,7 +308,7 @@ describe("plotter widget", () => {
             act(() => plotter._testInsertUserInput([7])); // mock user entering a value
             const userInput = renderer.getUserInputMap();
 
-            const score = scorePerseusItem(
+            const score = scoreUserInputMap(
                 getAnswerfulItem("plotter", plotterOptions).question,
                 userInput,
                 "en",

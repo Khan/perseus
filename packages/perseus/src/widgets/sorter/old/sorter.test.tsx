@@ -14,7 +14,7 @@ import * as React from "react";
 import {renderQuestion} from "../../../__testutils__/render-question";
 import * as Dependencies from "../../../dependencies";
 import {testDependencies} from "../../../testing/test-dependencies";
-import {scorePerseusItemTesting} from "../../../util/scoring.testutils";
+import {scoreUserInputMapTesting} from "../../../util/scoring.testutils";
 import {basicQuestion} from "../sorter.testdata";
 
 import type {SorterHandle} from "./sorter";
@@ -319,7 +319,7 @@ describe("sorter widget", () => {
 
                 // Act
                 const userInput = renderer.getUserInputMap();
-                const score = scorePerseusItemTesting(
+                const score = scoreUserInputMapTesting(
                     answerfulItem.question,
                     userInput,
                 );
@@ -342,7 +342,7 @@ describe("sorter widget", () => {
                 );
 
                 const userInput = renderer.getUserInputMap();
-                const score = scorePerseusItemTesting(
+                const score = scoreUserInputMapTesting(
                     answerfulItem.question,
                     userInput,
                 );
@@ -359,7 +359,7 @@ describe("sorter widget", () => {
                 // Act
                 act(() => sorter.moveOptionToIndex("First", 4));
 
-                const score = scorePerseusItemTesting(
+                const score = scoreUserInputMapTesting(
                     answerfulItem.question,
                     renderer.getUserInputMap(),
                 );
@@ -438,7 +438,7 @@ describe("sorter widget", () => {
             const {renderer} = renderQuestion(question);
 
             // Act
-            const score = scorePerseusItemTesting(
+            const score = scoreUserInputMapTesting(
                 question,
                 renderer.getUserInputMap(),
             );

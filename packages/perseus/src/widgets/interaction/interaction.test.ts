@@ -2,7 +2,7 @@ import invariant from "tiny-invariant";
 
 import {renderQuestion} from "../../__testutils__/render-question";
 import {waitForInitialGraphieRender} from "../../testing/wait";
-import {scorePerseusItemTesting} from "../../util/scoring.testutils";
+import {scoreUserInputMapTesting} from "../../util/scoring.testutils";
 
 import {
     question1,
@@ -25,7 +25,7 @@ describe("interaction widget", () => {
         await waitForInitialGraphieRender();
 
         // Act
-        const score = scorePerseusItemTesting(
+        const score = scoreUserInputMapTesting(
             question1,
             renderer.getUserInputMap(),
         );
