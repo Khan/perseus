@@ -18,6 +18,11 @@ export type {ErrorKind} from "./error/errors";
 export {default as ErrorCodes, type ErrorCode} from "./error-codes";
 
 export {isCorrect} from "./utils/is-correct";
+export {
+    isBoldTableCell,
+    isEmptyTableCell,
+    tableHasRowHeaders,
+} from "./utils/table-row-headers";
 /** @hidden */
 export type {FunctionTypeMappingKeys} from "./utils/grapher-util";
 /** @hidden */
