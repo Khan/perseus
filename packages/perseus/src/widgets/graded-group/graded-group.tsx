@@ -71,9 +71,7 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
 
         const rendererRef = useRef<Renderer | null>(null);
         const hintRendererRef = useRef<Renderer | null>(null);
-        // The user input lives in UserInputManager's state, which the
-        // "Check" button outside it can't read, so we mirror it here.
-        const userInputRef = useRef<UserInputMap>({});
+        const [userInput, setUserInput] = useState<UserInputMap>({});
         const hintId = useId();
 
         useOnMountEffect(() => {
@@ -119,7 +117,8 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
             },
         }));
 
-        function handleAnswerChange(): void {
+        function handleAnswerChange(userInput: UserInputMap): void {
+            setUserInput(userInput);
             // Reset grading display when user changes answer
             setMessage("");
 
@@ -131,7 +130,7 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
         function checkAnswer() {
             const score: PerseusScore = scorePerseusItem(
                 props.options,
-                userInputRef.current,
+                userInput,
                 locale,
             );
             const {
@@ -203,7 +202,6 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                     problemNum={props.problemNum ?? 0}
                 >
                     {({userInput, handleUserInput}) => {
-                        userInputRef.current = userInput;
                         return (
                             <Renderer
                                 content={props.options.content}
