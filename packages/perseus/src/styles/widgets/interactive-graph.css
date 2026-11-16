@@ -1,3 +1,7 @@
+/* TODO-NEXT: is .graphie-container ever rendered as the child of
+ * .perseus-widget-interactive-graph? If not, delete this rule. If it is,
+ * add a comment explaining where.
+ */
 .perseus-widget-interactive-graph > .graphie-container {
     position: relative;
 }
