@@ -1,3 +1,7 @@
+import {generateGroupOptions} from "@khanacademy/perseus-core";
+
+import {getTestDropdownWidget} from "../../util/widgets.testutils";
+
 import scoreGroup from "./score-group";
 
 import type {PerseusGroupWidgetOptions} from "@khanacademy/perseus-core";
@@ -30,5 +34,50 @@ describe("scoreGroup", () => {
 
         // Assert:
         expect(result).toHaveInvalidInput();
+    });
+
+    describe("a widget that isn't in the content", () => {
+        it("isn't required to be answered", () => {
+            // Arrange
+            const rubric = generateGroupOptions({
+                content: "[[☃ dropdown 1]]",
+                widgets: {
+                    "dropdown 1": getTestDropdownWidget(),
+                    "dropdown 2": getTestDropdownWidget(),
+                },
+            });
+
+            // Act
+            const result = scoreGroup({"dropdown 1": {value: 1}}, rubric, "en");
+
+            // Assert
+            expect(result).toHaveBeenAnsweredCorrectly();
+        });
+
+        it("doesn't add to the score", () => {
+            // Arrange
+            const rubric = generateGroupOptions({
+                content: "[[☃ dropdown 1]]",
+                widgets: {
+                    "dropdown 1": getTestDropdownWidget(),
+                    "dropdown 2": getTestDropdownWidget(),
+                },
+            });
+
+            // Act
+            const result = scoreGroup(
+                {"dropdown 1": {value: 1}, "dropdown 2": {value: 1}},
+                rubric,
+                "en",
+            );
+
+            // Assert
+            expect(result).toEqual({
+                type: "points",
+                earned: 1,
+                total: 1,
+                message: null,
+            });
+        });
     });
 });

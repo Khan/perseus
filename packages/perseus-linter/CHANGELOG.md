@@ -1,5 +1,19 @@
 # @khanacademy/perseus-linter
 
+## 8.1.0
+
+### Minor Changes
+
+-   [#4532](https://github.com/Khan/perseus/pull/4532) [`874f1a8`](https://github.com/Khan/perseus/commit/874f1a8bb4678411437be2d6fbdf844be0ef9271) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Add a `table-single-cell` lint warning for 1x1 tables
+
+### Patch Changes
+
+-   [#4546](https://github.com/Khan/perseus/pull/4546) [`d3ef535`](https://github.com/Khan/perseus/commit/d3ef535f47ca46f64dc9b55d2abcbd6c0850a1f7) Thanks [@benchristel](https://github.com/benchristel)! - Removed the unused `blockHighlight` concept from the linting system.
+
+-   Updated dependencies [[`b65a0f6`](https://github.com/Khan/perseus/commit/b65a0f62fd6d2a2d4d636b872111188bc7f2602c), [`e86e304`](https://github.com/Khan/perseus/commit/e86e30436b76b90c8acaa529d1525b0339d06bd1)]:
+    -   @khanacademy/perseus-core@42.4.0
+    -   @khanacademy/kmath@3.1.7
+
 ## 8.0.1
 
 ### Patch Changes

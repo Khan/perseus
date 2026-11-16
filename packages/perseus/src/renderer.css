@@ -152,7 +152,8 @@
         th {
             font-weight: bold;
         }
-        td {
+        /* Body cells include row headers (th) for tables with row headers. */
+        tbody > :is(th, td) {
             background-color: var(
                 --wb-semanticColor-core-background-base-default
             );
@@ -188,6 +189,15 @@
         white-space: pre;
         overflow: auto;
         margin: var(--wb-sizing-size_240) calc(-1 * var(--wb-sizing-size_160));
+    }
+
+    /***************
+     * Blockquotes *
+     ***************/
+    .framework-perseus blockquote {
+        padding-inline: var(--wb-sizing-size_240);
+        border-inline-start: var(--wb-border-width-thick) solid
+            var(--wb-semanticColor-core-border-neutral-subtle);
     }
 }
 

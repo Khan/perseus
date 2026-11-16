@@ -3,7 +3,9 @@
  * custom-matchers.ts) and our Playwright tests (see
  * config/playwright/fixtures.ts).
  */
-import type {PerseusScore} from "../../packages/perseus-core/src/validation.types";
+import {isCorrect} from "../../../packages/perseus-core/src/utils/is-correct";
+
+import type {PerseusScore} from "../../../packages/perseus-core/src/validation.types";
 
 export const scoreMatchers = {
     toHaveBeenAnsweredCorrectly(
@@ -29,8 +31,7 @@ export const scoreMatchers = {
             };
         }
 
-        // TODO: use `isCorrect` function here
-        if (score.earned !== score.total) {
+        if (!isCorrect(score)) {
             const errMessage = "Problem was answered incorrectly";
 
             return {
@@ -99,7 +100,7 @@ export const scoreMatchers = {
             };
         }
 
-        if (score.earned >= score.total) {
+        if (isCorrect(score)) {
             return {
                 pass: false,
                 message: () => `Problem was answered correctly.`,
