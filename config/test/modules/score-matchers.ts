@@ -3,9 +3,9 @@
  * custom-matchers.ts) and our Playwright tests (see
  * config/playwright/fixtures.ts).
  */
-import {isCorrect} from "../../packages/perseus-core/src/utils/is-correct";
+import {isCorrect} from "../../../packages/perseus-core/src/utils/is-correct";
 
-import type {PerseusScore} from "../../packages/perseus-core/src/validation.types";
+import type {PerseusScore} from "../../../packages/perseus-core/src/validation.types";
 
 export const scoreMatchers = {
     toHaveBeenAnsweredCorrectly(
