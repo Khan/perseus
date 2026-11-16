@@ -37,11 +37,11 @@
 
 ## Examples to follow
 
-- Keep the old name as a deprecated alias in `score.ts`, exported from
-  `index.ts` next to the new name:
+- Keep the old name as a deprecated alias in `index.ts`, exported next to the
+  new name:
 
   ```ts
-  /** @deprecated Use {@link scoreUserInputMap} instead. */
+  /** @deprecated Use {@link score} instead. */
   export const scorePerseusItem = scoreUserInputMap;
   ```
 
@@ -50,16 +50,15 @@
   ```markdown
   ---
   "@khanacademy/perseus-score": minor
-  "@khanacademy/perseus": patch
+  "@khanacademy/perseus": major
   ---
 
   Rename `scorePerseusItem` to `scoreUserInputMap`; the old name is kept as a
   deprecated alias
   ```
 
-  `perseus-score` is `minor` because it adds an export. Other packages whose
-  files change only have internal renames, so they get `patch`. This one
-  changeset also covers the removed TODO in `score.ts`.
+  `perseus-score` is `minor` because it adds an export. `perseus` is major
+  because we'll be removing the `score` method of Renderer (see below).
 
 ## Behavioral requirements
 
@@ -80,5 +79,10 @@
 
 - Should `scoreWidgetsFunctional`, whose name is also unclear, be renamed in
   the same change?
+  - Remove the export of `scoreWidgetsFunctional` from `perseus-score` and
+    delete the deprecated `score` method on Renderer that calls it. Nothing
+    uses the `score` method anymore. Then rename `scoreWidgetsFunctional` to
+    `scoreWidgets`.
 - Should the `perseusRenderData` parameter be renamed (e.g. to `renderer`)
   to match `PerseusRenderer` terminology?
+  - No, leave the parameter name as-is.
