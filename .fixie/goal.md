@@ -86,3 +86,23 @@
 - Should the `perseusRenderData` parameter be renamed (e.g. to `renderer`)
   to match `PerseusRenderer` terminology?
   - No, leave the parameter name as-is.
+
+## Checklist
+
+- [ ] Rename `scorePerseusItem` to `scoreUserInputMap` across the repo with a
+      symbol-aware (LSP) rename, leaving CHANGELOGs untouched
+- [ ] Rewrite the doc comment of `scoreUserInputMap` to say it scores a
+      `UserInputMap` against a `PerseusRenderer`
+- [ ] Export `scorePerseusItem` from `perseus-score`'s `index.ts` as a
+      `@deprecated` alias of `scoreUserInputMap` (the deprecation note should
+      link to `scoreUserInputMap`, not `score`)
+- [ ] Update `getting-started.mdx` and `introduction.mdx` to use the new name
+- [ ] Update `.agents/skills/playwright-component-testing/SKILL.md` to use
+      the new name, or note in `.fixie/debug.md` if it is write-protected
+- [ ] Delete the deprecated `score` method on Renderer and any tests of it
+- [ ] Stop exporting `scoreWidgetsFunctional` from `perseus-score`
+- [ ] Rename `scoreWidgetsFunctional` to `scoreWidgets` (symbol-aware rename)
+- [ ] Grep for leftover mentions of `scorePerseusItem` and
+      `scoreWidgetsFunctional` outside CHANGELOGs and the alias, and fix them
+- [ ] Add the changeset (`perseus-score` minor, `perseus` major), mentioning
+      the removal of Renderer's `score` method
