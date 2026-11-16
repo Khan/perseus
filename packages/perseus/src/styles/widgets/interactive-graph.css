@@ -1,13 +1,7 @@
 .perseus-widget-interactive-graph > .graphie-container {
     position: relative;
 }
-.perseus-widget-interactive-graph > .graphie-container > img,
-/* TODO-NEXT: is it possible for .unresponsive-svg-image to be the child of .graphie-container?
- *  If not possible, delete this selector. If it is possible, add a comment here explaining how.
- */
-.perseus-widget-interactive-graph
-    > .graphie-container
-    > .unresponsive-svg-image {
+.perseus-widget-interactive-graph > .graphie-container > img {
     position: absolute;
     bottom: 0;
     left: 0;
