@@ -1,0 +1,24 @@
+.framework-perseus .graphie-container {
+    position: relative;
+}
+.perseus-widget-grapher > .graphie-container > img,
+.perseus-widget-grapher > .graphie-container .svg-image {
+    position: absolute;
+}
+.framework-perseus .unresponsive-svg-image > .graphie-container,
+.graphie svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.graphie {
+    -webkit-user-select: none;
+    user-select: none;
+    white-space: pre;
+    /**
+   * Graphie didn't have a fixed font-size and was just using
+   * the surrounding font-size. However some labels are banking on
+   * specific dimensions, so we need to lock it to a specific size.
+   */
+    font-size: var(--wb-font-body-size-small);
+}
