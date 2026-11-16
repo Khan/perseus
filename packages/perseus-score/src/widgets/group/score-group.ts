@@ -1,6 +1,6 @@
 import {getWidgetIdsFromContent} from "@khanacademy/perseus-core";
 
-import {scoreWidgetsFunctional} from "../../score";
+import {scoreWidgets} from "../../score";
 import flattenScores from "../../util/flatten-scores";
 
 import type {
@@ -20,7 +20,7 @@ function scoreGroup(
         return {type: "invalid", message: null};
     }
 
-    const scores = scoreWidgetsFunctional(
+    const scores = scoreWidgets(
         rubric.widgets,
         getWidgetIdsFromContent(rubric.content),
         userInput,

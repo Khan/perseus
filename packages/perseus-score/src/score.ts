@@ -75,7 +75,7 @@ export function scoreUserInputMap(
     locale: string,
 ): PerseusScoreWithWidgetScores {
     const scoreableWidgetIds = getScoreableWidgets(perseusRenderData);
-    const widgetScores = scoreWidgetsFunctional(
+    const widgetScores = scoreWidgets(
         perseusRenderData.widgets,
         scoreableWidgetIds,
         userInputMap,
@@ -88,7 +88,7 @@ export function scoreUserInputMap(
     );
 }
 
-export function scoreWidgetsFunctional(
+export function scoreWidgets(
     widgets: PerseusWidgetsMap,
     // This is a port of old code, I'm not sure why
     // we need widgetIds vs the keys of the widgets object

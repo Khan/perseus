@@ -8,7 +8,7 @@ import {
     combineScoreWithWidgetScores,
     onlyInvalidScores,
     scoreUserInputMap,
-    scoreWidgetsFunctional,
+    scoreWidgets,
 } from "./score";
 import {
     getExpressionWidget,
@@ -22,10 +22,10 @@ import type {
     UserInputMap,
 } from "@khanacademy/perseus-core";
 
-describe("scoreWidgetsFunctional", () => {
+describe("scoreWidgets", () => {
     it("returns an empty object when there's no widgets", () => {
         // Arrange / Act
-        const result = scoreWidgetsFunctional({}, [], {}, "en");
+        const result = scoreWidgets({}, [], {}, "en");
 
         // Assert
         expect(result).toEqual({});
@@ -44,12 +44,7 @@ describe("scoreWidgetsFunctional", () => {
         };
 
         // Act
-        const result = scoreWidgetsFunctional(
-            widgets,
-            widgetIds,
-            userInputMap,
-            "en",
-        );
+        const result = scoreWidgets(widgets, widgetIds, userInputMap, "en");
 
         // Assert
         expect(result["dropdown 1"]).toHaveInvalidInput();
@@ -68,12 +63,7 @@ describe("scoreWidgetsFunctional", () => {
         };
 
         // Act
-        const result = scoreWidgetsFunctional(
-            widgets,
-            widgetIds,
-            userInputMap,
-            "en",
-        );
+        const result = scoreWidgets(widgets, widgetIds, userInputMap, "en");
 
         // Assert
         expect(result["dropdown 1"]).toHaveBeenAnsweredCorrectly();
@@ -92,12 +82,7 @@ describe("scoreWidgetsFunctional", () => {
         };
 
         // Act
-        const result = scoreWidgetsFunctional(
-            widgets,
-            widgetIds,
-            userInputMap,
-            "en",
-        );
+        const result = scoreWidgets(widgets, widgetIds, userInputMap, "en");
 
         // Assert
         expect(result["dropdown 1"]).toHaveBeenAnsweredIncorrectly();
@@ -120,12 +105,7 @@ describe("scoreWidgetsFunctional", () => {
         };
 
         // Act
-        const result = scoreWidgetsFunctional(
-            widgets,
-            widgetIds,
-            userInputMap,
-            "en",
-        );
+        const result = scoreWidgets(widgets, widgetIds, userInputMap, "en");
 
         // Assert
         expect(result["dropdown 1"]).toHaveBeenAnsweredCorrectly();
@@ -149,12 +129,7 @@ describe("scoreWidgetsFunctional", () => {
         };
 
         // Act
-        const result = scoreWidgetsFunctional(
-            widgets,
-            widgetIds,
-            userInputMap,
-            "en",
-        );
+        const result = scoreWidgets(widgets, widgetIds, userInputMap, "en");
 
         // Assert
         expect(result["dropdown 1"]).toHaveBeenAnsweredCorrectly();
@@ -185,12 +160,7 @@ describe("scoreWidgetsFunctional", () => {
         };
 
         // Act
-        const result = scoreWidgetsFunctional(
-            widgets,
-            widgetIds,
-            userInputMap,
-            "en",
-        );
+        const result = scoreWidgets(widgets, widgetIds, userInputMap, "en");
 
         // Assert
         expect(result["group 1"]).toHaveInvalidInput();
@@ -220,12 +190,7 @@ describe("scoreWidgetsFunctional", () => {
         };
 
         // Act
-        const result = scoreWidgetsFunctional(
-            widgets,
-            widgetIds,
-            userInputMap,
-            "en",
-        );
+        const result = scoreWidgets(widgets, widgetIds, userInputMap, "en");
 
         // Assert
         expect(result["group 1"]).toHaveBeenAnsweredCorrectly();
@@ -255,12 +220,7 @@ describe("scoreWidgetsFunctional", () => {
         };
 
         // Act
-        const result = scoreWidgetsFunctional(
-            widgets,
-            widgetIds,
-            userInputMap,
-            "en",
-        );
+        const result = scoreWidgets(widgets, widgetIds, userInputMap, "en");
 
         // Assert
         expect(result["group 1"]).toHaveBeenAnsweredIncorrectly();
@@ -277,12 +237,7 @@ describe("scoreWidgetsFunctional", () => {
         };
 
         // Act
-        const result = scoreWidgetsFunctional(
-            widgets,
-            widgetIds,
-            userInputMap,
-            "en",
-        );
+        const result = scoreWidgets(widgets, widgetIds, userInputMap, "en");
 
         // Assert
         expect(result["expression 1"]).toHaveBeenAnsweredCorrectly();
