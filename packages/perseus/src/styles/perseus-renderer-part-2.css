@@ -70,9 +70,6 @@
 .perseus-math-input.mq-editable-field.mq-math-mode .mq-binary-operator {
     font-family: KaTeX_Main !important;
 }
-.perseus-math-input.mq-editable-field.mq-math-mode sup {
-    line-height: normal;
-}
 .perseus-widget-editor
     .perseus-math-input.mq-editable-field.mq-math-mode
     > .mq-root-block {

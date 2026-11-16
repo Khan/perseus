@@ -66,11 +66,6 @@ div.graphie {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-touch-callout: none;
 }
-.framework-perseus sup:not(.mq-non-leaf) {
-    font-size: smaller;
-    vertical-align: super;
-    line-height: 0;
-}
 .framework-perseus .range-input {
     border: 1px solid var(--wb-semanticColor-core-border-neutral-subtle);
     border-radius: var(--wb-border-radius-radius_040);
