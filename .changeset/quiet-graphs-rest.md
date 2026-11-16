@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-Remove an unused CSS rule for `.graphie-container` inside the interactive graph widget
+Removed unused CSS rules from the Interactive Graph widget stylesheet
