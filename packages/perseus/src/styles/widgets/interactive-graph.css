@@ -1,13 +1,6 @@
 .perseus-widget-interactive-graph > .graphie-container {
     position: relative;
 }
-/* TODO-NEXT: is img ever rendered as the child of .graphie-container? If not,
- *  delete this rule. If it is, add a comment explaining where. */
-.perseus-widget-interactive-graph > .graphie-container > img {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-}
 .perseus-mobile .tooltip.visible {
     z-index: 2;
 }
