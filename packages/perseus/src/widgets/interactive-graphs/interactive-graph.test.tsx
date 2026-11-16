@@ -1,7 +1,6 @@
-import {describe, beforeEach, it} from "@jest/globals";
+import {beforeEach, describe, it} from "@jest/globals";
 import {
-    generateTestPerseusItem,
-    generateInteractiveGraphQuestion,
+    generateIGLinearGraph,
     generateIGLockedEllipse,
     generateIGLockedFunction,
     generateIGLockedLine,
@@ -10,11 +9,13 @@ import {
     generateIGLockedVector,
     generateIGNoneGraph,
     generateIGSegmentGraph,
+    generateInteractiveGraphQuestion,
+    generateTestPerseusItem,
+    getDefaultFigureForType,
     lockedFigureColors,
     splitPerseusItem,
-    getDefaultFigureForType,
-    generateIGLinearGraph,
 } from "@khanacademy/perseus-core";
+import {scoreUserInputMap} from "@khanacademy/perseus-score";
 import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -23,7 +24,6 @@ import * as React from "react";
 import invariant from "tiny-invariant";
 
 import {renderQuestion} from "../../__testutils__/render-question";
-import {scoreUserInputMapTesting} from "../../util/scoring.testutils";
 import {sinusoidQuestion} from "../grapher/grapher.testdata";
 
 import {
@@ -43,6 +43,8 @@ import {
     linearQuestionWithDefaultCorrect,
     linearSystemQuestion,
     linearSystemQuestionWithDefaultCorrect,
+    logarithmQuestion,
+    logarithmQuestionWithDefaultCorrect,
     noneQuestion,
     pointQuestion,
     pointQuestionWithDefaultCorrect,
@@ -66,21 +68,19 @@ import {
     segmentWithLockedPolygonWhite,
     segmentWithLockedVectors,
     sinusoidQuestionWithDefaultCorrect,
+    sinusoidWithPiTicks,
     tangentQuestion,
     tangentQuestionWithDefaultCorrect,
-    logarithmQuestion,
-    logarithmQuestionWithDefaultCorrect,
-    sinusoidWithPiTicks,
     unlimitedPointQuestion,
     unlimitedPolygonQuestion,
 } from "./interactive-graph.testdata";
 
 import type {Coord} from "../../interactive2/types";
 import type {
-    StrokeWeight,
     PerseusGraphType,
     PerseusRenderer,
     ShowAxisArrows,
+    StrokeWeight,
     UserInputMap,
 } from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
@@ -129,9 +129,10 @@ describe("Interactive Graph", function () {
                     initialUserInput: userInput,
                 });
 
-                const score = scoreUserInputMapTesting(
+                const score = scoreUserInputMap(
                     question,
                     renderer.getUserInputMap(),
+                    "en",
                 );
 
                 // Assert
@@ -163,9 +164,10 @@ describe("Interactive Graph", function () {
                 const {renderer} = renderQuestion(question);
 
                 // Act
-                const score = scoreUserInputMapTesting(
+                const score = scoreUserInputMap(
                     question,
                     renderer.getUserInputMap(),
+                    "en",
                 );
 
                 // Assert
@@ -187,9 +189,10 @@ describe("Interactive Graph", function () {
                     initialUserInput: userInput,
                 });
 
-                const score = scoreUserInputMapTesting(
+                const score = scoreUserInputMap(
                     question,
                     renderer.getUserInputMap(),
+                    "en",
                 );
 
                 // Assert
@@ -214,7 +217,7 @@ describe("Interactive Graph", function () {
             });
             const {renderer} = renderQuestion(question);
             const userInput = renderer.getUserInputMap();
-            const score = scoreUserInputMapTesting(question, userInput);
+            const score = scoreUserInputMap(question, userInput, "en");
 
             expect(score).toHaveBeenAnsweredCorrectly({
                 shouldHavePoints: false,
@@ -284,9 +287,10 @@ describe("Interactive Graph", function () {
                 const {renderer} = renderQuestion(question);
 
                 // Act
-                const score = scoreUserInputMapTesting(
+                const score = scoreUserInputMap(
                     question,
                     renderer.getUserInputMap(),
+                    "en",
                 );
 
                 // Assert
@@ -317,9 +321,10 @@ describe("Interactive Graph", function () {
                 // Assert
                 await waitFor(
                     () => {
-                        const score = scoreUserInputMapTesting(
+                        const score = scoreUserInputMap(
                             question,
                             renderer.getUserInputMap(),
+                            "en",
                         );
                         expect(score).toHaveBeenAnsweredIncorrectly();
                     },
@@ -341,9 +346,10 @@ describe("Interactive Graph", function () {
                 // Assert
                 await waitFor(
                     () => {
-                        const score = scoreUserInputMapTesting(
+                        const score = scoreUserInputMap(
                             question,
                             renderer.getUserInputMap(),
+                            "en",
                         );
                         expect(score).toHaveBeenAnsweredCorrectly();
                     },
@@ -366,9 +372,10 @@ describe("Interactive Graph", function () {
                 // Assert
                 await waitFor(
                     () => {
-                        const score = scoreUserInputMapTesting(
+                        const score = scoreUserInputMap(
                             question,
                             renderer.getUserInputMap(),
+                            "en",
                         );
                         expect(score).toHaveInvalidInput();
                     },

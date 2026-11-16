@@ -11,8 +11,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../../__testutils__/render-question";
 import {testDependenciesV2} from "../../../testing/test-dependencies";
-import {scoreUserInputMapTesting} from "../../../util/scoring.testutils";
-import {LabelImage, getComputedSelectedState} from "../label-image";
+import {getComputedSelectedState, LabelImage} from "../label-image";
 
 import {shortTextQuestion, textQuestion} from "./label-image.testdata";
 
@@ -936,9 +935,10 @@ describe("LabelImage", function () {
             const {renderer} = renderQuestion(textQuestion);
 
             // Act
-            const score = scoreUserInputMapTesting(
+            const score = scoreUserInputMap(
                 textQuestion,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert
@@ -1241,9 +1241,10 @@ describe("LabelImage", function () {
             const choice = screen.getByRole("option", {name: "SUVs"});
             await userEvent.click(choice);
 
-            const score = scoreUserInputMapTesting(
+            const score = scoreUserInputMap(
                 answerfulItem.question,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert
@@ -1263,9 +1264,10 @@ describe("LabelImage", function () {
             const choice = screen.getByRole("option", {name: "Trucks"});
             await userEvent.click(choice);
 
-            const score = scoreUserInputMapTesting(
+            const score = scoreUserInputMap(
                 answerfulItem.question,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert

@@ -8,7 +8,6 @@ import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-
 import {
     getAnswerfulItem,
     getAnswerlessItem,
-    scoreUserInputMapTesting,
 } from "../../util/scoring.testutils";
 
 import matrixExport from "./matrix";
@@ -90,9 +89,10 @@ describe("matrix widget", () => {
         for (let i = 0; i < textboxes.length; i++) {
             await userEvent.type(textboxes[i], correctAnswers[i].toString());
         }
-        const score = scoreUserInputMapTesting(
+        const score = scoreUserInputMap(
             question1,
             renderer.getUserInputMap(),
+            "en",
         );
 
         // assert
@@ -111,9 +111,10 @@ describe("matrix widget", () => {
         for (let i = 0; i < textboxes.length; i++) {
             await userEvent.type(textboxes[i], "1");
         }
-        const score = scoreUserInputMapTesting(
+        const score = scoreUserInputMap(
             question1,
             renderer.getUserInputMap(),
+            "en",
         );
 
         // Assert

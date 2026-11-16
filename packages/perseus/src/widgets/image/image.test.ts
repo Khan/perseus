@@ -3,17 +3,17 @@ import {
     generateImageWidget,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
+import {scoreUserInputMap} from "@khanacademy/perseus-score";
 import {act, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import invariant from "tiny-invariant";
 
 import {renderQuestion} from "../../__testutils__/render-question";
 import {mockImageLoading} from "../../testing/image-loader-utils";
-import {scoreUserInputMapTesting} from "../../util/scoring.testutils";
 
 import {
-    earthMoonImage,
     animatedGifLandscape,
+    earthMoonImage,
     graphieImage,
     nonAnimatedGif,
 } from "./__testdata__/image.testdata";
@@ -101,9 +101,10 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
         // Act
         const {renderer} = renderQuestion(question, {apiOptions});
-        const score = scoreUserInputMapTesting(
+        const score = scoreUserInputMap(
             question,
             renderer.getUserInputMap(),
+            "en",
         );
 
         invariant(

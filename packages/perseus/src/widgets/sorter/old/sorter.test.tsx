@@ -7,6 +7,7 @@ import {
     SORTER_MAX_HORIZONTAL_CARDS,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
+import {scoreUserInputMap} from "@khanacademy/perseus-score";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import {act, screen} from "@testing-library/react";
 import * as React from "react";
@@ -14,7 +15,6 @@ import * as React from "react";
 import {renderQuestion} from "../../../__testutils__/render-question";
 import * as Dependencies from "../../../dependencies";
 import {testDependencies} from "../../../testing/test-dependencies";
-import {scoreUserInputMapTesting} from "../../../util/scoring.testutils";
 import {basicQuestion} from "../sorter.testdata";
 
 import type {SorterHandle} from "./sorter";
@@ -319,9 +319,10 @@ describe("sorter widget", () => {
 
                 // Act
                 const userInput = renderer.getUserInputMap();
-                const score = scoreUserInputMapTesting(
+                const score = scoreUserInputMap(
                     answerfulItem.question,
                     userInput,
+                    "en",
                 );
 
                 // Assert
@@ -342,9 +343,10 @@ describe("sorter widget", () => {
                 );
 
                 const userInput = renderer.getUserInputMap();
-                const score = scoreUserInputMapTesting(
+                const score = scoreUserInputMap(
                     answerfulItem.question,
                     userInput,
+                    "en",
                 );
 
                 // Assert
@@ -359,9 +361,10 @@ describe("sorter widget", () => {
                 // Act
                 act(() => sorter.moveOptionToIndex("First", 4));
 
-                const score = scoreUserInputMapTesting(
+                const score = scoreUserInputMap(
                     answerfulItem.question,
                     renderer.getUserInputMap(),
+                    "en",
                 );
 
                 // Assert
@@ -438,9 +441,10 @@ describe("sorter widget", () => {
             const {renderer} = renderQuestion(question);
 
             // Act
-            const score = scoreUserInputMapTesting(
+            const score = scoreUserInputMap(
                 question,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert

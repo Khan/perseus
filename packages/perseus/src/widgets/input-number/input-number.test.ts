@@ -1,11 +1,12 @@
 /**
  * Disclaimer: Definitely not thorough enough
  */
-import {describe, beforeEach, it} from "@jest/globals";
+import {beforeEach, describe, it} from "@jest/globals";
 import {
     generateInputNumberAnswer,
     generateInputNumberOptions,
 } from "@khanacademy/perseus-core";
+import {scoreUserInputMap} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -13,7 +14,6 @@ import {renderQuestion} from "../../__testutils__/render-question";
 import {
     getAnswerfulItem,
     getAnswerlessItem,
-    scoreUserInputMapTesting,
 } from "../../util/scoring.testutils";
 
 import InputNumber from "./input-number";
@@ -39,9 +39,10 @@ describe("input-number", function () {
             const textbox = await screen.findByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, "1/2");
-            const score = scoreUserInputMapTesting(
+            const score = scoreUserInputMap(
                 question,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert
@@ -56,9 +57,10 @@ describe("input-number", function () {
             const textbox = await screen.findByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, "0.7");
-            const score = scoreUserInputMapTesting(
+            const score = scoreUserInputMap(
                 question,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert
@@ -73,9 +75,10 @@ describe("input-number", function () {
             const textbox = await screen.findByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, "0..7");
-            const score = scoreUserInputMapTesting(
+            const score = scoreUserInputMap(
                 question,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert
@@ -277,9 +280,10 @@ describe("input-number", function () {
             const textbox = await screen.findByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, correct);
-            const score = scoreUserInputMapTesting(
+            const score = scoreUserInputMap(
                 question,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert
@@ -294,9 +298,10 @@ describe("input-number", function () {
             const textbox = await screen.findByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, incorrect);
-            const score = scoreUserInputMapTesting(
+            const score = scoreUserInputMap(
                 question,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert
@@ -332,9 +337,10 @@ describe("input-number", () => {
         const textbox = await screen.findByRole("textbox");
         await userEvent.click(textbox);
         await userEvent.type(textbox, "1/2");
-        const score = scoreUserInputMapTesting(
+        const score = scoreUserInputMap(
             question,
             renderer.getUserInputMap(),
+            "en",
         );
 
         // Assert
@@ -349,9 +355,10 @@ describe("input-number", () => {
         const textbox = await screen.findByRole("textbox");
         await userEvent.click(textbox);
         await userEvent.type(textbox, "0.7");
-        const score = scoreUserInputMapTesting(
+        const score = scoreUserInputMap(
             question,
             renderer.getUserInputMap(),
+            "en",
         );
 
         // Assert
@@ -397,9 +404,10 @@ describe("input-number", () => {
             // Act
             const textbox = await screen.findByRole("textbox");
             await userEvent.type(textbox, correctAnswer);
-            const score = scoreUserInputMapTesting(
+            const score = scoreUserInputMap(
                 item,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert
@@ -640,9 +648,10 @@ describe.each([
 
         await userEvent.type(screen.getByRole("textbox"), "42");
         const userInput = renderer.getUserInputMap();
-        const score = scoreUserInputMapTesting(
+        const score = scoreUserInputMap(
             getAnswerfulInputNumber().question,
             userInput,
+            "en",
         );
 
         // Assert
@@ -655,9 +664,10 @@ describe.each([
 
         await userEvent.type(screen.getByRole("textbox"), "8675309");
         const userInput = renderer.getUserInputMap();
-        const score = scoreUserInputMapTesting(
+        const score = scoreUserInputMap(
             getAnswerfulInputNumber().question,
             userInput,
+            "en",
         );
 
         // Assert
@@ -669,9 +679,10 @@ describe.each([
         const {renderer} = renderQuestion(question);
 
         const userInput = renderer.getUserInputMap();
-        const score = scoreUserInputMapTesting(
+        const score = scoreUserInputMap(
             getAnswerfulInputNumber().question,
             userInput,
+            "en",
         );
 
         // Assert

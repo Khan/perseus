@@ -13,7 +13,6 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import {renderQuestion} from "../../__testutils__/render-question";
 import {testDependenciesV2} from "../../testing/test-dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
-import {scoreUserInputMapTesting} from "../../util/scoring.testutils";
 
 import NumericInputWidgetExport from "./numeric-input";
 import {
@@ -50,9 +49,10 @@ describe("numeric-input widget", () => {
             screen.getByRole("textbox", {hidden: true}),
             correct,
         );
-        const score = scoreUserInputMapTesting(
+        const score = scoreUserInputMap(
             question,
             renderer.getUserInputMap(),
+            "en",
         );
 
         // Assert
@@ -68,9 +68,10 @@ describe("numeric-input widget", () => {
             screen.getByRole("textbox", {hidden: true}),
             incorrect,
         );
-        const score = scoreUserInputMapTesting(
+        const score = scoreUserInputMap(
             question,
             renderer.getUserInputMap(),
+            "en",
         );
 
         // Assert
@@ -335,9 +336,10 @@ describe("Numeric input widget", () => {
 
         // Act
         await userEvent.type(screen.getByRole("textbox", {hidden: true}), "1");
-        const score = scoreUserInputMapTesting(
+        const score = scoreUserInputMap(
             multipleAnswers,
             renderer.getUserInputMap(),
+            "en",
         );
 
         // Assert
@@ -350,9 +352,10 @@ describe("Numeric input widget", () => {
 
         // Act
         await userEvent.type(screen.getByRole("textbox", {hidden: true}), "2");
-        const score = scoreUserInputMapTesting(
+        const score = scoreUserInputMap(
             multipleAnswers,
             renderer.getUserInputMap(),
+            "en",
         );
 
         // Assert
@@ -368,9 +371,10 @@ describe("Numeric input widget", () => {
             screen.getByRole("textbox", {hidden: true}),
             "2.4",
         );
-        const score = scoreUserInputMapTesting(
+        const score = scoreUserInputMap(
             duplicatedAnswers,
             renderer.getUserInputMap(),
+            "en",
         );
 
         // Assert
@@ -386,9 +390,10 @@ describe("Numeric input widget", () => {
             screen.getByRole("textbox", {hidden: true}),
             "1.0",
         );
-        const score = scoreUserInputMapTesting(
+        const score = scoreUserInputMap(
             withCoefficient,
             renderer.getUserInputMap(),
+            "en",
         );
 
         // Assert
@@ -404,9 +409,10 @@ describe("Numeric input widget", () => {
             screen.getByRole("textbox", {hidden: true}),
             "33%",
         );
-        const score = scoreUserInputMapTesting(
+        const score = scoreUserInputMap(
             percentageProblem,
             renderer.getUserInputMap(),
+            "en",
         );
 
         // Assert
@@ -422,9 +428,10 @@ describe("Numeric input widget", () => {
             screen.getByRole("textbox", {hidden: true}),
             "12.2",
         );
-        const score = scoreUserInputMapTesting(
+        const score = scoreUserInputMap(
             multipleAnswersWithDecimals,
             renderer.getUserInputMap(),
+            "en",
         );
 
         // Assert

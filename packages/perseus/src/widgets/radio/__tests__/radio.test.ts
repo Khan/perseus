@@ -1,22 +1,21 @@
-import {describe, beforeEach, it} from "@jest/globals";
+import {beforeEach, describe, it} from "@jest/globals";
 import {
     type PerseusRenderer,
     type RadioWidget,
 } from "@khanacademy/perseus-core";
-import {scoreRadio} from "@khanacademy/perseus-score";
-import {screen, fireEvent} from "@testing-library/react";
+import {scoreRadio, scoreUserInputMap} from "@khanacademy/perseus-score";
+import {fireEvent, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../../__testutils__/render-question";
 import {clone} from "../../../testing/object-utils";
-import {scoreUserInputMapTesting} from "../../../util/scoring.testutils";
 
 import {
-    questionAndAnswer,
     multiChoiceQuestionAndAnswer,
-    shuffledQuestion,
-    shuffledNoneQuestion,
+    questionAndAnswer,
     questionWithUndefinedCorrect,
+    shuffledNoneQuestion,
+    shuffledQuestion,
 } from "./radio.testdata";
 
 import type {UserEvent} from "@testing-library/user-event";
@@ -99,9 +98,10 @@ describe("Radio Widget", () => {
 
                     // Act
                     await selectOption(userEvent, correct);
-                    const score = scoreUserInputMapTesting(
+                    const score = scoreUserInputMap(
                         question,
                         renderer.getUserInputMap(),
+                        "en",
                     );
 
                     // Assert
@@ -121,9 +121,10 @@ describe("Radio Widget", () => {
                     // does not support touch events so we have to do this ourselves.
                     // eslint-disable-next-line testing-library/prefer-user-event
                     fireEvent.click(correctRadio);
-                    const score = scoreUserInputMapTesting(
+                    const score = scoreUserInputMap(
                         question,
                         renderer.getUserInputMap(),
+                        "en",
                     );
 
                     // Assert
@@ -138,9 +139,10 @@ describe("Radio Widget", () => {
 
                         // Act
                         await selectOption(userEvent, incorrect);
-                        const score = scoreUserInputMapTesting(
+                        const score = scoreUserInputMap(
                             question,
                             renderer.getUserInputMap(),
+                            "en",
                         );
 
                         // Assert
@@ -263,9 +265,10 @@ describe("Radio Widget", () => {
                 // item in the original choices. But because of enforced ordering,
                 // it is now at the top of the list (and thus our correct answer).
                 await userEvent.click(screen.getAllByRole("button")[0]);
-                const score = scoreUserInputMapTesting(
+                const score = scoreUserInputMap(
                     q,
                     renderer.getUserInputMap(),
+                    "en",
                 );
 
                 // Assert
@@ -334,9 +337,10 @@ describe("Radio Widget", () => {
             const {renderer} = renderQuestion(question);
 
             // Act
-            const score = scoreUserInputMapTesting(
+            const score = scoreUserInputMap(
                 question,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert
@@ -379,9 +383,10 @@ describe("Radio Widget", () => {
                 name: "(Choice D) None of the above",
             });
             await userEvent.click(noneOption);
-            const score = scoreUserInputMapTesting(
+            const score = scoreUserInputMap(
                 q,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert
@@ -475,9 +480,10 @@ describe("Radio Widget", () => {
             for (const i of correct) {
                 await userEvent.click(options[i]);
             }
-            const score = scoreUserInputMapTesting(
+            const score = scoreUserInputMap(
                 question,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert
@@ -609,9 +615,10 @@ describe("Radio Widget", () => {
         it("should be invalid when first rendered", async () => {
             // Act
             const {renderer} = renderQuestion(question);
-            const score = scoreUserInputMapTesting(
+            const score = scoreUserInputMap(
                 question,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert
@@ -688,9 +695,10 @@ describe("Radio Widget", () => {
             await userEvent.click(option[0]); // correct
             await userEvent.click(option[1]); // correct
             await userEvent.click(option[2]); // incorrect
-            const score = scoreUserInputMapTesting(
+            const score = scoreUserInputMap(
                 multipleCorrectChoicesQuestion,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert
@@ -708,9 +716,10 @@ describe("Radio Widget", () => {
                 for (let i = 0; i < choices.length; i++) {
                     await userEvent.click(option[i]);
                 }
-                const score = scoreUserInputMapTesting(
+                const score = scoreUserInputMap(
                     question,
                     renderer.getUserInputMap(),
+                    "en",
                 );
 
                 // Assert
@@ -729,9 +738,10 @@ describe("Radio Widget", () => {
                 for (const i of choices) {
                     await userEvent.click(option[i]);
                 }
-                const score = scoreUserInputMapTesting(
+                const score = scoreUserInputMap(
                     question,
                     renderer.getUserInputMap(),
+                    "en",
                 );
 
                 // Assert
@@ -758,9 +768,10 @@ describe("Radio Widget", () => {
             const userInput = renderer.getUserInputMap()["radio 1"];
             const rubric = shuffledQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
-            const rendererScore = scoreUserInputMapTesting(
+            const rendererScore = scoreUserInputMap(
                 shuffledQuestion,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert
@@ -785,9 +796,10 @@ describe("Radio Widget", () => {
             const userInput = renderer.getUserInputMap()["radio 1"];
             const rubric = shuffledQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
-            const rendererScore = scoreUserInputMapTesting(
+            const rendererScore = scoreUserInputMap(
                 shuffledQuestion,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert
@@ -812,9 +824,10 @@ describe("Radio Widget", () => {
             const userInput = renderer.getUserInputMap()["radio 1"];
             const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
-            const rendererScore = scoreUserInputMapTesting(
+            const rendererScore = scoreUserInputMap(
                 shuffledNoneQuestion,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert
@@ -839,9 +852,10 @@ describe("Radio Widget", () => {
             const userInput = renderer.getUserInputMap()["radio 1"];
             const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
-            const rendererScore = scoreUserInputMapTesting(
+            const rendererScore = scoreUserInputMap(
                 shuffledNoneQuestion,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert

@@ -1,11 +1,11 @@
 import {generateTestPerseusRenderer} from "@khanacademy/perseus-core";
+import {scoreUserInputMap} from "@khanacademy/perseus-score";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
 import {renderQuestion} from "../../__testutils__/render-question";
 import {DependenciesContext} from "../../dependencies";
 import {testDependenciesV2} from "../../testing/test-dependencies";
-import {scoreUserInputMapTesting} from "../../util/scoring.testutils";
 import UnsupportedWidgetMessage from "../unsupported-widget-message";
 
 import type {PerseusWidgetsMap} from "@khanacademy/perseus-core";
@@ -37,9 +37,10 @@ describe("UnsupportedWidgetMessage", () => {
         const {renderer} = renderQuestion(question);
 
         // Act
-        const score = scoreUserInputMapTesting(
+        const score = scoreUserInputMap(
             question,
             renderer.getUserInputMap(),
+            "en",
         );
 
         // Assert

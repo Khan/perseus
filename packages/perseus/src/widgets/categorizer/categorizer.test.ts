@@ -7,7 +7,6 @@ import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-
 import {
     getAnswerfulItem,
     getAnswerlessItem,
-    scoreUserInputMapTesting,
 } from "../../util/scoring.testutils";
 
 import CategorizerExport from "./categorizer";
@@ -133,9 +132,10 @@ describe("categorizer widget", () => {
             })[1],
         );
 
-        const score = scoreUserInputMapTesting(
+        const score = scoreUserInputMap(
             question1,
             renderer.getUserInputMap(),
+            "en",
         );
 
         // assert

@@ -2,7 +2,6 @@ import {
     generateTestPerseusItem,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {scoreUserInputMap} from "@khanacademy/perseus-score";
 
 import type {
     CategorizerWidget,
@@ -10,20 +9,7 @@ import type {
     PerseusRenderer,
     PerseusScore,
     PerseusWidgetTypes,
-    UserInputMap,
 } from "@khanacademy/perseus-core";
-
-/**
- * Thin wrapper around scoreUserInputMap for internal testing. Returns the
- * aggregate score; tests that need the per-widget breakdown should call
- * `scoreUserInputMap` directly.
- */
-export function scoreUserInputMapTesting(
-    perseusRenderData: PerseusRenderer,
-    userInputMap: UserInputMap,
-): PerseusScore {
-    return scoreUserInputMap(perseusRenderData, userInputMap, "en");
-}
 
 /**
  * Creates an object with the bare amount

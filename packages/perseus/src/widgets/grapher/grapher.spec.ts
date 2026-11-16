@@ -3,18 +3,18 @@ import {
     generateTestPerseusItem,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
+import {scoreUserInputMap} from "@khanacademy/perseus-score";
 
 import renderQuestion from "../../testing/playwright/render-question";
-import {scoreUserInputMapTesting} from "../../util/scoring.testutils";
 
 import {
     absoluteValueQuestion,
     exponentialQuestion,
     linearQuestion,
     logarithmQuestion,
+    multipleAvailableTypesQuestion,
     quadraticQuestion,
     sinusoidQuestion,
-    multipleAvailableTypesQuestion,
 } from "./grapher.testdata";
 
 import type {RenderedQuestion} from "../../testing/playwright/types";
@@ -347,9 +347,10 @@ test.describe("Grapher widget", () => {
 
                         await graphCase.answerCorrectly(question);
 
-                        const score = scoreUserInputMapTesting(
+                        const score = scoreUserInputMap(
                             answerful.question,
                             await question.getUserInputMap(),
+                            "en",
                         );
                         expect(score).toHaveBeenAnsweredCorrectly();
                     });
@@ -364,9 +365,10 @@ test.describe("Grapher widget", () => {
 
                         await graphCase.answerIncorrectly(question);
 
-                        const score = scoreUserInputMapTesting(
+                        const score = scoreUserInputMap(
                             answerful.question,
                             await question.getUserInputMap(),
+                            "en",
                         );
                         expect(score).toHaveBeenAnsweredIncorrectly();
                     });

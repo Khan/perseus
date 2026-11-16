@@ -1,8 +1,8 @@
 import {expect, test} from "@internal/playwright";
+import {scoreUserInputMap} from "@khanacademy/perseus-score";
 
 import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import renderQuestion from "../../../testing/playwright/render-question";
-import {scoreUserInputMapTesting} from "../../../util/scoring.testutils";
 import {twoCardVerticalQuestion} from "../sorter.testdata";
 
 import type {Locator} from "@playwright/test";
@@ -92,9 +92,10 @@ test.describe("Sorter widget (drag-and-drop)", () => {
         await dragTileToBlank(tile("Apple"), blanks.nth(0), "Apple");
         await dragTileToBlank(tile("Banana"), blanks.nth(1), "Banana");
 
-        const score = scoreUserInputMapTesting(
+        const score = scoreUserInputMap(
             twoCardVerticalQuestion,
             await getUserInputMap(),
+            "en",
         );
         expect(score).toHaveBeenAnsweredCorrectly();
     });

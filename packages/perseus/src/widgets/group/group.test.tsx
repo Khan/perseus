@@ -10,7 +10,6 @@ import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../__testutils__/render-question";
-import {scoreUserInputMapTesting} from "../../util/scoring.testutils";
 
 import {
     getFullGroupTestItem,
@@ -398,9 +397,10 @@ describe("group widget", () => {
             );
 
             const userInput = renderer.getUserInputMap();
-            const score = scoreUserInputMapTesting(
+            const score = scoreUserInputMap(
                 getFullGroupTestItem().question,
                 userInput,
+                "en",
             );
 
             // Assert
@@ -419,9 +419,10 @@ describe("group widget", () => {
             );
 
             const userInput = renderer.getUserInputMap();
-            const score = scoreUserInputMapTesting(
+            const score = scoreUserInputMap(
                 getFullGroupTestItem().question,
                 userInput,
+                "en",
             );
 
             // Assert
@@ -433,9 +434,10 @@ describe("group widget", () => {
             const {renderer} = renderQuestion(question);
 
             const userInput = renderer.getUserInputMap();
-            const score = scoreUserInputMapTesting(
+            const score = scoreUserInputMap(
                 getFullGroupTestItem().question,
                 userInput,
+                "en",
             );
 
             // Assert
