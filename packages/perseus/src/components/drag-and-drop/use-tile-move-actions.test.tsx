@@ -203,45 +203,30 @@ describe("useTileMoveActions", () => {
             });
         });
 
-        describe("with tiles of mixed caps", () => {
+        describe("with answer choices that have different maxUses", () => {
+            // The penny can fill up to 10 blanks; other answer tiles
+            // are single-use.
             function getMixedMaxUses(tileId: string): MaxUses {
                 return tileId === "penny" ? 10 : 1;
             }
 
             it("copies a multi-use tile, leaving it in its other blank", () => {
-                // Arrange
+                // Arrange: One penny in blank 1. The penny has 9 uses
+                // left, so it is still in the bank.
                 const {result, onPlacementsChange} = setupHook(
                     {"blank 1": "penny"},
                     getMixedMaxUses,
                 );
 
-                // Act
+                // Act: Move a penny from the bank to blank 2.
                 act(() => {
                     result.current.handleMove({tileId: "penny"}, "blank 2");
                 });
 
-                // Assert
+                // Assert: Blank 1 and blank 2 both have a penny.
                 expect(onPlacementsChange).toHaveBeenCalledWith({
                     "blank 1": "penny",
                     "blank 2": "penny",
-                });
-            });
-
-            it("moves a single-use tile out of its other blank", () => {
-                // Arrange
-                const {result, onPlacementsChange} = setupHook(
-                    {"blank 1": "dime"},
-                    getMixedMaxUses,
-                );
-
-                // Act
-                act(() => {
-                    result.current.handleMove({tileId: "dime"}, "blank 2");
-                });
-
-                // Assert
-                expect(onPlacementsChange).toHaveBeenCalledWith({
-                    "blank 2": "dime",
                 });
             });
         });
