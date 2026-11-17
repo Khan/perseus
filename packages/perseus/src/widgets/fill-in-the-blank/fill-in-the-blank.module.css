@@ -1,4 +1,5 @@
 .fillInTheBlank {
+    /* Contains the TileWidthMeasurer's absolutely positioned column. */
     position: relative;
     display: flex;
     flex-direction: column;
@@ -9,23 +10,4 @@
  * line height, so the blank does not crowd the lines around it. */
 .answerZone :is(p, [role="paragraph"]):has([data-blank]) {
     line-height: var(--wb-sizing-size_480);
-}
-
-/* Hidden copy of every tile, kept only for width measurement. The column
- * shrinks to fit its widest tile, so its width is the measurement.
- *
- * Hidden boxes still take up space, and a column of many tiles would run
- * past the widget and add scrollable space to the page. Zero height with
- * clipped overflow prevents that, and leaves the width unchanged. */
-.measurement {
-    position: absolute;
-    visibility: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    inset-block-start: 0;
-    inset-inline-start: 0;
-    block-size: 0;
-    overflow: hidden;
-    pointer-events: none;
 }
