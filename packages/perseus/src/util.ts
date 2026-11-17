@@ -131,8 +131,23 @@ export function isBoldTableCell(cell: TableCell): boolean {
  * Checks if a table is a layout table. A layout table is one where all
  * column headers are empty.
  */
-export function isLayoutTable(node: SingleASTNode): boolean {
+function isLayoutTable(node: SingleASTNode): boolean {
     return node.header.every(isEmptyTableCell);
+}
+
+export type TableKind = "layout" | "rowHeaders" | "basic";
+
+/**
+ * Classifies a markdown table node by how it should be rendered.
+ */
+export function getTableKind(node: SingleASTNode): TableKind {
+    if (isLayoutTable(node)) {
+        return "layout";
+    }
+    if (tableHasRowHeaders(node)) {
+        return "rowHeaders";
+    }
+    return "basic";
 }
 
 /**
@@ -146,7 +161,7 @@ export function isLayoutTable(node: SingleASTNode): boolean {
  * Tables with a single column are never treated as having row headers, as
  * there would be no data cells for the headers to describe.
  */
-export function tableHasRowHeaders(node: SingleASTNode): boolean {
+function tableHasRowHeaders(node: SingleASTNode): boolean {
     if (node.header.length < 2) {
         return false;
     }
