@@ -122,6 +122,5 @@
 - [ ] Remove `defaultProps` from widget editors whose defaults duplicate
       `<widget>Logic.defaultWidgetOptions`, a few editors per step, fixing
       any props types that relied on them
-- [ ] Remove the TODO-NEXT comment in `editor.tsx`
 - [ ] Add a changeset for `@khanacademy/perseus-editor` (and
       `@khanacademy/perseus-core` if free-response registration changed)
