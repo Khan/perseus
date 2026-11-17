@@ -52,11 +52,6 @@
     padding-top: var(--wb-sizing-size_160);
     padding-bottom: var(--wb-sizing-size_160);
 }
-.framework-perseus.perseus-mobile .unresponsive-svg-image,
-.framework-perseus.perseus-mobile .svg-image {
-    font-size: 14px;
-    line-height: 19.6px;
-}
 .framework-perseus.perseus-mobile .perseus-titled-table-wrapper {
     display: inline-block;
 }
