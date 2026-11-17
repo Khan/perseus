@@ -1,5 +1,4 @@
 import {
-    isFeatureOn,
     sorterLogic,
     SORTER_MAX_HORIZONTAL_CARDS,
     SORTER_MAX_CARDS,
@@ -23,8 +22,6 @@ import CardEditor from "./card-editor";
 import LegendEditor, {getDefaultLegend} from "./legend-editor";
 import styles from "./sorter-editor.module.css";
 
-import type {APIOptions} from "@khanacademy/perseus";
-
 // Annotated because WidgetLogic types `defaultWidgetOptions` as `any`. Without
 // this, the `any` spreads: a destructured prop whose default is `any` is itself
 // `any`, which would silently untype every option below.
@@ -36,6 +33,7 @@ const layoutOptions = {
     vertical: "Vertical",
 } satisfies Record<PerseusSorterWidgetOptions["layout"], string>;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const variantOptions = {
     scale: "Scale",
     timeline: "Timeline",
@@ -46,7 +44,6 @@ const variantOptions = {
 //  cause seems to be a combination of WidgetEditorProps' use of APIOptions and
 //  the fact that this is a functional component.
 interface Props extends PerseusSorterWidgetOptions {
-    apiOptions?: APIOptions;
     onChange: (options: PerseusSorterWidgetOptions) => void;
 }
 
@@ -59,10 +56,8 @@ function SorterEditor({
     variant = defaultOptions.variant,
     padding = defaultOptions.padding,
     legend,
-    apiOptions,
     onChange,
 }: Props) {
-    const isDndSorter = isFeatureOn({apiOptions}, "dnd-widget-sorter");
     const [isLegendExpanded, setIsLegendExpanded] = React.useState(true);
     const displaysVertically =
         layout === "vertical" || correct.length > SORTER_MAX_HORIZONTAL_CARDS;
@@ -78,8 +73,18 @@ function SorterEditor({
         });
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     function handleVariantChange(newVariant: SorterVariant) {
         if (legend == null) {
+            handleChange({variant: newVariant});
+            return;
+        }
+
+        const oldDefault = getDefaultLegend(variant);
+        const hasDefaultCaps =
+            legend.startCap === oldDefault.startCap &&
+            legend.endCap === oldDefault.endCap;
+        if (!hasDefaultCaps) {
             handleChange({variant: newVariant});
             return;
         }
@@ -164,18 +169,19 @@ function SorterEditor({
                     Add a card
                 </Button>
             </View>
-            {isDndSorter && (
-                <LabeledField
-                    label="Variant"
-                    field={
-                        <TypedSingleSelect
-                            options={variantOptions}
-                            selectedValue={variant}
-                            onChange={handleVariantChange}
-                        />
-                    }
-                />
-            )}
+            {/* TODO: Show the variant dropdown when the timeline variant ships.
+                Until then, timeline looks the same as scale, so authors could
+                pick it without knowing what it will change.
+            <LabeledField
+                label="Variant"
+                field={
+                    <TypedSingleSelect
+                        options={variantOptions}
+                        selectedValue={variant}
+                        onChange={handleVariantChange}
+                    />
+                }
+            /> */}
             <LabeledField
                 label="Layout"
                 field={
@@ -217,24 +223,22 @@ function SorterEditor({
                     <p>Padding is good for text, but not needed for images.</p>
                 </InfoTip>
             </div>
-            {isDndSorter && (
-                <PerseusEditorAccordion
-                    header={
-                        <BodyText size="medium" weight="bold" tag="span">
-                            Legend
-                        </BodyText>
-                    }
-                    expanded={isLegendExpanded}
-                    onToggle={setIsLegendExpanded}
-                >
-                    <LegendEditor
-                        legend={legend}
-                        variant={variant}
-                        displaysVertically={displaysVertically}
-                        onChange={(legend) => handleChange({legend})}
-                    />
-                </PerseusEditorAccordion>
-            )}
+            <PerseusEditorAccordion
+                header={
+                    <BodyText size="medium" weight="bold" tag="span">
+                        Legend
+                    </BodyText>
+                }
+                expanded={isLegendExpanded}
+                onToggle={setIsLegendExpanded}
+            >
+                <LegendEditor
+                    legend={legend}
+                    variant={variant}
+                    displaysVertically={displaysVertically}
+                    onChange={(legend) => handleChange({legend})}
+                />
+            </PerseusEditorAccordion>
         </View>
     );
 }

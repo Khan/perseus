@@ -1,11 +1,9 @@
 import {
     SORTER_MAX_HORIZONTAL_CARDS,
-    SORTER_MAX_LEGEND_LABEL_LENGTH,
     type SorterLegend,
     type SorterLegendCap,
     type SorterVariant,
 } from "@khanacademy/perseus-core";
-import Banner from "@khanacademy/wonder-blocks-banner";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
@@ -15,12 +13,7 @@ import InfoTip from "../../components/info-tip";
 import {TypedSingleSelect} from "../../components/typed-single-select";
 
 import styles from "./legend-editor.module.css";
-
-const capOptions = {
-    arrow: "Arrow",
-    bar: "Bar",
-    none: "None",
-} satisfies Record<SorterLegendCap, string>;
+import LegendSideEditor from "./legend-side-editor";
 
 const positionOptions = {
     above: "Above",
@@ -68,14 +61,14 @@ function LegendEditor({legend, variant, displaysVertically, onChange}: Props) {
     return (
         <View className={styles.legend}>
             <div className={styles.legendEnds}>
-                <LegendEndEditor
+                <LegendSideEditor
                     side="Start"
                     label={displayedLegend.startLabel}
                     cap={displayedLegend.startCap}
                     onLabelChange={(startLabel) => handleChange({startLabel})}
                     onCapChange={(startCap) => handleChange({startCap})}
                 />
-                <LegendEndEditor
+                <LegendSideEditor
                     side="End"
                     label={displayedLegend.endLabel}
                     cap={displayedLegend.endCap}
@@ -126,10 +119,9 @@ function LegendEditor({legend, variant, displaysVertically, onChange}: Props) {
                         <InfoTip>
                             Describe the order of the cards, and include the
                             words from the start and end labels. For example:
-                            &ldquo;Interest rates, lowest at the start to
-                            highest at the end.&rdquo; Write any math in words,
-                            since screen readers read this text as it&rsquo;s
-                            typed.
+                            “Interest rates, lowest at the start to highest at
+                            the end.” Write any math in words, since screen
+                            readers read this text as it’s typed.
                         </InfoTip>
                     </>
                 }
@@ -140,61 +132,6 @@ function LegendEditor({legend, variant, displaysVertically, onChange}: Props) {
                 }}
             />
         </View>
-    );
-}
-
-type LegendEndEditorProps = {
-    side: "Start" | "End";
-    label: string;
-    cap: SorterLegendCap;
-    onLabelChange: (label: string) => void;
-    onCapChange: (cap: SorterLegendCap) => void;
-};
-
-function LegendEndEditor({
-    side,
-    label,
-    cap,
-    onLabelChange,
-    onCapChange,
-}: LegendEndEditorProps) {
-    return (
-        <div className={styles.legendEnd}>
-            <LabeledField
-                label={`${side} label`}
-                // In the description so screen readers hear the count along
-                // with the field's name.
-                description={`${label.length} of ${SORTER_MAX_LEGEND_LABEL_LENGTH} characters`}
-                field={<TextField value={label} onChange={onLabelChange} />}
-                contextLabel={
-                    <InfoTip>
-                        Labels can include TeX between dollar signs, but not
-                        Markdown. To show a dollar sign, type \$.
-                    </InfoTip>
-                }
-                styles={{
-                    contextLabel: {
-                        marginInlineEnd: "auto",
-                    },
-                }}
-            />
-            {label.length > SORTER_MAX_LEGEND_LABEL_LENGTH && (
-                <Banner
-                    kind="warning"
-                    text={`Labels longer than ${SORTER_MAX_LEGEND_LABEL_LENGTH} characters may not fit on the legend.`}
-                />
-            )}
-            <LabeledField
-                label={`${side} cap`}
-                field={
-                    <TypedSingleSelect
-                        options={capOptions}
-                        selectedValue={cap}
-                        onChange={onCapChange}
-                    />
-                }
-            />
-        </div>
     );
 }
 

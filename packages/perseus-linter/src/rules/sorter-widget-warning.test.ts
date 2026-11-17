@@ -1,6 +1,6 @@
 import {
+    generateSorterLegend,
     SORTER_MAX_CARDS,
-    SORTER_MAX_LEGEND_LABEL_LENGTH,
 } from "@khanacademy/perseus-core";
 
 import {expectIssue, expectPass} from "../__tests__/test-utils";
@@ -11,6 +11,7 @@ import sorterWidgetWarningRule, {
     SorterLegendDescription,
     sorterMaxIdealCards,
     sorterMaxHorizontalCards,
+    sorterMaxLegendLabelLength,
 } from "./sorter-widget-warning";
 
 import type {SorterLegend} from "@khanacademy/perseus-core";
@@ -147,15 +148,6 @@ describe("sorter-widget-warning", () => {
     });
 });
 
-const completeLegend: SorterLegend = {
-    startCap: "arrow",
-    endCap: "bar",
-    startLabel: "Lowest",
-    endLabel: "Highest",
-    ariaLabel: "Interest rates, lowest at the start to highest at the end",
-    position: "above",
-};
-
 function sorterWithLegend(legend: SorterLegend | undefined) {
     return {
         widgets: {
@@ -189,7 +181,7 @@ describe("sorter-legend-missing", () => {
         expectPass(
             SorterLegendMissing,
             "[[☃ sorter 1]]",
-            sorterWithLegend(completeLegend),
+            sorterWithLegend(generateSorterLegend()),
         );
     });
 });
@@ -199,7 +191,7 @@ describe("sorter-legend-description", () => {
         expectIssue(
             SorterLegendDescription,
             "[[☃ sorter 1]]",
-            sorterWithLegend({...completeLegend, ariaLabel: " "}),
+            sorterWithLegend(generateSorterLegend({ariaLabel: " "})),
             {
                 messages: [
                     "sorter 1: Sorter legend description cannot be blank.",
@@ -212,7 +204,7 @@ describe("sorter-legend-description", () => {
         expectPass(
             SorterLegendDescription,
             "[[☃ sorter 1]]",
-            sorterWithLegend(completeLegend),
+            sorterWithLegend(generateSorterLegend()),
         );
     });
 
@@ -230,7 +222,9 @@ describe("sorter-legend-labels", () => {
         expectIssue(
             SorterLegendLabels,
             "[[☃ sorter 1]]",
-            sorterWithLegend({...completeLegend, startLabel: "", endLabel: ""}),
+            sorterWithLegend(
+                generateSorterLegend({startLabel: "", endLabel: ""}),
+            ),
             {
                 messages: [
                     "sorter 1: Sorter legend start label cannot be blank.",
@@ -244,13 +238,14 @@ describe("sorter-legend-labels", () => {
         expectIssue(
             SorterLegendLabels,
             "[[☃ sorter 1]]",
-            sorterWithLegend({
-                ...completeLegend,
-                endLabel: "a".repeat(SORTER_MAX_LEGEND_LABEL_LENGTH + 1),
-            }),
+            sorterWithLegend(
+                generateSorterLegend({
+                    endLabel: "a".repeat(sorterMaxLegendLabelLength + 1),
+                }),
+            ),
             {
                 messages: [
-                    `sorter 1: Sorter legend end label is longer than ${SORTER_MAX_LEGEND_LABEL_LENGTH} characters.`,
+                    `sorter 1: Sorter legend end label is longer than ${sorterMaxLegendLabelLength} characters.`,
                 ],
             },
         );
@@ -260,10 +255,11 @@ describe("sorter-legend-labels", () => {
         expectPass(
             SorterLegendLabels,
             "[[☃ sorter 1]]",
-            sorterWithLegend({
-                ...completeLegend,
-                startLabel: "a".repeat(SORTER_MAX_LEGEND_LABEL_LENGTH),
-            }),
+            sorterWithLegend(
+                generateSorterLegend({
+                    startLabel: "a".repeat(sorterMaxLegendLabelLength),
+                }),
+            ),
         );
     });
 

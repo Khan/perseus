@@ -223,7 +223,6 @@ export {
     exceedsCardLimit,
     shuffleSorter,
     SORTER_MAX_HORIZONTAL_CARDS,
-    SORTER_MAX_LEGEND_LABEL_LENGTH,
     SORTER_MAX_CARDS,
 } from "./widgets/sorter/sorter-util";
 /** @hidden */
@@ -442,6 +441,7 @@ export {generateVideoWidget} from "./utils/generators/video-widget-generator";
 export {
     generateSorterWidget,
     generateSorterOptions,
+    generateSorterLegend,
 } from "./utils/generators/sorter-widget-generator";
 /** @hidden */
 export {generateTableOptions} from "./utils/generators/table-widget-generator";
