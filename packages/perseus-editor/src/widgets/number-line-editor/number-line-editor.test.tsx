@@ -159,6 +159,95 @@ describe("number-line-editor", () => {
         );
     });
 
+    describe("label range", () => {
+        function renderWithLabelRange(
+            labelRange: [number | null, number | null],
+        ) {
+            const onChangeMock = jest.fn();
+            render(
+                <NumberLineEditor
+                    onChange={onChangeMock}
+                    // Static mode hides the Position input, whose
+                    // placeholder would otherwise match the left label's.
+                    static={true}
+                    range={[0, 10]}
+                    labelRange={labelRange}
+                />,
+            );
+            return onChangeMock;
+        }
+
+        async function replaceValue(input: HTMLElement, text: string) {
+            await userEvent.clear(input);
+            await userEvent.type(input, text);
+        }
+
+        it("sets the left label when the right label is unset", async () => {
+            // Arrange
+            const onChangeMock = renderWithLabelRange([null, null]);
+
+            // Act
+            await userEvent.type(screen.getByPlaceholderText("0"), "3");
+
+            // Assert
+            expect(onChangeMock).toHaveBeenLastCalledWith(
+                expect.objectContaining({labelRange: [3, null]}),
+            );
+        });
+
+        it("sets the right label when the left label is unset", async () => {
+            // Arrange
+            const onChangeMock = renderWithLabelRange([null, null]);
+
+            // Act
+            await userEvent.type(screen.getByPlaceholderText("10"), "7");
+
+            // Assert
+            expect(onChangeMock).toHaveBeenLastCalledWith(
+                expect.objectContaining({labelRange: [null, 7]}),
+            );
+        });
+
+        it("keeps the labels in place when an edit preserves their order", async () => {
+            // Arrange
+            const onChangeMock = renderWithLabelRange([3, 6]);
+
+            // Act
+            await replaceValue(screen.getByDisplayValue("3"), "5");
+
+            // Assert
+            expect(onChangeMock).toHaveBeenLastCalledWith(
+                expect.objectContaining({labelRange: [5, 6]}),
+            );
+        });
+
+        it("swaps the labels when the left label is greater than the right", async () => {
+            // Arrange
+            const onChangeMock = renderWithLabelRange([3, 6]);
+
+            // Act
+            await replaceValue(screen.getByDisplayValue("3"), "8");
+
+            // Assert
+            expect(onChangeMock).toHaveBeenLastCalledWith(
+                expect.objectContaining({labelRange: [6, 8]}),
+            );
+        });
+
+        it("swaps the labels when the right label is less than the left", async () => {
+            // Arrange
+            const onChangeMock = renderWithLabelRange([3, 6]);
+
+            // Act
+            await replaceValue(screen.getByDisplayValue("6"), "1");
+
+            // Assert
+            expect(onChangeMock).toHaveBeenLastCalledWith(
+                expect.objectContaining({labelRange: [1, 3]}),
+            );
+        });
+    });
+
     it("should be possible to update snap divisions", async () => {
         const onChangeMock = jest.fn();
 
