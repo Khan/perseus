@@ -96,9 +96,13 @@
 
 ## Checklist
 
-- [ ] Check `git log` for why `registerCoreWidgets()` omits free-response;
+Note: the omission was an oversight. Free-response was built on a feature
+branch (c3d895c52e, #2273) that never touched `core-widget-registry.ts`, and
+no later commit mentions excluding it. It's now registered.
+
+- [x] Check `git log` for why `registerCoreWidgets()` omits free-response;
       record the finding in a note at the top of this checklist
-- [ ] If there's no deliberate reason, register free-response in
+- [x] If there's no deliberate reason, register free-response in
       `registerCoreWidgets()` (otherwise, plan the `isWidgetRegistered()`
       fallback to `defaultProps` and keep those `defaultProps` below)
 - [ ] Test: inserting a core widget (e.g. dropdown) from the widget dropdown

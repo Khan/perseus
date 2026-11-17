@@ -1,9 +1,13 @@
 import * as CoreWidgetRegistry from "./core-widget-registry";
 import {
+    getDefaultWidgetOptions,
     isInlineWidget,
+    isWidgetRegistered,
+    registerCoreWidgets,
     registerWidget,
     traverseChildWidgets,
 } from "./core-widget-registry";
+import freeResponseWidgetLogic from "./free-response";
 
 import type {PerseusWidget} from "../data-schema";
 
@@ -145,6 +149,19 @@ describe("core-widget-registry", () => {
 
         it("uses the given alignment instead of the default", () => {
             expect(isInlineWidget("_block-widget_", "inline")).toBe(true);
+        });
+    });
+
+    describe("registerCoreWidgets", () => {
+        it("registers the free-response widget", () => {
+            // Arrange, Act
+            registerCoreWidgets();
+
+            // Assert
+            expect(isWidgetRegistered("free-response")).toBe(true);
+            expect(getDefaultWidgetOptions("free-response")).toEqual(
+                freeResponseWidgetLogic.defaultWidgetOptions,
+            );
         });
     });
 });
