@@ -49,7 +49,9 @@ class NumberLineEditor extends React.Component<Props> {
     }
 
     handleLabelRangeChange(i: number, num: number) {
-        let labelRange = this.props.labelRange.slice();
+        let labelRange: PerseusNumberLineWidgetOptions["labelRange"] = [
+            ...this.props.labelRange,
+        ];
         const otherNum = labelRange[1 - i];
 
         if (num == null || otherNum == null) {
@@ -65,7 +67,7 @@ class NumberLineEditor extends React.Component<Props> {
     }
 
     onNumDivisionsChange = (numDivisions: number) => {
-        const divRange = this.props.divisionRange.slice();
+        const [minDivisions, maxDivisions] = this.props.divisionRange;
 
         // Don't allow a fraction for the number of divisions
         numDivisions = _.isFinite(numDivisions) ? Math.round(numDivisions) : 0;
@@ -78,13 +80,12 @@ class NumberLineEditor extends React.Component<Props> {
         if (numDivisions) {
             // Constrain numDivisions to be within the allowed range
             numDivisions = Math.min(
-                divRange[1],
-                Math.max(divRange[0], numDivisions),
+                maxDivisions,
+                Math.max(minDivisions, numDivisions),
             );
 
             this.handleChange({
                 tickStep: null,
-                divisionRange: divRange,
                 numDivisions: numDivisions,
             });
         }

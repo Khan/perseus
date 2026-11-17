@@ -603,11 +603,11 @@ describe("parseWidgetsMap", () => {
                 version: {major: 0, minor: 0},
                 options: {
                     range: [0, 10],
-                    labelRange: [],
+                    labelRange: [null, null],
                     labelStyle: "decimal",
                     labelTicks: false,
                     isInequality: false,
-                    divisionRange: [],
+                    divisionRange: [1, 10],
                     snapDivisions: 1,
                     correctX: 1,
                     isTickCtrl: false,

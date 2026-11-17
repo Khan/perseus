@@ -1765,10 +1765,7 @@ export type PerseusNumberLineWidgetOptions = {
      * labels are set by the range. Note: Ensure that the labels line up with
      * the tick marks, or it may be confusing for users.
      */
-    // TODO-NEXT: Change the type of labelRange to `[left: number | null, right: number | null]`,
-    //  and the type of divisionRange to `[min: number, max: number]`.
-    //  Follow the example of `git diff 284d4eac1...8bc1393e66`.
-    labelRange: Array<number | null>;
+    labelRange: [left: number | null, right: number | null];
     /**
      * This controls the styling of the labels for the two main labels as well
      * as all the tick mark labels, if applicable.
@@ -1784,7 +1781,7 @@ export type PerseusNumberLineWidgetOptions = {
     /**
      * The range of possible values for numDivisions, in the format [min, max].
      */
-    divisionRange: number[];
+    divisionRange: [min: number, max: number];
     /**
      * The number of divisions of the number line. Divisions are the spaces
      * between tick marks.
