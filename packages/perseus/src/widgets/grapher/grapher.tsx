@@ -57,6 +57,8 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
+import "./grapher.css";
+
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;
 // @ts-expect-error - TS2339 - Property 'MovableLine' does not exist on type 'typeof Graphie'.
@@ -340,7 +342,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                 }}
             >
                 <div
-                    className="graphie-container blank-background"
+                    className="grapher-container blank-background"
                     style={{
                         width: box[0],
                         height: box[1],

@@ -11,25 +11,6 @@
 .blank-background {
     background-color: var(--wb-semanticColor-core-background-base-default);
 }
-.graphie {
-    -webkit-user-select: none;
-    user-select: none;
-}
-.graphie svg {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-.graphie var,
-div.graphie {
-    white-space: pre;
-    /**
-   * Graphie didn't have a fixed font-size and was just using
-   * the surrounding font-size. However some labels are banking on
-   * specific dimensions, so we need to lock it to a specific size.
-   */
-    font-size: 14px;
-}
 #answercontent input[type="text"].perseus-input-size-normal,
 #answercontent input[type="number"].perseus-input-size-normal,
 .framework-perseus input[type="text"].perseus-input-size-normal,
@@ -117,9 +98,6 @@ div.graphie {
 .framework-perseus .graph-settings .graph-settings-background-url {
     width: 250px;
 }
-.framework-perseus .graphie-container {
-    position: relative;
-}
 .framework-perseus .graph-settings,
 .framework-perseus .image-settings,
 .framework-perseus .misc-settings {
@@ -145,19 +123,6 @@ div.graphie {
     position: absolute;
     top: 0;
     left: 0;
-}
-.framework-perseus .fixed-to-responsive {
-    position: relative;
-    width: 100%;
-    /* Use CSS aspect-ratio property to maintain aspect ratio
-     * without needing a spacer div. The aspect-ratio is set inline via style prop. */
-}
-.framework-perseus .fixed-to-responsive > :not(:first-child) {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
 }
 
 /* Widget CSS */
