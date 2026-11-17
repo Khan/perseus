@@ -72,13 +72,11 @@ export function remainingUses(
     placements: TilePlacements,
     tileId: string,
     tileUsage: TileUsage,
-    maxUsesPerTile?: number,
+    maxUses?: number,
 ): number | null {
     const used = countPlacements(placements, tileId);
     if (tileUsage === "multi") {
-        return maxUsesPerTile == null
-            ? null
-            : Math.max(0, maxUsesPerTile - used);
+        return maxUses == null ? null : Math.max(0, maxUses - used);
     }
     return used > 0 ? 0 : 1;
 }
@@ -88,13 +86,8 @@ export function isTileInBank(
     placements: TilePlacements,
     tileId: string,
     tileUsage: TileUsage,
-    maxUsesPerTile?: number,
+    maxUses?: number,
 ): boolean {
-    const remaining = remainingUses(
-        placements,
-        tileId,
-        tileUsage,
-        maxUsesPerTile,
-    );
+    const remaining = remainingUses(placements, tileId, tileUsage, maxUses);
     return remaining == null || remaining > 0;
 }
