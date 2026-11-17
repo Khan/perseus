@@ -7,7 +7,7 @@ import {tempDndStrings as strings} from "./temp-strings";
 import {clearBlank, placeTile} from "./tile-placements";
 
 import type {TileDragData} from "./drag-ids";
-import type {TilePlacements, TileUsage} from "./tile-placements";
+import type {MaxUses, TilePlacements} from "./tile-placements";
 import type {DragEndEvent} from "@dnd-kit/react";
 
 /**
@@ -35,8 +35,8 @@ type MenuFocusRequest = {fallbackBlankId: string | null};
 export function useTileMoveActions(options: {
     placements: TilePlacements;
     onPlacementsChange: (next: TilePlacements) => void;
-    /** Looked up per tile, since a widget's tiles may differ in usage. */
-    getTileUsage: (tileId: string) => TileUsage;
+    /** Looked up per tile, since a widget's tiles may differ in cap. */
+    getMaxUses: (tileId: string) => MaxUses;
     getTileLabel: (tileId: string) => string;
     getBlankLabel: (blankId: string) => string;
     blankIds: ReadonlyArray<string>;
@@ -52,7 +52,7 @@ export function useTileMoveActions(options: {
     const {
         placements,
         onPlacementsChange,
-        getTileUsage,
+        getMaxUses,
         getTileLabel,
         getBlankLabel,
         blankIds,
@@ -88,12 +88,7 @@ export function useTileMoveActions(options: {
         }
         const evictedTileId = placements[targetBlankId];
         onPlacementsChange(
-            placeTile(
-                placements,
-                move,
-                targetBlankId,
-                getTileUsage(move.tileId),
-            ),
+            placeTile(placements, move, targetBlankId, getMaxUses(move.tileId)),
         );
 
         let message = strings.movedToTarget({
