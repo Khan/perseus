@@ -24,10 +24,13 @@ declare module "@rstest/core" {
     interface Assertion<T = any> extends TestingLibraryMatchers<any, T> {}
 }
 
-// Alias `rs` to `jest` to support tests during the Jest -> rstest migration.
-// Testing Library also checks for a `jest` global to decide whether to
-// advance fake timers while it waits.
-Object.assign(globalThis, {jest: rs});
+// Testing Library advances fake timers while it waits only when it finds a
+// `jest` global (`jestFakeTimersAreEnabled()` in @testing-library/dom), and
+// then calls `jest.advanceTimersByTime()`. Without one, its waits never see a
+// fake timer fire, and every user-event call times out.
+Object.assign(globalThis, {
+    jest: {advanceTimersByTime: rs.advanceTimersByTime.bind(rs)},
+});
 
 // Add `@testing-library/jest-dom`'s matchers to Rstest's `expect`.
 //
