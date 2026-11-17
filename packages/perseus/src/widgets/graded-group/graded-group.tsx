@@ -1,3 +1,4 @@
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import {border, font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
@@ -30,6 +31,7 @@ import type {
     PerseusGradedGroupWidgetOptions,
     PerseusRenderer,
     PerseusScore,
+    UserInputMap,
 } from "@khanacademy/perseus-core";
 
 type Props = WidgetProps<
@@ -58,7 +60,7 @@ export interface GradedGroupHandle {
 // correct or not.
 export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
     function GradedGroup(props, ref) {
-        const {strings} = usePerseusI18n();
+        const {strings, locale} = usePerseusI18n();
         const dependencies = useDependencies();
 
         const [showHint, setShowHint] = useState(false);
@@ -69,6 +71,7 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
 
         const rendererRef = useRef<Renderer | null>(null);
         const hintRendererRef = useRef<Renderer | null>(null);
+        const [userInput, setUserInput] = useState<UserInputMap>({});
         const hintId = useId();
 
         useOnMountEffect(() => {
@@ -114,7 +117,8 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
             },
         }));
 
-        function handleAnswerChange(): void {
+        function handleAnswerChange(userInput: UserInputMap): void {
+            setUserInput(userInput);
             // Reset grading display when user changes answer
             setMessage("");
 
@@ -124,9 +128,11 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
         }
 
         function checkAnswer() {
-            const score: PerseusScore = rendererRef.current?.score() || {
-                type: "invalid",
-            };
+            const score: PerseusScore = scoreQuestion(
+                props.options,
+                userInput,
+                locale,
+            );
             const {
                 INVALID_MESSAGE_PREFIX,
                 DEFAULT_INVALID_MESSAGE_1,
@@ -195,22 +201,24 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                     handleUserInput={handleAnswerChange}
                     problemNum={props.problemNum ?? 0}
                 >
-                    {({userInput, handleUserInput}) => (
-                        <Renderer
-                            content={props.options.content}
-                            widgets={props.options.widgets}
-                            images={props.options.images}
-                            userInput={userInput}
-                            handleUserInput={handleUserInput}
-                            problemNum={props.problemNum ?? 0}
-                            ref={rendererRef}
-                            keypadElement={props.keypadElement}
-                            apiOptions={{...apiOptions, readOnly}}
-                            showSolutions={showSolutions}
-                            strings={strings}
-                            isScorable
-                        />
-                    )}
+                    {({userInput, handleUserInput}) => {
+                        return (
+                            <Renderer
+                                content={props.options.content}
+                                widgets={props.options.widgets}
+                                images={props.options.images}
+                                userInput={userInput}
+                                handleUserInput={handleUserInput}
+                                problemNum={props.problemNum ?? 0}
+                                ref={rendererRef}
+                                keypadElement={props.keypadElement}
+                                apiOptions={{...apiOptions, readOnly}}
+                                showSolutions={showSolutions}
+                                strings={strings}
+                                isScorable
+                            />
+                        );
+                    }}
                 </UserInputManager>
 
                 {answerBarState !== "invalid" && (

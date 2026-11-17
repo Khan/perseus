@@ -58,12 +58,9 @@ export function combineScoreWithWidgetScores(
 }
 
 /**
- * score a Perseus item
+ * Scores a {@link UserInputMap} against a {@link PerseusRenderer}.
  *
- * TODO: this should be named differently -
- * it's scoring UserInput, not a PerseusItem; also it doesn't take a PerseusItem
- *
- * @param perseusRenderData - the full answer data, includes the correct answer
+ * @param question - PerseusRenderer data. Must include the correct answers.
  * @param userInputMap - the user's input for each widget, mapped by ID
  * @param locale - string locale for math parsing ("de" 1.000,00 vs "en" 1,000.00)
  *
@@ -72,14 +69,14 @@ export function combineScoreWithWidgetScores(
  * vs. incorrect. When the score result is "invalid", only "invalid" widget
  * scores are included in `widgetScores`.
  */
-export function scorePerseusItem(
-    perseusRenderData: PerseusRenderer,
+export function scoreQuestion(
+    question: PerseusRenderer,
     userInputMap: UserInputMap,
     locale: string,
 ): PerseusScoreWithWidgetScores {
-    const scoreableWidgetIds = getScoreableWidgets(perseusRenderData);
-    const widgetScores = scoreWidgetsFunctional(
-        perseusRenderData.widgets,
+    const scoreableWidgetIds = getScoreableWidgets(question);
+    const widgetScores = scoreWidgets(
+        question.widgets,
         scoreableWidgetIds,
         userInputMap,
         locale,
@@ -91,7 +88,7 @@ export function scorePerseusItem(
     );
 }
 
-export function scoreWidgetsFunctional(
+export function scoreWidgets(
     widgets: PerseusWidgetsMap,
     // This is a port of old code, I'm not sure why
     // we need widgetIds vs the keys of the widgets object
