@@ -2,4 +2,4 @@
 "@khanacademy/perseus-core": patch
 ---
 
-Type the number-line widget's `range` option as `[number, number]`, and reject number-line data whose `range` isn't a pair of numbers
+Narrowed the types of the number-line widget's `range`, `labelRange`, and `divisionRange` properties. Previously, they were arrays, and now they are tuples. The parser now rejects data with the wrong number of elements.

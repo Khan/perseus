@@ -4,6 +4,7 @@ import {success} from "../result";
 
 import {parseNumberLineWidget} from "./number-line-widget";
 
+// The `unknown` type here allows tests to create invalid data.
 function numberLine(options: Record<string, unknown>) {
     return {
         type: "number-line",
