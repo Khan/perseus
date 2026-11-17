@@ -49,21 +49,20 @@ class NumberLineEditor extends React.Component<Props> {
     }
 
     handleLabelRangeChange(i: number, num: number) {
-        let labelRange: PerseusNumberLineWidgetOptions["labelRange"] = [
-            ...this.props.labelRange,
-        ];
-        const otherNum = labelRange[1 - i];
+        const otherNum = this.props.labelRange[1 - i];
+        let newLabelRange: [number | null, number | null];
 
         if (num == null || otherNum == null) {
-            labelRange[i] = num;
+            newLabelRange = [null, null];
+            newLabelRange[i] = num;
         } else {
             // If both labels have values, this updates the "appropriate" one.
             // It enforces that the position of the left label <= right label.
             // If left otherwise, it makes certain aspects of validation hard.
-            labelRange = [Math.min(num, otherNum), Math.max(num, otherNum)];
+            newLabelRange = [Math.min(num, otherNum), Math.max(num, otherNum)];
         }
 
-        this.handleChange({labelRange});
+        this.handleChange({labelRange: newLabelRange});
     }
 
     onNumDivisionsChange = (numDivisions: number) => {
