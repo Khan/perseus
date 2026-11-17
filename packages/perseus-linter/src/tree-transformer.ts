@@ -69,7 +69,6 @@ export type TreeNode =
           content: TreeNode;
           message: string;
           ruleName: string;
-          blockHighlight?: boolean;
           insideTable: boolean;
           severity: number;
           id?: undefined;

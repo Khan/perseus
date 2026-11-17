@@ -11,25 +11,6 @@
 .blank-background {
     background-color: var(--wb-semanticColor-core-background-base-default);
 }
-.graphie {
-    -webkit-user-select: none;
-    user-select: none;
-}
-.graphie svg {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-.graphie var,
-div.graphie {
-    white-space: pre;
-    /**
-   * Graphie didn't have a fixed font-size and was just using
-   * the surrounding font-size. However some labels are banking on
-   * specific dimensions, so we need to lock it to a specific size.
-   */
-    font-size: 14px;
-}
 #answercontent input[type="text"].perseus-input-size-normal,
 #answercontent input[type="number"].perseus-input-size-normal,
 .framework-perseus input[type="text"].perseus-input-size-normal,
@@ -62,17 +43,9 @@ div.graphie {
 .framework-perseus.perseus-mobile .perseus-input-center-align .keypad-input {
     text-align: center;
 }
-.framework-perseus blockquote {
-    padding: 0 2.5em;
-}
 .framework-perseus .zoomable {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-touch-callout: none;
-}
-.framework-perseus sup:not(.mq-non-leaf) {
-    font-size: smaller;
-    vertical-align: super;
-    line-height: 0;
 }
 .framework-perseus .range-input {
     border: 1px solid var(--wb-semanticColor-core-border-neutral-subtle);
@@ -125,9 +98,6 @@ div.graphie {
 .framework-perseus .graph-settings .graph-settings-background-url {
     width: 250px;
 }
-.framework-perseus .graphie-container {
-    position: relative;
-}
 .framework-perseus .graph-settings,
 .framework-perseus .image-settings,
 .framework-perseus .misc-settings {
@@ -145,32 +115,14 @@ div.graphie {
     margin-inline-start: auto;
     margin-inline-end: auto;
 }
-.framework-perseus .unresponsive-svg-image,
-.framework-perseus .perseus-rendered-radio .unresponsive-svg-image {
+.framework-perseus .unresponsive-svg-image {
     display: inline-block;
     position: relative;
 }
-.framework-perseus .unresponsive-svg-image > .graphie-container,
-.framework-perseus
-    .perseus-rendered-radio
-    .unresponsive-svg-image
-    > .graphie-container {
+.framework-perseus .unresponsive-svg-image > .graphie-container {
     position: absolute;
     top: 0;
     left: 0;
-}
-.framework-perseus .fixed-to-responsive {
-    position: relative;
-    width: 100%;
-    /* Use CSS aspect-ratio property to maintain aspect ratio
-     * without needing a spacer div. The aspect-ratio is set inline via style prop. */
-}
-.framework-perseus .fixed-to-responsive > :not(:first-child) {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
 }
 
 /* Widget CSS */
@@ -193,16 +145,6 @@ div.graphie {
 .framework-perseus .hint.last-hint .deprecated-perseus-container {
     font-weight: bold;
 }
-.framework-perseus
-    .deprecated-perseus-container
-    ul:not([data-widget="radio"], .indicatorContainer) {
-    padding-left: var(--wb-sizing-size_360);
-    list-style-type: disc;
-}
-.framework-perseus .deprecated-perseus-container ol {
-    list-style: decimal;
-    padding-left: 2em;
-}
 .perseus-article
     .perseus-dropdown
     .perseus-renderer
@@ -211,19 +153,6 @@ div.graphie {
     /* overriding overly broad selectors in .framework-perseus rules */
     margin-bottom: 0 !important;
     font-size: 18px !important;
-}
-
-/*
-    Extra specificity needed to override other styles that are too broad.
-    Once we get a better framework in place (like CSS Modules), we can fix this selector.
-*/
-.framework-perseus .perseus-formats-tooltip .deprecated-perseus-container,
-.framework-perseus
-    .tooltipContainer
-    .perseus-formats-tooltip
-    .deprecated-perseus-container
-    ul {
-    margin: 0;
 }
 
 :is(th, td)

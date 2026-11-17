@@ -97,6 +97,15 @@
         ul,
         ol {
             margin-block-end: var(--wb-sizing-size_160);
+            padding-inline-start: var(--wb-sizing-size_360);
+        }
+
+        ul {
+            list-style-type: disc;
+        }
+
+        ol {
+            list-style-type: decimal;
         }
 
         li {
@@ -143,7 +152,8 @@
         th {
             font-weight: bold;
         }
-        td {
+        /* Body cells include row headers (th) for tables with row headers. */
+        tbody > :is(th, td) {
             background-color: var(
                 --wb-semanticColor-core-background-base-default
             );
@@ -163,6 +173,31 @@
     .framework-perseus .perseus-table-title {
         text-align: center;
         font-size: var(--wb-font-heading-size-medium);
+    }
+
+    /************************
+     * Code and code blocks *
+     ************************/
+    .framework-perseus code {
+        font-family: Courier, monospace;
+    }
+    .framework-perseus pre {
+        background-color: var(--wb-semanticColor-core-background-base-subtle);
+        border-radius: var(--wb-border-radius-radius_040);
+        color: var(--wb-semanticColor-core-foreground-neutral-strong);
+        padding: var(--wb-sizing-size_160);
+        white-space: pre;
+        overflow: auto;
+        margin: var(--wb-sizing-size_240) calc(-1 * var(--wb-sizing-size_160));
+    }
+
+    /***************
+     * Blockquotes *
+     ***************/
+    .framework-perseus blockquote {
+        padding-inline: var(--wb-sizing-size_240);
+        border-inline-start: var(--wb-border-width-thick) solid
+            var(--wb-semanticColor-core-border-neutral-subtle);
     }
 }
 

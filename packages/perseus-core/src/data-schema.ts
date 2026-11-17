@@ -564,8 +564,7 @@ export type PerseusAnswerTile = {
 };
 
 /**
- * An answer tile in a fill-in-the-blank widget's choice bank: the shared
- * `PerseusAnswerTile` plus how many blanks it may fill.
+ * An answer tile in a fill-in-the-blank widget's choice bank.
  */
 export type PerseusFillInTheBlankTile = PerseusAnswerTile & {
     /**
@@ -1768,14 +1767,13 @@ export type PerseusNumberLineWidgetOptions = {
      * The position of the endpoints of the number line. Setting the range
      * constrains the position of the answer and the labels.
      */
-    // TODO(benchristel): type `range` as `[number, number]`.
-    range: number[];
+    range: [min: number, max: number];
     /**
      * This controls the position of the left / right labels. By default, the
      * labels are set by the range. Note: Ensure that the labels line up with
      * the tick marks, or it may be confusing for users.
      */
-    labelRange: Array<number | null>;
+    labelRange: [left: number | null, right: number | null];
     /**
      * This controls the styling of the labels for the two main labels as well
      * as all the tick mark labels, if applicable.
@@ -1791,7 +1789,7 @@ export type PerseusNumberLineWidgetOptions = {
     /**
      * The range of possible values for numDivisions, in the format [min, max].
      */
-    divisionRange: number[];
+    divisionRange: [min: number, max: number];
     /**
      * The number of divisions of the number line. Divisions are the spaces
      * between tick marks.
@@ -1949,6 +1947,22 @@ export type PerseusRadioChoice = {
     isNoneOfTheAbove?: boolean;
 };
 
+export type SorterVariant = "scale" | "timeline";
+
+export type SorterLegendCap = "arrow" | "bar" | "none";
+
+export type SorterLegend = {
+    startCap: SorterLegendCap;
+    endCap: SorterLegendCap;
+    /** Translatable text - accepts plain text and TeX but not markdown */
+    startLabel: string;
+    /** Translatable text - accepts plain text and TeX but not markdown */
+    endLabel: string;
+    /** Translatable text */
+    ariaLabel: string;
+    position: "above" | "below";
+};
+
 /** Options for the sorter widget. Cards to arrange into the correct order. */
 export type PerseusSorterWidgetOptions = {
     /**
@@ -1961,6 +1975,20 @@ export type PerseusSorterWidgetOptions = {
      * "vertical" layout is best for longer text and larger images.
      */
     layout: "horizontal" | "vertical";
+
+    /**
+     * Which kind of Sorter this is. Content saved without one is parsed as
+     * "scale".
+     * Sets the allowed number of blanks, the layout ("timeline" adds connector
+     * lines and staggers blanks around the legend), and the default legend caps.
+     */
+    variant: SorterVariant;
+    /**
+     * The labeled line along the blanks that shows learners which order
+     * to place the tiles in, with optional end caps.
+     */
+    legend?: SorterLegend;
+
     /**
      * Adds padding to the options. Padding is good for text but not needed
      * for images

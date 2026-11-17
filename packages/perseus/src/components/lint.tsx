@@ -19,11 +19,6 @@ type Props = {
     /** Lint warnings inside tables are handled specially */
     insideTable: boolean;
     /**
-     * Should lint highlighting be rendered as a block to the left of
-     * the lint instead of on the right gutter?
-     */
-    blockHighlight?: boolean;
-    /**
      * How important this lint message is for the editor. Severity goes
      * from 1 (indicating an error) to 4 (offline reporting only)
      */
@@ -55,7 +50,6 @@ function Lint({
     message,
     ruleName,
     insideTable,
-    blockHighlight,
     severity,
 }: Props): React.ReactElement {
     const linterLinkProps = {message, ruleName, severity} as const;
@@ -66,19 +60,6 @@ function Lint({
             return <span data-lint-inside-table="true">{children}</span>;
         }
         return <div data-lint-inside-table="true">{children}</div>;
-    }
-    if (blockHighlight) {
-        return (
-            <span
-                className={css(styles.lintContainer, styles.lintContainerBlock)}
-            >
-                <LinterLink
-                    {...linterLinkProps}
-                    style={styles.radioWidgetHoverTarget}
-                />
-                <span>{children}</span>
-            </span>
-        );
     }
     if (inline) {
         return (
@@ -141,12 +122,6 @@ const styles = StyleSheet.create({
         position: "relative",
     },
 
-    // Some elements that might be inline with bad parent styling are treated
-    // as block elements so they render and are visible.
-    lintContainerBlock: {
-        display: "block",
-    },
-
     // This is the main class for block lint. It is applied to the link element
     // that is also the hover target.
     hoverTarget: {
@@ -181,15 +156,6 @@ const styles = StyleSheet.create({
         marginInlineEnd: -60,
 
         ...highlightInlineContent,
-    },
-
-    radioWidgetHoverTarget: {
-        // These lint targets appear in radio checkboxes, and are not able to
-        // position a lint icon in the right-most gutter thanks to a parent
-        // overflow rule. We position these icons to the left of the block
-        // where there is some room.
-        position: "absolute",
-        insetInlineStart: -60,
     },
 });
 

@@ -10,7 +10,7 @@ import Renderer from "../../renderer";
 import {BlankContext} from "../blank/blank-context";
 
 import styles from "./fill-in-the-blank.module.css";
-import {getTileUsage, TileBank} from "./tile-bank";
+import {getMaxUses, TileBank} from "./tile-bank";
 import {useFITBTiles} from "./use-fitb-tiles";
 
 import type {TilePlacements} from "../../components/drag-and-drop/tile-placements";
@@ -68,9 +68,9 @@ const FillInTheBlankWidget = forwardRef<Widget, FillInTheBlankProps>(
             placements,
             onPlacementsChange: (next) =>
                 handleUserInput(getUserInput(next, blankIds)),
-            getTileUsage: (tileId) => {
+            getMaxUses: (tileId) => {
                 const tile = tilesById.get(tileId);
-                return tile == null ? "single" : getTileUsage(tile);
+                return tile == null ? 1 : getMaxUses(tile);
             },
             getTileLabel: (tileId) => tilesById.get(tileId)?.label ?? "",
             getBlankLabel: (blankId) => blankLabels[blankId],

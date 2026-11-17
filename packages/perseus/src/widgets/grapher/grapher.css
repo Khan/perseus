@@ -1,0 +1,4 @@
+.perseus-widget-grapher > .grapher-container > img,
+.perseus-widget-grapher > .grapher-container .svg-image {
+    position: absolute;
+}

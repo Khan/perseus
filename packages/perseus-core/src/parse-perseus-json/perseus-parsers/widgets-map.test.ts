@@ -607,12 +607,12 @@ describe("parseWidgetsMap", () => {
                 type: "number-line",
                 version: {major: 0, minor: 0},
                 options: {
-                    range: [],
-                    labelRange: [],
+                    range: [0, 10],
+                    labelRange: [null, null],
                     labelStyle: "decimal",
                     labelTicks: false,
                     isInequality: false,
-                    divisionRange: [],
+                    divisionRange: [1, 10],
                     snapDivisions: 1,
                     correctX: 1,
                     isTickCtrl: false,
@@ -753,6 +753,7 @@ describe("parseWidgetsMap", () => {
                     correct: [],
                     padding: false,
                     layout: "horizontal",
+                    variant: "scale",
                 },
             },
         };

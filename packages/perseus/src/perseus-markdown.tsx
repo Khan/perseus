@@ -8,6 +8,11 @@ import Lint from "./components/lint";
 import {getDependencies} from "./dependencies";
 
 /**
+ * Please avoid adding new rendering logic to this file. Instead use renderer.tsx
+ * for new markdown rendering improvements.
+ */
+
+/**
  * These rules are the same as the pure-markdown rules, but with some
  * customizations to how they're rendered (note the `react` functions).
  */
@@ -246,7 +251,6 @@ const rules = {
                     message={node.message}
                     ruleName={node.ruleName}
                     inline={isInline(node.content)}
-                    blockHighlight={node.blockHighlight}
                     insideTable={node.insideTable}
                     severity={node.severity}
                 >

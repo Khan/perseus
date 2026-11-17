@@ -14,6 +14,8 @@ import Movables from "./graphie-movables";
 import type {Coord} from "../interactive2/types";
 import type {Range, Size} from "@khanacademy/perseus-core";
 
+import "./graphie.css";
+
 const GraphieMovable = GraphieClasses.GraphieMovable;
 
 const createGraphie = GraphUtils.createGraphie;

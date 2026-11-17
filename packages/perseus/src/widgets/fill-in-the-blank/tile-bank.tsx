@@ -9,28 +9,23 @@ import {
 } from "../../components/drag-and-drop/tile-placements";
 
 import type {
+    MaxUses,
     TilePlacements,
-    TileUsage,
 } from "../../components/drag-and-drop/tile-placements";
 import type {useTileMoveActions} from "../../components/drag-and-drop/use-tile-move-actions";
 import type {PerseusFillInTheBlankTile} from "@khanacademy/perseus-core";
 
 type TileMoveActions = ReturnType<typeof useTileMoveActions>;
 
-/** A tile with a cap of 1 is single-use: placing it again moves it. */
-export function getTileUsage(tile: PerseusFillInTheBlankTile): TileUsage {
-    return tile.maxUses === 1 ? "single" : "multi";
-}
-
 /** Returns the tile's cap on placements; undefined means unlimited. */
-function getMaxUses(tile: PerseusFillInTheBlankTile): number | undefined {
+export function getMaxUses(tile: PerseusFillInTheBlankTile): MaxUses {
     return tile.maxUses === "unlimited" ? undefined : tile.maxUses;
 }
 
 type TileBankProps = {
-    tiles: ReadonlyArray<PerseusFillInTheBlankTile>;
+    tiles: Array<PerseusFillInTheBlankTile>;
     placements: TilePlacements;
-    blankIds: ReadonlyArray<string>;
+    blankIds: Array<string>;
     blankLabels: Record<string, string>;
     onMove: TileMoveActions["handleMove"];
     /** Attached to the first bank tile's menu so focus can return to it. */
@@ -55,12 +50,7 @@ export function TileBank({
         <ChoiceBank label={strings.choices}>
             {tiles
                 .filter((tile) =>
-                    isTileInBank(
-                        placements,
-                        tile.id,
-                        getTileUsage(tile),
-                        getMaxUses(tile),
-                    ),
+                    isTileInBank(placements, tile.id, getMaxUses(tile)),
                 )
                 .map((tile, index) => (
                     // ChoiceBank puts each of its children in a separate
@@ -77,14 +67,11 @@ export function TileBank({
                             onMove({tileId: tile.id}, targetId)
                         }
                         remainingUses={
-                            getTileUsage(tile) === "multi"
-                                ? remainingUses(
-                                      placements,
-                                      tile.id,
-                                      "multi",
-                                      getMaxUses(tile),
-                                  ) ?? undefined
-                                : undefined
+                            remainingUses(
+                                placements,
+                                tile.id,
+                                getMaxUses(tile),
+                            ) ?? undefined
                         }
                         menuRef={index === 0 ? firstMenuRef : undefined}
                     />

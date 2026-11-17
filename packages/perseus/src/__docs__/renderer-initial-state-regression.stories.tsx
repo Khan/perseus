@@ -10,6 +10,7 @@ import {
     codeContent,
     blockquoteContent,
     titledTableContent,
+    rowHeaderTableContent,
 } from "../__testdata__/renderer.testdata";
 import ArticleRenderer from "../article-renderer";
 import {storybookDependenciesV2} from "../testing/test-dependencies";
@@ -113,6 +114,14 @@ export const ArticleTitledTable: Story =
 
 export const ArticleTitledTableMobile: Story =
     mobileArticleStory(titledTableContent);
+
+export const ArticleRowHeaderTable: Story = desktopArticleStory(
+    rowHeaderTableContent,
+);
+
+export const ArticleRowHeaderTableMobile: Story = mobileArticleStory(
+    rowHeaderTableContent,
+);
 
 export const ArticleCode: Story = desktopArticleStory(codeContent);
 
