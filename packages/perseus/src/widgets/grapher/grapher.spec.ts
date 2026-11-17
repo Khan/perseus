@@ -32,7 +32,7 @@ import type {Locator} from "@playwright/test";
 // non-quadratic available type render as a Mafs Interactive Graph instead and
 // are driven by the keyboard helpers below.
 const GRAPHIE =
-    ".perseus-widget-grapher > .graphie-container > .graphie-container > .graphie";
+    ".perseus-widget-grapher > .grapher-container > .graphie-container > .graphie";
 const POINTS =
     "[data-interactive-kind-for-testing=movable-point] > svg > ellipse";
 
