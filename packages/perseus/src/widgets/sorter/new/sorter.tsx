@@ -124,7 +124,6 @@ const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
         firstBankMenuRef,
         placedMenuRef,
     } = useTileMoveActions({
-        getMaxUses: () => 1,
         blankIds,
         placements,
         onPlacementsChange,

@@ -36,7 +36,7 @@ export function useTileMoveActions(options: {
     placements: TilePlacements;
     onPlacementsChange: (next: TilePlacements) => void;
     /** Looked up per tile, since a widget's tiles may differ in cap. */
-    getMaxUses: (tileId: string) => MaxUses;
+    getMaxUses?: (tileId: string) => MaxUses;
     getTileLabel: (tileId: string) => string;
     getBlankLabel: (blankId: string) => string;
     blankIds: ReadonlyArray<string>;
@@ -52,7 +52,7 @@ export function useTileMoveActions(options: {
     const {
         placements,
         onPlacementsChange,
-        getMaxUses,
+        getMaxUses = () => 1,
         getTileLabel,
         getBlankLabel,
         blankIds,

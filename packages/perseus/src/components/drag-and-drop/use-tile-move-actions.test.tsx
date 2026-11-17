@@ -330,7 +330,6 @@ describe("useTileMoveActions", () => {
                             placements = next;
                         }
                     },
-                    getMaxUses: () => 1,
                     getTileLabel: (tileId) => tileId,
                     getBlankLabel: (blankId) => blankId,
                     blankIds: BLANK_IDS,
