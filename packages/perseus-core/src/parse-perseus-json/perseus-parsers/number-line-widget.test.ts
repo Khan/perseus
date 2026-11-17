@@ -68,9 +68,24 @@ describe("parseNumberLineWidget", () => {
         expect(result).toEqual(success(widget));
     });
 
+    it.each([
+        ["an empty labelRange", []],
+        ["a one-element labelRange", [null]],
+        ["a three-element labelRange", [1, 2, 3]],
+    ])("rejects %s", (_, labelRange) => {
+        // Arrange
+        const widget = numberLine({labelRange});
+
+        // Act
+        const result = parse(widget, parseNumberLineWidget);
+
+        // Assert
+        expect(result).toEqual(anyFailure);
+    });
+
     it("converts empty-string labels to null", () => {
         // Arrange
-        const widget = numberLine({labelRange: ["", 4]});
+        const widget = numberLine({labelRange: ["", ""]});
 
         // Act
         const result = parse(widget, parseNumberLineWidget);
@@ -79,7 +94,9 @@ describe("parseNumberLineWidget", () => {
         expect(result).toEqual(
             success(
                 expect.objectContaining({
-                    options: expect.objectContaining({labelRange: [null, 4]}),
+                    options: expect.objectContaining({
+                        labelRange: [null, null],
+                    }),
                 }),
             ),
         );
@@ -94,21 +111,6 @@ describe("parseNumberLineWidget", () => {
 
         // Assert
         expect(result).toEqual(success(widget));
-    });
-
-    it.each([
-        ["an empty labelRange", []],
-        ["a one-element labelRange", [null]],
-        ["a three-element labelRange", [1, 2, 3]],
-    ])("rejects %s", (_, labelRange) => {
-        // Arrange
-        const widget = numberLine({labelRange});
-
-        // Act
-        const result = parse(widget, parseNumberLineWidget);
-
-        // Assert
-        expect(result).toEqual(anyFailure);
     });
 
     it.each([
