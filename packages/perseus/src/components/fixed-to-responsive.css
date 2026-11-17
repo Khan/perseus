@@ -1,0 +1,11 @@
+.framework-perseus .fixed-to-responsive {
+    position: relative;
+    width: 100%;
+}
+.framework-perseus .fixed-to-responsive > :not(:first-child) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
