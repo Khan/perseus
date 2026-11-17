@@ -564,8 +564,7 @@ export type PerseusAnswerTile = {
 };
 
 /**
- * An answer tile in a fill-in-the-blank widget's choice bank: the shared
- * `PerseusAnswerTile` plus how many blanks it may fill.
+ * An answer tile in a fill-in-the-blank widget's choice bank.
  */
 export type PerseusFillInTheBlankTile = PerseusAnswerTile & {
     /**
