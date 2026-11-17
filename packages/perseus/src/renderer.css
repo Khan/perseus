@@ -208,6 +208,11 @@
         top: 0;
         left: 0;
     }
+    .framework-perseus .svg-image {
+        display: block;
+        margin-block: 0;
+        margin-inline: auto;
+    }
 }
 
 /* These stay in the main "Shared" layer because they need to override base styles */
