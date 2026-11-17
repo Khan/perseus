@@ -119,11 +119,6 @@
     display: inline-block;
     position: relative;
 }
-.framework-perseus .unresponsive-svg-image > .graphie-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
 
 /* Widget CSS */
 /* TODO(benchristel): .perseus-graph-padding seems to be unused. Remove? */

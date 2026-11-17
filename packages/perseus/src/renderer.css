@@ -199,6 +199,15 @@
         border-inline-start: var(--wb-border-width-thick) solid
             var(--wb-semanticColor-core-border-neutral-subtle);
     }
+
+    /**************
+     * SVG Images *
+     **************/
+    .framework-perseus .unresponsive-svg-image > .graphie-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 }
 
 /* These stay in the main "Shared" layer because they need to override base styles */
