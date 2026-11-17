@@ -115,10 +115,14 @@
     margin-inline-start: auto;
     margin-inline-end: auto;
 }
-.framework-perseus .unresponsive-svg-image,
-.framework-perseus .perseus-rendered-radio .unresponsive-svg-image {
+.framework-perseus .unresponsive-svg-image {
     display: inline-block;
     position: relative;
+}
+.framework-perseus .unresponsive-svg-image > .graphie-container {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 /* Widget CSS */
