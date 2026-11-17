@@ -18,6 +18,8 @@ import * as React from "react";
 
 import {negativePhoneMargin} from "../styles/constants";
 
+import "./fixed-to-responsive.css";
+
 const MIN_VIEWPORT_HEIGHT = 480;
 
 type Props = {

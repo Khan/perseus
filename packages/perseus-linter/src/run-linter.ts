@@ -163,7 +163,6 @@ export function runLinter(
                     content: node,
                     message: nodeIssues.map((w) => w.message).join("\n\n"),
                     ruleName: nodeIssues[0].rule,
-                    blockHighlight: nodeContext.blockHighlight,
                     insideTable: insideTable,
                     severity: nodeIssues[0].severity,
                 });

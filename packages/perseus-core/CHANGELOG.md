@@ -1,5 +1,13 @@
 # @khanacademy/perseus-core
 
+## 42.4.0
+
+### Minor Changes
+
+-   [#4412](https://github.com/Khan/perseus/pull/4412) [`b65a0f6`](https://github.com/Khan/perseus/commit/b65a0f62fd6d2a2d4d636b872111188bc7f2602c) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Adds `variant` and optional `legend` fields to Sorter widget options (end caps, start/end labels, screen reader label, position), and keeps the legend when other options change. The parser defaults `variant` to "scale" for content saved without one.
+
+-   [#4419](https://github.com/Khan/perseus/pull/4419) [`e86e304`](https://github.com/Khan/perseus/commit/e86e30436b76b90c8acaa529d1525b0339d06bd1) Thanks [@nishasy](https://github.com/nishasy)! - [FITB] Foundation for fill-in-the-blank widget
+
 ## 42.3.0
 
 ### Minor Changes

@@ -9,7 +9,7 @@ import path from "node:path";
 
 import {test as base, expect as baseExpect} from "@playwright/test";
 
-import {scoreMatchers} from "../test/score-matchers";
+import {scoreMatchers} from "../test/modules/score-matchers";
 
 import {COVERAGE_DIR, COVERAGE_ENABLED} from "./constants";
 import {toIstanbulCoverage} from "./coverage";

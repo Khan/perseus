@@ -1,5 +1,4 @@
 // AGENTS.md points to this file as the model widget test, so keep it
-// following the Testing Guidelines there.
 import {
     generateDropdownOptions,
     generateDropdownWidget,
@@ -7,11 +6,11 @@ import {
     generateTestPerseusRenderer,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../__testutils__/render-question";
-import {scorePerseusItemTesting} from "../../util/scoring.testutils";
 
 import {basicDropdown} from "./dropdown.testdata";
 
@@ -113,7 +112,7 @@ describe("Dropdown widget", () => {
         // Assert
         expect(screen.getByRole("combobox")).toHaveTextContent("Right");
         expect(
-            scorePerseusItemTesting(question, renderer.getUserInputMap()),
+            scoreQuestion(question, renderer.getUserInputMap(), "en"),
         ).toHaveBeenAnsweredCorrectly();
     });
 
@@ -132,7 +131,7 @@ describe("Dropdown widget", () => {
         // Assert
         expect(screen.getByRole("combobox")).toHaveTextContent("Wrong");
         expect(
-            scorePerseusItemTesting(question, renderer.getUserInputMap()),
+            scoreQuestion(question, renderer.getUserInputMap(), "en"),
         ).toHaveBeenAnsweredIncorrectly();
     });
 
@@ -141,9 +140,10 @@ describe("Dropdown widget", () => {
         const {renderer} = renderQuestion(basicDropdown);
 
         // Act
-        const score = scorePerseusItemTesting(
+        const score = scoreQuestion(
             basicDropdown,
             renderer.getUserInputMap(),
+            "en",
         );
 
         // Assert
@@ -304,7 +304,7 @@ describe("Dropdown widget", () => {
 
             // Assert
             expect(
-                scorePerseusItemTesting(question, renderer.getUserInputMap()),
+                scoreQuestion(question, renderer.getUserInputMap(), "en"),
             ).toHaveBeenAnsweredCorrectly();
         },
     );

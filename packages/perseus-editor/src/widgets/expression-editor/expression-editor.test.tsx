@@ -10,26 +10,19 @@ import ExpressionEditor from "./expression-editor";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {UserEvent} from "@testing-library/user-event";
 
-// TODO(benchristel): Remove forwardRef; no one gets a ref to this component.
-const HarnessedEditor = React.forwardRef<
-    ExpressionEditor,
-    Partial<PropsFor<typeof ExpressionEditor>>
->(
-    (
-        {onChange = () => undefined, apiOptions = ApiOptions.defaults, ...rest},
-        ref,
-    ) => {
-        return (
-            <ExpressionEditor
-                apiOptions={apiOptions}
-                onChange={onChange}
-                ref={ref}
-                {...rest}
-            />
-        );
-    },
-);
-HarnessedEditor.displayName = "Harnessed ExpressionEditor";
+function HarnessedEditor({
+    onChange = () => undefined,
+    apiOptions = ApiOptions.defaults,
+    ...rest
+}: Partial<PropsFor<typeof ExpressionEditor>>) {
+    return (
+        <ExpressionEditor
+            apiOptions={apiOptions}
+            onChange={onChange}
+            {...rest}
+        />
+    );
+}
 
 describe("expression-editor", () => {
     let userEvent: UserEvent;
