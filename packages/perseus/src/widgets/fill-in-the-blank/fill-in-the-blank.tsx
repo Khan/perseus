@@ -4,6 +4,7 @@ import {forwardRef, useImperativeHandle} from "react";
 import {AnswerTile} from "../../components/drag-and-drop/answer-tile";
 import {PerseusDndProvider} from "../../components/drag-and-drop/perseus-dnd-provider";
 import {useTileMoveActions} from "../../components/drag-and-drop/use-tile-move-actions";
+import {useWidestTileWidth} from "../../components/drag-and-drop/use-widest-tile-width";
 import {usePerseusI18n} from "../../components/i18n-context";
 import Renderer from "../../renderer";
 import {BlankContext} from "../blank/blank-context";
@@ -55,6 +56,8 @@ const FillInTheBlankWidget = forwardRef<Widget, FillInTheBlankProps>(
             userInput,
         });
 
+        const {containerRef, maxWidth} = useWidestTileWidth();
+
         const {
             handleMove,
             handleClear,
@@ -103,10 +106,24 @@ const FillInTheBlankWidget = forwardRef<Widget, FillInTheBlankProps>(
             );
         };
 
+        // Setting `inert` on the element keeps the hidden copy's controls out
+        // of the tab order and assistive tech. (The hidden invisible tiles
+        // are used to determine the widest tile size; users should not be
+        // able to interact with them in any way.)
+        const setMeasurementRef = React.useCallback(
+            (element: HTMLElement | null) => {
+                element?.setAttribute("inert", "");
+                containerRef(element);
+            },
+            [containerRef],
+        );
+
         return (
             <div className={styles.fillInTheBlank}>
                 <PerseusDndProvider onDragEnd={handleDragEnd}>
-                    <BlankContext.Provider value={{renderPlacedTile}}>
+                    <BlankContext.Provider
+                        value={{renderPlacedTile, minWidth: maxWidth}}
+                    >
                         <div className={styles.answerZone}>
                             <Renderer
                                 content={content}
@@ -123,6 +140,27 @@ const FillInTheBlankWidget = forwardRef<Widget, FillInTheBlankProps>(
                         onMove={handleMove}
                         firstMenuRef={firstBankMenuRef}
                     />
+                </PerseusDndProvider>
+                {/* A separate provider keeps the measurement copies out of the
+                    real drag-and-drop. Only used for determining measurements.*/}
+                <PerseusDndProvider>
+                    <div
+                        aria-hidden="true"
+                        className={styles.measurement}
+                        ref={setMeasurementRef}
+                    >
+                        {tiles.map((tile) => (
+                            <AnswerTile
+                                key={tile.id}
+                                tileId={`measure__${tile.id}`}
+                                content={tile.content}
+                                label={tile.label}
+                                imageHeight={tile.imageHeight}
+                                moveTargets={[]}
+                                onMove={() => {}}
+                            />
+                        ))}
+                    </div>
                 </PerseusDndProvider>
             </div>
         );
