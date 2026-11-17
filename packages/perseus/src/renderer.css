@@ -204,6 +204,7 @@
      * SVG Images *
      **************/
     .framework-perseus .unresponsive-svg-image {
+        display: inline-block;
         position: relative;
     }
     .framework-perseus .unresponsive-svg-image > .graphie-container {
