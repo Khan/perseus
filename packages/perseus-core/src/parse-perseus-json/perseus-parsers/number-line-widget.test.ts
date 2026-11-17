@@ -35,11 +35,12 @@ describe("parseNumberLineWidget", () => {
     });
 
     it.each([
-        ["empty", []],
-        ["one-element", [0]],
-        ["three-element", [0, 5, 10]],
-        ["non-numeric", [0, "a"]],
-    ])("rejects an %s range", (_, range) => {
+        ["an empty range", []],
+        ["a one-element range", [0]],
+        ["a three-element range", [0, 5, 10]],
+        ["a non-numeric range max", [0, "a"]],
+        ["a non-numeric range min", ["a", 0]],
+    ])("rejects %s", (_, range) => {
         // Arrange
         const widget = numberLineWithRange(range);
 
