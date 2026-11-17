@@ -10,12 +10,7 @@ import type {
     PerseusWidgetsMap,
     UserInput,
     UserInputMap,
-    ValidatorContext,
 } from "@khanacademy/perseus-core";
-
-const validatorContext: ValidatorContext = {
-    validateWidgets: validateUserInput,
-};
 
 /**
  * validate, meant for client-side validation using answerless Perseus data
@@ -45,12 +40,7 @@ export function validateUserInput(
         const validator = getWidgetValidator(widget.type);
 
         // See if any of the widgets have validation errors
-        const validationError = validator?.(
-            userInput,
-            widget.options,
-            locale,
-            validatorContext,
-        );
+        const validationError = validator?.(userInput, widget.options, locale);
         if (validationError != null) {
             validationErrors[id] = validationError;
         }
@@ -83,12 +73,7 @@ export function emptyWidgetsFunctional(
         const validator = getWidgetValidator(widget.type);
         const userInput = userInputMap[id];
         const validationData = widget.options;
-        const score = validator?.(
-            userInput,
-            validationData,
-            locale,
-            validatorContext,
-        );
+        const score = validator?.(userInput, validationData, locale);
 
         if (score) {
             return scoreIsEmpty(score);

@@ -1,16 +1,10 @@
 import {generateGroupOptions} from "@khanacademy/perseus-core";
 
-import {scoreWidgetsFunctional} from "../../score";
 import {getTestDropdownWidget} from "../../util/widgets.testutils";
 
 import scoreGroup from "./score-group";
 
-import type {
-    PerseusGroupWidgetOptions,
-    ScorerContext,
-} from "@khanacademy/perseus-core";
-
-const context: ScorerContext = {scoreWidgets: scoreWidgetsFunctional};
+import type {PerseusGroupWidgetOptions} from "@khanacademy/perseus-core";
 
 describe("scoreGroup", () => {
     it("returns a score of 'invalid' when the user input is undefined", () => {
@@ -36,7 +30,7 @@ describe("scoreGroup", () => {
         };
 
         // Act:
-        const result = scoreGroup(userInput, rubric, "en", context);
+        const result = scoreGroup(userInput, rubric, "en");
 
         // Assert:
         expect(result).toHaveInvalidInput();
@@ -54,12 +48,7 @@ describe("scoreGroup", () => {
             });
 
             // Act
-            const result = scoreGroup(
-                {"dropdown 1": {value: 1}},
-                rubric,
-                "en",
-                context,
-            );
+            const result = scoreGroup({"dropdown 1": {value: 1}}, rubric, "en");
 
             // Assert
             expect(result).toHaveBeenAnsweredCorrectly();
@@ -80,7 +69,6 @@ describe("scoreGroup", () => {
                 {"dropdown 1": {value: 1}, "dropdown 2": {value: 1}},
                 rubric,
                 "en",
-                context,
             );
 
             // Assert

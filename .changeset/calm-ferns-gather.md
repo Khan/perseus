@@ -2,4 +2,4 @@
 "@khanacademy/perseus-score": patch
 ---
 
-Break the import cycle between the widget registry and the group widget's scorer and validator
+Export the group widget's scorer and validator as function declarations, so the widget registry can read them while the modules are still loading
