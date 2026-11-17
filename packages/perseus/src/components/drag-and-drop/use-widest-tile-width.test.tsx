@@ -2,23 +2,6 @@ import {act, renderHook} from "@testing-library/react";
 
 import {useWidestTileWidth} from "./use-widest-tile-width";
 
-/** Builds a child element that reports the given width. */
-function generateChild(width: number): HTMLElement {
-    const child = document.createElement("div");
-    // eslint-disable-next-line no-restricted-syntax -- The hook reads only width; jsdom has no layout to produce a real DOMRect.
-    jest.spyOn(child, "getBoundingClientRect").mockReturnValue({
-        width,
-    } as DOMRect);
-    return child;
-}
-
-/** Builds a container whose children report the given widths. */
-function generateContainer(widths: number[]): HTMLElement {
-    const container = document.createElement("div");
-    container.append(...widths.map(generateChild));
-    return container;
-}
-
 /**
  * jsdom has no layout, so it never fires ResizeObserver callbacks.
  * This fake records each observer so a test can fire one itself.
@@ -28,8 +11,13 @@ class FakeResizeObserver implements ResizeObserver {
     constructor(private callback: ResizeObserverCallback) {
         observers.push(this);
     }
-    fire() {
-        this.callback([], this);
+    /** Reports the observed element at the given border-box width. */
+    fire(inlineSize: number) {
+        const entry = {
+            borderBoxSize: [{inlineSize, blockSize: 0}],
+        };
+        // eslint-disable-next-line no-restricted-syntax -- The hook reads only borderBoxSize; jsdom cannot build a real entry.
+        this.callback([entry as unknown as ResizeObserverEntry], this);
     }
     observe() {}
     unobserve() {}
@@ -50,82 +38,68 @@ afterEach(() => {
 });
 
 /** Fires every live observer, as the browser does on a resize. */
-function fireResize() {
+function fireResize(inlineSize: number) {
     act(() => {
         observers
             .filter((observer) => !observer.disconnected)
-            .forEach((observer) => observer.fire());
+            .forEach((observer) => observer.fire(inlineSize));
     });
 }
 
+/** Renders the hook with its ref attached to a container. */
+function renderWithContainer() {
+    const hook = renderHook(() => useWidestTileWidth());
+    act(() => {
+        hook.result.current.containerRef(document.createElement("div"));
+    });
+    return hook;
+}
+
 describe("useWidestTileWidth", () => {
-    it("reports the widest child's width, rounded up", () => {
+    it("reports the container's width, rounded up", () => {
         // Arrange
-        const {result} = renderHook(() => useWidestTileWidth());
-        act(() => {
-            result.current.containerRef(generateContainer([50, 120.4, 80]));
-        });
+        const {result} = renderWithContainer();
 
         // Act
-        fireResize();
+        fireResize(120.4);
 
+        // Assert
         expect(result.current.maxWidth).toBe(121);
     });
 
-    it("reports no width for an empty container", () => {
+    it("reports no width while the container has zero width", () => {
         // Arrange
-        const {result} = renderHook(() => useWidestTileWidth());
-        act(() => {
-            result.current.containerRef(generateContainer([]));
-        });
+        const {result} = renderWithContainer();
 
         // Act
-        fireResize();
+        fireResize(0);
 
+        // Assert
         expect(result.current.maxWidth).toBeUndefined();
     });
 
-    it("reports no width while the container is hidden", () => {
+    it("reports the new width when the container resizes", () => {
         // Arrange
-        const {result} = renderHook(() => useWidestTileWidth());
-        act(() => {
-            result.current.containerRef(generateContainer([0, 0]));
-        });
+        const {result} = renderWithContainer();
+        fireResize(50);
 
         // Act
-        fireResize();
+        fireResize(200);
 
-        expect(result.current.maxWidth).toBeUndefined();
-    });
-
-    it("picks up a grown child when the container resizes", () => {
-        // Arrange
-        const {result} = renderHook(() => useWidestTileWidth());
-        const container = generateContainer([50]);
-        act(() => {
-            result.current.containerRef(container);
-        });
-        fireResize();
-        container.appendChild(generateChild(200));
-
-        // Act
-        fireResize();
-
+        // Assert
         expect(result.current.maxWidth).toBe(200);
     });
 
     it("stops observing when the container unmounts", () => {
         // Arrange
-        const {result} = renderHook(() => useWidestTileWidth());
-        act(() => {
-            result.current.containerRef(generateContainer([50]));
-        });
+        const {result} = renderWithContainer();
 
         // Act
         act(() => {
             result.current.containerRef(null);
         });
 
+        // Assert
         expect(observers.every((observer) => observer.disconnected)).toBe(true);
     });
 });

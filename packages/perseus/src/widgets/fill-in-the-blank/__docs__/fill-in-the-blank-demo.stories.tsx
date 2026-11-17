@@ -1,4 +1,5 @@
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {mobileDecorator} from "../../__testutils__/story-decorators";
 import {
     multiUseFillInTheBlankQuestion,
     paragraphFillInTheBlankQuestion,
@@ -24,6 +25,19 @@ type Story = StoryObj<typeof QuestionRendererForStories>;
 export const Paragraph: Story = {
     args: {
         question: paragraphFillInTheBlankQuestion,
+    },
+};
+
+/**
+ * The same paragraph on a phone. The 414px viewport is narrower than the
+ * answer zone's 504px breakpoint, so each blank fills its own line.
+ */
+export const ParagraphMobile: Story = {
+    decorators: [mobileDecorator],
+    globals: {viewport: {value: "mobile2", isRotated: false}},
+    args: {
+        question: paragraphFillInTheBlankQuestion,
+        apiOptions: {isMobile: true},
     },
 };
 

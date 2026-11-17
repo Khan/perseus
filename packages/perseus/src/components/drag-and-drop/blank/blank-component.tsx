@@ -26,7 +26,8 @@ export interface BlankComponentProps {
      * to the widest answer tile so the slot's size does not reveal the
      * answer; the widget computes that width and passes it here. Defaults
      * to the design's 65px minimum. A placed tile still grows the blank
-     * beyond this.
+     * beyond this. A change to this width applies at once, without the
+     * fill/clear transition.
      */
     minWidth?: number;
     /**
@@ -61,6 +62,37 @@ export function BlankComponent(props: BlankComponentProps): React.ReactElement {
 
     const {ref, isDropTarget} = useDroppable({id: blankId});
     const {source} = useDragOperation();
+
+    const elementRef = React.useRef<HTMLDivElement | null>(null);
+    const setRefs = React.useCallback(
+        (element: HTMLDivElement | null) => {
+            elementRef.current = element;
+            ref(element);
+        },
+        [ref],
+    );
+
+    // The CSS animates min-width so that filling and clearing a blank
+    // look smooth. A new minWidth prop is different: it corrects the
+    // layout after the widget measures its tiles (on load, or when TeX
+    // finishes rendering), so the blank should jump straight to it.
+    const previousMinWidth = React.useRef(minWidth);
+    React.useLayoutEffect(() => {
+        const element = elementRef.current;
+        if (element == null || previousMinWidth.current === minWidth) {
+            return;
+        }
+        previousMinWidth.current = minWidth;
+        // Browsers check whether to animate using the style that applies
+        // after a change, so the animation must be off while the browser
+        // computes the new width.
+        element.style.transition = "none";
+        // Forces the browser to apply the new width now.
+        element.getBoundingClientRect();
+        // The width has settled, so restoring the stylesheet's
+        // transition animates nothing.
+        element.style.transition = "";
+    }, [minWidth]);
 
     // A filled blank disappears visually: the design shows only the placed
     // tile (the Answer Blank has no filled variant in Figma). The element
@@ -103,7 +135,7 @@ export function BlankComponent(props: BlankComponentProps): React.ReactElement {
 
     return (
         <div
-            ref={ref}
+            ref={setRefs}
             className={slotClasses}
             style={minWidthStyle}
             // A styling hook for the surrounding layout. A widget that
