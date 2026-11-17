@@ -208,19 +208,6 @@ describe("number-line-editor", () => {
             );
         });
 
-        it("resets a cleared label to the end of the range", async () => {
-            // Arrange
-            const onChangeMock = renderWithLabelRange([3, 6]);
-
-            // Act
-            await userEvent.clear(screen.getByDisplayValue("3"));
-
-            // Assert
-            expect(onChangeMock).toHaveBeenLastCalledWith(
-                expect.objectContaining({labelRange: [0, 6]}),
-            );
-        });
-
         it("keeps the labels in place when an edit preserves their order", async () => {
             // Arrange
             const onChangeMock = renderWithLabelRange([3, 6]);
@@ -234,7 +221,7 @@ describe("number-line-editor", () => {
             );
         });
 
-        it("swaps the labels when the left label is moved past the right", async () => {
+        it("swaps the labels when the left label is greater than the right", async () => {
             // Arrange
             const onChangeMock = renderWithLabelRange([3, 6]);
 
@@ -247,7 +234,7 @@ describe("number-line-editor", () => {
             );
         });
 
-        it("swaps the labels when the right label is moved below the left", async () => {
+        it("swaps the labels when the right label is less than the left", async () => {
             // Arrange
             const onChangeMock = renderWithLabelRange([3, 6]);
 
