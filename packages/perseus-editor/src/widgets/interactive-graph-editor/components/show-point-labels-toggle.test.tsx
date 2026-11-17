@@ -13,9 +13,9 @@ describe("ShowPointLabelsToggle", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -104,7 +104,7 @@ describe("ShowPointLabelsToggle", () => {
 
     it("calls onChange when the author toggles it on", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ShowPointLabelsToggle
                 showPointLabels={false}

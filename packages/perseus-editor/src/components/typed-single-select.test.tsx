@@ -11,7 +11,7 @@ describe("TypedSingleSelect", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
@@ -86,7 +86,7 @@ describe("TypedSingleSelect", () => {
 
     it("calls onChange with the chosen option's key", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = rs.fn();
         render(
             <TypedSingleSelect
                 aria-label="Letter"

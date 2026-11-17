@@ -21,11 +21,12 @@ import {decodeGifFrames} from "../utils";
 
 import {ExploreImageModal} from "./explore-image-modal";
 
+import type {Mock} from "@rstest/core";
 import type {UserEvent} from "@testing-library/user-event";
 
 rs.mock("../utils", () => ({
     ...rs.requireActual("../utils"),
-    decodeGifFrames: jest.fn(),
+    decodeGifFrames: rs.fn(),
 }));
 
 // A minimal fake frame from gifuct-js with a 50ms delay.
@@ -69,9 +70,9 @@ describe("ExploreImageModal", () => {
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
 
@@ -80,14 +81,14 @@ describe("ExploreImageModal", () => {
         // The modal calls `.then` on the result for every GIF, so an
         // unconfigured mock would crash the render.
         // eslint-disable-next-line no-restricted-syntax
-        (decodeGifFrames as jest.Mock).mockResolvedValue([fakeFrame]);
+        (decodeGifFrames as Mock).mockResolvedValue([fakeFrame]);
 
         // jsdom doesn't implement canvas getContext or ImageData.
         // eslint-disable-next-line no-restricted-syntax
-        jest.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue({
-            putImageData: jest.fn(),
-            clearRect: jest.fn(),
-            drawImage: jest.fn(),
+        rs.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue({
+            putImageData: rs.fn(),
+            clearRect: rs.fn(),
+            drawImage: rs.fn(),
             imageSmoothingEnabled: true,
         } as Partial<CanvasRenderingContext2D> as CanvasRenderingContext2D);
 
@@ -139,7 +140,7 @@ describe("ExploreImageModal", () => {
         // Act
         renderModal(props);
         act(() => {
-            jest.runAllTimers();
+            rs.runAllTimers();
         });
 
         const title = screen.getByRole("heading", {level: 1});
@@ -168,7 +169,7 @@ describe("ExploreImageModal", () => {
         // Act
         renderModal(props);
         act(() => {
-            jest.runAllTimers();
+            rs.runAllTimers();
         });
 
         // Assert
@@ -197,7 +198,7 @@ describe("ExploreImageModal", () => {
         // Act
         renderModal(props);
         act(() => {
-            jest.runAllTimers();
+            rs.runAllTimers();
         });
 
         // Assert
@@ -310,10 +311,7 @@ describe("ExploreImageModal", () => {
         beforeEach(() => {
             // Decode resolves to two fake frames (an animated GIF) by default.
             // eslint-disable-next-line no-restricted-syntax
-            (decodeGifFrames as jest.Mock).mockResolvedValue([
-                fakeFrame,
-                fakeFrame,
-            ]);
+            (decodeGifFrames as Mock).mockResolvedValue([fakeFrame, fakeFrame]);
         });
 
         it("should render gif controls if the image is a multi frame gif", async () => {
@@ -336,7 +334,7 @@ describe("ExploreImageModal", () => {
         it("should not render gif controls if the image is a single frame gif", async () => {
             // Arrange
             // eslint-disable-next-line no-restricted-syntax
-            (decodeGifFrames as jest.Mock).mockResolvedValue([fakeFrame]);
+            (decodeGifFrames as Mock).mockResolvedValue([fakeFrame]);
             //Act
             renderModal({
                 ...defaultProps,

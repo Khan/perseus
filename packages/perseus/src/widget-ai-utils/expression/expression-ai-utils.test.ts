@@ -58,7 +58,7 @@ describe("Expression AI utils", () => {
         // Act
         const input = "x+1";
         act(() => widget.insert(input));
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         const json = renderer.getPromptJSON();
 

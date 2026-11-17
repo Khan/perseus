@@ -11,6 +11,7 @@ import {
     trimRange,
 } from "./util";
 
+import type {MockInstance} from "@rstest/core";
 import type {Interval, vec} from "mafs";
 
 describe("trimRange", () => {
@@ -132,10 +133,10 @@ describe("insetTipAlongRay", () => {
 });
 
 describe("Rendering", () => {
-    let useDraggable: jest.SpyInstance;
+    let useDraggable: MockInstance;
 
     beforeEach(() => {
-        useDraggable = jest
+        useDraggable = rs
             .spyOn(UseDraggableModule, "useDraggable")
             .mockReturnValue({dragging: false});
     });

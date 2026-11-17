@@ -1,4 +1,4 @@
-import {describe, beforeEach, it} from "@jest/globals";
+import {describe, beforeEach, it} from "@rstest/core";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 

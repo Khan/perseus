@@ -10,13 +10,13 @@ describe("ScrolllessNumberTextField", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
     test("Should render a number input", () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = rs.fn();
 
         // Act
         render(<ScrolllessNumberTextField value={42} onChange={onChange} />);
@@ -30,7 +30,7 @@ describe("ScrolllessNumberTextField", () => {
 
     test("Should call the onChange callback when the value changes", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = rs.fn();
         render(<ScrolllessNumberTextField value={0} onChange={onChange} />);
         const input = screen.getByRole("spinbutton");
 
@@ -43,7 +43,7 @@ describe("ScrolllessNumberTextField", () => {
 
     test("Should not call the onChange callback when the value is not a number", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = rs.fn();
         render(<ScrolllessNumberTextField value={42} onChange={onChange} />);
         const input = screen.getByRole("spinbutton");
 
@@ -56,7 +56,7 @@ describe("ScrolllessNumberTextField", () => {
 
     test("Should not call the onChange callback when the field is cleared", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = rs.fn();
         render(<ScrolllessNumberTextField value={42} onChange={onChange} />);
         const input = screen.getByRole("spinbutton");
 
@@ -69,7 +69,7 @@ describe("ScrolllessNumberTextField", () => {
 
     test("Should parse exponential notation", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = rs.fn();
         render(<ScrolllessNumberTextField value={42} onChange={onChange} />);
         const input = screen.getByRole("spinbutton");
 
@@ -83,7 +83,7 @@ describe("ScrolllessNumberTextField", () => {
 
     test("Should not call the onChange callback when the number is outside the representable range", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = rs.fn();
         render(<ScrolllessNumberTextField value={42} onChange={onChange} />);
         const input = screen.getByRole("spinbutton");
 
@@ -119,7 +119,7 @@ describe("ScrolllessNumberTextField", () => {
 
     test("calls onFocus on focus", async () => {
         // Arrange
-        const onFocus = jest.fn();
+        const onFocus = rs.fn();
         render(
             <ScrolllessNumberTextField
                 value={42}
@@ -138,7 +138,7 @@ describe("ScrolllessNumberTextField", () => {
 
     test("calls onBlur on blur", async () => {
         // Arrange
-        const onBlur = jest.fn();
+        const onBlur = rs.fn();
         render(
             <ScrolllessNumberTextField
                 value={42}

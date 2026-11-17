@@ -23,10 +23,10 @@ describe("WidgetEditor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -36,7 +36,7 @@ describe("WidgetEditor", () => {
             // Arrange
             // Mock getSupportedAlignments to return multiple alignments
             // This ensures the test is checking showAlignmentOptions, not alignment count
-            jest.spyOn(
+            rs.spyOn(
                 CoreWidgetRegistry,
                 "getSupportedAlignments",
             ).mockReturnValue(["block", "inline", "full-width"]);
@@ -65,7 +65,7 @@ describe("WidgetEditor", () => {
         it("should display alignment dropdown when widget supports multiple alignments", () => {
             // Arrange
             // Mock getSupportedAlignments to return multiple alignments
-            jest.spyOn(
+            rs.spyOn(
                 CoreWidgetRegistry,
                 "getSupportedAlignments",
             ).mockReturnValue(["block", "inline", "full-width"]);
@@ -93,7 +93,7 @@ describe("WidgetEditor", () => {
         it("should NOT display alignment dropdown when widget supports only one alignment", () => {
             // Arrange
             // Mock getSupportedAlignments to return a single alignment
-            jest.spyOn(
+            rs.spyOn(
                 CoreWidgetRegistry,
                 "getSupportedAlignments",
             ).mockReturnValue(["default"]);
@@ -119,8 +119,8 @@ describe("WidgetEditor", () => {
 
         it("should call onChange when alignment is changed", async () => {
             // Arrange
-            const onChangeMock = jest.fn();
-            jest.spyOn(
+            const onChangeMock = rs.fn();
+            rs.spyOn(
                 CoreWidgetRegistry,
                 "getSupportedAlignments",
             ).mockReturnValue(["block", "inline", "full-width"]);
@@ -156,7 +156,7 @@ describe("WidgetEditor", () => {
 
         it("should disable alignment dropdown when editing is disabled", () => {
             // Arrange
-            jest.spyOn(
+            rs.spyOn(
                 CoreWidgetRegistry,
                 "getSupportedAlignments",
             ).mockReturnValue(["block", "inline", "full-width"]);

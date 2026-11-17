@@ -5,27 +5,29 @@ import GraphUtils from "../../util/graph-utils";
 
 import {measurerQuestion} from "./measurer.testdata";
 
+import type {Mock} from "@rstest/core";
+
 rs.mock("../../util/graph-utils", () => ({
     __esModule: true,
     default: {
-        createGraphie: jest.fn(),
+        createGraphie: rs.fn(),
     },
 }));
 
 describe("measurer widget", () => {
-    let protractor: jest.Mock;
-    let ruler: jest.Mock;
+    let protractor: Mock;
+    let ruler: Mock;
 
     beforeEach(() => {
-        protractor = jest.fn(() => ({remove: jest.fn()}));
-        ruler = jest.fn(() => ({remove: jest.fn()}));
+        protractor = rs.fn(() => ({remove: rs.fn()}));
+        ruler = rs.fn(() => ({remove: rs.fn()}));
         const fakeGraphie = {
-            init: jest.fn(),
-            addMouseLayer: jest.fn(),
+            init: rs.fn(),
+            addMouseLayer: rs.fn(),
             protractor,
             ruler,
         };
-        jest.mocked(GraphUtils.createGraphie).mockReturnValue(
+        rs.mocked(GraphUtils.createGraphie).mockReturnValue(
             // `interactive.js` adds `protractor`/`ruler` to the graphie object
             // at runtime, so they're absent from the static `Graphie` type.
             // The mock only needs the methods the widget actually calls.

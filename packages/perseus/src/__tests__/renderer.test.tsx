@@ -1,4 +1,3 @@
-import {describe, beforeAll, beforeEach, afterEach, it} from "@jest/globals";
 import {
     generateInputNumberWidget,
     generateRadioWidget,
@@ -7,7 +6,7 @@ import {
     generateTestPerseusRenderer,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {rs} from "@rstest/core";
+import {describe, beforeAll, beforeEach, afterEach, it} from "@rstest/core";
 import {act, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -36,14 +35,15 @@ import {simpleGroupQuestion} from "../widgets/group/group.testdata";
 import MockWidgetExport from "../widgets/mock-widgets/mock-widget";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {Mock} from "@rstest/core";
 import type {UserEvent} from "@testing-library/user-event";
 
 // NOTE(jeremy): We can't use an automatic mock for the translation linter,
 // because one of it's "instance" methods is created using `debounce` and Jest
 // doesn't provide a mocked instance method for it (I suspect that Jest doesn't
 // see that symbol as an instance method).
-const mockRunLinter = jest.fn();
-const mockApplyLintErrors = jest.fn();
+const mockRunLinter = rs.fn();
+const mockApplyLintErrors = rs.fn();
 rs.mock("../translation-linter", () => ({
     // Return a module object, not a bare function: most test runners do not
     // treat bare function as the whole module (ie. they need the __esModule
@@ -68,17 +68,17 @@ describe("renderer", () => {
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
         // Mocked for loading graphie in svg-image
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn(() =>
+        global.fetch = rs.fn(() =>
             Promise.resolve({
                 text: () => "",
                 ok: true,
             }),
-        ) as jest.Mock;
+        ) as Mock;
     });
 
     describe("snapshots", () => {
@@ -162,7 +162,7 @@ describe("renderer", () => {
 
             // Act
             act(() => {
-                jest.runAllTimers();
+                rs.runAllTimers();
             });
 
             // Assert
@@ -287,7 +287,7 @@ describe("renderer", () => {
         });
 
         it("renders a blockquote without logging an error", () => {
-            const consoleError = jest.spyOn(console, "error");
+            const consoleError = rs.spyOn(console, "error");
 
             const question = {
                 content: ">A",
@@ -299,7 +299,7 @@ describe("renderer", () => {
 
             // Act
             act(() => {
-                jest.runAllTimers();
+                rs.runAllTimers();
             });
 
             // Assert
@@ -307,7 +307,7 @@ describe("renderer", () => {
         });
 
         it("renders a blockquote with multiple paragraphs without logging an error", () => {
-            const consoleError = jest.spyOn(console, "error");
+            const consoleError = rs.spyOn(console, "error");
 
             const question = {
                 content: ">A\n>\n>B",
@@ -319,7 +319,7 @@ describe("renderer", () => {
 
             // Act
             act(() => {
-                jest.runAllTimers();
+                rs.runAllTimers();
             });
 
             // Assert
@@ -381,7 +381,7 @@ describe("renderer", () => {
 
             // Act
             act(() => {
-                jest.runAllTimers();
+                rs.runAllTimers();
             });
 
             // Assert
@@ -409,7 +409,7 @@ describe("renderer", () => {
 
             // Act
             act(() => {
-                jest.runAllTimers();
+                rs.runAllTimers();
             });
 
             // Assert
@@ -442,7 +442,7 @@ describe("renderer", () => {
 
             // Act
             act(() => {
-                jest.runAllTimers();
+                rs.runAllTimers();
             });
 
             // Assert
@@ -471,7 +471,7 @@ describe("renderer", () => {
 
             // Act
             act(() => {
-                jest.runAllTimers();
+                rs.runAllTimers();
             });
 
             // Assert
@@ -507,7 +507,7 @@ describe("renderer", () => {
 
             // Act
             act(() => {
-                jest.runAllTimers();
+                rs.runAllTimers();
             });
 
             // Assert
@@ -921,7 +921,7 @@ describe("renderer", () => {
                     "image 1": imageWidget,
                 },
             } as const;
-            const onFocusChange = jest.fn();
+            const onFocusChange = rs.fn();
             const {renderer} = renderQuestion(question, {
                 apiOptions: {
                     onFocusChange,
@@ -938,7 +938,7 @@ describe("renderer", () => {
 
         it("should return false if no widgets are focusable", () => {
             // Arrange
-            const onFocusChange = jest.fn();
+            const onFocusChange = rs.fn();
             const {renderer} = renderQuestion(
                 {
                     content: "[[☃ image 1]]",
@@ -974,7 +974,7 @@ describe("renderer", () => {
 
         it("should call onFocusChange callback when new widget receives focus", async () => {
             // Arrange
-            const onFocusChange = jest.fn();
+            const onFocusChange = rs.fn();
             renderQuestion(
                 {
                     ...question2,
@@ -1001,7 +1001,7 @@ describe("renderer", () => {
 
         it("should call onFocusChange callback when a widget loses focus", async () => {
             // Arrange
-            const onFocusChange = jest.fn();
+            const onFocusChange = rs.fn();
             renderQuestion(
                 {
                     ...question2,
@@ -1021,7 +1021,7 @@ describe("renderer", () => {
             // Act
             await userEvent.tab();
             // There's a _.defer() in the blur handling
-            act(() => jest.runOnlyPendingTimers());
+            act(() => rs.runOnlyPendingTimers());
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
@@ -1043,7 +1043,7 @@ describe("renderer", () => {
 
         it("should do nothing if requested FocusPath is already focused", () => {
             // Arrange
-            const onFocusChange = jest.fn();
+            const onFocusChange = rs.fn();
             const {renderer} = renderQuestion(question2, {
                 apiOptions: {
                     onFocusChange,
@@ -1061,7 +1061,7 @@ describe("renderer", () => {
 
         it("should blur current widget when focus changes", () => {
             // Arrange
-            const onFocusChange = jest.fn();
+            const onFocusChange = rs.fn();
             const {renderer} = renderQuestion(
                 {
                     ...question2,
@@ -1090,7 +1090,7 @@ describe("renderer", () => {
 
         it("should do nothing if blurred widget is not focused", () => {
             // Arrange
-            const onFocusChange = jest.fn();
+            const onFocusChange = rs.fn();
             const {renderer} = renderQuestion(
                 {
                     ...question2,
@@ -1117,7 +1117,7 @@ describe("renderer", () => {
 
         it("should blur current widget", () => {
             // Arrange
-            const onFocusChange = jest.fn();
+            const onFocusChange = rs.fn();
             const {renderer} = renderQuestion(
                 {
                     ...question2,
@@ -1137,7 +1137,7 @@ describe("renderer", () => {
 
             // Act
             act(() => renderer.blur());
-            act(() => jest.runOnlyPendingTimers()); // There's a _.defer() in this code path
+            act(() => rs.runOnlyPendingTimers()); // There's a _.defer() in this code path
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
@@ -1148,7 +1148,7 @@ describe("renderer", () => {
 
         it("should do nothing when blur() called but no widget focused", () => {
             // Arrange
-            const onFocusChange = jest.fn();
+            const onFocusChange = rs.fn();
             const {renderer} = renderQuestion(
                 {
                     ...question2,
@@ -1165,7 +1165,7 @@ describe("renderer", () => {
 
             // Act
             act(() => renderer.blur());
-            act(() => jest.runOnlyPendingTimers()); // There's a _.defer() in this code path
+            act(() => rs.runOnlyPendingTimers()); // There's a _.defer() in this code path
 
             // Assert
             expect(onFocusChange).not.toHaveBeenCalled();
@@ -1179,7 +1179,7 @@ describe("renderer", () => {
 
             const [widget2] = renderer.findWidgets("definition 2");
             expect(widget2).not.toBeUndefined();
-            widget2.getSerializedState = jest.fn();
+            widget2.getSerializedState = rs.fn();
 
             // Act
             renderer.getSerializedState();
@@ -1364,7 +1364,7 @@ describe("renderer", () => {
             const {renderer} = renderQuestion(definitionItem);
             const widget2DOMNode = <span />;
             const [widget2] = renderer.findWidgets("definition 2");
-            widget2.getDOMNodeForPath = jest.fn(() => widget2DOMNode);
+            widget2.getDOMNodeForPath = rs.fn(() => widget2DOMNode);
 
             // Act
             const node = renderer.getDOMNodeForPath(["definition 2"]);
@@ -1384,9 +1384,9 @@ describe("renderer", () => {
                         id,
                     ),
                 );
-            definition1.getInputPaths = jest.fn(() => ["input 1"]);
-            definition2.getInputPaths = jest.fn(() => ["input 2", "input 3"]);
-            definition3.getInputPaths = jest.fn(() => [
+            definition1.getInputPaths = rs.fn(() => ["input 1"]);
+            definition2.getInputPaths = rs.fn(() => ["input 2", "input 3"]);
+            definition3.getInputPaths = rs.fn(() => [
                 ["input 4", "sub-input 4.1"],
                 "input 5",
             ]);
@@ -1437,7 +1437,7 @@ describe("renderer", () => {
                 },
             });
             await userEvent.type(screen.getAllByRole("textbox")[0], "150");
-            act(() => jest.runOnlyPendingTimers());
+            act(() => rs.runOnlyPendingTimers());
 
             // Act
             const emptyWidgets = renderer.emptyWidgets();
@@ -1501,7 +1501,7 @@ describe("renderer", () => {
             // Arrange
             const {renderer} = renderQuestion(simpleGroupQuestion);
             await userEvent.type(screen.getByRole("textbox"), "99");
-            act(() => jest.runOnlyPendingTimers());
+            act(() => rs.runOnlyPendingTimers());
 
             // Act
             const emptyWidgets = renderer.emptyWidgets();
@@ -1576,10 +1576,10 @@ describe("renderer", () => {
         // JIPT stands for just-in-place-translation.
         // See: https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4860248066/JIPT+just-in-place+translation+in+Perseus
 
-        let addComponentMock = jest.fn();
+        let addComponentMock = rs.fn();
         beforeEach(() => {
-            addComponentMock = jest.fn().mockReturnValue(0);
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+            addComponentMock = rs.fn().mockReturnValue(0);
+            rs.spyOn(Dependencies, "getDependencies").mockReturnValue({
                 ...testDependencies,
                 JIPT: {useJIPT: true},
                 rendererTranslationComponents: {

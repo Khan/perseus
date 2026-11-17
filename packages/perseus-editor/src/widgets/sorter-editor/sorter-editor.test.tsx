@@ -46,10 +46,10 @@ describe("sorter-editor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -62,7 +62,7 @@ describe("sorter-editor", () => {
 
     it("should be possible to change layout to vertical", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <SorterEditor
                 onChange={onChangeMock}
@@ -82,7 +82,7 @@ describe("sorter-editor", () => {
 
     it("should be possible to change layout to horizontal", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <SorterEditor
                 onChange={onChangeMock}
@@ -151,7 +151,7 @@ describe("sorter-editor", () => {
     });
 
     it("should be possible to change padding", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(<SorterEditor onChange={onChangeMock} />);
 
@@ -179,7 +179,7 @@ describe("sorter-editor", () => {
 
     it("calls onChange with the updated correct answer when a card is edited", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         renderControlled(
             generateSorterOptions({correct: ["Cat", "Dog"]}),
             onChangeMock,
@@ -200,7 +200,7 @@ describe("sorter-editor", () => {
 
     it("calls onChange with an empty card appended when the add button is clicked", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <SorterEditor
                 onChange={onChangeMock}
@@ -238,7 +238,7 @@ describe("sorter-editor", () => {
 
     it("does not add an eleventh card when the add button is clicked", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <SorterEditor
                 onChange={onChangeMock}
@@ -299,7 +299,7 @@ describe("sorter-editor", () => {
 
         it("calls onChange with the updated correct answer when a card past the limit is edited", async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             renderControlled(
                 generateSorterOptions({correct: fifteenCards}),
                 onChangeMock,
@@ -320,7 +320,7 @@ describe("sorter-editor", () => {
 
         it("removes a card past the limit when its delete button is clicked", async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             render(
                 <SorterEditor
                     onChange={onChangeMock}
@@ -359,7 +359,7 @@ describe("sorter-editor", () => {
 
     it("swaps a card with the one above it when move up is clicked", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <SorterEditor
                 onChange={onChangeMock}
@@ -382,7 +382,7 @@ describe("sorter-editor", () => {
 
     it("swaps a card with the one below it when move down is clicked", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <SorterEditor
                 onChange={onChangeMock}
@@ -429,7 +429,7 @@ describe("sorter-editor", () => {
 
     it("removes a card when its delete button is clicked", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <SorterEditor
                 onChange={onChangeMock}
@@ -480,7 +480,7 @@ describe("sorter-editor", () => {
 
     it("does not drop the legend when another option is edited", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = rs.fn();
         const legend: PerseusSorterWidgetOptions["legend"] = {
             startCap: "arrow",
             endCap: "bar",
@@ -529,7 +529,7 @@ describe("sorter-editor", () => {
     describe("legend", () => {
         it("creates the full legend with arrow caps on the first legend edit of a scale", async () => {
             // Arrange
-            const onChange = jest.fn();
+            const onChange = rs.fn();
             renderControlled(generateSorterOptions(), onChange);
 
             // Act
@@ -555,7 +555,7 @@ describe("sorter-editor", () => {
 
         it("creates the legend with bar caps on the first legend edit of a timeline", async () => {
             // Arrange
-            const onChange = jest.fn();
+            const onChange = rs.fn();
             renderControlled(
                 generateSorterOptions({variant: "timeline"}),
                 onChange,
@@ -581,7 +581,7 @@ describe("sorter-editor", () => {
         // TODO: Re-enable when the variant dropdown ships.
         it.skip("resets the caps when they're the old variant's defaults", async () => {
             // Arrange
-            const onChange = jest.fn();
+            const onChange = rs.fn();
             renderControlled(
                 generateSorterOptions({
                     variant: "scale",
@@ -616,7 +616,7 @@ describe("sorter-editor", () => {
         // TODO: Re-enable when the variant dropdown ships.
         it.skip("keeps the caps when they aren't the old variant's defaults", async () => {
             // Arrange
-            const onChange = jest.fn();
+            const onChange = rs.fn();
             const mixedCapsLegend = generateSorterLegend({
                 startCap: "arrow",
                 endCap: "bar",
@@ -649,7 +649,7 @@ describe("sorter-editor", () => {
         // TODO: Re-enable when the variant dropdown ships.
         it.skip("does not add a legend when the variant changes before the legend exists", async () => {
             // Arrange
-            const onChange = jest.fn();
+            const onChange = rs.fn();
             renderControlled(generateSorterOptions(), onChange);
 
             // Act
@@ -661,14 +661,14 @@ describe("sorter-editor", () => {
             );
 
             // Assert
-            const lastOptions = onChange.mock.lastCall[0];
+            const lastOptions = onChange.mock.lastCall?.[0];
             expect(lastOptions.variant).toBe("timeline");
             expect(lastOptions.legend).toBeUndefined();
         });
 
         it("keeps the other legend fields when one is edited", async () => {
             // Arrange
-            const onChange = jest.fn();
+            const onChange = rs.fn();
             renderControlled(
                 generateSorterOptions({legend: generateSorterLegend()}),
                 onChange,
@@ -690,7 +690,7 @@ describe("sorter-editor", () => {
 
         it("does not add a legend when another option is edited", async () => {
             // Arrange
-            const onChange = jest.fn();
+            const onChange = rs.fn();
             renderControlled(
                 generateSorterOptions({correct: ["Cat", "Dog"]}),
                 onChange,
@@ -700,7 +700,7 @@ describe("sorter-editor", () => {
             await userEvent.type(screen.getByDisplayValue("Dog"), "s");
 
             // Assert
-            expect(onChange.mock.lastCall[0].legend).toBeUndefined();
+            expect(onChange.mock.lastCall?.[0].legend).toBeUndefined();
         });
 
         it("disables position when the layout is vertical", () => {

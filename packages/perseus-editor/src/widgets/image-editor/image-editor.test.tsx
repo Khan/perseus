@@ -63,10 +63,10 @@ describe("image editor", () => {
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
 
@@ -223,7 +223,7 @@ describe("image editor", () => {
 
     it("should render warning for non-Khan Academy image", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
                 options={{backgroundImage: {}}}
@@ -295,7 +295,7 @@ describe("image editor", () => {
         );
 
         act(() => {
-            jest.runAllTimers();
+            rs.runAllTimers();
         });
 
         // Assert
@@ -315,7 +315,7 @@ describe("image editor", () => {
         );
 
         act(() => {
-            jest.runAllTimers();
+            rs.runAllTimers();
         });
 
         // Assert
@@ -324,8 +324,8 @@ describe("image editor", () => {
 
     it("should call onChange with the new image url", async () => {
         // Arrange
-        jest.spyOn(Util, "getImageSizeModern").mockResolvedValue([200, 300]);
-        const onChangeMock = jest.fn();
+        rs.spyOn(Util, "getImageSizeModern").mockResolvedValue([200, 300]);
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
                 options={{backgroundImage: {}}}
@@ -354,7 +354,7 @@ describe("image editor", () => {
 
     it("should call onChange with empty image url", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
                 options={{}}
@@ -383,7 +383,7 @@ describe("image editor", () => {
 
     it("should clear the warning when the image url is cleared", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
                 options={{backgroundImage: {url: "abc"}}}
@@ -411,7 +411,7 @@ describe("image editor", () => {
 
     it("should call onChange with original image size when recalculate natural size is clicked", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
                 options={{
@@ -441,7 +441,7 @@ describe("image editor", () => {
 
     it("should not call onChange when recalculate natural size is clicked and the image size is already the original size", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
                 options={{backgroundImage: earthMoonImage}}
@@ -461,7 +461,7 @@ describe("image editor", () => {
 
     it("should call onChange with new alt text", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
                 options={{backgroundImage: earthMoonImage}}
@@ -484,7 +484,7 @@ describe("image editor", () => {
 
     it("should call onChange with empty alt", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
                 options={{
@@ -509,7 +509,7 @@ describe("image editor", () => {
 
     it("should call onChange with new long description", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
                 options={{backgroundImage: earthMoonImage}}
@@ -534,7 +534,7 @@ describe("image editor", () => {
 
     it("should call onChange with empty long description", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
                 options={{
@@ -561,7 +561,7 @@ describe("image editor", () => {
 
     it("should call onChange with new caption", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
                 options={{
@@ -586,7 +586,7 @@ describe("image editor", () => {
 
     it("should call onChange with empty caption", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
                 options={{
@@ -610,7 +610,7 @@ describe("image editor", () => {
     });
     it("should call onChange with new title", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
                 options={{backgroundImage: earthMoonImage}}
@@ -633,7 +633,7 @@ describe("image editor", () => {
 
     it("should call onChange with empty title", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
                 options={{
@@ -658,7 +658,7 @@ describe("image editor", () => {
 
     it("should show alt text too short error", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
                 options={{backgroundImage: earthMoonImage}}
@@ -680,7 +680,7 @@ describe("image editor", () => {
 
     it("should show alt text too long error", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
                 options={{backgroundImage: earthMoonImage}}
@@ -699,7 +699,7 @@ describe("image editor", () => {
 
     it("should clear the error when the alt text is cleared", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
                 options={{
@@ -777,7 +777,7 @@ describe("image editor", () => {
 
         it("should call onChange when decorative toggle is clicked", async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             render(
                 <ImageEditorWithDependencies
                     options={{backgroundImage: earthMoonImage}}
@@ -801,7 +801,7 @@ describe("image editor", () => {
     describe("scale input", () => {
         it("should render the scale inputs", () => {
             // Arrange, Act
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             render(
                 <ImageEditorWithDependencies
                     options={{
@@ -834,7 +834,7 @@ describe("image editor", () => {
 
         it("should render scaled values of width and height", () => {
             // Arrange, Act
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             render(
                 <ImageEditorWithDependencies
                     options={{
@@ -861,7 +861,7 @@ describe("image editor", () => {
 
         it("should call onChange with new scale when scale is changed", async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             render(
                 <ImageEditorWithDependencies
                     options={{
@@ -887,7 +887,7 @@ describe("image editor", () => {
 
         it("should call onChange with new scale when scaled width is changed", async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             render(
                 <ImageEditorWithDependencies
                     options={{
@@ -915,7 +915,7 @@ describe("image editor", () => {
 
         it("should call onChange with new scale when scaled height is changed", async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             render(
                 <ImageEditorWithDependencies
                     options={{
@@ -945,7 +945,7 @@ describe("image editor", () => {
             "should not call onChange when scale is invalid (%s)",
             async (scale) => {
                 // Arrange
-                const onChangeMock = jest.fn();
+                const onChangeMock = rs.fn();
                 render(
                     <ImageEditorWithDependencies
                         options={{
@@ -970,7 +970,7 @@ describe("image editor", () => {
 
         it("should disable the scale inputs when the image size is invalid", () => {
             // Arrange, Act
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             render(
                 <ImageEditorWithDependencies
                     options={{
@@ -1038,7 +1038,7 @@ describe("image editor", () => {
 
         it("should enable the scale inputs when the image size is valid", () => {
             // Arrange, Act
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             render(
                 <ImageEditorWithDependencies
                     options={{
@@ -1306,7 +1306,7 @@ describe("image editor", () => {
 
         it('calls onChange with "dark-mode=off" included in the URL query string when Suppress Dark Mode Filter is toggled on', async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             render(
                 <ImageEditorWithDependencies
                     options={{backgroundImage: pngImage}}
@@ -1334,7 +1334,7 @@ describe("image editor", () => {
 
         it('calls onChange with "dark-mode=off" removed when Suppress Dark Mode Filter is toggled off', async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             render(
                 <ImageEditorWithDependencies
                     options={{

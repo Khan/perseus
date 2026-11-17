@@ -1,7 +1,7 @@
 import {rs} from "@rstest/core";
 import {screen} from "@testing-library/react";
 
-if (typeof jest === "undefined") {
+if (typeof rs === "undefined") {
     /**
      * This file is for test use only.
      */

@@ -1,9 +1,9 @@
-import {beforeEach, describe, it} from "@jest/globals";
 import {
     type PerseusRenderer,
     type RadioWidget,
 } from "@khanacademy/perseus-core";
 import {scoreRadio, scoreQuestion} from "@khanacademy/perseus-score";
+import {beforeEach, describe, it} from "@rstest/core";
 import {fireEvent, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -18,6 +18,7 @@ import {
     shuffledQuestion,
 } from "./radio.testdata";
 
+import type {Mock} from "@rstest/core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const selectOption = async (
@@ -39,17 +40,17 @@ describe("Radio Widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
         // Mocked for loading graphie in svg-image
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn(() =>
+        global.fetch = rs.fn(() =>
             Promise.resolve({
                 text: () => "",
                 ok: true,
             }),
-        ) as jest.Mock;
+        ) as Mock;
     });
 
     describe("single-choice question", () => {
@@ -349,7 +350,7 @@ describe("Radio Widget", () => {
 
         it("should send analytics event when widget is rendered", async () => {
             // Arrange
-            const onAnalyticsEventSpy = jest.fn();
+            const onAnalyticsEventSpy = rs.fn();
             const dependencies = {
                 analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
             };
@@ -623,7 +624,7 @@ describe("Radio Widget", () => {
 
         it("should send analytics event when widget is rendered", async () => {
             // Arrange
-            const onAnalyticsEventSpy = jest.fn();
+            const onAnalyticsEventSpy = rs.fn();
             const dependencies = {
                 analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
             };
