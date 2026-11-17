@@ -1193,8 +1193,7 @@ class Renderer
     };
 
     /**
-     * Renders a `table` or `titledTable` node with the markup for its kind
-     * of table (see `getTableKind`).
+     * Renders a markdown table nodes.
      */
     outputTableNode = (
         node: SingleASTNode,
