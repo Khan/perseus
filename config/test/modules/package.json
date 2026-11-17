@@ -1,3 +1,6 @@
 {
-    "type": "module"
+    "type": "module",
+    "khan": {
+        "catalogHash": "e3b0c44298fc1c14"
+    }
 }
