@@ -64,7 +64,6 @@ class InteractiveGraphEditor extends React.Component<Props, State> {
         label: "Interactive Graph best practices",
     };
     displayName = "InteractiveGraphEditor";
-    className = "perseus-widget-interactive-graph";
 
     state: State = {
         valid: true,
