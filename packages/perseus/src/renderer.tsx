@@ -1203,7 +1203,7 @@ class Renderer
         // Defer to perseus-markdown when the linter has wrapped a titled
         // table's table in a `lint` node.
         if (node.type === "titledTable" && node.table?.type !== "table") {
-            return wrapTableForMobile(
+            return wrapTable(
                 PerseusMarkdown.ruleOutput(node, nestedOutput, state),
                 state,
             );
@@ -1240,8 +1240,7 @@ class Renderer
     };
 
     /**
-     * Renders a data table with a header row of column headers. The title
-     * (if any) is rendered as the table's `<caption>`.
+     * Renders a data table with a header row of column headers.
      */
     outputBasicTable = (
         node: SingleASTNode,
@@ -1250,60 +1249,33 @@ class Renderer
         state: WidgetState,
     ): React.ReactNode => {
         const headers = node.header.map(
-            (content: Array<SingleASTNode>, i: number) => (
-                <th key={i} style={getTableCellStyle(node, i)} scope="col">
-                    {nestedOutput(content, state)}
-                </th>
-            ),
+            (content: Array<SingleASTNode>, i: number) =>
+                buildColumnHeader(node, content, i, nestedOutput, state),
         );
 
         const rows = node.cells.map(
             (row: Array<Array<SingleASTNode>>, r: number) => (
                 <tr key={r}>
-                    {row.map((content, c) => (
-                        <td key={c} style={getTableCellStyle(node, c)}>
-                            {nestedOutput(content, state)}
-                        </td>
-                    ))}
+                    {row.map((content, c) =>
+                        buildDataCell(node, content, c, nestedOutput, state),
+                    )}
                 </tr>
             ),
         );
 
-        const table = (
-            // On mobile, make the table focusable in sequential keyboard
-            // navigation. Specifically this is needed for Android TalkBack,
-            // to enable reading/navigating tables with the swipe left/right
-            // gesture.
-            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-            <table key={state.key} tabIndex={state.isMobile ? 0 : undefined}>
-                {title != null && (
-                    <caption key="caption" className="perseus-table-title">
-                        {nestedOutput(title, state)}
-                    </caption>
-                )}
-                <thead key="thead">
-                    <tr>{headers}</tr>
-                </thead>
-                <tbody key="tbody">{rows}</tbody>
-            </table>
-        );
-
-        if (title == null || state.unwrapTitledTableContents) {
-            return wrapTableForMobile(table, state);
-        }
-
-        return wrapTableForMobile(
-            <div className="perseus-titled-table-wrapper" key={state.key}>
-                {table}
-            </div>,
+        const table = buildDataTableElement(
+            headers,
+            rows,
+            title,
+            nestedOutput,
             state,
         );
+
+        return wrapTable(table, state, title);
     };
 
     /**
-     * Renders a data table whose first column holds row headers, in addition
-     * to the header row of column headers. The title (if any) is rendered as
-     * the table's `<caption>`.
+     * Renders a data table whose first column holds row headers.
      */
     outputRowHeaderTable = (
         node: SingleASTNode,
@@ -1318,11 +1290,7 @@ class Renderer
                 if (i === 0 && isEmptyTableCell(content)) {
                     return <td key={i} />;
                 }
-                return (
-                    <th key={i} style={getTableCellStyle(node, i)} scope="col">
-                        {nestedOutput(content, state)}
-                    </th>
-                );
+                return buildColumnHeader(node, content, i, nestedOutput, state);
             },
         );
 
@@ -1344,45 +1312,27 @@ class Renderer
                                 </th>
                             );
                         }
-                        return (
-                            <td key={c} style={getTableCellStyle(node, c)}>
-                                {nestedOutput(content, state)}
-                            </td>
+                        return buildDataCell(
+                            node,
+                            content,
+                            c,
+                            nestedOutput,
+                            state,
                         );
                     })}
                 </tr>
             ),
         );
 
-        const table = (
-            // On mobile, make the table focusable in sequential keyboard
-            // navigation. Specifically this is needed for Android TalkBack,
-            // to enable reading/navigating tables with the swipe left/right
-            // gesture.
-            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-            <table key={state.key} tabIndex={state.isMobile ? 0 : undefined}>
-                {title != null && (
-                    <caption key="caption" className="perseus-table-title">
-                        {nestedOutput(title, state)}
-                    </caption>
-                )}
-                <thead key="thead">
-                    <tr>{headers}</tr>
-                </thead>
-                <tbody key="tbody">{rows}</tbody>
-            </table>
-        );
-
-        if (title == null || state.unwrapTitledTableContents) {
-            return wrapTableForMobile(table, state);
-        }
-
-        return wrapTableForMobile(
-            <div className="perseus-titled-table-wrapper" key={state.key}>
-                {table}
-            </div>,
+        const table = buildDataTableElement(
+            headers,
+            rows,
+            title,
+            nestedOutput,
             state,
         );
+
+        return wrapTable(table, state, title);
     };
 
     /**
@@ -1414,7 +1364,7 @@ class Renderer
         );
 
         // Circle back, I don't think we need this for mobile?
-        const table = wrapTableForMobile(
+        const table = wrapTable(
             <table key={state.key} role="presentation">
                 <tbody key="tbody">{rows}</tbody>
             </table>,
@@ -1890,26 +1840,108 @@ function removeBoldFromTableCell(cell: Array<SingleASTNode>): ASTNode {
 }
 
 /**
- * On mobile, wraps a table so it can be zoomed and scrolled horizontally,
- * extending into the page's side margins. Elsewhere, returns the table
- * unchanged.
+ * Wraps a rendered table for display:
+ *
+ * 1. If a data table's `title` is passed, wraps the table in the titled table
+ *    wrapper (unless the caller wraps it itself, see
+ *    `unwrapTitledTableContents`).
+ * 2. On mobile, wraps the result so it can be zoomed and scrolled
+ *    horizontally, extending into the page's side margins.
  */
-function wrapTableForMobile(
+function wrapTable(
     table: React.ReactNode,
     state: WidgetState,
+    title?: ASTNode,
 ): React.ReactNode {
+    let output = table;
+    if (title != null && !state.unwrapTitledTableContents) {
+        output = (
+            <div className="perseus-titled-table-wrapper" key={state.key}>
+                {table}
+            </div>
+        );
+    }
+
     if (!state.isMobile) {
-        return table;
+        return output;
     }
 
     return (
         <div key={state.key} style={styles.mobileTableOuter}>
             <div style={styles.mobileTableInner}>
                 <ErrorBoundary>
-                    <Zoomable animateHeight={true}>{table}</Zoomable>
+                    <Zoomable animateHeight={true}>{output}</Zoomable>
                 </ErrorBoundary>
             </div>
         </div>
+    );
+}
+
+/**
+ * Renders a header row cell as a column header.
+ */
+function buildColumnHeader(
+    node: SingleASTNode,
+    content: Array<SingleASTNode>,
+    colIndex: number,
+    nestedOutput: (ast: ASTNode, state: WidgetState) => React.ReactNode,
+    state: WidgetState,
+): React.ReactElement {
+    return (
+        <th
+            key={colIndex}
+            style={getTableCellStyle(node, colIndex)}
+            scope="col"
+        >
+            {nestedOutput(content, state)}
+        </th>
+    );
+}
+
+/**
+ * Renders a body cell of a data table.
+ */
+function buildDataCell(
+    node: SingleASTNode,
+    content: Array<SingleASTNode>,
+    colIndex: number,
+    nestedOutput: (ast: ASTNode, state: WidgetState) => React.ReactNode,
+    state: WidgetState,
+): React.ReactElement {
+    return (
+        <td key={colIndex} style={getTableCellStyle(node, colIndex)}>
+            {nestedOutput(content, state)}
+        </td>
+    );
+}
+
+/**
+ * Renders the `<table>` element of a data table from its header cells and
+ * body rows. The title (if any) is rendered as the table's `<caption>`.
+ */
+function buildDataTableElement(
+    headers: Array<React.ReactNode>,
+    rows: Array<React.ReactNode>,
+    title: ASTNode | undefined,
+    nestedOutput: (ast: ASTNode, state: WidgetState) => React.ReactNode,
+    state: WidgetState,
+): React.ReactElement {
+    return (
+        // On mobile, make the table focusable in sequential keyboard
+        // navigation. Specifically this is needed for Android TalkBack, to
+        // enable reading/navigating tables with the swipe left/right gesture.
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+        <table key={state.key} tabIndex={state.isMobile ? 0 : undefined}>
+            {title != null && (
+                <caption key="caption" className="perseus-table-title">
+                    {nestedOutput(title, state)}
+                </caption>
+            )}
+            <thead key="thead">
+                <tr>{headers}</tr>
+            </thead>
+            <tbody key="tbody">{rows}</tbody>
+        </table>
     );
 }
 
