@@ -14,9 +14,12 @@ test.describe("Radio Widget", () => {
         page,
     }) => {
         await renderQuestion(mount, question);
-        const choiceD = page.getByRole("button", {name: /^Choice D/});
+        const choiceD = page.getByRole("button", {name: /^\(Choice D\)/});
 
-        await page.getByText("No value of").click();
+        await page
+            .getByRole("listitem")
+            .filter({hasText: "No value of"})
+            .click();
 
         await expect(choiceD).toHaveAttribute("aria-pressed", "true");
         await expect(choiceD).toBeFocused();
@@ -28,14 +31,17 @@ test.describe("Radio Widget", () => {
     }) => {
         await renderQuestion(mount, question);
 
-        await page.getByText("No value of").click();
+        await page
+            .getByRole("listitem")
+            .filter({hasText: "No value of"})
+            .click();
         await expect(
-            page.getByRole("button", {name: /^Choice D/}),
+            page.getByRole("button", {name: /^\(Choice D\)/}),
         ).toBeFocused();
         await page.keyboard.press("Shift+Tab");
 
         await expect(
-            page.getByRole("button", {name: /^Choice C/}),
+            page.getByRole("button", {name: /^\(Choice C\)/}),
         ).toBeFocused();
     });
 });
