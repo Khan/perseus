@@ -48,7 +48,6 @@ class NumberLineEditor extends React.Component<Props> {
         });
     }
 
-    // TODO-NEXT: add tests for editing the label range
     handleLabelRangeChange(i: number, num: number) {
         let labelRange: PerseusNumberLineWidgetOptions["labelRange"] = [
             ...this.props.labelRange,
