@@ -107,8 +107,6 @@ no later commit mentions excluding it. It's now registered.
       fallback to `defaultProps` and keep those `defaultProps` below)
 - [ ] Test: inserting a core widget (e.g. dropdown) from the widget dropdown
       produces options deep-equal to `<widget>Logic.defaultWidgetOptions`
-- [ ] Test: inserting a free-response widget produces
-      `freeResponseLogic.defaultWidgetOptions`
 - [ ] Test: inserted widget options don't share identity with the
       registry's defaults
 - [ ] Change `_addWidgetToContent()` to take a copy of
