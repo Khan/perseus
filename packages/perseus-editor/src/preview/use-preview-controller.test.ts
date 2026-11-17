@@ -9,6 +9,7 @@ import {usePreviewController} from "./use-preview-controller";
 import type {PreviewContent} from "./message-types";
 import type {Issue} from "../components/issues-panel";
 import type {APIOptions} from "@khanacademy/perseus";
+import type {Mock} from "@rstest/core";
 import type * as React from "react";
 
 const issue = (id: string): Issue => ({
@@ -29,7 +30,7 @@ describe("usePreviewController", () => {
         // Create mock content window with postMessage
         // eslint-disable-next-line no-restricted-syntax
         mockContentWindow = {
-            postMessage: jest.fn(),
+            postMessage: rs.fn(),
         } as unknown as Window;
 
         // Create mock iframe element
@@ -56,7 +57,7 @@ describe("usePreviewController", () => {
 
     function messagesOfType(type: string) {
         // eslint-disable-next-line no-restricted-syntax
-        return (mockContentWindow.postMessage as jest.Mock).mock.calls
+        return (mockContentWindow.postMessage as Mock).mock.calls
             .map(([msg]) => msg)
             .filter((msg) => msg.type === type);
     }
@@ -70,7 +71,7 @@ describe("usePreviewController", () => {
         });
 
         it("sets up message event listener", () => {
-            const addEventListenerSpy = jest.spyOn(window, "addEventListener");
+            const addEventListenerSpy = rs.spyOn(window, "addEventListener");
 
             renderHook(() => usePreviewController(iframeRef));
 
@@ -81,7 +82,7 @@ describe("usePreviewController", () => {
         });
 
         it("cleans up message event listener on unmount", () => {
-            const removeEventListenerSpy = jest.spyOn(
+            const removeEventListenerSpy = rs.spyOn(
                 window,
                 "removeEventListener",
             );
@@ -271,7 +272,7 @@ describe("usePreviewController", () => {
             sendIframeReadyMessage();
 
             const previewData = createQuestionPreview({
-                apiOptions: {onFocusChange: jest.fn()},
+                apiOptions: {onFocusChange: rs.fn()},
             });
             act(() => {
                 result.current.sendData(previewData);
@@ -716,8 +717,8 @@ describe("usePreviewController", () => {
                     // eslint-disable-next-line no-restricted-syntax
                     apiOptions: {
                         readOnly: true,
-                        onFocusChange: jest.fn(),
-                        trackInteraction: jest.fn(),
+                        onFocusChange: rs.fn(),
+                        trackInteraction: rs.fn(),
                     } as any,
                 },
             };

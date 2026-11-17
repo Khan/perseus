@@ -35,7 +35,7 @@ describe("LockedLineSettings", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
     test("renders", () => {
@@ -118,7 +118,7 @@ describe("LockedLineSettings", () => {
 
     test("calls onToggle when header is clicked", async () => {
         // Arrange
-        const onToggle = jest.fn();
+        const onToggle = rs.fn();
         render(<LockedLineSettings {...defaultProps} onToggle={onToggle} />, {
             wrapper: RenderStateRoot,
         });
@@ -135,7 +135,7 @@ describe("LockedLineSettings", () => {
 
     test("calls onChangeProps when color is changed", async () => {
         // Arrange
-        const onChangeProps = jest.fn();
+        const onChangeProps = rs.fn();
         render(
             <LockedLineSettings
                 {...defaultProps}
@@ -173,7 +173,7 @@ describe("LockedLineSettings", () => {
 
     test("calls onChange when the weight is changed", async () => {
         // Arrange
-        const onChangeSpy = jest.fn();
+        const onChangeSpy = rs.fn();
         render(
             <LockedLineSettings
                 {...defaultProps}
@@ -196,7 +196,7 @@ describe("LockedLineSettings", () => {
 
     test("updates the defining points' label colors when the line color changes", async () => {
         // Arrange
-        const onChangeProps = jest.fn();
+        const onChangeProps = rs.fn();
         render(
             <LockedLineSettings
                 {...defaultProps}
@@ -252,7 +252,7 @@ describe("LockedLineSettings", () => {
 
     test("call onChangeProps when point is open", async () => {
         // Arrange
-        const onChangeProps = jest.fn();
+        const onChangeProps = rs.fn();
         render(
             <LockedLineSettings
                 {...defaultProps}
@@ -382,7 +382,7 @@ describe("LockedLineSettings", () => {
     describe("Labels", () => {
         test("Updates the label coords when the line coords change", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = rs.fn();
             render(
                 <LockedLineSettings
                     {...defaultProps}
@@ -437,7 +437,7 @@ describe("LockedLineSettings", () => {
 
         test("Updates the label color when the line color changes", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = rs.fn();
             render(
                 <LockedLineSettings
                     {...defaultProps}
@@ -483,7 +483,7 @@ describe("LockedLineSettings", () => {
 
         test("Updates the label when the label text changes", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = rs.fn();
             render(
                 <LockedLineSettings
                     {...defaultProps}
@@ -510,7 +510,7 @@ describe("LockedLineSettings", () => {
 
         test("Removes label when delete button is clicked", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = rs.fn();
             render(
                 <LockedLineSettings
                     {...defaultProps}
@@ -539,7 +539,7 @@ describe("LockedLineSettings", () => {
 
         test("Adds a new label when the add label button is clicked", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = rs.fn();
             render(
                 <LockedLineSettings
                     {...defaultProps}
@@ -602,7 +602,7 @@ describe("LockedLineSettings", () => {
 
         test("calls onChangeProps when the aria label is updated", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = rs.fn();
             render(
                 <LockedLineSettings
                     {...defaultProps}
@@ -623,7 +623,7 @@ describe("LockedLineSettings", () => {
             });
         });
 
-        test.each`
+        test.each<any>`
             kind         | label        | connector1   | connector2
             ${"line"}    | ${"Line"}    | ${"through"} | ${"and"}
             ${"segment"} | ${"Segment"} | ${"from"}    | ${"to"}
@@ -632,7 +632,7 @@ describe("LockedLineSettings", () => {
             "aria label auto-generates with different kind ($kind)",
             async ({kind, label, connector1, connector2}) => {
                 // Arrange
-                const onChangeProps = jest.fn();
+                const onChangeProps = rs.fn();
                 render(
                     <LockedLineSettings
                         {...defaultProps}
@@ -658,7 +658,7 @@ describe("LockedLineSettings", () => {
 
         test("aria label auto-generates (no labels)", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = rs.fn();
 
             // Act
             render(
@@ -684,7 +684,7 @@ describe("LockedLineSettings", () => {
 
         test("aria label auto-generates (one label)", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = rs.fn();
             render(
                 <LockedLineSettings
                     {...defaultProps}
@@ -715,7 +715,7 @@ describe("LockedLineSettings", () => {
 
         test("aria label auto-generates (multiple labels)", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = rs.fn();
             render(
                 <LockedLineSettings
                     {...defaultProps}
@@ -750,7 +750,7 @@ describe("LockedLineSettings", () => {
 
         test("aria label auto-generates (one label, including points)", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = rs.fn();
             render(
                 <LockedLineSettings
                     {...defaultProps}
@@ -791,7 +791,7 @@ describe("LockedLineSettings", () => {
 
         test("aria label auto-generates (multiple labels, including points)", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = rs.fn();
             render(
                 <LockedLineSettings
                     {...defaultProps}

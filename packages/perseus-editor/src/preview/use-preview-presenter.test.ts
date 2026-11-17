@@ -5,8 +5,9 @@ import {PREVIEW_MESSAGE_SOURCE} from "./message-types";
 import {usePreviewPresenter} from "./use-preview-presenter";
 
 import type {ParentToIframeMessage, PreviewContent} from "./message-types";
+import type {Mock} from "@rstest/core";
 
-const mockAxeRun = jest.fn().mockResolvedValue({
+const mockAxeRun = rs.fn().mockResolvedValue({
     violations: [],
     incomplete: [],
 });
@@ -14,7 +15,7 @@ const mockAxeRun = jest.fn().mockResolvedValue({
 rs.mock("axe-core", () => ({
     __esModule: true,
     default: {
-        configure: jest.fn(),
+        configure: rs.fn(),
         run: mockAxeRun,
     },
 }));
@@ -31,12 +32,12 @@ const scanQuestionContent: PreviewContent = {
 describe("usePreviewPresenter", () => {
     let mockIframeElement: {dataset: {[key: string]: string | undefined}};
     let mockParentWindow: typeof window.parent;
-    let mockPostMessage: jest.Mock;
+    let mockPostMessage: Mock;
 
     beforeEach(() => {
         mockAxeRun.mockResolvedValue({violations: [], incomplete: []});
 
-        mockPostMessage = jest.fn();
+        mockPostMessage = rs.fn();
         // eslint-disable-next-line no-restricted-syntax
         mockParentWindow = {
             postMessage: mockPostMessage,
@@ -51,11 +52,11 @@ describe("usePreviewPresenter", () => {
         };
 
         // Override window properties
-        jest.spyOn(window, "frameElement", "get").mockReturnValue(
+        rs.spyOn(window, "frameElement", "get").mockReturnValue(
             // eslint-disable-next-line no-restricted-syntax
             mockIframeElement as unknown as HTMLIFrameElement,
         );
-        jest.spyOn(window, "parent", "get").mockReturnValue(mockParentWindow);
+        rs.spyOn(window, "parent", "get").mockReturnValue(mockParentWindow);
     });
 
     function dispatchToPresenter(data: ParentToIframeMessage) {
@@ -85,7 +86,7 @@ describe("usePreviewPresenter", () => {
         });
         // Wait for debounce to time out and do axe-core scan
         act(() => {
-            jest.advanceTimersByTime(1500);
+            rs.advanceTimersByTime(1500);
         });
         await waitFor(() => {
             expect(mockPostMessage).toHaveBeenCalledWith(
@@ -135,9 +136,9 @@ describe("usePreviewPresenter", () => {
         });
 
         it("throws error when not used within an iframe", () => {
-            jest.spyOn(window, "frameElement", "get").mockReturnValue(null);
+            rs.spyOn(window, "frameElement", "get").mockReturnValue(null);
             // React logs the thrown render error even though it is caught.
-            jest.spyOn(console, "error").mockImplementation(() => {});
+            rs.spyOn(console, "error").mockImplementation(() => {});
 
             expect(() => {
                 renderHook(() => usePreviewPresenter());
@@ -145,7 +146,7 @@ describe("usePreviewPresenter", () => {
         });
 
         it("sets up message event listener", () => {
-            const addEventListenerSpy = jest.spyOn(window, "addEventListener");
+            const addEventListenerSpy = rs.spyOn(window, "addEventListener");
 
             renderHook(() => usePreviewPresenter());
 
@@ -156,7 +157,7 @@ describe("usePreviewPresenter", () => {
         });
 
         it("cleans up message event listener on unmount", () => {
-            const removeEventListenerSpy = jest.spyOn(
+            const removeEventListenerSpy = rs.spyOn(
                 window,
                 "removeEventListener",
             );
@@ -315,7 +316,7 @@ describe("usePreviewPresenter", () => {
 
             // eslint-disable-next-line no-restricted-syntax
             const mockOtherWindow = {
-                postMessage: jest.fn(),
+                postMessage: rs.fn(),
             } as unknown as Window;
 
             const message: ParentToIframeMessage = {
@@ -544,7 +545,7 @@ describe("usePreviewPresenter", () => {
                 sendContent(questionContent("What is 2+2?"));
             });
             act(() => {
-                jest.advanceTimersByTime(1500);
+                rs.advanceTimersByTime(1500);
             });
             await waitFor(() => {
                 expect(mockAxeRun).toHaveBeenCalledTimes(1);
@@ -556,7 +557,7 @@ describe("usePreviewPresenter", () => {
                 sendContent(questionContent("What is 3+3?"));
             });
             act(() => {
-                jest.advanceTimersByTime(1500);
+                rs.advanceTimersByTime(1500);
             });
             expect(mockAxeRun).toHaveBeenCalledTimes(1);
 
@@ -599,7 +600,7 @@ describe("usePreviewPresenter", () => {
             });
 
             act(() => {
-                jest.advanceTimersByTime(1500);
+                rs.advanceTimersByTime(1500);
             });
 
             // Assert
@@ -690,7 +691,7 @@ describe("usePreviewPresenter", () => {
             });
 
             act(() => {
-                jest.advanceTimersByTime(1500);
+                rs.advanceTimersByTime(1500);
             });
 
             await waitFor(() => {
@@ -840,7 +841,7 @@ describe("usePreviewPresenter", () => {
             });
 
             act(() => {
-                jest.advanceTimersByTime(1500);
+                rs.advanceTimersByTime(1500);
             });
 
             await waitFor(() => {
@@ -979,8 +980,7 @@ describe("usePreviewPresenter", () => {
 
             // Check the height update calls
             // eslint-disable-next-line no-restricted-syntax
-            const calls = (mockParentWindow.postMessage as jest.Mock).mock
-                .calls;
+            const calls = (mockParentWindow.postMessage as Mock).mock.calls;
             expect(calls[1][0]).toEqual({
                 source: PREVIEW_MESSAGE_SOURCE,
                 type: "height-update",

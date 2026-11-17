@@ -13,10 +13,10 @@ describe("python-program-editor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -28,7 +28,7 @@ describe("python-program-editor", () => {
     });
 
     it("should be possible to update the User Program ID", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(<PythonProgramEditor onChange={onChangeMock} />);
 
@@ -44,7 +44,7 @@ describe("python-program-editor", () => {
     });
 
     it("should be possible to update the height", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(<PythonProgramEditor onChange={onChangeMock} />);
 

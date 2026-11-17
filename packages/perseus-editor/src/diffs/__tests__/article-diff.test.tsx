@@ -22,13 +22,13 @@ describe("ArticleDiff", () => {
     });
 
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
     afterEach(() => {
-        jest.restoreAllMocks();
+        rs.restoreAllMocks();
     });
 
     it("renders an article in the diff view", () => {

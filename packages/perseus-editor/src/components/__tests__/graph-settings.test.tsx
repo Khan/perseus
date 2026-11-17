@@ -8,7 +8,7 @@ import GraphSettings from "../graph-settings";
 
 import type {UserEvent} from "@testing-library/user-event";
 
-import "@testing-library/jest-dom"; // Imports custom matchers
+// Imports custom matchers
 
 /**
  * userEvent vs. userEventLib - which to use?
@@ -34,10 +34,10 @@ describe("GraphSettings", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -157,7 +157,7 @@ describe("GraphSettings", () => {
 
     test("calls onChange when markings are changed", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = rs.fn();
         render(
             <GraphSettings editableSettings={["graph"]} onChange={onChange} />,
         );
@@ -174,7 +174,7 @@ describe("GraphSettings", () => {
 
     test("calls onChange when ruler label is changed", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = rs.fn();
 
         render(
             <GraphSettings
@@ -196,7 +196,7 @@ describe("GraphSettings", () => {
 
     test("calls onChange when rulerTicks is changed", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = rs.fn();
         render(
             <GraphSettings
                 editableSettings={["measure"]}
@@ -218,12 +218,12 @@ describe("GraphSettings", () => {
     test("calls onChange when background image is changed", async () => {
         // Arrange
         // TODO(nisha): Figure out how to use fake timers for this.
-        jest.useRealTimers();
-        const onChange = jest.fn();
+        rs.useRealTimers();
+        const onChange = rs.fn();
         const mockGetImageSize = (url, cb: (width, height) => void) => {
             cb(100, 100);
         };
-        jest.spyOn(Util, "getImageSize").mockImplementation(mockGetImageSize);
+        rs.spyOn(Util, "getImageSize").mockImplementation(mockGetImageSize);
 
         render(
             <GraphSettings editableSettings={["image"]} onChange={onChange} />,
@@ -249,13 +249,13 @@ describe("GraphSettings", () => {
     test("validates background image size", async () => {
         // Arrange
         // TODO(nisha): Figure out how to use fake timers for this.
-        jest.useRealTimers();
-        const onChange = jest.fn();
+        rs.useRealTimers();
+        const onChange = rs.fn();
         const mockGetImageSize = (url, cb: (width, height) => void) => {
             // Large image should be invalid
             cb(1000, 1000);
         };
-        jest.spyOn(Util, "getImageSize").mockImplementation(mockGetImageSize);
+        rs.spyOn(Util, "getImageSize").mockImplementation(mockGetImageSize);
 
         render(
             <GraphSettings editableSettings={["image"]} onChange={onChange} />,
@@ -279,10 +279,10 @@ describe("GraphSettings", () => {
     test("calls onChange with null background image if background image input is empty", async () => {
         // Arrange
         // TODO(nisha): Figure out how to use fake timers for this.
-        jest.useRealTimers();
-        const onChange = jest.fn();
+        rs.useRealTimers();
+        const onChange = rs.fn();
         const mockGetImageSize = (url, cb: (width, height) => void) => {};
-        jest.spyOn(Util, "getImageSize").mockImplementation(mockGetImageSize);
+        rs.spyOn(Util, "getImageSize").mockImplementation(mockGetImageSize);
 
         render(
             <GraphSettings editableSettings={["image"]} onChange={onChange} />,
@@ -309,8 +309,8 @@ describe("GraphSettings", () => {
     test("does not update background image until input is blurred", async () => {
         // Arrange
         // TODO(nisha): Figure out how to use fake timers for this.
-        jest.useRealTimers();
-        const onChange = jest.fn();
+        rs.useRealTimers();
+        const onChange = rs.fn();
 
         render(
             <GraphSettings editableSettings={["image"]} onChange={onChange} />,
@@ -330,7 +330,7 @@ describe("GraphSettings", () => {
 
     test("calls onChange when protractor label is changed", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = rs.fn();
         render(
             <GraphSettings
                 editableSettings={["measure"]}
@@ -354,8 +354,8 @@ describe("GraphSettings", () => {
     test("Calls onChange when x range is changed and valid", async () => {
         // Arrange
         // TODO(nisha): Figure out how to use fake timers for this.
-        jest.useRealTimers();
-        const onChange = jest.fn();
+        rs.useRealTimers();
+        const onChange = rs.fn();
         render(
             <GraphSettings editableSettings={["graph"]} onChange={onChange} />,
         );
@@ -382,8 +382,8 @@ describe("GraphSettings", () => {
     test("Calls onChange when y range is changed and valid", async () => {
         // Arrange
         // TODO(nisha): Figure out how to use fake timers for this.
-        jest.useRealTimers();
-        const onChange = jest.fn();
+        rs.useRealTimers();
+        const onChange = rs.fn();
         render(
             <GraphSettings editableSettings={["graph"]} onChange={onChange} />,
         );
@@ -410,8 +410,8 @@ describe("GraphSettings", () => {
     test("validates range input when left is bigger than right", async () => {
         // Arrange
         // TODO(nisha): Figure out how to use fake timers for this.
-        jest.useRealTimers();
-        const onChange = jest.fn();
+        rs.useRealTimers();
+        const onChange = rs.fn();
         render(
             <GraphSettings editableSettings={["graph"]} onChange={onChange} />,
         );
@@ -434,8 +434,8 @@ describe("GraphSettings", () => {
     test("Calls onChange when step value is changed and valid", async () => {
         // Arrange
         // TODO(nisha): Figure out how to use fake timers for this.
-        jest.useRealTimers();
-        const onChange = jest.fn();
+        rs.useRealTimers();
+        const onChange = rs.fn();
         render(
             <GraphSettings editableSettings={["graph"]} onChange={onChange} />,
         );
@@ -459,8 +459,8 @@ describe("GraphSettings", () => {
     test("validates step value when tick step is too large", async () => {
         // Arrange
         // TODO(nisha): Figure out how to use fake timers for this.
-        jest.useRealTimers();
-        const onChange = jest.fn();
+        rs.useRealTimers();
+        const onChange = rs.fn();
         render(
             <GraphSettings editableSettings={["graph"]} onChange={onChange} />,
         );
@@ -483,8 +483,8 @@ describe("GraphSettings", () => {
     test("validates step value when tick step is too small", async () => {
         // Arrange
         // TODO(nisha): Figure out how to use fake timers for this.
-        jest.useRealTimers();
-        const onChange = jest.fn();
+        rs.useRealTimers();
+        const onChange = rs.fn();
         render(
             <GraphSettings
                 editableSettings={["graph"]}
@@ -514,8 +514,8 @@ describe("GraphSettings", () => {
     test("Calls onChange when snap step is changed and valid", async () => {
         // Arrange
         // TODO(nisha): Figure out how to use fake timers for this.
-        jest.useRealTimers();
-        const onChange = jest.fn();
+        rs.useRealTimers();
+        const onChange = rs.fn();
         render(
             <GraphSettings
                 editableSettings={["graph", "snap"]}
@@ -543,8 +543,8 @@ describe("GraphSettings", () => {
     test("validates when the snap step is too large", async () => {
         // Arrange
         // TODO(nisha): Figure out how to use fake timers for this.
-        jest.useRealTimers();
-        const onChange = jest.fn();
+        rs.useRealTimers();
+        const onChange = rs.fn();
         render(
             <GraphSettings
                 editableSettings={["graph", "snap"]}
@@ -571,8 +571,8 @@ describe("GraphSettings", () => {
     test("Calls onChange when grid step is changed and valid", async () => {
         // Arrange
         // TODO(nisha): Figure out how to use fake timers for this.
-        jest.useRealTimers();
-        const onChange = jest.fn();
+        rs.useRealTimers();
+        const onChange = rs.fn();
         render(
             <GraphSettings editableSettings={["graph"]} onChange={onChange} />,
         );
@@ -597,8 +597,8 @@ describe("GraphSettings", () => {
     test("validates when the grid step is too large", async () => {
         // Arrange
         // TODO(nisha): Figure out how to use fake timers for this.
-        jest.useRealTimers();
-        const onChange = jest.fn();
+        rs.useRealTimers();
+        const onChange = rs.fn();
         render(
             <GraphSettings editableSettings={["graph"]} onChange={onChange} />,
         );
@@ -622,8 +622,8 @@ describe("GraphSettings", () => {
     test("Calls onChange when the x label is changed", async () => {
         // Arrange
         // TODO(nisha): Figure out how to use fake timers for this.
-        jest.useRealTimers();
-        const onChange = jest.fn();
+        rs.useRealTimers();
+        const onChange = rs.fn();
         render(
             <GraphSettings editableSettings={["graph"]} onChange={onChange} />,
         );
@@ -647,8 +647,8 @@ describe("GraphSettings", () => {
     test("Calls onChange when the y label is changed", async () => {
         // Arrange
         // TODO(nisha): Figure out how to use fake timers for this.
-        jest.useRealTimers();
-        const onChange = jest.fn();
+        rs.useRealTimers();
+        const onChange = rs.fn();
         render(
             <GraphSettings editableSettings={["graph"]} onChange={onChange} />,
         );
@@ -672,8 +672,8 @@ describe("GraphSettings", () => {
     test("Calls onChange when the canvas size is changed and valid", async () => {
         // Arrange
         // TODO(nisha): Figure out how to use fake timers for this.
-        jest.useRealTimers();
-        const onChange = jest.fn();
+        rs.useRealTimers();
+        const onChange = rs.fn();
         render(
             <GraphSettings editableSettings={["canvas"]} onChange={onChange} />,
         );

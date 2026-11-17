@@ -2,7 +2,7 @@ import {checkEntrypoints, checkExports} from "./pre-publish-utils";
 
 describe("checkExports", () => {
     beforeEach(() => {
-        jest.spyOn(console, "error").mockImplementation(() => {});
+        rs.spyOn(console, "error").mockImplementation(() => {});
     });
 
     it("rejects when exports is missing", () => {
@@ -136,7 +136,7 @@ describe("checkEntrypoints", () => {
     };
 
     beforeEach(() => {
-        jest.spyOn(console, "error").mockImplementation(() => {});
+        rs.spyOn(console, "error").mockImplementation(() => {});
     });
 
     it("accepts an ESM-only package", () => {

@@ -39,7 +39,7 @@ describe("add-library-version-to-perseus-debug", () => {
 
     it("should convert library entry to array when multiple versions of the same library registered", () => {
         // Arrange
-        jest.spyOn(console, "warn").mockImplementation();
+        rs.spyOn(console, "warn").mockImplementation(() => {});
 
         // Act
         addLibraryVersionToPerseusDebug("test-lib", "1.0.1");
@@ -62,7 +62,7 @@ describe("add-library-version-to-perseus-debug", () => {
 
     it("should warn when multiple versions of the same library registered", () => {
         // Arrange
-        const warnSpy = jest.spyOn(console, "warn").mockImplementation();
+        const warnSpy = rs.spyOn(console, "warn").mockImplementation(() => {});
 
         // Act
         addLibraryVersionToPerseusDebug("test-lib", "1.0.1");
@@ -96,7 +96,7 @@ describe("add-library-version-to-perseus-debug", () => {
 
     it("should not warn for duplicate calls for a library of the same library and version", () => {
         // Arrange
-        const warnSpy = jest.spyOn(console, "warn").mockImplementation();
+        const warnSpy = rs.spyOn(console, "warn").mockImplementation(() => {});
 
         // Act
         addLibraryVersionToPerseusDebug("test-lib", "1.0.0");

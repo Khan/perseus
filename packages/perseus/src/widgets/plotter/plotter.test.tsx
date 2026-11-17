@@ -32,7 +32,7 @@ describe("plotter widget", () => {
 
     it("should send analytics event when widget is rendered", async () => {
         // Arrange
-        const onAnalyticsEventSpy = jest.fn();
+        const onAnalyticsEventSpy = rs.fn();
         const dependencies = {
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
         };

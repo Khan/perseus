@@ -1,4 +1,4 @@
-import {describe, it} from "@jest/globals";
+import {describe, it} from "@rstest/core";
 import {act, render, screen} from "@testing-library/react";
 import * as React from "react";
 
@@ -13,7 +13,7 @@ const indicatorContent: IndicatorContent = {
 };
 
 describe("Radio widget choice option", () => {
-    it.each`
+    it.each<any>`
         isMultiSelect | isOrIsNot   | shape
         ${false}      | ${"is NOT"} | ${"circle"}
         ${true}       | ${"is"}     | ${"square"}
@@ -25,7 +25,7 @@ describe("Radio widget choice option", () => {
                 isMultiSelect: boolean;
                 shape: "circle" | "square";
             };
-            const indicatorSpy = jest.spyOn(IndicatorComponent, "default");
+            const indicatorSpy = rs.spyOn(IndicatorComponent, "default");
             render(
                 <Choice
                     checked={false}
@@ -40,7 +40,7 @@ describe("Radio widget choice option", () => {
         },
     );
 
-    it.each`
+    it.each<any>`
         showCorrectness | stylingDescription
         ${"correct"}    | ${"proper styling for correctness"}
         ${"wrong"}      | ${"proper styling for wrongness"}
@@ -71,7 +71,7 @@ describe("Radio widget choice option", () => {
         expect(classes).not.toEqual(expect.arrayContaining(classesToNotExpect));
     });
 
-    it.each`
+    it.each<any>`
         showCorrectness | doesOrDoesNot | callCount
         ${"correct"}    | ${"does NOT"} | ${0}
         ${"wrong"}      | ${"does NOT"} | ${0}
@@ -84,7 +84,7 @@ describe("Radio widget choice option", () => {
                 showCorrectness: "correct" | "wrong" | undefined;
                 callCount: number;
             };
-            const updateCheckedMock = jest.fn();
+            const updateCheckedMock = rs.fn();
             render(
                 <Choice
                     checked={false}

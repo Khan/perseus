@@ -32,7 +32,7 @@ const overallGraphLabel = "A line on a coordinate plane.";
 
 describe("Linear graph screen reader", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -53,7 +53,7 @@ describe("Linear graph screen reader", () => {
         );
     });
 
-    test.each`
+    test.each<any>`
         element         | index | expectedValue
         ${"point1"}     | ${0}  | ${"Point 1 at -5 comma 5."}
         ${"grabHandle"} | ${1}  | ${"Line going through point -5 comma 5 and point 5 comma 5."}
@@ -78,7 +78,7 @@ describe("Linear graph screen reader", () => {
         },
     );
 
-    test.each`
+    test.each<any>`
         element         | index
         ${"point1"}     | ${0}
         ${"grabHandle"} | ${1}
@@ -116,7 +116,7 @@ describe("Linear graph screen reader", () => {
         );
     });
 
-    test.each`
+    test.each<any>`
         case                         | coords              | interceptDescription
         ${"origin intercept"}        | ${[[1, 1], [2, 2]]} | ${"The line crosses the X and Y axes at the graph's origin."}
         ${"both x and y intercepts"} | ${[[4, 4], [7, 1]]} | ${"The line crosses the X-axis at 8 comma 0 and the Y-axis at 0 comma 8."}
@@ -144,7 +144,7 @@ describe("Linear graph screen reader", () => {
         },
     );
 
-    test.each`
+    test.each<any>`
         case                 | coords              | slopeDescription
         ${"positive slope"}  | ${[[1, 1], [3, 3]]} | ${"Its slope increases from left to right."}
         ${"negative slope"}  | ${[[3, 3], [1, 6]]} | ${"Its slope decreases from left to right."}

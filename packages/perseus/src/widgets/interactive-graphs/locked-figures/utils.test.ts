@@ -1,7 +1,7 @@
 import {clampDomain, dashedStrokeStyle, getDashArrayForWeight} from "./utils";
 
 describe("clampDomain", () => {
-    test.each`
+    test.each<any>`
         domain                   | graphXBounds | expected
         ${[-Infinity, Infinity]} | ${[-10, 10]} | ${[-10, 10]}
         ${[-20, Infinity]}       | ${[-10, 10]} | ${[-10, 10]}
@@ -31,7 +31,7 @@ describe("clampDomain", () => {
 });
 
 describe("getDashArrayForWeight", () => {
-    test.each`
+    test.each<any>`
         weight      | expected
         ${"thin"}   | ${"4, 3"}
         ${"medium"} | ${"8, 6"}
@@ -49,7 +49,7 @@ describe("getDashArrayForWeight", () => {
 });
 
 describe("dashedStrokeStyle", () => {
-    it.each`
+    it.each<any>`
         weight      | expected
         ${"thin"}   | ${"4, 3"}
         ${"medium"} | ${"8, 6"}

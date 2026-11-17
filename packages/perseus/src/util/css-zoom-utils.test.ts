@@ -2,7 +2,7 @@ import {getCSSZoomFactor} from "./css-zoom-utils";
 
 describe("getCSSZoomFactor", () => {
     const mockZoomByElement = (zoomByElement: Map<Element, string>) => {
-        jest.spyOn(window, "getComputedStyle").mockImplementation(
+        rs.spyOn(window, "getComputedStyle").mockImplementation(
             (el: Element) =>
                 // eslint-disable-next-line no-restricted-syntax -- partial mock of CSSStyleDeclaration; only `zoom` is read
                 ({zoom: zoomByElement.get(el) ?? ""}) as CSSStyleDeclaration,

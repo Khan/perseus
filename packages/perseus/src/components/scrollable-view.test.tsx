@@ -42,7 +42,7 @@ const setupScrollableMock = (isScrollable: boolean) => {
 
     // Mock scrollBy with the correct type signature
     // eslint-disable-next-line no-restricted-syntax
-    HTMLElement.prototype.scrollBy = jest.fn(function (
+    HTMLElement.prototype.scrollBy = rs.fn(function (
         this: HTMLElement,
         options?: ScrollToOptions | undefined,
     ) {
@@ -61,7 +61,7 @@ const setupScrollableTest = (isRtl = false) => {
     // Set up RTL mode if requested
     if (isRtl) {
         const originalGetComputedStyle = window.getComputedStyle;
-        window.getComputedStyle = jest.fn().mockImplementation((element) => {
+        window.getComputedStyle = rs.fn().mockImplementation((element) => {
             const originalStyle = originalGetComputedStyle(element);
             return {
                 ...originalStyle,
@@ -113,7 +113,7 @@ const setupScrollableTest = (isRtl = false) => {
 describe("ScrollableView", () => {
     // Mock timers for the polling mechanism in ScrollControls
     beforeEach(() => {
-        jest.useFakeTimers();
+        rs.useFakeTimers();
     });
 
     // Global afterEach to ensure cleanup of render between tests
@@ -128,8 +128,8 @@ describe("ScrollableView", () => {
         delete (HTMLElement.prototype as any).scrollLeft;
         // eslint-disable-next-line no-restricted-syntax
         delete (HTMLElement.prototype as any).scrollBy;
-        act(() => jest.runOnlyPendingTimers());
-        jest.useRealTimers();
+        act(() => rs.runOnlyPendingTimers());
+        rs.useRealTimers();
     });
 
     it("renders children", () => {
@@ -220,7 +220,7 @@ describe("ScrollableView", () => {
 
             // Wait for the ScrollControls polling to update
             act(() => {
-                jest.advanceTimersByTime(100);
+                rs.advanceTimersByTime(100);
             });
 
             // Now both buttons should be enabled
@@ -252,7 +252,7 @@ describe("ScrollableView", () => {
 
             // Wait for the ScrollControls polling to update
             act(() => {
-                jest.advanceTimersByTime(100);
+                rs.advanceTimersByTime(100);
             });
 
             // At end, right button should be disabled
@@ -266,7 +266,7 @@ describe("ScrollableView", () => {
     describe("when content is scrollable in RTL mode", () => {
         afterEach(() => {
             // Only restore mocks if our test setup created RTL mocks
-            jest.restoreAllMocks();
+            rs.restoreAllMocks();
         });
 
         it("shows scroll controls with correct RTL button orientation", () => {
@@ -289,7 +289,7 @@ describe("ScrollableView", () => {
                 setupScrollableTest(true);
 
             // Clear any previous calls to scrollBy
-            jest.clearAllMocks();
+            rs.clearAllMocks();
 
             // Click left button (End button in RTL)
             act(() => {
@@ -312,7 +312,7 @@ describe("ScrollableView", () => {
 
             // Wait for the ScrollControls polling to update
             act(() => {
-                jest.advanceTimersByTime(100);
+                rs.advanceTimersByTime(100);
             });
 
             // Now both buttons should be enabled
@@ -333,7 +333,7 @@ describe("ScrollableView", () => {
 
             // Wait for the ScrollControls polling to update
             act(() => {
-                jest.advanceTimersByTime(100);
+                rs.advanceTimersByTime(100);
             });
 
             // Based on the actual component behavior in RTL mode:

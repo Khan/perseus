@@ -65,7 +65,7 @@ describe.each(["segment", "line", "ray"] as const)(
     "LockedLine with kind %s",
     (kind) => {
         beforeEach(() => {
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
                 testDependencies,
             );
         });
@@ -92,7 +92,7 @@ describe.each(["segment", "line", "ray"] as const)(
 
         it("logs no console errors given coincident points", () => {
             // Arrange
-            const errorSpy = jest
+            const errorSpy = rs
                 .spyOn(console, "error")
                 .mockImplementation(() => {});
 
