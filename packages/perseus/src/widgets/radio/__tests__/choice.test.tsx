@@ -111,7 +111,7 @@ describe("Radio widget choice option", () => {
                 checked={false}
                 indicatorContent={indicatorContent}
                 isMultiSelect={false}
-                updateChecked={jest.fn()}
+                updateChecked={rs.fn()}
             >
                 Option A
             </Choice>,

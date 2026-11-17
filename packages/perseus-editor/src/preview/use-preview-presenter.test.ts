@@ -1,5 +1,6 @@
 import {rs} from "@rstest/core";
 import {renderHook, act, waitFor} from "@testing-library/react";
+import invariant from "tiny-invariant";
 
 import {PREVIEW_MESSAGE_SOURCE} from "./message-types";
 import {usePreviewPresenter} from "./use-preview-presenter";
@@ -68,6 +69,15 @@ describe("usePreviewPresenter", () => {
         );
     }
 
+    // Returns the first a11y-report message posted to the parent window.
+    function getA11yReport() {
+        const reportCall = mockPostMessage.mock.calls.find(
+            (call) => call[0].type === "a11y-report",
+        );
+        invariant(reportCall, "expected an a11y-report message");
+        return reportCall[0];
+    }
+
     // Enables scanning, sends content at the given version, runs the debounced
     // scan, and returns the instanceId of the single violation it reports.
     async function runScanForVersion(contentVersion: number): Promise<string> {
@@ -94,10 +104,7 @@ describe("usePreviewPresenter", () => {
                 "/",
             );
         });
-        const reportCall = mockPostMessage.mock.calls.find(
-            (call) => call[0].type === "a11y-report",
-        );
-        return reportCall[0].violations[0].instanceId;
+        return getA11yReport().violations[0].instanceId;
     }
 
     describe("initialization", () => {
@@ -701,10 +708,7 @@ describe("usePreviewPresenter", () => {
                 );
             });
 
-            const reportCall = mockPostMessage.mock.calls.find(
-                (call) => call[0].type === "a11y-report",
-            );
-            const instanceId = reportCall[0].violations[0].instanceId;
+            const instanceId = getA11yReport().violations[0].instanceId;
 
             // Act
             act(() => {
@@ -851,10 +855,7 @@ describe("usePreviewPresenter", () => {
                 );
             });
 
-            const reportCall = mockPostMessage.mock.calls.find(
-                (call) => call[0].type === "a11y-report",
-            );
-            const instanceId = reportCall[0].violations[0].instanceId;
+            const instanceId = getA11yReport().violations[0].instanceId;
 
             act(() => {
                 window.dispatchEvent(
