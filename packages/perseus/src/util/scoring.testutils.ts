@@ -7,7 +7,6 @@ import type {
     CategorizerWidget,
     PerseusItem,
     PerseusRenderer,
-    PerseusScore,
     PerseusWidgetTypes,
 } from "@khanacademy/perseus-core";
 
