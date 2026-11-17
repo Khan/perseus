@@ -1759,8 +1759,7 @@ export type PerseusNumberLineWidgetOptions = {
      * The position of the endpoints of the number line. Setting the range
      * constrains the position of the answer and the labels.
      */
-    // TODO(benchristel): type `range` as `[number, number]`.
-    range: number[];
+    range: [number, number];
     /**
      * This controls the position of the left / right labels. By default, the
      * labels are set by the range. Note: Ensure that the labels line up with

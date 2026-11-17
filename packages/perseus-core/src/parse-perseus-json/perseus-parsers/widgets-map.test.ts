@@ -602,7 +602,7 @@ describe("parseWidgetsMap", () => {
                 type: "number-line",
                 version: {major: 0, minor: 0},
                 options: {
-                    range: [],
+                    range: [0, 10],
                     labelRange: [],
                     labelStyle: "decimal",
                     labelTicks: false,

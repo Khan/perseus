@@ -6,6 +6,7 @@ import {
     boolean,
     optional,
     nullable,
+    pair,
     pipeParsers,
     union,
     enumeration,
@@ -22,9 +23,7 @@ const emptyStringToNull = pipeParsers(constant("")).then(
 export const parseNumberLineWidget = parseWidget(
     constant("number-line"),
     object({
-        // TODO(LEMS-3081): change `range` to `pair(number, number)` and update the related types
-        // in data-schema.ts and number-line.tsx.
-        range: array(number),
+        range: pair(number, number),
         labelRange: array(nullable(union(number).or(emptyStringToNull).parser)),
         labelStyle: enumeration("decimal", "improper", "mixed", "non-reduced"),
         labelTicks: boolean,
