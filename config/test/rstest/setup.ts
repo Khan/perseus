@@ -12,10 +12,17 @@ import "../crypto-polyfill";
 import "../aphrodite-snapshot-serializer";
 import attachShims from "../attach-jsdom-window-shims";
 
+import type {TestingLibraryMatchers} from "@testing-library/jest-dom/matchers";
+
 /**
  * Runs before each test file, after the test framework is set up and
  * before any tests run.
  */
+
+declare module "@rstest/core" {
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- adds the jest-dom matchers to Rstest's types
+    interface Assertion<T = any> extends TestingLibraryMatchers<any, T> {}
+}
 
 // Alias `rs` to `jest` to support tests during the Jest -> rstest migration.
 // Testing Library also checks for a `jest` global to decide whether to
