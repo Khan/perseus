@@ -1816,68 +1816,6 @@ function hasResponsiveImage(node: SingleASTNode, props: Props): boolean {
 }
 
 /**
- * Returns the style for a table cell in the given column, applying the
- * column's markdown alignment (e.g. `|:-:|`) if it has one.
- */
-function getTableCellStyle(
-    node: SingleASTNode,
-    colIndex: number,
-): React.CSSProperties {
-    return node.align[colIndex] == null
-        ? {}
-        : {textAlign: node.align[colIndex]};
-}
-
-/**
- * Row headers are already bold, so returns the contents of a bold cell
- * without its `<strong>`. Other cells are returned unchanged.
- */
-function removeBoldFromTableCell(cell: Array<SingleASTNode>): ASTNode {
-    if (!isBoldTableCell(cell)) {
-        return cell;
-    }
-    return cell.find((node) => node.type === "strong")?.content;
-}
-
-/**
- * Wraps a rendered table for display:
- *
- * 1. If a data table's `title` is passed, wraps the table in the titled table
- *    wrapper (unless the caller wraps it itself, see
- *    `unwrapTitledTableContents`).
- * 2. On mobile, wraps the result so it can be zoomed and scrolled
- *    horizontally, extending into the page's side margins.
- */
-function wrapTable(
-    table: React.ReactNode,
-    state: WidgetState,
-    title?: ASTNode,
-): React.ReactNode {
-    let output = table;
-    if (title != null && !state.unwrapTitledTableContents) {
-        output = (
-            <div className="perseus-titled-table-wrapper" key={state.key}>
-                {table}
-            </div>
-        );
-    }
-
-    if (!state.isMobile) {
-        return output;
-    }
-
-    return (
-        <div key={state.key} style={styles.mobileTableOuter}>
-            <div style={styles.mobileTableInner}>
-                <ErrorBoundary>
-                    <Zoomable animateHeight={true}>{output}</Zoomable>
-                </ErrorBoundary>
-            </div>
-        </div>
-    );
-}
-
-/**
  * Renders a header row cell as a column header.
  */
 function buildColumnHeader(
@@ -1942,6 +1880,68 @@ function buildDataTableElement(
             </thead>
             <tbody key="tbody">{rows}</tbody>
         </table>
+    );
+}
+
+/**
+ * Returns the style for a table cell in the given column, applying the
+ * column's markdown alignment (e.g. `|:-:|`) if it has one.
+ */
+function getTableCellStyle(
+    node: SingleASTNode,
+    colIndex: number,
+): React.CSSProperties {
+    return node.align[colIndex] == null
+        ? {}
+        : {textAlign: node.align[colIndex]};
+}
+
+/**
+ * Row headers are already bold, so returns the contents of a bold cell
+ * without its `<strong>`. Other cells are returned unchanged.
+ */
+function removeBoldFromTableCell(cell: Array<SingleASTNode>): ASTNode {
+    if (!isBoldTableCell(cell)) {
+        return cell;
+    }
+    return cell.find((node) => node.type === "strong")?.content;
+}
+
+/**
+ * Wraps a rendered table for display:
+ *
+ * 1. If a data table's `title` is passed, wraps the table in the titled table
+ *    wrapper (unless the caller wraps it itself, see
+ *    `unwrapTitledTableContents`).
+ * 2. On mobile, wraps the result so it can be zoomed and scrolled
+ *    horizontally, extending into the page's side margins.
+ */
+function wrapTable(
+    table: React.ReactNode,
+    state: WidgetState,
+    title?: ASTNode,
+): React.ReactNode {
+    let output = table;
+    if (title != null && !state.unwrapTitledTableContents) {
+        output = (
+            <div className="perseus-titled-table-wrapper" key={state.key}>
+                {table}
+            </div>
+        );
+    }
+
+    if (!state.isMobile) {
+        return output;
+    }
+
+    return (
+        <div key={state.key} style={styles.mobileTableOuter}>
+            <div style={styles.mobileTableInner}>
+                <ErrorBoundary>
+                    <Zoomable animateHeight={true}>{output}</Zoomable>
+                </ErrorBoundary>
+            </div>
+        </div>
     );
 }
 
