@@ -1759,12 +1759,15 @@ export type PerseusNumberLineWidgetOptions = {
      * The position of the endpoints of the number line. Setting the range
      * constrains the position of the answer and the labels.
      */
-    range: [number, number];
+    range: [min: number, max: number];
     /**
      * This controls the position of the left / right labels. By default, the
      * labels are set by the range. Note: Ensure that the labels line up with
      * the tick marks, or it may be confusing for users.
      */
+    // TODO-NEXT: Change the type of labelRange to `[left: number | null, right: number | null]`,
+    //  and the type of divisionRange to `[min: number, max: number]`.
+    //  Follow the example of `git diff 284d4eac1...8bc1393e66`.
     labelRange: Array<number | null>;
     /**
      * This controls the styling of the labels for the two main labels as well
