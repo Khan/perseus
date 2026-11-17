@@ -1729,6 +1729,23 @@ describe("renderer", () => {
         });
     });
 
+    describe("markdown tables", () => {
+        // Needed for Android TalkBack to read tables with swipe gestures.
+        it("makes the table focusable on mobile", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateTestPerseusRenderer({
+                    content:
+                        "| Metal | Mass |\n" + "|-|-|\n" + "| Gold | 19.3 |",
+                }),
+                {apiOptions: {isMobile: true}},
+            );
+
+            // Assert
+            expect(screen.getByRole("table")).toHaveAttribute("tabindex", "0");
+        });
+    });
+
     describe("markdown layout tables", () => {
         const layoutTableContent =
             "| | |\n" + "|-|-|\n" + "| Gold | 19.3 |\n" + "| Silver | 10.5 |";
