@@ -49,7 +49,7 @@ export const wait: (options?: WaitOptions) => Promise<void> = ({
 } = {}) => {
     if (rs.isFakeTimers()) {
         throw new Error(
-            "Cannot use wait() with fake timers. Call jest.useRealTimers() in test case or in a beforeEach.",
+            "Cannot use wait() with fake timers. Call rs.useRealTimers() in test case or in a beforeEach.",
         );
     }
 

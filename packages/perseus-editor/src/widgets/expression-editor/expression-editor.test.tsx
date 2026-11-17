@@ -253,7 +253,7 @@ describe("expression-editor", () => {
 
     it("should be possible to add an answer", async () => {
         const onChangeMock = rs.fn();
-        crypto.randomUUID = rs.fn(() => "0-0-0-0-0");
+        rs.spyOn(crypto, "randomUUID").mockReturnValue("0-0-0-0-0");
 
         render(<HarnessedEditor onChange={onChangeMock} />);
         act(() => rs.runOnlyPendingTimers());
