@@ -56,7 +56,7 @@ const FillInTheBlankWidget = forwardRef<Widget, FillInTheBlankProps>(
             userInput,
         });
 
-        const [maxWidth, setMaxWidth] = React.useState<number>();
+        const [widestTileWidth, setWidestTileWidth] = React.useState<number>();
 
         const {
             handleMove,
@@ -110,7 +110,7 @@ const FillInTheBlankWidget = forwardRef<Widget, FillInTheBlankProps>(
             <div className={styles.fillInTheBlank}>
                 <PerseusDndProvider onDragEnd={handleDragEnd}>
                     <BlankContext.Provider
-                        value={{renderPlacedTile, minWidth: maxWidth}}
+                        value={{renderPlacedTile, minWidth: widestTileWidth}}
                     >
                         <div className={styles.answerZone}>
                             <Renderer
@@ -129,7 +129,10 @@ const FillInTheBlankWidget = forwardRef<Widget, FillInTheBlankProps>(
                         firstMenuRef={firstBankMenuRef}
                     />
                 </PerseusDndProvider>
-                <TileWidthMeasurer tiles={tiles} onWidthChange={setMaxWidth} />
+                <TileWidthMeasurer
+                    tiles={tiles}
+                    onWidthChange={setWidestTileWidth}
+                />
             </div>
         );
     },
