@@ -7,7 +7,7 @@ import invariant from "tiny-invariant";
 import {
     combineScoreWithWidgetScores,
     onlyInvalidScores,
-    scoreUserInputMap,
+    scoreQuestion,
     scoreWidgets,
 } from "./score";
 import {
@@ -264,7 +264,7 @@ function generateBasicDropdown(): DropdownWidget {
     });
 }
 
-describe("scoreUserInputMap", () => {
+describe("scoreQuestion", () => {
     it("returns a score of 'invalid' if some widgets are missing from the user input", () => {
         // Arrange:
         const item = {
@@ -275,7 +275,7 @@ describe("scoreUserInputMap", () => {
         const userInputMap = {};
 
         // Act:
-        const score = scoreUserInputMap(item, userInputMap, "en");
+        const score = scoreQuestion(item, userInputMap, "en");
 
         // Assert:
         expect(score).toHaveInvalidInput();
@@ -283,7 +283,7 @@ describe("scoreUserInputMap", () => {
 
     it("should return empty if any validator returns empty", () => {
         // Act
-        const score = scoreUserInputMap(
+        const score = scoreQuestion(
             {
                 content: "[[☃ dropdown 1]] [[☃ dropdown 2]]",
                 widgets: {
@@ -305,7 +305,7 @@ describe("scoreUserInputMap", () => {
 
     it("should include only invalid widget scores when overall score is invalid", () => {
         // Act
-        const score = scoreUserInputMap(
+        const score = scoreQuestion(
             {
                 content: "[[☃ dropdown 1]] [[☃ dropdown 2]]",
                 widgets: {
@@ -336,7 +336,7 @@ describe("scoreUserInputMap", () => {
         // Arrange
 
         // Act
-        const score = scoreUserInputMap(
+        const score = scoreQuestion(
             {
                 content: "[[☃ dropdown 1]] [[☃ dropdown 2]]",
                 widgets: {
@@ -385,7 +385,7 @@ describe("scoreUserInputMap", () => {
             images: {},
         };
         json.widgets["dropdown 1"].static = true;
-        const score = scoreUserInputMap(json, {"dropdown 1": {value: 2}}, "en");
+        const score = scoreQuestion(json, {"dropdown 1": {value: 2}}, "en");
 
         expect(score).toHaveBeenAnsweredCorrectly({
             shouldHavePoints: false,
@@ -393,7 +393,7 @@ describe("scoreUserInputMap", () => {
     });
 
     it("should ignore widgets that aren't referenced in content", () => {
-        const score = scoreUserInputMap(
+        const score = scoreQuestion(
             {
                 content: "[[☃ dropdown 1]]",
                 widgets: {
@@ -441,7 +441,7 @@ describe("scoreUserInputMap", () => {
             },
         };
 
-        const score = scoreUserInputMap(item, userInputMap, "en");
+        const score = scoreQuestion(item, userInputMap, "en");
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -470,7 +470,7 @@ describe("scoreUserInputMap", () => {
             },
         };
 
-        const score = scoreUserInputMap(item, userInputMap, "en");
+        const score = scoreQuestion(item, userInputMap, "en");
 
         expect(score).toHaveBeenAnsweredCorrectly({
             shouldHavePoints: true,
@@ -493,7 +493,7 @@ describe("scoreUserInputMap", () => {
         };
 
         // Act
-        const score = scoreUserInputMap(item, userInputMap, "en");
+        const score = scoreQuestion(item, userInputMap, "en");
 
         // Assert
         invariant(score.type === "points");
@@ -528,7 +528,7 @@ describe("scoreUserInputMap", () => {
         const userInputMap: UserInputMap = {};
 
         // Act
-        const score = scoreUserInputMap(item, userInputMap, "en");
+        const score = scoreQuestion(item, userInputMap, "en");
 
         // Assert
         expect(score).toEqual({

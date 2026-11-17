@@ -116,7 +116,7 @@ As much as possible, we decouple widget logic from shared logic:
 -   `parseAndMigratePerseusItem` defers to individual widget parsing functions
 -   The renderers defer to individual widget components for rendering/updating
 -   `validateUserInput` defers to individual widget validators
--   `scoreUserInputMap` defers to individual widget scorers
+-   `scoreQuestion` defers to individual widget scorers
 
 #### Generating Content
 
@@ -170,7 +170,7 @@ Scoring exercises is a little more complex:
 -   We make a call to the Perseus Service (a Node server) for scoring
     -   We provide the `UserInput`
     -   We provide the "answerful" `PerseusItem`
--   We call `scoreUserInputMap`
+-   We call `scoreQuestion`
     -   It does server-side validation (validation requiring "answerful" data)
     -   It scores each widgets
     -   It returns a final score (correct/incorrect/invalid)

@@ -6,7 +6,7 @@ import {
     generateTestPerseusRenderer,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {scoreUserInputMap} from "@khanacademy/perseus-score";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -112,7 +112,7 @@ describe("Dropdown widget", () => {
         // Assert
         expect(screen.getByRole("combobox")).toHaveTextContent("Right");
         expect(
-            scoreUserInputMap(question, renderer.getUserInputMap(), "en"),
+            scoreQuestion(question, renderer.getUserInputMap(), "en"),
         ).toHaveBeenAnsweredCorrectly();
     });
 
@@ -131,7 +131,7 @@ describe("Dropdown widget", () => {
         // Assert
         expect(screen.getByRole("combobox")).toHaveTextContent("Wrong");
         expect(
-            scoreUserInputMap(question, renderer.getUserInputMap(), "en"),
+            scoreQuestion(question, renderer.getUserInputMap(), "en"),
         ).toHaveBeenAnsweredIncorrectly();
     });
 
@@ -140,7 +140,7 @@ describe("Dropdown widget", () => {
         const {renderer} = renderQuestion(basicDropdown);
 
         // Act
-        const score = scoreUserInputMap(
+        const score = scoreQuestion(
             basicDropdown,
             renderer.getUserInputMap(),
             "en",
@@ -304,7 +304,7 @@ describe("Dropdown widget", () => {
 
             // Assert
             expect(
-                scoreUserInputMap(question, renderer.getUserInputMap(), "en"),
+                scoreQuestion(question, renderer.getUserInputMap(), "en"),
             ).toHaveBeenAnsweredCorrectly();
         },
     );

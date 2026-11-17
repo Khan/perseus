@@ -2,7 +2,7 @@ import {
     generateTestPerseusItem,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {scoreUserInputMap} from "@khanacademy/perseus-score";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -126,7 +126,7 @@ describe("interactive: full vs answerless", () => {
             expect(screen.getByText("Choose 2 answers:")).toBeInTheDocument();
 
             const userInput = renderer.getUserInputMap();
-            const score = scoreUserInputMap(
+            const score = scoreQuestion(
                 getAnswerfulItem().question,
                 userInput,
                 "en",

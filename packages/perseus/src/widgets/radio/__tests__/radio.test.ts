@@ -3,7 +3,7 @@ import {
     type PerseusRenderer,
     type RadioWidget,
 } from "@khanacademy/perseus-core";
-import {scoreRadio, scoreUserInputMap} from "@khanacademy/perseus-score";
+import {scoreRadio, scoreQuestion} from "@khanacademy/perseus-score";
 import {fireEvent, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -98,7 +98,7 @@ describe("Radio Widget", () => {
 
                     // Act
                     await selectOption(userEvent, correct);
-                    const score = scoreUserInputMap(
+                    const score = scoreQuestion(
                         question,
                         renderer.getUserInputMap(),
                         "en",
@@ -121,7 +121,7 @@ describe("Radio Widget", () => {
                     // does not support touch events so we have to do this ourselves.
                     // eslint-disable-next-line testing-library/prefer-user-event
                     fireEvent.click(correctRadio);
-                    const score = scoreUserInputMap(
+                    const score = scoreQuestion(
                         question,
                         renderer.getUserInputMap(),
                         "en",
@@ -139,7 +139,7 @@ describe("Radio Widget", () => {
 
                         // Act
                         await selectOption(userEvent, incorrect);
-                        const score = scoreUserInputMap(
+                        const score = scoreQuestion(
                             question,
                             renderer.getUserInputMap(),
                             "en",
@@ -265,7 +265,7 @@ describe("Radio Widget", () => {
                 // item in the original choices. But because of enforced ordering,
                 // it is now at the top of the list (and thus our correct answer).
                 await userEvent.click(screen.getAllByRole("button")[0]);
-                const score = scoreUserInputMap(
+                const score = scoreQuestion(
                     q,
                     renderer.getUserInputMap(),
                     "en",
@@ -337,7 +337,7 @@ describe("Radio Widget", () => {
             const {renderer} = renderQuestion(question);
 
             // Act
-            const score = scoreUserInputMap(
+            const score = scoreQuestion(
                 question,
                 renderer.getUserInputMap(),
                 "en",
@@ -383,11 +383,7 @@ describe("Radio Widget", () => {
                 name: "(Choice D) None of the above",
             });
             await userEvent.click(noneOption);
-            const score = scoreUserInputMap(
-                q,
-                renderer.getUserInputMap(),
-                "en",
-            );
+            const score = scoreQuestion(q, renderer.getUserInputMap(), "en");
 
             // Assert
             expect(score).toHaveBeenAnsweredCorrectly();
@@ -480,7 +476,7 @@ describe("Radio Widget", () => {
             for (const i of correct) {
                 await userEvent.click(options[i]);
             }
-            const score = scoreUserInputMap(
+            const score = scoreQuestion(
                 question,
                 renderer.getUserInputMap(),
                 "en",
@@ -615,7 +611,7 @@ describe("Radio Widget", () => {
         it("should be invalid when first rendered", async () => {
             // Act
             const {renderer} = renderQuestion(question);
-            const score = scoreUserInputMap(
+            const score = scoreQuestion(
                 question,
                 renderer.getUserInputMap(),
                 "en",
@@ -695,7 +691,7 @@ describe("Radio Widget", () => {
             await userEvent.click(option[0]); // correct
             await userEvent.click(option[1]); // correct
             await userEvent.click(option[2]); // incorrect
-            const score = scoreUserInputMap(
+            const score = scoreQuestion(
                 multipleCorrectChoicesQuestion,
                 renderer.getUserInputMap(),
                 "en",
@@ -716,7 +712,7 @@ describe("Radio Widget", () => {
                 for (let i = 0; i < choices.length; i++) {
                     await userEvent.click(option[i]);
                 }
-                const score = scoreUserInputMap(
+                const score = scoreQuestion(
                     question,
                     renderer.getUserInputMap(),
                     "en",
@@ -738,7 +734,7 @@ describe("Radio Widget", () => {
                 for (const i of choices) {
                     await userEvent.click(option[i]);
                 }
-                const score = scoreUserInputMap(
+                const score = scoreQuestion(
                     question,
                     renderer.getUserInputMap(),
                     "en",
@@ -768,7 +764,7 @@ describe("Radio Widget", () => {
             const userInput = renderer.getUserInputMap()["radio 1"];
             const rubric = shuffledQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
-            const rendererScore = scoreUserInputMap(
+            const rendererScore = scoreQuestion(
                 shuffledQuestion,
                 renderer.getUserInputMap(),
                 "en",
@@ -796,7 +792,7 @@ describe("Radio Widget", () => {
             const userInput = renderer.getUserInputMap()["radio 1"];
             const rubric = shuffledQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
-            const rendererScore = scoreUserInputMap(
+            const rendererScore = scoreQuestion(
                 shuffledQuestion,
                 renderer.getUserInputMap(),
                 "en",
@@ -824,7 +820,7 @@ describe("Radio Widget", () => {
             const userInput = renderer.getUserInputMap()["radio 1"];
             const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
-            const rendererScore = scoreUserInputMap(
+            const rendererScore = scoreQuestion(
                 shuffledNoneQuestion,
                 renderer.getUserInputMap(),
                 "en",
@@ -852,7 +848,7 @@ describe("Radio Widget", () => {
             const userInput = renderer.getUserInputMap()["radio 1"];
             const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
-            const rendererScore = scoreUserInputMap(
+            const rendererScore = scoreQuestion(
                 shuffledNoneQuestion,
                 renderer.getUserInputMap(),
                 "en",

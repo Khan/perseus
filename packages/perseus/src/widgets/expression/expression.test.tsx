@@ -7,7 +7,7 @@ import {
     generateTestPerseusRenderer,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {scoreUserInputMap} from "@khanacademy/perseus-score";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -51,7 +51,7 @@ const assertCorrect = async (
         input,
         true,
     );
-    const score = scoreUserInputMap(
+    const score = scoreQuestion(
         itemData.question,
         renderer.getUserInputMap(),
         "en",
@@ -70,7 +70,7 @@ const assertIncorrect = async (
         input,
         false,
     );
-    const score = scoreUserInputMap(
+    const score = scoreQuestion(
         itemData.question,
         renderer.getUserInputMap(),
         "en",
@@ -90,7 +90,7 @@ const assertInvalid = async (
         await userEvent.type(screen.getByRole("textbox"), input);
     }
     act(() => jest.runOnlyPendingTimers());
-    const score = scoreUserInputMap(
+    const score = scoreQuestion(
         itemData.question,
         renderer.getUserInputMap(),
         "en",
@@ -111,7 +111,7 @@ const assertValid = async (
         await userEvent.type(screen.getByRole("textbox"), input);
     }
     act(() => jest.runOnlyPendingTimers());
-    const score = scoreUserInputMap(
+    const score = scoreQuestion(
         itemData.question,
         renderer.getUserInputMap(),
         "en",
@@ -583,7 +583,7 @@ describe("Expression Widget", function () {
             act(() => jest.runOnlyPendingTimers());
 
             // act
-            const score = scoreUserInputMap(
+            const score = scoreQuestion(
                 expressionItemMultipleEquivalentAnswers.question,
                 renderer.getUserInputMap(),
                 "en",
@@ -614,7 +614,7 @@ describe("Expression Widget", function () {
             act(() => jest.runOnlyPendingTimers());
 
             // Assert
-            const score = scoreUserInputMap(
+            const score = scoreQuestion(
                 expressionItemMultipleEquivalentAnswers.question,
                 renderer.getUserInputMap(),
                 "en",
@@ -701,7 +701,7 @@ describe("Expression Widget", function () {
                 // Assert - The math input reports changes on a debounce.
                 await waitFor(() =>
                     expect(
-                        scoreUserInputMap(
+                        scoreQuestion(
                             getFullItem().question,
                             renderer.getUserInputMap(),
                             "en",

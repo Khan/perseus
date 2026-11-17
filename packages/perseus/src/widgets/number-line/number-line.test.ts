@@ -1,4 +1,4 @@
-import {scoreUserInputMap} from "@khanacademy/perseus-score";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {act, fireEvent, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -492,7 +492,7 @@ describe("number-line widget", () => {
             const [numberLine] = renderer.findWidgets("number-line 1");
             act(() => numberLine.movePosition(-2.5));
             const userInput = renderer.getUserInputMap();
-            const score = scoreUserInputMap(correctAnswer, userInput, "en");
+            const score = scoreQuestion(correctAnswer, userInput, "en");
 
             // assert
             expect(score).toHaveBeenAnsweredCorrectly();
@@ -508,7 +508,7 @@ describe("number-line widget", () => {
             // Act
             const [numberLine] = renderer.findWidgets("number-line 1");
             act(() => numberLine.movePosition(3.5));
-            const score = scoreUserInputMap(
+            const score = scoreQuestion(
                 correctAnswer,
                 renderer.getUserInputMap(),
                 "en",
@@ -526,7 +526,7 @@ describe("number-line widget", () => {
             const {renderer} = renderQuestion(question, {apiOptions});
 
             // Act
-            const score = scoreUserInputMap(
+            const score = scoreQuestion(
                 correctAnswer,
                 renderer.getUserInputMap(),
                 "en",

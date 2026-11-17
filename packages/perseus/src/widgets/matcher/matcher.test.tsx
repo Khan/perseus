@@ -2,7 +2,7 @@ import {
     generateTestPerseusItem,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {scoreUserInputMap} from "@khanacademy/perseus-score";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {act} from "@testing-library/react";
 import * as React from "react";
 
@@ -161,7 +161,7 @@ describe("matcher widget", () => {
                 act(() => matcher.moveRightOptionToIndex(option, index));
             });
             const userInput = renderer.getUserInputMap();
-            const score = scoreUserInputMap(
+            const score = scoreQuestion(
                 answerfulItem.question,
                 userInput,
                 "en",
@@ -183,7 +183,7 @@ describe("matcher widget", () => {
                 matcher.moveLeftOptionToIndex(option, index);
             });
             const userInput = renderer.getUserInputMap();
-            const score = scoreUserInputMap(
+            const score = scoreQuestion(
                 answerfulItem.question,
                 userInput,
                 "en",
@@ -205,7 +205,7 @@ describe("matcher widget", () => {
 
             // Act
             const {renderer} = renderQuestion(question);
-            const score = scoreUserInputMap(
+            const score = scoreQuestion(
                 answerfulItem.question,
                 renderer.getUserInputMap(),
                 "en",

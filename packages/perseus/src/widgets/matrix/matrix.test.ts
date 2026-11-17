@@ -1,5 +1,5 @@
 import {type PerseusMatrixWidgetOptions} from "@khanacademy/perseus-core";
-import {scoreUserInputMap, validateMatrix} from "@khanacademy/perseus-score";
+import {scoreQuestion, validateMatrix} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -89,7 +89,7 @@ describe("matrix widget", () => {
         for (let i = 0; i < textboxes.length; i++) {
             await userEvent.type(textboxes[i], correctAnswers[i].toString());
         }
-        const score = scoreUserInputMap(
+        const score = scoreQuestion(
             question1,
             renderer.getUserInputMap(),
             "en",
@@ -111,7 +111,7 @@ describe("matrix widget", () => {
         for (let i = 0; i < textboxes.length; i++) {
             await userEvent.type(textboxes[i], "1");
         }
-        const score = scoreUserInputMap(
+        const score = scoreQuestion(
             question1,
             renderer.getUserInputMap(),
             "en",
@@ -152,7 +152,7 @@ describe("matrix widget", () => {
             await userEvent.type(screen.getAllByRole("textbox")[1], "-2");
 
             const userInput = renderer.getUserInputMap();
-            const score = scoreUserInputMap(
+            const score = scoreQuestion(
                 getAnswerfulItem("matrix", matrixOptions).question,
                 userInput,
                 "en",

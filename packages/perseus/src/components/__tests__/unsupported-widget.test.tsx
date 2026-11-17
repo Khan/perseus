@@ -1,5 +1,5 @@
 import {generateTestPerseusRenderer} from "@khanacademy/perseus-core";
-import {scoreUserInputMap} from "@khanacademy/perseus-score";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
@@ -37,11 +37,7 @@ describe("UnsupportedWidgetMessage", () => {
         const {renderer} = renderQuestion(question);
 
         // Act
-        const score = scoreUserInputMap(
-            question,
-            renderer.getUserInputMap(),
-            "en",
-        );
+        const score = scoreQuestion(question, renderer.getUserInputMap(), "en");
 
         // Assert
         expect(score).toHaveBeenAnsweredCorrectly({shouldHavePoints: false});

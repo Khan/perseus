@@ -8,7 +8,7 @@ import {
     SORTER_MAX_HORIZONTAL_CARDS,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {scoreUserInputMap} from "@khanacademy/perseus-score";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {isInaccessible, screen, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -663,7 +663,7 @@ describe("new sorter widget", () => {
                 const {renderer} = renderQuestion(question, {apiOptions});
 
                 // Act
-                const score = scoreUserInputMap(
+                const score = scoreQuestion(
                     answerfulItem.question,
                     renderer.getUserInputMap(),
                     "en",
@@ -680,7 +680,7 @@ describe("new sorter widget", () => {
                 await moveTileToBlank(userEvent, "Banana", 2);
 
                 // Act
-                const score = scoreUserInputMap(
+                const score = scoreQuestion(
                     answerfulItem.question,
                     renderer.getUserInputMap(),
                     "en",
@@ -698,7 +698,7 @@ describe("new sorter widget", () => {
                 await moveTileToBlank(userEvent, "Cherry", 3);
 
                 // Act
-                const score = scoreUserInputMap(
+                const score = scoreQuestion(
                     answerfulItem.question,
                     renderer.getUserInputMap(),
                     "en",
@@ -716,7 +716,7 @@ describe("new sorter widget", () => {
                 await moveTileToBlank(userEvent, "Apple", 3);
 
                 // Act
-                const score = scoreUserInputMap(
+                const score = scoreQuestion(
                     answerfulItem.question,
                     renderer.getUserInputMap(),
                     "en",

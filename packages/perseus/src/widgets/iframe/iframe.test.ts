@@ -1,4 +1,4 @@
-import {scoreUserInputMap} from "@khanacademy/perseus-score";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {act} from "react-dom/test-utils";
 
 import {renderQuestion} from "../../__testutils__/render-question";
@@ -48,7 +48,7 @@ describe("iframe widget", () => {
                 window.dispatchEvent(fakeEvent);
             });
 
-            const score = scoreUserInputMap(
+            const score = scoreQuestion(
                 question1,
                 renderer.getUserInputMap(),
                 "en",
@@ -69,7 +69,7 @@ describe("iframe widget", () => {
                 window.dispatchEvent(fakeEvent);
             });
 
-            const score = scoreUserInputMap(
+            const score = scoreQuestion(
                 question1,
                 renderer.getUserInputMap(),
                 "en",
@@ -80,7 +80,7 @@ describe("iframe widget", () => {
 
         it("should retain initial invalid score if postMessage is missing testsPassed", () => {
             const {renderer} = renderQuestion(question1);
-            const initialScore = scoreUserInputMap(
+            const initialScore = scoreQuestion(
                 question1,
                 renderer.getUserInputMap(),
                 "en",
@@ -99,7 +99,7 @@ describe("iframe widget", () => {
                 window.dispatchEvent(fakeEvent);
             });
 
-            const currentScore = scoreUserInputMap(
+            const currentScore = scoreQuestion(
                 question1,
                 renderer.getUserInputMap(),
                 "en",
@@ -109,7 +109,7 @@ describe("iframe widget", () => {
 
         it("should retain initial invalid score if postMessage data is not valid JSON", () => {
             const {renderer} = renderQuestion(question1);
-            const initialScore = scoreUserInputMap(
+            const initialScore = scoreQuestion(
                 question1,
                 renderer.getUserInputMap(),
                 "en",
@@ -124,7 +124,7 @@ describe("iframe widget", () => {
                 window.dispatchEvent(fakeEvent);
             });
 
-            const currentScore = scoreUserInputMap(
+            const currentScore = scoreQuestion(
                 question1,
                 renderer.getUserInputMap(),
                 "en",

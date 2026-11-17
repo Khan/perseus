@@ -3,7 +3,7 @@ import {
     generateTestPerseusItem,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {scoreUserInputMap} from "@khanacademy/perseus-score";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 
 import renderQuestion from "../../testing/playwright/render-question";
 
@@ -347,7 +347,7 @@ test.describe("Grapher widget", () => {
 
                         await graphCase.answerCorrectly(question);
 
-                        const score = scoreUserInputMap(
+                        const score = scoreQuestion(
                             answerful.question,
                             await question.getUserInputMap(),
                             "en",
@@ -365,7 +365,7 @@ test.describe("Grapher widget", () => {
 
                         await graphCase.answerIncorrectly(question);
 
-                        const score = scoreUserInputMap(
+                        const score = scoreQuestion(
                             answerful.question,
                             await question.getUserInputMap(),
                             "en",

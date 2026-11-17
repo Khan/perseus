@@ -60,7 +60,7 @@ export function combineScoreWithWidgetScores(
 /**
  * Scores a {@link UserInputMap} against a {@link PerseusRenderer}.
  *
- * @param perseusRenderData - the renderer data, including the correct answers
+ * @param question - PerseusRenderer data. Must include the correct answers.
  * @param userInputMap - the user's input for each widget, mapped by ID
  * @param locale - string locale for math parsing ("de" 1.000,00 vs "en" 1,000.00)
  *
@@ -69,14 +69,14 @@ export function combineScoreWithWidgetScores(
  * vs. incorrect. When the score result is "invalid", only "invalid" widget
  * scores are included in `widgetScores`.
  */
-export function scoreUserInputMap(
-    perseusRenderData: PerseusRenderer,
+export function scoreQuestion(
+    question: PerseusRenderer,
     userInputMap: UserInputMap,
     locale: string,
 ): PerseusScoreWithWidgetScores {
-    const scoreableWidgetIds = getScoreableWidgets(perseusRenderData);
+    const scoreableWidgetIds = getScoreableWidgets(question);
     const widgetScores = scoreWidgets(
-        perseusRenderData.widgets,
+        question.widgets,
         scoreableWidgetIds,
         userInputMap,
         locale,

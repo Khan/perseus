@@ -6,7 +6,7 @@ import {
     generateTestPerseusRenderer,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {scoreUserInputMap} from "@khanacademy/perseus-score";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -49,11 +49,7 @@ describe("numeric-input widget", () => {
             screen.getByRole("textbox", {hidden: true}),
             correct,
         );
-        const score = scoreUserInputMap(
-            question,
-            renderer.getUserInputMap(),
-            "en",
-        );
+        const score = scoreQuestion(question, renderer.getUserInputMap(), "en");
 
         // Assert
         expect(score).toHaveBeenAnsweredCorrectly();
@@ -68,11 +64,7 @@ describe("numeric-input widget", () => {
             screen.getByRole("textbox", {hidden: true}),
             incorrect,
         );
-        const score = scoreUserInputMap(
-            question,
-            renderer.getUserInputMap(),
-            "en",
-        );
+        const score = scoreQuestion(question, renderer.getUserInputMap(), "en");
 
         // Assert
         expect(score).toHaveBeenAnsweredIncorrectly();
@@ -336,7 +328,7 @@ describe("Numeric input widget", () => {
 
         // Act
         await userEvent.type(screen.getByRole("textbox", {hidden: true}), "1");
-        const score = scoreUserInputMap(
+        const score = scoreQuestion(
             multipleAnswers,
             renderer.getUserInputMap(),
             "en",
@@ -352,7 +344,7 @@ describe("Numeric input widget", () => {
 
         // Act
         await userEvent.type(screen.getByRole("textbox", {hidden: true}), "2");
-        const score = scoreUserInputMap(
+        const score = scoreQuestion(
             multipleAnswers,
             renderer.getUserInputMap(),
             "en",
@@ -371,7 +363,7 @@ describe("Numeric input widget", () => {
             screen.getByRole("textbox", {hidden: true}),
             "2.4",
         );
-        const score = scoreUserInputMap(
+        const score = scoreQuestion(
             duplicatedAnswers,
             renderer.getUserInputMap(),
             "en",
@@ -390,7 +382,7 @@ describe("Numeric input widget", () => {
             screen.getByRole("textbox", {hidden: true}),
             "1.0",
         );
-        const score = scoreUserInputMap(
+        const score = scoreQuestion(
             withCoefficient,
             renderer.getUserInputMap(),
             "en",
@@ -409,7 +401,7 @@ describe("Numeric input widget", () => {
             screen.getByRole("textbox", {hidden: true}),
             "33%",
         );
-        const score = scoreUserInputMap(
+        const score = scoreQuestion(
             percentageProblem,
             renderer.getUserInputMap(),
             "en",
@@ -428,7 +420,7 @@ describe("Numeric input widget", () => {
             screen.getByRole("textbox", {hidden: true}),
             "12.2",
         );
-        const score = scoreUserInputMap(
+        const score = scoreQuestion(
             multipleAnswersWithDecimals,
             renderer.getUserInputMap(),
             "en",
@@ -715,7 +707,7 @@ describe("interactive: full vs answerless", () => {
             );
 
             const userInput = renderer.getUserInputMap();
-            const score = scoreUserInputMap(
+            const score = scoreQuestion(
                 getAnswerfulItem().question,
                 userInput,
                 "en",

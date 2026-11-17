@@ -3,7 +3,7 @@ import {
     generateImageWidget,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
-import {scoreUserInputMap} from "@khanacademy/perseus-score";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {act, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import invariant from "tiny-invariant";
@@ -101,11 +101,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
         // Act
         const {renderer} = renderQuestion(question, {apiOptions});
-        const score = scoreUserInputMap(
-            question,
-            renderer.getUserInputMap(),
-            "en",
-        );
+        const score = scoreQuestion(question, renderer.getUserInputMap(), "en");
 
         invariant(
             score.type === "points",

@@ -7,7 +7,7 @@ import {
     SORTER_MAX_HORIZONTAL_CARDS,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {scoreUserInputMap} from "@khanacademy/perseus-score";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import {act, screen} from "@testing-library/react";
 import * as React from "react";
@@ -319,7 +319,7 @@ describe("sorter widget", () => {
 
                 // Act
                 const userInput = renderer.getUserInputMap();
-                const score = scoreUserInputMap(
+                const score = scoreQuestion(
                     answerfulItem.question,
                     userInput,
                     "en",
@@ -343,7 +343,7 @@ describe("sorter widget", () => {
                 );
 
                 const userInput = renderer.getUserInputMap();
-                const score = scoreUserInputMap(
+                const score = scoreQuestion(
                     answerfulItem.question,
                     userInput,
                     "en",
@@ -361,7 +361,7 @@ describe("sorter widget", () => {
                 // Act
                 act(() => sorter.moveOptionToIndex("First", 4));
 
-                const score = scoreUserInputMap(
+                const score = scoreQuestion(
                     answerfulItem.question,
                     renderer.getUserInputMap(),
                     "en",
@@ -441,7 +441,7 @@ describe("sorter widget", () => {
             const {renderer} = renderQuestion(question);
 
             // Act
-            const score = scoreUserInputMap(
+            const score = scoreQuestion(
                 question,
                 renderer.getUserInputMap(),
                 "en",

@@ -15,7 +15,7 @@ import {
     lockedFigureColors,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {scoreUserInputMap} from "@khanacademy/perseus-score";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -129,7 +129,7 @@ describe("Interactive Graph", function () {
                     initialUserInput: userInput,
                 });
 
-                const score = scoreUserInputMap(
+                const score = scoreQuestion(
                     question,
                     renderer.getUserInputMap(),
                     "en",
@@ -164,7 +164,7 @@ describe("Interactive Graph", function () {
                 const {renderer} = renderQuestion(question);
 
                 // Act
-                const score = scoreUserInputMap(
+                const score = scoreQuestion(
                     question,
                     renderer.getUserInputMap(),
                     "en",
@@ -189,7 +189,7 @@ describe("Interactive Graph", function () {
                     initialUserInput: userInput,
                 });
 
-                const score = scoreUserInputMap(
+                const score = scoreQuestion(
                     question,
                     renderer.getUserInputMap(),
                     "en",
@@ -217,7 +217,7 @@ describe("Interactive Graph", function () {
             });
             const {renderer} = renderQuestion(question);
             const userInput = renderer.getUserInputMap();
-            const score = scoreUserInputMap(question, userInput, "en");
+            const score = scoreQuestion(question, userInput, "en");
 
             expect(score).toHaveBeenAnsweredCorrectly({
                 shouldHavePoints: false,
@@ -287,7 +287,7 @@ describe("Interactive Graph", function () {
                 const {renderer} = renderQuestion(question);
 
                 // Act
-                const score = scoreUserInputMap(
+                const score = scoreQuestion(
                     question,
                     renderer.getUserInputMap(),
                     "en",
@@ -321,7 +321,7 @@ describe("Interactive Graph", function () {
                 // Assert
                 await waitFor(
                     () => {
-                        const score = scoreUserInputMap(
+                        const score = scoreQuestion(
                             question,
                             renderer.getUserInputMap(),
                             "en",
@@ -346,7 +346,7 @@ describe("Interactive Graph", function () {
                 // Assert
                 await waitFor(
                     () => {
-                        const score = scoreUserInputMap(
+                        const score = scoreQuestion(
                             question,
                             renderer.getUserInputMap(),
                             "en",
@@ -372,7 +372,7 @@ describe("Interactive Graph", function () {
                 // Assert
                 await waitFor(
                     () => {
-                        const score = scoreUserInputMap(
+                        const score = scoreQuestion(
                             question,
                             renderer.getUserInputMap(),
                             "en",

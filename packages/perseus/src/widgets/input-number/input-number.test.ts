@@ -6,7 +6,7 @@ import {
     generateInputNumberAnswer,
     generateInputNumberOptions,
 } from "@khanacademy/perseus-core";
-import {scoreUserInputMap} from "@khanacademy/perseus-score";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -39,7 +39,7 @@ describe("input-number", function () {
             const textbox = await screen.findByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, "1/2");
-            const score = scoreUserInputMap(
+            const score = scoreQuestion(
                 question,
                 renderer.getUserInputMap(),
                 "en",
@@ -57,7 +57,7 @@ describe("input-number", function () {
             const textbox = await screen.findByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, "0.7");
-            const score = scoreUserInputMap(
+            const score = scoreQuestion(
                 question,
                 renderer.getUserInputMap(),
                 "en",
@@ -75,7 +75,7 @@ describe("input-number", function () {
             const textbox = await screen.findByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, "0..7");
-            const score = scoreUserInputMap(
+            const score = scoreQuestion(
                 question,
                 renderer.getUserInputMap(),
                 "en",
@@ -280,7 +280,7 @@ describe("input-number", function () {
             const textbox = await screen.findByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, correct);
-            const score = scoreUserInputMap(
+            const score = scoreQuestion(
                 question,
                 renderer.getUserInputMap(),
                 "en",
@@ -298,7 +298,7 @@ describe("input-number", function () {
             const textbox = await screen.findByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, incorrect);
-            const score = scoreUserInputMap(
+            const score = scoreQuestion(
                 question,
                 renderer.getUserInputMap(),
                 "en",
@@ -337,11 +337,7 @@ describe("input-number", () => {
         const textbox = await screen.findByRole("textbox");
         await userEvent.click(textbox);
         await userEvent.type(textbox, "1/2");
-        const score = scoreUserInputMap(
-            question,
-            renderer.getUserInputMap(),
-            "en",
-        );
+        const score = scoreQuestion(question, renderer.getUserInputMap(), "en");
 
         // Assert
         expect(score).toHaveBeenAnsweredCorrectly();
@@ -355,11 +351,7 @@ describe("input-number", () => {
         const textbox = await screen.findByRole("textbox");
         await userEvent.click(textbox);
         await userEvent.type(textbox, "0.7");
-        const score = scoreUserInputMap(
-            question,
-            renderer.getUserInputMap(),
-            "en",
-        );
+        const score = scoreQuestion(question, renderer.getUserInputMap(), "en");
 
         // Assert
         expect(score).toHaveBeenAnsweredIncorrectly();
@@ -404,11 +396,7 @@ describe("input-number", () => {
             // Act
             const textbox = await screen.findByRole("textbox");
             await userEvent.type(textbox, correctAnswer);
-            const score = scoreUserInputMap(
-                item,
-                renderer.getUserInputMap(),
-                "en",
-            );
+            const score = scoreQuestion(item, renderer.getUserInputMap(), "en");
 
             // Assert
             expect(score).toHaveBeenAnsweredCorrectly();
@@ -648,7 +636,7 @@ describe.each([
 
         await userEvent.type(screen.getByRole("textbox"), "42");
         const userInput = renderer.getUserInputMap();
-        const score = scoreUserInputMap(
+        const score = scoreQuestion(
             getAnswerfulInputNumber().question,
             userInput,
             "en",
@@ -664,7 +652,7 @@ describe.each([
 
         await userEvent.type(screen.getByRole("textbox"), "8675309");
         const userInput = renderer.getUserInputMap();
-        const score = scoreUserInputMap(
+        const score = scoreQuestion(
             getAnswerfulInputNumber().question,
             userInput,
             "en",
@@ -679,7 +667,7 @@ describe.each([
         const {renderer} = renderQuestion(question);
 
         const userInput = renderer.getUserInputMap();
-        const score = scoreUserInputMap(
+        const score = scoreQuestion(
             getAnswerfulInputNumber().question,
             userInput,
             "en",

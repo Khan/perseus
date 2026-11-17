@@ -1,5 +1,5 @@
 import {expect, test} from "@internal/playwright";
-import {scoreUserInputMap} from "@khanacademy/perseus-score";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 
 import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import renderQuestion from "../../../testing/playwright/render-question";
@@ -92,7 +92,7 @@ test.describe("Sorter widget (drag-and-drop)", () => {
         await dragTileToBlank(tile("Apple"), blanks.nth(0), "Apple");
         await dragTileToBlank(tile("Banana"), blanks.nth(1), "Banana");
 
-        const score = scoreUserInputMap(
+        const score = scoreQuestion(
             twoCardVerticalQuestion,
             await getUserInputMap(),
             "en",

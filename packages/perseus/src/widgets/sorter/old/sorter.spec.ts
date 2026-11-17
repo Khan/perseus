@@ -1,5 +1,5 @@
 import {expect, test} from "@internal/playwright";
-import {scoreUserInputMap} from "@khanacademy/perseus-score";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 
 import renderQuestion from "../../../testing/playwright/render-question";
 import {twoCardVerticalQuestion} from "../sorter.testdata";
@@ -97,7 +97,7 @@ test.describe("Sorter widget", () => {
         // `toPass` retries while the asynchronous user-input update finishes
         // after the mouse release.
         await expect(async () => {
-            const score = scoreUserInputMap(
+            const score = scoreQuestion(
                 twoCardVerticalQuestion,
                 await getUserInputMap(),
                 "en",

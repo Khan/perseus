@@ -5,7 +5,7 @@ import {
     generateTestPerseusRenderer,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {scoreUserInputMap} from "@khanacademy/perseus-score";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -929,13 +929,13 @@ describe("LabelImage", function () {
         });
     });
 
-    describe("scoreUserInputMap", () => {
+    describe("scoreQuestion", () => {
         it("should be invalid on first render", () => {
             // Arrange
             const {renderer} = renderQuestion(textQuestion);
 
             // Act
-            const score = scoreUserInputMap(
+            const score = scoreQuestion(
                 textQuestion,
                 renderer.getUserInputMap(),
                 "en",
@@ -1218,7 +1218,7 @@ describe("LabelImage", function () {
 
             // Act
             const userInput = renderer.getUserInputMap();
-            const score = scoreUserInputMap(
+            const score = scoreQuestion(
                 answerfulItem.question,
                 userInput,
                 "en",
@@ -1241,7 +1241,7 @@ describe("LabelImage", function () {
             const choice = screen.getByRole("option", {name: "SUVs"});
             await userEvent.click(choice);
 
-            const score = scoreUserInputMap(
+            const score = scoreQuestion(
                 answerfulItem.question,
                 renderer.getUserInputMap(),
                 "en",
@@ -1264,7 +1264,7 @@ describe("LabelImage", function () {
             const choice = screen.getByRole("option", {name: "Trucks"});
             await userEvent.click(choice);
 
-            const score = scoreUserInputMap(
+            const score = scoreQuestion(
                 answerfulItem.question,
                 renderer.getUserInputMap(),
                 "en",
