@@ -90,3 +90,6 @@
   React fallbacks when a stored widget is missing fields, so removing them
   may change rendering of old content. Perhaps limit this task to the
   insertion path and leave `defaultProps` for a follow-up.
+  - Yes, remove defaultProps. Existing content is passed through the parsers
+    in perseus-core before reaching the editors, so it will always have all
+    required widget options.
