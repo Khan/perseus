@@ -11,7 +11,7 @@ import type {
 
 // The `group` widget is basically a widget hosting a full Perseus system in
 // it. As such, scoring a group means scoring all widgets it contains.
-function scoreGroup(
+export function scoreGroup(
     userInput: PerseusGroupUserInput | undefined,
     rubric: PerseusGroupWidgetOptions,
     locale: string,
@@ -29,5 +29,3 @@ function scoreGroup(
 
     return flattenScores(scores);
 }
-
-export default scoreGroup;

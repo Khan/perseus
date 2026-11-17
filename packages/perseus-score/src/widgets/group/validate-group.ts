@@ -6,7 +6,7 @@ import type {
     ValidationResult,
 } from "@khanacademy/perseus-core";
 
-function validateGroup(
+export function validateGroup(
     userInput: PerseusGroupUserInput | undefined,
     validationData: GroupPublicWidgetOptions,
     locale: string,
@@ -18,5 +18,3 @@ function validateGroup(
     const result = validateUserInput(validationData, userInput, locale);
     return result?.type === "invalid" ? result : null;
 }
-
-export default validateGroup;

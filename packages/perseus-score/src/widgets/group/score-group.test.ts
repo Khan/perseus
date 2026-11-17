@@ -2,7 +2,7 @@ import {generateGroupOptions} from "@khanacademy/perseus-core";
 
 import {getTestDropdownWidget} from "../../util/widgets.testutils";
 
-import scoreGroup from "./score-group";
+import {scoreGroup} from "./score-group";
 
 import type {PerseusGroupWidgetOptions} from "@khanacademy/perseus-core";
 
