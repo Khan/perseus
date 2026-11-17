@@ -1,4 +1,5 @@
 import * as React from "react";
+import {flushSync} from "react-dom";
 
 import {AnswerTile} from "./answer-tile";
 import {PerseusDndProvider} from "./perseus-dnd-provider";
@@ -12,7 +13,8 @@ type Props = {
     /**
      * Called with the widest tile's width in whole pixels (rounded up), and
      * again whenever it changes. Called with undefined while the tiles are
-     * hidden, since a hidden tile has no width.
+     * hidden, since a hidden tile has no width. State updates made in this
+     * callback render before the browser paints.
      */
     onWidthChange: (width: number | undefined) => void;
 };
@@ -60,7 +62,13 @@ function TileWidthMeasurer(props: Props): React.ReactElement {
             const width = entry?.borderBoxSize[0]?.inlineSize ?? 0;
             // Round up, so a blank is never narrower than its tile.
             // A hidden column reads 0, so report no width until it shows.
-            onWidthChangeRef.current(width > 0 ? Math.ceil(width) : undefined);
+            const nextWidth = width > 0 ? Math.ceil(width) : undefined;
+            // ResizeObserver calls back after layout and before paint.
+            // React would render a state update from here in a later
+            // task, after a paint, so blanks would show at the default
+            // width for a frame and then jump. flushSync renders the
+            // update now, before the browser paints.
+            flushSync(() => onWidthChangeRef.current(nextWidth));
         });
         observerRef.current.observe(element, {box: "border-box"});
     }, []);
