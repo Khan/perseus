@@ -93,3 +93,35 @@
   - Yes, remove defaultProps. Existing content is passed through the parsers
     in perseus-core before reaching the editors, so it will always have all
     required widget options.
+
+## Checklist
+
+- [ ] Check `git log` for why `registerCoreWidgets()` omits free-response;
+      record the finding in a note at the top of this checklist
+- [ ] If there's no deliberate reason, register free-response in
+      `registerCoreWidgets()` (otherwise, plan the `isWidgetRegistered()`
+      fallback to `defaultProps` and keep those `defaultProps` below)
+- [ ] Test: inserting a core widget (e.g. dropdown) from the widget dropdown
+      produces options deep-equal to `<widget>Logic.defaultWidgetOptions`
+- [ ] Test: inserting a free-response widget produces
+      `freeResponseLogic.defaultWidgetOptions`
+- [ ] Test: inserted widget options don't share identity with the
+      registry's defaults
+- [ ] Change `_addWidgetToContent()` to take a copy of
+      `getDefaultWidgetOptions(type)` and pass it to the new
+      `initializeWidgetOptions(defaults, params)` hook when present; drop the
+      `defaultProps` fallback and update the comment above
+      `InitializeWidgetOptionsParams`
+- [ ] Update `DefinitionEditor.initializeWidgetOptions` to the new
+      signature, setting `togglePrompt` from the selection on `defaults`
+- [ ] Test: inserting a definition widget with no selection leaves
+      `togglePrompt` at its default (the existing test covers the
+      with-selection case; update it for the new signature if needed)
+- [ ] Test: the inserted widget's `version` matches
+      `CoreWidgetRegistry.getCurrentVersion(type)`
+- [ ] Remove `defaultProps` from widget editors whose defaults duplicate
+      `<widget>Logic.defaultWidgetOptions`, a few editors per step, fixing
+      any props types that relied on them
+- [ ] Remove the TODO-NEXT comment in `editor.tsx`
+- [ ] Add a changeset for `@khanacademy/perseus-editor` (and
+      `@khanacademy/perseus-core` if free-response registration changed)
