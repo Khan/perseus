@@ -13,20 +13,25 @@ jest.mock("@khanacademy/wonder-blocks-announcer", () => ({
 
 const BLANK_IDS = ["blank 1", "blank 2"];
 
-/** Renders the hook around mutable controlled placements. */
+/**
+ * Renders the hook around mutable controlled placements. `tileUsage` is
+ * either one usage for every tile, or a per-tile lookup.
+ */
 function setupHook(
     initialPlacements: TilePlacements = {},
-    tileUsage: TileUsage = "single",
+    tileUsage: TileUsage | ((tileId: string) => TileUsage) = "single",
 ) {
     let placements = initialPlacements;
     const onPlacementsChange = jest.fn((next: TilePlacements) => {
         placements = next;
     });
+    const getTileUsage =
+        typeof tileUsage === "function" ? tileUsage : () => tileUsage;
     const rendered = renderHook(() =>
         useTileMoveActions({
             placements,
             onPlacementsChange,
-            getTileUsage: () => tileUsage,
+            getTileUsage,
             getTileLabel: (tileId) => `tile ${tileId}`,
             getBlankLabel: (blankId) => `Blank ${blankId.slice(-1)}`,
             blankIds: BLANK_IDS,
@@ -193,6 +198,49 @@ describe("useTileMoveActions", () => {
             expect(onPlacementsChange).toHaveBeenCalledWith({"blank 2": "x"});
             expect(announceMessage).toHaveBeenCalledWith({
                 message: "tile x moved to Blank 2.",
+            });
+        });
+
+        describe("with tiles of mixed usage", () => {
+            function getMixedTileUsage(tileId: string): TileUsage {
+                return tileId === "penny" ? "multi" : "single";
+            }
+
+            it("copies a multi-use tile, leaving it in its other blank", () => {
+                // Arrange
+                const {result, onPlacementsChange} = setupHook(
+                    {"blank 1": "penny"},
+                    getMixedTileUsage,
+                );
+
+                // Act
+                act(() => {
+                    result.current.handleMove({tileId: "penny"}, "blank 2");
+                });
+
+                // Assert
+                expect(onPlacementsChange).toHaveBeenCalledWith({
+                    "blank 1": "penny",
+                    "blank 2": "penny",
+                });
+            });
+
+            it("moves a single-use tile out of its other blank", () => {
+                // Arrange
+                const {result, onPlacementsChange} = setupHook(
+                    {"blank 1": "dime"},
+                    getMixedTileUsage,
+                );
+
+                // Act
+                act(() => {
+                    result.current.handleMove({tileId: "dime"}, "blank 2");
+                });
+
+                // Assert
+                expect(onPlacementsChange).toHaveBeenCalledWith({
+                    "blank 2": "dime",
+                });
             });
         });
     });

@@ -89,7 +89,8 @@ export const multiUseFillInTheBlankQuestion = generateTestPerseusRenderer({
         "fill-in-the-blank 1": generateFillInTheBlankWidget({
             options: generateFillInTheBlankOptions({
                 content:
-                    "[[☃ blank 1]] + [[☃ blank 2]] + [[☃ blank 3]] + [[☃ blank 4]] = [[☃ blank 5]] + [[☃ blank 6]]",
+                    "[[☃ blank 1]] + [[☃ blank 2]] + [[☃ blank 3]] + " +
+                    "[[☃ blank 4]] = [[☃ blank 5]] + [[☃ blank 6]]",
                 widgets: {
                     "blank 1": generateBlankWidget({
                         options: generateBlankOptions({correctId: "1"}),
@@ -111,18 +112,18 @@ export const multiUseFillInTheBlankQuestion = generateTestPerseusRenderer({
                     }),
                 },
                 tiles: [
-                    {
+                    generateFillInTheBlankTile({
                         id: "1",
                         content: "1",
                         label: "1",
                         maxUses: 4,
-                    },
-                    {
+                    }),
+                    generateFillInTheBlankTile({
                         id: "2",
                         content: "2",
                         label: "2",
                         maxUses: 2,
-                    },
+                    }),
                 ],
             }),
         }),
