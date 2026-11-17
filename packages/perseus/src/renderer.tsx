@@ -1214,7 +1214,8 @@ class Renderer
         const title: ASTNode | undefined =
             node.type === "titledTable" ? node.title : undefined;
 
-        switch (getTableKind(tableNode)) {
+        const tableKind = getTableKind(tableNode);
+        switch (tableKind) {
             case "layout":
                 return this.outputLayoutTable(
                     tableNode,
@@ -1223,71 +1224,35 @@ class Renderer
                     state,
                 );
             case "rowHeaders":
-                return this.outputRowHeaderTable(
-                    tableNode,
-                    title,
-                    nestedOutput,
-                    state,
-                );
             case "basic":
-                return this.outputBasicTable(
+                return this.outputDataTable(
                     tableNode,
                     title,
                     nestedOutput,
                     state,
+                    tableKind === "rowHeaders",
                 );
         }
     };
 
     /**
-     * Renders a data table with a header row of column headers.
+     * Renders a data table. A data table is a table with column headers,
+     * and optionally row headers and/or a caption (table header). This
+     * table is designed to display data and follows standard HTML table semantics.
      */
-    outputBasicTable = (
+    outputDataTable = (
         node: SingleASTNode,
         title: ASTNode | undefined,
         nestedOutput: (ast: ASTNode, state: WidgetState) => React.ReactNode,
         state: WidgetState,
-    ): React.ReactNode => {
-        const headers = node.header.map(
-            (content: Array<SingleASTNode>, i: number) =>
-                buildColumnHeader(node, content, i, nestedOutput, state),
-        );
-
-        const rows = node.cells.map(
-            (row: Array<Array<SingleASTNode>>, r: number) => (
-                <tr key={r}>
-                    {row.map((content, c) =>
-                        buildDataCell(node, content, c, nestedOutput, state),
-                    )}
-                </tr>
-            ),
-        );
-
-        const table = buildDataTableElement(
-            headers,
-            rows,
-            title,
-            nestedOutput,
-            state,
-        );
-
-        return wrapTable(table, state, title);
-    };
-
-    /**
-     * Renders a data table whose first column holds row headers.
-     */
-    outputRowHeaderTable = (
-        node: SingleASTNode,
-        title: ASTNode | undefined,
-        nestedOutput: (ast: ASTNode, state: WidgetState) => React.ReactNode,
-        state: WidgetState,
+        hasRowHeaders: boolean,
     ): React.ReactNode => {
         const headers = node.header.map(
             (content: Array<SingleASTNode>, i: number) => {
-                // An empty top-left cell labels nothing, so per the W3C
-                // pattern it's a plain `<td>` rather than a header.
-                if (i === 0 && isEmptyTableCell(content)) {
+                // An empty top-left cell above row headers labels nothing,
+                // so per the W3C pattern it's a plain `<td>` rather than a
+                // header.
+                if (hasRowHeaders && i === 0 && isEmptyTableCell(content)) {
                     return <td key={i} />;
                 }
                 return buildColumnHeader(node, content, i, nestedOutput, state);
@@ -1298,7 +1263,7 @@ class Renderer
             (row: Array<Array<SingleASTNode>>, r: number) => (
                 <tr key={r}>
                     {row.map((content, c) => {
-                        if (c === 0) {
+                        if (hasRowHeaders && c === 0) {
                             return (
                                 <th
                                     key={c}
