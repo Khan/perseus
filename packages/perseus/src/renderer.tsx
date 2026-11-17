@@ -1301,12 +1301,12 @@ class Renderer
     };
 
     /**
-     * Renders a table whose column headers are all empty as a layout table.
-     * The empty header row is dropped, and `role="presentation"` tells
-     * assistive technology not to announce the table's rows and columns.
+     * Renders a table as a layout table. A layout table is a table
+     * that is used for laying out visual elements on a page. It does not
+     * include data that has semantic meaning.
      *
-     * Unlike data tables, a layout table isn't made focusable on mobile:
-     * browsers ignore `role="presentation"` on focusable elements.
+     * Thus this layout table amounts to custom styling that mimics a table
+     * without erroneously utilizing table semantics.
      */
     outputLayoutTable = (
         node: SingleASTNode,
@@ -1314,38 +1314,7 @@ class Renderer
         nestedOutput: (ast: ASTNode, state: WidgetState) => React.ReactNode,
         state: WidgetState,
     ): React.ReactNode => {
-        // Need to come back, Claude still rendered the contents using table cells
-        // We need to use divs and use CSS to mimic the table layout.
-        const rows = node.cells.map(
-            (row: Array<Array<SingleASTNode>>, r: number) => (
-                <tr key={r}>
-                    {row.map((content, c) => (
-                        <td key={c} style={getTableCellStyle(node, c)}>
-                            {nestedOutput(content, state)}
-                        </td>
-                    ))}
-                </tr>
-            ),
-        );
-
-        // Circle back, I don't think we need this for mobile?
-        const table = wrapTable(
-            <table key={state.key} role="presentation">
-                <tbody key="tbody">{rows}</tbody>
-            </table>,
-            state,
-        );
-
-        if (title == null) {
-            return table;
-        }
-
-        return (
-            <React.Fragment key={state.key}>
-                {nestedOutput({type: "paragraph", content: title}, state)}
-                {table}
-            </React.Fragment>
-        );
+        // Come back...
     };
 
     handleRender: (prevProps: Props) => void = (prevProps: Props) => {
