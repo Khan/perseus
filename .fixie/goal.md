@@ -124,5 +124,6 @@ no later commit mentions excluding it. It's now registered.
 - [ ] Remove `defaultProps` from widget editors whose defaults duplicate
       `<widget>Logic.defaultWidgetOptions`, a few editors per step, fixing
       any props types that relied on them
+  - [x] video, phet-simulation, measurer
 - [x] Add a changeset for `@khanacademy/perseus-editor` (and
       `@khanacademy/perseus-core` if free-response registration changed)

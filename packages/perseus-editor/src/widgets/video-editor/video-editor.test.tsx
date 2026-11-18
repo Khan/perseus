@@ -24,7 +24,7 @@ describe("VideoEditor", () => {
 
     it("should render", () => {
         // Arrange, Act
-        render(<VideoEditor onChange={() => undefined} />);
+        render(<VideoEditor location="" onChange={() => undefined} />);
 
         // Assert
         expect(screen.getByLabelText("KA Video Slug")).toBeInTheDocument();
@@ -33,7 +33,7 @@ describe("VideoEditor", () => {
     it("should call onChange when KA video Slug is provided", async () => {
         // Arrange
         const onChangeMock = jest.fn();
-        render(<VideoEditor onChange={onChangeMock} />);
+        render(<VideoEditor location="" onChange={onChangeMock} />);
 
         // Act
 
@@ -48,7 +48,7 @@ describe("VideoEditor", () => {
     it("should call onChange with the slug from the URL if a Khan Academy URL is provided (with prefix)", async () => {
         // Arrange
         const onChangeMock = jest.fn();
-        render(<VideoEditor onChange={onChangeMock} />);
+        render(<VideoEditor location="" onChange={onChangeMock} />);
 
         // Act
 
@@ -70,7 +70,7 @@ describe("VideoEditor", () => {
     it("should call onChange with the slug from the URL if a Khan Academy URL is provided (without prefix)", async () => {
         // Arrange
         const onChangeMock = jest.fn();
-        render(<VideoEditor onChange={onChangeMock} />);
+        render(<VideoEditor location="" onChange={onChangeMock} />);
 
         // Act
 
@@ -92,7 +92,7 @@ describe("VideoEditor", () => {
     it("should call onChange with the URL if a non-Khan Academy URL is provided", async () => {
         // Arrange
         const onChangeMock = jest.fn();
-        render(<VideoEditor onChange={onChangeMock} />);
+        render(<VideoEditor location="" onChange={onChangeMock} />);
 
         // Act
         const slugInput = screen.getByLabelText("KA Video Slug");
