@@ -225,10 +225,8 @@ jobs:
                   - name: Build docs
                     run: pnpm build:docs
 
-                  # Run test workers on at most half the CPUs, to leave room
-                  # for the other checks running in parallel with this one.
                   - name: Test
-                    run: pnpm test --pool.maxWorkers=50%
+                    run: pnpm test
 
             # Full ESLint runs outside the parallel block for the same reason
             # as in the `lint` job (exit code 137, presumed OOM).
