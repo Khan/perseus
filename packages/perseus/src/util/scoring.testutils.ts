@@ -4,29 +4,10 @@ import {
 } from "@khanacademy/perseus-core";
 
 import type {
-    CategorizerWidget,
     PerseusItem,
     PerseusRenderer,
     PerseusWidgetTypes,
 } from "@khanacademy/perseus-core";
-
-/**
- * Creates an object with the bare amount
- * of data to be a properly typed InteractiveGraphWidget
- *
- * @returns {InteractiveGraphWidget} skeleton InteractiveGraphWidget for testing
- */
-export function generateTestCategorizerWidget(): CategorizerWidget {
-    return {
-        type: "categorizer",
-        options: {
-            items: [],
-            categories: [],
-            randomizeItems: false,
-            values: [],
-        },
-    };
-}
 
 /**
  * Creates an object with the minimum amount
