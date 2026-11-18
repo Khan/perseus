@@ -6,15 +6,16 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
-import {articleDecorator} from "../../__testutils__/story-decorators";
+import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
+import {articleDecorator} from "../__testutils__/story-decorators";
+
 import {
     basicQuestion,
     longTextWithTeX,
     simpleTexQuestion,
     texQuestion,
     twoCardVerticalQuestion,
-} from "../sorter.testdata";
+} from "./sorter.testdata";
 
 import type {PerseusItem, SorterLegend} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";

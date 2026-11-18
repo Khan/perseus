@@ -5,12 +5,12 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {themeModes} from "../../../../../../.storybook/modes";
-import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {themeModes} from "../../../../../.storybook/modes";
+import QuestionRendererForStories from "../__testutils__/question-renderer-for-stories";
 import {
     narrowViewportDecorator,
     rtlDecorator,
-} from "../../__testutils__/story-decorators";
+} from "../__testutils__/story-decorators";
 
 import type {
     PerseusSorterWidgetOptions,
