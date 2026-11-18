@@ -21,7 +21,6 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 const meta: Meta<PerseusSorterWidgetOptions> = {
     title: "Widgets/Sorter/Visual Regression Tests/Drag and Drop",
     tags: ["!autodocs", "!manifest"],
-    globals: {featureFlags: ["dnd-widget-sorter"]},
     parameters: {
         docs: {
             description: {

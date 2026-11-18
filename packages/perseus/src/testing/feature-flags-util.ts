@@ -14,7 +14,6 @@ const DEFAULT_FEATURE_FLAGS: Record<
     "article-extras": false,
     // ...add new flags here
     "dnd-widget-fitb": false,
-    "dnd-widget-sorter": false,
 };
 
 /** Utility to get feature flags with optional overrides for testing.
