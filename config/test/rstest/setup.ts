@@ -11,7 +11,7 @@ import {StyleSheetTestUtils} from "aphrodite";
  * before any tests run.
  */
 
-// Tests call Jest's API on a `jest` global, and `rs` has the parts they use.
+// Alias `rs` to `jest` to support tests during the Jest -> rstest migration.
 // Testing Library also checks for a `jest` global to decide whether to
 // advance fake timers while it waits.
 Object.assign(globalThis, {jest: rs});

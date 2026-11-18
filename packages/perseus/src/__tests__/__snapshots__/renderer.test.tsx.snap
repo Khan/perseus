@@ -1,4 +1,4 @@
-// Rstest Snapshot v1
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`renderer > in a JIPT context > renders \`crwdn\` placeholders with data-perseus-component-index and data-perseus-paragraph-index attributes in an article > article with JIPT placeholders 1`] = `
 <div>
