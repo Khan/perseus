@@ -1,4 +1,4 @@
-import {deepClone, gradedGroupLogic} from "@khanacademy/perseus-core";
+import {gradedGroupLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import GradedGroupEditor from "../graded-group-editor";
@@ -26,7 +26,7 @@ class GradedGroupSetEditor extends React.Component<Props> {
     };
 
     addGroup = () => {
-        const newGroup = deepClone(gradedGroupLogic.defaultWidgetOptions);
+        const newGroup = gradedGroupLogic.defaultWidgetOptions;
         this.props.onChange({
             gradedGroups: this.props.gradedGroups.concat([newGroup]),
         });

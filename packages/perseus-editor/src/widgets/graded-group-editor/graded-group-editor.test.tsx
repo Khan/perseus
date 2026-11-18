@@ -1,4 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
+import {generateGradedGroupOptions} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -25,10 +26,7 @@ describe("GradedGroupEditor", () => {
     it("should render", async () => {
         render(
             <GradedGroupEditor
-                title=""
-                content=""
-                widgets={{}}
-                images={{}}
+                {...generateGradedGroupOptions()}
                 onChange={() => undefined}
             />,
         );
@@ -46,11 +44,7 @@ describe("GradedGroupEditor", () => {
 
         render(
             <GradedGroupEditor
-                title=""
-                content=""
-                widgets={{}}
-                images={{}}
-                hint={null}
+                {...generateGradedGroupOptions()}
                 onChange={onChangeMock}
             />,
         );
