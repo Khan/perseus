@@ -1,4 +1,5 @@
 import {Dependencies, ApiOptions, Util} from "@khanacademy/perseus";
+import {generateRadioOptions} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -38,7 +39,7 @@ function renderRadioEditor(
         <RadioEditor
             onChange={onChangeMock}
             apiOptions={ApiOptions.defaults}
-            {...props}
+            {...generateRadioOptions(props)}
         />,
         {wrapper: RenderStateRoot},
     );
@@ -1123,21 +1124,26 @@ describe("radio-editor", () => {
     });
 
     describe("ensureValidIds", () => {
-        it("should generate new ID for empty string", () => {
-            // Reset mock and set specific return value
-            mockedRandomUuid.mockReset();
-            mockedRandomUuid.mockReturnValue("2-3-4-5-6");
-
+        function renderEditorWithRef() {
             const editorRef = React.createRef<RadioEditor>();
-
             render(
                 <RadioEditor
                     ref={editorRef}
                     onChange={() => {}}
                     apiOptions={ApiOptions.defaults}
+                    {...generateRadioOptions()}
                 />,
                 {wrapper: RenderStateRoot},
             );
+            return editorRef;
+        }
+
+        it("should generate new ID for empty string", () => {
+            // Reset mock and set specific return value
+            mockedRandomUuid.mockReset();
+            mockedRandomUuid.mockReturnValue("2-3-4-5-6");
+
+            const editorRef = renderEditorWithRef();
 
             // Test the method directly
             const result = editorRef.current?.ensureValidIds("", 0);
@@ -1145,16 +1151,8 @@ describe("radio-editor", () => {
         });
 
         it("should preserve valid ID", () => {
-            const editorRef = React.createRef<RadioEditor>();
+            const editorRef = renderEditorWithRef();
             const validId = "1-2-3-4-5";
-            render(
-                <RadioEditor
-                    ref={editorRef}
-                    onChange={() => {}}
-                    apiOptions={ApiOptions.defaults}
-                />,
-                {wrapper: RenderStateRoot},
-            );
 
             const result = editorRef.current?.ensureValidIds(validId, 1);
             expect(result).toBe("1-2-3-4-5");
@@ -1167,16 +1165,7 @@ describe("radio-editor", () => {
 
             const whitespaceOnlyString = "   \t  ";
 
-            const editorRef = React.createRef<RadioEditor>();
-
-            render(
-                <RadioEditor
-                    ref={editorRef}
-                    onChange={() => {}}
-                    apiOptions={ApiOptions.defaults}
-                />,
-                {wrapper: RenderStateRoot},
-            );
+            const editorRef = renderEditorWithRef();
 
             const result = editorRef.current?.ensureValidIds(
                 whitespaceOnlyString,
@@ -1190,16 +1179,7 @@ describe("radio-editor", () => {
             mockedRandomUuid.mockReset();
             mockedRandomUuid.mockReturnValue("5-6-7-8-9");
 
-            const editorRef = React.createRef<RadioEditor>();
-
-            render(
-                <RadioEditor
-                    ref={editorRef}
-                    onChange={() => {}}
-                    apiOptions={ApiOptions.defaults}
-                />,
-                {wrapper: RenderStateRoot},
-            );
+            const editorRef = renderEditorWithRef();
 
             // eslint-disable-next-line no-restricted-syntax
             const result = editorRef.current?.ensureValidIds(null as any, 3);
