@@ -23,22 +23,18 @@
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-widget-container.widget-wrap-right {
     max-width: 50%;
-    padding-top: var(--wb-sizing-size_240);
+    padding-inline: var(--wb-sizing-size_320);
     width: 100%;
 }
 
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-widget-container.widget-wrap-left {
     float: inline-start;
-    padding-right: var(--wb-sizing-size_320);
-    padding-left: var(--wb-sizing-size_320);
 }
 
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-widget-container.widget-wrap-right {
     float: inline-end;
-    padding-left: var(--wb-sizing-size_320);
-    padding-right: var(--wb-sizing-size_320);
 }
 
 /* Mobile context - block display, no float */

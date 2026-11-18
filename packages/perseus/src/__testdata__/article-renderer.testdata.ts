@@ -3,6 +3,7 @@ import {
     generateExpressionOptions,
     generateExpressionWidget,
     generateImageOptions,
+    generateImageWidget,
     generateTestPerseusRenderer,
     type PerseusRenderer,
 } from "@khanacademy/perseus-core";
@@ -92,6 +93,53 @@ export const multiSectionArticle: PerseusRenderer[] = [
     {
         content:
             "## Where are matrices used in the real world?\n\nMatrices have tons of real-world applications! They can be used in computer graphics to perform transformations on images, in physics to model physical systems, and in statistics to analyze data, just to name a few.",
+        images: {},
+        widgets: {},
+    },
+];
+
+/**
+ * A two-section article whose first section contains a `wrap-left` (floated)
+ * image taller than the text beside it. The float must stay contained within
+ * its own section so that it does not overlap the section that follows.
+ *
+ * Simplified from a real article that reproduced the overlap; the image is
+ * deliberately tall and narrow (310x500) so that it overflows the first
+ * section's text.
+ */
+export const multiSectionArticleWithFloatedImage: PerseusRenderer[] = [
+    {
+        content:
+            "### Verify that floated elements extending beyond renderer bounds don't invade sibling renderer\n\nCompetition happens when organisms from the same or different species need the same limited resources. When competition happens, it can make survival harder for all of the organisms involved.\n\n[[☃ image 1]]\n\nCompetition also happens for food. For example, periwinkle snails and limpets both feed on algae. As they crawl across the rocks, they scrape algae from the surface and eat it.",
+        images: {},
+        widgets: {
+            "image 1": generateImageWidget({
+                alignment: "wrap-left",
+                graded: true,
+                options: generateImageOptions({
+                    alt:
+                        "Rocky shoreline showing bands of sea anemones, " +
+                        "mussels, barnacles, and lichen living at different " +
+                        "heights above the water.",
+                    caption:
+                        "*Different organisms often live at different heights " +
+                        "along rocky shores and around tide pools. This is " +
+                        "visible in the image above by the bands of different " +
+                        "colors, which are all different types of organisms. " +
+                        "By using different areas of the rocks, organisms can " +
+                        "reduce direct competition for the same space.*",
+                    backgroundImage: {
+                        url: "https://cdn.kastatic.org/ka-content-images/c88c378b47d2ee4291f192091f1774c10fa5673b.jpg",
+                        width: 310,
+                        height: 500,
+                    },
+                }),
+            }),
+        },
+    },
+    {
+        content:
+            "Even though competition is common in tide pools, not all organisms use resources in the same way. These differences help reduce direct competition and allow many organisms to survive together in a small space.",
         images: {},
         widgets: {},
     },

@@ -2,6 +2,7 @@ import {generateTestPerseusRenderer} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {themeModes} from "../../../../.storybook/modes";
+import {multiSectionArticleWithFloatedImage} from "../__testdata__/article-renderer.testdata";
 import {
     regularTextContent,
     listsContent,
@@ -18,7 +19,7 @@ import {useStorybookApiOptions} from "../testing/use-storybook-api-options";
 import QuestionRendererForStories from "../widgets/__testutils__/question-renderer-for-stories";
 
 import type {APIOptions} from "../types";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {PerseusRenderer, PerseusArticle} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 type Story = StoryObj;
@@ -78,6 +79,24 @@ const RenderExerciseContent = (content: string): (() => React.JSX.Element) => {
     };
 };
 
+const RenderArticleSections = (
+    sections: PerseusArticle,
+    baseApiOptions: APIOptions = {},
+): (() => React.JSX.Element) => {
+    return function Render() {
+        const apiOptions = useStorybookApiOptions(baseApiOptions);
+
+        return (
+            <ArticleRenderer
+                json={sections}
+                seed={0}
+                dependencies={storybookDependenciesV2}
+                apiOptions={apiOptions}
+            />
+        );
+    };
+};
+
 function mobileArticleStory(content: string): Story {
     return {
         render: RenderArticleContent(content, {isMobile: true}),
@@ -131,6 +150,10 @@ export const ArticleBlockquote: Story = desktopArticleStory(blockquoteContent);
 
 export const ArticleBlockquoteMobile: Story =
     mobileArticleStory(blockquoteContent);
+
+export const MultipleSectionsWithFloatedImage: Story = {
+    render: RenderArticleSections(multiSectionArticleWithFloatedImage),
+};
 
 export const ExerciseRegularText: Story = {
     render: RenderExerciseContent(regularTextContent),
