@@ -126,5 +126,6 @@ no later commit mentions excluding it. It's now registered.
       any props types that relied on them
   - [x] video, phet-simulation, measurer
   - [x] group, matcher, table
+  - [x] iframe, python-program, explanation
 - [x] Add a changeset for `@khanacademy/perseus-editor` (and
       `@khanacademy/perseus-core` if free-response registration changed)

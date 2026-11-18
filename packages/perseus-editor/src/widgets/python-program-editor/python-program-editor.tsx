@@ -1,5 +1,4 @@
 import {components} from "@khanacademy/perseus";
-import {pythonProgramLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import type {WidgetEditorProps} from "../widget-editor-props";
@@ -13,9 +12,6 @@ type Props = WidgetEditorProps<PerseusPythonProgramWidgetOptions>;
  * An editor for adding a Python program widget that allows users to write, edit and execute Python code.
  */
 class PythonProgramEditor extends React.Component<Props> {
-    static defaultProps: PerseusPythonProgramWidgetOptions =
-        pythonProgramLogic.defaultWidgetOptions;
-
     handleChange(changes: Partial<PerseusPythonProgramWidgetOptions>) {
         this.props.onChange({
             programID: this.props.programID,
