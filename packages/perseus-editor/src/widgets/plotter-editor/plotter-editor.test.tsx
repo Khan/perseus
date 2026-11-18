@@ -1,5 +1,5 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
-import {plotterLogic} from "@khanacademy/perseus-core";
+import {generatePlotterOptions} from "@khanacademy/perseus-core";
 import {act, render, screen} from "@testing-library/react";
 import * as React from "react";
 
@@ -17,7 +17,7 @@ describe("PlotterEditor", () => {
     it("renders the Picture field when picUrl is null", async () => {
         render(
             <PlotterEditor
-                {...plotterLogic.defaultWidgetOptions}
+                {...generatePlotterOptions()}
                 onChange={() => undefined}
                 apiOptions={ApiOptions.defaults}
                 static={false}
@@ -50,7 +50,7 @@ describe("PlotterEditor", () => {
 
         const {rerender} = render(
             <PlotterEditor
-                {...plotterLogic.defaultWidgetOptions}
+                {...generatePlotterOptions()}
                 onChange={() => undefined}
                 apiOptions={ApiOptions.defaults}
                 static={false}
@@ -75,7 +75,7 @@ describe("PlotterEditor", () => {
         // Act — clear the URL
         rerender(
             <PlotterEditor
-                {...plotterLogic.defaultWidgetOptions}
+                {...generatePlotterOptions()}
                 onChange={() => undefined}
                 apiOptions={ApiOptions.defaults}
                 static={false}

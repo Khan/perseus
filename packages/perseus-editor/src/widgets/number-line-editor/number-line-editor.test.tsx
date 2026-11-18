@@ -1,5 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
-import {numberLineLogic} from "@khanacademy/perseus-core";
+import {generateNumberLineOptions} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -8,22 +8,7 @@ import {testDependencies} from "../../testing/test-dependencies";
 
 import NumberLineEditor from "./number-line-editor";
 
-import type {PerseusNumberLineWidgetOptions} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
-
-function renderEditor(
-    props: Partial<PerseusNumberLineWidgetOptions & {static: boolean}> = {},
-): jest.Mock {
-    const onChangeMock = jest.fn();
-    render(
-        <NumberLineEditor
-            {...numberLineLogic.defaultWidgetOptions}
-            {...props}
-            onChange={onChangeMock}
-        />,
-    );
-    return onChangeMock;
-}
 
 describe("number-line-editor", () => {
     let userEvent: UserEvent;
@@ -38,7 +23,12 @@ describe("number-line-editor", () => {
     });
 
     it("should render", async () => {
-        renderEditor();
+        render(
+            <NumberLineEditor
+                {...generateNumberLineOptions()}
+                onChange={() => undefined}
+            />,
+        );
 
         expect(await screen.findByText("Correct x")).toBeInTheDocument();
     });
@@ -52,10 +42,18 @@ describe("number-line-editor", () => {
     ];
     relationships.forEach(([rel, name]) => {
         it(`should be possible to set relationship to: ${rel}`, async () => {
+            const onChangeMock = jest.fn();
+
             // Ensure a different option is selected initially; onChange
             // doesn't fire if you re-select the option that's already selected.
             const selected = name === "Equal" ? "lt" : "eq";
-            const onChangeMock = renderEditor({correctRel: selected});
+            render(
+                <NumberLineEditor
+                    {...generateNumberLineOptions()}
+                    onChange={onChangeMock}
+                    correctRel={selected}
+                />,
+            );
 
             await userEvent.click(
                 screen.getByRole("combobox", {
@@ -71,7 +69,14 @@ describe("number-line-editor", () => {
     });
 
     it("should be possible to update the answer", async () => {
-        const onChangeMock = renderEditor();
+        const onChangeMock = jest.fn();
+
+        render(
+            <NumberLineEditor
+                {...generateNumberLineOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         const input = screen.getByPlaceholderText("answer");
         await userEvent.type(input, "1");
@@ -82,7 +87,14 @@ describe("number-line-editor", () => {
     });
 
     it("should be possible to update position", async () => {
-        const onChangeMock = renderEditor();
+        const onChangeMock = jest.fn();
+
+        render(
+            <NumberLineEditor
+                {...generateNumberLineOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         const input = screen.getByRole("textbox", {name: "Position: ∈"});
         await userEvent.type(input, "1");
@@ -93,7 +105,14 @@ describe("number-line-editor", () => {
     });
 
     it("should be possible to update style", async () => {
-        const onChangeMock = renderEditor({labelStyle: "decimal"});
+        const onChangeMock = jest.fn();
+
+        render(
+            <NumberLineEditor
+                {...generateNumberLineOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         await userEvent.click(screen.getByTitle("Improper fractions"));
 
@@ -103,7 +122,14 @@ describe("number-line-editor", () => {
     });
 
     it("should be possible to change show tick controller", async () => {
-        const onChangeMock = renderEditor({isTickCtrl: false});
+        const onChangeMock = jest.fn();
+
+        render(
+            <NumberLineEditor
+                {...generateNumberLineOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         await userEvent.click(
             screen.getByRole("checkbox", {name: "Show tick controller"}),
@@ -115,7 +141,14 @@ describe("number-line-editor", () => {
     });
 
     it("should be possible to change show label tickets", async () => {
-        const onChangeMock = renderEditor({labelTicks: true});
+        const onChangeMock = jest.fn();
+
+        render(
+            <NumberLineEditor
+                {...generateNumberLineOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         await userEvent.click(
             screen.getByRole("checkbox", {name: "Show label ticks"}),
@@ -127,7 +160,14 @@ describe("number-line-editor", () => {
     });
 
     it("should be possible to change show tooltips", async () => {
-        const onChangeMock = renderEditor({showTooltips: false});
+        const onChangeMock = jest.fn();
+
+        render(
+            <NumberLineEditor
+                {...generateNumberLineOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         await userEvent.click(
             screen.getByRole("checkbox", {name: "Show tooltips"}),
@@ -139,7 +179,15 @@ describe("number-line-editor", () => {
     });
 
     it("should be possible to update tick steps", async () => {
-        const onChangeMock = renderEditor();
+        const onChangeMock = jest.fn();
+
+        render(
+            <NumberLineEditor
+                {...generateNumberLineOptions()}
+                onChange={onChangeMock}
+                tickStep={null}
+            />,
+        );
 
         const input = screen.getByRole("textbox", {
             name: "or tick step:",
@@ -158,13 +206,25 @@ describe("number-line-editor", () => {
         function renderWithLabelRange(
             labelRange: [number | null, number | null],
         ) {
-            return renderEditor({
-                // Static mode hides the Position input, whose
-                // placeholder would otherwise match the left label's.
-                static: true,
-                range: [0, 10],
-                labelRange,
-            });
+            const onChangeMock = jest.fn();
+            render(
+                <NumberLineEditor
+                    {...generateNumberLineOptions()}
+                    onChange={onChangeMock}
+                    // Static mode hides the Position input, whose
+                    // placeholder would otherwise match the left label's.
+                    static={true}
+                    range={[0, 10]}
+                    // A tick step of 2 gives the "Num divisions" input a
+                    // placeholder of 5, distinct from the right label's 10.
+                    // This matters because tests select inputs by placeholder.
+                    // TODO(benchristel): give inputs accessible labels and
+                    //  avoid selecting by placeholder.
+                    tickStep={2}
+                    labelRange={labelRange}
+                />,
+            );
+            return onChangeMock;
         }
 
         async function replaceValue(input: HTMLElement, text: string) {
@@ -239,7 +299,14 @@ describe("number-line-editor", () => {
     });
 
     it("should be possible to update snap divisions", async () => {
-        const onChangeMock = renderEditor();
+        const onChangeMock = jest.fn();
+
+        render(
+            <NumberLineEditor
+                {...generateNumberLineOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         const input = screen.getByRole("textbox", {
             name: "Snap increments per tick:",

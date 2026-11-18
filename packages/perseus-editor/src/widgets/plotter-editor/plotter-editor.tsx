@@ -42,6 +42,7 @@ type Props = WidgetEditorProps<PerseusPlotterWidgetOptions>;
 
 type State = {
     editing: EditingState;
+    // TODO(benchristel): give `pic` a real type
     pic: any;
     loadedUrl: string | null;
     minX: number;
@@ -99,7 +100,7 @@ class PlotterEditor extends React.Component<Props, State> {
     }
 
     fetchPic: (url: string | null) => void = (url) => {
-        if (url === null) {
+        if (url == null) {
             // Make sure we don't display a previously-loaded picUrl if we no
             // longer have one.
             if (this.state.pic !== null) {
