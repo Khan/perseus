@@ -1,6 +1,15 @@
 import {pointToPixel} from "../graphs/use-transform";
-import {X, Y} from "../math";
+import {
+    boxToCircleGap,
+    boxToPointDistance,
+    inset,
+    overlapArea,
+    segmentToBoxDistance,
+    X,
+    Y,
+} from "../math";
 
+import type {Box, Segment} from "../math";
 import type {GraphDimensions} from "../types";
 import type {
     Coord,
@@ -59,150 +68,27 @@ function halfDiagonal(size: LabelSize): number {
     return Math.hypot(size.width, size.height) / 2;
 }
 
-function inflateRect(rect: Rect, by: number): Rect {
-    return {
-        left: rect.left - by,
-        top: rect.top - by,
-        right: rect.right + by,
-        bottom: rect.bottom + by,
-    };
-}
-
-/** Area the two rectangles share; zero when they don't overlap. */
-function overlapArea(a: Rect, b: Rect): number {
-    const width = Math.min(a.right, b.right) - Math.max(a.left, b.left);
-    const height = Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top);
-
-    if (width <= 0 || height <= 0) {
-        return 0;
-    }
-    return width * height;
-}
-
-/**
- * Distance from a rectangle to a circle: positive when they're clear of each
- * other, negative when they overlap (the depth of the overlap).
- */
-function rectToCircleGap(
-    rect: Rect,
-    centerPx: [number, number],
-    radius: number,
-): number {
-    // Distance from the circle's center to the nearest point of the rect,
-    // zero on an axis where the center lies within the rect's span.
-    const dx = Math.max(rect.left - centerPx[X], 0, centerPx[X] - rect.right);
-    const dy = Math.max(rect.top - centerPx[Y], 0, centerPx[Y] - rect.bottom);
-
-    return Math.hypot(dx, dy) - radius;
-}
-
-/** Shortest distance from a point to a line segment. */
-function pointToSegmentDistance(
-    point: [number, number],
-    a: [number, number],
-    b: [number, number],
-): number {
-    const vx = b[X] - a[X];
-    const vy = b[Y] - a[Y];
-    const lengthSquared = vx * vx + vy * vy;
-
-    // How far along the segment the nearest point lies, clamped to its ends so
-    // a degenerate (zero-length) segment just measures to its single point.
-    const t =
-        lengthSquared === 0
-            ? 0
-            : Math.max(
-                  0,
-                  Math.min(
-                      1,
-                      ((point[X] - a[X]) * vx + (point[Y] - a[Y]) * vy) /
-                          lengthSquared,
-                  ),
-              );
-
-    return Math.hypot(point[X] - (a[X] + t * vx), point[Y] - (a[Y] + t * vy));
-}
-
-/** Whether two line segments cross. */
-function segmentsIntersect(
-    a: [number, number],
-    b: [number, number],
-    c: [number, number],
-    d: [number, number],
-): boolean {
-    const cross = (
-        o: [number, number],
-        p: [number, number],
-        q: [number, number],
-    ) => (p[X] - o[X]) * (q[Y] - o[Y]) - (p[Y] - o[Y]) * (q[X] - o[X]);
-
-    const d1 = cross(c, d, a);
-    const d2 = cross(c, d, b);
-    const d3 = cross(a, b, c);
-    const d4 = cross(a, b, d);
-
-    // Each segment must straddle the other's infinite line.
-    return (
-        ((d1 > 0 && d2 < 0) || (d1 < 0 && d2 > 0)) &&
-        ((d3 > 0 && d4 < 0) || (d3 < 0 && d4 > 0))
-    );
-}
-
-/**
- * Shortest distance from a line segment to a rectangle; zero when they touch.
- *
- * A line is the only obstacle here that isn't axis-aligned, so its bounding
- * box is a poor stand-in: for a 45-degree segment the box reaches far past the
- * stroke, and a label comfortably clear of the line would read as overlapping
- * it. This measures the segment itself.
- */
-function segmentToRectDistance(
-    a: [number, number],
-    b: [number, number],
-    rect: Rect,
-): number {
-    const isInside = (p: [number, number]) =>
-        p[X] >= rect.left &&
-        p[X] <= rect.right &&
-        p[Y] >= rect.top &&
-        p[Y] <= rect.bottom;
-
-    if (isInside(a) || isInside(b)) {
-        return 0;
-    }
-
-    const corners: Array<[number, number]> = [
-        [rect.left, rect.top],
-        [rect.right, rect.top],
-        [rect.right, rect.bottom],
-        [rect.left, rect.bottom],
+// A label's box as a `Box`, so it can be measured against the shared geometry
+// in `math/`. Note the box is in pixel space, where y grows downward — so its
+// y interval runs [top, bottom], and `yMin` is the box's *top* edge.
+function rectToBox(rect: Rect): Box {
+    return [
+        [rect.left, rect.right],
+        [rect.top, rect.bottom],
     ];
-    const edges = corners.map(
-        (corner, i): [[number, number], [number, number]] => [
-            corner,
-            corners[(i + 1) % corners.length],
-        ],
-    );
+}
 
-    for (const [c, d] of edges) {
-        if (segmentsIntersect(a, b, c, d)) {
-            return 0;
-        }
-    }
+// The unit vector at right angles to a segment. A zero-length segment has no
+// direction to turn from, so it reports straight up.
+function perpendicularTo([a, b]: Segment): [number, number] {
+    const dx = b[X] - a[X];
+    const dy = b[Y] - a[Y];
+    const length = Math.hypot(dx, dy);
 
-    // Disjoint, so the closest approach is between an endpoint of one and the
-    // body of the other.
-    let shortest = Infinity;
-    for (const [c, d] of edges) {
-        shortest = Math.min(
-            shortest,
-            pointToSegmentDistance(c, a, b),
-            pointToSegmentDistance(d, a, b),
-            pointToSegmentDistance(a, c, d),
-            pointToSegmentDistance(b, c, d),
-        );
+    if (length === 0) {
+        return [0, -1];
     }
-    return shortest;
+    return [-dy / length, dx / length];
 }
 
 /** Which horizontal edge of the label sits on the placement coordinate. */
@@ -672,15 +558,10 @@ function getPerpendicularCandidate(
     const {a, b, strokeWidth} = segmentPx;
     const dx = b[X] - a[X];
     const dy = b[Y] - a[Y];
-    const length = Math.hypot(dx, dy);
 
     const anchorPx: [number, number] = [a[X] + dx * t, a[Y] + dy * t];
-    // A degenerate segment has no perpendicular; fall back to straight up so
-    // the candidate is still well-formed.
-    const perpendicular: [number, number] =
-        length === 0
-            ? [0, -side]
-            : [(-dy / length) * side, (dx / length) * side];
+    const unit = perpendicularTo([a, b]);
+    const perpendicular: [number, number] = [unit[X] * side, unit[Y] * side];
 
     // The anchors put the label's near corner at the offset position and let
     // the box extend away from the line, so this is the visible gap between
@@ -740,20 +621,13 @@ function getCandidates(
             (a[X] + b[X]) / 2,
             (a[Y] + b[Y]) / 2,
         ];
-        const segmentLengthForSide = Math.hypot(b[X] - a[X], b[Y] - a[Y]);
-        const unitPerpendicular: [number, number] =
-            segmentLengthForSide === 0
-                ? [0, -1]
-                : [
-                      -(b[Y] - a[Y]) / segmentLengthForSide,
-                      (b[X] - a[X]) / segmentLengthForSide,
-                  ];
+        const unit = perpendicularTo([a, b]);
         // Which way the perpendicular leans relative to the middle of the
         // graph. A segment pointing straight away from the reference gives no
         // preference either way, and either side reads equally well.
         const outward: 1 | -1 =
-            unitPerpendicular[X] * (midpoint[X] - referencePx[X]) +
-                unitPerpendicular[Y] * (midpoint[Y] - referencePx[Y]) >=
+            unit[X] * (midpoint[X] - referencePx[X]) +
+                unit[Y] * (midpoint[Y] - referencePx[Y]) >=
             0
                 ? 1
                 : -1;
@@ -845,6 +719,11 @@ function scoreCandidate(
     const [idealX, idealY] = centerOf(idealRect);
     const deviation = Math.hypot(cx - idealX, cy - idealY) / labelOffsetPx;
 
+    // The shared geometry in `math/` works in boxes, so convert once here.
+    const box = rectToBox(rect);
+    // `inset` shrinks a box; a negative amount grows it instead.
+    const inflate = (by: number) => inset([-by, -by], box);
+
     let labelPenalty = 0;
     for (const other of placed) {
         // The gap the pair needs is set by whichever label is larger. Only
@@ -854,7 +733,7 @@ function scoreCandidate(
             halfDiagonal(other.size),
         );
         labelPenalty +=
-            overlapArea(inflateRect(rect, required), other.rect) /
+            overlapArea(inflate(required), rectToBox(other.rect)) /
             normalizeArea;
     }
 
@@ -865,8 +744,8 @@ function scoreCandidate(
         if (point.ownerKeys.has(item.key)) {
             continue;
         }
-        const gap = rectToCircleGap(
-            inflateRect(rect, ownHalfDiagonal),
+        const gap = boxToCircleGap(
+            inflate(ownHalfDiagonal),
             point.centerPx,
             point.radiusPx,
         );
@@ -879,7 +758,7 @@ function scoreCandidate(
 
     let tickPenalty = 0;
     for (const zone of tickZones) {
-        tickPenalty += overlapArea(rect, zone) / normalizeArea;
+        tickPenalty += overlapArea(box, rectToBox(zone)) / normalizeArea;
     }
 
     let segmentPenalty = 0;
@@ -899,7 +778,7 @@ function scoreCandidate(
         // the length of the graph, for a ray — since nothing else holds it to
         // the point it labels.
         const nearOwnAnchor =
-            isOwnLine && rectToCircleGap(rect, anchorPx, 0) <= ownHalfDiagonal;
+            isOwnLine && boxToPointDistance(box, anchorPx) <= ownHalfDiagonal;
         const required = nearOwnAnchor
             ? labelOffsetPx + segment.strokeWidth / 2
             : ownHalfDiagonal + segment.strokeWidth / 2;
@@ -912,22 +791,21 @@ function scoreCandidate(
             ? trimSegmentNearPoint(segment, anchorPx, labelOffsetPx)
             : segment;
         const distance = measured
-            ? segmentToRectDistance(measured.a, measured.b, rect)
+            ? segmentToBoxDistance([measured.a, measured.b], box)
             : Infinity;
         if (distance < required) {
             segmentPenalty += (required - distance) / labelOffsetPx;
         }
     }
 
-    const graphRect: Rect = {
-        left: 0,
-        top: 0,
-        right: graphInfo.width,
-        bottom: graphInfo.height,
-    };
+    // The graph's own bounds, in pixels. Both intervals run from 0 because the
+    // origin of pixel space is the graph's top-left corner.
+    const graphBox: Box = [
+        [0, graphInfo.width],
+        [0, graphInfo.height],
+    ];
     const rectArea = (rect.right - rect.left) * (rect.bottom - rect.top);
-    const outOfBounds =
-        (rectArea - overlapArea(rect, graphRect)) / normalizeArea;
+    const outOfBounds = (rectArea - overlapArea(box, graphBox)) / normalizeArea;
 
     return (
         weightDeviation * deviation +

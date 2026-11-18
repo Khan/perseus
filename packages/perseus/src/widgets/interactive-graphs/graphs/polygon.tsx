@@ -11,7 +11,7 @@ import {
 } from "../../../components/i18n-context";
 import {getCSSZoomFactor} from "../../../util/css-zoom-utils";
 import {snap} from "../math";
-import {isInBound} from "../math/box";
+import {boxContainsPoint} from "../math/box";
 import {actions} from "../reducer/interactive-graph-action";
 import {
     calculateAngleSnap,
@@ -734,7 +734,7 @@ export function getSideSnapConstraint(
         while (
             newPoint[0] === pointToBeMoved[0] &&
             newPoint[1] === pointToBeMoved[1] &&
-            isInBound({range, point: destinationAttempt})
+            boxContainsPoint(range, destinationAttempt)
         ) {
             newPoint = calculateSideSnap(
                 destinationAttempt,
@@ -795,7 +795,7 @@ export function getAngleSnapConstraint(
         while (
             newPoint[0] === pointToBeMoved[0] &&
             newPoint[1] === pointToBeMoved[1] &&
-            isInBound({range, point: destinationAttempt})
+            boxContainsPoint(range, destinationAttempt)
         ) {
             newPoint = calculateAngleSnap(
                 destinationAttempt,
