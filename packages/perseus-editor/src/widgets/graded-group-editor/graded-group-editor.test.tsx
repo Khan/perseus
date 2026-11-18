@@ -23,7 +23,15 @@ describe("GradedGroupEditor", () => {
     });
 
     it("should render", async () => {
-        render(<GradedGroupEditor onChange={() => undefined} />);
+        render(
+            <GradedGroupEditor
+                title=""
+                content=""
+                widgets={{}}
+                images={{}}
+                onChange={() => undefined}
+            />,
+        );
 
         expect(
             await screen.findByText("Graded Groups should contain a prompt"),
@@ -36,7 +44,16 @@ describe("GradedGroupEditor", () => {
     it("should add a full Renderer for a hint", async () => {
         const onChangeMock = jest.fn();
 
-        render(<GradedGroupEditor onChange={onChangeMock} />);
+        render(
+            <GradedGroupEditor
+                title=""
+                content=""
+                widgets={{}}
+                images={{}}
+                hint={null}
+                onChange={onChangeMock}
+            />,
+        );
         await userEvent.click(screen.getByRole("button", {name: "Add a hint"}));
 
         const expected: PerseusRenderer = {

@@ -130,7 +130,7 @@ no later commit mentions excluding it. It's now registered.
   - [x] definition, matrix, orderer
   - [x] dropdown, image, categorizer
   - [x] number-line, plotter, grapher
-  - [ ] graded-group, graded-group-set, label-image
+  - [x] graded-group, graded-group-set, label-image
   - [ ] interaction, radio, free-response
   - [ ] interactive-graph, numeric-input, expression (check that their
         `defaultProps` match the logic defaults before removing)
