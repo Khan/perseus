@@ -39,9 +39,9 @@ import type {Mock} from "@rstest/core";
 import type {UserEvent} from "@testing-library/user-event";
 
 // NOTE(jeremy): We can't use an automatic mock for the translation linter,
-// because one of it's "instance" methods is created using `debounce` and Jest
-// doesn't provide a mocked instance method for it (I suspect that Jest doesn't
-// see that symbol as an instance method).
+// because one of it's "instance" methods is created using `debounce` and
+// Jest's automatic mock didn't provide a mocked instance method for it (I
+// suspect that Jest didn't see that symbol as an instance method).
 const mockRunLinter = rs.fn();
 const mockApplyLintErrors = rs.fn();
 rs.mock("../translation-linter", () => ({

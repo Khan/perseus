@@ -158,7 +158,7 @@ describe("Definition widget", () => {
 
         beforeEach(() => {
             // Popover's focus management (floating-ui) moves focus using
-            // microtasks and animation frames, which Jest's fake timers hold
+            // microtasks and animation frames, which fake timers hold
             // back.
             rs.useRealTimers();
             userEvent = userEventLib.setup();

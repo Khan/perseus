@@ -41,7 +41,7 @@ const unverifiedWait = (delay: number, count: number) =>
 /**
  * Wait for the given delay as many times as indicated.
  *
- * This will throw if jest.useRealTimers() is not used.
+ * This will throw if rs.useRealTimers() is not used.
  */
 export const wait: (options?: WaitOptions) => Promise<void> = ({
     delay = 0,
