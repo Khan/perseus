@@ -10,7 +10,7 @@
     /* Center the slot on the text line; inline-flex defaults to
      * baseline. */
     vertical-align: middle;
-    min-width: var(--blank-min-inline-size, 65px);
+    min-width: var(--blank-min-inline-size, 64px);
     min-height: 48px;
     padding: var(--wb-sizing-size_0);
     /* Breathing room between the slot and the surrounding text, per
@@ -71,7 +71,7 @@
 /* A filled blank that keeps its empty width, so the line does not
  * reflow on fill or hover. */
 .container.filled.keepsWidth {
-    min-width: var(--blank-min-inline-size, 65px);
+    min-width: var(--blank-min-inline-size, 64px);
 }
 
 /* Drag-enter highlight. An outline adds no layout size, so the line
