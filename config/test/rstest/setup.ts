@@ -28,9 +28,14 @@ Object.assign(globalThis, {jest: rs});
 // it depends on us having `global: true` set in our Rstest config.
 expect.extend(jestDomMatchers);
 
-// Prevent aphrodite from injecting styles into the document. jsdom would
-// apply them, and tests rely on unstyled elements (for example, popovers
-// that aren't hidden and containers without `pointer-events: none`).
+// Keep Aphrodite's styles out of the document.
+//
+// When the oldest unit tests in this repo were written, Aphrodite's styles
+// never reached the document, so the tests were written against unstyled
+// elements: they click popovers that would be hidden and containers styled
+// `pointer-events: none`.
+//
+// TODO: Remove this and fix/rewrite failing unit tests.
 StyleSheetTestUtils.suppressStyleInjection();
 
 attachShims(globalThis);
