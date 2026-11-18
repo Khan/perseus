@@ -1,9 +1,9 @@
 import {
+    ApiOptions,
+    Log,
     PerseusMarkdown,
     Util,
     Widgets,
-    ApiOptions,
-    Log,
 } from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
@@ -158,9 +158,6 @@ type State = {
 
 // Contextual information passed to a widget editor's optional static
 // `initializeWidgetOptions(defaults, params)` hook when a widget is inserted.
-// `defaults` is a fresh copy of the widget's default options from the core
-// widget registry; the hook returns the new widget's options. Editors without
-// the hook get the defaults unchanged.
 export type InitializeWidgetOptionsParams = {
     selectedText: string;
 };
@@ -656,16 +653,17 @@ class Editor extends React.Component<Props, State> {
 
         const newWidgets = {...this.props.widgets};
         const widgetEditor = getEditor(widgetType);
-        const defaults = deepClone(
+        const defaultOptions = deepClone(
             CoreWidgetRegistry.getDefaultWidgetOptions(widgetType),
         );
         const params: InitializeWidgetOptionsParams = {selectedText};
-        const options = widgetEditor?.initializeWidgetOptions
-            ? widgetEditor.initializeWidgetOptions(defaults, params)
-            : defaults;
         newWidgets[id] = {
-            options,
             type: widgetType,
+            options:
+                widgetEditor?.initializeWidgetOptions?.(
+                    defaultOptions,
+                    params,
+                ) ?? defaultOptions,
             // Track widget version on creation, so that a widget editor
             // without a valid version prop can only possibly refer to a
             // pre-versioning creation time.

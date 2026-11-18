@@ -265,7 +265,7 @@ describe("EditorPage", () => {
         ).toBeInTheDocument();
     });
 
-    it("uses the selected text as a new definition's togglePrompt", async () => {
+    it("sets a new Definition widget's togglePrompt to the text selection", async () => {
         const onChangeMock = jest.fn();
 
         const startRenderer: PerseusRenderer = {
@@ -319,6 +319,34 @@ describe("EditorPage", () => {
         });
     });
 
+    it("leaves a new Definition widget's togglePrompt empty when no text is selected", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <EditorPage
+                dependencies={testDependenciesV2}
+                question={{content: "", widgets: {}, images: {}}}
+                onChange={onChangeMock}
+                previewDevice="desktop"
+                previewURL=""
+                itemId="itemId"
+                jsonMode={false}
+                widgetsAreOpen={true}
+            />,
+        );
+
+        // Act
+        await userEvent.selectOptions(
+            screen.getByTestId("editor__widget-select"),
+            "Definition",
+        );
+
+        // Assert
+        const widget =
+            onChangeMock.mock.lastCall[0].question.widgets["definition 1"];
+        expect(widget.options).toEqual({togglePrompt: "", definition: ""});
+    });
+
     describe("inserting a widget from the widget dropdown", () => {
         function renderEmptyEditor(onChange: jest.Mock) {
             render(
@@ -335,7 +363,7 @@ describe("EditorPage", () => {
             );
         }
 
-        it("initializes options from the core widget registry", async () => {
+        it("initializes the widget's options", async () => {
             // Arrange
             const onChangeMock = jest.fn();
             renderEmptyEditor(onChangeMock);
@@ -359,7 +387,7 @@ describe("EditorPage", () => {
             });
         });
 
-        it("does not let edits to the new widget's options change the registry's defaults", async () => {
+        it("protects the defaults against mutation by deep-copying them", async () => {
             // Arrange
             const onChangeMock = jest.fn();
             renderEmptyEditor(onChangeMock);
@@ -380,23 +408,6 @@ describe("EditorPage", () => {
                 placeholder: "",
                 choices: [{content: "", correct: false}],
             });
-        });
-
-        it("leaves a definition's togglePrompt at its default when no text is selected", async () => {
-            // Arrange
-            const onChangeMock = jest.fn();
-            renderEmptyEditor(onChangeMock);
-
-            // Act
-            await userEvent.selectOptions(
-                screen.getByTestId("editor__widget-select"),
-                "Definition",
-            );
-
-            // Assert
-            const widget =
-                onChangeMock.mock.lastCall[0].question.widgets["definition 1"];
-            expect(widget.options).toEqual({togglePrompt: "", definition: ""});
         });
     });
 
