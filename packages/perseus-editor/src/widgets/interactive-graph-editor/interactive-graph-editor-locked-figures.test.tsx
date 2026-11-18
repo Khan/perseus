@@ -1,5 +1,8 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
-import {getDefaultFigureForType} from "@khanacademy/perseus-core";
+import {
+    generateInteractiveGraphOptions,
+    getDefaultFigureForType,
+} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -17,16 +20,15 @@ const defaultLine = getDefaultFigureForType("line");
 const defaultPolygon = getDefaultFigureForType("polygon");
 
 const baseProps = {
+    ...generateInteractiveGraphOptions({
+        gridStep: [1, 1],
+        snapStep: [1, 1],
+        lockedFigures: [],
+    }),
     apiOptions: ApiOptions.defaults,
     // eslint-disable-next-line no-restricted-syntax
     box: [288, 288] as [number, number],
-    // eslint-disable-next-line no-restricted-syntax
-    gridStep: [1, 1] as [number, number],
-    // eslint-disable-next-line no-restricted-syntax
-    snapStep: [1, 1] as [number, number],
     onChange: () => {},
-    graph: undefined,
-    lockedFigures: [],
 };
 
 const segmentProps = {
