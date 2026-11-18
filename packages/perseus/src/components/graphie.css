@@ -1,7 +1,4 @@
 @layer perseus-base {
-    .framework-perseus .graphie-container {
-        position: relative;
-    }
     .graphie svg {
         position: absolute;
         top: 0;
