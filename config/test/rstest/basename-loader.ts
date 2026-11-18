@@ -2,7 +2,8 @@
 // which asset a component uses.
 import path from "node:path";
 
-export default function basenameLoader() {
-    // TODO: Are there RsPack types so we don't need untyped `this` here??
+import type {LoaderContext} from "@rspack/core";
+
+export default function basenameLoader(this: LoaderContext): string {
     return `module.exports = ${JSON.stringify(path.basename(this.resourcePath))};`;
 }

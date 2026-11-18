@@ -57,6 +57,9 @@ const config: KnipConfig = {
                 "!config/build/**/*",
             ],
             entry: [
+                // Rspack loads it by path (see `tools.bundlerChain` in
+                // rstest.config.mts).
+                "config/test/rstest/basename-loader.ts",
                 // CLI tools
                 "utils/**/*.{ts,tsx,js,jsx}",
                 // Tests import it as `@jest/globals` (see `resolve.alias` in
