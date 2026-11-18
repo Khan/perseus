@@ -1,6 +1,5 @@
 import {
     mergeCards,
-    ordererLogic,
     toCard,
     type PerseusOrdererWidgetOptions,
 } from "@khanacademy/perseus-core";
@@ -20,9 +19,6 @@ const VERTICAL = "vertical";
 type Props = WidgetEditorProps<PerseusOrdererWidgetOptions>;
 
 class OrdererEditor extends React.Component<Props> {
-    static defaultProps: PerseusOrdererWidgetOptions =
-        ordererLogic.defaultWidgetOptions;
-
     handleChange(changes: Partial<PerseusOrdererWidgetOptions>) {
         this.props.onChange({
             options: this.props.options,

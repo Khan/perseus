@@ -127,5 +127,6 @@ no later commit mentions excluding it. It's now registered.
   - [x] video, phet-simulation, measurer
   - [x] group, matcher, table
   - [x] iframe, python-program, explanation
+  - [x] definition, matrix, orderer
 - [x] Add a changeset for `@khanacademy/perseus-editor` (and
       `@khanacademy/perseus-core` if free-response registration changed)

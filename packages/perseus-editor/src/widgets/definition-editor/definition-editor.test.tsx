@@ -1,4 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
+import {definitionLogic} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -22,7 +23,12 @@ describe("definition-editor", () => {
     });
 
     it("should render", async () => {
-        render(<DefinitionEditor onChange={() => undefined} />);
+        render(
+            <DefinitionEditor
+                {...definitionLogic.defaultWidgetOptions}
+                onChange={() => undefined}
+            />,
+        );
 
         expect(
             await screen.findByText("Definition style guide"),
@@ -32,15 +38,22 @@ describe("definition-editor", () => {
     it("should be possible to change the definition", async () => {
         const onChangeMock = jest.fn();
 
-        render(<DefinitionEditor onChange={onChangeMock} />);
+        render(
+            <DefinitionEditor
+                togglePrompt=""
+                definition="the definition"
+                onChange={onChangeMock}
+            />,
+        );
 
         const input = screen.getByRole("textbox", {
             name: "Word to be defined:",
         });
         await userEvent.type(input, "a");
 
-        expect(onChangeMock).toHaveBeenCalledWith(
-            expect.objectContaining({togglePrompt: "a"}),
-        );
+        expect(onChangeMock).toHaveBeenCalledWith({
+            togglePrompt: "a",
+            definition: "the definition",
+        });
     });
 });

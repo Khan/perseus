@@ -1,5 +1,4 @@
 import {components} from "@khanacademy/perseus";
-import {definitionLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
@@ -18,9 +17,6 @@ type Props = WidgetEditorProps<PerseusDefinitionWidgetOptions>;
  * editors to embed clickable terms with expandable explanations within content.
  */
 class DefinitionEditor extends React.Component<Props> {
-    static defaultProps: PerseusDefinitionWidgetOptions =
-        definitionLogic.defaultWidgetOptions;
-
     static initializeWidgetOptions(
         defaults: PerseusDefinitionWidgetOptions,
         params: InitializeWidgetOptionsParams,
