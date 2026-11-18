@@ -746,7 +746,6 @@ describe("parseWidgetsMap", () => {
                 version: {major: 0, minor: 0},
                 options: {
                     correct: [],
-                    padding: false,
                     layout: "horizontal",
                     variant: "scale",
                 },

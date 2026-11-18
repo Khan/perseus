@@ -1,6 +1,5 @@
 import {
     array,
-    boolean,
     constant,
     defaulted,
     enumeration,
@@ -17,7 +16,6 @@ export const parseSorterWidget = parseWidget(
     constant("sorter"),
     object({
         correct: array(string),
-        padding: boolean,
         layout: enumeration("horizontal", "vertical"),
         variant: defaulted(
             enumeration("scale", "timeline"),

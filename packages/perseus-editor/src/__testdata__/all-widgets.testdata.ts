@@ -233,7 +233,6 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 correct: ["1", "2", "3", "4", "5"],
                 layout: "horizontal",
                 variant: "scale",
-                padding: true,
             },
         },
         "input-number 1": {

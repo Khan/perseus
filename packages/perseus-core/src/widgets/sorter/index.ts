@@ -7,7 +7,6 @@ import type {WidgetLogic} from "../logic-export.types";
 const defaultWidgetOptions: PerseusSorterWidgetOptions = {
     correct: ["$x$", "$y$", "$z$"],
     layout: "horizontal",
-    padding: true,
     variant: "scale",
 };
 

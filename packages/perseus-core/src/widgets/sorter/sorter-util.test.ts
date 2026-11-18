@@ -15,7 +15,6 @@ describe("getSorterPublicWidgetOptions", () => {
             correct: ["$15$ grams", "$55$ grams", "$0.005$ kilograms"],
             layout: "horizontal",
             variant: "scale",
-            padding: true,
         };
 
         // Act
@@ -25,7 +24,6 @@ describe("getSorterPublicWidgetOptions", () => {
         expect(publicWidgetOptions).toEqual({
             correct: ["$15$ grams", "$0.005$ kilograms", "$55$ grams"],
             layout: "horizontal",
-            padding: true,
             variant: "scale",
         });
     });
@@ -36,7 +34,6 @@ describe("getSorterPublicWidgetOptions", () => {
             correct: [],
             layout: "horizontal",
             variant: "scale",
-            padding: true,
         };
 
         // Act
@@ -59,7 +56,6 @@ describe("getSorterPublicWidgetOptions", () => {
         const options: PerseusSorterWidgetOptions = {
             correct: ["$x$", "$y$", "$z$"],
             layout: "horizontal",
-            padding: true,
             variant: "scale",
             legend,
         };

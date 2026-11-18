@@ -1,6 +1,6 @@
 /* TODO(LEMS-3686): Remove the !important once Wonder Blocks is in the shared layer. */
 
-/* Separates the three sections (cards, layout, padding) from each other. */
+/* Separates the sections (cards, layout) from each other. */
 .editor {
     gap: var(--wb-sizing-size_240) !important;
 }
@@ -26,10 +26,4 @@
    cards above it. */
 .add-card {
     align-self: flex-start !important;
-}
-
-.row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
 }

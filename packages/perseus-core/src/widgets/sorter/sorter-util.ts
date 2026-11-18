@@ -32,12 +32,6 @@ export type SorterPublicWidgetOptions = {
     variant: PerseusSorterWidgetOptions["variant"];
 
     legend?: PerseusSorterWidgetOptions["legend"];
-    /**
-     * @deprecated
-     *
-     * TODO(LEMS-4538): remove padding from Sorter
-     */
-    padding: PerseusSorterWidgetOptions["padding"];
 };
 
 /**
