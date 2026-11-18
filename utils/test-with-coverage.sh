@@ -38,7 +38,7 @@ clean() {
 }
 
 run_unit_tests() {
-    env NODE_OPTIONS="--max_old_space_size=8192" pnpm test --coverage
+    pnpm test --coverage
 }
 
 run_playwright() {
