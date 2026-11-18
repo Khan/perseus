@@ -94,9 +94,8 @@
  * 3/16 of the space per side outside and 5/16 inside, as specified by design.
  * 3/16 + 5/16 = 8/16 (half on each side)
  *
- * The minimum width applies to the tile's border box, and the margin sits
- * outside it. A narrow tile (e.g. one character) is padded up to the
- * minimum - without this adjustment the margin would make it wider at
+ * A narrow tile (e.g. blank or one character) is padded up to the
+ * minimum width - without this adjustment the margin would make it wider at
  * rest than on hover, and the line would reflow. Taking the margin off
  * the minimum keeps the tile's outer width at least 64px either way. */
 .hidesMenuAtRest:not(:hover):not(:focus-within) {

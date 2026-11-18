@@ -24,10 +24,8 @@ export interface BlankComponentProps {
     /**
      * Minimum width of the empty slot. The FITB spec sizes an empty blank
      * to the widest answer tile so the slot's size does not reveal the
-     * answer; the widget computes that width and passes it here. Defaults
-     * to the design's 65px minimum. A placed tile still grows the blank
-     * beyond this. A change to this width applies at once, without the
-     * fill/clear transition.
+     * answer; the widget computes that width and passes it here. A placed
+     * tile still grows the blank beyond this.
      */
     minWidth?: number;
     /**
@@ -83,14 +81,12 @@ export function BlankComponent(props: BlankComponentProps): React.ReactElement {
             return;
         }
         previousMinWidth.current = minWidth;
-        // Browsers check whether to animate using the style that applies
-        // after a change, so the animation must be off while the browser
-        // computes the new width.
+        // Turn off the animation while the browser computes the new width.
         element.style.transition = "none";
-        // Forces the browser to apply the new width now.
+        // Force the browser to apply the new width now.
         element.getBoundingClientRect();
-        // The width has settled, so restoring the stylesheet's
-        // transition animates nothing.
+        // The width has settled, so restore the stylesheet's
+        // transition animation.
         element.style.transition = "";
     }, [minWidth]);
 

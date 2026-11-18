@@ -28,10 +28,6 @@ export const Paragraph: Story = {
     },
 };
 
-/**
- * The same paragraph on a phone. The 414px viewport is narrower than the
- * answer zone's 504px breakpoint, so each blank fills its own line.
- */
 export const ParagraphMobile: Story = {
     decorators: [mobileDecorator],
     globals: {viewport: {value: "mobile2", isRotated: false}},

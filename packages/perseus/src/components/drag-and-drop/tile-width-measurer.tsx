@@ -99,9 +99,12 @@ function TileWidthMeasurer(props: Props): React.ReactElement {
 }
 
 /**
- * Whether two tile lists render the same copies. Hosts may rebuild the
- * options object, so the arrays are compared by the fields the copies
- * render, not by reference.
+ * Whether two tile lists would produce identical hidden copies, and so the same
+ * measured width.
+ *
+ * Use this to skip re-rendering the measurer when the widget re-renders but its
+ * tiles haven't changed, as happens on every drag or placement. Re-rendering is
+ * costly, since each copy renders its content through a full Renderer.
  */
 function tilesRenderSame(
     a: ReadonlyArray<PerseusAnswerTile>,
