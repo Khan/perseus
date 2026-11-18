@@ -23,9 +23,9 @@ export function getMaxUses(tile: PerseusFillInTheBlankTile): MaxUses {
 }
 
 type TileBankProps = {
-    tiles: Array<PerseusFillInTheBlankTile>;
+    tiles: PerseusFillInTheBlankTile[];
     placements: TilePlacements;
-    blankIds: Array<string>;
+    blankIds: string[];
     blankLabels: Record<string, string>;
     onMove: TileMoveActions["handleMove"];
     /** Attached to the first bank tile's menu so focus can return to it. */
