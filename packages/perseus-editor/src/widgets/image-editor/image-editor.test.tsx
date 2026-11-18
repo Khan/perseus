@@ -4,6 +4,7 @@ import {
     DependenciesContext,
     Util,
 } from "@khanacademy/perseus";
+import {generateImageOptions} from "@khanacademy/perseus-core";
 import {act, render, screen, fireEvent, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -20,8 +21,11 @@ import {
 
 import ImageEditor from "./image-editor";
 
-import type {PerseusImageBackground} from "@khanacademy/perseus-core";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import type {APIOptions} from "@khanacademy/perseus";
+import type {
+    PerseusImageBackground,
+    PerseusImageWidgetOptions,
+} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const nonKhanImageWarning =
@@ -33,13 +37,26 @@ const altTextTooShortError =
 
 const apiOptions = ApiOptions.defaults;
 
-const ImageEditorWithDependencies = (props: PropsFor<typeof ImageEditor>) => {
+type WrapperProps = Partial<PerseusImageWidgetOptions> & {
+    apiOptions: APIOptions;
+    onChange: (options: PerseusImageWidgetOptions) => void;
+};
+
+function ImageEditorWithDependencies({
+    apiOptions,
+    onChange,
+    ...options
+}: WrapperProps) {
     return (
         <DependenciesContext.Provider value={testDependenciesV2}>
-            <ImageEditor {...props} />
+            <ImageEditor
+                apiOptions={apiOptions}
+                onChange={onChange}
+                {...generateImageOptions(options)}
+            />
         </DependenciesContext.Provider>
     );
-};
+}
 
 describe("image editor", () => {
     let userEvent: UserEvent;
