@@ -18050,55 +18050,6 @@ table: [[☃ table 1]]
                           style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; gap: var(--wb-c-labeled-field-helperText-layout-gap);"
                         />
                       </div>
-                      <div
-                        class="row"
-                      >
-                        <div
-                          style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
-                        >
-                          <div
-                            style="align-items: flex-start; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; gap: var(--wb-sizing-size_080); line-height: var(--wb-font-body-lineHeight-small); outline: none;"
-                            tabindex="-1"
-                          >
-                            <div
-                              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: block; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; margin-block-start: var(--wb-sizing-size_010);"
-                            >
-                              <div
-                                data-style-hover-input-not-disabled="outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-input-checked-border); outline-offset: 1px;"
-                                data-testid="wb-checkbox-wrapper"
-                                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: var(--wb-c-form-choice-inputWrapper-layout-margin); padding: var(--wb-c-form-choice-inputWrapper-layout-padding); position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
-                              >
-                                <input
-                                  aria-checked="true"
-                                  aria-invalid="false"
-                                  checked=""
-                                  data-style-active-not-disabled="outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-input-checked-border); outline-offset: 1px; background: var(--wb-semanticColor-core-background-instructive-strong); border-color: var(--wb-semanticColor-core-background-instructive-strong);"
-                                  data-style-focus-visible-not-disabled="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
-                                  id=":r76:"
-                                  style="appearance: none; -webkit-appearance: none; -moz-appearance: none; height: var(--wb-sizing-size_160); width: var(--wb-sizing-size_160); min-block-size: var(--wb-sizing-size_160); min-inline-size: var(--wb-sizing-size_160); margin: 0px; outline: none; box-sizing: border-box; border-style: solid; border-width: var(--wb-border-width-thin); border-radius: var(--wb-border-radius-radius_040); background-color: var(--wb-semanticColor-input-checked-background); border-color: var(--wb-semanticColor-core-transparent);"
-                                  type="checkbox"
-                                />
-                                <span
-                                  style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_120); height: var(--wb-sizing-size_120); position: absolute; pointer-events: none; margin: calc((var(--wb-sizing-size_160) - var(--wb-sizing-size_120)) / 2); background-color: var(--wb-semanticColor-input-checked-foreground); mask-image: url(check-bold.svg);"
-                                />
-                              </div>
-                            </div>
-                            <div
-                              style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-semi); line-height: var(--wb-font-body-lineHeight-small); color: var(--wb-semanticColor-core-foreground-neutral-strong);"
-                            >
-                              <label
-                                for=":r76:"
-                              >
-                                Padding
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                        <span
-                          style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); margin-inline-start: 4px; background-color: currentColor; mask-image: url(question.svg);"
-                          tabindex="0"
-                        />
-                      </div>
                     </div>
                   </div>
                 </div>

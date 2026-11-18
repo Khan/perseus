@@ -1980,16 +1980,6 @@ export type PerseusSorterWidgetOptions = {
      * to place the tiles in, with optional end caps.
      */
     legend?: SorterLegend;
-
-    /**
-     * Adds padding to the options. Padding is good for text but not needed
-     * for images
-     *
-     * @deprecated
-     *
-     * TODO(LEMS-4538): remove padding from Sorter
-     */
-    padding: boolean;
 };
 
 /** Options for the table widget. A grid of input cells with column headers. */

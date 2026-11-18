@@ -149,18 +149,6 @@ describe("sorter-editor", () => {
         });
     });
 
-    it("should be possible to change padding", async () => {
-        const onChangeMock = jest.fn();
-
-        render(<SorterEditor onChange={onChangeMock} />);
-
-        await userEvent.click(screen.getByRole("checkbox", {name: "Padding"}));
-
-        expect(onChangeMock).toHaveBeenCalledWith(
-            expect.objectContaining({padding: false}),
-        );
-    });
-
     it("renders an input for each card in the correct answer", () => {
         // Arrange, Act
         render(

@@ -722,7 +722,6 @@ describe("injectWidgets", () => {
                     correct: ["$4^2+2$", "$5^2$", "$6^2-6$"],
                     layout: "horizontal",
                     variant: "scale",
-                    padding: true,
                 },
             },
         };
@@ -1190,7 +1189,6 @@ describe("getAnswersFromWidgets", () => {
                 correct: ["$4^2+2$", "$5^2$", "$6^2-6$"],
                 layout: "horizontal",
                 variant: "scale",
-                padding: true,
             },
         };
 

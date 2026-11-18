@@ -7,7 +7,6 @@ import {
 import Banner from "@khanacademy/wonder-blocks-banner";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import * as React from "react";
@@ -44,7 +43,6 @@ function SorterEditor({
     correct = defaultOptions.correct,
     layout = defaultOptions.layout,
     variant = defaultOptions.variant,
-    padding = defaultOptions.padding,
     legend,
     onChange,
 }: Props) {
@@ -52,7 +50,6 @@ function SorterEditor({
         onChange({
             correct,
             layout,
-            padding,
             variant,
             legend,
             ...changes,
@@ -163,16 +160,6 @@ function SorterEditor({
                         text={`Sorter widget with more than ${SORTER_MAX_HORIZONTAL_CARDS} options will display vertically, even if the layout is set to horizontal.`}
                     />
                 )}
-            <div className={styles.row}>
-                <Checkbox
-                    label="Padding"
-                    checked={padding}
-                    onChange={(padding) => handleChange({padding})}
-                />
-                <InfoTip>
-                    <p>Padding is good for text, but not needed for images.</p>
-                </InfoTip>
-            </div>
         </View>
     );
 }

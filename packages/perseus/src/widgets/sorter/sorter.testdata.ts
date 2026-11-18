@@ -16,7 +16,6 @@ export const basicQuestion: PerseusRenderer = {
             type: "sorter",
             graded: true,
             options: {
-                padding: true,
                 layout: "horizontal",
                 variant: "scale",
                 correct: ["First", "Second", "Third", "Fourth", "Fifth"],
@@ -35,7 +34,6 @@ export const texQuestion: PerseusRenderer = {
             type: "sorter",
             graded: true,
             options: {
-                padding: true,
                 layout: "horizontal",
                 variant: "scale",
                 correct: [
@@ -104,7 +102,6 @@ export const longTextWithTeX: PerseusItem = generateTestPerseusItem({
                             "baseline to complete the figure.",
                     ],
                     layout: "vertical",
-                    padding: true,
                 }),
             }),
         },
