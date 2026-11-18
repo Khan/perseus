@@ -46,13 +46,9 @@ export function convertDotToTimesByLocale(
 
 /**
  * Use this to avoid running code that should not run in tests. True when
- * Jest, Vitest or Rstest runs the code: each sets its own worker ID.
+ * Jest or Rstest runs the code: each sets its own worker ID.
  **/
 export const inTest =
+    // Explicitly checking for undefined because Cypress throws an error
     typeof process !== "undefined" &&
-    !!(
-        process?.env?.JEST_WORKER_ID ||
-        process?.env?.VITEST_WORKER_ID ||
-        process?.env?.RSTEST_WORKER_ID
-    );
-// Explicitly checking for undefined because Cypress throws an error
+    !!(process?.env?.JEST_WORKER_ID || process?.env?.RSTEST_WORKER_ID);
