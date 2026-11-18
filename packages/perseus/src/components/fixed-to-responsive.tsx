@@ -18,7 +18,7 @@ import * as React from "react";
 
 import {negativePhoneMargin} from "../styles/constants";
 
-import "./fixed-to-responsive.css";
+import styles from "./fixed-to-responsive.module.css";
 
 const MIN_VIEWPORT_HEIGHT = 480;
 
@@ -125,7 +125,7 @@ class FixedToResponsive extends React.Component<Props, State> {
 
         // NOTE(jeremy): This depends on styles defined in perseus-renderer-part-1.css
         const className = classNames(
-            "fixed-to-responsive",
+            styles.fixedToResponsive,
             this.props.className,
         );
 

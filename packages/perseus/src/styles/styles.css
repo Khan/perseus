@@ -1,11 +1,6 @@
 .framework-perseus.perseus-article:not(.perseus-mobile) .MathJax .math {
     color: inherit;
 }
-.framework-perseus.perseus-article:not(.perseus-mobile) .unresponsive-svg-image,
-.framework-perseus.perseus-article:not(.perseus-mobile) .svg-image {
-    font-size: 14px;
-    line-height: 19.6px;
-}
 .framework-perseus.perseus-article:not(.perseus-mobile) .perseus-block-math {
     position: relative;
 }
@@ -56,11 +51,6 @@
 .framework-perseus.perseus-mobile .perseus-block-math {
     padding-top: var(--wb-sizing-size_160);
     padding-bottom: var(--wb-sizing-size_160);
-}
-.framework-perseus.perseus-mobile .unresponsive-svg-image,
-.framework-perseus.perseus-mobile .svg-image {
-    font-size: 14px;
-    line-height: 19.6px;
 }
 .framework-perseus.perseus-mobile .perseus-titled-table-wrapper {
     display: inline-block;

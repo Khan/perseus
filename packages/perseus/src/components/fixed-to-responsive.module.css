@@ -1,8 +1,8 @@
-.framework-perseus .fixed-to-responsive {
+.fixed-to-responsive {
     position: relative;
     width: 100%;
 }
-.framework-perseus .fixed-to-responsive > :not(:first-child) {
+.fixed-to-responsive > :not(:first-child) {
     position: absolute;
     top: 0;
     left: 0;
