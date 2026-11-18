@@ -60,7 +60,7 @@ function fireResize(inlineSize: number) {
     });
 }
 
-const tiles: ReadonlyArray<PerseusAnswerTile> = [
+const tiles: Array<PerseusAnswerTile> = [
     {id: "tile-1", content: "Banana", label: "Banana"},
     {id: "tile-2", content: "Kiwi", label: "Kiwi"},
 ];

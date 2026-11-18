@@ -9,7 +9,7 @@ import type {PerseusAnswerTile} from "@khanacademy/perseus-core";
 
 type Props = {
     /** The tiles to measure. */
-    tiles: ReadonlyArray<PerseusAnswerTile>;
+    tiles: Array<PerseusAnswerTile>;
     /**
      * Called with the widest tile's width in whole pixels (rounded up), and
      * again whenever it changes. Called with undefined while the tiles are
@@ -107,8 +107,8 @@ function TileWidthMeasurer(props: Props): React.ReactElement {
  * costly, since each copy renders its content through a full Renderer.
  */
 function tilesRenderSame(
-    a: ReadonlyArray<PerseusAnswerTile>,
-    b: ReadonlyArray<PerseusAnswerTile>,
+    a: Array<PerseusAnswerTile>,
+    b: Array<PerseusAnswerTile>,
 ): boolean {
     return (
         a.length === b.length &&
