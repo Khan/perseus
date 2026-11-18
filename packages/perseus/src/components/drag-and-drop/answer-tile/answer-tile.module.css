@@ -117,6 +117,43 @@
     opacity: 0;
 }
 
+/* A placed tile eases between rest and hover or focus. The list covers
+ * every property that changes: the menu's collapse, the reserved
+ * margin and padding, and the compact chip's size and type. Every
+ * property shares one duration and easing, so the margin a tile gives
+ * up and the width it gains cancel at every frame, and the line does
+ * not move mid-transition. The menu box gets a definite hover width:
+ * a transition cannot animate to or from `auto`. */
+.hidesMenuAtRest,
+.hidesMenuAtRest .content,
+.hidesMenuAtRest .startContainer {
+    transition-duration: 250ms;
+    transition-timing-function: ease;
+}
+
+.hidesMenuAtRest {
+    transition-property: margin-inline, min-inline-size, min-block-size,
+        padding-block, padding-inline, font-size, line-height;
+}
+
+.hidesMenuAtRest .content {
+    transition-property: padding-inline;
+}
+
+.hidesMenuAtRest .startContainer {
+    inline-size: var(--wb-sizing-size_240);
+    transition-property: inline-size, min-inline-size, margin-inline-end,
+        opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hidesMenuAtRest,
+    .hidesMenuAtRest .content,
+    .hidesMenuAtRest .startContainer {
+        transition: none;
+    }
+}
+
 /* A tile that fills its blank, content at the start. The menu stays
  * visible (there is no .hidesMenuAtRest collapse). */
 .fillsBlank {
