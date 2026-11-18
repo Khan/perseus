@@ -47,10 +47,12 @@ function generateDragEnd(
     source: {tileId: string; fromBlankId?: string} | null,
     targetId: string,
     canceled = false,
+    pointerType?: string,
 ): DragEndEvent {
     // eslint-disable-next-line no-restricted-syntax -- The hook reads only these fields; a full dnd-kit event needs a live drag manager.
     return {
         canceled,
+        nativeEvent: pointerType == null ? undefined : {pointerType},
         operation: {
             source: {id: "drag-id", data: source ?? undefined},
             target: {id: targetId},
@@ -176,6 +178,57 @@ describe("useTileMoveActions", () => {
             });
 
             expect(onPlacementsChange).not.toHaveBeenCalled();
+        });
+
+        it("reports the blank a mouse drop placed a tile in", () => {
+            // Arrange
+            const {result} = setupHook();
+
+            // Act
+            act(() => {
+                result.current.handleDragEnd(
+                    generateDragEnd({tileId: "x"}, "blank 1", false, "mouse"),
+                );
+            });
+
+            // Assert
+            expect(result.current.pointerDropBlankId).toBe("blank 1");
+        });
+
+        it("reports no blank for a touch drop", () => {
+            // Arrange
+            const {result} = setupHook();
+
+            // Act
+            act(() => {
+                result.current.handleDragEnd(
+                    generateDragEnd({tileId: "x"}, "blank 1", false, "touch"),
+                );
+            });
+
+            // Assert
+            expect(result.current.pointerDropBlankId).toBeNull();
+        });
+
+        it("reports no blank once a menu moves a tile", () => {
+            // Arrange
+            const {result} = setupHook();
+            act(() => {
+                result.current.handleDragEnd(
+                    generateDragEnd({tileId: "x"}, "blank 1", false, "mouse"),
+                );
+            });
+
+            // Act
+            act(() => {
+                result.current.handleMove(
+                    {tileId: "x", fromBlankId: "blank 1"},
+                    "blank 2",
+                );
+            });
+
+            // Assert
+            expect(result.current.pointerDropBlankId).toBeNull();
         });
     });
 

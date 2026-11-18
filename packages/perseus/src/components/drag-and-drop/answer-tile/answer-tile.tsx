@@ -1,4 +1,4 @@
-import {useDraggable} from "@dnd-kit/react";
+import {useDragDropMonitor, useDraggable} from "@dnd-kit/react";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import checkIcon from "@phosphor-icons/core/regular/check.svg";
 import xIcon from "@phosphor-icons/core/regular/x.svg";
@@ -10,10 +10,12 @@ import a11yStyles from "../../../styles/a11y.module.css";
 import {usePerseusI18n} from "../../i18n-context";
 import {DndActionMenu} from "../dnd-action-menu";
 import {tileDragId} from "../drag-ids";
+import {isHoverPointer} from "../use-tile-move-actions";
 
 import styles from "./answer-tile.module.css";
 
 import type {MoveTarget} from "../dnd-action-menu";
+import type {DragEndEvent} from "@dnd-kit/react";
 
 /** What a scored tile shows. Each value names a CSS class in the module. */
 type TileScoring = "correct" | "incorrect" | "unused";
@@ -76,6 +78,13 @@ export interface AnswerTileProps {
      */
     hidesMenuAtRest?: boolean;
     /**
+     * Set true for a tile that mounts under a still mouse or pen, as a
+     * dropped tile does. With hidesMenuAtRest, the tile shows full size,
+     * as if hovered, until the pointer next moves or presses. Read only
+     * when the tile mounts.
+     */
+    mountsUnderPointer?: boolean;
+    /**
      * Set true for a placed tile that stretches to fill its blank, with
      * the content at the start. The menu stays visible. The Sorter uses
      * this for placed tiles.
@@ -117,6 +126,7 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
         tileId,
         fromBlankId,
         hidesMenuAtRest,
+        mountsUnderPointer,
         fillsBlank,
         onContentRender,
         imageHeight,
@@ -128,11 +138,61 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
     // Overview spec).
     const isDraggable = scoring == null;
     const dragData = {tileId, fromBlankId};
-    const {ref: dragRef, isDragging} = useDraggable({
-        id: tileDragId(dragData),
+    const dragId = tileDragId(dragData);
+    const {
+        ref: dragRef,
+        isDragging,
+        isDropping,
+    } = useDraggable({
+        id: dragId,
         data: dragData,
         disabled: !isDraggable,
     });
+
+    // A dropped tile mounts under the pointer, but the browser applies
+    // :hover a moment later, so the tile would render at rest and then
+    // animate to full size. Starting full size skips that animation:
+    // transitions do not run on an element's first style. On the next
+    // pointer move or press, the browser's :hover takes over. The
+    // listeners capture on the window because dnd-kit stops pointer
+    // events from propagating.
+    const [isHeldExpanded, setIsHeldExpanded] = React.useState(
+        mountsUnderPointer === true,
+    );
+
+    // A tile dropped back on its own blank does not remount, so it
+    // starts the same hold when its own mouse or pen drag ends.
+    const dragMonitor = React.useMemo(
+        () => ({
+            onDragEnd(event: DragEndEvent) {
+                if (
+                    hidesMenuAtRest &&
+                    event.operation.source?.id === dragId &&
+                    isHoverPointer(event.nativeEvent)
+                ) {
+                    setIsHeldExpanded(true);
+                }
+            },
+        }),
+        [hidesMenuAtRest, dragId],
+    );
+    useDragDropMonitor(dragMonitor);
+
+    React.useEffect(() => {
+        // During dnd-kit's drop animation the tile ignores the pointer,
+        // so :hover cannot take over yet.
+        if (!isHeldExpanded || isDropping) {
+            return;
+        }
+        const release = () => setIsHeldExpanded(false);
+        const options = {capture: true, once: true, passive: true};
+        window.addEventListener("pointermove", release, options);
+        window.addEventListener("pointerdown", release, options);
+        return () => {
+            window.removeEventListener("pointermove", release, options);
+            window.removeEventListener("pointerdown", release, options);
+        };
+    }, [isHeldExpanded, isDropping]);
 
     // Whitespace-only content would render an invisible, unlabeled tile.
     const isEmpty = content.trim() === "";
@@ -143,6 +203,7 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
         isDraggable && styles.draggable,
         isDragging && styles.dragging,
         hidesMenuAtRest && styles.hidesMenuAtRest,
+        isHeldExpanded && styles.heldExpanded,
         fillsBlank && styles.fillsBlank,
         compact && styles.compact,
     );

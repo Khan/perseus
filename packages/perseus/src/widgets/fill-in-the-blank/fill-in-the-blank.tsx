@@ -62,6 +62,7 @@ const FillInTheBlankWidget = forwardRef<Widget, FillInTheBlankProps>(
             handleMove,
             handleClear,
             handleDragEnd,
+            pointerDropBlankId,
             firstBankMenuRef,
             placedMenuRef,
         } = useTileMoveActions({
@@ -90,6 +91,7 @@ const FillInTheBlankWidget = forwardRef<Widget, FillInTheBlankProps>(
                     label={tile.label}
                     imageHeight={tile.imageHeight}
                     hidesMenuAtRest={true}
+                    mountsUnderPointer={blankId === pointerDropBlankId}
                     moveTargets={blankIds
                         .filter((id) => id !== blankId)
                         .map((id) => ({id, label: blankLabels[id]}))}

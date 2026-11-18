@@ -12,9 +12,10 @@ import {
 import {PerseusDndProvider} from "../perseus-dnd-provider";
 
 import {AnswerTile} from "./answer-tile";
+import styles from "./answer-tile.module.css";
 import {generateAnswerTileProps} from "./answer-tile.testdata";
 
-import type {DragDropManager} from "@dnd-kit/react";
+import type {DragDropManager, DragEndEvent} from "@dnd-kit/react";
 import type {UserEvent} from "@testing-library/user-event";
 
 // Renders tiles inside their own drag context and captures the manager,
@@ -209,5 +210,99 @@ describe("AnswerTile", () => {
         expect(menuRef.current).toBe(
             screen.getByRole("button", {name: "Bongo"}),
         );
+    });
+    describe("a tile that mounts under the pointer", () => {
+        function renderDroppedTile(mountsUnderPointer: boolean) {
+            render(
+                <AnswerTile
+                    {...generateAnswerTileProps({
+                        hidesMenuAtRest: true,
+                        mountsUnderPointer,
+                    })}
+                />,
+                {wrapper: DndProbeWrapper},
+            );
+            // The draggable's element is the tile root.
+            const [draggable] = capturedManager!.registry.draggables.value;
+            return draggable.element;
+        }
+
+        it("renders full size when it mounts", () => {
+            // Arrange, Act
+            const tile = renderDroppedTile(true);
+
+            // Assert
+            expect(tile).toHaveClass(styles.heldExpanded);
+        });
+
+        it("renders at rest when it mounts elsewhere", () => {
+            // Arrange, Act
+            const tile = renderDroppedTile(false);
+
+            // Assert
+            expect(tile).not.toHaveClass(styles.heldExpanded);
+        });
+
+        it("hands off to hover once the pointer moves", async () => {
+            // Arrange
+            const tile = renderDroppedTile(true);
+
+            // Act
+            await user.pointer({
+                target: document.body,
+                coords: {clientX: 10, clientY: 10},
+            });
+
+            // Assert
+            expect(tile).not.toHaveClass(styles.heldExpanded);
+        });
+    });
+
+    describe("a tile dropped back on its own blank", () => {
+        // Ends the tile's drag as dnd-kit reports it to monitors.
+        function endOwnDrag(pointerType: string) {
+            const [draggable] = capturedManager!.registry.draggables.value;
+            // eslint-disable-next-line no-restricted-syntax -- Monitors read only these fields; a full dnd-kit event needs a live drag.
+            const event = {
+                operation: {source: {id: draggable.id}},
+                nativeEvent: {pointerType},
+                canceled: false,
+            } as unknown as DragEndEvent;
+            act(() => {
+                capturedManager!.monitor.dispatch("dragend", event);
+            });
+            return draggable.element;
+        }
+
+        function renderPlacedTile() {
+            render(
+                <AnswerTile
+                    {...generateAnswerTileProps({hidesMenuAtRest: true})}
+                />,
+                {wrapper: DndProbeWrapper},
+            );
+        }
+
+        it("renders full size after a mouse drag ends", () => {
+            // Arrange
+            renderPlacedTile();
+
+            // Act
+            const tile = endOwnDrag("mouse");
+
+            // Assert
+            expect(tile).toHaveClass(styles.heldExpanded);
+        });
+
+        it("renders at rest after a touch drag ends", () => {
+            // Arrange
+            renderPlacedTile();
+
+            // Act
+            const tile = endOwnDrag("touch");
+
+            // Assert
+            expect(tile).not.toHaveClass(styles.heldExpanded);
+        });
     });
 });

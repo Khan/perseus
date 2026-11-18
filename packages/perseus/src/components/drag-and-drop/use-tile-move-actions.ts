@@ -44,6 +44,11 @@ export function useTileMoveActions(options: {
     handleMove: (move: TileDragData, targetBlankId: string) => void;
     handleClear: (blankId: string) => void;
     handleDragEnd: (event: DragEndEvent) => void;
+    /**
+     * The blank that the last mouse or pen drop placed a tile in, or null.
+     * The tile that mounts there sits under the still pointer.
+     */
+    pointerDropBlankId: string | null;
     firstBankMenuRef: (button: HTMLButtonElement | null) => void;
     placedMenuRef: (
         blankId: string,
@@ -61,6 +66,9 @@ export function useTileMoveActions(options: {
     const bankMenuRef = React.useRef<HTMLButtonElement | null>(null);
     const placedMenuRefs = React.useRef(new Map<string, HTMLButtonElement>());
     const pendingMenuFocus = React.useRef<MenuFocusRequest | null>(null);
+    const [pointerDropBlankId, setPointerDropBlankId] = React.useState<
+        string | null
+    >(null);
     React.useEffect(() => {
         const pending = pendingMenuFocus.current;
         if (pending == null) {
@@ -78,6 +86,8 @@ export function useTileMoveActions(options: {
     const applyMove = (move: TileDragData, targetBlankId: string): boolean => {
         // A stale focus request must not fire on this placements change.
         pendingMenuFocus.current = null;
+        // Only a drop sets this, after the move. A menu move clears it.
+        setPointerDropBlankId(null);
         // A multi-use tile's bank copy dropped on a blank that already
         // holds that tile changes nothing: no update, no announcement.
         if (
@@ -108,6 +118,7 @@ export function useTileMoveActions(options: {
     const applyClear = (blankId: string): boolean => {
         // A stale focus request must not fire on this placements change.
         pendingMenuFocus.current = null;
+        setPointerDropBlankId(null);
         const tileId = placements[blankId];
         if (tileId == null) {
             return false;
@@ -133,7 +144,11 @@ export function useTileMoveActions(options: {
         }
     };
 
-    const handleDragEnd = ({operation, canceled}: DragEndEvent) => {
+    const handleDragEnd = ({
+        operation,
+        canceled,
+        nativeEvent,
+    }: DragEndEvent) => {
         const {source, target} = operation;
         // A cancelled drag (Escape) still reports its last target, so it
         // must not count as a drop.
@@ -155,7 +170,9 @@ export function useTileMoveActions(options: {
                 applyClear(move.fromBlankId);
             }
         } else if (blankIds.includes(targetId)) {
-            applyMove(move, targetId);
+            if (applyMove(move, targetId) && isHoverPointer(nativeEvent)) {
+                setPointerDropBlankId(targetId);
+            }
         }
     };
 
@@ -190,7 +207,18 @@ export function useTileMoveActions(options: {
         handleMove,
         handleClear,
         handleDragEnd,
+        pointerDropBlankId,
         firstBankMenuRef,
         placedMenuRef,
     };
+}
+
+/**
+ * Whether a drag ended with a pointer that can hover (mouse or pen).
+ * Touch has no hover, so a tile dropped by touch rests as usual.
+ */
+export function isHoverPointer(event: Event | undefined): boolean {
+    return (
+        event != null && "pointerType" in event && event.pointerType !== "touch"
+    );
 }
