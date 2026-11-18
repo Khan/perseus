@@ -70,7 +70,7 @@ describe("Orderer serialization", () => {
         // Arrange
         const {renderer} = renderItem(generateBasicOrderer());
 
-        const [orderer] = renderer.questionRenderer.findWidgets("orderer 1");
+        const [orderer] = renderer.questionRenderer!.findWidgets("orderer 1");
         act(() => orderer.setListValues(["2", "1", "3"]));
 
         // Act
