@@ -10,6 +10,7 @@ import {StyleSheetTestUtils} from "aphrodite";
 import "../crypto-polyfill";
 // eslint-disable-next-line import/no-unassigned-import -- adds a serializer
 import "../aphrodite-snapshot-serializer";
+import attachShims from "../attach-jsdom-window-shims";
 
 /**
  * Runs before each test file, after the test framework is set up and
@@ -32,7 +33,6 @@ expect.extend(jestDomMatchers);
 // that aren't hidden and containers without `pointer-events: none`).
 StyleSheetTestUtils.suppressStyleInjection();
 
-const {default: attachShims} = await import("../attach-jsdom-window-shims");
 attachShims(globalThis);
 
 beforeEach(() => {
