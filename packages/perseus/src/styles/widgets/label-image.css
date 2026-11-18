@@ -32,13 +32,6 @@
     .perseus-block-math {
     padding: 0;
 }
-.framework-perseus:not(.perseus-article).perseus-mobile
-    .perseus-label-image-widget-instructions
-    .perseus-block-math
-    mjx-container {
-    font-size: initial !important;
-    line-height: initial !important;
-}
 .perseus-label-image-widget-answer-choices
     .perseus-block-math
     > .perseus-block-math-inner,

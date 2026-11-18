@@ -21,6 +21,7 @@
 .perseus-mobile .tooltip.visible .tooltip-content {
     display: inline-block;
     background-color: var(--wb-semanticColor-core-background-base-default);
+    color: var(--wb-semanticColor-core-foreground-neutral-strong);
     border-radius: var(--wb-border-radius-radius_040);
     bottom: 50px;
     left: 50%;
@@ -30,10 +31,4 @@
     white-space: nowrap;
     min-width: 30px;
     text-align: center;
-}
-.perseus-mobile .tooltip.visible .tooltip-content mjx-container {
-    color: var(--wb-semanticColor-core-foreground-neutral-strong) !important;
-}
-.perseus-mobile .graphie-label mjx-container {
-    color: inherit !important;
 }
