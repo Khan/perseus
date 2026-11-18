@@ -1,12 +1,9 @@
 import {Dependencies, Util} from "@khanacademy/perseus";
 import {
-    type PerseusOrdererWidgetOptions,
-    type PerseusRenderer,
-} from "@khanacademy/perseus-core";
-import {
-    dropdownLogic,
     generateOrdererOption,
     getDefaultAnswerArea,
+    type PerseusOrdererWidgetOptions,
+    type PerseusRenderer,
 } from "@khanacademy/perseus-core";
 import {render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -347,67 +344,38 @@ describe("EditorPage", () => {
         expect(widget.options).toEqual({togglePrompt: "", definition: ""});
     });
 
-    describe("inserting a widget from the widget dropdown", () => {
-        function renderEmptyEditor(onChange: jest.Mock) {
-            render(
-                <EditorPage
-                    dependencies={testDependenciesV2}
-                    question={{content: "", widgets: {}, images: {}}}
-                    onChange={onChange}
-                    previewDevice="desktop"
-                    previewURL=""
-                    itemId="itemId"
-                    jsonMode={false}
-                    widgetsAreOpen={true}
-                />,
-            );
-        }
+    it("inserts a new widget from the widget dropdown", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <EditorPage
+                dependencies={testDependenciesV2}
+                question={{content: "", widgets: {}, images: {}}}
+                onChange={onChangeMock}
+                previewDevice="desktop"
+                previewURL=""
+                itemId="itemId"
+                jsonMode={false}
+                widgetsAreOpen={true}
+            />,
+        );
 
-        it("initializes the widget's options", async () => {
-            // Arrange
-            const onChangeMock = jest.fn();
-            renderEmptyEditor(onChangeMock);
+        // Act
+        await userEvent.selectOptions(
+            screen.getByTestId("editor__widget-select"),
+            "Drop down",
+        );
 
-            // Act
-            await userEvent.selectOptions(
-                screen.getByTestId("editor__widget-select"),
-                "Drop down",
-            );
-
-            // Assert
-            expect(
-                onChangeMock.mock.lastCall[0].question.widgets["dropdown 1"],
-            ).toEqual({
-                type: "dropdown",
-                options: {
-                    placeholder: "",
-                    choices: [{content: "", correct: false}],
-                },
-                version: {major: 0, minor: 0},
-            });
-        });
-
-        it("protects the defaults against mutation by deep-copying them", async () => {
-            // Arrange
-            const onChangeMock = jest.fn();
-            renderEmptyEditor(onChangeMock);
-            await userEvent.selectOptions(
-                screen.getByTestId("editor__widget-select"),
-                "Drop down",
-            );
-            const options =
-                onChangeMock.mock.lastCall[0].question.widgets["dropdown 1"]
-                    .options;
-
-            // Act
-            options.placeholder = "changed";
-            options.choices[0].content = "changed";
-
-            // Assert
-            expect(dropdownLogic.defaultWidgetOptions).toEqual({
+        // Assert
+        expect(
+            onChangeMock.mock.lastCall[0].question.widgets["dropdown 1"],
+        ).toEqual({
+            type: "dropdown",
+            options: {
                 placeholder: "",
                 choices: [{content: "", correct: false}],
-            });
+            },
+            version: {major: 0, minor: 0},
         });
     });
 

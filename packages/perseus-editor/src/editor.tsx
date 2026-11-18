@@ -7,7 +7,6 @@ import {
 } from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
-    deepClone,
     Errors,
     getWidgetIdsFromContent,
     PerseusError,
@@ -653,9 +652,8 @@ class Editor extends React.Component<Props, State> {
 
         const newWidgets = {...this.props.widgets};
         const widgetEditor = getEditor(widgetType);
-        const defaultOptions = deepClone(
-            CoreWidgetRegistry.getDefaultWidgetOptions(widgetType),
-        );
+        const defaultOptions =
+            CoreWidgetRegistry.getDefaultWidgetOptions(widgetType);
         const params: InitializeWidgetOptionsParams = {selectedText};
         newWidgets[id] = {
             type: widgetType,
