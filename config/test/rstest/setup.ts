@@ -16,8 +16,10 @@ import {StyleSheetTestUtils} from "aphrodite";
 // advance fake timers while it waits.
 Object.assign(globalThis, {jest: rs});
 
-// `@testing-library/jest-dom`'s main entry point extends a global `expect`
-// when it loads, which may run before Rstest defines one. Extend Rstest's.
+// Add `@testing-library/jest-dom`'s matchers to Rstest's `expect`.
+//
+// NOTE: The main `@testing-library/jest-dom` does do this automatically, but
+// it depends on us having `global: true` set in our Rstest config.
 expect.extend(jestDomMatchers);
 
 // These setup files are CommonJS.
