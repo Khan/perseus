@@ -1461,7 +1461,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
               style="width: 400px; height: 400px; box-sizing: initial;"
             >
               <div
-                class="graphie-container blank-background"
+                class="grapher-container blank-background"
                 style="width: 400px; height: 400px;"
               >
                 <div

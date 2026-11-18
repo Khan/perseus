@@ -1,11 +1,11 @@
 import {
     constant,
     object,
-    array,
     number,
     boolean,
     optional,
     nullable,
+    pair,
     pipeParsers,
     union,
     enumeration,
@@ -19,13 +19,13 @@ const emptyStringToNull = pipeParsers(constant("")).then(
     convert(() => null),
 ).parser;
 
+const parseLabel = nullable(union(number).or(emptyStringToNull).parser);
+
 export const parseNumberLineWidget = parseWidget(
     constant("number-line"),
     object({
-        // TODO(LEMS-3081): change `range` to `pair(number, number)` and update the related types
-        // in data-schema.ts and number-line.tsx.
-        range: array(number),
-        labelRange: array(nullable(union(number).or(emptyStringToNull).parser)),
+        range: pair(number, number),
+        labelRange: pair(parseLabel, parseLabel),
         labelStyle: enumeration("decimal", "improper", "mixed", "non-reduced"),
         labelTicks: boolean,
         // NOTE(matthewcurtis): I copied the default isTickCtrl from
@@ -33,7 +33,7 @@ export const parseNumberLineWidget = parseWidget(
         // an explanation of why we want to duplicate the default here.
         isTickCtrl: defaulted(boolean, () => false),
         isInequality: defaulted(boolean, () => false),
-        divisionRange: array(number),
+        divisionRange: pair(number, number),
         numDivisions: optional(nullable(number)),
         // NOTE(benchristel): I copied the default snapDivisions from
         // number-line.tsx. See the parse-perseus-json/README.md for

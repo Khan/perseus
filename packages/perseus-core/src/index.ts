@@ -16,6 +16,8 @@ export type {
 export type {ErrorKind} from "./error/errors";
 /** @hidden */
 export {default as ErrorCodes, type ErrorCode} from "./error-codes";
+
+export {isCorrect} from "./utils/is-correct";
 /** @hidden */
 export type {FunctionTypeMappingKeys} from "./utils/grapher-util";
 /** @hidden */
@@ -315,6 +317,7 @@ export {
 /** @hidden */
 export {
     generateAnswerTile,
+    generateFillInTheBlankTile,
     generateFillInTheBlankOptions,
     generateFillInTheBlankWidget,
 } from "./utils/generators/fill-in-the-blank-widget-generator";

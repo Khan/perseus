@@ -72,11 +72,7 @@ type State = {
     focused: boolean;
 };
 
-type PropsWithForwardRef = Props & {
-    forwardedRef: React.ForwardedRef<HTMLInputElement>;
-};
-
-class FormWrappedTextField extends React.Component<PropsWithForwardRef, State> {
+class FormWrappedTextField extends React.Component<Props, State> {
     state = {
         focused: false,
     };
@@ -101,7 +97,6 @@ class FormWrappedTextField extends React.Component<PropsWithForwardRef, State> {
 
     render() {
         const {
-            forwardedRef,
             width,
             grow,
             shrink,
@@ -176,7 +171,6 @@ class FormWrappedTextField extends React.Component<PropsWithForwardRef, State> {
                     onBlur={this.handleBlur}
                     type={type}
                     className={css(inputBase)}
-                    ref={forwardedRef}
                     id={id}
                     data-testid={testId}
                 />
@@ -244,7 +238,4 @@ const styles = StyleSheet.create({
     },
 });
 
-// TODO(benchristel): nothing gets a ref to this component. Remove forwardRef.
-export default React.forwardRef<HTMLInputElement, Props>((props, ref) => (
-    <FormWrappedTextField {...props} forwardedRef={ref} />
-));
+export default FormWrappedTextField;

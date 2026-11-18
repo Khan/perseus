@@ -44,21 +44,6 @@ export const question: PerseusRenderer = generateTestPerseusRenderer({
     },
 });
 
-export const singleSelectWithTallMath = generateSimpleRadioQuestion({
-    choices: [
-        generateRadioChoice("$x\\^{\\Large 5 + \\frac34}$ (Correct)", {
-            correct: true,
-        }),
-        generateRadioChoice("$\\sqrt{\\underbrace{\\sin(x)}_1-1}$ (Wrong)", {
-            correct: false,
-        }),
-        generateRadioChoice(
-            "$ax^2+\\underbrace{bx + c}_{\\text{你好}} = 0$ (Wrong)",
-            {correct: false},
-        ),
-    ],
-});
-
 export const questionAndAnswer: [
     PerseusRenderer,
     number,
@@ -114,15 +99,6 @@ export const choicesWithImagesArgs: PerseusRadioWidgetOptions = {
 
 export const choicesWithImagesContent: string =
     "The following options have images. All but one of them should be on their own line. [[☃ radio 1]]";
-
-export const choicesWithImages: PerseusRenderer = generateTestPerseusRenderer({
-    content: choicesWithImagesContent,
-    widgets: {
-        "radio 1": generateRadioWidget({
-            options: generateRadioOptions(choicesWithImagesArgs),
-        }),
-    },
-});
 
 export const SingleSelectOverflowImageContent: PerseusRenderer =
     generateTestPerseusRenderer({
@@ -210,41 +186,6 @@ export const multiChoiceQuestion: PerseusRenderer = generateTestPerseusRenderer(
         },
     },
 );
-
-export const multiChoiceQuestionSimple: PerseusRenderer =
-    generateTestPerseusRenderer({
-        content: "What are some ways to say hello?\n\n[[\u2603 radio 1]]",
-        widgets: {
-            "radio 1": generateRadioWidget({
-                options: generateRadioOptions({
-                    hasNoneOfTheAbove: true,
-                    multipleSelect: true,
-                    choices: [
-                        generateRadioChoice("Hola", {
-                            correct: true,
-                            rationale:
-                                "The Spanish-speaking countries typically say Hola.",
-                        }),
-                        generateRadioChoice("Hey", {
-                            correct: true,
-                            rationale:
-                                "This is used to attract someone's attention.",
-                        }),
-                        generateRadioChoice("Hi", {
-                            correct: true,
-                            rationale: "This is used as friendly greeting.",
-                        }),
-                        generateRadioChoice("Goodbye", {
-                            rationale: "Some people like to say Goodbye.",
-                        }),
-                        generateRadioChoice("None of these", {
-                            isNoneOfTheAbove: true,
-                        }),
-                    ],
-                }),
-            }),
-        },
-    });
 
 export const multiChoiceQuestionSimpleOverflowContent: PerseusRenderer =
     generateTestPerseusRenderer({
@@ -405,16 +346,4 @@ export const choicesWithGraphieImages: Record<string, PerseusImageDetail> = {
         },
     "web+graphie://ka-perseus-graphie.s3.amazonaws.com/2b86af8e76b455f59e53a25a1b577b35a5414216":
         {width: 398, height: 80},
-};
-
-export const choicesWithGraphie: PerseusRenderer = {
-    ...generateTestPerseusRenderer({
-        content: choicesWithGraphieContent,
-        widgets: {
-            "radio 1": generateRadioWidget({
-                options: generateRadioOptions(choicesWithGraphieArgs),
-            }),
-        },
-    }),
-    images: choicesWithGraphieImages,
 };

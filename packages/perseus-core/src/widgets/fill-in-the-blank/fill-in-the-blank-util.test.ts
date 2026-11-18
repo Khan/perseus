@@ -1,7 +1,7 @@
 import {generateBlankWidget} from "../../utils/generators/blank-widget-generator";
 import {
-    generateAnswerTile,
     generateFillInTheBlankOptions,
+    generateFillInTheBlankTile,
 } from "../../utils/generators/fill-in-the-blank-widget-generator";
 import {registerCoreWidgets} from "../core-widget-registry";
 
@@ -28,15 +28,17 @@ function optionsWithTwoBlanks(): PerseusFillInTheBlankWidgetOptions {
             }),
         },
         tiles: [
-            generateAnswerTile({
+            generateFillInTheBlankTile({
                 id: "tile-1",
                 content: "djembe",
                 label: "djembe",
+                maxUses: 1,
             }),
-            generateAnswerTile({
+            generateFillInTheBlankTile({
                 id: "tile-3",
                 content: "hands",
                 label: "hands",
+                maxUses: "unlimited",
             }),
         ],
     });
@@ -78,13 +80,17 @@ describe("getFillInTheBlankPublicWidgetOptions", () => {
 
         // Assert
         expect(publicOptions.tiles).toEqual([
-            {id: "tile-1", content: "djembe", label: "djembe"},
-            {id: "tile-3", content: "hands", label: "hands"},
+            {id: "tile-1", content: "djembe", label: "djembe", maxUses: 1},
+            {
+                id: "tile-3",
+                content: "hands",
+                label: "hands",
+                maxUses: "unlimited",
+            },
         ]);
         expect(publicOptions.content).toBe(
             "The [[☃ blank 1]] drum is played with your [[☃ blank 2]].",
         );
-        expect(publicOptions.maxUsesPerTile).toBe(1);
     });
 
     it("does not mutate the options it was given", () => {

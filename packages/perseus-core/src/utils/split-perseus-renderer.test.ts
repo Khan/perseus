@@ -7,7 +7,7 @@ import {
     generateExplanationWidget,
 } from "./generators/explanation-widget-generator";
 import {
-    generateAnswerTile,
+    generateFillInTheBlankTile,
     generateFillInTheBlankOptions,
     generateFillInTheBlankWidget,
 } from "./generators/fill-in-the-blank-widget-generator";
@@ -383,10 +383,11 @@ describe("splitPerseusRenderer", () => {
                             }),
                         },
                         tiles: [
-                            generateAnswerTile({
+                            generateFillInTheBlankTile({
                                 id: "tile-1",
                                 content: "djembe",
                                 label: "djembe",
+                                maxUses: 1,
                             }),
                         ],
                     }),
@@ -402,7 +403,7 @@ describe("splitPerseusRenderer", () => {
             rv.widgets["fill-in-the-blank 1"].options.widgets["blank 1"];
         expect(blank.options).toEqual({displayType: "normal"});
         expect(rv.widgets["fill-in-the-blank 1"].options.tiles).toEqual([
-            {id: "tile-1", content: "djembe", label: "djembe"},
+            {id: "tile-1", content: "djembe", label: "djembe", maxUses: 1},
         ]);
     });
 

@@ -60,7 +60,7 @@ module.exports = {
     testPathIgnorePatterns: ["/node_modules/", "<rootDir>/\\.claude/"],
     setupFilesAfterEnv: [
         "<rootDir>/config/test/test-setup.ts",
-        "<rootDir>/config/test/custom-matchers.ts",
+        "<rootDir>/config/test/modules/custom-matchers.ts",
         "<rootDir>/config/test/crypto-polyfill.js",
         "<rootDir>/config/test/aphrodite-snapshot-serializer.js",
     ],

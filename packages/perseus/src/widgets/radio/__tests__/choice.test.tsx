@@ -103,4 +103,26 @@ describe("Radio widget choice option", () => {
             expect(updateCheckedMock).toHaveBeenCalledTimes(callCount);
         },
     );
+
+    it("focuses the indicator button when the choice is clicked", () => {
+        // Arrange
+        render(
+            <Choice
+                checked={false}
+                indicatorContent={indicatorContent}
+                isMultiSelect={false}
+                updateChecked={jest.fn()}
+            >
+                Option A
+            </Choice>,
+        );
+
+        // Act
+        act(() => {
+            screen.getByText("Option A").click();
+        });
+
+        // Assert
+        expect(screen.getByRole("button", {name: "Choice A"})).toHaveFocus();
+    });
 });

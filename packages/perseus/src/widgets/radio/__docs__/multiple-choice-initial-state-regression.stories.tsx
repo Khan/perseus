@@ -169,6 +169,17 @@ export const SingleSelectWithGraphie = {
     },
 };
 
+export const SingleSelectWithGraphieAndText = {
+    decorators: [radioRendererDecorator],
+    args: {
+        choices: [
+            generateRadioChoice(
+                "Graph 1: ![](web+graphie://ka-perseus-graphie.s3.amazonaws.com/e4bdfd23b56729130cbd113a03c5792bb8790247)",
+            ),
+        ],
+    },
+};
+
 export const SingleSelectWithColoredMath: Story = {
     decorators: [radioRendererDecorator],
     args: {

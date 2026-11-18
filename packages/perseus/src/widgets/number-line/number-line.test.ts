@@ -1,4 +1,5 @@
-import {screen, act, fireEvent} from "@testing-library/react";
+import {scoreQuestion} from "@khanacademy/perseus-score";
+import {act, fireEvent, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../__testutils__/render-question";
@@ -6,7 +7,6 @@ import {Log} from "../../logging/log";
 import {
     getAnswerfulItem,
     getAnswerlessItem,
-    scorePerseusItemTesting,
 } from "../../util/scoring.testutils";
 
 import {inequality, question1, tickCtrl} from "./number-line.testdata";
@@ -492,7 +492,7 @@ describe("number-line widget", () => {
             const [numberLine] = renderer.findWidgets("number-line 1");
             act(() => numberLine.movePosition(-2.5));
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItemTesting(correctAnswer, userInput);
+            const score = scoreQuestion(correctAnswer, userInput, "en");
 
             // assert
             expect(score).toHaveBeenAnsweredCorrectly();
@@ -508,9 +508,10 @@ describe("number-line widget", () => {
             // Act
             const [numberLine] = renderer.findWidgets("number-line 1");
             act(() => numberLine.movePosition(3.5));
-            const score = scorePerseusItemTesting(
+            const score = scoreQuestion(
                 correctAnswer,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert
@@ -525,9 +526,10 @@ describe("number-line widget", () => {
             const {renderer} = renderQuestion(question, {apiOptions});
 
             // Act
-            const score = scorePerseusItemTesting(
+            const score = scoreQuestion(
                 correctAnswer,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert

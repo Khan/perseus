@@ -751,9 +751,7 @@ function getStartNumDivisions(options: NumberLinePublicWidgetOptions) {
     return numDivisions;
 }
 
-// The `range` parameter to `getTickStep` should really be typed as `Interval`.
-// It's `number[]` for compatibility with PerseusNumberLineWidgetOptions.
-function getTickStep(range: number[], numDivisions: number) {
+function getTickStep(range: [number, number], numDivisions: number) {
     const [min, max] = range;
     const width = max - min;
     return width / numDivisions;

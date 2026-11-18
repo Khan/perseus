@@ -34,7 +34,11 @@ export {default as scoreTable} from "./widgets/table/score-table";
 export {default as validateTable} from "./widgets/table/validate-table";
 export {default as scoreInputNumber} from "./widgets/input-number/score-input-number";
 
-export {scorePerseusItem, scoreWidgetsFunctional} from "./score";
+import {scoreQuestion} from "./score";
+
+export {scoreQuestion};
+/** @deprecated Use {@link scoreQuestion} instead. */
+export const scorePerseusItem = scoreQuestion;
 export {default as flattenScores} from "./util/flatten-scores";
 export {validateUserInput, emptyWidgetsFunctional} from "./validate";
 export {default as hasEmptyDINERWidgets} from "./has-empty-diner-widgets";
