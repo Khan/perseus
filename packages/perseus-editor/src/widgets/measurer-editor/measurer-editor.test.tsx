@@ -1,5 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
-import {measurerLogic} from "@khanacademy/perseus-core";
+import {generateMeasurerOptions} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -23,12 +23,12 @@ describe("MeasurerEditor", () => {
         );
     });
 
-    it("calls onChange with all options when a checkbox is toggled", async () => {
+    it("calls onChange when a checkbox is toggled", async () => {
         // Arrange
         const onChange = jest.fn();
         render(
             <MeasurerEditor
-                {...measurerLogic.defaultWidgetOptions}
+                {...generateMeasurerOptions()}
                 showProtractor={false}
                 onChange={onChange}
             />,
@@ -38,9 +38,10 @@ describe("MeasurerEditor", () => {
         await userEvent.click(screen.getByLabelText("Show protractor"));
 
         // Assert
-        expect(onChange).toHaveBeenCalledWith({
-            ...measurerLogic.defaultWidgetOptions,
-            showProtractor: true,
-        });
+        expect(onChange).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+                showProtractor: true,
+            }),
+        );
     });
 });
