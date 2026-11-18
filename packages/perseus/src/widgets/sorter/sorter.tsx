@@ -7,26 +7,26 @@ import classNames from "classnames";
 import * as React from "react";
 import {forwardRef, useImperativeHandle, useState} from "react";
 
-import {AnswerTile} from "../../../components/drag-and-drop/answer-tile";
-import {BlankComponent} from "../../../components/drag-and-drop/blank";
-import {ChoiceBank} from "../../../components/drag-and-drop/choice-bank";
-import {PerseusDndProvider} from "../../../components/drag-and-drop/perseus-dnd-provider";
-import {tempDndStrings} from "../../../components/drag-and-drop/temp-strings";
-import {isTileInBank} from "../../../components/drag-and-drop/tile-placements";
-import {useSpokenLabels} from "../../../components/drag-and-drop/use-spoken-labels";
-import {useTileMoveActions} from "../../../components/drag-and-drop/use-tile-move-actions";
-import UnsupportedWidgetMessage from "../../../components/unsupported-widget-message";
-import {useDependencies} from "../../../dependencies";
-import {getPromptJSON as _getPromptJSON} from "../../../widget-ai-utils/sorter/sorter-ai-utils";
-import {LegendBar} from "../legend/legend-bar/legend-bar";
-import {LegendLabel} from "../legend/legend-label/legend-label";
+import {AnswerTile} from "../../components/drag-and-drop/answer-tile";
+import {BlankComponent} from "../../components/drag-and-drop/blank";
+import {ChoiceBank} from "../../components/drag-and-drop/choice-bank";
+import {PerseusDndProvider} from "../../components/drag-and-drop/perseus-dnd-provider";
+import {tempDndStrings} from "../../components/drag-and-drop/temp-strings";
+import {isTileInBank} from "../../components/drag-and-drop/tile-placements";
+import {useSpokenLabels} from "../../components/drag-and-drop/use-spoken-labels";
+import {useTileMoveActions} from "../../components/drag-and-drop/use-tile-move-actions";
+import UnsupportedWidgetMessage from "../../components/unsupported-widget-message";
+import {useDependencies} from "../../dependencies";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
 
+import {LegendBar} from "./legend/legend-bar/legend-bar";
+import {LegendLabel} from "./legend/legend-label/legend-label";
 import styles from "./sorter.module.css";
 
-import type {MoveTarget} from "../../../components/drag-and-drop/dnd-action-menu";
-import type {TilePlacements} from "../../../components/drag-and-drop/tile-placements";
-import type {Widget, WidgetProps} from "../../../types";
-import type {SorterPromptJSON} from "../../../widget-ai-utils/sorter/sorter-ai-utils";
+import type {MoveTarget} from "../../components/drag-and-drop/dnd-action-menu";
+import type {TilePlacements} from "../../components/drag-and-drop/tile-placements";
+import type {Widget, WidgetProps} from "../../types";
+import type {SorterPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
 import type {
     PerseusSorterWidgetOptions,
     PerseusSorterUserInput,
