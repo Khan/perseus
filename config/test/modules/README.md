@@ -11,5 +11,5 @@ Playwright to work.
 FUTURE: we'd like all of our package.json files to use `{"type":"module"}` so
 this special-casing of modules isn't necessary. Try adding `"type": "module"`
 to every package.json that doesn't have it, and then move the modules in
-this directory up a level. If Jest and Playwright still work (after you've
+this directory up a level. If Rstest and Playwright still work (after you've
 fixed up the import paths) you can safely delete this directory.

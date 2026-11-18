@@ -1,5 +1,5 @@
 /**
- * @jest-environment node
+ * @rstest-environment node
  */
 import {createHash} from "node:crypto";
 

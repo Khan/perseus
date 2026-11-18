@@ -13,15 +13,15 @@ import type {UserEvent} from "@testing-library/user-event";
 /**
  * userEvent vs. userEventLib - which to use?
  *
- * This file contains tests that use real timers (by default, the Perseus Jest
- * tests are set to use fake timers).
+ * This file contains tests that use real timers (by default, the Perseus tests
+ * are set to use fake timers).
  *
  * By default, the @testing-library/user-event library only knows how to
  * advance real timers. It does, however, contain a setup() function that we
- * can use to tell it how to advance Jest's fake timers (see the beforeEach()
+ * can use to tell it how to advance the fake timers (see the beforeEach()
  * in this file).
  *
- * So, if your test calls `jest.useRealTimers()` you should use the
+ * So, if your test calls `rs.useRealTimers()` you should use the
  * `userEventLib` import. If it does not, you should use the configured
  * `userEvent` variable.
  *

@@ -636,7 +636,7 @@ describe("Expression Widget", function () {
         beforeEach(() => {
             // floating-ui positions the keypad popover asynchronously after it
             // opens. With real timers, waiting for the popover gives that
-            // update a chance to settle inside act(); Jest's fake timers
+            // update a chance to settle inside act(); fake timers
             // would leave it pending until after the test finishes.
             rs.useRealTimers();
             userEvent = userEventLib.setup();
