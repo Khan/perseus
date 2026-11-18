@@ -25,8 +25,6 @@ const baseProps = {
         },
     }),
     apiOptions: ApiOptions.defaults,
-    // eslint-disable-next-line no-restricted-syntax
-    box: [288, 288] as [number, number],
     onChange: () => {},
 };
 
