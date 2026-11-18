@@ -29,6 +29,9 @@ const Choice = (props: IndicatorProps) => {
     const clickHandler = showCorrectness
         ? undefined
         : () => {
+              // Focus the button before clicking it. Otherwise the browser
+              // moves focus to the nearest focusable ancestor.
+              buttonRef.current?.focus();
               buttonRef.current?.click();
           };
     const classes = [styles.choice]
