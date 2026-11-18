@@ -27,12 +27,11 @@ const meta = {
     title: "Widgets/Sorter/Drag and Drop",
     component: ServerItemRendererWithDebugUI,
     tags: ["!autodocs"],
-    globals: {featureFlags: ["dnd-widget-sorter"]},
     parameters: {
         docs: {
             description: {
                 component:
-                    "The drag-and-drop Sorter, behind the `dnd-widget-sorter` feature flag. Learners drag each card from the choice bank into a blank, or move it with the card's actions menu.",
+                    "The drag-and-drop Sorter. Learners drag each card from the choice bank into a blank, or move it with the card's actions menu.",
             },
         },
     },

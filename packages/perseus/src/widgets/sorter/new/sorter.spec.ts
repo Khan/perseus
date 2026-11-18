@@ -1,7 +1,6 @@
 import {expect, test} from "@internal/playwright";
 import {scoreQuestion} from "@khanacademy/perseus-score";
 
-import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import renderQuestion from "../../../testing/playwright/render-question";
 import {twoCardVerticalQuestion} from "../sorter.testdata";
 
@@ -9,8 +8,6 @@ import type {Locator} from "@playwright/test";
 
 const BLANKS = '[data-blank="true"]';
 const BANK_TILES = "ul li";
-
-const apiOptions = {flags: getFeatureFlags({"dnd-widget-sorter": true})};
 
 async function center(locator: Locator): Promise<{x: number; y: number}> {
     const box = await locator.boundingBox();
@@ -64,7 +61,7 @@ test.describe("Sorter widget (drag-and-drop)", () => {
         mount,
         page,
     }) => {
-        await renderQuestion(mount, twoCardVerticalQuestion, apiOptions);
+        await renderQuestion(mount, twoCardVerticalQuestion);
         const blanks = page.locator(BLANKS);
         const apple = page.locator(BANK_TILES, {hasText: "Apple"});
         await expect(blanks).toHaveCount(2);
@@ -82,7 +79,6 @@ test.describe("Sorter widget (drag-and-drop)", () => {
         const {getUserInputMap} = await renderQuestion(
             mount,
             twoCardVerticalQuestion,
-            apiOptions,
         );
         const blanks = page.locator(BLANKS);
         const tile = (text: string) =>

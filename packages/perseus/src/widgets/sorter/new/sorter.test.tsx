@@ -13,15 +13,9 @@ import {isInaccessible, screen, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../../__testutils__/render-question";
-import {getFeatureFlags} from "../../../testing/feature-flags-util";
 
-import type {APIOptions} from "../../../types";
 import type {PerseusRenderer, SorterLegend} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
-
-const apiOptions: APIOptions = {
-    flags: getFeatureFlags({"dnd-widget-sorter": true}),
-};
 
 function generateSorterQuestion(
     correct: string[],
@@ -112,9 +106,6 @@ describe("new sorter widget", () => {
             // Arrange, Act
             renderQuestion(
                 generateSorterQuestion(["Apple", "Banana", "Cherry"]),
-                {
-                    apiOptions,
-                },
             );
 
             // Assert
@@ -139,7 +130,6 @@ describe("new sorter widget", () => {
                 // Arrange, Act
                 renderQuestion(
                     generateSorterQuestion(["$x^2$", "$\\frac{1}{2}$"]),
-                    {apiOptions},
                 );
 
                 // Assert
@@ -159,7 +149,6 @@ describe("new sorter widget", () => {
                         "Area is $x^2$",
                         "Half is $\\frac{1}{2}$ cup",
                     ]),
-                    {apiOptions},
                 );
 
                 // Assert
@@ -179,9 +168,6 @@ describe("new sorter widget", () => {
             // Arrange, Act
             renderQuestion(
                 generateSorterQuestion(["Apple", "Banana", "Cherry"]),
-                {
-                    apiOptions,
-                },
             );
 
             // Assert
@@ -200,7 +186,6 @@ describe("new sorter widget", () => {
 
             // Act
             renderQuestion(generateSorterQuestion(["Apple", "Banana"]), {
-                apiOptions,
                 dependencies: {analytics: {onAnalyticsEvent}},
             });
 
@@ -218,7 +203,6 @@ describe("new sorter widget", () => {
         it("restores placed cards from a changed user input", () => {
             // Arrange, Act
             renderQuestion(generateSorterQuestion(["Apple", "Banana"]), {
-                apiOptions,
                 initialUserInput: {
                     "sorter 1": {options: ["Banana", "Apple"], changed: true},
                 },
@@ -240,7 +224,6 @@ describe("new sorter widget", () => {
             // Arrange, Act
             renderQuestion(
                 generateSorterQuestion(["Apple", "Banana"], "horizontal"),
-                {apiOptions},
             );
 
             // Assert
@@ -251,7 +234,6 @@ describe("new sorter widget", () => {
             // Arrange, Act
             renderQuestion(
                 generateSorterQuestion(["Apple", "Banana"], "vertical"),
-                {apiOptions},
             );
 
             // Assert
@@ -266,9 +248,7 @@ describe("new sorter widget", () => {
             );
 
             // Act
-            renderQuestion(generateSorterQuestion(correct, "horizontal"), {
-                apiOptions,
-            });
+            renderQuestion(generateSorterQuestion(correct, "horizontal"));
 
             // Assert
             expect(getBlankList()).not.toHaveClass("vertical");
@@ -282,9 +262,7 @@ describe("new sorter widget", () => {
             );
 
             // Act
-            renderQuestion(generateSorterQuestion(correct, "horizontal"), {
-                apiOptions,
-            });
+            renderQuestion(generateSorterQuestion(correct, "horizontal"));
 
             // Assert
             expect(getBlankList()).toHaveClass("vertical");
@@ -294,7 +272,6 @@ describe("new sorter widget", () => {
             // Arrange, Act
             renderQuestion(
                 generateSorterQuestionWithLegend(legend, "horizontal"),
-                {apiOptions},
             );
 
             // Assert
@@ -308,7 +285,6 @@ describe("new sorter widget", () => {
             // Arrange, Act
             renderQuestion(
                 generateSorterQuestionWithLegend(legend, "vertical"),
-                {apiOptions},
             );
 
             // Assert
@@ -328,7 +304,6 @@ describe("new sorter widget", () => {
             // Act
             renderQuestion(
                 generateSorterQuestionWithLegend(legend, "horizontal", correct),
-                {apiOptions},
             );
 
             // Assert
@@ -342,9 +317,7 @@ describe("new sorter widget", () => {
     describe("interaction", () => {
         it("moves a card from the choice bank into the chosen blank", async () => {
             // Arrange
-            renderQuestion(generateSorterQuestion(["Apple", "Banana"]), {
-                apiOptions,
-            });
+            renderQuestion(generateSorterQuestion(["Apple", "Banana"]));
 
             // Act
             await moveTileToBlank(userEvent, "Apple", 2);
@@ -361,9 +334,7 @@ describe("new sorter widget", () => {
 
         it("returns the displaced card to the choice bank when a blank is reused", async () => {
             // Arrange
-            renderQuestion(generateSorterQuestion(["Apple", "Banana"]), {
-                apiOptions,
-            });
+            renderQuestion(generateSorterQuestion(["Apple", "Banana"]));
             await moveTileToBlank(userEvent, "Apple", 1);
 
             // Act
@@ -377,9 +348,7 @@ describe("new sorter widget", () => {
 
         it("returns a placed card to the choice bank when it is cleared", async () => {
             // Arrange
-            renderQuestion(generateSorterQuestion(["Apple", "Banana"]), {
-                apiOptions,
-            });
+            renderQuestion(generateSorterQuestion(["Apple", "Banana"]));
             await moveTileToBlank(userEvent, "Apple", 1);
 
             // Act
@@ -398,9 +367,6 @@ describe("new sorter widget", () => {
             // Arrange
             renderQuestion(
                 generateSorterQuestion(["Apple", "Apple", "Banana"]),
-                {
-                    apiOptions,
-                },
             );
 
             // Act
@@ -416,7 +382,7 @@ describe("new sorter widget", () => {
             // Arrange
             const trackInteraction = jest.fn();
             renderQuestion(generateSorterQuestion(["Apple", "Banana"]), {
-                apiOptions: {...apiOptions, trackInteraction},
+                apiOptions: {trackInteraction},
             });
 
             // Act
@@ -433,9 +399,7 @@ describe("new sorter widget", () => {
     describe("legend", () => {
         it("names the list of blanks with the legend's aria label", () => {
             // Arrange, Act
-            renderQuestion(generateSorterQuestionWithLegend(legend), {
-                apiOptions,
-            });
+            renderQuestion(generateSorterQuestionWithLegend(legend));
 
             // Assert
             expect(
@@ -447,9 +411,7 @@ describe("new sorter widget", () => {
 
         it("renders the legend labels", () => {
             // Arrange, Act
-            renderQuestion(generateSorterQuestionWithLegend(legend), {
-                apiOptions,
-            });
+            renderQuestion(generateSorterQuestionWithLegend(legend));
 
             // Assert
             expect(screen.getByText("Lowest")).toBeInTheDocument();
@@ -458,9 +420,7 @@ describe("new sorter widget", () => {
 
         it("hides the legend labels from assistive technology", () => {
             // Arrange, Act
-            renderQuestion(generateSorterQuestionWithLegend(legend), {
-                apiOptions,
-            });
+            renderQuestion(generateSorterQuestionWithLegend(legend));
 
             // Assert
             expect(isInaccessible(screen.getByText("Lowest"))).toBe(true);
@@ -469,9 +429,7 @@ describe("new sorter widget", () => {
 
         it("renders the legend caps", () => {
             // Arrange, Act
-            renderQuestion(generateSorterQuestionWithLegend(legend), {
-                apiOptions,
-            });
+            renderQuestion(generateSorterQuestionWithLegend(legend));
 
             // Assert
             expect(screen.getByTestId("legend-bar-start-cap")).toHaveAttribute(
@@ -488,7 +446,6 @@ describe("new sorter widget", () => {
             // Arrange, Act
             renderQuestion(
                 generateSorterQuestionWithLegend(legend, "vertical"),
-                {apiOptions},
             );
 
             // Assert
@@ -498,9 +455,7 @@ describe("new sorter widget", () => {
 
         it("places the legend labels after the blanks when the position is below", () => {
             // Arrange, Act
-            renderQuestion(generateSorterQuestionWithLegend(legend), {
-                apiOptions,
-            });
+            renderQuestion(generateSorterQuestionWithLegend(legend));
 
             // Assert
             expect(
@@ -517,7 +472,6 @@ describe("new sorter widget", () => {
                     ...legend,
                     position: "above",
                 }),
-                {apiOptions},
             );
 
             // Assert
@@ -530,9 +484,7 @@ describe("new sorter widget", () => {
 
         it("renders no legend bar or labels when the options have no legend", () => {
             // Arrange, Act
-            renderQuestion(generateSorterQuestion(["Apple", "Banana"]), {
-                apiOptions,
-            });
+            renderQuestion(generateSorterQuestion(["Apple", "Banana"]));
 
             // Assert
             expect(screen.queryByTestId("legend-bar")).not.toBeInTheDocument();
@@ -545,7 +497,6 @@ describe("new sorter widget", () => {
             // Arrange, Act
             const {renderer} = renderQuestion(
                 generateSorterQuestion(["Apple", "Banana"]),
-                {apiOptions},
             );
 
             // Assert
@@ -556,7 +507,6 @@ describe("new sorter widget", () => {
             // Arrange
             const {renderer} = renderQuestion(
                 generateSorterQuestion(["Apple", "Banana", "Cherry"]),
-                {apiOptions},
             );
 
             // Act
@@ -571,7 +521,6 @@ describe("new sorter widget", () => {
             // Arrange
             const {renderer} = renderQuestion(
                 generateSorterQuestion(["Apple", "Banana"]),
-                {apiOptions},
             );
 
             // Act
@@ -592,7 +541,6 @@ describe("new sorter widget", () => {
             // Arrange
             const {renderer} = renderQuestion(
                 generateSorterQuestion(["Apple", "Apple", "Banana"]),
-                {apiOptions},
             );
 
             // Act
@@ -611,7 +559,6 @@ describe("new sorter widget", () => {
             // Arrange
             const {renderer} = renderQuestion(
                 generateSorterQuestion(["Apple", "Banana"]),
-                {apiOptions},
             );
             await moveTileToBlank(userEvent, "Banana", 1);
             await moveTileToBlank(userEvent, "Apple", 2);
@@ -630,7 +577,6 @@ describe("new sorter widget", () => {
             // Arrange
             const {renderer} = renderQuestion(
                 generateSorterQuestion(["Apple", "Banana"]),
-                {apiOptions},
             );
 
             // Act
@@ -660,7 +606,7 @@ describe("new sorter widget", () => {
         ])("given %s data", (_, {question}) => {
             it("is initially scored 'invalid'", () => {
                 // Arrange
-                const {renderer} = renderQuestion(question, {apiOptions});
+                const {renderer} = renderQuestion(question);
 
                 // Act
                 const score = scoreQuestion(
@@ -675,7 +621,7 @@ describe("new sorter widget", () => {
 
             it("is scored 'invalid' while a blank is empty", async () => {
                 // Arrange
-                const {renderer} = renderQuestion(question, {apiOptions});
+                const {renderer} = renderQuestion(question);
                 await moveTileToBlank(userEvent, "Apple", 1);
                 await moveTileToBlank(userEvent, "Banana", 2);
 
@@ -692,7 +638,7 @@ describe("new sorter widget", () => {
 
             it("can be answered correctly", async () => {
                 // Arrange
-                const {renderer} = renderQuestion(question, {apiOptions});
+                const {renderer} = renderQuestion(question);
                 await moveTileToBlank(userEvent, "Apple", 1);
                 await moveTileToBlank(userEvent, "Banana", 2);
                 await moveTileToBlank(userEvent, "Cherry", 3);
@@ -710,7 +656,7 @@ describe("new sorter widget", () => {
 
             it("can be answered incorrectly", async () => {
                 // Arrange
-                const {renderer} = renderQuestion(question, {apiOptions});
+                const {renderer} = renderQuestion(question);
                 await moveTileToBlank(userEvent, "Cherry", 1);
                 await moveTileToBlank(userEvent, "Banana", 2);
                 await moveTileToBlank(userEvent, "Apple", 3);
@@ -743,7 +689,6 @@ describe("new sorter widget", () => {
             // Arrange, Act
             renderQuestion(
                 generateSorterQuestion(generateCards(SORTER_MAX_CARDS + 1)),
-                {apiOptions},
             );
 
             // Assert
@@ -754,7 +699,6 @@ describe("new sorter widget", () => {
             // Arrange, Act
             renderQuestion(
                 generateSorterQuestion(generateCards(SORTER_MAX_CARDS)),
-                {apiOptions},
             );
 
             // Assert
@@ -773,7 +717,7 @@ describe("new sorter widget", () => {
             // Act
             renderQuestion(
                 generateSorterQuestion(generateCards(SORTER_MAX_CARDS + 1)),
-                {apiOptions, dependencies},
+                {dependencies},
             );
 
             // Assert
