@@ -22,17 +22,13 @@ class DefinitionEditor extends React.Component<Props> {
         definitionLogic.defaultWidgetOptions;
 
     static initializeWidgetOptions(
+        defaults: PerseusDefinitionWidgetOptions,
         params: InitializeWidgetOptionsParams,
     ): PerseusDefinitionWidgetOptions {
-        const defaultWidgetOptions = {
-            ...definitionLogic.defaultWidgetOptions,
-        };
-
         if (params.selectedText) {
-            defaultWidgetOptions.togglePrompt = params.selectedText;
+            return {...defaults, togglePrompt: params.selectedText};
         }
-
-        return defaultWidgetOptions;
+        return defaults;
     }
 
     handleChange(changed: Partial<PerseusDefinitionWidgetOptions>) {

@@ -4,6 +4,7 @@ import {
     type PerseusRenderer,
 } from "@khanacademy/perseus-core";
 import {
+    dropdownLogic,
     generateOrdererOption,
     getDefaultAnswerArea,
 } from "@khanacademy/perseus-core";
@@ -264,7 +265,7 @@ describe("EditorPage", () => {
         ).toBeInTheDocument();
     });
 
-    it("should call initializeWidgetOptions if available", async () => {
+    it("uses the selected text as a new definition's togglePrompt", async () => {
         const onChangeMock = jest.fn();
 
         const startRenderer: PerseusRenderer = {
@@ -315,6 +316,87 @@ describe("EditorPage", () => {
                     },
                 },
             },
+        });
+    });
+
+    describe("inserting a widget from the widget dropdown", () => {
+        function renderEmptyEditor(onChange: jest.Mock) {
+            render(
+                <EditorPage
+                    dependencies={testDependenciesV2}
+                    question={{content: "", widgets: {}, images: {}}}
+                    onChange={onChange}
+                    previewDevice="desktop"
+                    previewURL=""
+                    itemId="itemId"
+                    jsonMode={false}
+                    widgetsAreOpen={true}
+                />,
+            );
+        }
+
+        it("initializes options from the core widget registry", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+            renderEmptyEditor(onChangeMock);
+
+            // Act
+            await userEvent.selectOptions(
+                screen.getByTestId("editor__widget-select"),
+                "Drop down",
+            );
+
+            // Assert
+            expect(
+                onChangeMock.mock.lastCall[0].question.widgets["dropdown 1"],
+            ).toEqual({
+                type: "dropdown",
+                options: {
+                    placeholder: "",
+                    choices: [{content: "", correct: false}],
+                },
+                version: {major: 0, minor: 0},
+            });
+        });
+
+        it("does not let edits to the new widget's options change the registry's defaults", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+            renderEmptyEditor(onChangeMock);
+            await userEvent.selectOptions(
+                screen.getByTestId("editor__widget-select"),
+                "Drop down",
+            );
+            const options =
+                onChangeMock.mock.lastCall[0].question.widgets["dropdown 1"]
+                    .options;
+
+            // Act
+            options.placeholder = "changed";
+            options.choices[0].content = "changed";
+
+            // Assert
+            expect(dropdownLogic.defaultWidgetOptions).toEqual({
+                placeholder: "",
+                choices: [{content: "", correct: false}],
+            });
+        });
+
+        it("leaves a definition's togglePrompt at its default when no text is selected", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+            renderEmptyEditor(onChangeMock);
+
+            // Act
+            await userEvent.selectOptions(
+                screen.getByTestId("editor__widget-select"),
+                "Definition",
+            );
+
+            // Assert
+            const widget =
+                onChangeMock.mock.lastCall[0].question.widgets["definition 1"];
+            expect(widget.options).toEqual({togglePrompt: "", definition: ""});
         });
     });
 

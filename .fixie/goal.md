@@ -105,24 +105,24 @@ no later commit mentions excluding it. It's now registered.
 - [x] If there's no deliberate reason, register free-response in
       `registerCoreWidgets()` (otherwise, plan the `isWidgetRegistered()`
       fallback to `defaultProps` and keep those `defaultProps` below)
-- [ ] Test: inserting a core widget (e.g. dropdown) from the widget dropdown
+- [x] Test: inserting a core widget (e.g. dropdown) from the widget dropdown
       produces options deep-equal to `<widget>Logic.defaultWidgetOptions`
-- [ ] Test: inserted widget options don't share identity with the
+- [x] Test: inserted widget options don't share identity with the
       registry's defaults
-- [ ] Change `_addWidgetToContent()` to take a copy of
+- [x] Change `_addWidgetToContent()` to take a copy of
       `getDefaultWidgetOptions(type)` and pass it to the new
       `initializeWidgetOptions(defaults, params)` hook when present; drop the
       `defaultProps` fallback and update the comment above
       `InitializeWidgetOptionsParams`
-- [ ] Update `DefinitionEditor.initializeWidgetOptions` to the new
+- [x] Update `DefinitionEditor.initializeWidgetOptions` to the new
       signature, setting `togglePrompt` from the selection on `defaults`
-- [ ] Test: inserting a definition widget with no selection leaves
+- [x] Test: inserting a definition widget with no selection leaves
       `togglePrompt` at its default (the existing test covers the
       with-selection case; update it for the new signature if needed)
-- [ ] Test: the inserted widget's `version` matches
+- [x] Test: the inserted widget's `version` matches
       `CoreWidgetRegistry.getCurrentVersion(type)`
 - [ ] Remove `defaultProps` from widget editors whose defaults duplicate
       `<widget>Logic.defaultWidgetOptions`, a few editors per step, fixing
       any props types that relied on them
-- [ ] Add a changeset for `@khanacademy/perseus-editor` (and
+- [x] Add a changeset for `@khanacademy/perseus-editor` (and
       `@khanacademy/perseus-core` if free-response registration changed)

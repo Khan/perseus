@@ -7,6 +7,7 @@ import {
 } from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
+    deepClone,
     Errors,
     getWidgetIdsFromContent,
     PerseusError,
@@ -155,9 +156,11 @@ type State = {
     rememberedWidgetsForUndo: PerseusWidgetsMap;
 };
 
-// Contextual information that widgets can use,
-// through initializeWidgetOptions,
-// to initialize widget options
+// Contextual information passed to a widget editor's optional static
+// `initializeWidgetOptions(defaults, params)` hook when a widget is inserted.
+// `defaults` is a fresh copy of the widget's default options from the core
+// widget registry; the hook returns the new widget's options. Editors without
+// the hook get the defaults unchanged.
 export type InitializeWidgetOptionsParams = {
     selectedText: string;
 };
@@ -653,15 +656,15 @@ class Editor extends React.Component<Props, State> {
 
         const newWidgets = {...this.props.widgets};
         const widgetEditor = getEditor(widgetType);
-        const initializeWidgetOptionsParams: InitializeWidgetOptionsParams = {
-            selectedText,
-        };
-        const startWidgetOptions = widgetEditor?.initializeWidgetOptions?.(
-            initializeWidgetOptionsParams,
+        const defaults = deepClone(
+            CoreWidgetRegistry.getDefaultWidgetOptions(widgetType),
         );
-        const defaultProps = widgetEditor?.defaultProps;
+        const params: InitializeWidgetOptionsParams = {selectedText};
+        const options = widgetEditor?.initializeWidgetOptions
+            ? widgetEditor.initializeWidgetOptions(defaults, params)
+            : defaults;
         newWidgets[id] = {
-            options: startWidgetOptions || defaultProps,
+            options,
             type: widgetType,
             // Track widget version on creation, so that a widget editor
             // without a valid version prop can only possibly refer to a
