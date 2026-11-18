@@ -35,7 +35,7 @@ const altTextTooLongError =
 const altTextTooShortError =
     "Add more detail to describe your image. While alt text should be brief, it must also describe the image well.";
 
-type WrapperProps = {
+type ImageEditorWithDependenciesProps = {
     apiOptions?: APIOptions;
     options: Partial<PerseusImageWidgetOptions>;
     onChange?: (options: PerseusImageWidgetOptions) => void;
@@ -45,7 +45,7 @@ function ImageEditorWithDependencies({
     apiOptions = ApiOptions.defaults,
     options,
     onChange = () => {},
-}: WrapperProps) {
+}: ImageEditorWithDependenciesProps) {
     return (
         <DependenciesContext.Provider value={testDependenciesV2}>
             <ImageEditor
