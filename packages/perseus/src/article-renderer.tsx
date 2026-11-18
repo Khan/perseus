@@ -23,6 +23,8 @@ import type {
     KeypadContextRendererInterface,
 } from "@khanacademy/perseus-core";
 
+import "./article-renderer.css";
+
 type Props = Partial<React.ContextType<typeof DependenciesContext>> &
     SharedRendererProps & {
         json: PerseusArticle;
