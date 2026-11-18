@@ -1,11 +1,8 @@
-import {fillInTheBlankLogic, isFeatureOn} from "@khanacademy/perseus-core";
+import {isFeatureOn} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import type {APIOptions} from "@khanacademy/perseus";
 import type {PerseusFillInTheBlankWidgetOptions} from "@khanacademy/perseus-core";
-
-const defaultOptions: PerseusFillInTheBlankWidgetOptions =
-    fillInTheBlankLogic.defaultWidgetOptions;
 
 // TODO(benchristel): Define Props in terms of WidgetEditorProps. We can't do
 //  this currently because `pnpm build:types` fails with a cryptic error. The
@@ -22,7 +19,7 @@ interface Props extends PerseusFillInTheBlankWidgetOptions {
  *
  * The controls are not built yet (LEMS-4371).
  */
-function FillInTheBlankEditor({apiOptions}: Props) {
+export default function FillInTheBlankEditor({apiOptions}: Props) {
     // TODO(LEMS-4396): clean up feature flag
     if (!isFeatureOn({apiOptions}, "dnd-widget-fitb")) {
         return null;
@@ -36,7 +33,3 @@ function FillInTheBlankEditor({apiOptions}: Props) {
         </div>
     );
 }
-
-export default Object.assign(FillInTheBlankEditor, {
-    defaultProps: defaultOptions,
-});
