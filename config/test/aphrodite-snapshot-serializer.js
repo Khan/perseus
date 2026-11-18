@@ -32,6 +32,8 @@
  * name means as it is created, then rewrite class attributes on a *clone* of
  * the tree while it is being printed. The live DOM is never touched.
  */
+// TODO: Convert this file to TypeScript
+
 const aphrodite = require("aphrodite");
 // Aphrodite's own helpers for turning a definition into CSS.
 const {kebabifyStyleName, stringifyValue} = require("aphrodite/lib/util");
