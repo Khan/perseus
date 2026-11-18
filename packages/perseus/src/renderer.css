@@ -136,15 +136,32 @@
     /*******************
      * Markdown Tables *
      *******************/
+    /* Styles shared by data tables and layout tables.
+     */
+    /* min-width prevents tables from being too cramped on small screens.
+     * If the table is wider than the container, we use JavaScript to apply
+     * a CSS transform to zoom it out. The user can then click to zoom in.
+     */
+    .framework-perseus table,
+    .framework-perseus .perseus-layout-table {
+        min-width: 48rem;
+    }
+    .framework-perseus table :is(th, td),
+    .framework-perseus .perseus-layout-table-cell {
+        padding: var(--wb-sizing-size_160);
+        text-align: left;
+    }
+    /* Body cells include row headers (th) for tables with row headers. */
+    .framework-perseus table tbody > :is(th, td),
+    .framework-perseus .perseus-layout-table-cell {
+        background-color: var(--wb-semanticColor-core-background-base-default);
+    }
+
+    /* Data tables */
     .framework-perseus table {
         border-collapse: collapse;
         margin-inline: 0;
         margin-block: auto;
-        /* min-width prevents tables from being too cramped on small screens.
-         * If the table is wider than the container, we use JavaScript to apply
-         * a CSS transform to zoom it out. The user can then click to zoom in.
-         */
-        min-width: 48rem;
         tbody > tr {
             border: var(--wb-border-width-thin) solid
                 var(--wb-semanticColor-core-border-neutral-subtle);
@@ -152,16 +169,7 @@
         th {
             font-weight: bold;
         }
-        /* Body cells include row headers (th) for tables with row headers. */
-        tbody > :is(th, td) {
-            background-color: var(
-                --wb-semanticColor-core-background-base-default
-            );
-        }
         :is(th, td) {
-            padding: var(--wb-sizing-size_160);
-            text-align: left;
-
             &[align="center"] {
                 text-align: center;
             }
@@ -170,6 +178,7 @@
             }
         }
     }
+
     /* Layout tables are a grid of divs styled to look like a data table,
      * without table semantics. The rows use `display: contents`, so the
      * cells are the grid items and line up into columns across rows.
@@ -177,22 +186,15 @@
      */
     .framework-perseus .perseus-layout-table {
         display: grid;
-        /**
-         * Size to the content like a table does, rather than filling the
-         * container. The min-width matches data tables, see above.
+        /* Size to the content like a table does, rather than filling the
+         * container.
          */
         width: fit-content;
-        min-width: 48rem;
         border: var(--wb-border-width-thin) solid
             var(--wb-semanticColor-core-border-neutral-subtle);
     }
     .framework-perseus .perseus-layout-table-row {
         display: contents;
-    }
-    .framework-perseus .perseus-layout-table-cell {
-        padding: var(--wb-sizing-size_160);
-        text-align: left;
-        background-color: var(--wb-semanticColor-core-background-base-default);
     }
     /* Rows can't have borders with `display: contents`, so the cells draw
      * the lines between rows. With the container's border, this matches a
