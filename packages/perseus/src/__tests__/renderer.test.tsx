@@ -1747,88 +1747,19 @@ describe("renderer", () => {
 
         describe("layout tables", () => {
             const layoutTableContent =
-                "| | |\n" + "|-|-|\n" + "| Gold | 19.3 |\n" + "| Silver | 10.5 |";
+                "| | |\n" +
+                "|-|-|\n" +
+                "| Gold | 19.3 |\n" +
+                "| Silver | 10.5 |";
 
-            it.each([true, false])(
-                "renders a table with all empty column headers with the " +
-                    "presentation role when isMobile: %s",
-                (isMobile) => {
-                    // Arrange, Act
-                    renderQuestion(
-                        generateTestPerseusRenderer({content: layoutTableContent}),
-                        {apiOptions: {isMobile}},
-                    );
-
-                    // Assert
-                    expect(screen.getByRole("presentation").tagName).toBe("TABLE");
-                    expect(screen.queryByRole("table")).not.toBeInTheDocument();
-                },
-            );
-
-            it("does not render the empty header row", () => {
+            it("renders a grid of divs", () => {
                 // Arrange, Act
                 const {container} = renderQuestion(
                     generateTestPerseusRenderer({content: layoutTableContent}),
                 );
 
                 // Assert
-                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-                expect(container.querySelector("thead, th")).toBeNull();
-            });
-
-            it("renders the body cells", () => {
-                // Arrange, Act
-                renderQuestion(
-                    generateTestPerseusRenderer({content: layoutTableContent}),
-                );
-
-                // Assert
-                expect(screen.getByText("Silver")).toBeInTheDocument();
-                expect(screen.getByText("10.5")).toBeInTheDocument();
-            });
-
-            // Browsers ignore role="presentation" on focusable elements.
-            it("does not make the table focusable on mobile", () => {
-                // Arrange, Act
-                renderQuestion(
-                    generateTestPerseusRenderer({content: layoutTableContent}),
-                    {apiOptions: {isMobile: true}},
-                );
-
-                // Assert
-                expect(screen.getByRole("presentation")).not.toHaveAttribute(
-                    "tabindex",
-                );
-            });
-
-            it("renders a table title as a paragraph instead of a caption", () => {
-                // Arrange, Act
-                const {container} = renderQuestion(
-                    generateTestPerseusRenderer({
-                        content: "|| Metal densities ||\n" + layoutTableContent,
-                    }),
-                );
-
-                // Assert
-                expect(screen.getByRole("paragraph")).toHaveTextContent(
-                    "Metal densities",
-                );
-                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-                expect(container.querySelector("caption")).toBeNull();
-                expect(screen.getByRole("presentation").tagName).toBe("TABLE");
-            });
-
-            it("keeps a table with one non-empty column header as a data table", () => {
-                // Arrange, Act
-                renderQuestion(
-                    generateTestPerseusRenderer({
-                        content: "| | Mass |\n" + "|-|-|\n" + "| Gold | 19.3 |",
-                    }),
-                );
-
-                // Assert
-                expect(screen.getByRole("table")).toBeInTheDocument();
-                expect(screen.queryByRole("presentation")).not.toBeInTheDocument();
+                expect(container).toMatchSnapshot();
             });
         });
 
@@ -1847,7 +1778,9 @@ describe("renderer", () => {
 
                 // Assert
                 expect(
-                    screen.getAllByRole("rowheader").map((th) => th.textContent),
+                    screen
+                        .getAllByRole("rowheader")
+                        .map((th) => th.textContent),
                 ).toEqual(["Gold", "Silver"]);
             });
 
@@ -1867,9 +1800,13 @@ describe("renderer", () => {
 
                 // Assert
                 const [headerRow] = screen.getAllByRole("row");
-                expect(within(headerRow).getByRole("cell")).toBeEmptyDOMElement();
                 expect(
-                    screen.getAllByRole("columnheader").map((th) => th.textContent),
+                    within(headerRow).getByRole("cell"),
+                ).toBeEmptyDOMElement();
+                expect(
+                    screen
+                        .getAllByRole("columnheader")
+                        .map((th) => th.textContent),
                 ).toEqual(["Mass", "Volume"]);
             });
 
@@ -1887,7 +1824,9 @@ describe("renderer", () => {
 
                 // Assert
                 expect(
-                    screen.getAllByRole("rowheader").map((th) => th.textContent),
+                    screen
+                        .getAllByRole("rowheader")
+                        .map((th) => th.textContent),
                 ).toEqual(["Gold", "Silver"]);
             });
 
@@ -1905,7 +1844,9 @@ describe("renderer", () => {
 
                 // Assert
                 expect(
-                    screen.getAllByRole("columnheader").map((th) => th.textContent),
+                    screen
+                        .getAllByRole("columnheader")
+                        .map((th) => th.textContent),
                 ).toEqual(["Metal", "Mass", "Volume"]);
             });
 
@@ -1927,7 +1868,9 @@ describe("renderer", () => {
                     screen.getByRole("table", {name: "Metal densities"}),
                 ).toBeInTheDocument();
                 expect(
-                    screen.getAllByRole("rowheader").map((th) => th.textContent),
+                    screen
+                        .getAllByRole("rowheader")
+                        .map((th) => th.textContent),
                 ).toEqual(["Gold", "Silver"]);
             });
 

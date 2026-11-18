@@ -1314,7 +1314,46 @@ class Renderer
         nestedOutput: (ast: ASTNode, state: WidgetState) => React.ReactNode,
         state: WidgetState,
     ): React.ReactNode => {
-        // Come back...
+        // Build the rows and cells using non-table elements.
+        const rows = node.cells.map(
+            (row: Array<Array<SingleASTNode>>, r: number) => (
+                <div key={r} className="perseus-layout-table-row">
+                    {row.map((content, c) => (
+                        <div
+                            key={c}
+                            className="perseus-layout-table-cell"
+                            style={getTableCellStyle(node, c)}
+                        >
+                            {nestedOutput(content, state)}
+                        </div>
+                    ))}
+                </div>
+            ),
+        );
+
+        const table = wrapTable(
+            <div
+                key={state.key}
+                className="perseus-layout-table"
+                style={{
+                    gridTemplateColumns: `repeat(${node.header.length}, auto)`,
+                }}
+            >
+                {rows}
+            </div>,
+            state,
+        );
+
+        if (title == null) {
+            return table;
+        }
+
+        return (
+            <React.Fragment key={state.key}>
+                {nestedOutput({type: "paragraph", content: title}, state)}
+                {table}
+            </React.Fragment>
+        );
     };
 
     handleRender: (prevProps: Props) => void = (prevProps: Props) => {
