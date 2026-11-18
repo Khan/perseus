@@ -1,7 +1,4 @@
-import {
-    matcherLogic,
-    type PerseusMatcherWidgetOptions,
-} from "@khanacademy/perseus-core";
+import {type PerseusMatcherWidgetOptions} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 
@@ -16,9 +13,6 @@ type Props = WidgetEditorProps<PerseusMatcherWidgetOptions>;
  * An editor for adding a matcher widget that allows users to match items from two different sets.
  */
 class MatcherEditor extends React.Component<Props> {
-    static defaultProps: PerseusMatcherWidgetOptions =
-        matcherLogic.defaultWidgetOptions;
-
     handleChange(changes: Partial<PerseusMatcherWidgetOptions>) {
         this.props.onChange({
             labels: this.props.labels,
