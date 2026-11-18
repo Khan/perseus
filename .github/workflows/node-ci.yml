@@ -161,7 +161,7 @@ jobs:
                     if: steps.js-files.outputs.filtered != '[]'
                     run: pnpm build:docs
 
-                  - name: Test
+                  - name: Unit tests
                     uses: Khan/actions@8b8506a789a5c2a4a90bd8da8b6801db6931ee2d # full-or-limited-v0
                     with:
                         full-trigger: ${{ steps.test-reset.outputs.filtered }}
