@@ -1,4 +1,5 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
+import {plotterLogic} from "@khanacademy/perseus-core";
 import {act, render, screen} from "@testing-library/react";
 import * as React from "react";
 
@@ -13,14 +14,15 @@ describe("PlotterEditor", () => {
         );
     });
 
-    it("renders without crashing when picUrl is undefined", async () => {
+    it("renders the Picture field when picUrl is null", async () => {
         render(
             <PlotterEditor
+                {...plotterLogic.defaultWidgetOptions}
                 onChange={() => undefined}
                 apiOptions={ApiOptions.defaults}
                 static={false}
                 type="pic"
-                picUrl={undefined}
+                picUrl={null}
             />,
         );
         // Wait for plotter's card resizing to settle. RTL logs an error if
@@ -30,7 +32,7 @@ describe("PlotterEditor", () => {
         expect(screen.getByText(/Picture:/)).toBeInTheDocument();
     });
 
-    it("clears a stale image when picUrl changes to undefined", async () => {
+    it("clears a stale image when picUrl changes to null", async () => {
         // Arrange — mock Image so we can trigger onload synchronously
         const mockImage: Partial<HTMLImageElement> & {
             onload: (() => void) | null;
@@ -48,6 +50,7 @@ describe("PlotterEditor", () => {
 
         const {rerender} = render(
             <PlotterEditor
+                {...plotterLogic.defaultWidgetOptions}
                 onChange={() => undefined}
                 apiOptions={ApiOptions.defaults}
                 static={false}
@@ -72,11 +75,12 @@ describe("PlotterEditor", () => {
         // Act — clear the URL
         rerender(
             <PlotterEditor
+                {...plotterLogic.defaultWidgetOptions}
                 onChange={() => undefined}
                 apiOptions={ApiOptions.defaults}
                 static={false}
                 type="pic"
-                picUrl={undefined}
+                picUrl={null}
             />,
         );
         // Wait for plotter's card resizing to settle. RTL logs an error if

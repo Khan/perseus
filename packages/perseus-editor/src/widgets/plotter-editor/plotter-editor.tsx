@@ -1,6 +1,6 @@
 import {number as knumber} from "@khanacademy/kmath";
 import {components, PlotterWidget, Util} from "@khanacademy/perseus";
-import {plotterLogic, plotterPlotTypes} from "@khanacademy/perseus-core";
+import {plotterPlotTypes} from "@khanacademy/perseus-core";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -55,9 +55,6 @@ const formatNumber = (num) => "$" + knumber.round(num, 2) + "$";
  * An editor for adding a plotter widget that allows users to create and customize data visualizations.
  */
 class PlotterEditor extends React.Component<Props, State> {
-    static defaultProps: PerseusPlotterWidgetOptions =
-        plotterLogic.defaultWidgetOptions;
-
     state: State = {
         editing: this.props.static ? STARTING : CORRECT,
         pic: null,
@@ -101,8 +98,8 @@ class PlotterEditor extends React.Component<Props, State> {
         });
     }
 
-    fetchPic: (url: string | null | undefined) => void = (url) => {
-        if (url == null) {
+    fetchPic: (url: string | null) => void = (url) => {
+        if (url === null) {
             // Make sure we don't display a previously-loaded picUrl if we no
             // longer have one.
             if (this.state.pic !== null) {

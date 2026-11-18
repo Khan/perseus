@@ -129,7 +129,7 @@ no later commit mentions excluding it. It's now registered.
   - [x] iframe, python-program, explanation
   - [x] definition, matrix, orderer
   - [x] dropdown, image, categorizer
-  - [ ] number-line, plotter, grapher
+  - [x] number-line, plotter, grapher
   - [ ] graded-group, graded-group-set, label-image
   - [ ] interaction, radio, free-response
   - [ ] interactive-graph, numeric-input, expression (check that their
