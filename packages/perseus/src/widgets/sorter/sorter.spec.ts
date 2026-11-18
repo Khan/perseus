@@ -1,8 +1,9 @@
 import {expect, test} from "@internal/playwright";
 import {scoreQuestion} from "@khanacademy/perseus-score";
 
-import renderQuestion from "../../../testing/playwright/render-question";
-import {twoCardVerticalQuestion} from "../sorter.testdata";
+import renderQuestion from "../../testing/playwright/render-question";
+
+import {twoCardVerticalQuestion} from "./sorter.testdata";
 
 import type {Locator} from "@playwright/test";
 

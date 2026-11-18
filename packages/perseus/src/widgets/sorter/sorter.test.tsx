@@ -12,7 +12,7 @@ import {scoreQuestion} from "@khanacademy/perseus-score";
 import {isInaccessible, screen, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {renderQuestion} from "../../../__testutils__/render-question";
+import {renderQuestion} from "../../__testutils__/render-question";
 
 import type {PerseusRenderer, SorterLegend} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
