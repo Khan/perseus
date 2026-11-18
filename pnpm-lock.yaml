@@ -362,6 +362,9 @@ importers:
       '@playwright/test':
         specifier: catalog:toolDeps
         version: 1.64.1
+      '@rspack/core':
+        specifier: 2.3.2
+        version: 2.3.2(@swc/helpers@0.5.17)
       '@rstest/core':
         specifier: 0.12.6
         version: 0.12.6(jsdom@20.0.3(supports-color@8.1.1))
@@ -10158,6 +10161,12 @@ snapshots:
       '@rspack/binding-win32-arm64-msvc': 2.3.2
       '@rspack/binding-win32-ia32-msvc': 2.3.2
       '@rspack/binding-win32-x64-msvc': 2.3.2
+
+  '@rspack/core@2.3.2(@swc/helpers@0.5.17)':
+    dependencies:
+      '@rspack/binding': 2.3.2
+    optionalDependencies:
+      '@swc/helpers': 0.5.17
 
   '@rspack/core@2.3.2(@swc/helpers@0.5.24)':
     dependencies:

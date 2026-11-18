@@ -79,7 +79,7 @@ export default defineConfig({
                 .loader(
                     path.join(
                         import.meta.dirname,
-                        "config/test/rstest/basename-loader.mjs",
+                        "config/test/rstest/basename-loader.ts",
                     ),
                 );
         },

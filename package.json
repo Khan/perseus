@@ -24,6 +24,7 @@
         "@khanacademy/wonder-blocks-tokens": "catalog:devDeps",
         "@phosphor-icons/core": "catalog:devDeps",
         "@playwright/test": "catalog:toolDeps",
+        "@rspack/core": "2.3.2",
         "@rstest/core": "0.12.6",
         "@rstest/coverage-v8": "0.12.6",
         "@sheerun/mutationobserver-shim": "^0.3.3",
