@@ -20,7 +20,7 @@ type Args = {
 
 type Result = {
     /** The unique blank widget ids, in the order they appear in content. */
-    blankIds: ReadonlyArray<string>;
+    blankIds: string[];
     /** Accessible label for each blank, keyed by blank id. */
     blankLabels: Record<string, string>;
     tilesById: ReadonlyMap<string, Tile>;
@@ -31,7 +31,7 @@ type Result = {
 /** Reads the blankId -> tileId placements out of the user input. */
 function getPlacements(
     userInput: PerseusFillInTheBlankUserInput,
-    blankIds: ReadonlyArray<string>,
+    blankIds: string[],
 ): TilePlacements {
     const placements: Record<string, string> = {};
     for (const blankId of blankIds) {

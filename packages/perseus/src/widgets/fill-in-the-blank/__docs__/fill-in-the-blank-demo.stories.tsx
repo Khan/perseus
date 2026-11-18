@@ -1,5 +1,8 @@
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
-import {paragraphFillInTheBlankQuestion} from "../fill-in-the-blank.testdata";
+import {
+    multiUseFillInTheBlankQuestion,
+    paragraphFillInTheBlankQuestion,
+} from "../fill-in-the-blank.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -36,5 +39,11 @@ export const ParagraphAnswered: Story = {
                 "blank 4": {selected: "bass"},
             },
         },
+    },
+};
+
+export const MultiUseTiles: Story = {
+    args: {
+        question: multiUseFillInTheBlankQuestion,
     },
 };

@@ -128,8 +128,14 @@ describe("parseWidgetsMap", () => {
                             },
                         },
                     },
-                    tiles: [{id: "tile-1", content: "djembe", label: "djembe"}],
-                    maxUsesPerTile: 1,
+                    tiles: [
+                        {
+                            id: "tile-1",
+                            content: "djembe",
+                            label: "djembe",
+                            maxUses: 1,
+                        },
+                    ],
                     randomize: false,
                 },
             },
@@ -149,8 +155,7 @@ describe("parseWidgetsMap", () => {
                     content: "The [[☃ blank 1]] drum is a tall drum.",
                     widgets: {},
                     // The missing `label` is the only defect.
-                    tiles: [{id: "tile-1", content: "djembe"}],
-                    maxUsesPerTile: 1,
+                    tiles: [{id: "tile-1", content: "djembe", maxUses: 1}],
                     randomize: false,
                 },
             },

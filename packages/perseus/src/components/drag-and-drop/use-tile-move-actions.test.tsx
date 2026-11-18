@@ -4,7 +4,7 @@ import {act, renderHook} from "@testing-library/react";
 import {CHOICE_BANK_DROP_ID} from "./choice-bank";
 import {useTileMoveActions} from "./use-tile-move-actions";
 
-import type {TilePlacements, TileUsage} from "./tile-placements";
+import type {MaxUses, TilePlacements} from "./tile-placements";
 import type {DragEndEvent} from "@dnd-kit/react";
 
 jest.mock("@khanacademy/wonder-blocks-announcer", () => ({
@@ -13,20 +13,27 @@ jest.mock("@khanacademy/wonder-blocks-announcer", () => ({
 
 const BLANK_IDS = ["blank 1", "blank 2"];
 
-/** Renders the hook around mutable controlled placements. */
+/**
+ * Renders the hook around mutable controlled placements. `maxUses` is
+ * either one cap for every tile, or a per-tile lookup.
+ */
 function setupHook(
     initialPlacements: TilePlacements = {},
-    tileUsage: TileUsage = "single",
+    maxUses: number | "unlimited" | ((tileId: string) => MaxUses) = 1,
 ) {
     let placements = initialPlacements;
     const onPlacementsChange = jest.fn((next: TilePlacements) => {
         placements = next;
     });
+    const getMaxUses =
+        typeof maxUses === "function"
+            ? maxUses
+            : () => (maxUses === "unlimited" ? undefined : maxUses);
     const rendered = renderHook(() =>
         useTileMoveActions({
             placements,
             onPlacementsChange,
-            tileUsage,
+            getMaxUses,
             getTileLabel: (tileId) => `tile ${tileId}`,
             getBlankLabel: (blankId) => `Blank ${blankId.slice(-1)}`,
             blankIds: BLANK_IDS,
@@ -136,7 +143,7 @@ describe("useTileMoveActions", () => {
         it("ignores a bank copy dropped on a blank already holding the tile", () => {
             const {result, onPlacementsChange} = setupHook(
                 {"blank 1": "x"},
-                "multi",
+                "unlimited",
             );
 
             act(() => {
@@ -180,7 +187,7 @@ describe("useTileMoveActions", () => {
         it("empties the source blank when a copy moves onto a blank already holding the tile", () => {
             const {result, onPlacementsChange} = setupHook(
                 {"blank 1": "x", "blank 2": "x"},
-                "multi",
+                "unlimited",
             );
 
             act(() => {
@@ -193,6 +200,34 @@ describe("useTileMoveActions", () => {
             expect(onPlacementsChange).toHaveBeenCalledWith({"blank 2": "x"});
             expect(announceMessage).toHaveBeenCalledWith({
                 message: "tile x moved to Blank 2.",
+            });
+        });
+
+        describe("with answer choices that have different maxUses", () => {
+            // The penny can fill up to 10 blanks; other answer tiles
+            // are single-use.
+            function getMixedMaxUses(tileId: string): MaxUses {
+                return tileId === "penny" ? 10 : 1;
+            }
+
+            it("copies a multi-use tile, leaving it in its other blank", () => {
+                // Arrange: One penny in blank 1. The penny has 9 uses
+                // left, so it is still in the bank.
+                const {result, onPlacementsChange} = setupHook(
+                    {"blank 1": "penny"},
+                    getMixedMaxUses,
+                );
+
+                // Act: Move a penny from the bank to blank 2.
+                act(() => {
+                    result.current.handleMove({tileId: "penny"}, "blank 2");
+                });
+
+                // Assert: Blank 1 and blank 2 both have a penny.
+                expect(onPlacementsChange).toHaveBeenCalledWith({
+                    "blank 1": "penny",
+                    "blank 2": "penny",
+                });
             });
         });
     });
@@ -280,7 +315,6 @@ describe("useTileMoveActions", () => {
                             placements = next;
                         }
                     },
-                    tileUsage: "single",
                     getTileLabel: (tileId) => tileId,
                     getBlankLabel: (blankId) => blankId,
                     blankIds: BLANK_IDS,
