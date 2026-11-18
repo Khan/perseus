@@ -79,7 +79,7 @@ describe("Matcher serialization", () => {
         const {renderer} = renderItem(generateBasicMatcher());
 
         const matcher: MatcherHandle =
-            renderer.questionRenderer.findWidgets("matcher 1")[0];
+            renderer.questionRenderer!.findWidgets("matcher 1")[0];
         act(() => {
             // these don't seem to do anything
             // but I think they're supposed to?

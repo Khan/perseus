@@ -72,7 +72,7 @@ describe("Plotter serialization", () => {
         // the resize happens outside an act() call.
         await act(() => Promise.resolve());
 
-        const [plotter] = renderer.questionRenderer.findWidgets("plotter 1");
+        const [plotter] = renderer.questionRenderer!.findWidgets("plotter 1");
         act(() => plotter._testInsertUserInput([3, 3, 3]));
 
         // Act

@@ -180,5 +180,6 @@ Perseus renderers implement sophisticated focus management to handle user intera
 
 -   Parent renderers delegate focus to child components:
     -   `ServerItemRenderer.focus()` delegates to `questionRenderer.focus()`
-    -   `ServerItemRenderer.focusPath()` allows focusing specific widgets by path
+    -   `ServerItemRenderer.questionRenderer.focusPath()` focuses a specific
+        widget by path
 -   This delegation pattern allows for programmatic focus control

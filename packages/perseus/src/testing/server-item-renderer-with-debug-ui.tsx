@@ -3,7 +3,7 @@ import {isCorrect} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
-import {ServerItemRenderer} from "../server-item-renderer";
+import ServerItemRenderer from "../server-item-renderer";
 
 import {DebugAccordionUI} from "./debug-accordion-ui";
 import {DebugCheckAnswerFooter} from "./debug-check-answer-footer";
