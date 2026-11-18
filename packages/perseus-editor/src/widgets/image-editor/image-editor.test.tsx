@@ -37,6 +37,8 @@ const altTextTooShortError =
 
 const apiOptions = ApiOptions.defaults;
 
+// FIXME: instead of spreading the widget options among the other props,
+//  pass them to ImageEditorWithDependencies as a single `options` prop.
 type WrapperProps = Partial<PerseusImageWidgetOptions> & {
     apiOptions: APIOptions;
     onChange: (options: PerseusImageWidgetOptions) => void;
