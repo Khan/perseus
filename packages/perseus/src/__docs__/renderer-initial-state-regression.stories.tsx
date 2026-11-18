@@ -19,7 +19,7 @@ import {useStorybookApiOptions} from "../testing/use-storybook-api-options";
 import QuestionRendererForStories from "../widgets/__testutils__/question-renderer-for-stories";
 
 import type {APIOptions} from "../types";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {PerseusRenderer, PerseusArticle} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 type Story = StoryObj;
@@ -80,7 +80,7 @@ const RenderExerciseContent = (content: string): (() => React.JSX.Element) => {
 };
 
 const RenderArticleSections = (
-    sections: PerseusRenderer[],
+    sections: PerseusArticle,
     baseApiOptions: APIOptions = {},
 ): (() => React.JSX.Element) => {
     return function Render() {
@@ -151,7 +151,7 @@ export const ArticleBlockquote: Story = desktopArticleStory(blockquoteContent);
 export const ArticleBlockquoteMobile: Story =
     mobileArticleStory(blockquoteContent);
 
-export const MultipleArticlesWithFloatedImage: Story = {
+export const MultipleSectionsWithFloatedImage: Story = {
     render: RenderArticleSections(multiSectionArticleWithFloatedImage),
 };
 
