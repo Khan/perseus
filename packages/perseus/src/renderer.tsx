@@ -36,6 +36,7 @@ import Util, {
     isBoldTableCell,
     isContentGraphie,
     isEmptyTableCell,
+    isLayoutTable,
     tableHasRowHeaders,
 } from "./util";
 import {containerSizeClass} from "./util/sizing-utils";
@@ -1227,7 +1228,8 @@ class Renderer
         nestedOutput: (ast: ASTNode, state: WidgetState) => React.ReactNode,
         state: WidgetState,
     ): React.ReactElement => {
-        const hasRowHeaders = tableHasRowHeaders(node);
+        const isLayout = isLayoutTable(node);
+        const hasRowHeaders = !isLayout && tableHasRowHeaders(node);
 
         const getStyle = (colIndex: number): React.CSSProperties =>
             node.align[colIndex] == null
@@ -1276,10 +1278,10 @@ class Renderer
         );
 
         return (
-            <table key={state.key}>
-                <thead key="thead">
-                    <tr>{headers}</tr>
-                </thead>
+            <table key={state.key} role={isLayout ? "presentation" : undefined}>
+                    <thead key="thead">
+                        <tr>{headers}</tr>
+                    </thead>
                 <tbody key="tbody">{rows}</tbody>
             </table>
         );
@@ -1296,7 +1298,10 @@ class Renderer
         // navigation when rendered on mobile in a modal. Specifically this is
         // needed for Android Talkback, to enable reading/navigating tables
         // with the swipe left/right gesture.
-        if (state.isMobile) {
+        //
+        // Layout tables are skipped: browsers ignore `role="presentation"` on
+        // a focusable element, which would restore the table semantics.
+        if (state.isMobile && !isLayoutTable(node)) {
             return React.cloneElement(table, {tabIndex: 0});
         }
 

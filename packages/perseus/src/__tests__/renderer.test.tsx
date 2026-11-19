@@ -1870,6 +1870,24 @@ describe("renderer", () => {
             expect(screen.queryByRole("rowheader")).not.toBeInTheDocument();
         });
     });
+
+    describe("markdown layout tables", () => {
+        it("renders a presentation table when all column headers are empty", () => {
+            // Arrange, Act
+            const {container} = renderQuestion(
+                generateTestPerseusRenderer({
+                    content:
+                        "| | |\n" +
+                        "|-|-|\n" +
+                        "| Gold | 19.3 |\n" +
+                        "| Silver | 10.5 |",
+                }),
+            );
+
+            // Assert
+            expect(container).toMatchSnapshot();
+        });
+    });
 });
 
 describe("isDifferentQuestion", () => {

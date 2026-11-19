@@ -128,6 +128,14 @@ export function isBoldTableCell(cell: TableCell): boolean {
 }
 
 /**
+ * A table whose column headers are all empty is used only for layout, so it
+ * should be rendered without table semantics.
+ */
+export function isLayoutTable(node: SingleASTNode): boolean {
+    return node.header.every(isEmptyTableCell);
+}
+
+/**
  * Markdown has no syntax for row headers, so we infer them from two common
  * authoring patterns:
  *
