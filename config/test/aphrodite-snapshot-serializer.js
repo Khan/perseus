@@ -34,9 +34,11 @@
  */
 // TODO: Convert this file to TypeScript
 
-const aphrodite = require("aphrodite");
+// Aphrodite's entry point is CommonJS, so this default import is its
+// `module.exports` object itself (see the `css` wrapper below).
+import aphrodite from "aphrodite";
 // Aphrodite's own helpers for turning a definition into CSS.
-const {kebabifyStyleName, stringifyValue} = require("aphrodite/lib/util");
+import {kebabifyStyleName, stringifyValue} from "aphrodite/lib/util";
 
 /**
  * Maps a generated class name ("button_vr44p2-o_O-shared_1hhaz1q") to the
@@ -124,7 +126,8 @@ const isEmptyValue = (value) =>
     value == null || typeof value === "boolean" || value === "";
 
 /**
- * Jest prints string attributes wrapped in `"` without escaping them, so a
+ * The snapshot printer prints string attributes wrapped in `"` without
+ * escaping them, so a
  * value such as `font-family: "Times New Roman"` would end the attribute
  * early and print a broken snapshot. This function sanitizes the output
  * by swapping `"` for `'`.
@@ -254,14 +257,14 @@ function expandStylesInElement(node) {
 /**
  * Elements this serializer has already rewritten.
  *
- * Jest does recurse for us: printing an element calls `test()` on each of its
- * children. But we can't rewrite an element in place (that would touch the
- * live DOM), so `serialize()` has to print a clone, and a clone brings its
- * own children along. If we expanded only the top element each time, every
+ * The snapshot printer does recurse for us: printing an element calls
+ * `test()` on each of its children. But we can't rewrite an element in place
+ * (that would touch the live DOM), so `serialize()` has to print a clone, and
+ * a clone brings its own children along. If we expanded only the top element each time, every
  * child would be cloned again on its way through `serialize()`, re-copying
  * each subtree once per ancestor. Instead, the first call clones and expands
  * the whole subtree in one pass and records every node here, so `test()`
- * lets the clone (and its descendants) through to Jest's default printer.
+ * lets the clone (and its descendants) through to the default printer.
  * Without this, the clone itself would match `test()` and recurse forever.
  */
 const alreadyExpanded = new WeakSet();

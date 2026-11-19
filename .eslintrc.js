@@ -257,7 +257,6 @@ module.exports = {
         },
     },
     env: {
-        "jest/globals": false,
         node: true,
         browser: true,
     },

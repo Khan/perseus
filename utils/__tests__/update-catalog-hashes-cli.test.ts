@@ -1,5 +1,5 @@
 /**
- * @jest-environment node
+ * @rstest-environment node
  */
 import {describe, expect, it, rs, beforeEach} from "@rstest/core";
 
