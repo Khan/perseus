@@ -155,8 +155,10 @@ type State = {
     rememberedWidgetsForUndo: PerseusWidgetsMap;
 };
 
-// Contextual information passed to a widget editor's optional static
-// `initializeWidgetOptions(defaults, params)` hook when a widget is inserted.
+/**
+ * Contextual information passed to a widget editor's optional static
+ * `initializeWidgetOptions(defaults, params)` hook when a widget is inserted.
+ */
 export type InitializeWidgetOptionsParams = {
     selectedText: string;
 };
