@@ -1,5 +1,19 @@
 # @khanacademy/perseus-core
 
+## 42.5.0
+
+### Minor Changes
+
+-   [#4541](https://github.com/Khan/perseus/pull/4541) [`18aabdc`](https://github.com/Khan/perseus/commit/18aabdcfcbe7a753263514143c1af7711de1f474) Thanks [@benchristel](https://github.com/benchristel)! - Export `isCorrect` from `@khanacademy/perseus-core`
+
+-   [#4550](https://github.com/Khan/perseus/pull/4550) [`a0b8db9`](https://github.com/Khan/perseus/commit/a0b8db913a3497f8344610791635a4489ed68800) Thanks [@nishasy](https://github.com/nishasy)! - [FITB] Update schema to handle max uses per tile (no existing content yet)
+
+### Patch Changes
+
+-   [#4566](https://github.com/Khan/perseus/pull/4566) [`894ed72`](https://github.com/Khan/perseus/commit/894ed729bff8e27ea338eca3a11dca91c213a82a) Thanks [@benchristel](https://github.com/benchristel)! - Narrowed the types of the number-line widget's `range`, `labelRange`, and `divisionRange` properties. Previously, they were arrays, and now they are tuples. The parser now rejects data with the wrong number of elements.
+
+-   [#4441](https://github.com/Khan/perseus/pull/4441) [`79c4ac2`](https://github.com/Khan/perseus/commit/79c4ac24ad2c927cd109181b55248884be1961b2) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Add legend fields to the sorter editor, with linter warnings for missing or incomplete legends, and a sorter legend test generator
+
 ## 42.4.0
 
 ### Minor Changes
