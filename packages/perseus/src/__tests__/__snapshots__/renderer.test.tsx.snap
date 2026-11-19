@@ -103,6 +103,16 @@ exports[`renderer markdown layout tables renders a presentation table when all c
       <table
         role="presentation"
       >
+        <thead>
+          <tr>
+            <th
+              scope="col"
+            />
+            <th
+              scope="col"
+            />
+          </tr>
+        </thead>
         <tbody>
           <tr>
             <td>

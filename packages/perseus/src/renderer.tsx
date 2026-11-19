@@ -1279,9 +1279,9 @@ class Renderer
 
         return (
             <table key={state.key} role={isLayout ? "presentation" : undefined}>
-                    <thead key="thead">
-                        <tr>{headers}</tr>
-                    </thead>
+                <thead key="thead">
+                    <tr>{headers}</tr>
+                </thead>
                 <tbody key="tbody">{rows}</tbody>
             </table>
         );
@@ -1320,16 +1320,23 @@ class Renderer
         }
 
         const table = this.outputTableElement(node.table, nestedOutput, state);
-        const caption = (
-            <caption key="caption" className="perseus-table-title">
-                {nestedOutput(node.title, state)}
-            </caption>
+        const title = nestedOutput(node.title, state);
+        // A layout table isn't a table to assistive tech, so its title is a
+        // paragraph rather than a caption.
+        const contents = isLayoutTable(node.table) ? (
+            <React.Fragment key={state.key}>
+                <p className="perseus-table-title">{title}</p>
+                {table}
+            </React.Fragment>
+        ) : (
+            // Splice the caption into the table's children as the first child.
+            React.cloneElement(table, undefined, [
+                <caption key="caption" className="perseus-table-title">
+                    {title}
+                </caption>,
+                ...table.props.children,
+            ])
         );
-        // Splice the caption into the table's children as the first child.
-        const contents = React.cloneElement(table, undefined, [
-            caption,
-            ...table.props.children,
-        ]);
 
         if (state.unwrapTitledTableContents) {
             return contents;
