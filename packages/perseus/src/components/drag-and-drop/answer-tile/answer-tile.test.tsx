@@ -211,6 +211,7 @@ describe("AnswerTile", () => {
             screen.getByRole("button", {name: "Bongo"}),
         );
     });
+
     describe("a tile that mounts under the pointer", () => {
         function renderDroppedTile(mountsUnderPointer: boolean) {
             render(
