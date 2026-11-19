@@ -1,12 +1,30 @@
 import sorterWidgetLogic from "../../widgets/sorter";
 
-import type {PerseusSorterWidgetOptions, SorterWidget} from "../../data-schema";
+import type {
+    PerseusSorterWidgetOptions,
+    SorterLegend,
+    SorterWidget,
+} from "../../data-schema";
 
 export function generateSorterOptions(
     options?: Partial<PerseusSorterWidgetOptions>,
 ): PerseusSorterWidgetOptions {
     return {
         ...sorterWidgetLogic.defaultWidgetOptions,
+        ...options,
+    };
+}
+
+export function generateSorterLegend(
+    options?: Partial<SorterLegend>,
+): SorterLegend {
+    return {
+        startCap: "arrow",
+        endCap: "bar",
+        startLabel: "Lowest",
+        endLabel: "Highest",
+        ariaLabel: "Interest rates, lowest at the start to highest at the end",
+        position: "above",
         ...options,
     };
 }

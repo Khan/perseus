@@ -442,6 +442,7 @@ export {generateVideoWidget} from "./utils/generators/video-widget-generator";
 export {
     generateSorterWidget,
     generateSorterOptions,
+    generateSorterLegend,
 } from "./utils/generators/sorter-widget-generator";
 /** @hidden */
 export {generateTableOptions} from "./utils/generators/table-widget-generator";
