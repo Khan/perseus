@@ -1,5 +1,6 @@
 import {describe, it, expect} from "@jest/globals";
 import {
+    generateCategorizerWidget,
     generateNumericInputWidget,
     generateRadioWidget,
     generateInteractiveGraphWidget,
@@ -20,7 +21,6 @@ import {
     shouldHaveIndividualAnswer,
 } from "../util/extract-perseus-data";
 import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-testing";
-import {generateTestCategorizerWidget} from "../util/scoring.testutils";
 
 const stub: jest.MockedFunction<any> = jest.fn();
 
@@ -50,7 +50,7 @@ describe("ExtractPerseusData", () => {
             expect(
                 isWrongAnswerSupported(["expression 5", "categorizer 6"], {
                     "expression 5": generateExpressionWidget(),
-                    "categorizer 6": generateTestCategorizerWidget(),
+                    "categorizer 6": generateCategorizerWidget(),
                 }),
             ).toBe(true);
             expect(isWrongAnswerSupported([], {})).toBe(false);
@@ -71,7 +71,7 @@ describe("ExtractPerseusData", () => {
             ).toBe(true);
             expect(
                 shouldHaveIndividualAnswer("categorizer 2", {
-                    "categorizer 2": generateTestCategorizerWidget(),
+                    "categorizer 2": generateCategorizerWidget(),
                 }),
             ).toBe(true);
             expect(shouldHaveIndividualAnswer("", {})).toBe(false);

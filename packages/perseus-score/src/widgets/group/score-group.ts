@@ -1,6 +1,6 @@
 import {getWidgetIdsFromContent} from "@khanacademy/perseus-core";
 
-import {scoreWidgetsFunctional} from "../../score";
+import {scoreWidgets} from "../../score";
 import flattenScores from "../../util/flatten-scores";
 
 import type {
@@ -11,7 +11,7 @@ import type {
 
 // The `group` widget is basically a widget hosting a full Perseus system in
 // it. As such, scoring a group means scoring all widgets it contains.
-function scoreGroup(
+export function scoreGroup(
     userInput: PerseusGroupUserInput | undefined,
     rubric: PerseusGroupWidgetOptions,
     locale: string,
@@ -20,7 +20,7 @@ function scoreGroup(
         return {type: "invalid", message: null};
     }
 
-    const scores = scoreWidgetsFunctional(
+    const scores = scoreWidgets(
         rubric.widgets,
         getWidgetIdsFromContent(rubric.content),
         userInput,
@@ -29,5 +29,3 @@ function scoreGroup(
 
     return flattenScores(scores);
 }
-
-export default scoreGroup;

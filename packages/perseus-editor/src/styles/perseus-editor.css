@@ -236,9 +236,6 @@ code {
     margin-top: 2px;
     text-align: right;
 }
-.MathJax .math {
-    color: inherit;
-}
 #perseus {
     margin: 20px;
     z-index: 10;

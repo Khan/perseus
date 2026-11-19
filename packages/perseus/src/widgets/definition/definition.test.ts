@@ -3,11 +3,11 @@ import {
     generateDefinitionWidget,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../__testutils__/render-question";
-import {scorePerseusItemTesting} from "../../util/scoring.testutils";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
@@ -140,10 +140,7 @@ describe("Definition widget", () => {
         const {renderer} = renderQuestion(question);
 
         // Act
-        const score = scorePerseusItemTesting(
-            question,
-            renderer.getUserInputMap(),
-        );
+        const score = scoreQuestion(question, renderer.getUserInputMap(), "en");
 
         // Assert
         expect(score).toHaveBeenAnsweredCorrectly({

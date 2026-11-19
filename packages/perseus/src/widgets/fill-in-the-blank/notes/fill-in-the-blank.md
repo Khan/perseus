@@ -68,8 +68,10 @@ standalone blocks so line breaks/reflow can be controlled precisely:
 - When placed in a blank at narrow viewports, the tile+blank fill the parent
   width (contents stay left-aligned), yielding a placed-tile max width of ~500px
   (depends on blank sizing).
-- Single- vs multi-use is configurable but can't be mixed within one widget (an
-  exercise may contain several).
+- Each tile sets its own `maxUses` (a positive number, or `"unlimited"`), so
+  one choice bank can allow e.g. 10 pennies and 5 dimes. This follows a later
+  decision in a comment on the shared Overview page, which overrides the FITB
+  page's "single vs multi-use can't be mixed" line.
 
 ## Read-aloud for screen reader users (FITB-specific a11y)
 
@@ -95,11 +97,13 @@ entire answer-zone contents as one string.
   perseus-core's `src/data-schema.ts`, with the widget logic, JSON parser and
   test-data generators alongside it
   ([LEMS-4321](https://khanacademy.atlassian.net/browse/LEMS-4321)). The tile
-  type is **`PerseusAnswerTile`** — named for the Drag-and-Drop family's shared
-  element rather than for FITB, since Sorter, Categorizer and Composer render
-  the same tile. It carries presentation only (`id`, `content`, `label`,
-  `imageHeight?`); each widget expresses correctness its own way, so one
-  needing more should intersect the type locally rather than widen it.
+  type is **`PerseusFillInTheBlankTile`**: the family's shared
+  **`PerseusAnswerTile`** intersected with FITB's own `maxUses`. The shared
+  type is named for the Drag-and-Drop family rather than for FITB, since
+  Sorter, Categorizer and Composer render the same tile. It carries
+  presentation only (`id`, `content`, `label`, `imageHeight?`); each widget
+  expresses correctness its own way, so one needing more should intersect the
+  type locally rather than widen it, as FITB does.
   Scaffolding only: no render component, no scoring
   ([LEMS-4370](https://khanacademy.atlassian.net/browse/LEMS-4370)) and no
   editor ([LEMS-4371](https://khanacademy.atlassian.net/browse/LEMS-4371)) yet.

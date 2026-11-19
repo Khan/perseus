@@ -5,12 +5,11 @@ import {
     generateGroupWidget,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
-import {scorePerseusItem} from "@khanacademy/perseus-score";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../__testutils__/render-question";
-import {scorePerseusItemTesting} from "../../util/scoring.testutils";
 
 import {
     getFullGroupTestItem,
@@ -281,7 +280,7 @@ describe("group widget", () => {
         );
 
         const guess = renderer.getUserInputMap();
-        const score = scorePerseusItem(question1, guess, "en");
+        const score = scoreQuestion(question1, guess, "en");
 
         // Assert
         expect(score).toHaveBeenAnsweredCorrectly();
@@ -398,9 +397,10 @@ describe("group widget", () => {
             );
 
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItemTesting(
+            const score = scoreQuestion(
                 getFullGroupTestItem().question,
                 userInput,
+                "en",
             );
 
             // Assert
@@ -419,9 +419,10 @@ describe("group widget", () => {
             );
 
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItemTesting(
+            const score = scoreQuestion(
                 getFullGroupTestItem().question,
                 userInput,
+                "en",
             );
 
             // Assert
@@ -433,9 +434,10 @@ describe("group widget", () => {
             const {renderer} = renderQuestion(question);
 
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItemTesting(
+            const score = scoreQuestion(
                 getFullGroupTestItem().question,
                 userInput,
+                "en",
             );
 
             // Assert

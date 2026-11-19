@@ -102,7 +102,6 @@ export {default as Util} from "./util";
 export {default as KhanColors} from "./util/colors";
 /** @hidden */
 export {default as preprocessTex} from "./util/tex-preprocess";
-export {registerAllWidgetsForTesting} from "./util/register-all-widgets-for-testing";
 /** @hidden */
 export {
     containerSizeClass,
@@ -123,7 +122,6 @@ export {
     getValidWidgetIds,
 } from "./util/extract-perseus-data";
 
-export {generateTestCategorizerWidget} from "./util/scoring.testutils";
 export {
     getWidgetTypeByWidgetId,
     getWidgetSubTypeByWidgetId,

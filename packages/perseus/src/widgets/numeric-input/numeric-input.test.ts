@@ -6,14 +6,13 @@ import {
     generateTestPerseusRenderer,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {scorePerseusItem} from "@khanacademy/perseus-score";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../__testutils__/render-question";
 import {testDependenciesV2} from "../../testing/test-dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
-import {scorePerseusItemTesting} from "../../util/scoring.testutils";
 
 import NumericInputWidgetExport from "./numeric-input";
 import {
@@ -50,10 +49,7 @@ describe("numeric-input widget", () => {
             screen.getByRole("textbox", {hidden: true}),
             correct,
         );
-        const score = scorePerseusItemTesting(
-            question,
-            renderer.getUserInputMap(),
-        );
+        const score = scoreQuestion(question, renderer.getUserInputMap(), "en");
 
         // Assert
         expect(score).toHaveBeenAnsweredCorrectly();
@@ -68,10 +64,7 @@ describe("numeric-input widget", () => {
             screen.getByRole("textbox", {hidden: true}),
             incorrect,
         );
-        const score = scorePerseusItemTesting(
-            question,
-            renderer.getUserInputMap(),
-        );
+        const score = scoreQuestion(question, renderer.getUserInputMap(), "en");
 
         // Assert
         expect(score).toHaveBeenAnsweredIncorrectly();
@@ -335,9 +328,10 @@ describe("Numeric input widget", () => {
 
         // Act
         await userEvent.type(screen.getByRole("textbox", {hidden: true}), "1");
-        const score = scorePerseusItemTesting(
+        const score = scoreQuestion(
             multipleAnswers,
             renderer.getUserInputMap(),
+            "en",
         );
 
         // Assert
@@ -350,9 +344,10 @@ describe("Numeric input widget", () => {
 
         // Act
         await userEvent.type(screen.getByRole("textbox", {hidden: true}), "2");
-        const score = scorePerseusItemTesting(
+        const score = scoreQuestion(
             multipleAnswers,
             renderer.getUserInputMap(),
+            "en",
         );
 
         // Assert
@@ -368,9 +363,10 @@ describe("Numeric input widget", () => {
             screen.getByRole("textbox", {hidden: true}),
             "2.4",
         );
-        const score = scorePerseusItemTesting(
+        const score = scoreQuestion(
             duplicatedAnswers,
             renderer.getUserInputMap(),
+            "en",
         );
 
         // Assert
@@ -386,9 +382,10 @@ describe("Numeric input widget", () => {
             screen.getByRole("textbox", {hidden: true}),
             "1.0",
         );
-        const score = scorePerseusItemTesting(
+        const score = scoreQuestion(
             withCoefficient,
             renderer.getUserInputMap(),
+            "en",
         );
 
         // Assert
@@ -404,9 +401,10 @@ describe("Numeric input widget", () => {
             screen.getByRole("textbox", {hidden: true}),
             "33%",
         );
-        const score = scorePerseusItemTesting(
+        const score = scoreQuestion(
             percentageProblem,
             renderer.getUserInputMap(),
+            "en",
         );
 
         // Assert
@@ -422,9 +420,10 @@ describe("Numeric input widget", () => {
             screen.getByRole("textbox", {hidden: true}),
             "12.2",
         );
-        const score = scorePerseusItemTesting(
+        const score = scoreQuestion(
             multipleAnswersWithDecimals,
             renderer.getUserInputMap(),
+            "en",
         );
 
         // Assert
@@ -708,7 +707,7 @@ describe("interactive: full vs answerless", () => {
             );
 
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItem(
+            const score = scoreQuestion(
                 getAnswerfulItem().question,
                 userInput,
                 "en",

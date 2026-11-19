@@ -1,0 +1,12 @@
+/* TODO(LEMS-3686): Remove the !important once Wonder Blocks is in the shared layer. */
+
+.legend {
+    gap: var(--wb-sizing-size_160) !important;
+    padding-block-end: var(--wb-sizing-size_100) !important;
+}
+
+.legend-sides {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--wb-sizing-size_160);
+}

@@ -15,7 +15,10 @@
  */
 export type TilePlacements = Readonly<Record<string, string>>;
 
-export type TileUsage = "single" | "multi";
+/**
+ * How many blanks a tile may fill at once; undefined means unlimited.
+ */
+export type MaxUses = number | undefined;
 
 /** Counts the blanks that hold this tile. */
 function countPlacements(placements: TilePlacements, tileId: string): number {
@@ -31,7 +34,7 @@ export function placeTile(
     placements: TilePlacements,
     move: {tileId: string; fromBlankId?: string},
     targetBlankId: string,
-    tileUsage: TileUsage,
+    maxUses: MaxUses,
 ): TilePlacements {
     const next: Record<string, string> = {...placements};
     // The tile leaves the blank it moves out of.
@@ -39,7 +42,7 @@ export function placeTile(
         delete next[move.fromBlankId];
     }
     // A single-use tile can only be in one blank.
-    if (tileUsage === "single") {
+    if (maxUses === 1) {
         for (const [blankId, placedTileId] of Object.entries(next)) {
             if (placedTileId === move.tileId) {
                 delete next[blankId];
@@ -66,35 +69,25 @@ export function clearBlank(
 
 /**
  * Returns how many more times the tile can be placed. Returns null for
- * a multi-use tile with no cap.
+ * a tile with no cap.
  */
 export function remainingUses(
     placements: TilePlacements,
     tileId: string,
-    tileUsage: TileUsage,
-    maxUsesPerTile?: number,
+    maxUses: MaxUses,
 ): number | null {
-    const used = countPlacements(placements, tileId);
-    if (tileUsage === "multi") {
-        return maxUsesPerTile == null
-            ? null
-            : Math.max(0, maxUsesPerTile - used);
+    if (maxUses == null) {
+        return null;
     }
-    return used > 0 ? 0 : 1;
+    return Math.max(0, maxUses - countPlacements(placements, tileId));
 }
 
 /** Returns true when the choice bank shows this tile. */
 export function isTileInBank(
     placements: TilePlacements,
     tileId: string,
-    tileUsage: TileUsage,
-    maxUsesPerTile?: number,
+    maxUses: MaxUses,
 ): boolean {
-    const remaining = remainingUses(
-        placements,
-        tileId,
-        tileUsage,
-        maxUsesPerTile,
-    );
+    const remaining = remainingUses(placements, tileId, maxUses);
     return remaining == null || remaining > 0;
 }
