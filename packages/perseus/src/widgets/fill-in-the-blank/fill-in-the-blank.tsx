@@ -62,6 +62,7 @@ const FillInTheBlankWidget = forwardRef<Widget, FillInTheBlankProps>(
             handleMove,
             handleClear,
             handleDragEnd,
+            pointerDropBlankId,
             firstBankMenuRef,
             placedMenuRef,
         } = useTileMoveActions({
@@ -82,14 +83,18 @@ const FillInTheBlankWidget = forwardRef<Widget, FillInTheBlankProps>(
             if (tile == null) {
                 return null;
             }
+            // The key makes a tile swapped into this blank a new instance,
+            // so it reads mountsUnderPointer as it mounts.
             return (
                 <AnswerTile
+                    key={tile.id}
                     tileId={tile.id}
                     fromBlankId={blankId}
                     content={tile.content}
                     label={tile.label}
                     imageHeight={tile.imageHeight}
                     hidesMenuAtRest={true}
+                    mountsUnderPointer={blankId === pointerDropBlankId}
                     moveTargets={blankIds
                         .filter((id) => id !== blankId)
                         .map((id) => ({id, label: blankLabels[id]}))}
