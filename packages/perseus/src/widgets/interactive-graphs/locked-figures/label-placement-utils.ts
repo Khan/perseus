@@ -25,8 +25,8 @@ import type {vec} from "mafs";
  * aspect ratio, whereas the label should always sit the same distance from its
  * point on screen.
  *
- * The label is anchored by the edge facing its point (see `LabelAnchor`), so
- * this is clearance from the point rather than a distance to the label's
+ * The label is anchored by the corner facing its point (see `getLabelRect`),
+ * so this is clearance from the point rather than a distance to the label's
  * center — it doesn't grow with the width of the text. Part of it is taken up
  * by the point's own radius, leaving a visible gap of a few pixels.
  */
@@ -63,8 +63,8 @@ const labelHeightPx = 19;
  */
 export const assumedLabelSize: LabelSize = {width: 24, height: labelHeightPx};
 
-/** Half the diagonal of a label, the clearance it demands around itself. */
-function halfDiagonal(size: LabelSize): number {
+/** How much room a label demands around itself, as half its diagonal. */
+function labelClearance(size: LabelSize): number {
     return Math.hypot(size.width, size.height) / 2;
 }
 
@@ -91,25 +91,23 @@ function perpendicularTo([a, b]: Segment): [number, number] {
     return [-dy / length, dx / length];
 }
 
-/** Which horizontal edge of the label sits on the placement coordinate. */
-type LabelAnchorX = "left" | "right";
-
-/** Which vertical edge of the label sits on the placement coordinate. */
-type LabelAnchorY = "above" | "below";
-
 /**
- * The box a label would occupy, given where its anchored corner sits and which
- * corner that is. The box extends away from the point in both axes, matching
- * how the CSS anchors the element.
+ * The box a label would occupy when offset from its point by `offsetPx`.
+ *
+ * The offset lands on the box's corner nearest the point, and the box extends
+ * away from there — so a negative offset on an axis puts the box on the
+ * negative side, growing further in that direction.
  */
 function getLabelRect(
-    cornerPx: [number, number],
-    anchorX: LabelAnchorX,
-    anchorY: LabelAnchorY,
+    pointPx: [number, number],
+    offsetPx: [number, number],
     size: LabelSize,
 ): Rect {
-    const left = anchorX === "left" ? cornerPx[X] - size.width : cornerPx[X];
-    const top = anchorY === "above" ? cornerPx[Y] - size.height : cornerPx[Y];
+    const cornerX = pointPx[X] + offsetPx[X];
+    const cornerY = pointPx[Y] + offsetPx[Y];
+
+    const left = offsetPx[X] < 0 ? cornerX - size.width : cornerX;
+    const top = offsetPx[Y] < 0 ? cornerY - size.height : cornerY;
 
     return {
         left,
@@ -147,9 +145,9 @@ function getReferencePointInPixels(
  * The label is placed along the conceptual line running from the graph's
  * reference point (see `getReferencePointInPixels`) out through the point, so
  * it reads as belonging to that point and sits away from the middle of the
- * graph. The offset is a fixed distance along that line, which works because
- * the label is anchored by the edge facing its point: clearance doesn't depend
- * on how wide the text turns out to be once the TeX is typeset.
+ * graph. The offset is a fixed distance along that line. The label is anchored
+ * by the corner facing its point, so clearance doesn't depend on how wide the
+ * text turns out to be once the TeX is typeset.
  *
  * A point sitting exactly on the reference has no direction to follow. It gets
  * pushed up and to the right, which is clear of the tick numbers on both axes
@@ -285,41 +283,26 @@ function getTickZones(graphInfo: AutoLabelGraphInfo): Rect[] {
 }
 
 /**
- * Which side of its point a label sits on, given its offset in pixels. Pixel y
- * grows downward, so a negative vertical offset places the label above its
- * point.
- */
-function getAnchorY(verticalOffsetPx: number): LabelAnchorY {
-    return verticalOffsetPx < 0 ? "above" : "below";
-}
-
-function getAnchorX(horizontalOffsetPx: number): LabelAnchorX {
-    // A label directly above or below its point still has to pick a side; it
-    // reads the same either way, so default to extending rightward.
-    return horizontalOffsetPx < 0 ? "left" : "right";
-}
-
-/**
- * Moves a label to the other side of its point on whichever axes would
- * otherwise run past a graph edge.
+ * Adjusts a label's offset so the label stays within the graph, moving it to
+ * the other side of its point depending upon which graph edge is breached.
  *
- * Re-anchoring alone isn't enough: the label's corner sits only
- * `labelOffsetPx` from its point, so growing the box back from that corner
- * would cover the point itself. Mirroring the offset instead puts the label on
- * the opposite side with the same gap, which keeps it clear of the point and
- * still on the conceptual line through it.
+ * Growing the box back from its existing corner isn't enough: that corner
+ * sits only `labelOffsetPx` from its point, so the box would cover the point
+ * itself. Mirroring the offset instead puts the label on the opposite side
+ * with the same gap, which keeps it clear of the point and still on the
+ * conceptual line through it.
  *
  * Each axis is handled separately, and only when mirroring actually helps —
  * for a label too large to fit on either side, the original placement stands.
  * Uses the label's real dimensions, so it reacts to how wide the text renders
  * rather than guessing from the point's coordinate.
  */
-function keepLabelInBounds(
+function fitOffsetWithinGraph(
     pointPx: [number, number],
     offsetPx: [number, number],
     size: LabelSize,
     graphInfo: AutoLabelGraphInfo,
-): {cornerPx: [number, number]; anchorX: LabelAnchorX; anchorY: LabelAnchorY} {
+): [number, number] {
     let horizontalOffset = offsetPx[X];
     let verticalOffset = offsetPx[Y];
 
@@ -345,11 +328,7 @@ function keepLabelInBounds(
         verticalOffset = -verticalOffset;
     }
 
-    return {
-        cornerPx: [pointPx[X] + horizontalOffset, pointPx[Y] + verticalOffset],
-        anchorX: getAnchorX(horizontalOffset),
-        anchorY: getAnchorY(verticalOffset),
-    };
+    return [horizontalOffset, verticalOffset];
 }
 
 /**
@@ -373,13 +352,15 @@ const pointRadiusPx = 7;
 /**
  * How far a vector's arrowhead reaches from the tip it sits on, in pixels.
  *
- * The arrowhead is drawn from a path spanning roughly 5.6px either side of the
- * line and 5.7px back from the tip (see `graphs/components/arrowhead.tsx`),
- * plus half the stroke on every side. Treating it as a circle over-reserves a
- * little to the sides, where it is narrower than it is long.
+ * The arrowhead path spans 5.6px either side of the line and 5.7px back from
+ * the tip (see `graphs/components/arrowhead.tsx`), so its furthest corner is
+ * hypot(5.6, 5.7) ≈ 8px away. Plus half the stroke, which straddles the path.
+ *
+ * Treating it as a circle over-reserves a little to the sides, where the
+ * arrowhead is narrower than it is long.
  */
 export function getArrowheadRadiusPx(strokeWidth: number): number {
-    return 8.2 + strokeWidth / 2;
+    return 8 + strokeWidth / 2;
 }
 
 /**
@@ -571,21 +552,14 @@ function getPerpendicularCandidate(
     // far away it needs to sit.
     const distance = labelOffsetPx + strokeWidth / 2;
 
-    const placed = keepLabelInBounds(
+    const fittedOffset = fitOffsetWithinGraph(
         anchorPx,
         [perpendicular[X] * distance, perpendicular[Y] * distance],
         size,
         graphInfo,
     );
 
-    return {
-        rect: getLabelRect(
-            placed.cornerPx,
-            placed.anchorX,
-            placed.anchorY,
-            size,
-        ),
-    };
+    return {rect: getLabelRect(anchorPx, fittedOffset, size)};
 }
 
 function getCandidates(
@@ -599,15 +573,13 @@ function getCandidates(
     const toCandidate = (offsetPx: [number, number]): Candidate => {
         // Run every candidate through the bounds check, so a position that
         // would hang off an edge is moved to the point's other side first.
-        const placed = keepLabelInBounds(pointPx, offsetPx, size, graphInfo);
-        return {
-            rect: getLabelRect(
-                placed.cornerPx,
-                placed.anchorX,
-                placed.anchorY,
-                size,
-            ),
-        };
+        const fittedOffset = fitOffsetWithinGraph(
+            pointPx,
+            offsetPx,
+            size,
+            graphInfo,
+        );
+        return {rect: getLabelRect(pointPx, fittedOffset, size)};
     };
 
     const candidates: Candidate[] = [];
@@ -709,7 +681,7 @@ function scoreCandidate(
 ): number {
     const {rect} = candidate;
     const normalizeArea = labelOffsetPx * labelOffsetPx;
-    const ownHalfDiagonal = halfDiagonal(item.size);
+    const ownClearance = labelClearance(item.size);
 
     const centerOf = (r: Rect) => [
         (r.left + r.right) / 2,
@@ -729,8 +701,8 @@ function scoreCandidate(
         // The gap the pair needs is set by whichever label is larger. Only
         // this candidate is inflated — inflating both would double the gap.
         const required = Math.max(
-            halfDiagonal(item.size),
-            halfDiagonal(other.size),
+            labelClearance(item.size),
+            labelClearance(other.size),
         );
         labelPenalty +=
             overlapArea(inflate(required), rectToBox(other.rect)) /
@@ -745,7 +717,7 @@ function scoreCandidate(
             continue;
         }
         const gap = boxToCircleGap(
-            inflate(ownHalfDiagonal),
+            inflate(ownClearance),
             point.centerPx,
             point.radiusPx,
         );
@@ -778,10 +750,10 @@ function scoreCandidate(
         // the length of the graph, for a ray — since nothing else holds it to
         // the point it labels.
         const nearOwnAnchor =
-            isOwnLine && boxToPointDistance(box, anchorPx) <= ownHalfDiagonal;
+            isOwnLine && boxToPointDistance(box, anchorPx) <= ownClearance;
         const required = nearOwnAnchor
             ? labelOffsetPx + segment.strokeWidth / 2
-            : ownHalfDiagonal + segment.strokeWidth / 2;
+            : ownClearance + segment.strokeWidth / 2;
 
         // Measuring against its own line, a label beside the point it labels
         // is nearest that line *at that very point* — so the line's own end
@@ -790,6 +762,7 @@ function scoreCandidate(
         const measured = nearOwnAnchor
             ? trimSegmentNearPoint(segment, anchorPx, labelOffsetPx)
             : segment;
+        // const measured = segment;
         const distance = measured
             ? segmentToBoxDistance([measured.a, measured.b], box)
             : Infinity;
