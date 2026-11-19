@@ -1,3 +1,6 @@
+import {intersectIntervals} from "../../../util/interval";
+import {MAX, MIN} from "../math";
+
 import type {StrokeWeight} from "@khanacademy/perseus-core";
 import type * as React from "react";
 
@@ -40,36 +43,12 @@ export function dashedStrokeStyle(
 }
 
 export function clampDomain(
-    domain: [number | null, number | null],
+    domain: [number, number],
     graphBounds: [number, number],
 ): [number, number] | null {
-    // Infinity values are lost (converted to null) when passed through
-    // JSON serialization. Therefore, we shouldn't rely upon the parser to
-    // validate the domain values. Instead, that responsibility should be
-    // maintained here.
-    const normalizedDomain: [number, number] = [
-        domain[0] === null ? -Infinity : domain[0],
-        domain[1] === null ? Infinity : domain[1],
-    ];
     // If the domain is invalid, return the graph bounds
-    if (normalizedDomain[0] > normalizedDomain[1]) {
+    if (domain[MIN] > domain[MAX]) {
         return graphBounds;
     }
-
-    // If the domain is outside the graph bounds, return null
-    if (
-        (normalizedDomain[0] < graphBounds[0] &&
-            normalizedDomain[1] < graphBounds[0]) ||
-        (normalizedDomain[0] > graphBounds[1] &&
-            normalizedDomain[1] > graphBounds[1])
-    ) {
-        return null;
-    }
-
-    // Clamp the function to the bounds of the graph to prevent memory
-    // leaks when the domain is set to something like [-Infinity, Infinity].
-    const min = Math.max(normalizedDomain[0], graphBounds[0]);
-    const max = Math.min(normalizedDomain[1], graphBounds[1]);
-
-    return [min, max];
+    return intersectIntervals(domain, graphBounds);
 }

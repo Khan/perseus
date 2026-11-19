@@ -4,6 +4,7 @@ import {Plot} from "mafs";
 import * as React from "react";
 import {useState, useEffect} from "react";
 
+import {X, Y} from "../math";
 import useGraphConfig from "../reducer/use-graph-config";
 
 import {clampDomain, dashedStrokeStyle, strokeWeights} from "./utils";
@@ -41,8 +42,8 @@ const LockedFunction = (props: LockedFunctionType) => {
 
     const clampedDomain =
         directionalAxis === "x"
-            ? clampDomain(domain, range[0])
-            : clampDomain(domain, range[1]);
+            ? clampDomain(domain, range[X])
+            : clampDomain(domain, range[Y]);
 
     // The domain entirely is outside the bounds of the graph. Don't render.
     if (clampedDomain === null) {
