@@ -18129,7 +18129,7 @@ table: [[☃ table 1]]
                                 style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
                               >
                                 <div
-                                  class="legend-ends"
+                                  class="legend-sides"
                                 >
                                   <div
                                     class="legend-side"
