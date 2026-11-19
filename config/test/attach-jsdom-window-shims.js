@@ -106,5 +106,5 @@ const attachShims = (targetWindow) => {
     }
 };
 
-// TODO: Convert this file to an ES module (and rewrite in TypeScript, if we can)
-module.exports = attachShims;
+// TODO: Rewrite this file in TypeScript.
+export default attachShims;
