@@ -11,6 +11,7 @@ import "../crypto-polyfill";
 // eslint-disable-next-line import/no-unassigned-import -- adds a serializer
 import "../aphrodite-snapshot-serializer";
 import attachShims from "../attach-jsdom-window-shims";
+import {failOnConsole} from "../fail-on-console";
 
 import type {TestingLibraryMatchers} from "@testing-library/jest-dom/matchers";
 
@@ -46,6 +47,8 @@ expect.extend(jestDomMatchers);
 StyleSheetTestUtils.suppressStyleInjection();
 
 attachShims(globalThis);
+
+failOnConsole();
 
 beforeEach(() => {
     rs.useFakeTimers();
