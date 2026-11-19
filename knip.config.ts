@@ -64,6 +64,7 @@ const config: KnipConfig = {
                 "utils/**/*.{ts,tsx,js,jsx}",
                 // Tests import it as `@jest/globals` (see `resolve.alias` in
                 // rstest.config.mts).
+                // TODO: Remove when Jest is fully removed from the repo!
                 "config/test/rstest/jest-globals.ts",
             ],
             ignoreDependencies: [
