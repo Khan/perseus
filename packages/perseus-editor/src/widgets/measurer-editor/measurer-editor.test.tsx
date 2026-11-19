@@ -1,10 +1,7 @@
-import {Dependencies} from "@khanacademy/perseus";
 import {generateMeasurerOptions} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
-import {testDependencies} from "../../testing/test-dependencies";
 
 import MeasurerEditor from "./measurer-editor";
 
@@ -17,10 +14,6 @@ describe("MeasurerEditor", () => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
     });
 
     it("calls onChange when a checkbox is toggled", async () => {
