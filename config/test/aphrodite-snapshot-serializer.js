@@ -34,9 +34,11 @@
  */
 // TODO: Convert this file to TypeScript
 
-const aphrodite = require("aphrodite");
+// Aphrodite's entry point is CommonJS, so this default import is its
+// `module.exports` object itself (see the `css` wrapper below).
+import aphrodite from "aphrodite";
 // Aphrodite's own helpers for turning a definition into CSS.
-const {kebabifyStyleName, stringifyValue} = require("aphrodite/lib/util");
+import {kebabifyStyleName, stringifyValue} from "aphrodite/lib/util";
 
 /**
  * Maps a generated class name ("button_vr44p2-o_O-shared_1hhaz1q") to the
