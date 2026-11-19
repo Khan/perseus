@@ -1,3 +1,4 @@
+/// <reference types="@rspack/core/module" />
 import * as fs from "fs";
 import {join} from "path";
 
@@ -36,16 +37,50 @@ import type {
 } from "../../data-schema";
 
 const itemDataDir = join(__dirname, "item-data");
+const itemDataFixtures = import.meta.webpackContext("./item-data", {
+    recursive: false,
+    regExp: /\.ts$/,
+});
 const itemDataFiles = fs.readdirSync(itemDataDir);
 
 const articleDataDir = join(__dirname, "article-data");
+const articleDataFixtures = import.meta.webpackContext("./article-data", {
+    recursive: false,
+    regExp: /\.ts$/,
+});
 const articleDataFiles = fs.readdirSync(articleDataDir);
 
 const userInputDataDir = join(__dirname, "user-input-data");
+const userInputDataFixtures = import.meta.webpackContext("./user-input-data", {
+    recursive: false,
+    regExp: /\.ts$/,
+});
 const userInputDataFiles = fs.readdirSync(userInputDataDir);
 
 const rendererDataDir = join(__dirname, "renderer-data");
+const rendererDataFixtures = import.meta.webpackContext("./renderer-data", {
+    recursive: false,
+    regExp: /\.ts$/,
+});
 const rendererDataFiles = fs.readdirSync(rendererDataDir);
+
+// Returns a fixture file's default export. `import.meta.webpackContext`
+// bundles the fixture folders, so they load in Rstest's VM pools too, where
+// a runtime `import()` of a .ts file fails.
+//
+// TODO: Once Rstest's VM pools can load .ts files that aren't bundled, go back
+// to `await import(join(dir, filename))`, and remove this helper, the four
+// `import.meta.webpackContext()` calls and the `@rspack/core/module`
+// reference at the top of the file. To check, run this file with
+// `--pool.type=vmForks`: today it fails with "has unsupported format .ts in
+// VM pools".
+function fixtureData(
+    fixtures: typeof itemDataFixtures,
+    filename: string,
+): unknown {
+    // eslint-disable-next-line no-restricted-syntax -- webpackContext types each module as `unknown`
+    return (fixtures(`./${filename}`) as {default: unknown}).default;
+}
 
 describe("parseAndMigratePerseusItem", () => {
     beforeAll(() => {
@@ -54,7 +89,7 @@ describe("parseAndMigratePerseusItem", () => {
 
     describe.each(itemDataFiles)("given %s", (filename) => {
         async function getParseResult() {
-            const {default: data} = await import(join(itemDataDir, filename));
+            const data = fixtureData(itemDataFixtures, filename);
             return parseAndMigratePerseusItem(data);
         }
 
@@ -179,9 +214,7 @@ describe("parseAndMigratePerseusItem", () => {
 describe("parseAndMigratePerseusArticle", () => {
     describe.each(articleDataFiles)("given %s", (filename) => {
         async function getParseResult() {
-            const {default: data} = await import(
-                join(articleDataDir, filename)
-            );
+            const data = fixtureData(articleDataFixtures, filename);
             return parseAndMigratePerseusArticle(data);
         }
 
@@ -244,9 +277,7 @@ describe("parseAndMigrateUserInputMap", () => {
 
     describe.each(userInputDataFiles)("given the data from %s", (filename) => {
         async function getParseResult() {
-            const {default: data} = await import(
-                join(userInputDataDir, filename)
-            );
+            const data = fixtureData(userInputDataFixtures, filename);
             return parseAndMigrateUserInputMap(data);
         }
 
@@ -292,9 +323,7 @@ describe("parseAndMigratePerseusRenderer", () => {
 
     describe.each(rendererDataFiles)("given %s", (filename) => {
         async function getParseResult() {
-            const {default: data} = await import(
-                join(rendererDataDir, filename)
-            );
+            const data = fixtureData(rendererDataFixtures, filename);
             return parseAndMigratePerseusRenderer(data);
         }
 
