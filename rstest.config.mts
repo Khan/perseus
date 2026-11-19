@@ -17,6 +17,8 @@ export default defineConfig({
     ],
     restoreMocks: true,
     resetMocks: true,
+    // Restore environment variables set with `rs.stubEnv()` before each test.
+    unstubEnvs: true,
     // Enable Rsbuild's persistent build cache (in node_modules/.cache/rstest),
     // so a run reuses the previous run's build. CI doesn't restore the cache
     // between jobs, so there it would only be written and never reused.
