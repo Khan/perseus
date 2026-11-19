@@ -258,7 +258,7 @@ describe("AnswerTile", () => {
         });
     });
 
-    describe("a tile dropped back on its own blank", () => {
+    describe("a tile that stays mounted through a drop", () => {
         // Ends the tile's drag as dnd-kit reports it to monitors.
         function endOwnDrag(pointerType: string) {
             const [draggable] = capturedManager!.registry.draggables.value;
@@ -292,6 +292,37 @@ describe("AnswerTile", () => {
 
             // Assert
             expect(tile).toHaveClass(styles.heldExpanded);
+        });
+
+        it("renders full size after a mouse drop on its blank", () => {
+            // Arrange
+            render(
+                <AnswerTile
+                    {...generateAnswerTileProps({
+                        fromBlankId: "blank 1",
+                        hidesMenuAtRest: true,
+                    })}
+                />,
+                {wrapper: DndProbeWrapper},
+            );
+            const [draggable] = capturedManager!.registry.draggables.value;
+            // eslint-disable-next-line no-restricted-syntax -- Monitors read only these fields; a full dnd-kit event needs a live drag.
+            const event = {
+                operation: {
+                    source: {id: "another tile"},
+                    target: {id: "blank 1"},
+                },
+                nativeEvent: {pointerType: "mouse"},
+                canceled: false,
+            } as unknown as DragEndEvent;
+
+            // Act
+            act(() => {
+                capturedManager!.monitor.dispatch("dragend", event);
+            });
+
+            // Assert
+            expect(draggable.element).toHaveClass(styles.heldExpanded);
         });
 
         it("renders at rest after a touch drag ends", () => {

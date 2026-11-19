@@ -109,7 +109,8 @@
  * does not reflow.
  *
  * A tile dropped under the pointer counts as active too, through
- * .heldExpanded, until the pointer next moves (see AnswerTile).
+ * .heldExpanded, until the pointer next moves, as does a placed tile
+ * while a drag is over its blank (see AnswerTile).
  *
  * So does the hidden placeholder dnd-kit leaves in the tile's place.
  * dnd-kit's drop animation sizes the tile to match it, so a full-size

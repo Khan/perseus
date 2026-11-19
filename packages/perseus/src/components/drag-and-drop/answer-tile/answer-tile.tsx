@@ -1,4 +1,8 @@
-import {useDragDropMonitor, useDraggable} from "@dnd-kit/react";
+import {
+    useDragDropMonitor,
+    useDragOperation,
+    useDraggable,
+} from "@dnd-kit/react";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import checkIcon from "@phosphor-icons/core/regular/check.svg";
 import xIcon from "@phosphor-icons/core/regular/x.svg";
@@ -160,21 +164,36 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
         mountsUnderPointer === true,
     );
 
-    // A tile dropped back on its own blank does not remount, so it
-    // starts the same hold when its own mouse or pen drag ends.
+    // A placed tile shows full size while a drag is over its blank, as if
+    // hovered. dnd-kit captures the pointer during a drag, so :hover
+    // cannot apply.
+    const {target: dropTarget} = useDragOperation();
+    const isUnderDrag =
+        hidesMenuAtRest === true &&
+        fromBlankId != null &&
+        dropTarget?.id === fromBlankId;
+
+    // A tile that stays mounted through a drop under the pointer starts
+    // the same hold when the mouse or pen drag ends: a tile dropped back
+    // on its own blank, or a tile whose blank receives a drop that
+    // changes nothing (another copy of the same multi-use tile).
     const dragMonitor = React.useMemo(
         () => ({
             onDragEnd(event: DragEndEvent) {
+                const {source, target} = event.operation;
+                const endsOverTile =
+                    source?.id === dragId ||
+                    (fromBlankId != null && target?.id === fromBlankId);
                 if (
                     hidesMenuAtRest &&
-                    event.operation.source?.id === dragId &&
+                    endsOverTile &&
                     isHoverPointer(event.nativeEvent)
                 ) {
                     setIsHeldExpanded(true);
                 }
             },
         }),
-        [hidesMenuAtRest, dragId],
+        [hidesMenuAtRest, dragId, fromBlankId],
     );
     useDragDropMonitor(dragMonitor);
 
@@ -203,7 +222,7 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
         isDraggable && styles.draggable,
         isDragging && styles.dragging,
         hidesMenuAtRest && styles.hidesMenuAtRest,
-        isHeldExpanded && styles.heldExpanded,
+        (isHeldExpanded || isUnderDrag) && styles.heldExpanded,
         fillsBlank && styles.fillsBlank,
         compact && styles.compact,
     );
