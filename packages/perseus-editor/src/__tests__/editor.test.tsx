@@ -259,8 +259,7 @@ describe("Editor", () => {
     it("omits a widget from the widget dropdown in Storybook when its feature flag is off", () => {
         // Arrange: Storybook reveals every hidden widget, so the flag is the
         // only thing keeping this one out of the dropdown there.
-        const storybookEnv = process.env.STORYBOOK;
-        process.env.STORYBOOK = "true";
+        rs.stubEnv("STORYBOOK", "true");
 
         // Act
         render(
@@ -276,8 +275,6 @@ describe("Editor", () => {
         expect(
             screen.queryByRole("option", {name: "Fill in the Blank"}),
         ).not.toBeInTheDocument();
-
-        process.env.STORYBOOK = storybookEnv;
     });
 
     it("inserts a widget behind a feature flag when it is chosen from the dropdown", async () => {
