@@ -267,7 +267,16 @@ function expandStylesInElement(node) {
  * lets the clone (and its descendants) through to the default printer.
  * Without this, the clone itself would match `test()` and recurse forever.
  */
-const alreadyExpanded = new WeakSet();
+// Shared through `process`, which every VM context in a test worker sees. In
+// Rstest's VM pools, each test file registers this serializer again, and up
+// to Rstest 0.12.6 the earlier files' registrations stay active. With a set
+// per registration, each serializer would expand the others' clones until the
+// stack overflows. A shared set lets every registration skip them.
+//
+// TODO: Once Rstest is past 0.12.6 (web-infra-dev/rstest#2051 resets
+// serializers for each test file in VM pools), go back to `new WeakSet()`. To
+// check, run the snapshot tests with `--pool.maxWorkers=1`: they must pass.
+const alreadyExpanded = (process.__aphroditeAlreadyExpanded ??= new WeakSet());
 
 function expandStylesInTree(element) {
     const clone = element.cloneNode(true);
