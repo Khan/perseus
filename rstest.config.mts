@@ -35,18 +35,6 @@ export default defineConfig({
         reporters: ["json"],
         reportsDirectory: "coverage/rstest",
     },
-    resolve: {
-        alias: {
-            // Tests that import from `@jest/globals` get Rstest's test
-            // functions, and `rs` as `jest`. This is an adaptation JUST for
-            // migration and will be cleaned up at the end of this Rstest
-            // migration!
-            "@jest/globals$": path.join(
-                import.meta.dirname,
-                "config/test/rstest/jest-globals.ts",
-            ),
-        },
-    },
     output: {
         // Bundle node_modules packages in node-environment tests too (jsdom
         // tests already do), so loaders handle the .svg and .css files they
