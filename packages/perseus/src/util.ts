@@ -128,8 +128,8 @@ export function isBoldTableCell(cell: TableCell): boolean {
 }
 
 /**
- * A table whose column headers are all empty is used only for layout, so it
- * should be rendered without table semantics.
+ * Identifies whether a table is a layout table. A layout table
+ * is denoted when it has an all empty header row.
  */
 export function isLayoutTable(node: SingleASTNode): boolean {
     return node.header.every(isEmptyTableCell);

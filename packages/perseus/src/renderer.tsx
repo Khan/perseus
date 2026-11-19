@@ -1321,8 +1321,8 @@ class Renderer
 
         const table = this.outputTableElement(node.table, nestedOutput, state);
         const title = nestedOutput(node.title, state);
-        // A layout table isn't a table to assistive tech, so its title is a
-        // paragraph rather than a caption.
+        // If the table is for layout purposes, we render it not as a caption
+        // element within a table, but as a paragraph above the table.
         const contents = isLayoutTable(node.table) ? (
             <React.Fragment key={state.key}>
                 <p className="perseus-table-title">{title}</p>
