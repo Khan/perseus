@@ -60,7 +60,7 @@ function LegendEditor({legend, variant, displaysVertically, onChange}: Props) {
 
     return (
         <View className={styles.legend}>
-            <div className={styles.legendEnds}>
+            <div className={styles.legendSides}>
                 <LegendSideEditor
                     side="Start"
                     label={displayedLegend.startLabel}

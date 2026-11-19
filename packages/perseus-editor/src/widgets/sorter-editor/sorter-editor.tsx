@@ -33,6 +33,7 @@ const layoutOptions = {
     vertical: "Vertical",
 } satisfies Record<PerseusSorterWidgetOptions["layout"], string>;
 
+// TODO: Remove the disable when the variant dropdown ships.
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const variantOptions = {
     scale: "Scale",
@@ -73,6 +74,7 @@ function SorterEditor({
         });
     }
 
+    // TODO: Remove the disable when the variant dropdown ships.
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     function handleVariantChange(newVariant: SorterVariant) {
         if (legend == null) {

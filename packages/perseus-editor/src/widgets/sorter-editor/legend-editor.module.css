@@ -5,9 +5,7 @@
     padding-block-end: var(--wb-sizing-size_100) !important;
 }
 
-/* Start and End sit side by side, like the paired x and y fields in the
-   interactive graph settings. */
-.legend-ends {
+.legend-sides {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--wb-sizing-size_160);
