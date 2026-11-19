@@ -16,7 +16,7 @@
         "@jest/globals": "^30.2.0",
         "@khanacademy/eslint-config": "^6.0.2",
         "@khanacademy/eslint-plugin": "^3.2.2",
-        "@khanacademy/eslint-plugin-wonder-blocks": "1.0.0",
+        "@khanacademy/eslint-plugin-wonder-blocks": "2.1.0",
         "@khanacademy/wonder-blocks-accordion": "catalog:devDeps",
         "@khanacademy/wonder-blocks-config": "catalog:devDeps",
         "@khanacademy/wonder-blocks-core": "catalog:devDeps",
