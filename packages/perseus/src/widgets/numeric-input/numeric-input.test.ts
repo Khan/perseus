@@ -36,7 +36,7 @@ describe("numeric-input widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
@@ -87,7 +87,7 @@ describe("numeric-input widget", () => {
 
     it("should send analytics event when widget is rendered", async () => {
         // Arrange
-        const onAnalyticsEventSpy = jest.spyOn(
+        const onAnalyticsEventSpy = rs.spyOn(
             testDependenciesV2.analytics,
             "onAnalyticsEvent",
         );
@@ -95,7 +95,7 @@ describe("numeric-input widget", () => {
         // Act
         renderQuestion(question);
         act(() => {
-            jest.runAllTimers();
+            rs.runAllTimers();
         });
 
         // Assert
@@ -235,7 +235,7 @@ describe("numeric-input widget", () => {
 
     it("sends the rendered analytics event once per mount, not once per render", async () => {
         // Arrange
-        const onAnalyticsEventSpy = jest.spyOn(
+        const onAnalyticsEventSpy = rs.spyOn(
             testDependenciesV2.analytics,
             "onAnalyticsEvent",
         );
@@ -318,7 +318,7 @@ describe("Numeric input widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
@@ -641,7 +641,7 @@ describe("interactive: full vs answerless", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 

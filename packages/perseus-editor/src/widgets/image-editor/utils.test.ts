@@ -1,7 +1,7 @@
 import {isInvalidDimension} from "./utils";
 
 describe("isInvalidDimension", () => {
-    it.each`
+    it.each<any>`
         dimension    | expectedResult
         ${NaN}       | ${true}
         ${0}         | ${true}

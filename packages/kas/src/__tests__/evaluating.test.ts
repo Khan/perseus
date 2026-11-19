@@ -34,25 +34,25 @@ expect.extend({
 });
 
 // TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
-declare global {
-    // eslint-disable-next-line @typescript-eslint/no-namespace
-    namespace jest {
-        interface Matchers<R> {
-            toEvaluateAs(
-                expected: number,
-                vars?: Variables,
-                functions?: ReadonlyArray<string>,
-            ): R;
-        }
-    }
+interface CustomMatchers<R = unknown> {
+    toEvaluateAs(
+        expected: number,
+        vars?: Variables,
+        functions?: ReadonlyArray<string>,
+    ): R;
+}
+
+declare module "@rstest/core" {
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- rstest custom matcher augmentation
+    interface Assertion<T = any> extends CustomMatchers<T> {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- rstest custom matcher augmentation
+    interface AsymmetricMatchersContaining extends CustomMatchers {}
 }
 
 describe("evaluating", () => {
     // Due to a bug in `toEvaluateAs`, all tests were passing
     // whether or not they should have been.
     // This is to make sure we don't regress again.
-    // @ts-expect-error - TS2339 - Jest's types have `test.failing`, not
-    // Rstest's `test.fails`.
     test.fails("should be possible to fail", () => {
         expect("2+2").toEvaluateAs(5);
     });

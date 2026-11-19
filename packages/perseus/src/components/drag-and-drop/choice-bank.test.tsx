@@ -13,10 +13,10 @@ import {ChoiceBank} from "./choice-bank";
 
 describe("ChoiceBank", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
-        jest.spyOn(Dependencies, "useDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "useDependencies").mockReturnValue(
             testDependenciesV2,
         );
     });

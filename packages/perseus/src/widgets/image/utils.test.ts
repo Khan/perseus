@@ -4,11 +4,12 @@ import {parseGIF, decompressFrames} from "gifuct-js";
 import {graphieImage} from "./__testdata__/image.testdata";
 import {decodeGifFrames, isGif, isSvg} from "./utils";
 
+import type {Mock} from "@rstest/core";
 import type {ParsedFrame} from "gifuct-js";
 
 rs.mock("gifuct-js", () => ({
-    parseGIF: jest.fn(),
-    decompressFrames: jest.fn(),
+    parseGIF: rs.fn(),
+    decompressFrames: rs.fn(),
 }));
 
 // A minimal fake frame from gifuct-js.
@@ -54,7 +55,7 @@ describe("isSvg", () => {
 
 describe("decodeGifFrames", () => {
     afterEach(() => {
-        jest.clearAllMocks();
+        rs.clearAllMocks();
     });
 
     //Essentially, we're mocking our functions in decodeGifFrames to return
@@ -63,16 +64,16 @@ describe("decodeGifFrames", () => {
         // Arrange
         const frames = [fakeFrame, fakeFrame];
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn(() =>
+        global.fetch = rs.fn(() =>
             Promise.resolve({
                 ok: true,
                 arrayBuffer: () => Promise.resolve(new ArrayBuffer(8)),
             }),
-        ) as jest.Mock;
+        ) as Mock;
         // eslint-disable-next-line no-restricted-syntax
-        (parseGIF as jest.Mock).mockReturnValue({});
+        (parseGIF as Mock).mockReturnValue({});
         // eslint-disable-next-line no-restricted-syntax
-        (decompressFrames as jest.Mock).mockReturnValue(frames);
+        (decompressFrames as Mock).mockReturnValue(frames);
 
         // Act
         const result = await decodeGifFrames("https://example.com/image.gif");
@@ -85,7 +86,7 @@ describe("decodeGifFrames", () => {
     it("returns an empty array when the fetch response is not ok", async () => {
         // Arrange
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn(() => Promise.resolve({ok: false})) as jest.Mock;
+        global.fetch = rs.fn(() => Promise.resolve({ok: false})) as Mock;
 
         // Act
         const result = await decodeGifFrames("https://example.com/image.gif");

@@ -14,17 +14,17 @@ describe("InputWithExamples", () => {
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
     const defaultProps = {
         value: "",
-        onChange: jest.fn(),
+        onChange: rs.fn(),
         examples: ["example 1", "example 2"],
         shouldShowExamples: true,
         id: "test-input",
@@ -200,7 +200,7 @@ describe("InputWithExamples", () => {
     });
 
     it("calls onChange when input value changes", async () => {
-        const mockOnChange = jest.fn();
+        const mockOnChange = rs.fn();
         render(<InputWithExamples {...defaultProps} onChange={mockOnChange} />);
 
         const input = screen.getByRole("textbox");

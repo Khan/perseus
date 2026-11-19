@@ -40,10 +40,10 @@ describe("InteractiveGraphEditor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -66,7 +66,7 @@ describe("InteractiveGraphEditor", () => {
 
     it("changing the graph should call onChange", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(
             <InteractiveGraphEditor {...baseProps} onChange={onChangeMock} />,
@@ -243,7 +243,7 @@ describe("InteractiveGraphEditor", () => {
 
     it("Calls onChange when the number of points is changed", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(
             <InteractiveGraphEditor
@@ -274,7 +274,7 @@ describe("InteractiveGraphEditor", () => {
 
     it("Calls onChange when the number of sides is changed", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(
             <InteractiveGraphEditor
@@ -315,7 +315,7 @@ describe("InteractiveGraphEditor", () => {
 
     it("Calls onChange when 'Snap to' is changed", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(
             <InteractiveGraphEditor
@@ -351,7 +351,7 @@ describe("InteractiveGraphEditor", () => {
 
     it("Calls onChange when 'Show angle measures' is changed", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(
             <InteractiveGraphEditor
@@ -390,7 +390,7 @@ describe("InteractiveGraphEditor", () => {
 
     it("Calls onChange when 'Show side measures' is changed", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(
             <InteractiveGraphEditor
@@ -429,7 +429,7 @@ describe("InteractiveGraphEditor", () => {
 
     it("Calls onChange when 'Number of segments' is changed", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(
             <InteractiveGraphEditor
@@ -469,7 +469,7 @@ describe("InteractiveGraphEditor", () => {
 
     it("Calls onChange when 'Student answer must' for polygon is changed", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(
             <InteractiveGraphEditor
@@ -504,7 +504,7 @@ describe("InteractiveGraphEditor", () => {
 
     it("Calls onChange when 'Student answer must' for angle is changed", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(
             <InteractiveGraphEditor
@@ -566,7 +566,7 @@ describe("InteractiveGraphEditor", () => {
 
     it("calls changeStartCoords when the startCoords are changed", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(
             <InteractiveGraphEditor
@@ -784,7 +784,7 @@ describe("InteractiveGraphEditor", () => {
         expect(screen.queryByLabelText(/point/i)).not.toBeInTheDocument();
     });
 
-    test.each`
+    test.each<any>`
         graphType          | expectedNumber | correctAnswer
         ${"linear"}        | ${1}           | ${"y = 5.000"}
         ${"quadratic"}     | ${2}           | ${"y = 0.400x^2 + 0.000x + -5.000"}

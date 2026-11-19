@@ -21,11 +21,11 @@ function createMockApiOptions(): APIOptions {
         isMobile: false,
         customKeypad: true,
         // Non-serializable function callbacks (should be removed)
-        onFocusChange: jest.fn(),
-        answerableCallback: jest.fn(),
-        getAnotherHint: jest.fn(),
-        interactionCallback: jest.fn(),
-        trackInteraction: jest.fn(),
+        onFocusChange: rs.fn(),
+        answerableCallback: rs.fn(),
+        getAnotherHint: rs.fn(),
+        interactionCallback: rs.fn(),
+        trackInteraction: rs.fn(),
     };
 }
 

@@ -1,7 +1,7 @@
 import {getCoordQuadrant} from "./coord-quadrant";
 
 describe("getCoordQuadrant", () => {
-    test.each`
+    test.each<any>`
         coord       | expected
         ${[0, 0]}   | ${"origin"}
         ${[3, 0]}   | ${"x-axis"}

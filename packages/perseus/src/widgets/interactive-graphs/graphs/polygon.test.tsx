@@ -61,7 +61,7 @@ describe("hasFocusVisible", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
@@ -127,14 +127,14 @@ describe("hasFocusVisible", () => {
 
 // Common tests among limited polygons, closed unlimited polygons, and
 // open unlimited polygons.
-describe.each`
+describe.each<any>`
     polygonType             | polygonState
     ${"Limited"}            | ${baseLimitedPolygonState}
     ${"Unlimited (closed)"} | ${baseUnlimitedPolygonStateClosed}
     ${"Unlimited (open)"}   | ${baseUnlimitedPolygonStateOpen}
 `("$polygonType Polygon screen reader full graph", ({polygonState}) => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -168,7 +168,7 @@ describe.each`
         );
     });
 
-    test.each`
+    test.each<any>`
         markings   | expectedDescription
         ${"axes"}  | ${"A polygon on a coordinate plane."}
         ${"graph"} | ${"A polygon on a coordinate plane."}
@@ -198,7 +198,7 @@ describe.each`
 // Unlimited polygon should have the same experience as
 // limited polygon when it is closed.
 // These tests don't apply to open unlimited polygons.
-describe.each`
+describe.each<any>`
     polygonType    | polygonState
     ${"Limited"}   | ${baseLimitedPolygonState}
     ${"Unlimited"} | ${baseUnlimitedPolygonStateClosed}
@@ -206,12 +206,12 @@ describe.each`
     "$polygonType Polygon screen reader interactive elements",
     ({polygonState}) => {
         beforeEach(() => {
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
                 testDependencies,
             );
         });
 
-        test.each`
+        test.each<any>`
             markings   | expectedLabel
             ${"axes"}  | ${" Point 1 at 3 comma -2. Point 2 at 0 comma 4. Point 3 at -3 comma -2."}
             ${"graph"} | ${" Point 1 at 3 comma -2. Point 2 at 0 comma 4. Point 3 at -3 comma -2."}
@@ -313,7 +313,7 @@ describe.each`
 
 describe("Unlimited Polygon (open) screen reader", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -478,14 +478,14 @@ describe("Unlimited Polygon (open) screen reader", () => {
     });
 });
 
-describe.each`
+describe.each<any>`
     polygonType             | polygonState
     ${"Limited"}            | ${baseLimitedPolygonState}
     ${"Unlimited (closed)"} | ${baseUnlimitedPolygonStateClosed}
     ${"Unlimited (open)"}   | ${baseUnlimitedPolygonStateOpen}
 `("$polygonType Polygon pointLabels", ({polygonState}) => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -713,11 +713,11 @@ describe("Angle indicators", () => {
     ] satisfies vec.Vector2[];
 
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
         // Clear any previous calls to the mock
-        jest.clearAllMocks();
+        rs.clearAllMocks();
     });
 
     it("should show correct angles for concave polygons when the points are clockwise", () => {

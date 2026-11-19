@@ -39,7 +39,7 @@ describe("StatefulKeypadContextProvider", () => {
 
     it("blurs the renderer that was attached with setRenderer", () => {
         // Arrange
-        const renderer = {blur: jest.fn()};
+        const renderer = {blur: rs.fn()};
         const {latest} = renderConsumer();
 
         // Act
@@ -53,8 +53,8 @@ describe("StatefulKeypadContextProvider", () => {
 
     it("blurs only the most recently attached renderer", () => {
         // Arrange
-        const oldRenderer = {blur: jest.fn()};
-        const newRenderer = {blur: jest.fn()};
+        const oldRenderer = {blur: rs.fn()};
+        const newRenderer = {blur: rs.fn()};
         const {latest} = renderConsumer();
 
         // Act
@@ -91,7 +91,7 @@ describe("StatefulKeypadContextProvider", () => {
 
             React.useEffect(() => {
                 if (renderCount < renderLimit) {
-                    setRenderer({blur: jest.fn()});
+                    setRenderer({blur: rs.fn()});
                 }
             });
 

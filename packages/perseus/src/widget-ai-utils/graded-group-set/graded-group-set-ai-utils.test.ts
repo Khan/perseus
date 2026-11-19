@@ -6,6 +6,7 @@ import {article1} from "../../widgets/graded-group-set/graded-group-set.testdata
 
 import {getPromptJSON} from "./graded-group-set-ai-utils";
 
+import type {Mock} from "@rstest/core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("GradedGroupSet AI utils", () => {
@@ -13,17 +14,17 @@ describe("GradedGroupSet AI utils", () => {
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
         // Mocked for loading graphie in svg-image
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn(() =>
+        global.fetch = rs.fn(() =>
             Promise.resolve({
                 text: () => "",
                 ok: true,
             }),
-        ) as jest.Mock;
+        ) as Mock;
     });
 
     it("it returns JSON with the expected format and fields", () => {
@@ -125,7 +126,7 @@ describe("GradedGroupSet AI utils", () => {
 
         // Act
         await userEvent.click(screen.getByRole("button", {name: "Explain"}));
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         // Assert
         expect(renderer.getPromptJSON()).toEqual(collapsedJSON);
@@ -137,7 +138,7 @@ describe("GradedGroupSet AI utils", () => {
 
         // Act
         await userEvent.click(screen.getByRole("button", {name: "Explain"}));
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         const json = renderer.getPromptJSON();
 

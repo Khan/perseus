@@ -33,11 +33,11 @@ describe("article renderer", () => {
         // Mock ResizeObserver used by the mobile keypad. A `function`, not an
         // arrow: the keypad calls `new ResizeObserver()`, and some test
         // runners construct a mock's implementation with `new`.
-        window.ResizeObserver = jest.fn().mockImplementation(function () {
+        window.ResizeObserver = rs.fn().mockImplementation(function () {
             return {
-                observe: jest.fn(),
-                unobserve: jest.fn(),
-                disconnect: jest.fn(),
+                observe: rs.fn(),
+                unobserve: rs.fn(),
+                disconnect: rs.fn(),
             };
         });
     });
@@ -47,7 +47,7 @@ describe("article renderer", () => {
         // If we don't spin the timers here, then the timer fires in the test
         // _after_ and breaks it because we do setState() in the callback,
         // and by that point the component has been unmounted.
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
     });
 
     it("should render the content for a section", () => {
@@ -68,7 +68,7 @@ describe("article renderer", () => {
 
     it("should render the content for a section in JIPT context", () => {
         // Arrange
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
             JIPT: {
                 useJIPT: true,
@@ -84,7 +84,7 @@ describe("article renderer", () => {
 
     it("should render the content for a section as list in JIPT context", () => {
         // Arrange
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
             JIPT: {
                 useJIPT: true,
@@ -100,7 +100,7 @@ describe("article renderer", () => {
 
     it("should call the onFocusChanged callback when an input is focused", async () => {
         // Arrange
-        const answerableCallback = jest.fn();
+        const answerableCallback = rs.fn();
 
         // Act
         renderArticle(articleSectionWithExpression, {
@@ -215,7 +215,7 @@ describe("article renderer", () => {
         it("shuffles the same radio widget differently in each group of a graded group set", async () => {
             // Arrange
             const user = userEvent.setup({
-                advanceTimers: jest.advanceTimersByTime,
+                advanceTimers: rs.advanceTimersByTime,
             });
             renderArticle(
                 generateTestPerseusRenderer({

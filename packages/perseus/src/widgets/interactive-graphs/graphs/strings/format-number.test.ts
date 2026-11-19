@@ -35,7 +35,7 @@ describe("srFormatNumber", () => {
 });
 
 describe("getPiMultiple", () => {
-    test.each`
+    test.each<any>`
         num
         ${0}
         ${1e12}
@@ -57,7 +57,7 @@ describe("getPiMultiple", () => {
         },
     );
 
-    test.each`
+    test.each<any>`
         num                   | expectedString
         ${Math.PI}            | ${"1π"}
         ${-Math.PI}           | ${"-1π"}

@@ -30,7 +30,7 @@ describe("Definition widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
@@ -44,7 +44,7 @@ describe("Definition widget", () => {
 
     it("should send analytics event when widget is rendered", () => {
         // Arrange
-        const onAnalyticsEventSpy = jest.fn();
+        const onAnalyticsEventSpy = rs.fn();
         const dependencies = {
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
         };
@@ -160,7 +160,7 @@ describe("Definition widget", () => {
             // Popover's focus management (floating-ui) moves focus using
             // microtasks and animation frames, which Jest's fake timers hold
             // back.
-            jest.useRealTimers();
+            rs.useRealTimers();
             userEvent = userEventLib.setup();
         });
 
