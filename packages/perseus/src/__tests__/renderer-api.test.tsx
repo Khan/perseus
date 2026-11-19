@@ -8,10 +8,10 @@ import {ClassNames} from "../perseus-api";
 import {registerWidget} from "../widgets";
 import MockWidget from "../widgets/mock-widgets/mock-widget";
 
-import imageItem from "./test-items/image-item";
-import mockWidget1Item from "./test-items/mock-widget-1-item";
-import mockWidget2Item from "./test-items/mock-widget-2-item";
-import tableItem from "./test-items/table-item";
+import imageItem from "./test-items/image-item.testdata";
+import mockWidget1Item from "./test-items/mock-widget-1-item.testdata";
+import mockWidget2Item from "./test-items/mock-widget-2-item.testdata";
+import tableItem from "./test-items/table-item.testdata";
 
 import type {UserEvent} from "@testing-library/user-event";
 
