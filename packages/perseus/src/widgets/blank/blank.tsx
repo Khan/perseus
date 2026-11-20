@@ -20,9 +20,9 @@ type BlankProps = WidgetProps<PerseusBlankWidgetOptions, PerseusBlankUserInput>;
  * which is unique within this renderer and names the blank as a drop
  * target and move target.
  *
- * The parent widget supplies the placed tile through BlankContext. A blank
- * is only meaningful inside such a parent, so rendering one without a
- * provider throws an error.
+ * The parent widget supplies the placed tile and the empty-slot width
+ * through BlankContext. A blank is only meaningful inside such a parent,
+ * so rendering one without a provider throws an error.
  */
 const BlankWidget = forwardRef<Widget, BlankProps>(
     function BlankWidget(props, ref) {
@@ -40,6 +40,7 @@ const BlankWidget = forwardRef<Widget, BlankProps>(
             <BlankComponent
                 blankId={props.widgetId}
                 displayType={props.options.displayType}
+                minWidth={blankContext.minWidth}
                 // TODO(LEMS-4448): Remove testid once we have a better way
                 // to identify a blank-widget
                 testId="blank-widget"

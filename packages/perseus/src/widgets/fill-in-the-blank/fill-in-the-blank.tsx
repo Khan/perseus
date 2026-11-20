@@ -3,6 +3,7 @@ import {forwardRef, useImperativeHandle} from "react";
 
 import {AnswerTile} from "../../components/drag-and-drop/answer-tile";
 import {PerseusDndProvider} from "../../components/drag-and-drop/perseus-dnd-provider";
+import {TileWidthMeasurer} from "../../components/drag-and-drop/tile-width-measurer";
 import {useTileMoveActions} from "../../components/drag-and-drop/use-tile-move-actions";
 import {usePerseusI18n} from "../../components/i18n-context";
 import Renderer from "../../renderer";
@@ -55,6 +56,8 @@ const FillInTheBlankWidget = forwardRef<Widget, FillInTheBlankProps>(
             userInput,
         });
 
+        const [widestTileWidth, setWidestTileWidth] = React.useState<number>();
+
         const {
             handleMove,
             handleClear,
@@ -106,7 +109,9 @@ const FillInTheBlankWidget = forwardRef<Widget, FillInTheBlankProps>(
         return (
             <div className={styles.fillInTheBlank}>
                 <PerseusDndProvider onDragEnd={handleDragEnd}>
-                    <BlankContext.Provider value={{renderPlacedTile}}>
+                    <BlankContext.Provider
+                        value={{renderPlacedTile, minWidth: widestTileWidth}}
+                    >
                         <div className={styles.answerZone}>
                             <Renderer
                                 content={content}
@@ -124,6 +129,10 @@ const FillInTheBlankWidget = forwardRef<Widget, FillInTheBlankProps>(
                         firstMenuRef={firstBankMenuRef}
                     />
                 </PerseusDndProvider>
+                <TileWidthMeasurer
+                    tiles={tiles}
+                    onWidthChange={setWidestTileWidth}
+                />
             </div>
         );
     },
