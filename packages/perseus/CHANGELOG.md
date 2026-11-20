@@ -1,5 +1,19 @@
 # @khanacademy/perseus
 
+## 95.0.1
+
+### Patch Changes
+
+-   [#4596](https://github.com/Khan/perseus/pull/4596) [`511ffda`](https://github.com/Khan/perseus/commit/511ffda98ce1cef6cf6d31882f0500c317d4beb6) Thanks [@handeyeco](https://github.com/handeyeco)! - Disable select on draggable elements for dnd-kit components
+
+-   Updated dependencies [[`f1e953e`](https://github.com/Khan/perseus/commit/f1e953ebce191080630bb42e318c0e6aab5ec2b0)]:
+    -   @khanacademy/perseus-core@42.5.1
+    -   @khanacademy/keypad-context@6.0.16
+    -   @khanacademy/kmath@3.1.9
+    -   @khanacademy/math-input@30.2.6
+    -   @khanacademy/perseus-linter@8.2.1
+    -   @khanacademy/perseus-score@10.0.1
+
 ## 95.0.0
 
 ### Major Changes

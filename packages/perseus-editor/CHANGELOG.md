@@ -1,5 +1,19 @@
 # @khanacademy/perseus-editor
 
+## 46.1.1
+
+### Patch Changes
+
+-   [#4575](https://github.com/Khan/perseus/pull/4575) [`f1e953e`](https://github.com/Khan/perseus/commit/f1e953ebce191080630bb42e318c0e6aab5ec2b0) Thanks [@benchristel](https://github.com/benchristel)! - Initialize newly inserted widgets' options from the core widget registry's defaults, and pass those defaults to a widget editor's `initializeWidgetOptions(defaults, params)` hook
+
+-   Updated dependencies [[`f1e953e`](https://github.com/Khan/perseus/commit/f1e953ebce191080630bb42e318c0e6aab5ec2b0), [`511ffda`](https://github.com/Khan/perseus/commit/511ffda98ce1cef6cf6d31882f0500c317d4beb6)]:
+    -   @khanacademy/perseus-core@42.5.1
+    -   @khanacademy/perseus@95.0.1
+    -   @khanacademy/keypad-context@6.0.16
+    -   @khanacademy/kmath@3.1.9
+    -   @khanacademy/math-input@30.2.6
+    -   @khanacademy/perseus-linter@8.2.1
+
 ## 46.1.0
 
 ### Minor Changes
