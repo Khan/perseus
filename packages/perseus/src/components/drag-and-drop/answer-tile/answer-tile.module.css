@@ -71,6 +71,10 @@
     -webkit-touch-callout: none;
 }
 
+.draggable :global(.mathjax-selectable) {
+    pointer-events: none;
+}
+
 .draggable {
     cursor: grab;
 }
