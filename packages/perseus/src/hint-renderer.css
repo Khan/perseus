@@ -1,50 +1,53 @@
 @layer perseus-base {
-    .framework-perseus .perseus-hint-renderer {
-        /* TODO: Remove the selector with deprecated-perseus-container once it is removed from the renderer. */
-        :nth-child(1 of .perseus-renderer)
+    .framework-perseus {
+        .perseus-hint-renderer {
+            /* TODO: Remove the selector with deprecated-perseus-container once it is removed from the renderer. */
+
+            :nth-child(1 of .perseus-renderer)
             > .deprecated-perseus-container:first-child
             > :first-child,
-        :nth-child(1 of .perseus-renderer) > :first-child {
-            margin-block-start: 0;
-        }
-    }
-
-    /* Left-align images in hints. Elsewhere, images are centered. */
-    .framework-perseus .perseus-hint-renderer .perseus-image-widget,
-    .framework-perseus .perseus-hint-renderer .svg-image {
-        margin-inline-start: 0;
-    }
-
-    .framework-perseus .last-hint {
-        font-weight: bold;
-        margin-bottom: var(--wb-sizing-size_320);
-    }
-
-    .framework-perseus .perseus-hint-renderer {
-        border-left: var(--wb-border-width-thick) solid
-        var(--wb-semanticColor-core-border-neutral-subtle);
-        padding-left: var(--wb-sizing-size_160);
-        position: relative;
-
-        &:focus {
-            border-left-color: var(--wb-semanticColor-core-border-neutral-default);
-            outline: none;
+            :nth-child(1 of .perseus-renderer) > :first-child {
+                margin-block-start: 0;
+            }
         }
 
-        &:before, &:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-    }
+        /* Left-align images in hints. Elsewhere, images are centered. */
 
-    .framework-perseus .perseus-hint-label {
-        color: var(--wb-semanticColor-core-foreground-instructive-strong);
-        display: block;
-        font-weight: var(--wb-font-weight-bold);
-        margin-right: var(--wb-sizing-size_120);
-        position: absolute;
-        right: 100%;
-        white-space: nowrap;
+        .perseus-hint-renderer .perseus-image-widget,
+        .perseus-hint-renderer .svg-image {
+            margin-inline-start: 0;
+        }
+
+        .last-hint {
+            font-weight: bold;
+            margin-bottom: var(--wb-sizing-size_320);
+        }
+
+        .perseus-hint-renderer {
+            border-left: var(--wb-border-width-thick) solid var(--wb-semanticColor-core-border-neutral-subtle);
+            padding-left: var(--wb-sizing-size_160);
+            position: relative;
+
+            &:focus {
+                border-left-color: var(--wb-semanticColor-core-border-neutral-default);
+                outline: none;
+            }
+
+            &:before, &:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+        }
+
+        .perseus-hint-label {
+            color: var(--wb-semanticColor-core-foreground-instructive-strong);
+            display: block;
+            font-weight: var(--wb-font-weight-bold);
+            margin-right: var(--wb-sizing-size_120);
+            position: absolute;
+            right: 100%;
+            white-space: nowrap;
+        }
     }
 }
