@@ -1,11 +1,55 @@
 @layer perseus-base {
-    .perseus-hint-renderer {
-        /* TODO: Remove the selector with deprecated-perseus-container once it is removed from the renderer. */
-        :nth-child(1 of .perseus-renderer)
-            > .deprecated-perseus-container:first-child
-            > :first-child,
-        :nth-child(1 of .perseus-renderer) > :first-child {
-            margin-block-start: 0;
+    .framework-perseus {
+        .perseus-hint-renderer {
+            /* TODO: Remove the selector with deprecated-perseus-container once it is removed from the renderer. */
+            :nth-child(1 of .perseus-renderer)
+                > .deprecated-perseus-container:first-child
+                > :first-child,
+            :nth-child(1 of .perseus-renderer) > :first-child {
+                margin-block-start: 0;
+            }
+        }
+
+        /* Left-align images in hints. Elsewhere, images are centered. */
+        .perseus-hint-renderer .perseus-image-widget,
+        .perseus-hint-renderer .svg-image {
+            margin-inline-start: 0;
+        }
+
+        .last-hint {
+            font-weight: bold;
+            margin-block-end: var(--wb-sizing-size_320);
+        }
+
+        .perseus-hint-renderer {
+            border-inline-start: var(--wb-border-width-thick) solid
+                var(--wb-semanticColor-core-border-neutral-subtle);
+            padding-inline-start: var(--wb-sizing-size_160);
+            position: relative;
+
+            &:focus {
+                border-inline-start-color: var(
+                    --wb-semanticColor-core-border-neutral-default
+                );
+                outline: none;
+            }
+
+            &:before,
+            &:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+        }
+
+        .perseus-hint-label {
+            color: var(--wb-semanticColor-core-foreground-instructive-strong);
+            display: block;
+            font-weight: var(--wb-font-weight-bold);
+            margin-inline-end: var(--wb-sizing-size_120);
+            position: absolute;
+            inset-inline-end: 100%;
+            white-space: nowrap;
         }
     }
 }

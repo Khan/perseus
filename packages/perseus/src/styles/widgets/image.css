@@ -20,16 +20,3 @@
     height: auto;
     display: block;
 }
-
-/******************* Perseus hint renderer styles *******************/
-/* Note: all alignment styling are defined in widget-container.css */
-/* TODO(benchristel): Move rules that reference .perseus-hint-renderer to a
- * hint-specific stylesheet. Widgets shouldn't know about hints or other
- * rendering contexts. */
-
-.perseus-hint-renderer .perseus-image-widget {
-    margin-inline-start: 0;
-}
-.perseus-hint-renderer .svg-image {
-    margin-inline-start: 0;
-}

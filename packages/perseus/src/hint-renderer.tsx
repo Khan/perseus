@@ -115,10 +115,7 @@ class HintRenderer extends React.Component<Props> {
                         pos != null && (
                             <span
                                 className="perseus-hint-label"
-                                style={{
-                                    display: "block",
-                                    color: apiOptions.hintProgressColor,
-                                }}
+                                style={{color: apiOptions.hintProgressColor}}
                             >
                                 {`${pos + 1} / ${totalHints}`}
                             </span>
