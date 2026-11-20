@@ -32,9 +32,11 @@
  * name means as it is created, then rewrite class attributes on a *clone* of
  * the tree while it is being printed. The live DOM is never touched.
  */
-const aphrodite = require("aphrodite");
+// EXPERIMENT (ported from jer/rstest-cleanup): import Aphrodite as an ES
+// module, so the serializer patches the same instance the tests use.
+import aphrodite from "aphrodite";
 // Aphrodite's own helpers for turning a definition into CSS.
-const {kebabifyStyleName, stringifyValue} = require("aphrodite/lib/util");
+import {kebabifyStyleName, stringifyValue} from "aphrodite/lib/util";
 
 /**
  * Maps a generated class name ("button_vr44p2-o_O-shared_1hhaz1q") to the
@@ -262,7 +264,9 @@ function expandStylesInElement(node) {
  * lets the clone (and its descendants) through to Jest's default printer.
  * Without this, the clone itself would match `test()` and recurse forever.
  */
-const alreadyExpanded = new WeakSet();
+// EXPERIMENT (ported from jer/rstest-vm-forks): share the set through
+// `process`, which every VM context in a worker sees.
+const alreadyExpanded = (process.__aphroditeAlreadyExpanded ??= new WeakSet());
 
 function expandStylesInTree(element) {
     const clone = element.cloneNode(true);
