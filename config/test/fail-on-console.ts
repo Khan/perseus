@@ -81,5 +81,6 @@ function explanation(consoleMethod: string): string {
     );
 }
 
+// TODO: use styleText from node:util here.
 const gray = (str) => `\u001B[90m${str}\u001B[39m`;
 const bold = (str) => `\u001B[1m${str}\u001B[22m`;
