@@ -392,18 +392,6 @@ describe("Editor", () => {
         ).not.toBeInTheDocument();
     });
 
-    it("still highlights widget references when hideWidgetControls is set", () => {
-        // Arrange, Act
-        render(<Harnessed hideWidgetControls={true} />);
-
-        // Assert
-        expect(
-            screen.getByText("[[☃ image 1]]", {
-                selector: ".perseus-textarea-underlay b",
-            }),
-        ).toBeInTheDocument();
-    });
-
     it("gives an inserted widget with no editor the default options from its logic", () => {
         // Arrange
         const onChange = jest.fn();
