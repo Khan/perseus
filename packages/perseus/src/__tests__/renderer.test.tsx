@@ -1872,7 +1872,7 @@ describe("renderer", () => {
     });
 
     describe("markdown layout tables", () => {
-        it("renders a presentation table when all column headers are empty", () => {
+        it("renders when all column headers are empty", () => {
             // Arrange, Act
             const {container} = renderQuestion(
                 generateTestPerseusRenderer({
@@ -1919,10 +1919,24 @@ describe("renderer", () => {
             );
 
             // Assert
-            expect(
+            const wrappers =
                 // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-                container.querySelectorAll(".perseus-titled-table-wrapper"),
-            ).toHaveLength(1);
+                container.querySelectorAll<HTMLElement>(
+                    ".perseus-titled-table-wrapper",
+                );
+            expect(wrappers).toHaveLength(1);
+            // We expect the linter to add a warning link for the linting rule.
+            expect(
+                within(wrappers[0]).getByRole("link", {
+                    name: "Warning: table-missing-cells",
+                }),
+            ).toBeInTheDocument();
+            // We expect the table to be rendered with the title.
+            expect(
+                within(wrappers[0]).getByRole("table", {
+                    name: "Metal densities",
+                }),
+            ).toBeInTheDocument();
         });
     });
 });

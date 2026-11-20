@@ -92,7 +92,7 @@ exports[`renderer in a JIPT context replaces the \`crwdn\` placeholder with the 
 </div>
 `;
 
-exports[`renderer markdown layout tables renders a presentation table when all column headers are empty 1`] = `
+exports[`renderer markdown layout tables renders when all column headers are empty 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
