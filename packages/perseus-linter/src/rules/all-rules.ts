@@ -54,6 +54,7 @@ import SorterWidgetWarning, {
     SorterLegendDescription,
 } from "./sorter-widget-warning";
 import StaticWidgetInQuestionStem from "./static-widget-in-question-stem";
+import TableEmptyColumnHeader from "./table-empty-column-header";
 import TableMissingCaption from "./table-missing-caption";
 import TableMissingCells from "./table-missing-cells";
 import TableSingleCell from "./table-single-cell";
@@ -115,6 +116,7 @@ export function allRules(): Rule[] {
         SorterLegendDescription,
         SorterLegendLabels,
         StaticWidgetInQuestionStem,
+        TableEmptyColumnHeader,
         TableMissingCaption,
         TableMissingCells,
         TableSingleCell,
