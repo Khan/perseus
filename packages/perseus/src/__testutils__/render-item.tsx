@@ -14,6 +14,8 @@ import type {APIOptions} from "../types";
 import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
+type RenderResult = ReturnType<typeof render>;
+
 /**
  * Renders a whole `PerseusItem` (question, hints, answer area) with the
  * ServerItemRenderer. Widget tests use `renderQuestion` instead.
@@ -28,11 +30,12 @@ export const renderItem = (
     container: HTMLElement;
     renderer: ServerItemRenderer;
     rerender: any;
+    unmount: RenderResult["unmount"];
 } => {
     setDependencies(testDependencies);
 
     let renderer: ServerItemRenderer | null = null;
-    const {container, rerender} = render(
+    const {container, rerender, unmount} = render(
         <RenderStateRoot>
             <WrappedServerItemRenderer
                 ref={(node) => (renderer = node)}
@@ -74,5 +77,5 @@ export const renderItem = (
         }
     };
 
-    return {container, renderer, rerender: renderAgain};
+    return {container, renderer, rerender: renderAgain, unmount};
 };
