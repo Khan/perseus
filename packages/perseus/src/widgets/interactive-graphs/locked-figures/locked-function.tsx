@@ -4,6 +4,8 @@ import {Plot} from "mafs";
 import * as React from "react";
 import {useState, useEffect} from "react";
 
+import {expand, intervalSize} from "../../../util/interval";
+import {clamp, X, Y} from "../math";
 import useGraphConfig from "../reducer/use-graph-config";
 
 import {clampDomain, dashedStrokeStyle, strokeWeights} from "./utils";
@@ -41,13 +43,18 @@ const LockedFunction = (props: LockedFunctionType) => {
 
     const clampedDomain =
         directionalAxis === "x"
-            ? clampDomain(domain, range[0])
-            : clampDomain(domain, range[1]);
+            ? clampDomain(domain, range[X])
+            : clampDomain(domain, range[Y]);
 
     // The domain entirely is outside the bounds of the graph. Don't render.
     if (clampedDomain === null) {
         return null;
     }
+
+    const clampedRange =
+        directionalAxis === "x"
+            ? expand(range[Y], intervalSize(range[Y]))
+            : expand(range[X], intervalSize(range[X]));
 
     return (
         <g
@@ -60,14 +67,14 @@ const LockedFunction = (props: LockedFunctionType) => {
         >
             {directionalAxis === "x" && (
                 <Plot.OfX
-                    y={(x) => equation.eval({x})}
+                    y={(x) => clamp(equation.eval({x}), ...clampedRange)}
                     domain={clampedDomain}
                     {...plotProps}
                 />
             )}
             {directionalAxis === "y" && (
                 <Plot.OfY
-                    x={(y) => equation.eval({y})}
+                    x={(y) => clamp(equation.eval({y}), ...clampedRange)}
                     domain={clampedDomain}
                     {...plotProps}
                 />
