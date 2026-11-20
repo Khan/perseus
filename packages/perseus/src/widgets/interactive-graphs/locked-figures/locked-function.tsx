@@ -51,6 +51,13 @@ const LockedFunction = (props: LockedFunctionType) => {
         return null;
     }
 
+    // Clamp the range of the graphed function to a reasonable interval which
+    // is determined by the bounds of the graph. Clamping ensures that we do
+    // not attempt to graph very large values when a function is asymptotic
+    // (Safari can't handle big numbers). Expanding the range beyond the graph
+    // bounds ensures that the clamping is invisible to the learner. If we just
+    // clamped to the graph bounds, there would be an erroneous line along the
+    // edge of the graph where the function is outside the graph bounds.
     const clampedRange =
         directionalAxis === "x"
             ? expand(range[Y], intervalSize(range[Y]))
