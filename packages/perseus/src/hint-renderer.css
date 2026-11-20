@@ -4,8 +4,8 @@
             /* TODO: Remove the selector with deprecated-perseus-container once it is removed from the renderer. */
 
             :nth-child(1 of .perseus-renderer)
-            > .deprecated-perseus-container:first-child
-            > :first-child,
+                > .deprecated-perseus-container:first-child
+                > :first-child,
             :nth-child(1 of .perseus-renderer) > :first-child {
                 margin-block-start: 0;
             }
@@ -24,16 +24,20 @@
         }
 
         .perseus-hint-renderer {
-            border-left: var(--wb-border-width-thick) solid var(--wb-semanticColor-core-border-neutral-subtle);
+            border-left: var(--wb-border-width-thick) solid
+                var(--wb-semanticColor-core-border-neutral-subtle);
             padding-left: var(--wb-sizing-size_160);
             position: relative;
 
             &:focus {
-                border-left-color: var(--wb-semanticColor-core-border-neutral-default);
+                border-left-color: var(
+                    --wb-semanticColor-core-border-neutral-default
+                );
                 outline: none;
             }
 
-            &:before, &:after {
+            &:before,
+            &:after {
                 content: "";
                 display: table;
                 clear: both;
