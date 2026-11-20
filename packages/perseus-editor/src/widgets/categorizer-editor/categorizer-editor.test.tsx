@@ -1,4 +1,5 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
+import {generateCategorizerOptions} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -26,6 +27,7 @@ describe("categorizer-editor", () => {
             <CategorizerEditor
                 onChange={() => undefined}
                 apiOptions={ApiOptions.defaults}
+                {...generateCategorizerOptions()}
             />,
         );
 
@@ -41,6 +43,7 @@ describe("categorizer-editor", () => {
             <CategorizerEditor
                 onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
+                {...generateCategorizerOptions({randomizeItems: false})}
             />,
         );
 

@@ -1,4 +1,5 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
+import {generateExpressionOptions} from "@khanacademy/perseus-core";
 import {act, render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -19,7 +20,7 @@ function HarnessedEditor({
         <ExpressionEditor
             apiOptions={apiOptions}
             onChange={onChange}
-            {...rest}
+            {...generateExpressionOptions(rest)}
         />
     );
 }

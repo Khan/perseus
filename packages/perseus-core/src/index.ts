@@ -322,6 +322,7 @@ export {
 /** @hidden */
 export {
     generateAnswerTile,
+    generateFillInTheBlankTile,
     generateFillInTheBlankOptions,
     generateFillInTheBlankWidget,
 } from "./utils/generators/fill-in-the-blank-widget-generator";
@@ -446,6 +447,7 @@ export {generateVideoWidget} from "./utils/generators/video-widget-generator";
 export {
     generateSorterWidget,
     generateSorterOptions,
+    generateSorterLegend,
 } from "./utils/generators/sorter-widget-generator";
 /** @hidden */
 export {generateTableOptions} from "./utils/generators/table-widget-generator";

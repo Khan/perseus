@@ -1,6 +1,5 @@
 import {number as knumber} from "@khanacademy/kmath";
 import {components} from "@khanacademy/perseus";
-import {numberLineLogic} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import _ from "underscore";
@@ -25,9 +24,6 @@ type Props = WidgetEditorProps<PerseusNumberLineWidgetOptions>;
  * positions, intervals, and points on a number line.
  */
 class NumberLineEditor extends React.Component<Props> {
-    static defaultProps: PerseusNumberLineWidgetOptions =
-        numberLineLogic.defaultWidgetOptions;
-
     handleChange(changes: Partial<PerseusNumberLineWidgetOptions>) {
         this.props.onChange({
             range: this.props.range,
@@ -49,23 +45,24 @@ class NumberLineEditor extends React.Component<Props> {
     }
 
     handleLabelRangeChange(i: number, num: number) {
-        let labelRange = this.props.labelRange.slice();
-        const otherNum = labelRange[1 - i];
+        const otherNum = this.props.labelRange[1 - i];
+        let newLabelRange: [number | null, number | null];
 
         if (num == null || otherNum == null) {
-            labelRange[i] = num;
+            newLabelRange = [null, null];
+            newLabelRange[i] = num;
         } else {
             // If both labels have values, this updates the "appropriate" one.
             // It enforces that the position of the left label <= right label.
             // If left otherwise, it makes certain aspects of validation hard.
-            labelRange = [Math.min(num, otherNum), Math.max(num, otherNum)];
+            newLabelRange = [Math.min(num, otherNum), Math.max(num, otherNum)];
         }
 
-        this.handleChange({labelRange});
+        this.handleChange({labelRange: newLabelRange});
     }
 
     onNumDivisionsChange = (numDivisions: number) => {
-        const divRange = this.props.divisionRange.slice();
+        const [minDivisions, maxDivisions] = this.props.divisionRange;
 
         // Don't allow a fraction for the number of divisions
         numDivisions = _.isFinite(numDivisions) ? Math.round(numDivisions) : 0;
@@ -78,13 +75,12 @@ class NumberLineEditor extends React.Component<Props> {
         if (numDivisions) {
             // Constrain numDivisions to be within the allowed range
             numDivisions = Math.min(
-                divRange[1],
-                Math.max(divRange[0], numDivisions),
+                maxDivisions,
+                Math.max(minDivisions, numDivisions),
             );
 
             this.handleChange({
                 tickStep: null,
-                divisionRange: divRange,
                 numDivisions: numDivisions,
             });
         }

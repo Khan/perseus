@@ -13,11 +13,7 @@ import {
     tableHasRowHeaders,
 } from "@khanacademy/perseus-core";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
-import {
-    emptyWidgetsFunctional,
-    flattenScores,
-    scoreWidgetsFunctional,
-} from "@khanacademy/perseus-score";
+import {emptyWidgetsFunctional} from "@khanacademy/perseus-score";
 import classNames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -68,7 +64,6 @@ import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
     PerseusItem,
     PerseusRenderer,
-    PerseusScore,
     PerseusWidget,
     PerseusWidgetOptions,
     PerseusWidgetsMap,
@@ -1593,28 +1588,6 @@ class Renderer
             content,
             widgets: widgetJSON,
         };
-    }
-
-    /**
-     * Scores the content.
-     *
-     * @deprecated use scorePerseusItem
-     */
-    score(): PerseusScore {
-        if (!this.props.userInput) {
-            throw new Error(
-                `score called without providing userInput to Renderer`,
-            );
-        }
-
-        const scores = scoreWidgetsFunctional(
-            this.state.widgetInfo,
-            this.widgetIds,
-            this.props.userInput,
-            this.context.locale,
-        );
-        const combinedScore = flattenScores(scores);
-        return combinedScore;
     }
 
     // TranslationLinter callback

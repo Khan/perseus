@@ -1,0 +1,13 @@
+.graphie svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.graphie {
+    -webkit-user-select: none;
+    user-select: none;
+    white-space: pre;
+    /* Some labels are banking on specific dimensions, so we need to lock it to a specific size,
+       regardless of the theme. */
+    font-size: 14px;
+}

@@ -1,7 +1,7 @@
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {act} from "react-dom/test-utils";
 
 import {renderQuestion} from "../../__testutils__/render-question";
-import {scorePerseusItemTesting} from "../../util/scoring.testutils";
 
 import {question1} from "./iframe.testdata";
 
@@ -48,9 +48,10 @@ describe("iframe widget", () => {
                 window.dispatchEvent(fakeEvent);
             });
 
-            const score = scorePerseusItemTesting(
+            const score = scoreQuestion(
                 question1,
                 renderer.getUserInputMap(),
+                "en",
             );
             expect(score).toHaveBeenAnsweredCorrectly();
             expect(score.message).toBe("Nicely done!");
@@ -68,9 +69,10 @@ describe("iframe widget", () => {
                 window.dispatchEvent(fakeEvent);
             });
 
-            const score = scorePerseusItemTesting(
+            const score = scoreQuestion(
                 question1,
                 renderer.getUserInputMap(),
+                "en",
             );
             expect(score).toHaveBeenAnsweredIncorrectly();
             expect(score.message).toBe("Try again.");
@@ -78,9 +80,10 @@ describe("iframe widget", () => {
 
         it("should retain initial invalid score if postMessage is missing testsPassed", () => {
             const {renderer} = renderQuestion(question1);
-            const initialScore = scorePerseusItemTesting(
+            const initialScore = scoreQuestion(
                 question1,
                 renderer.getUserInputMap(),
+                "en",
             );
             const expectedInitialMessage = "Keep going, you're not there yet!";
             expect(initialScore).toHaveInvalidInput(expectedInitialMessage);
@@ -96,18 +99,20 @@ describe("iframe widget", () => {
                 window.dispatchEvent(fakeEvent);
             });
 
-            const currentScore = scorePerseusItemTesting(
+            const currentScore = scoreQuestion(
                 question1,
                 renderer.getUserInputMap(),
+                "en",
             );
             expect(currentScore).toHaveInvalidInput(expectedInitialMessage);
         });
 
         it("should retain initial invalid score if postMessage data is not valid JSON", () => {
             const {renderer} = renderQuestion(question1);
-            const initialScore = scorePerseusItemTesting(
+            const initialScore = scoreQuestion(
                 question1,
                 renderer.getUserInputMap(),
+                "en",
             );
             const expectedInitialMessage = "Keep going, you're not there yet!";
             expect(initialScore).toHaveInvalidInput(expectedInitialMessage);
@@ -119,9 +124,10 @@ describe("iframe widget", () => {
                 window.dispatchEvent(fakeEvent);
             });
 
-            const currentScore = scorePerseusItemTesting(
+            const currentScore = scoreQuestion(
                 question1,
                 renderer.getUserInputMap(),
+                "en",
             );
             expect(currentScore).toHaveInvalidInput(expectedInitialMessage);
         });

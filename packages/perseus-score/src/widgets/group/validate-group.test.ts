@@ -7,7 +7,7 @@ import {
 
 import {getTestDropdownWidget} from "../../util/widgets.testutils";
 
-import validateGroup from "./validate-group";
+import {validateGroup} from "./validate-group";
 
 describe("validateGroup", () => {
     it("returns invalid when the user input is undefined", () => {

@@ -1,4 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
+import {generateGradedGroupOptions} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -23,7 +24,12 @@ describe("GradedGroupEditor", () => {
     });
 
     it("should render", async () => {
-        render(<GradedGroupEditor onChange={() => undefined} />);
+        render(
+            <GradedGroupEditor
+                {...generateGradedGroupOptions()}
+                onChange={() => undefined}
+            />,
+        );
 
         expect(
             await screen.findByText("Graded Groups should contain a prompt"),
@@ -36,7 +42,12 @@ describe("GradedGroupEditor", () => {
     it("should add a full Renderer for a hint", async () => {
         const onChangeMock = jest.fn();
 
-        render(<GradedGroupEditor onChange={onChangeMock} />);
+        render(
+            <GradedGroupEditor
+                {...generateGradedGroupOptions()}
+                onChange={onChangeMock}
+            />,
+        );
         await userEvent.click(screen.getByRole("button", {name: "Add a hint"}));
 
         const expected: PerseusRenderer = {

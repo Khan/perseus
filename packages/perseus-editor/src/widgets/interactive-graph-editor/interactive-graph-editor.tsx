@@ -6,7 +6,6 @@ import {
     interactiveSizes,
     Util,
 } from "@khanacademy/perseus";
-import {interactiveGraphLogic} from "@khanacademy/perseus-core";
 import {Id, View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
@@ -64,14 +63,9 @@ class InteractiveGraphEditor extends React.Component<Props, State> {
         label: "Interactive Graph best practices",
     };
     displayName = "InteractiveGraphEditor";
-    className = "perseus-widget-interactive-graph";
 
     state: State = {
         valid: true,
-    };
-
-    static defaultProps = {
-        ...interactiveGraphLogic.defaultWidgetOptions,
     };
 
     handleChange(changes: Partial<PerseusInteractiveGraphWidgetOptions>) {

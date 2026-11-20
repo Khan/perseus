@@ -8,12 +8,12 @@ import {
     SORTER_MAX_HORIZONTAL_CARDS,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {isInaccessible, screen, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../../__testutils__/render-question";
 import {getFeatureFlags} from "../../../testing/feature-flags-util";
-import {scorePerseusItemTesting} from "../../../util/scoring.testutils";
 
 import type {APIOptions} from "../../../types";
 import type {PerseusRenderer, SorterLegend} from "@khanacademy/perseus-core";
@@ -663,9 +663,10 @@ describe("new sorter widget", () => {
                 const {renderer} = renderQuestion(question, {apiOptions});
 
                 // Act
-                const score = scorePerseusItemTesting(
+                const score = scoreQuestion(
                     answerfulItem.question,
                     renderer.getUserInputMap(),
+                    "en",
                 );
 
                 // Assert
@@ -679,9 +680,10 @@ describe("new sorter widget", () => {
                 await moveTileToBlank(userEvent, "Banana", 2);
 
                 // Act
-                const score = scorePerseusItemTesting(
+                const score = scoreQuestion(
                     answerfulItem.question,
                     renderer.getUserInputMap(),
+                    "en",
                 );
 
                 // Assert
@@ -696,9 +698,10 @@ describe("new sorter widget", () => {
                 await moveTileToBlank(userEvent, "Cherry", 3);
 
                 // Act
-                const score = scorePerseusItemTesting(
+                const score = scoreQuestion(
                     answerfulItem.question,
                     renderer.getUserInputMap(),
+                    "en",
                 );
 
                 // Assert
@@ -713,9 +716,10 @@ describe("new sorter widget", () => {
                 await moveTileToBlank(userEvent, "Apple", 3);
 
                 // Act
-                const score = scorePerseusItemTesting(
+                const score = scoreQuestion(
                     answerfulItem.question,
                     renderer.getUserInputMap(),
+                    "en",
                 );
 
                 // Assert

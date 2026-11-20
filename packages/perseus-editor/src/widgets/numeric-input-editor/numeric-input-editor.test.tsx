@@ -1,4 +1,5 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
+import {generateNumericInputOptions} from "@khanacademy/perseus-core";
 import {render, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -20,7 +21,7 @@ function HarnessedEditor({
         <NumericInputEditor
             apiOptions={apiOptions}
             onChange={onChange}
-            {...rest}
+            {...generateNumericInputOptions(rest)}
         />
     );
 }

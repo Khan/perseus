@@ -1,5 +1,27 @@
 # @khanacademy/perseus-score
 
+## 10.0.1
+
+### Patch Changes
+
+-   Updated dependencies [[`f1e953e`](https://github.com/Khan/perseus/commit/f1e953ebce191080630bb42e318c0e6aab5ec2b0)]:
+    -   @khanacademy/perseus-core@42.5.1
+    -   @khanacademy/kmath@3.1.9
+
+## 10.0.0
+
+### Major Changes
+
+-   [#4558](https://github.com/Khan/perseus/pull/4558) [`87cb448`](https://github.com/Khan/perseus/commit/87cb448874ee0edb7fe4e062a99e3343e4a2290c) Thanks [@benchristel](https://github.com/benchristel)! - Renamed `scorePerseusItem` to `scoreQuestion`; the old name is kept as a deprecated alias. Also removed the deprecated `score` method of `Renderer` and the export of `scoreWidgetsFunctional` from `perseus-score`.
+
+### Patch Changes
+
+-   [#4549](https://github.com/Khan/perseus/pull/4549) [`d1b2485`](https://github.com/Khan/perseus/commit/d1b2485eeec77256d0f1219f49aba3cf6fa4d27c) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Export the group widget's scorer and validator as named functions, so the widget registry can read them while their modules are still loading
+
+-   Updated dependencies [[`18aabdc`](https://github.com/Khan/perseus/commit/18aabdcfcbe7a753263514143c1af7711de1f474), [`a0b8db9`](https://github.com/Khan/perseus/commit/a0b8db913a3497f8344610791635a4489ed68800), [`894ed72`](https://github.com/Khan/perseus/commit/894ed729bff8e27ea338eca3a11dca91c213a82a), [`79c4ac2`](https://github.com/Khan/perseus/commit/79c4ac24ad2c927cd109181b55248884be1961b2)]:
+    -   @khanacademy/perseus-core@42.5.0
+    -   @khanacademy/kmath@3.1.8
+
 ## 9.0.15
 
 ### Patch Changes

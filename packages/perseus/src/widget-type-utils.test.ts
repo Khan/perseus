@@ -1,10 +1,10 @@
 import {
+    generateCategorizerWidget,
     generateInteractiveGraphOptions,
     generateInteractiveGraphWidget,
     generateRadioWidget,
 } from "@khanacademy/perseus-core";
 
-import {generateTestCategorizerWidget} from "./util/scoring.testutils";
 import {
     getWidgetTypeByWidgetId,
     contentHasWidgetType,
@@ -69,7 +69,7 @@ describe("widget-type-utils", () => {
         });
 
         it("returns null for widget without a subtype", () => {
-            const widget = generateTestCategorizerWidget();
+            const widget = generateCategorizerWidget();
             const subType = getWidgetSubType(widget.type, widget.options);
             expect(subType).toBeNull();
         });
@@ -97,7 +97,7 @@ describe("widget-type-utils", () => {
             // Assemble
             const widgetId = "dont-look-for-type-in-id";
             const widgetMap = {
-                [widgetId]: generateTestCategorizerWidget(),
+                [widgetId]: generateCategorizerWidget(),
             };
 
             // Act
@@ -194,7 +194,7 @@ describe("widget-type-utils", () => {
             const widgetId2 = "this-is-another-widget-id";
             const widgetMap = {
                 [widgetId1]: generateRadioWidget(),
-                [widgetId2]: generateTestCategorizerWidget(),
+                [widgetId2]: generateCategorizerWidget(),
             };
 
             // Act
@@ -214,7 +214,7 @@ describe("widget-type-utils", () => {
             const wrongWidgetId = "this-is-another-widget-id";
             const widgetMap = {
                 [rightWidgetId]: generateRadioWidget(),
-                [wrongWidgetId]: generateTestCategorizerWidget(),
+                [wrongWidgetId]: generateCategorizerWidget(),
             };
 
             // Act

@@ -1,4 +1,5 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
+import {generateInteractiveGraphOptions} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -13,21 +14,18 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const baseProps = {
+    ...generateInteractiveGraphOptions({
+        gridStep: [1, 1],
+        snapStep: [1, 1],
+        showAxisArrows: {
+            xMin: true,
+            xMax: true,
+            yMin: true,
+            yMax: true,
+        },
+    }),
     apiOptions: ApiOptions.defaults,
-    // eslint-disable-next-line no-restricted-syntax
-    box: [288, 288] as [number, number],
-    // eslint-disable-next-line no-restricted-syntax
-    gridStep: [1, 1] as [number, number],
-    // eslint-disable-next-line no-restricted-syntax
-    snapStep: [1, 1] as [number, number],
-    showAxisArrows: {
-        xMin: true,
-        xMax: true,
-        yMin: true,
-        yMax: true,
-    },
     onChange: () => {},
-    graph: undefined,
 };
 
 const segmentProps: PropsFor<typeof InteractiveGraphEditor> = {

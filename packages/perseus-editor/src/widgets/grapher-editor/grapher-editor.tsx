@@ -6,10 +6,7 @@ import {
     getInteractiveBoxFromSizeClass,
     ApiOptions,
 } from "@khanacademy/perseus";
-import {
-    GrapherUtil as CoreGrapherUtil,
-    grapherLogic,
-} from "@khanacademy/perseus-core";
+import {GrapherUtil as CoreGrapherUtil} from "@khanacademy/perseus-core";
 import * as React from "react";
 import invariant from "tiny-invariant";
 
@@ -31,9 +28,6 @@ const {defaultPlotProps, getEquationString, typeToButton} = GrapherUtil;
 type Props = WidgetEditorProps<PerseusGrapherWidgetOptions>;
 
 class GrapherEditor extends React.Component<Props> {
-    static defaultProps: PerseusGrapherWidgetOptions =
-        grapherLogic.defaultWidgetOptions;
-
     handleChange(changes: Partial<PerseusGrapherWidgetOptions>) {
         this.props.onChange({
             availableTypes: this.props.availableTypes,

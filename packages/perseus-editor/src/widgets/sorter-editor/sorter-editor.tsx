@@ -3,19 +3,23 @@ import {
     SORTER_MAX_HORIZONTAL_CARDS,
     SORTER_MAX_CARDS,
     type PerseusSorterWidgetOptions,
+    type SorterVariant,
 } from "@khanacademy/perseus-core";
 import Banner from "@khanacademy/wonder-blocks-banner";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import * as React from "react";
 
 import InfoTip from "../../components/info-tip";
+import PerseusEditorAccordion from "../../components/perseus-editor-accordion";
 import {TypedSingleSelect} from "../../components/typed-single-select";
 
 import CardEditor from "./card-editor";
+import LegendEditor, {getDefaultLegend} from "./legend-editor";
 import styles from "./sorter-editor.module.css";
 
 // Annotated because WidgetLogic types `defaultWidgetOptions` as `any`. Without
@@ -27,7 +31,14 @@ const defaultOptions: PerseusSorterWidgetOptions =
 const layoutOptions = {
     horizontal: "Horizontal",
     vertical: "Vertical",
-} as const satisfies Record<PerseusSorterWidgetOptions["layout"], string>;
+} satisfies Record<PerseusSorterWidgetOptions["layout"], string>;
+
+// TODO: Remove the disable when the variant dropdown ships.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const variantOptions = {
+    scale: "Scale",
+    timeline: "Timeline",
+} satisfies Record<SorterVariant, string>;
 
 // TODO(benchristel): Define Props in terms of WidgetEditorProps. We can't do
 //  this currently because `pnpm build:types` fails with a cryptic error. The
@@ -48,6 +59,10 @@ function SorterEditor({
     legend,
     onChange,
 }: Props) {
+    const [isLegendExpanded, setIsLegendExpanded] = React.useState(true);
+    const displaysVertically =
+        layout === "vertical" || correct.length > SORTER_MAX_HORIZONTAL_CARDS;
+
     function handleChange(changes: Partial<PerseusSorterWidgetOptions>) {
         onChange({
             correct,
@@ -56,6 +71,30 @@ function SorterEditor({
             variant,
             legend,
             ...changes,
+        });
+    }
+
+    // TODO: Remove the disable when the variant dropdown ships.
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    function handleVariantChange(newVariant: SorterVariant) {
+        if (legend == null) {
+            handleChange({variant: newVariant});
+            return;
+        }
+
+        const oldDefault = getDefaultLegend(variant);
+        const hasDefaultCaps =
+            legend.startCap === oldDefault.startCap &&
+            legend.endCap === oldDefault.endCap;
+        if (!hasDefaultCaps) {
+            handleChange({variant: newVariant});
+            return;
+        }
+
+        const {startCap, endCap} = getDefaultLegend(newVariant);
+        handleChange({
+            variant: newVariant,
+            legend: {...legend, startCap, endCap},
         });
     }
 
@@ -132,6 +171,19 @@ function SorterEditor({
                     Add a card
                 </Button>
             </View>
+            {/* TODO: Show the variant dropdown when the timeline variant ships.
+                Until then, timeline looks the same as scale, so authors could
+                pick it without knowing what it will change.
+            <LabeledField
+                label="Variant"
+                field={
+                    <TypedSingleSelect
+                        options={variantOptions}
+                        selectedValue={variant}
+                        onChange={handleVariantChange}
+                    />
+                }
+            /> */}
             <LabeledField
                 label="Layout"
                 field={
@@ -173,6 +225,22 @@ function SorterEditor({
                     <p>Padding is good for text, but not needed for images.</p>
                 </InfoTip>
             </div>
+            <PerseusEditorAccordion
+                header={
+                    <BodyText size="medium" weight="bold" tag="span">
+                        Legend
+                    </BodyText>
+                }
+                expanded={isLegendExpanded}
+                onToggle={setIsLegendExpanded}
+            >
+                <LegendEditor
+                    legend={legend}
+                    variant={variant}
+                    displaysVertically={displaysVertically}
+                    onChange={(legend) => handleChange({legend})}
+                />
+            </PerseusEditorAccordion>
         </View>
     );
 }

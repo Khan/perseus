@@ -71,6 +71,8 @@ utils/                   # Repo scripts (changed-files, lint, publishing)
 - Wrap comments and string literals at 80 columns. Prettier doesn't wrap
   them. Split long strings by concatenation so the runtime value is
   unchanged.
+- Don't hand-write CSS vendor prefixes (`-webkit-`, etc.). The build adds
+  them for the browsers in `config/build/browser-targets.ts`.
 - Run `pnpm fixc` to format and lint changed files.
 
 ## Testing Guidelines

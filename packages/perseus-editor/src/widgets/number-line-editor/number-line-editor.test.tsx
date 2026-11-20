@@ -1,4 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
+import {generateNumberLineOptions} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -22,7 +23,12 @@ describe("number-line-editor", () => {
     });
 
     it("should render", async () => {
-        render(<NumberLineEditor onChange={() => undefined} />);
+        render(
+            <NumberLineEditor
+                {...generateNumberLineOptions()}
+                onChange={() => undefined}
+            />,
+        );
 
         expect(await screen.findByText("Correct x")).toBeInTheDocument();
     });
@@ -43,6 +49,7 @@ describe("number-line-editor", () => {
             const selected = name === "Equal" ? "lt" : "eq";
             render(
                 <NumberLineEditor
+                    {...generateNumberLineOptions()}
                     onChange={onChangeMock}
                     correctRel={selected}
                 />,
@@ -64,7 +71,12 @@ describe("number-line-editor", () => {
     it("should be possible to update the answer", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumberLineEditor onChange={onChangeMock} />);
+        render(
+            <NumberLineEditor
+                {...generateNumberLineOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         const input = screen.getByPlaceholderText("answer");
         await userEvent.type(input, "1");
@@ -77,7 +89,12 @@ describe("number-line-editor", () => {
     it("should be possible to update position", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumberLineEditor onChange={onChangeMock} />);
+        render(
+            <NumberLineEditor
+                {...generateNumberLineOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         const input = screen.getByRole("textbox", {name: "Position: ∈"});
         await userEvent.type(input, "1");
@@ -90,7 +107,12 @@ describe("number-line-editor", () => {
     it("should be possible to update style", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumberLineEditor onChange={onChangeMock} />);
+        render(
+            <NumberLineEditor
+                {...generateNumberLineOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         await userEvent.click(screen.getByTitle("Improper fractions"));
 
@@ -102,7 +124,12 @@ describe("number-line-editor", () => {
     it("should be possible to change show tick controller", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumberLineEditor onChange={onChangeMock} />);
+        render(
+            <NumberLineEditor
+                {...generateNumberLineOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         await userEvent.click(
             screen.getByRole("checkbox", {name: "Show tick controller"}),
@@ -116,7 +143,12 @@ describe("number-line-editor", () => {
     it("should be possible to change show label tickets", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumberLineEditor onChange={onChangeMock} />);
+        render(
+            <NumberLineEditor
+                {...generateNumberLineOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         await userEvent.click(
             screen.getByRole("checkbox", {name: "Show label ticks"}),
@@ -130,7 +162,12 @@ describe("number-line-editor", () => {
     it("should be possible to change show tooltips", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumberLineEditor onChange={onChangeMock} />);
+        render(
+            <NumberLineEditor
+                {...generateNumberLineOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         await userEvent.click(
             screen.getByRole("checkbox", {name: "Show tooltips"}),
@@ -144,7 +181,13 @@ describe("number-line-editor", () => {
     it("should be possible to update tick steps", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumberLineEditor onChange={onChangeMock} />);
+        render(
+            <NumberLineEditor
+                {...generateNumberLineOptions()}
+                onChange={onChangeMock}
+                tickStep={null}
+            />,
+        );
 
         const input = screen.getByRole("textbox", {
             name: "or tick step:",
@@ -159,10 +202,111 @@ describe("number-line-editor", () => {
         );
     });
 
+    describe("label range", () => {
+        function renderWithLabelRange(
+            labelRange: [number | null, number | null],
+        ) {
+            const onChangeMock = jest.fn();
+            render(
+                <NumberLineEditor
+                    {...generateNumberLineOptions()}
+                    onChange={onChangeMock}
+                    // Static mode hides the Position input, whose
+                    // placeholder would otherwise match the left label's.
+                    static={true}
+                    range={[0, 10]}
+                    // A tick step of 2 gives the "Num divisions" input a
+                    // placeholder of 5, distinct from the right label's 10.
+                    // This matters because tests select inputs by placeholder.
+                    // TODO(benchristel): give inputs accessible labels and
+                    //  avoid selecting by placeholder.
+                    tickStep={2}
+                    labelRange={labelRange}
+                />,
+            );
+            return onChangeMock;
+        }
+
+        async function replaceValue(input: HTMLElement, text: string) {
+            await userEvent.clear(input);
+            await userEvent.type(input, text);
+        }
+
+        it("sets the left label when the right label is unset", async () => {
+            // Arrange
+            const onChangeMock = renderWithLabelRange([null, null]);
+
+            // Act
+            await userEvent.type(screen.getByPlaceholderText("0"), "3");
+
+            // Assert
+            expect(onChangeMock).toHaveBeenLastCalledWith(
+                expect.objectContaining({labelRange: [3, null]}),
+            );
+        });
+
+        it("sets the right label when the left label is unset", async () => {
+            // Arrange
+            const onChangeMock = renderWithLabelRange([null, null]);
+
+            // Act
+            await userEvent.type(screen.getByPlaceholderText("10"), "7");
+
+            // Assert
+            expect(onChangeMock).toHaveBeenLastCalledWith(
+                expect.objectContaining({labelRange: [null, 7]}),
+            );
+        });
+
+        it("keeps the labels in place when an edit preserves their order", async () => {
+            // Arrange
+            const onChangeMock = renderWithLabelRange([3, 6]);
+
+            // Act
+            await replaceValue(screen.getByDisplayValue("3"), "5");
+
+            // Assert
+            expect(onChangeMock).toHaveBeenLastCalledWith(
+                expect.objectContaining({labelRange: [5, 6]}),
+            );
+        });
+
+        it("swaps the labels when the left label is greater than the right", async () => {
+            // Arrange
+            const onChangeMock = renderWithLabelRange([3, 6]);
+
+            // Act
+            await replaceValue(screen.getByDisplayValue("3"), "8");
+
+            // Assert
+            expect(onChangeMock).toHaveBeenLastCalledWith(
+                expect.objectContaining({labelRange: [6, 8]}),
+            );
+        });
+
+        it("swaps the labels when the right label is less than the left", async () => {
+            // Arrange
+            const onChangeMock = renderWithLabelRange([3, 6]);
+
+            // Act
+            await replaceValue(screen.getByDisplayValue("6"), "1");
+
+            // Assert
+            expect(onChangeMock).toHaveBeenLastCalledWith(
+                expect.objectContaining({labelRange: [1, 3]}),
+            );
+        });
+    });
+
     it("should be possible to update snap divisions", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumberLineEditor onChange={onChangeMock} />);
+        render(
+            <NumberLineEditor
+                {...generateNumberLineOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         const input = screen.getByRole("textbox", {
             name: "Snap increments per tick:",

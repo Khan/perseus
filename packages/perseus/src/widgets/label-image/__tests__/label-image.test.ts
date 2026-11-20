@@ -5,14 +5,13 @@ import {
     generateTestPerseusRenderer,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {scorePerseusItem} from "@khanacademy/perseus-score";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../../__testutils__/render-question";
 import {testDependenciesV2} from "../../../testing/test-dependencies";
-import {scorePerseusItemTesting} from "../../../util/scoring.testutils";
-import {LabelImage, getComputedSelectedState} from "../label-image";
+import {getComputedSelectedState, LabelImage} from "../label-image";
 
 import {shortTextQuestion, textQuestion} from "./label-image.testdata";
 
@@ -930,15 +929,16 @@ describe("LabelImage", function () {
         });
     });
 
-    describe("scorePerseusItem", () => {
+    describe("scoreQuestion", () => {
         it("should be invalid on first render", () => {
             // Arrange
             const {renderer} = renderQuestion(textQuestion);
 
             // Act
-            const score = scorePerseusItemTesting(
+            const score = scoreQuestion(
                 textQuestion,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert
@@ -1218,7 +1218,7 @@ describe("LabelImage", function () {
 
             // Act
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItem(
+            const score = scoreQuestion(
                 answerfulItem.question,
                 userInput,
                 "en",
@@ -1241,9 +1241,10 @@ describe("LabelImage", function () {
             const choice = screen.getByRole("option", {name: "SUVs"});
             await userEvent.click(choice);
 
-            const score = scorePerseusItemTesting(
+            const score = scoreQuestion(
                 answerfulItem.question,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert
@@ -1263,9 +1264,10 @@ describe("LabelImage", function () {
             const choice = screen.getByRole("option", {name: "Trucks"});
             await userEvent.click(choice);
 
-            const score = scorePerseusItemTesting(
+            const score = scoreQuestion(
                 answerfulItem.question,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert

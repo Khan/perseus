@@ -1,7 +1,7 @@
 import {expect, test} from "@internal/playwright";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 
 import renderQuestion from "../../../testing/playwright/render-question";
-import {scorePerseusItemTesting} from "../../../util/scoring.testutils";
 import {twoCardVerticalQuestion} from "../sorter.testdata";
 
 import type {Locator} from "@playwright/test";
@@ -97,9 +97,10 @@ test.describe("Sorter widget", () => {
         // `toPass` retries while the asynchronous user-input update finishes
         // after the mouse release.
         await expect(async () => {
-            const score = scorePerseusItemTesting(
+            const score = scoreQuestion(
                 twoCardVerticalQuestion,
                 await getUserInputMap(),
+                "en",
             );
             expect(score).toHaveBeenAnsweredCorrectly();
         }).toPass();
