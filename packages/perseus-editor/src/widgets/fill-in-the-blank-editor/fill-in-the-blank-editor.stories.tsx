@@ -61,7 +61,7 @@ const question = generateTestPerseusRenderer({
                         id: "tile-3",
                         content: "feet",
                         label: "feet",
-                        maxUses: 1,
+                        maxUses: 2,
                     }),
                 ],
             }),

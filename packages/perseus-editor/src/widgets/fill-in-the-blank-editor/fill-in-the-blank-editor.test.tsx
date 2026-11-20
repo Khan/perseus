@@ -4,7 +4,7 @@ import {
     generateFillInTheBlankOptions,
     generateFillInTheBlankTile,
 } from "@khanacademy/perseus-core";
-import {render, screen} from "@testing-library/react";
+import {render, screen, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -66,6 +66,12 @@ function renderEditor(
 
 describe("fill-in-the-blank-editor", () => {
     let userEvent: UserEvent;
+
+    /** Expands a choice's settings and returns the region holding them. */
+    async function openChoice(name: string): Promise<HTMLElement> {
+        await userEvent.click(screen.getByRole("button", {name}));
+        return screen.getByRole("region", {name});
+    }
 
     beforeAll(() => {
         registerAllWidgetsAndEditorsForTesting();
@@ -243,6 +249,237 @@ describe("fill-in-the-blank-editor", () => {
             expect(
                 screen.getByRole("button", {name: "Insert blank"}),
             ).toHaveAttribute("aria-disabled", "true");
+        });
+    });
+
+    describe("choices", () => {
+        it("disables Add a choice when editing is disabled", () => {
+            // Arrange, Act
+            render(
+                <FillInTheBlankEditor
+                    {...optionsWithOneBlank()}
+                    apiOptions={{...apiOptions, editingDisabled: true}}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("button", {name: "Add a choice"}),
+            ).toHaveAttribute("aria-disabled", "true");
+        });
+
+        it("adds an empty, single-use choice", async () => {
+            // Arrange
+            const onChange = jest.fn();
+            renderEditor(generateFillInTheBlankOptions({tiles: []}), onChange);
+
+            // Act
+            await userEvent.click(
+                screen.getByRole("button", {name: "Add a choice"}),
+            );
+
+            // Assert
+            expect(onChange).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    tiles: [
+                        {
+                            id: expect.any(String),
+                            content: "",
+                            label: "",
+                            maxUses: 1,
+                        },
+                    ],
+                }),
+            );
+        });
+
+        // The widget editor container replaces the widget's options with
+        // what onChange receives, so dropping a field here would erase it.
+        it("keeps the content, blanks and randomize setting when editing a choice", async () => {
+            // Arrange
+            const onChange = jest.fn();
+            const options = optionsWithOneBlank({randomize: true});
+            renderEditor(options, onChange);
+            const choice = await openChoice("Choice 1: djembe");
+
+            // Act
+            await userEvent.type(
+                within(choice).getByRole("textbox", {name: "Answer"}),
+                "s",
+            );
+
+            // Assert
+            expect(onChange).toHaveBeenLastCalledWith(
+                expect.objectContaining({
+                    content: options.content,
+                    widgets: options.widgets,
+                    randomize: true,
+                }),
+            );
+        });
+
+        it("updates a choice's answer text", async () => {
+            // Arrange
+            const onChange = jest.fn();
+            renderEditor(optionsWithOneBlank(), onChange);
+            const choice = await openChoice("Choice 2: tabla");
+
+            // Act
+            await userEvent.type(
+                within(choice).getByRole("textbox", {name: "Answer"}),
+                "s",
+            );
+
+            // Assert
+            expect(onChange).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    tiles: [
+                        expect.objectContaining({
+                            id: "tile-1",
+                            content: "djembe",
+                        }),
+                        expect.objectContaining({
+                            id: "tile-2",
+                            content: "tablas",
+                        }),
+                    ],
+                }),
+            );
+        });
+
+        it("updates a choice's aria label", async () => {
+            // Arrange
+            const onChange = jest.fn();
+            renderEditor(optionsWithOneBlank(), onChange);
+            const choice = await openChoice("Choice 1: djembe");
+
+            // Act
+            await userEvent.type(
+                within(choice).getByRole("textbox", {name: "Aria label"}),
+                "s",
+            );
+
+            // Assert
+            expect(onChange).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    tiles: [
+                        expect.objectContaining({
+                            id: "tile-1",
+                            label: "djembes",
+                        }),
+                        expect.objectContaining({id: "tile-2", label: "tabla"}),
+                    ],
+                }),
+            );
+        });
+
+        it("updates a choice's max uses", async () => {
+            // Arrange
+            const onChange = jest.fn();
+            renderEditor(optionsWithOneBlank(), onChange);
+            const choice = await openChoice("Choice 1: djembe");
+            const maxUses = within(choice).getByRole("spinbutton", {
+                name: "Max uses",
+            });
+
+            // Act
+            await userEvent.clear(maxUses);
+            await userEvent.type(maxUses, "3");
+
+            // Assert
+            expect(onChange).toHaveBeenLastCalledWith(
+                expect.objectContaining({
+                    tiles: [
+                        expect.objectContaining({id: "tile-1", maxUses: 3}),
+                        expect.objectContaining({id: "tile-2", maxUses: 1}),
+                    ],
+                }),
+            );
+        });
+
+        it("makes a choice unlimited-use", async () => {
+            // Arrange
+            const onChange = jest.fn();
+            renderEditor(optionsWithOneBlank(), onChange);
+            const choice = await openChoice("Choice 1: djembe");
+
+            // Act
+            await userEvent.click(
+                within(choice).getByRole("checkbox", {name: "Unlimited uses"}),
+            );
+
+            // Assert
+            expect(onChange).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    tiles: [
+                        expect.objectContaining({
+                            id: "tile-1",
+                            maxUses: "unlimited",
+                        }),
+                        expect.objectContaining({id: "tile-2", maxUses: 1}),
+                    ],
+                }),
+            );
+        });
+
+        it("hides the max uses field for an unlimited-use choice", async () => {
+            // Arrange
+            renderEditor(
+                optionsWithOneBlank({
+                    tiles: [
+                        generateFillInTheBlankTile({
+                            id: "tile-1",
+                            content: "djembe",
+                            maxUses: "unlimited",
+                        }),
+                    ],
+                }),
+            );
+
+            // Act
+            const choice = await openChoice("Choice 1: djembe");
+
+            // Assert
+            expect(
+                within(choice).queryByRole("spinbutton", {name: "Max uses"}),
+            ).not.toBeInTheDocument();
+        });
+
+        it("removes a choice", async () => {
+            // Arrange
+            jest.spyOn(window, "confirm").mockReturnValue(true);
+            const onChange = jest.fn();
+            renderEditor(optionsWithOneBlank(), onChange);
+            const choice = await openChoice("Choice 1: djembe");
+
+            // Act
+            await userEvent.click(
+                within(choice).getByRole("button", {name: "Remove choice"}),
+            );
+
+            // Assert
+            expect(onChange).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    tiles: [expect.objectContaining({id: "tile-2"})],
+                }),
+            );
+        });
+
+        it("keeps a choice when removal is not confirmed", async () => {
+            // Arrange
+            jest.spyOn(window, "confirm").mockReturnValue(false);
+            const onChange = jest.fn();
+            renderEditor(optionsWithOneBlank(), onChange);
+            const choice = await openChoice("Choice 1: djembe");
+
+            // Act
+            await userEvent.click(
+                within(choice).getByRole("button", {name: "Remove choice"}),
+            );
+
+            // Assert
+            expect(onChange).not.toHaveBeenCalled();
         });
     });
 });

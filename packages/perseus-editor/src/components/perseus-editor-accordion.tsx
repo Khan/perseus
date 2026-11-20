@@ -15,6 +15,8 @@ type Props = {
     panelStyle?: StyleType;
     headerStyle?: StyleType;
     onToggle?: (expanded: boolean) => void;
+    /** The header's heading level. Defaults to "h2". */
+    tag?: React.ComponentProps<typeof AccordionSection>["tag"];
 };
 
 const PerseusEditorAccordion = (props: Props) => {
@@ -27,6 +29,7 @@ const PerseusEditorAccordion = (props: Props) => {
         panelStyle,
         headerStyle,
         onToggle,
+        tag,
     } = props;
 
     return (
@@ -40,6 +43,7 @@ const PerseusEditorAccordion = (props: Props) => {
                 animated={animated}
                 expanded={expanded}
                 onToggle={onToggle}
+                tag={tag}
                 style={[styles.container, containerStyle]}
                 headerStyle={[styles.accordionHeader, headerStyle]}
                 header={header}
