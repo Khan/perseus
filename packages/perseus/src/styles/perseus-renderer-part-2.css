@@ -2,22 +2,12 @@
 
 .perseus-hint-label {
     color: var(--wb-semanticColor-core-foreground-instructive-strong);
-    display: none;
+    display: block;
     font-weight: var(--wb-font-weight-bold);
     margin-right: var(--wb-sizing-size_120);
     position: absolute;
     right: 100%;
     white-space: nowrap;
-}
-.bibliotron-exercise .perseus-hint-renderer.last-rendered .perseus-hint-label {
-    display: block;
-}
-@media (max-width: 767px) {
-    .bibliotron-exercise
-        .perseus-hint-renderer.last-rendered
-        .perseus-hint-label {
-        display: none;
-    }
 }
 .perseus-math-input.mq-editable-field.mq-math-mode {
     background-color: transparent;
