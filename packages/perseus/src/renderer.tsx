@@ -1321,19 +1321,18 @@ class Renderer
         }
 
         const table = this.outputTableElement(node.table, nestedOutput, state);
-        const title = nestedOutput(node.title, state);
         // If the table is for layout purposes, we render it not as a caption
         // element within a table, but as a paragraph above the table.
         const contents = isLayoutTable(node.table) ? (
             <React.Fragment key={state.key}>
-                <p className="perseus-table-title">{title}</p>
+                {nestedOutput({type: "paragraph", content: node.title}, state)}
                 {table}
             </React.Fragment>
         ) : (
             // Splice the caption into the table's children as the first child.
             React.cloneElement(table, undefined, [
                 <caption key="caption" className="perseus-table-title">
-                    {title}
+                    {nestedOutput(node.title, state)}
                 </caption>,
                 ...table.props.children,
             ])

@@ -103,11 +103,12 @@ exports[`renderer markdown layout tables renders when all column headers are emp
       <div
         class="perseus-titled-table-wrapper"
       >
-        <p
-          class="perseus-table-title"
+        <div
+          class="deprecated-perseus-container"
+          role="paragraph"
         >
           Title
-        </p>
+        </div>
         <table
           role="presentation"
         >

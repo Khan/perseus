@@ -279,6 +279,24 @@ A bold first column also makes the first column row headers:
 | **bats**     | 96       | $\\text{\\blue{blue}}$ |
 `;
 
+export const layoutTableContent = `# Article with Markdown layout tables
+
+All empty column headers make a layout table:
+
+|          |          |          |
+| -------- | -------- | -------- |
+| turtles  | 42       | $\\text{\\red{red}}$ |
+| bats     | 96       | $\\text{\\blue{blue}}$ |
+
+A layout table's title is rendered as a paragraph rather than a caption:
+
+|| Magical Creatures ||
+|          |          |          |
+| -------- | -------- | -------- |
+| turtles  | 42       | $\\text{\\red{red}}$ |
+| bats     | 96       | $\\text{\\blue{blue}}$ |
+`;
+
 export const codeContent = `# Article with code
 
 Here's an example of how to write a \`greet\` function in Python to implement the famous "Hello, world" program:
