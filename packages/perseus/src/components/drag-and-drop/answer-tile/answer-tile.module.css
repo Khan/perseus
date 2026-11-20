@@ -67,6 +67,8 @@
 
 .draggable {
     cursor: grab;
+    user-select: none;
+    -webkit-touch-callout: none;
 }
 
 .draggable:hover,
