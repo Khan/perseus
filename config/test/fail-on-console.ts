@@ -1,4 +1,4 @@
-import {afterEach, beforeAll, beforeEach} from "@jest/globals";
+import {afterAll, beforeAll} from "@jest/globals";
 
 /**
  * @file
@@ -39,9 +39,11 @@ function failOn(consoleMethod: string) {
     const consoleCallStacks: Array<string | undefined> = [];
     let originalMethod: undefined | ((...data: unknown[]) => void);
 
-    beforeAll(flushMessages);
-    beforeEach(stubConsole);
-    afterEach(() => {
+    beforeAll(() => {
+        flushMessages();
+        stubConsole();
+    });
+    afterAll(() => {
         restoreConsole();
         flushMessages();
     });
