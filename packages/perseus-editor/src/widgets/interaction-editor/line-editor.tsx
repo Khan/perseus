@@ -1,8 +1,6 @@
 import {components, Dependencies, KhanColors} from "@khanacademy/perseus";
 import * as React from "react";
 
-import {deprecatedChangeableChange} from "../../mixins/changeable";
-
 import ArrowPicker from "./arrow-picker";
 import ColorPicker from "./color-picker";
 import DashPicker from "./dash-picker";
@@ -43,10 +41,6 @@ class LineEditor extends React.Component<Props> {
         });
     }
 
-    change: (arg1: any, arg2?: any, arg3?: any) => any = (...args) => {
-        return deprecatedChangeableChange.apply(this, args);
-    };
-
     render(): React.ReactNode {
         const {TeX} = Dependencies.getDependencies();
 
@@ -56,12 +50,12 @@ class LineEditor extends React.Component<Props> {
                     Start: <TeX>\Large(</TeX>
                     <MathquillInput
                         value={this.props.startX}
-                        onChange={this.change("startX")}
+                        onChange={(startX) => this.handleChange({startX})}
                     />
                     <TeX>,</TeX>{" "}
                     <MathquillInput
                         value={this.props.startY}
-                        onChange={this.change("startY")}
+                        onChange={(startY) => this.handleChange({startY})}
                     />
                     <TeX>\Large)</TeX>
                 </div>
@@ -69,30 +63,32 @@ class LineEditor extends React.Component<Props> {
                     End: <TeX>\Large(</TeX>
                     <MathquillInput
                         value={this.props.endX}
-                        onChange={this.change("endX")}
+                        onChange={(endX) => this.handleChange({endX})}
                     />
                     <TeX>,</TeX>{" "}
                     <MathquillInput
                         value={this.props.endY}
-                        onChange={this.change("endY")}
+                        onChange={(endY) => this.handleChange({endY})}
                     />
                     <TeX>\Large)</TeX>
                 </div>
                 <div className="perseus-widget-row">
                     <ColorPicker
                         value={this.props.color}
-                        onChange={this.change("color")}
+                        onChange={(color) => this.handleChange({color})}
                     />
                 </div>
                 <div className="perseus-widget-row">
                     <DashPicker
                         value={this.props.strokeDasharray}
-                        onChange={this.change("strokeDasharray")}
+                        onChange={(strokeDasharray) =>
+                            this.handleChange({strokeDasharray})
+                        }
                     />
                     &nbsp; &nbsp;
                     <ArrowPicker
                         value={this.props.arrows}
-                        onChange={this.change("arrows")}
+                        onChange={(arrows) => this.handleChange({arrows})}
                     />
                 </div>
                 <div className="perseus-widget-row">
@@ -101,7 +97,9 @@ class LineEditor extends React.Component<Props> {
                         <NumberInput
                             value={this.props.strokeWidth}
                             placeholder={2}
-                            onChange={this.change("strokeWidth")}
+                            onChange={(strokeWidth) =>
+                                this.handleChange({strokeWidth})
+                            }
                         />
                     </div>
                 </div>
