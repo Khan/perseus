@@ -1,5 +1,5 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
-import {act, render, screen} from "@testing-library/react";
+import {act, render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -281,6 +281,7 @@ describe("expression-editor", () => {
     });
 
     it("should be possible to update answer", async () => {
+        // Arrange:
         const onChangeMock = jest.fn();
 
         render(
@@ -297,21 +298,22 @@ describe("expression-editor", () => {
                 ]}
             />,
         );
-        act(() => jest.runOnlyPendingTimers());
-
         await userEvent.click(
             screen.getByRole("button", {
                 name: "open math keypad",
             }),
         );
 
+        // Act: enter an answer
         await userEvent.click(
-            screen.getByRole("button", {
+            await screen.findByRole("button", {
                 name: "9",
             }),
         );
-        act(() => jest.runOnlyPendingTimers());
+        // Act: wait for floating-ui to position the popover.
+        await act(async () => jest.runOnlyPendingTimers())
 
+        // Assert:
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 answerForms: [
