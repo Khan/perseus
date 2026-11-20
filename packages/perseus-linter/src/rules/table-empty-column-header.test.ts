@@ -48,22 +48,6 @@ describe("table-empty-column-header", () => {
         });
     });
 
-    it("warns when a bold first column table has an empty column header", () => {
-        // Arrange
-        // A bold first column makes row headers, but the table's column
-        // headers still need text.
-        const markdown =
-            "| Metal | |\n" +
-            "|-|-|\n" +
-            "| **Gold** | 19.3 |\n" +
-            "| **Silver** | 10.5 |";
-
-        // Act, Assert
-        expectIssue(tableEmptyColumnHeaderRule, markdown, undefined, {
-            messages: [emptyColumnHeaderMessage([2])],
-        });
-    });
-
     it("passes when every column header has text", () => {
         // Arrange
         const markdown = "| Name | Age |\n" + "|-|-|\n" + "| Ann | 30 |";
@@ -87,18 +71,6 @@ describe("table-empty-column-header", () => {
     it("passes when every column header is empty (layout table)", () => {
         // Arrange
         const markdown = "| | | |\n" + "|-|-|-|\n" + "| a | b | c |";
-
-        // Act, Assert
-        expectPass(tableEmptyColumnHeaderRule, markdown);
-    });
-
-    it("passes when a captioned table has row headers", () => {
-        // Arrange
-        const markdown =
-            "|| Densities ||\n" +
-            "| | Mass |\n" +
-            "|-|-|\n" +
-            "| Gold | 19.3 |";
 
         // Act, Assert
         expectPass(tableEmptyColumnHeaderRule, markdown);

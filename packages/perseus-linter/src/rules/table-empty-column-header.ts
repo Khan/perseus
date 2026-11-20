@@ -24,7 +24,7 @@ export default Rule.makeRule({
         const header: any[] = table.header;
 
         // A table whose column headers are all empty isn't being used as a
-        // data table (instead as a layout table), so it doesn't need them.
+        // data table (instead as a layout table), so we don't need to warn authors.
         if (header.every(isEmptyTableCell)) {
             return;
         }
