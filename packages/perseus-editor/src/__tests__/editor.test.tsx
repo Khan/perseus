@@ -376,6 +376,22 @@ describe("Editor", () => {
         );
     });
 
+    it("renders no widget select, template select or widget editors when hideWidgetControls is set", () => {
+        // Arrange, Act
+        render(<Harnessed hideWidgetControls={true} />);
+
+        // Assert
+        expect(
+            screen.queryByTestId("editor__widget-select"),
+        ).not.toBeInTheDocument();
+        expect(
+            screen.queryByTestId("editor__template-select"),
+        ).not.toBeInTheDocument();
+        expect(
+            screen.queryByRole("button", {name: "Remove image widget"}),
+        ).not.toBeInTheDocument();
+    });
+
     test("default templates work", async () => {
         // PerseusRenderer but TS is being dumb
         let cbData: any;
