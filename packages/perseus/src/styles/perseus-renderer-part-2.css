@@ -1,29 +1,5 @@
 /* All perseus-widget-container styles moved to widget-container.css */
 
-.bibliotron-exercise .perseus-hint-renderer {
-    border-left: var(--wb-border-width-thick) solid
-        var(--wb-semanticColor-core-border-neutral-subtle);
-    padding-left: var(--wb-sizing-size_160);
-    position: relative;
-}
-.bibliotron-exercise .perseus-hint-renderer:focus {
-    border-left-color: var(--wb-semanticColor-core-border-neutral-default);
-    outline: none;
-}
-.bibliotron-exercise .perseus-hint-renderer:before,
-.bibliotron-exercise .perseus-hint-renderer:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-.bibliotron-exercise .perseus-hint-renderer.last-hint {
-    margin-bottom: var(--wb-sizing-size_320);
-}
-@media (max-width: 767px) {
-    .bibliotron-exercise .perseus-hint-renderer.last-hint {
-        margin-bottom: 0;
-    }
-}
 .perseus-hint-label {
     color: var(--wb-semanticColor-core-foreground-instructive-strong);
     display: none;
