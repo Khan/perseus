@@ -117,7 +117,7 @@ jobs:
               name: Files that would trigger a full jest run
               with:
                   changed-files: ${{ steps.changed.outputs.files }}
-                  files: "jest.config.js,package.json,pnpm-lock.yaml,test.config.js,test.transform.js"
+                  files: "jest.config.js,package.json,pnpm-lock.yaml,test.config.js,test.transform.js,test.setup.ts"
 
             - parallel:
                   - name: Check formatting
