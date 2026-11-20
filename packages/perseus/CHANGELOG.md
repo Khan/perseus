@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 95.0.3
+
+### Patch Changes
+
+-   [#4593](https://github.com/Khan/perseus/pull/4593) [`3d8d5db`](https://github.com/Khan/perseus/commit/3d8d5db030bdeb6d69653abdfe7d0b43799d5f44) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix Zoomable's `transition-property` so browsers apply its fade and zoom transitions
+
 ## 95.0.2
 
 ### Patch Changes
