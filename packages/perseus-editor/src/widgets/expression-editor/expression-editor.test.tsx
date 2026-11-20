@@ -1,5 +1,5 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
-import {act, render, screen, waitFor} from "@testing-library/react";
+import {act, render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -311,7 +311,7 @@ describe("expression-editor", () => {
             }),
         );
         // Act: wait for floating-ui to position the popover.
-        await act(async () => jest.runOnlyPendingTimers())
+        await act(async () => jest.runOnlyPendingTimers());
 
         // Assert:
         expect(onChangeMock).toHaveBeenCalledWith(
