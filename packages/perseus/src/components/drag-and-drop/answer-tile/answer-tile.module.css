@@ -65,10 +65,14 @@
     box-shadow: none;
 }
 
-.draggable {
-    cursor: grab;
+.draggable,
+.draggable :global(.mathjax-selectable) {
     user-select: none;
     -webkit-touch-callout: none;
+}
+
+.draggable {
+    cursor: grab;
 }
 
 .draggable:hover,
