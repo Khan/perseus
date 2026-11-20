@@ -1,5 +1,6 @@
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
+import {rs} from "@rstest/core";
 // eslint-disable-next-line testing-library/no-manual-cleanup
 import {render, screen, cleanup} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -22,8 +23,8 @@ const defaultProps = {
 const defaultLabel = getDefaultFigureForType("label");
 
 // Mock the async function generateSpokenMathDetails
-jest.mock("./util", () => ({
-    ...jest.requireActual("./util"),
+rs.mock("./util", () => ({
+    ...rs.requireActual("./util"),
     joinLabelsAsSpokenMath: (input) =>
         mockedJoinLabelsAsSpokenMathForTests(input),
 }));

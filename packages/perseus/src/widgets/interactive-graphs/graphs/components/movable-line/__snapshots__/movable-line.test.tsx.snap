@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`Rendering Does NOT render extensions of line when option is disabled 1`] = `
+exports[`Rendering > Does NOT render extensions of line when option is disabled 1`] = `
 <div>
   <div
     class="MafsView"
@@ -128,7 +128,7 @@ exports[`Rendering Does NOT render extensions of line when option is disabled 1`
 </div>
 `;
 
-exports[`Rendering Does NOT render extensions of line when option is not provided 1`] = `
+exports[`Rendering > Does NOT render extensions of line when option is not provided 1`] = `
 <div>
   <div
     class="MafsView"
@@ -256,7 +256,7 @@ exports[`Rendering Does NOT render extensions of line when option is not provide
 </div>
 `;
 
-exports[`Rendering Does render extensions of line when option is enabled 1`] = `
+exports[`Rendering > Does render extensions of line when option is enabled 1`] = `
 <div>
   <div
     class="MafsView"

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`renderer in a JIPT context renders \`crwdn\` placeholders with data-perseus-component-index and data-perseus-paragraph-index attributes in an article: article with JIPT placeholders 1`] = `
+exports[`renderer > in a JIPT context > renders \`crwdn\` placeholders with data-perseus-component-index and data-perseus-paragraph-index attributes in an article > article with JIPT placeholders 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -23,7 +23,7 @@ exports[`renderer in a JIPT context renders \`crwdn\` placeholders with data-per
 </div>
 `;
 
-exports[`renderer in a JIPT context renders \`crwdn\` placeholders with data-perseus-component-index attributes in an exercise: exercise with JIPT placeholder 1`] = `
+exports[`renderer > in a JIPT context > renders \`crwdn\` placeholders with data-perseus-component-index attributes in an exercise > exercise with JIPT placeholder 1`] = `
 <div>
   <div
     data-perseus-component-index="42"
@@ -33,7 +33,7 @@ exports[`renderer in a JIPT context renders \`crwdn\` placeholders with data-per
 </div>
 `;
 
-exports[`renderer in a JIPT context replaces the \`crwdn\` placeholder with the translated content of an article: JIPT-translated article 1`] = `
+exports[`renderer > in a JIPT context > replaces the \`crwdn\` placeholder with the translated content of an article > JIPT-translated article 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -66,7 +66,7 @@ exports[`renderer in a JIPT context replaces the \`crwdn\` placeholder with the 
 </div>
 `;
 
-exports[`renderer in a JIPT context replaces the \`crwdn\` placeholder with the translated content of an exercise: JIPT-translated exercise 1`] = `
+exports[`renderer > in a JIPT context > replaces the \`crwdn\` placeholder with the translated content of an exercise > JIPT-translated exercise 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -92,7 +92,7 @@ exports[`renderer in a JIPT context replaces the \`crwdn\` placeholder with the 
 </div>
 `;
 
-exports[`renderer rendering should ignore the deprecated column separator '=====' 1`] = `
+exports[`renderer > rendering > should ignore the deprecated column separator '=====' 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -121,7 +121,7 @@ exports[`renderer rendering should ignore the deprecated column separator '=====
 </div>
 `;
 
-exports[`renderer rendering should ignore the deprecated column separator '=====' inside a list item 1`] = `
+exports[`renderer > rendering > should ignore the deprecated column separator '=====' inside a list item 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -150,7 +150,7 @@ exports[`renderer rendering should ignore the deprecated column separator '=====
 </div>
 `;
 
-exports[`renderer rendering should not wrap math in divs in inline mode 1`] = `
+exports[`renderer > rendering > should not wrap math in divs in inline mode 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -171,7 +171,7 @@ exports[`renderer rendering should not wrap math in divs in inline mode 1`] = `
 </div>
 `;
 
-exports[`renderer rendering should preserve '=====' inside a code block 1`] = `
+exports[`renderer > rendering > should preserve '=====' inside a code block 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -194,7 +194,7 @@ Stuff after the separator
 </div>
 `;
 
-exports[`renderer rendering should render a table when isMobile: false 1`] = `
+exports[`renderer > rendering > should render a table when isMobile: false 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -263,7 +263,7 @@ exports[`renderer rendering should render a table when isMobile: false 1`] = `
 </div>
 `;
 
-exports[`renderer rendering should render a table when isMobile: true 1`] = `
+exports[`renderer > rendering > should render a table when isMobile: true 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -346,7 +346,7 @@ exports[`renderer rendering should render a table when isMobile: true 1`] = `
 </div>
 `;
 
-exports[`renderer rendering should render block math 1`] = `
+exports[`renderer > rendering > should render block math 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -393,7 +393,7 @@ exports[`renderer rendering should render block math 1`] = `
 </div>
 `;
 
-exports[`renderer rendering should render block math on mobile 1`] = `
+exports[`renderer > rendering > should render block math on mobile 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -445,7 +445,7 @@ exports[`renderer rendering should render block math on mobile 1`] = `
 </div>
 `;
 
-exports[`renderer rendering should render the math 1`] = `
+exports[`renderer > rendering > should render the math 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -475,7 +475,7 @@ exports[`renderer rendering should render the math 1`] = `
 </div>
 `;
 
-exports[`renderer snapshots correct answer: correct answer 1`] = `
+exports[`renderer > snapshots > correct answer > correct answer 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -573,7 +573,7 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
 </div>
 `;
 
-exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
+exports[`renderer > snapshots > incorrect answer > incorrect answer 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -671,7 +671,7 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
 </div>
 `;
 
-exports[`renderer snapshots initial render: initial render 1`] = `
+exports[`renderer > snapshots > initial render > initial render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -769,7 +769,7 @@ exports[`renderer snapshots initial render: initial render 1`] = `
 </div>
 `;
 
-exports[`renderer snapshots renders a placeholder for an unknown widget type: unknown widget 1`] = `
+exports[`renderer > snapshots > renders a placeholder for an unknown widget type > unknown widget 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -822,7 +822,7 @@ exports[`renderer snapshots renders a placeholder for an unknown widget type: un
 </div>
 `;
 
-exports[`renderer snapshots renders a responsive markdown image 1`] = `
+exports[`renderer > snapshots > renders a responsive markdown image 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"

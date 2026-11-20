@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`ArticleEditor should match snapshot for editing disabled for all widgets 1`] = `
+exports[`ArticleEditor > should match snapshot for editing disabled for all widgets 1`] = `
 <div>
   <div
     class="framework-perseus perseus-article-editor"

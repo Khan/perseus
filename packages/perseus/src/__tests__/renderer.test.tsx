@@ -7,6 +7,7 @@ import {
     generateTestPerseusRenderer,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
+import {rs} from "@rstest/core";
 import {act, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -43,7 +44,7 @@ import type {UserEvent} from "@testing-library/user-event";
 // see that symbol as an instance method).
 const mockRunLinter = jest.fn();
 const mockApplyLintErrors = jest.fn();
-jest.mock("../translation-linter", () => ({
+rs.mock("../translation-linter", () => ({
     // Return a module object, not a bare function: most test runners do not
     // treat bare function as the whole module (ie. they need the __esModule
     // field).

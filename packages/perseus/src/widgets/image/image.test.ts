@@ -4,6 +4,7 @@ import {
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
 import {scoreQuestion} from "@khanacademy/perseus-score";
+import {rs} from "@rstest/core";
 import {act, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import invariant from "tiny-invariant";
@@ -23,8 +24,8 @@ import {decodeGifFrames} from "./utils";
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
-jest.mock("./utils", () => ({
-    ...jest.requireActual("./utils"),
+rs.mock("./utils", () => ({
+    ...rs.requireActual("./utils"),
     decodeGifFrames: jest.fn(),
 }));
 

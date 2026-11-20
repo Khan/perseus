@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`server item renderer should snapshot: initial render 1`] = `
+exports[`server item renderer > should snapshot > initial render 1`] = `
 <div>
   <div
     class="framework-perseus"
