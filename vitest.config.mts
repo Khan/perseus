@@ -91,6 +91,15 @@ export default defineConfig({
         },
     ],
     css: {modules: {localsConvention: "camelCase"}},
+    resolve: {
+        // EXPERIMENT: see config/test/vitest/aphrodite-shim.js.
+        alias: [
+            {
+                find: /^aphrodite$/,
+                replacement: join(root, "config/test/vitest/aphrodite-shim.js"),
+            },
+        ],
+    },
     test: {
         globals: true,
         exclude: ["**/node_modules/**", "**/dist/**", ".claude/**"],
@@ -122,13 +131,31 @@ export default defineConfig({
             "config/test/vitest/setup.ts",
             "config/test/custom-matchers.ts",
         ],
+        // EXPERIMENT: run each test file in a VM context in a reused child
+        // process, and recycle a worker once it uses 1 GB.
+        pool: "vmForks",
+        vmMemoryLimit: "1GB",
         restoreMocks: true,
         unstubEnvs: true,
         mockReset: true,
+        // EXPERIMENT: pre-bundle dependencies for the jsdom (client) and node
+        // (ssr) environments.
+        deps: {
+            optimizer: {client: {enabled: true}, ssr: {enabled: true}},
+        },
         server: {
             deps: {
                 // Jest transformed these packages too.
-                inline: [/@phosphor-icons\/core/, /@preact\/signals-core/],
+                inline: [
+                    /@phosphor-icons\/core/,
+                    /@preact\/signals-core/,
+                    // EXPERIMENT: so its `css()` calls get the Aphrodite shim. It is the
+                    // only Wonder Blocks package that calls `css()`.
+                    /@khanacademy\/wonder-blocks-core/,
+                    // EXPERIMENT: one copy of @dnd-kit/dom for Perseus and
+                    // @dnd-kit/react, so its plugin classes compare equal.
+                    /@dnd-kit\//,
+                ],
             },
         },
     },
