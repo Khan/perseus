@@ -1,4 +1,5 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
+import {generateFreeResponseOptions} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -19,7 +20,7 @@ function HarnessedEditor({
         <FreeResponseEditor
             apiOptions={apiOptions}
             onChange={onChange}
-            {...rest}
+            {...generateFreeResponseOptions(rest)}
         />
     );
 }
@@ -102,7 +103,7 @@ describe("free-response editor", () => {
         const onChangeMock = jest.fn();
 
         // Act
-        render(<HarnessedEditor onChange={onChangeMock} />);
+        render(<HarnessedEditor question="" onChange={onChangeMock} />);
         await userEvent.type(screen.getByLabelText("Question"), "2");
 
         // Assert

@@ -1,11 +1,9 @@
 import {Dependencies, Util} from "@khanacademy/perseus";
 import {
-    type PerseusOrdererWidgetOptions,
-    type PerseusRenderer,
-} from "@khanacademy/perseus-core";
-import {
     generateOrdererOption,
     getDefaultAnswerArea,
+    type PerseusOrdererWidgetOptions,
+    type PerseusRenderer,
 } from "@khanacademy/perseus-core";
 import {render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -264,7 +262,7 @@ describe("EditorPage", () => {
         ).toBeInTheDocument();
     });
 
-    it("should call initializeWidgetOptions if available", async () => {
+    it("sets a new Definition widget's togglePrompt to the text selection", async () => {
         const onChangeMock = jest.fn();
 
         const startRenderer: PerseusRenderer = {
@@ -315,6 +313,69 @@ describe("EditorPage", () => {
                     },
                 },
             },
+        });
+    });
+
+    it("leaves a new Definition widget's togglePrompt empty when no text is selected", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <EditorPage
+                dependencies={testDependenciesV2}
+                question={{content: "", widgets: {}, images: {}}}
+                onChange={onChangeMock}
+                previewDevice="desktop"
+                previewURL=""
+                itemId="itemId"
+                jsonMode={false}
+                widgetsAreOpen={true}
+            />,
+        );
+
+        // Act
+        await userEvent.selectOptions(
+            screen.getByTestId("editor__widget-select"),
+            "Definition",
+        );
+
+        // Assert
+        const widget =
+            onChangeMock.mock.lastCall[0].question.widgets["definition 1"];
+        expect(widget.options).toEqual({togglePrompt: "", definition: ""});
+    });
+
+    it("inserts a new widget from the widget dropdown", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <EditorPage
+                dependencies={testDependenciesV2}
+                question={{content: "", widgets: {}, images: {}}}
+                onChange={onChangeMock}
+                previewDevice="desktop"
+                previewURL=""
+                itemId="itemId"
+                jsonMode={false}
+                widgetsAreOpen={true}
+            />,
+        );
+
+        // Act
+        await userEvent.selectOptions(
+            screen.getByTestId("editor__widget-select"),
+            "Drop down",
+        );
+
+        // Assert
+        expect(
+            onChangeMock.mock.lastCall[0].question.widgets["dropdown 1"],
+        ).toEqual({
+            type: "dropdown",
+            options: {
+                placeholder: "",
+                choices: [{content: "", correct: false}],
+            },
+            version: {major: 0, minor: 0},
         });
     });
 

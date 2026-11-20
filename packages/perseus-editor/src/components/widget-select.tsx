@@ -56,6 +56,9 @@ class WidgetSelect extends React.Component<WidgetSelectProps> {
             <select
                 value=""
                 onChange={this.handleChange}
+                // TODO(benchristel): add an aria-label to this select and
+                //  use that to find the element in tests. Then remove
+                //  data-testid.
                 data-testid="editor__widget-select"
             >
                 <option value="">{addWidgetString}</option>

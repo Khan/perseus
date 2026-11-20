@@ -1,12 +1,9 @@
-import {
-    phetSimulationLogic,
-    type PerseusPhetSimulationWidgetOptions,
-} from "@khanacademy/perseus-core";
 import {LabeledTextField} from "@khanacademy/wonder-blocks-form";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import type {WidgetEditorProps} from "../widget-editor-props";
+import type {PerseusPhetSimulationWidgetOptions} from "@khanacademy/perseus-core";
 
 type Props = WidgetEditorProps<PerseusPhetSimulationWidgetOptions>;
 
@@ -15,9 +12,6 @@ type Props = WidgetEditorProps<PerseusPhetSimulationWidgetOptions>;
  * with physics simulations.
  */
 class PhetSimulationEditor extends React.Component<Props> {
-    static defaultProps: PerseusPhetSimulationWidgetOptions =
-        phetSimulationLogic.defaultWidgetOptions;
-
     handleChange(changes: Partial<PerseusPhetSimulationWidgetOptions>) {
         this.props.onChange({
             url: this.props.url,

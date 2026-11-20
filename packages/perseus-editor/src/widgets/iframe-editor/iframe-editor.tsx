@@ -1,7 +1,4 @@
-import {
-    iframeLogic,
-    type PerseusIFrameWidgetOptions,
-} from "@khanacademy/perseus-core";
+import {type PerseusIFrameWidgetOptions} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 
@@ -16,9 +13,6 @@ type IframeEditorProps = WidgetEditorProps<PerseusIFrameWidgetOptions>;
  * This is the main editor for this widget, to specify all the options.
  */
 class IframeEditor extends React.Component<IframeEditorProps> {
-    static defaultProps: PerseusIFrameWidgetOptions =
-        iframeLogic.defaultWidgetOptions;
-
     handleChange(changes: Partial<PerseusIFrameWidgetOptions>) {
         this.props.onChange({
             url: this.props.url,

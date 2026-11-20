@@ -1,8 +1,5 @@
 import {components} from "@khanacademy/perseus";
-import {
-    gradedGroupLogic,
-    getDefaultAnswerArea,
-} from "@khanacademy/perseus-core";
+import {getDefaultAnswerArea} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
@@ -24,9 +21,6 @@ const {TextInput} = components;
 type Props = WidgetEditorProps<PerseusGradedGroupWidgetOptions>;
 
 class GradedGroupEditor extends React.Component<Props> {
-    static defaultProps: PerseusGradedGroupWidgetOptions =
-        gradedGroupLogic.defaultWidgetOptions;
-
     handleChange(changes: Partial<PerseusGradedGroupWidgetOptions>) {
         this.props.onChange({
             title: this.props.title,

@@ -23,7 +23,9 @@ describe("matcher-editor", () => {
     });
 
     it("renders", async () => {
-        render(<MatcherEditor onChange={() => {}} />);
+        render(
+            <MatcherEditor onChange={() => {}} {...generateMatcherOptions()} />,
+        );
 
         expect(screen.getByText("Correct answer:")).toBeInTheDocument();
     });
@@ -31,7 +33,12 @@ describe("matcher-editor", () => {
     it("is possible to change option: order of matched pairs matters", async () => {
         const onChangeMock = jest.fn();
 
-        render(<MatcherEditor onChange={onChangeMock} />);
+        render(
+            <MatcherEditor
+                onChange={onChangeMock}
+                {...generateMatcherOptions({orderMatters: false})}
+            />,
+        );
 
         await userEvent.click(
             screen.getByRole("checkbox", {
@@ -47,7 +54,12 @@ describe("matcher-editor", () => {
     it("should be possible to change padding", async () => {
         const onChangeMock = jest.fn();
 
-        render(<MatcherEditor onChange={onChangeMock} />);
+        render(
+            <MatcherEditor
+                onChange={onChangeMock}
+                {...generateMatcherOptions({padding: true})}
+            />,
+        );
 
         await userEvent.click(screen.getByRole("checkbox", {name: "Padding:"}));
 

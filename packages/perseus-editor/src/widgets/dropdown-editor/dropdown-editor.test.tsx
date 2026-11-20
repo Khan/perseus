@@ -1,4 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
+import {generateDropdownOptions} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -24,7 +25,12 @@ describe("dropdown-editor", () => {
     it("should be possible to modify placeholder text", async () => {
         const onChangeMock = jest.fn();
 
-        render(<DropdownEditor onChange={onChangeMock} />);
+        render(
+            <DropdownEditor
+                onChange={onChangeMock}
+                {...generateDropdownOptions({placeholder: ""})}
+            />,
+        );
 
         const input = screen.getByPlaceholderText("Placeholder value");
         await userEvent.type(input, "a");
@@ -37,7 +43,14 @@ describe("dropdown-editor", () => {
     it("should be possible to delete choice", async () => {
         const onChangeMock = jest.fn();
 
-        render(<DropdownEditor onChange={onChangeMock} />);
+        render(
+            <DropdownEditor
+                onChange={onChangeMock}
+                {...generateDropdownOptions({
+                    choices: [{content: "", correct: false}],
+                })}
+            />,
+        );
 
         await userEvent.click(
             screen.getByRole("button", {name: "Delete choice"}),
@@ -51,7 +64,14 @@ describe("dropdown-editor", () => {
     it("should be possible to add choice", async () => {
         const onChangeMock = jest.fn();
 
-        render(<DropdownEditor onChange={onChangeMock} />);
+        render(
+            <DropdownEditor
+                onChange={onChangeMock}
+                {...generateDropdownOptions({
+                    choices: [{content: "", correct: false}],
+                })}
+            />,
+        );
 
         await userEvent.click(
             screen.getByRole("button", {name: "Add a choice"}),
@@ -72,6 +92,7 @@ describe("dropdown-editor", () => {
             <DropdownEditor
                 apiOptions={{editingDisabled: true}}
                 onChange={() => {}}
+                {...generateDropdownOptions()}
             />,
         );
 

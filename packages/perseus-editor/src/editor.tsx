@@ -1,9 +1,9 @@
 import {
+    ApiOptions,
+    Log,
     PerseusMarkdown,
     Util,
     Widgets,
-    ApiOptions,
-    Log,
 } from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
@@ -155,9 +155,10 @@ type State = {
     rememberedWidgetsForUndo: PerseusWidgetsMap;
 };
 
-// Contextual information that widgets can use,
-// through initializeWidgetOptions,
-// to initialize widget options
+/**
+ * Contextual information passed to a widget editor's optional static
+ * `initializeWidgetOptions(defaults, params)` hook when a widget is inserted.
+ */
 export type InitializeWidgetOptionsParams = {
     selectedText: string;
 };
@@ -653,20 +654,16 @@ class Editor extends React.Component<Props, State> {
 
         const newWidgets = {...this.props.widgets};
         const widgetEditor = getEditor(widgetType);
-        const initializeWidgetOptionsParams: InitializeWidgetOptionsParams = {
-            selectedText,
-        };
-        // TODO(benchristel): get rid of all these different ways of
-        //  initializing widget options. We should probably standardize on
-        //  getting the initial options from
-        //  CoreWidgetRegistry.getDefaultWidgetOptions().
-        const startWidgetOptions = widgetEditor?.initializeWidgetOptions?.(
-            initializeWidgetOptionsParams,
-        );
-        const defaultProps = widgetEditor?.defaultProps;
+        const defaultOptions =
+            CoreWidgetRegistry.getDefaultWidgetOptions(widgetType);
+        const params: InitializeWidgetOptionsParams = {selectedText};
         newWidgets[id] = {
-            options: startWidgetOptions || defaultProps,
             type: widgetType,
+            options:
+                widgetEditor?.initializeWidgetOptions?.(
+                    defaultOptions,
+                    params,
+                ) ?? defaultOptions,
             // Track widget version on creation, so that a widget editor
             // without a valid version prop can only possibly refer to a
             // pre-versioning creation time.
