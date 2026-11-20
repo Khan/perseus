@@ -8,4 +8,14 @@
             margin-block-start: 0;
         }
     }
+
+    /* Left-align images in hints. Elsewhere, images are centered. */
+    .perseus-hint-renderer .perseus-image-widget,
+    .perseus-hint-renderer .svg-image {
+        margin-inline-start: 0;
+    }
+
+    .framework-perseus .last-hint {
+        font-weight: bold;
+    }
 }
