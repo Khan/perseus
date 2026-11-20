@@ -100,38 +100,47 @@ exports[`renderer markdown layout tables renders a presentation table when all c
     <div
       class="deprecated-perseus-container"
     >
-      <table
-        role="presentation"
+      <div
+        class="perseus-titled-table-wrapper"
       >
-        <thead>
-          <tr>
-            <th
-              scope="col"
-            />
-            <th
-              scope="col"
-            />
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              Gold
-            </td>
-            <td>
-              19.3
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Silver
-            </td>
-            <td>
-              10.5
-            </td>
-          </tr>
-        </tbody>
-      </table>
+        <p
+          class="perseus-table-title"
+        >
+          Title
+        </p>
+        <table
+          role="presentation"
+        >
+          <thead>
+            <tr>
+              <th
+                scope="col"
+              />
+              <th
+                scope="col"
+              />
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                Gold
+              </td>
+              <td>
+                19.3
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Silver
+              </td>
+              <td>
+                10.5
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

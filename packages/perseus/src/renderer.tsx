@@ -1313,8 +1313,9 @@ class Renderer
         nestedOutput: (ast: ASTNode, state: WidgetState) => React.ReactNode,
         state: WidgetState,
     ): React.ReactNode => {
-        // Defer to perseus-markdown when the linter has wrapped the table in a
-        // `lint` node.
+        // If the table is wrapped in a lint node, use
+        // PerseusMarkdown to render it. PerseusMarkdown defines
+        // the `lint` rule and rendering logic.
         if (node.table?.type !== "table") {
             return PerseusMarkdown.ruleOutput(node, nestedOutput, state);
         }
