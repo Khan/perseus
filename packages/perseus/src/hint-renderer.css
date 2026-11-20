@@ -2,7 +2,6 @@
     .framework-perseus {
         .perseus-hint-renderer {
             /* TODO: Remove the selector with deprecated-perseus-container once it is removed from the renderer. */
-
             :nth-child(1 of .perseus-renderer)
                 > .deprecated-perseus-container:first-child
                 > :first-child,
@@ -12,7 +11,6 @@
         }
 
         /* Left-align images in hints. Elsewhere, images are centered. */
-
         .perseus-hint-renderer .perseus-image-widget,
         .perseus-hint-renderer .svg-image {
             margin-inline-start: 0;
@@ -20,17 +18,17 @@
 
         .last-hint {
             font-weight: bold;
-            margin-bottom: var(--wb-sizing-size_320);
+            margin-block-end: var(--wb-sizing-size_320);
         }
 
         .perseus-hint-renderer {
-            border-left: var(--wb-border-width-thick) solid
+            border-inline-start: var(--wb-border-width-thick) solid
                 var(--wb-semanticColor-core-border-neutral-subtle);
-            padding-left: var(--wb-sizing-size_160);
+            padding-inline-start: var(--wb-sizing-size_160);
             position: relative;
 
             &:focus {
-                border-left-color: var(
+                border-inline-start-color: var(
                     --wb-semanticColor-core-border-neutral-default
                 );
                 outline: none;
@@ -48,9 +46,9 @@
             color: var(--wb-semanticColor-core-foreground-instructive-strong);
             display: block;
             font-weight: var(--wb-font-weight-bold);
-            margin-right: var(--wb-sizing-size_120);
+            margin-inline-end: var(--wb-sizing-size_120);
             position: absolute;
-            right: 100%;
+            inset-inline-end: 100%;
             white-space: nowrap;
         }
     }
