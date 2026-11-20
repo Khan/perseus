@@ -120,6 +120,13 @@ type Props = Readonly<{
     images: any;
     disabled: boolean;
     widgetEnabled: boolean;
+    /**
+     * Hides the widget and template selects and the editors for embedded
+     * widgets, while still highlighting widget references in the content.
+     * For a parent editor that inserts and edits its own widgets, e.g. the
+     * Fill in the Blank editor and its blanks.
+     */
+    hideWidgetControls?: boolean;
     showWordCount: boolean;
     warnNoPrompt: boolean;
     warnNoWidgets: boolean;
@@ -665,7 +672,12 @@ class Editor extends React.Component<Props, State> {
         );
         const defaultProps = widgetEditor?.defaultProps;
         newWidgets[id] = {
-            options: startWidgetOptions || defaultProps,
+            // Widgets edited by their parent (e.g. blanks) have no editor of
+            // their own, so fall back to the options from their logic.
+            options:
+                startWidgetOptions ||
+                defaultProps ||
+                CoreWidgetRegistry.getDefaultWidgetOptions(widgetType),
             type: widgetType,
             // Track widget version on creation, so that a widget editor
             // without a valid version prop can only possibly refer to a
@@ -681,7 +693,11 @@ class Editor extends React.Component<Props, State> {
         this.handleChange({content: newContent, widgets: newWidgets});
     };
 
-    _addWidget: (widgetType: string) => void = (widgetType: string) => {
+    /**
+     * Inserts a new widget of the given type at the cursor, replacing any
+     * selected text, then returns focus to the content.
+     */
+    addWidget: (widgetType: string) => void = (widgetType: string) => {
         const textarea = this.textarea.current;
         if (!textarea) {
             return;
@@ -878,7 +894,7 @@ class Editor extends React.Component<Props, State> {
                             goes away with the last flag-gated widget. */}
                         <WidgetSelect
                             flags={this.props.apiOptions.flags}
-                            onChange={this._addWidget}
+                            onChange={this.addWidget}
                         />
                         {templatesDropDown}
                         {wordCountDisplay}
@@ -966,7 +982,7 @@ class Editor extends React.Component<Props, State> {
                         Graded Groups should contain at least one widget
                     </div>
                 )}
-                {widgetsAndTemplates}
+                {!this.props.hideWidgetControls && widgetsAndTemplates}
             </div>
         );
     }

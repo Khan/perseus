@@ -376,6 +376,69 @@ describe("Editor", () => {
         );
     });
 
+    it("renders no widget select, template select or widget editors when hideWidgetControls is set", () => {
+        // Arrange, Act
+        render(<Harnessed hideWidgetControls={true} />);
+
+        // Assert
+        expect(
+            screen.queryByTestId("editor__widget-select"),
+        ).not.toBeInTheDocument();
+        expect(
+            screen.queryByTestId("editor__template-select"),
+        ).not.toBeInTheDocument();
+        expect(
+            screen.queryByRole("button", {name: "Remove image widget"}),
+        ).not.toBeInTheDocument();
+    });
+
+    it("still highlights widget references when hideWidgetControls is set", () => {
+        // Arrange, Act
+        render(<Harnessed hideWidgetControls={true} />);
+
+        // Assert
+        expect(
+            screen.getByText("[[☃ image 1]]", {
+                selector: ".perseus-textarea-underlay b",
+            }),
+        ).toBeInTheDocument();
+    });
+
+    it("gives an inserted widget with no editor the default options from its logic", () => {
+        // Arrange
+        const onChange = jest.fn();
+        const editorRef = React.createRef<Editor>();
+        render(
+            <DependenciesContext.Provider value={testDependenciesV2}>
+                <Editor
+                    ref={editorRef}
+                    apiOptions={ApiOptions.defaults}
+                    content=""
+                    widgets={{}}
+                    onChange={onChange}
+                />
+            </DependenciesContext.Provider>,
+        );
+
+        // Act
+        // The blank widget is edited by its parent widget's editor, so it has
+        // no editor of its own.
+        act(() => editorRef.current?.addWidget("blank"));
+
+        // Assert
+        expect(onChange).toHaveBeenCalledWith(
+            expect.objectContaining({
+                content: "[[☃ blank 1]]",
+                widgets: {
+                    "blank 1": expect.objectContaining({
+                        type: "blank",
+                        options: {displayType: "normal", correctId: ""},
+                    }),
+                },
+            }),
+        );
+    });
+
     test("default templates work", async () => {
         // PerseusRenderer but TS is being dumb
         let cbData: any;
