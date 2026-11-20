@@ -11,9 +11,7 @@ import * as React from "react";
 
 import {testDependencies} from "../../testing/test-dependencies";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors.testutils";
-import WidgetEditorContainer, {
-    _upgradeWidgetInfo,
-} from "../widget-editor-container";
+import WidgetEditorContainer from "../widget-editor-container";
 
 import type {
     PerseusDefinitionWidgetOptions,
@@ -214,52 +212,6 @@ describe("WidgetEditor", () => {
             expect(
                 screen.getByText("Perseus doesn't support this widget type."),
             ).toBeInTheDocument();
-        });
-    });
-
-    describe("_upgradeWidgetInfo", () => {
-        it("runs data through the denylist", () => {
-            const options: PerseusDefinitionWidgetOptions = {
-                togglePrompt: "Neat prompt",
-                definition: "Cool definition",
-            };
-
-            const widgetInfo: PerseusWidget = {
-                type: "definition",
-                options,
-            };
-
-            // problemNum is in the denylist,
-            // so we want to make sure it's removed
-            const dirtyInfo: any = {...widgetInfo, problemNum: 42};
-
-            const output = _upgradeWidgetInfo(dirtyInfo);
-
-            // make sure we filter as expected
-            // eslint-disable-next-line no-restricted-syntax
-            expect((output as any).onChange).toBeUndefined();
-            // eslint-disable-next-line no-restricted-syntax
-            expect((output as any).onRemove).toBeUndefined();
-            // eslint-disable-next-line no-restricted-syntax
-            expect((output as any).apiOptions).toBeUndefined();
-            // eslint-disable-next-line no-restricted-syntax
-            expect((output as any).problemNum).toBeUndefined();
-
-            // make sure we're not filtering too much
-            expect(output.type).toBe("definition");
-            expect(output.options).toEqual(options);
-        });
-
-        it("passes graded through", () => {
-            const widgetInfo: PerseusWidget = {
-                type: "definition",
-                graded: true,
-                options: generateDefinitionOptions(),
-            };
-
-            const output = _upgradeWidgetInfo(widgetInfo);
-
-            expect(output.graded).toBe(true);
         });
     });
 });
