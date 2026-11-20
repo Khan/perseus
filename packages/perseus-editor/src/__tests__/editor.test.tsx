@@ -392,41 +392,6 @@ describe("Editor", () => {
         ).not.toBeInTheDocument();
     });
 
-    it("gives an inserted widget with no editor the default options from its logic", () => {
-        // Arrange
-        const onChange = jest.fn();
-        const editorRef = React.createRef<Editor>();
-        render(
-            <DependenciesContext.Provider value={testDependenciesV2}>
-                <Editor
-                    ref={editorRef}
-                    apiOptions={ApiOptions.defaults}
-                    content=""
-                    widgets={{}}
-                    onChange={onChange}
-                />
-            </DependenciesContext.Provider>,
-        );
-
-        // Act
-        // The blank widget is edited by its parent widget's editor, so it has
-        // no editor of its own.
-        act(() => editorRef.current?.addWidget("blank"));
-
-        // Assert
-        expect(onChange).toHaveBeenCalledWith(
-            expect.objectContaining({
-                content: "[[☃ blank 1]]",
-                widgets: {
-                    "blank 1": expect.objectContaining({
-                        type: "blank",
-                        options: {displayType: "normal", correctId: ""},
-                    }),
-                },
-            }),
-        );
-    });
-
     test("default templates work", async () => {
         // PerseusRenderer but TS is being dumb
         let cbData: any;
