@@ -68,7 +68,9 @@ const RenderArticleContent = (
 const RenderExerciseContent = (content: string): (() => React.JSX.Element) => {
     return function Render() {
         return (
-            <div style={{padding: "24px"}}>
+            // SPIKE (Argos): deliberate visual change to test the review
+            // flow. Revert before merging.
+            <div style={{padding: "48px", outline: "2px solid red"}}>
                 <QuestionRendererForStories
                     question={generateTestPerseusRenderer({content})}
                 />
