@@ -25,6 +25,7 @@ import NumberLine from "./widgets/number-line";
 import Orderer from "./widgets/orderer";
 import PhetSimulation from "./widgets/phet-simulation";
 import Plotter from "./widgets/plotter";
+import PolarGraph from "./widgets/polar-graph";
 import PythonProgram from "./widgets/python-program";
 import Sorter from "./widgets/sorter";
 import Table from "./widgets/table";
@@ -61,6 +62,7 @@ export default [
     Orderer,
     PhetSimulation,
     Plotter,
+    PolarGraph,
     PythonProgram,
     Sorter,
     Table,

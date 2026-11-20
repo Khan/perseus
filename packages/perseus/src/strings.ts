@@ -147,6 +147,64 @@ export type PerseusStrings = {
         x: string;
         y: string;
     }) => string;
+    srPolarGraph: string;
+    srPolarGraphInstructions: string;
+    srPolarRoseKInstructions: string;
+    srPolarPointDegrees: ({
+        pointLabel,
+        radius,
+        angle,
+    }: {
+        pointLabel: string;
+        radius: string;
+        angle: string;
+    }) => string;
+    srPolarPointRadians: ({
+        pointLabel,
+        radius,
+        angle,
+    }: {
+        pointLabel: string;
+        radius: string;
+        angle: string;
+    }) => string;
+    srPolarNamedPointDegrees: ({
+        name,
+        radius,
+        angle,
+    }: {
+        name: string;
+        radius: string;
+        angle: string;
+    }) => string;
+    srPolarNamedPointRadians: ({
+        name,
+        radius,
+        angle,
+    }: {
+        name: string;
+        radius: string;
+        angle: string;
+    }) => string;
+    srPolarRayPoint: string;
+    srPolarCirclePoint: string;
+    srPolarFarTip: string;
+    srPolarNearPoint: string;
+    srPolarPetalTip: string;
+    srPolarInitialSide: string;
+    srPolarTerminalSide: string;
+    srPolarLemniscateTip: string;
+    srPolarAngleGraphDegrees: ({measure}: {measure: string}) => string;
+    srPolarAngleGraphRadians: ({measure}: {measure: string}) => string;
+    srPolarLemniscateGraph: string;
+    srPolarRayGraph: string;
+    srPolarCircleGraph: string;
+    srPolarLimaconGraph: string;
+    srPolarRoseGraph: ({k}: {k: string}) => string;
+    srPolarCircleShape: ({radius}: {radius: string}) => string;
+    polarRoseKLabel: string;
+    polarRoseIncreaseK: string;
+    polarRoseDecreaseK: string;
     srInteractiveElements: ({elements}: {elements: string}) => string;
     srNoInteractiveElements: string;
     srCircleGraph: string;
@@ -1122,6 +1180,139 @@ export const strings = {
             "Aria label for an interactive Point element in the interactive graph widget. %(pointLabel)s is the author-provided custom label for the point (e.g. 'A'), or the count for its order in the points (e.g. 'Point 1 at 0 comma 0'). Coordinate (x, y) is written out as 'x comma y'.",
         message: "Point %(pointLabel)s at %(x)s comma %(y)s.",
     },
+    srPolarGraph: {
+        context:
+            "Default aria label for the polar graph widget, a graph of concentric circles and spokes where points are named by a radius and an angle.",
+        message: "A polar graph.",
+    },
+    srPolarGraphInstructions: {
+        context:
+            "Keyboard instructions read to screen reader users before the polar graph widget. 'Spoke' is a straight grid line from the center of the graph outward; 'handle' is a draggable point.",
+        message:
+            "Use the Tab key to move between the handles on the graph. When a handle has focus, use the Up and Down arrow keys to move it outward or inward along its spoke, and the Left and Right arrow keys to turn it counterclockwise or clockwise.",
+    },
+    srPolarRoseKInstructions: {
+        context:
+            "Added to the polar graph widget's keyboard instructions when the learner can change k, the petal number of a rose curve.",
+        message: "A rose curve also has buttons under the graph that change k.",
+    },
+    srPolarPointDegrees: {
+        context:
+            "Aria label for a movable point in the polar graph widget when angles are in degrees. %(pointLabel)s is the author's label for the point (e.g. 'A') or its number in order (e.g. 'Point 1'). %(radius)s is its distance from the center and %(angle)s its angle in degrees.",
+        message:
+            "Point %(pointLabel)s at radius %(radius)s, angle %(angle)s degrees.",
+    },
+    srPolarPointRadians: {
+        context:
+            "Aria label for a movable point in the polar graph widget when angles are in radians. %(pointLabel)s is the author's label for the point (e.g. 'A') or its number in order (e.g. 'Point 1'). %(radius)s is its distance from the center and %(angle)s its angle as a fraction of π, e.g. 'π/4'.",
+        message:
+            "Point %(pointLabel)s at radius %(radius)s, angle %(angle)s radians.",
+    },
+    srPolarNamedPointDegrees: {
+        context:
+            "Aria label for a named movable handle in the polar graph widget when angles are in degrees. %(name)s is the handle's role, e.g. 'Point on the ray'. %(radius)s is its distance from the center and %(angle)s its angle in degrees.",
+        message: "%(name)s at radius %(radius)s, angle %(angle)s degrees.",
+    },
+    srPolarNamedPointRadians: {
+        context:
+            "Aria label for a named movable handle in the polar graph widget when angles are in radians. %(name)s is the handle's role, e.g. 'Point on the ray'. %(radius)s is its distance from the center and %(angle)s its angle as a fraction of π, e.g. 'π/4'.",
+        message: "%(name)s at radius %(radius)s, angle %(angle)s radians.",
+    },
+    srPolarRayPoint: {
+        context:
+            "Name of the movable handle that sets a ray's direction in the polar graph widget.",
+        message: "Point on the ray",
+    },
+    srPolarCirclePoint: {
+        context:
+            "Name of the movable handle that sets a circle's radius in the polar graph widget.",
+        message: "Point on the circle",
+    },
+    srPolarFarTip: {
+        context:
+            "Name of the movable handle at the farthest point of a limaçon curve in the polar graph widget.",
+        message: "Far tip of the limaçon",
+    },
+    srPolarNearPoint: {
+        context:
+            "Name of the movable handle where a limaçon curve crosses its axis near the center, in the polar graph widget.",
+        message: "Near point of the limaçon",
+    },
+    srPolarPetalTip: {
+        context:
+            "Name of the movable handle at the tip of one petal of a rose curve in the polar graph widget.",
+        message: "Petal tip of the rose",
+    },
+    srPolarInitialSide: {
+        context:
+            "Name of the movable handle on the initial side of an angle drawn at the center of the polar graph widget. The initial side is where the angle starts; the terminal side is where it ends.",
+        message: "Initial side of the angle",
+    },
+    srPolarTerminalSide: {
+        context:
+            "Name of the movable handle on the terminal side of an angle drawn at the center of the polar graph widget. The terminal side is where the angle ends.",
+        message: "Terminal side of the angle",
+    },
+    srPolarLemniscateTip: {
+        context:
+            "Name of the movable handle at the tip of one lobe of a lemniscate, a figure-eight curve, in the polar graph widget.",
+        message: "Tip of the lemniscate",
+    },
+    srPolarAngleGraphDegrees: {
+        context:
+            "Aria label for the group holding an angle and its handles in the polar graph widget, when angles are in degrees. %(measure)s is the angle's size in degrees.",
+        message: "An angle at the pole measuring %(measure)s degrees.",
+    },
+    srPolarAngleGraphRadians: {
+        context:
+            "Aria label for the group holding an angle and its handles in the polar graph widget, when angles are in radians. %(measure)s is the angle's size as a fraction of π, e.g. '5π/6'.",
+        message: "An angle at the pole measuring %(measure)s radians.",
+    },
+    srPolarLemniscateGraph: {
+        context:
+            "Aria label for the group holding a lemniscate, a figure-eight curve, and its handle in the polar graph widget.",
+        message: "A lemniscate on a polar graph.",
+    },
+    srPolarRayGraph: {
+        context:
+            "Aria label for the group holding a ray and its handle in the polar graph widget. The pole is the center of a polar graph.",
+        message: "A ray from the pole on a polar graph.",
+    },
+    srPolarCircleGraph: {
+        context:
+            "Aria label for the group holding a circle and its handle in the polar graph widget. The pole is the center of a polar graph.",
+        message: "A circle centered on the pole of a polar graph.",
+    },
+    srPolarLimaconGraph: {
+        context:
+            "Aria label for the group holding a limaçon curve and its handles in the polar graph widget.",
+        message: "A limaçon on a polar graph.",
+    },
+    srPolarRoseGraph: {
+        context:
+            "Aria label for the group holding a rose curve and its handle in the polar graph widget. %(k)s is the number k in the equation r = a cos(kθ).",
+        message: "A rose curve with k equal to %(k)s on a polar graph.",
+    },
+    srPolarCircleShape: {
+        context:
+            "Screen reader description of the circle drawn in the polar graph widget. %(radius)s is its radius.",
+        message: "Circle of radius %(radius)s.",
+    },
+    polarRoseKLabel: {
+        context:
+            "Label for the control that sets k, the number in a rose curve's equation r = a cos(kθ), in the polar graph widget. A rose has k petals when k is odd and 2k when k is even, so this is not a petal count.",
+        message: "k",
+    },
+    polarRoseIncreaseK: {
+        context:
+            "Aria label for the button that raises k by one in the polar graph widget's rose curve.",
+        message: "Increase k",
+    },
+    polarRoseDecreaseK: {
+        context:
+            "Aria label for the button that lowers k by one in the polar graph widget's rose curve.",
+        message: "Decrease k",
+    },
     srCircleGraph: {
         context:
             "Aria label for the container containing the Circle and its interactive elements in the interactive graph widget.",
@@ -2037,6 +2228,44 @@ export const mockStrings: PerseusStrings = {
         "Use this graph to check your thinking, but it does not count as your answer.",
     srPointAtCoordinates: ({pointLabel, x, y}) =>
         `Point ${pointLabel} at ${x} comma ${y}.`,
+    srPolarGraph: "A polar graph.",
+    srPolarGraphInstructions:
+        "Use the Tab key to move between the handles on the graph. When a " +
+        "handle has focus, use the Up and Down arrow keys to move it " +
+        "outward or inward along its spoke, and the Left and Right arrow " +
+        "keys to turn it counterclockwise or clockwise.",
+    srPolarRoseKInstructions:
+        "A rose curve also has buttons under the graph that change k.",
+    srPolarPointDegrees: ({pointLabel, radius, angle}) =>
+        `Point ${pointLabel} at radius ${radius}, angle ${angle} degrees.`,
+    srPolarPointRadians: ({pointLabel, radius, angle}) =>
+        `Point ${pointLabel} at radius ${radius}, angle ${angle} radians.`,
+    srPolarNamedPointDegrees: ({name, radius, angle}) =>
+        `${name} at radius ${radius}, angle ${angle} degrees.`,
+    srPolarNamedPointRadians: ({name, radius, angle}) =>
+        `${name} at radius ${radius}, angle ${angle} radians.`,
+    srPolarRayPoint: "Point on the ray",
+    srPolarCirclePoint: "Point on the circle",
+    srPolarFarTip: "Far tip of the limaçon",
+    srPolarNearPoint: "Near point of the limaçon",
+    srPolarPetalTip: "Petal tip of the rose",
+    srPolarInitialSide: "Initial side of the angle",
+    srPolarTerminalSide: "Terminal side of the angle",
+    srPolarLemniscateTip: "Tip of the lemniscate",
+    srPolarAngleGraphDegrees: ({measure}) =>
+        `An angle at the pole measuring ${measure} degrees.`,
+    srPolarAngleGraphRadians: ({measure}) =>
+        `An angle at the pole measuring ${measure} radians.`,
+    srPolarLemniscateGraph: "A lemniscate on a polar graph.",
+    srPolarRayGraph: "A ray from the pole on a polar graph.",
+    srPolarCircleGraph: "A circle centered on the pole of a polar graph.",
+    srPolarLimaconGraph: "A limaçon on a polar graph.",
+    srPolarRoseGraph: ({k}) =>
+        `A rose curve with k equal to ${k} on a polar graph.`,
+    srPolarCircleShape: ({radius}) => `Circle of radius ${radius}.`,
+    polarRoseKLabel: "k",
+    polarRoseIncreaseK: "Increase k",
+    polarRoseDecreaseK: "Decrease k",
     srInteractiveElements: ({elements}) => `Interactive elements: ${elements}`,
     srNoInteractiveElements: "No interactive elements",
     srCircleGraph: "A circle on a coordinate plane.",

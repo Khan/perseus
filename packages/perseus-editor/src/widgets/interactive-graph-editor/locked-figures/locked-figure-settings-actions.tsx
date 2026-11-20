@@ -25,7 +25,8 @@ export type LockedFigureSettingsMovementType =
     | "front";
 
 interface Props {
-    figureType: LockedFigureType;
+    /** Names the figure in the buttons' labels, e.g. "Delete locked point". */
+    figureType: LockedFigureType | string;
     editingDisabled?: boolean;
     onMove?: (movement: LockedFigureSettingsMovementType) => void;
     onRemove: () => void;

@@ -40,24 +40,30 @@ export default function MovablePointLabelsLayer({state}: Props) {
             {labeledPoints.map((label) => (
                 <MovablePointLabelView
                     key={label.key}
-                    label={label}
-                    range={state.range}
+                    coord={label.coord}
+                    text={label.text}
+                    attach={getLabelAttach(label.coord, state.range)}
                 />
             ))}
         </>
     );
 }
 
-function MovablePointLabelView({
-    label,
-    range,
+/**
+ * One visible label beside a movable point. Exported so the polar graph
+ * can draw its point labels the same way, with its own attach rule.
+ */
+export function MovablePointLabelView({
+    coord,
+    text,
+    attach,
 }: {
-    label: MovablePointLabel;
-    range: InteractiveGraphState["range"];
+    coord: MovablePointLabel["coord"];
+    text: string;
+    attach: LabelAttach;
 }) {
     const graphConfig = useGraphConfig();
-    const [x, y] = pointToPixel(label.coord, graphConfig);
-    const attach = getLabelAttach(label.coord, range);
+    const [x, y] = pointToPixel(coord, graphConfig);
 
     return (
         <span
@@ -80,7 +86,7 @@ function MovablePointLabelView({
                 filter: "url(#math-stroke)",
             }}
         >
-            {label.text}
+            {text}
         </span>
     );
 }

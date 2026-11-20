@@ -28,6 +28,7 @@ import {parseNumericInputWidget} from "./numeric-input-widget";
 import {parseOrdererWidget} from "./orderer-widget";
 import {parsePhetSimulationWidget} from "./phet-simulation-widget";
 import {parsePlotterWidget} from "./plotter-widget";
+import {parsePolarGraphWidget} from "./polar-graph-widget";
 import {parsePythonProgramWidget} from "./python-program-widget";
 import {parseRadioWidget} from "./radio-widget";
 import {parseSorterWidget} from "./sorter-widget";
@@ -165,6 +166,8 @@ const parseWidgetsMapEntry: (
             );
         case "plotter":
             return parseAndAssign(`plotter ${n}`, parsePlotterWidget);
+        case "polar-graph":
+            return parseAndAssign(`polar-graph ${n}`, parsePolarGraphWidget);
         case "python-program":
             return parseAndAssign(
                 `python-program ${n}`,
