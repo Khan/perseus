@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 95.0.2
+
+### Patch Changes
+
+-   [#4597](https://github.com/Khan/perseus/pull/4597) [`d1fe849`](https://github.com/Khan/perseus/commit/d1fe84942f2cb904489fad42526b196b95b355a0) Thanks [@handeyeco](https://github.com/handeyeco)! - Override TeX user-select rule in Draggable
+
 ## 95.0.1
 
 ### Patch Changes
