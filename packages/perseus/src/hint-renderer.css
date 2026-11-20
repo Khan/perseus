@@ -37,4 +37,14 @@
             clear: both;
         }
     }
+
+    .framework-perseus .perseus-hint-label {
+        color: var(--wb-semanticColor-core-foreground-instructive-strong);
+        display: block;
+        font-weight: var(--wb-font-weight-bold);
+        margin-right: var(--wb-sizing-size_120);
+        position: absolute;
+        right: 100%;
+        white-space: nowrap;
+    }
 }
