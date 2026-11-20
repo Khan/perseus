@@ -23,7 +23,9 @@ describe("phet-simulation editor", () => {
 
     it("renders", async () => {
         // Act
-        render(<PhetSimulationEditor onChange={() => {}} />);
+        render(
+            <PhetSimulationEditor url="" description="" onChange={() => {}} />,
+        );
 
         // Assert
         expect(screen.getByLabelText("URL")).toBeInTheDocument();
@@ -35,7 +37,13 @@ describe("phet-simulation editor", () => {
         const onChangeMock = jest.fn();
 
         // Act
-        render(<PhetSimulationEditor onChange={onChangeMock} />);
+        render(
+            <PhetSimulationEditor
+                url=""
+                description=""
+                onChange={onChangeMock}
+            />,
+        );
         await userEvent.type(screen.getByLabelText("URL"), "h");
 
         // Assert
@@ -49,7 +57,13 @@ describe("phet-simulation editor", () => {
         const onChangeMock = jest.fn();
 
         // Act
-        render(<PhetSimulationEditor onChange={onChangeMock} />);
+        render(
+            <PhetSimulationEditor
+                url=""
+                description=""
+                onChange={onChangeMock}
+            />,
+        );
         await userEvent.type(screen.getByLabelText("Description"), "P");
 
         // Assert

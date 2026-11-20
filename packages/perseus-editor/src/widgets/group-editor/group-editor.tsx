@@ -1,4 +1,3 @@
-import {groupLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import Editor from "../../editor";
@@ -9,9 +8,6 @@ import type {PerseusGroupWidgetOptions} from "@khanacademy/perseus-core";
 type Props = WidgetEditorProps<PerseusGroupWidgetOptions>;
 
 class GroupEditor extends React.Component<Props> {
-    static defaultProps: PerseusGroupWidgetOptions =
-        groupLogic.defaultWidgetOptions;
-
     render(): React.ReactNode {
         return (
             <div className="perseus-group-editor">

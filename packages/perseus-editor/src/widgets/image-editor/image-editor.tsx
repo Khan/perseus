@@ -1,14 +1,11 @@
 import {ApiOptions} from "@khanacademy/perseus";
-import {
-    imageLogic,
-    type PerseusImageWidgetOptions,
-} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import ImageSettings from "./components/image-settings";
 import ImageUrlInput from "./components/image-url-input";
 
 import type {WidgetEditorProps} from "../widget-editor-props";
+import type {PerseusImageWidgetOptions} from "@khanacademy/perseus-core";
 
 type Props = WidgetEditorProps<PerseusImageWidgetOptions>;
 
@@ -17,9 +14,6 @@ type Props = WidgetEditorProps<PerseusImageWidgetOptions>;
  */
 class ImageEditor extends React.Component<Props> {
     static displayName = "ImageEditor";
-
-    static defaultProps: PerseusImageWidgetOptions =
-        imageLogic.defaultWidgetOptions;
 
     handleChange = (changes: Partial<PerseusImageWidgetOptions>) => {
         this.props.onChange({

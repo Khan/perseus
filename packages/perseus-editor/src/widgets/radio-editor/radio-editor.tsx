@@ -1,4 +1,4 @@
-import {radioLogic, deriveNumCorrect} from "@khanacademy/perseus-core";
+import {deriveNumCorrect} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
@@ -29,9 +29,6 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         url: "https://www.khanacademy.org/internal-courses/content-creation-best-practices/xe46daa512cd9c644:question-writing/xe46daa512cd9c644:multiple-choice/a/stems",
         label: "Multiple choice best practices",
     };
-
-    static defaultProps: PerseusRadioWidgetOptions =
-        radioLogic.defaultWidgetOptions;
 
     // Store refs to each choice editor for focus management
     // Using choice.id as key ensures refs remain valid after reorder/delete

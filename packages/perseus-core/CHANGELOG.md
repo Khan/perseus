@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 42.5.1
+
+### Patch Changes
+
+-   [#4575](https://github.com/Khan/perseus/pull/4575) [`f1e953e`](https://github.com/Khan/perseus/commit/f1e953ebce191080630bb42e318c0e6aab5ec2b0) Thanks [@benchristel](https://github.com/benchristel)! - Register the free-response widget's logic in `registerCoreWidgets()`
+
 ## 42.5.0
 
 ### Minor Changes

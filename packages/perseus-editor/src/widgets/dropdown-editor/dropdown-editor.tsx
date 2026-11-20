@@ -1,7 +1,3 @@
-import {
-    dropdownLogic,
-    type PerseusDropdownWidgetOptions,
-} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
@@ -15,6 +11,7 @@ import _ from "underscore";
 import InfoTip from "../../components/info-tip";
 
 import type {WidgetEditorProps} from "../widget-editor-props";
+import type {PerseusDropdownWidgetOptions} from "@khanacademy/perseus-core";
 
 type Props = WidgetEditorProps<PerseusDropdownWidgetOptions>;
 
@@ -22,9 +19,6 @@ type Props = WidgetEditorProps<PerseusDropdownWidgetOptions>;
  * An editor for adding a dropdown widget that allows users to select an option from a predefined list.
  */
 class DropdownEditor extends React.Component<Props> {
-    static defaultProps: PerseusDropdownWidgetOptions =
-        dropdownLogic.defaultWidgetOptions;
-
     handleChange(changed: Partial<PerseusDropdownWidgetOptions>) {
         this.props.onChange({
             choices: this.props.choices,
