@@ -1,6 +1,6 @@
 import {shuffleSorter} from "@khanacademy/perseus-core";
 
-import Sorter from "./sorter";
+import Sorter from "./new/sorter";
 
 import type {WidgetExports} from "../../types";
 import type {
