@@ -48,8 +48,6 @@ export default function FillInTheBlankEditor({
 
     const editingDisabled = apiOptions?.editingDisabled ?? false;
 
-    // The widget editor container replaces the widget's options with what
-    // onChange receives, so every change sends the full options.
     function handleChange(
         changes: Partial<PerseusFillInTheBlankWidgetOptions>,
     ) {
