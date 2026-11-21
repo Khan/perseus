@@ -8,7 +8,6 @@ import InfoTip from "../../components/info-tip";
 import PerseusEditorAccordion from "../../components/perseus-editor-accordion";
 import ScrolllessNumberTextField from "../../components/scrollless-number-text-field";
 
-import {getChoiceDisplayName} from "./choice-display-name";
 import styles from "./fill-in-the-blank-editor.module.css";
 
 import type {PerseusFillInTheBlankTile} from "@khanacademy/perseus-core";
@@ -37,7 +36,7 @@ export function ChoiceSettings({
 }: Props) {
     const {maxUses} = tile;
     const unlimited = maxUses === "unlimited";
-    const displayName = getChoiceDisplayName(tile, index);
+    const displayName = tile.content.trim() || tile.label.trim();
     // Start collapsed so a long choice bank stays scannable, except for a
     // choice that was just added and still needs filling in.
     const [expanded, setExpanded] = React.useState(tile.content === "");
