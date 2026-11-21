@@ -1,5 +1,12 @@
+import {ApiOptions} from "@khanacademy/perseus";
 import {isFeatureOn} from "@khanacademy/perseus-core";
+import Button from "@khanacademy/wonder-blocks-button";
+import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import * as React from "react";
+
+import Editor from "../../editor";
+
+import styles from "./fill-in-the-blank-editor.module.css";
 
 import type {APIOptions} from "@khanacademy/perseus";
 import type {PerseusFillInTheBlankWidgetOptions} from "@khanacademy/perseus-core";
@@ -17,19 +24,56 @@ interface Props extends PerseusFillInTheBlankWidgetOptions {
  * An editor for a Fill in the Blank widget, where the learner drags answer
  * tiles from a choice bank into blanks in a passage.
  *
- * The controls are not built yet (LEMS-4371).
+ * Choosing each blank's answer and configuring the choice bank are not built
+ * yet (LEMS-4371).
  */
-export default function FillInTheBlankEditor({apiOptions}: Props) {
+export default function FillInTheBlankEditor({
+    content,
+    widgets,
+    tiles,
+    randomize,
+    apiOptions,
+    onChange,
+}: Props) {
+    const editorRef = React.useRef<Editor>(null);
+
     // TODO(LEMS-4396): clean up feature flag
     if (!isFeatureOn({apiOptions}, "dnd-widget-fitb")) {
         return null;
     }
 
-    // TODO(LEMS-4371): FITB Content Editor
+    const editingDisabled = apiOptions?.editingDisabled ?? false;
+
     return (
-        <div data-testid="fill-in-the-blank-editor">
-            The Fill in the Blank editor is not built yet. Edit this
-            widget&rsquo;s options in JSON mode.
+        <div className={styles.container}>
+            <Editor
+                ref={editorRef}
+                content={content}
+                widgets={widgets}
+                apiOptions={apiOptions ?? ApiOptions.defaults}
+                placeholder="Type the passage, then insert blanks into it."
+                widgetEnabled={true}
+                hideWidgetControls={true}
+                onChange={(renderer) =>
+                    onChange({
+                        content: renderer.content,
+                        widgets: renderer.widgets,
+                        tiles,
+                        randomize,
+                    })
+                }
+            />
+            <div className={styles.contentToolbar}>
+                <Button
+                    kind="tertiary"
+                    size="small"
+                    startIcon={plusIcon}
+                    onClick={() => editorRef.current?.addWidget("blank")}
+                    disabled={editingDisabled}
+                >
+                    Insert blank
+                </Button>
+            </div>
         </div>
     );
 }
