@@ -12,6 +12,7 @@ import jestSerializerHtml from "jest-serializer-html";
 import {addSerializer} from "jest-specific-snapshot";
 
 import "@testing-library/jest-dom";
+import {failOnConsole} from "./fail-on-console";
 
 // Prevent aphrodite from trying to inject styles into the CSSOM
 StyleSheetTestUtils.suppressStyleInjection();
@@ -43,6 +44,8 @@ require("./attach-jsdom-window-shims")(globalThis);
 process.on("unhandledRejection", (err) => {
     console.error("Unhandled Promise Rejection:", err);
 });
+
+failOnConsole();
 
 beforeEach(() => {
     // Instructs Jest to use fake versions of the standard timer functions.
