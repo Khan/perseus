@@ -45,7 +45,7 @@ export function ChoiceSettings({
             expanded={expanded}
             onToggle={setExpanded}
         >
-            <div className={styles.choiceFields}>
+            <div className={styles.settingsFields}>
                 <LabeledField
                     label="Answer"
                     contextLabel={

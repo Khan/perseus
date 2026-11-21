@@ -169,13 +169,13 @@ export default function FillInTheBlankEditor({
             </div>
 
             <section className={styles.section}>
-                <Heading size="small" tag="h3">
+                <Heading size="medium" tag="h3">
                     Blanks
                 </Heading>
                 {blanks.length > 0 ? (
-                    <ul className={styles.list}>
+                    <ul className={`${styles.list} ${styles.blankList}`}>
                         {blanks.map(([blankId, blank]) => (
-                            <li key={blankId}>
+                            <li key={blankId} className={styles.listItem}>
                                 <BlankEditor
                                     blankId={blankId}
                                     correctId={blank.options.correctId}
@@ -197,7 +197,7 @@ export default function FillInTheBlankEditor({
             </section>
 
             <section className={styles.section}>
-                <Heading size="small" tag="h3">
+                <Heading size="medium" tag="h3">
                     Choices
                 </Heading>
                 {tiles.length > 0 && (
