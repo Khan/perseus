@@ -67,8 +67,11 @@ function renderEditor(
 describe("fill-in-the-blank-editor", () => {
     let userEvent: UserEvent;
 
-    /** Expands a choice's settings and returns the region holding them. */
-    async function openChoice(name: string): Promise<HTMLElement> {
+    /**
+     * Expands a blank's or choice's settings and returns the region holding
+     * them.
+     */
+    async function openSettings(name: string): Promise<HTMLElement> {
         await userEvent.click(screen.getByRole("button", {name}));
         return screen.getByRole("region", {name});
     }
@@ -250,6 +253,150 @@ describe("fill-in-the-blank-editor", () => {
         });
     });
 
+    describe("blanks", () => {
+        it("names each blank's settings by the blank and its answer", () => {
+            // Arrange, Act
+            renderEditor(optionsWithOneBlank());
+
+            // Assert
+            expect(
+                screen.getByRole("button", {name: "Blank 1: djembe"}),
+            ).toBeInTheDocument();
+        });
+
+        it("renders a correct-answer select for each blank", async () => {
+            // Arrange
+            renderEditor(optionsWithOneBlank());
+
+            // Act
+            const blank = await openSettings("Blank 1: djembe");
+
+            // Assert
+            expect(
+                within(blank).getByRole("combobox", {name: "Correct answer"}),
+            ).toHaveTextContent("djembe");
+        });
+
+        it("expands a blank that has no answer yet", () => {
+            // Arrange, Act
+            renderEditor(
+                optionsWithOneBlank({
+                    widgets: {
+                        "blank 1": generateBlankWidget({
+                            options: {displayType: "normal", correctId: ""},
+                        }),
+                    },
+                }),
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("combobox", {name: "Correct answer"}),
+            ).toBeVisible();
+        });
+
+        it("sets the blank's correct answer to the selected choice", async () => {
+            // Arrange
+            const onChange = jest.fn();
+            renderEditor(optionsWithOneBlank(), onChange);
+            const blank = await openSettings("Blank 1: djembe");
+
+            // Act
+            await userEvent.click(
+                within(blank).getByRole("combobox", {name: "Correct answer"}),
+            );
+            await userEvent.click(screen.getByRole("option", {name: "tabla"}));
+
+            // Assert
+            expect(onChange).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    widgets: {
+                        "blank 1": expect.objectContaining({
+                            options: {
+                                displayType: "normal",
+                                correctId: "tile-2",
+                            },
+                        }),
+                    },
+                }),
+            );
+        });
+
+        it("disables a blank's select until there are choices to pick from", () => {
+            // Arrange, Act
+            renderEditor(optionsWithOneBlank({tiles: []}));
+
+            // Assert
+            // Wonder Blocks selects use aria-disabled, not the disabled
+            // attribute.
+            expect(
+                screen.getByRole("combobox", {name: "Correct answer"}),
+            ).toHaveAttribute("aria-disabled", "true");
+            expect(
+                screen.getByText("Add a choice below first."),
+            ).toBeInTheDocument();
+        });
+
+        it("keeps the content, choices and randomize setting when picking a blank's answer", async () => {
+            // Arrange
+            const onChange = jest.fn();
+            const options = optionsWithOneBlank({randomize: true});
+            renderEditor(options, onChange);
+            const blank = await openSettings("Blank 1: djembe");
+
+            // Act
+            await userEvent.click(
+                within(blank).getByRole("combobox", {name: "Correct answer"}),
+            );
+            await userEvent.click(screen.getByRole("option", {name: "tabla"}));
+
+            // Assert
+            expect(onChange).toHaveBeenLastCalledWith(
+                expect.objectContaining({
+                    content: options.content,
+                    tiles: options.tiles,
+                    randomize: true,
+                }),
+            );
+        });
+
+        it("names an empty choice by its position in a blank's select", async () => {
+            // Arrange
+            renderEditor(
+                optionsWithOneBlank({
+                    tiles: [
+                        generateFillInTheBlankTile({
+                            id: "tile-1",
+                            content: "",
+                            label: "",
+                        }),
+                    ],
+                }),
+            );
+            const blank = await openSettings("Blank 1: Choice 1");
+
+            // Act
+            await userEvent.click(
+                within(blank).getByRole("combobox", {name: "Correct answer"}),
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("option", {name: "Choice 1"}),
+            ).toBeInTheDocument();
+        });
+
+        it("leaves out a blank whose placeholder is no longer in the content", () => {
+            // Arrange, Act
+            renderEditor(optionsWithOneBlank({content: "No blanks here."}));
+
+            // Assert
+            expect(
+                screen.queryByRole("button", {name: /^Blank 1/}),
+            ).not.toBeInTheDocument();
+        });
+    });
+
     describe("choices", () => {
         it("disables Add a choice when editing is disabled", () => {
             // Arrange, Act
@@ -299,7 +446,7 @@ describe("fill-in-the-blank-editor", () => {
             const onChange = jest.fn();
             const options = optionsWithOneBlank({randomize: true});
             renderEditor(options, onChange);
-            const choice = await openChoice("Choice 1: djembe");
+            const choice = await openSettings("Choice 1: djembe");
 
             // Act
             await userEvent.type(
@@ -321,7 +468,7 @@ describe("fill-in-the-blank-editor", () => {
             // Arrange
             const onChange = jest.fn();
             renderEditor(optionsWithOneBlank(), onChange);
-            const choice = await openChoice("Choice 2: tabla");
+            const choice = await openSettings("Choice 2: tabla");
 
             // Act
             await userEvent.type(
@@ -350,7 +497,7 @@ describe("fill-in-the-blank-editor", () => {
             // Arrange
             const onChange = jest.fn();
             renderEditor(optionsWithOneBlank(), onChange);
-            const choice = await openChoice("Choice 1: djembe");
+            const choice = await openSettings("Choice 1: djembe");
 
             // Act
             await userEvent.type(
@@ -376,7 +523,7 @@ describe("fill-in-the-blank-editor", () => {
             // Arrange
             const onChange = jest.fn();
             renderEditor(optionsWithOneBlank(), onChange);
-            const choice = await openChoice("Choice 1: djembe");
+            const choice = await openSettings("Choice 1: djembe");
             const maxUses = within(choice).getByRole("spinbutton", {
                 name: "Max uses",
             });
@@ -400,7 +547,7 @@ describe("fill-in-the-blank-editor", () => {
             // Arrange
             const onChange = jest.fn();
             renderEditor(optionsWithOneBlank(), onChange);
-            const choice = await openChoice("Choice 1: djembe");
+            const choice = await openSettings("Choice 1: djembe");
 
             // Act
             await userEvent.click(
@@ -443,7 +590,7 @@ describe("fill-in-the-blank-editor", () => {
                 }),
                 onChange,
             );
-            const choice = await openChoice("Choice 1: djembe");
+            const choice = await openSettings("Choice 1: djembe");
 
             // Act
             await userEvent.click(
@@ -476,7 +623,7 @@ describe("fill-in-the-blank-editor", () => {
             );
 
             // Act
-            const choice = await openChoice("Choice 1: djembe");
+            const choice = await openSettings("Choice 1: djembe");
 
             // Assert
             expect(
@@ -484,12 +631,12 @@ describe("fill-in-the-blank-editor", () => {
             ).not.toBeInTheDocument();
         });
 
-        it("removes a choice", async () => {
+        it("removes a choice and unsets the blanks that used it", async () => {
             // Arrange
             jest.spyOn(window, "confirm").mockReturnValue(true);
             const onChange = jest.fn();
             renderEditor(optionsWithOneBlank(), onChange);
-            const choice = await openChoice("Choice 1: djembe");
+            const choice = await openSettings("Choice 1: djembe");
 
             // Act
             await userEvent.click(
@@ -500,6 +647,11 @@ describe("fill-in-the-blank-editor", () => {
             expect(onChange).toHaveBeenCalledWith(
                 expect.objectContaining({
                     tiles: [expect.objectContaining({id: "tile-2"})],
+                    widgets: {
+                        "blank 1": expect.objectContaining({
+                            options: {displayType: "normal", correctId: ""},
+                        }),
+                    },
                 }),
             );
         });
@@ -509,7 +661,7 @@ describe("fill-in-the-blank-editor", () => {
             jest.spyOn(window, "confirm").mockReturnValue(false);
             const onChange = jest.fn();
             renderEditor(optionsWithOneBlank(), onChange);
-            const choice = await openChoice("Choice 1: djembe");
+            const choice = await openSettings("Choice 1: djembe");
 
             // Act
             await userEvent.click(

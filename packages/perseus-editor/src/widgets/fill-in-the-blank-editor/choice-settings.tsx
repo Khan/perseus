@@ -45,7 +45,7 @@ export function ChoiceSettings({
             expanded={expanded}
             onToggle={setExpanded}
         >
-            <div className={styles.choiceFields}>
+            <div className={styles.settingsFields}>
                 <LabeledField
                     label="Answer"
                     contextLabel={
@@ -124,7 +124,10 @@ export function ChoiceSettings({
                         onClick={() => {
                             if (
                                 // eslint-disable-next-line no-alert
-                                window.confirm(`Remove "${displayName}"?`)
+                                window.confirm(
+                                    `Remove "${displayName}"? Blanks that ` +
+                                        "use it as their answer will be unset.",
+                                )
                             ) {
                                 onRemove();
                             }
