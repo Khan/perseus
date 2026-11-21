@@ -23,10 +23,6 @@ type Props = {
     onRemove: () => void;
 };
 
-/**
- * The settings for one choice in the choice bank: what its tile shows, how
- * screen readers announce it, and how many blanks it can fill.
- */
 export function ChoiceSettings({
     tile,
     index,

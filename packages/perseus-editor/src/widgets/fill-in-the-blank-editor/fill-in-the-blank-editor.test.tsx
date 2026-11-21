@@ -170,8 +170,6 @@ describe("fill-in-the-blank-editor", () => {
             });
         });
 
-        // The widget editor container replaces the widget's options with
-        // what onChange receives, so dropping a field here would erase it.
         it("keeps the tiles and randomize setting when inserting a blank", async () => {
             // Arrange
             const onChange = jest.fn();
