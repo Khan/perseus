@@ -421,6 +421,46 @@ describe("fill-in-the-blank-editor", () => {
             );
         });
 
+        it("makes a previously unlimited choice limited-use", async () => {
+            // Arrange
+            const onChange = jest.fn();
+            renderEditor(
+                optionsWithOneBlank({
+                    tiles: [
+                        generateFillInTheBlankTile({
+                            id: "tile-1",
+                            content: "djembe",
+                            label: "djembe",
+                            maxUses: "unlimited", // Start unlimited
+                        }),
+                        generateFillInTheBlankTile({
+                            id: "tile-2",
+                            content: "tabla",
+                            label: "tabla",
+                            maxUses: 1,
+                        }),
+                    ],
+                }),
+                onChange,
+            );
+            const choice = await openChoice("Choice 1: djembe");
+
+            // Act
+            await userEvent.click(
+                within(choice).getByRole("checkbox", {name: "Unlimited uses"}),
+            );
+
+            // Assert: Previously "unlimited" choice now has a maxUses of 1
+            expect(onChange).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    tiles: [
+                        expect.objectContaining({id: "tile-1", maxUses: 1}),
+                        expect.objectContaining({id: "tile-2", maxUses: 1}),
+                    ],
+                }),
+            );
+        });
+
         it("hides the max uses field for an unlimited-use choice", async () => {
             // Arrange
             renderEditor(
