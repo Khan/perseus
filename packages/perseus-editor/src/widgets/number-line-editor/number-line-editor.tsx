@@ -1,6 +1,5 @@
 import {number as knumber} from "@khanacademy/kmath";
 import {components} from "@khanacademy/perseus";
-import {numberLineLogic} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import _ from "underscore";
@@ -25,9 +24,6 @@ type Props = WidgetEditorProps<PerseusNumberLineWidgetOptions>;
  * positions, intervals, and points on a number line.
  */
 class NumberLineEditor extends React.Component<Props> {
-    static defaultProps: PerseusNumberLineWidgetOptions =
-        numberLineLogic.defaultWidgetOptions;
-
     handleChange(changes: Partial<PerseusNumberLineWidgetOptions>) {
         this.props.onChange({
             range: this.props.range,

@@ -43,10 +43,6 @@
 .framework-perseus.perseus-mobile .perseus-input-center-align .keypad-input {
     text-align: center;
 }
-.framework-perseus .zoomable {
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    -webkit-touch-callout: none;
-}
 .framework-perseus .range-input {
     border: 1px solid var(--wb-semanticColor-core-border-neutral-subtle);
     border-radius: var(--wb-border-radius-radius_040);

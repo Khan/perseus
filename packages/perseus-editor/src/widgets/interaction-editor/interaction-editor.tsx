@@ -1,5 +1,4 @@
 import {Dependencies, Util} from "@khanacademy/perseus";
-import {interactionLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import GraphSettings from "../../components/graph-settings";
@@ -35,9 +34,6 @@ type State = any;
  * and their properties.
  */
 class InteractionEditor extends React.Component<Props, State> {
-    static defaultProps: PerseusInteractionWidgetOptions =
-        interactionLogic.defaultWidgetOptions;
-
     state: State = {
         usedVarSubscripts: this._getAllVarSubscripts(this.props.elements),
         usedFunctionNames: this._getAllFunctionNames(this.props.elements),

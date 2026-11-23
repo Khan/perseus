@@ -10,6 +10,7 @@ import dropdownWidgetLogic from "./dropdown";
 import explanationWidgetLogic from "./explanation";
 import expressionWidgetLogic from "./expression";
 import fillInTheBlankWidgetLogic from "./fill-in-the-blank";
+import freeResponseWidgetLogic from "./free-response";
 import gradedGroupWidgetLogic from "./graded-group";
 import gradedGroupSetWidgetLogic from "./graded-group-set";
 import grapherWidgetLogic from "./grapher";
@@ -214,6 +215,7 @@ export function registerCoreWidgets() {
         explanationWidgetLogic,
         expressionWidgetLogic,
         fillInTheBlankWidgetLogic,
+        freeResponseWidgetLogic,
         gradedGroupWidgetLogic,
         gradedGroupSetWidgetLogic,
         grapherWidgetLogic,

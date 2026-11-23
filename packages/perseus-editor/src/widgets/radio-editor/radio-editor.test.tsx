@@ -1,4 +1,5 @@
 import {Dependencies, ApiOptions, Util} from "@khanacademy/perseus";
+import {generateRadioOptions} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -38,7 +39,7 @@ function renderRadioEditor(
         <RadioEditor
             onChange={onChangeMock}
             apiOptions={ApiOptions.defaults}
-            {...props}
+            {...generateRadioOptions(props)}
         />,
         {wrapper: RenderStateRoot},
     );
@@ -1135,6 +1136,7 @@ describe("radio-editor", () => {
                     ref={editorRef}
                     onChange={() => {}}
                     apiOptions={ApiOptions.defaults}
+                    {...generateRadioOptions()}
                 />,
                 {wrapper: RenderStateRoot},
             );
@@ -1152,6 +1154,7 @@ describe("radio-editor", () => {
                     ref={editorRef}
                     onChange={() => {}}
                     apiOptions={ApiOptions.defaults}
+                    {...generateRadioOptions()}
                 />,
                 {wrapper: RenderStateRoot},
             );
@@ -1174,6 +1177,7 @@ describe("radio-editor", () => {
                     ref={editorRef}
                     onChange={() => {}}
                     apiOptions={ApiOptions.defaults}
+                    {...generateRadioOptions()}
                 />,
                 {wrapper: RenderStateRoot},
             );
@@ -1197,6 +1201,7 @@ describe("radio-editor", () => {
                     ref={editorRef}
                     onChange={() => {}}
                     apiOptions={ApiOptions.defaults}
+                    {...generateRadioOptions()}
                 />,
                 {wrapper: RenderStateRoot},
             );

@@ -1,9 +1,6 @@
 import {KhanMath} from "@khanacademy/kmath";
 import {components} from "@khanacademy/perseus";
-import {
-    numericInputLogic,
-    type PerseusNumericInputWidgetOptions,
-} from "@khanacademy/perseus-core";
+import {type PerseusNumericInputWidgetOptions} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
@@ -67,10 +64,6 @@ interface State {
  */
 class NumericInputEditor extends React.Component<Props, State> {
     static displayName = "NumericInputEditor";
-
-    static defaultProps = {
-        ...numericInputLogic.defaultWidgetOptions,
-    };
 
     constructor(props: Props) {
         super(props);

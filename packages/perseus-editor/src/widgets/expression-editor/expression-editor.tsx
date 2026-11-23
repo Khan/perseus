@@ -2,7 +2,6 @@ import {components, Expression} from "@khanacademy/perseus";
 import {
     PerseusExpressionAnswerFormConsidered,
     deriveExtraKeys,
-    expressionLogic,
 } from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -61,10 +60,6 @@ interface State {
  * An editor for adding an expression widget that allows users to enter mathematical expressions.
  */
 class ExpressionEditor extends React.Component<Props, State> {
-    static defaultProps = {
-        ...expressionLogic.defaultWidgetOptions,
-    };
-
     constructor(props: Props) {
         super(props);
         this.state = {
