@@ -26,6 +26,14 @@
                 var(--wb-semanticColor-core-border-neutral-subtle);
             padding-inline-start: var(--wb-sizing-size_160);
             position: relative;
+            /* display: flow-root creates a block formatting context. Per MDN,
+             * this does the following:
+             * - contains internal floats.
+             * - excludes external floats.
+             * - suppresses margin collapsing.
+             * See: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Display/Block_formatting_context
+             */
+            display: flow-root;
 
             &:focus {
                 border-inline-start-color: var(
