@@ -35,7 +35,7 @@ import {ApiOptions, ClassNames as ApiClassNames} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown";
 import QuestionParagraph from "./question-paragraph";
 import TranslationLinter from "./translation-linter";
-import Util, {isContentGraphie} from "./util";
+import Util, {isContentGraphie, isLayoutTable} from "./util";
 import {containerSizeClass} from "./util/sizing-utils";
 import preprocessTex from "./util/tex-preprocess";
 import WidgetContainer from "./widget-container";
@@ -1225,7 +1225,8 @@ class Renderer
         nestedOutput: (ast: ASTNode, state: WidgetState) => React.ReactNode,
         state: WidgetState,
     ): React.ReactElement => {
-        const hasRowHeaders = tableHasRowHeaders(node);
+        const isLayout = isLayoutTable(node);
+        const hasRowHeaders = !isLayout && tableHasRowHeaders(node);
 
         const getStyle = (colIndex: number): React.CSSProperties =>
             node.align[colIndex] == null
@@ -1274,7 +1275,7 @@ class Renderer
         );
 
         return (
-            <table key={state.key}>
+            <table key={state.key} role={isLayout ? "presentation" : undefined}>
                 <thead key="thead">
                     <tr>{headers}</tr>
                 </thead>
@@ -1294,7 +1295,10 @@ class Renderer
         // navigation when rendered on mobile in a modal. Specifically this is
         // needed for Android Talkback, to enable reading/navigating tables
         // with the swipe left/right gesture.
-        if (state.isMobile) {
+        //
+        // Layout tables are skipped: browsers ignore `role="presentation"` on
+        // a focusable element, which would restore the table semantics.
+        if (state.isMobile && !isLayoutTable(node)) {
             return React.cloneElement(table, {tabIndex: 0});
         }
 
@@ -1306,23 +1310,30 @@ class Renderer
         nestedOutput: (ast: ASTNode, state: WidgetState) => React.ReactNode,
         state: WidgetState,
     ): React.ReactNode => {
-        // Defer to perseus-markdown when the linter has wrapped the table in a
-        // `lint` node.
+        // If the table is wrapped in a lint node, use
+        // PerseusMarkdown to render it. PerseusMarkdown defines
+        // the `lint` rule and rendering logic.
         if (node.table?.type !== "table") {
             return PerseusMarkdown.ruleOutput(node, nestedOutput, state);
         }
 
         const table = this.outputTableElement(node.table, nestedOutput, state);
-        const caption = (
-            <caption key="caption" className="perseus-table-title">
-                {nestedOutput(node.title, state)}
-            </caption>
+        // If the table is for layout purposes, we render it not as a caption
+        // element within a table, but as a paragraph above the table.
+        const contents = isLayoutTable(node.table) ? (
+            <React.Fragment key={state.key}>
+                {nestedOutput({type: "paragraph", content: node.title}, state)}
+                {table}
+            </React.Fragment>
+        ) : (
+            // Splice the caption into the table's children as the first child.
+            React.cloneElement(table, undefined, [
+                <caption key="caption" className="perseus-table-title">
+                    {nestedOutput(node.title, state)}
+                </caption>,
+                ...table.props.children,
+            ])
         );
-        // Splice the caption into the table's children as the first child.
-        const contents = React.cloneElement(table, undefined, [
-            caption,
-            ...table.props.children,
-        ]);
 
         if (state.unwrapTitledTableContents) {
             return contents;

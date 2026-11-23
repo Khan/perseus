@@ -1870,6 +1870,75 @@ describe("renderer", () => {
             expect(screen.queryByRole("rowheader")).not.toBeInTheDocument();
         });
     });
+
+    describe("markdown layout tables", () => {
+        it("renders when all column headers are empty", () => {
+            // Arrange, Act
+            const {container} = renderQuestion(
+                generateTestPerseusRenderer({
+                    content:
+                        "|| Title ||\n" +
+                        "| | |\n" +
+                        "|-|-|\n" +
+                        "| Gold | 19.3 |\n" +
+                        "| Silver | 10.5 |",
+                }),
+            );
+
+            // Assert
+            expect(container).toMatchSnapshot();
+        });
+    });
+
+    describe("markdown titled tables", () => {
+        // When the linter wraps a titled table's table in a `lint` node,
+        // PerseusMarkdown renders the titled table recursively with
+        // `unwrapTitledTableContents` and adds the wrapper itself.
+        it("renders one titled table wrapper when the table has lint", () => {
+            // Arrange, Act
+            const {container} = renderQuestion(
+                generateTestPerseusRenderer({
+                    // The second row is missing a cell, which the
+                    // `table-missing-cells` lint rule flags.
+                    content:
+                        "|| Metal densities ||\n" +
+                        "| Metal | Mass |\n" +
+                        "|-|-|\n" +
+                        "| Gold | 19.3 |\n" +
+                        "| Silver |",
+                }),
+                {
+                    extraProps: {
+                        linterContext: {
+                            contentType: "exercise",
+                            highlightLint: true,
+                            stack: [],
+                        },
+                    },
+                },
+            );
+
+            // Assert
+            const wrappers =
+                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                container.querySelectorAll<HTMLElement>(
+                    ".perseus-titled-table-wrapper",
+                );
+            expect(wrappers).toHaveLength(1);
+            // We expect the linter to add a warning link for the linting rule.
+            expect(
+                within(wrappers[0]).getByRole("link", {
+                    name: "Warning: table-missing-cells",
+                }),
+            ).toBeInTheDocument();
+            // We expect the table to be rendered with the title.
+            expect(
+                within(wrappers[0]).getByRole("table", {
+                    name: "Metal densities",
+                }),
+            ).toBeInTheDocument();
+        });
+    });
 });
 
 describe("isDifferentQuestion", () => {
