@@ -33,13 +33,6 @@
                 );
                 outline: none;
             }
-
-            &:before,
-            &:after {
-                content: "";
-                display: table;
-                clear: both;
-            }
         }
 
         .perseus-hint-label {
