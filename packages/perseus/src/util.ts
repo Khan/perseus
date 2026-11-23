@@ -128,6 +128,14 @@ export function isBoldTableCell(cell: TableCell): boolean {
 }
 
 /**
+ * Identifies whether a table is a layout table. A layout table
+ * is denoted when it has an all empty header row.
+ */
+export function isLayoutTable(node: SingleASTNode): boolean {
+    return node.header.every(isEmptyTableCell);
+}
+
+/**
  * Markdown has no syntax for row headers, so we infer them from two common
  * authoring patterns:
  *
