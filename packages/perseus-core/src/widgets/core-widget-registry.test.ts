@@ -114,12 +114,12 @@ describe("core-widget-registry", () => {
             registerWidget("_inline-widget_", {
                 name: "_inline-widget_",
                 defaultWidgetOptions: {},
-                defaultAlignment: "inline-block",
+                supportedAlignments: ["inline-block"],
             });
             registerWidget("_block-widget_", {
                 name: "_block-widget_",
                 defaultWidgetOptions: {},
-                defaultAlignment: "block",
+                supportedAlignments: ["block"],
             });
             registerWidget("_no-alignment-widget_", {
                 name: "_no-alignment-widget_",

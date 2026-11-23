@@ -20,7 +20,7 @@ const expressionWidgetLogic: WidgetLogic<
     name: "expression",
     version: currentVersion,
     defaultWidgetOptions: defaultWidgetOptions,
-    defaultAlignment: "inline-block",
+    supportedAlignments: ["inline-block"],
     getPublicWidgetOptions: getExpressionPublicWidgetOptions,
     accessible: true,
 };

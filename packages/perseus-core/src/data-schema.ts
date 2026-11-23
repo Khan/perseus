@@ -407,7 +407,7 @@ export type WidgetOptions<
      */
     graded?: boolean;
     /**
-     * The HTML alignment of the widget. "default" or "block".
+     * The HTML alignment of the widget.
      *
      * If the alignment is "default", it gets the default alignment from the
      * widget logic, which can be various other alignments (e.g.

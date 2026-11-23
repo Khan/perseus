@@ -26,7 +26,7 @@ export function generateExplanationWidget(
         // instead, Perseus renders an overlay <div /> over top of the
         // widget that intercepts interactions to it.
         static: false,
-        alignment: "default",
+        alignment: "inline",
         options: generateExplanationOptions(),
         ...explanationWidgetProperties,
     };

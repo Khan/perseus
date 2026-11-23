@@ -857,7 +857,7 @@ exports[`parseAndMigratePerseusItem > given cs-program-missing-static.ts > retur
         },
       },
       "numeric-input 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "answers": [
@@ -1064,7 +1064,7 @@ exports[`parseAndMigratePerseusItem > given definition-missing-static.ts > retur
         },
       },
       "definition 1": {
-        "alignment": "default",
+        "alignment": "inline",
         "graded": true,
         "options": {
           "definition": "",
@@ -1183,7 +1183,7 @@ $\\qquad(x-x)$ [[☃ dropdown 1]] $0$
     },
     "widgets": {
       "dropdown 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "ariaLabel": undefined,
@@ -1286,7 +1286,7 @@ exports[`parseAndMigratePerseusItem > given dropdown-missing-version.ts > return
     "images": {},
     "widgets": {
       "dropdown 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "ariaLabel": undefined,
@@ -1451,7 +1451,7 @@ $r =  $ [[☃ numeric-input 1]] ",
     "images": {},
     "widgets": {
       "numeric-input 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "answers": [
@@ -1562,7 +1562,7 @@ exports[`parseAndMigratePerseusItem > given expression-answerForm-missing-form.t
     "images": {},
     "widgets": {
       "expression 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "answerForms": [],
@@ -1688,7 +1688,7 @@ $y=$ [[☃ expression 1]]",
     },
     "widgets": {
       "expression 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "answerForms": [],
@@ -1797,7 +1797,7 @@ exports[`parseAndMigratePerseusItem > given expression-option-missing-value.ts >
     "images": {},
     "widgets": {
       "expression 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "answerForms": [],
@@ -2166,7 +2166,7 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
     },
     "widgets": {
       "expression 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "answerForms": [],
@@ -2195,7 +2195,7 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
         },
       },
       "expression 2": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "answerForms": [],
@@ -2224,7 +2224,7 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
         },
       },
       "expression 3": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "answerForms": [],
@@ -2253,7 +2253,7 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
         },
       },
       "expression 4": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "answerForms": [],
@@ -2561,7 +2561,7 @@ A certain tungsten filament has a mass of $0.0176\\text{ g}$.
     },
     "widgets": {
       "explanation 1": {
-        "alignment": "default",
+        "alignment": "inline",
         "graded": true,
         "options": {
           "explanation": "explanation goes here
@@ -2579,7 +2579,7 @@ more explanation",
         },
       },
       "explanation 2": {
-        "alignment": "default",
+        "alignment": "inline",
         "graded": true,
         "options": {
           "explanation": "Avogadro's number $= 6.022\\times 10^{23}$",
@@ -2595,7 +2595,7 @@ more explanation",
         },
       },
       "expression 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "answerForms": [],
@@ -4920,7 +4920,7 @@ exports[`parseAndMigratePerseusItem > given input-number-with-boolean-value.ts >
     "images": {},
     "widgets": {
       "input-number 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "answers": [
@@ -4945,7 +4945,7 @@ exports[`parseAndMigratePerseusItem > given input-number-with-boolean-value.ts >
         },
       },
       "input-number 2": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "answers": [
@@ -5133,7 +5133,7 @@ exports[`parseAndMigratePerseusItem > given input-number-with-null-version.ts > 
     "metadata": null,
     "widgets": {
       "input-number 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "key": null,
         "options": {
@@ -11905,7 +11905,7 @@ ___
     "metadata": null,
     "widgets": {
       "definition 1": {
-        "alignment": "default",
+        "alignment": "inline",
         "graded": true,
         "key": null,
         "options": {
@@ -11920,7 +11920,7 @@ ___
         },
       },
       "explanation 1": {
-        "alignment": "default",
+        "alignment": "inline",
         "graded": true,
         "key": null,
         "options": {
@@ -12230,7 +12230,7 @@ $9 \\times 5 =$ [[☃ numeric-input 1]]",
         },
       },
       "numeric-input 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "answers": [
@@ -12458,7 +12458,7 @@ exports[`parseAndMigratePerseusItem > given label-image-missing-static.ts > retu
         },
       },
       "dropdown 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "ariaLabel": undefined,
@@ -13651,7 +13651,7 @@ exports[`parseAndMigratePerseusItem > given measurer-missing-image.ts > returns 
     "images": {},
     "widgets": {
       "dropdown 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "ariaLabel": undefined,
@@ -13962,7 +13962,7 @@ exports[`parseAndMigratePerseusItem > given measurer-missing-version.ts > return
     "images": {},
     "widgets": {
       "dropdown 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "ariaLabel": undefined,
@@ -14324,7 +14324,7 @@ exports[`parseAndMigratePerseusItem > given number-line-missing-snapDivisions.ts
     },
     "widgets": {
       "expression 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "answerForms": [],
@@ -14911,7 +14911,7 @@ exports[`parseAndMigratePerseusItem > given number-line-with-null-correctX.ts > 
         },
       },
       "numeric-input 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "answers": [
@@ -15005,7 +15005,7 @@ exports[`parseAndMigratePerseusItem > given numeric-input-answer-with-null-value
     "images": {},
     "widgets": {
       "numeric-input 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "answers": [
@@ -15124,7 +15124,7 @@ exports[`parseAndMigratePerseusItem > given numeric-input-answer-with-simplify-t
     "images": {},
     "widgets": {
       "numeric-input 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "answers": [
@@ -15285,7 +15285,7 @@ exports[`parseAndMigratePerseusItem > given numeric-input-answer-without-value.t
     "images": {},
     "widgets": {
       "expression 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "answerForms": [],
@@ -15313,7 +15313,7 @@ exports[`parseAndMigratePerseusItem > given numeric-input-answer-without-value.t
         },
       },
       "numeric-input 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "answers": [
@@ -15435,7 +15435,7 @@ exports[`parseAndMigratePerseusItem > given numeric-input-center-aligned.ts > re
     "images": {},
     "widgets": {
       "numeric-input 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "answers": [
@@ -15537,7 +15537,7 @@ What is the radius of the mattress when it is rolled up into a cylinder.
     "images": {},
     "widgets": {
       "numeric-input 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "answers": [
@@ -15922,7 +15922,7 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
     },
     "widgets": {
       "expression 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "answerForms": [],
@@ -15950,7 +15950,7 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
         },
       },
       "numeric-input 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "answers": [
@@ -16088,7 +16088,7 @@ exports[`parseAndMigratePerseusItem > given numeric-input-right-aligned.ts > ret
     "images": {},
     "widgets": {
       "numeric-input 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "answers": [
@@ -16596,7 +16596,7 @@ exports[`parseAndMigratePerseusItem > given numeric-input-with-null-answerForms.
         },
       },
       "numeric-input 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "key": null,
         "options": {
@@ -16623,7 +16623,7 @@ exports[`parseAndMigratePerseusItem > given numeric-input-with-null-answerForms.
         },
       },
       "numeric-input 2": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "key": null,
         "options": {
@@ -16650,7 +16650,7 @@ exports[`parseAndMigratePerseusItem > given numeric-input-with-null-answerForms.
         },
       },
       "numeric-input 3": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "key": null,
         "options": {
@@ -17014,7 +17014,7 @@ exports[`parseAndMigratePerseusItem > given numeric-input-with-simplify-accepted
         },
       },
       "numeric-input 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "answers": [
@@ -17150,7 +17150,7 @@ exports[`parseAndMigratePerseusItem > given numeric-input-with-simplify-false.ts
     },
     "widgets": {
       "numeric-input 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "answers": [
@@ -17404,7 +17404,7 @@ exports[`parseAndMigratePerseusItem > given numeric-input-with-simplify-true-str
     "images": {},
     "widgets": {
       "numeric-input 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "answers": [
@@ -19168,7 +19168,7 @@ exports[`parseAndMigratePerseusItem > given plotter-missing-scaleY-and-snapsPerL
     },
     "widgets": {
       "input-number 1": {
-        "alignment": "default",
+        "alignment": "inline-block",
         "graded": true,
         "options": {
           "answers": [
@@ -21088,7 +21088,7 @@ exports[`parseAndMigratePerseusItem > given radio-with-extra-fields-from-go-sche
     "metadata": null,
     "widgets": {
       "definition 1": {
-        "alignment": "default",
+        "alignment": "inline",
         "graded": true,
         "key": null,
         "options": {
@@ -21103,7 +21103,7 @@ exports[`parseAndMigratePerseusItem > given radio-with-extra-fields-from-go-sche
         },
       },
       "definition 2": {
-        "alignment": "default",
+        "alignment": "inline",
         "graded": true,
         "key": null,
         "options": {
@@ -21118,7 +21118,7 @@ exports[`parseAndMigratePerseusItem > given radio-with-extra-fields-from-go-sche
         },
       },
       "definition 3": {
-        "alignment": "default",
+        "alignment": "inline",
         "graded": true,
         "key": null,
         "options": {
@@ -21133,7 +21133,7 @@ exports[`parseAndMigratePerseusItem > given radio-with-extra-fields-from-go-sche
         },
       },
       "explanation 1": {
-        "alignment": "default",
+        "alignment": "inline",
         "graded": true,
         "key": null,
         "options": {
@@ -21677,7 +21677,7 @@ ___
     "metadata": null,
     "widgets": {
       "explanation 1": {
-        "alignment": "default",
+        "alignment": "inline",
         "graded": true,
         "key": null,
         "options": {

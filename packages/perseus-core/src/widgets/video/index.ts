@@ -9,7 +9,6 @@ const videoWidgetLogic: WidgetLogic<PerseusVideoWidgetOptions> = {
     name: "video",
     defaultWidgetOptions,
     supportedAlignments: ["block", "full-width"],
-    defaultAlignment: "block",
     accessible: true,
 };
 

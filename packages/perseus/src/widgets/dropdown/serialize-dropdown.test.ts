@@ -81,7 +81,7 @@ describe("Dropdown serialization", () => {
         expect(state).toEqual({
             question: {
                 "dropdown 1": {
-                    alignment: "default",
+                    alignment: "inline-block",
                     static: false,
                     choices: ["Correct", "Incorrect"],
                     placeholder: "Choose",

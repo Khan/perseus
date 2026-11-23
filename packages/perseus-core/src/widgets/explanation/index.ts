@@ -11,7 +11,7 @@ const defaultWidgetOptions: PerseusExplanationWidgetOptions = {
 const explanationWidgetLogic: WidgetLogic<PerseusExplanationWidgetOptions> = {
     name: "explanation",
     defaultWidgetOptions,
-    defaultAlignment: "inline",
+    supportedAlignments: ["inline"],
     accessible: true,
 };
 

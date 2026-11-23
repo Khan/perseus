@@ -40,9 +40,9 @@ import type {
     WidgetLogic,
 } from "./logic-export.types";
 import type {
-    PerseusWidgetOptions,
-    PerseusWidget,
     Alignment,
+    PerseusWidget,
+    PerseusWidgetOptions,
 } from "../data-schema";
 
 const widgets = new Registry<WidgetLogic<any, any>>("Core widget registry");
@@ -147,11 +147,7 @@ export const getSupportedAlignments = (
  * the exports of a widget's module.
  */
 export const getDefaultAlignment = (type: string): Alignment => {
-    const widgetLogic = widgets.get(type);
-    if (!widgetLogic?.defaultAlignment) {
-        return "block";
-    }
-    return widgetLogic.defaultAlignment;
+    return widgets.get(type)?.supportedAlignments?.[0] ?? "block";
 };
 
 /**

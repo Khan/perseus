@@ -28,7 +28,7 @@ const inputNumberWidgetLogic: WidgetLogic<
     name: "input-number",
     version: {major: 1, minor: 0},
     defaultWidgetOptions,
-    defaultAlignment: "inline-block",
+    supportedAlignments: ["inline-block"],
     accessible: true,
     getPublicWidgetOptions: getInputNumberPublicWidgetOptions,
 };

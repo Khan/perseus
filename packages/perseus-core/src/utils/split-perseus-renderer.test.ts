@@ -155,7 +155,7 @@ describe("splitPerseusRenderer", () => {
                             },
                         ],
                     },
-                    alignment: "default",
+                    alignment: "inline-block",
                     static: false,
                     graded: true,
                 },
@@ -209,7 +209,7 @@ describe("splitPerseusRenderer", () => {
                         functions: [],
                         times: true,
                     },
-                    alignment: "default",
+                    alignment: "inline-block",
                     static: false,
                     graded: true,
                 },
@@ -223,7 +223,7 @@ describe("splitPerseusRenderer", () => {
         expect(rv).toEqual(expected);
     });
 
-    it("strips Drodown widgets", () => {
+    it("strips Dropdown widgets", () => {
         // Arrange
         const question: PerseusRenderer = {
             content: "[[☃ dropdown 1]]",

@@ -16,7 +16,7 @@ const blankWidgetLogic: WidgetLogic<
     name: "blank",
     version: {major: 0, minor: 0},
     defaultWidgetOptions,
-    defaultAlignment: "inline-block",
+    supportedAlignments: ["inline-block"],
     getPublicWidgetOptions: getBlankPublicWidgetOptions,
     accessible: true,
 };

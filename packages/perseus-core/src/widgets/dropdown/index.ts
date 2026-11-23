@@ -20,7 +20,7 @@ const dropdownWidgetLogic: WidgetLogic<
 > = {
     name: "dropdown",
     defaultWidgetOptions,
-    defaultAlignment: "inline-block",
+    supportedAlignments: ["inline-block"],
     getPublicWidgetOptions: getDropdownPublicWidgetOptions,
     accessible: true,
 };

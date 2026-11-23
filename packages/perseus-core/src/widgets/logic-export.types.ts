@@ -55,6 +55,8 @@ export type PublicWidgetOptionsFunction =
     | typeof getSorterPublicWidgetOptions
     | typeof getTablePublicWidgetOptions;
 
+export type SupportedAlignments = [defaultAlignment: Alignment, ...Alignment[]];
+
 export type WidgetLogic<TWidgetOptions, TPublicWidgetOptions = never> = {
     name: string;
     /**
@@ -68,8 +70,11 @@ export type WidgetLogic<TWidgetOptions, TPublicWidgetOptions = never> = {
      */
     version?: Version;
     defaultWidgetOptions: TWidgetOptions;
-    supportedAlignments?: ReadonlyArray<Alignment>;
-    defaultAlignment?: Alignment;
+    /**
+     * The set of alignments this widget supports. The first alignment listed
+     * is the default.
+     */
+    supportedAlignments?: SupportedAlignments;
     accessible?: boolean | ((options: TWidgetOptions) => boolean);
     traverseChildWidgets?: (props: any, traverseRenderer: any) => any;
 

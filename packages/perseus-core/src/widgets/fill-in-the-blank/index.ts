@@ -17,7 +17,7 @@ const fillInTheBlankWidgetLogic: WidgetLogic<
 > = {
     name: "fill-in-the-blank",
     version: {major: 0, minor: 0},
-    defaultAlignment: "block",
+    supportedAlignments: ["block"],
     defaultWidgetOptions,
     accessible: true,
     getPublicWidgetOptions: getFillInTheBlankPublicWidgetOptions,

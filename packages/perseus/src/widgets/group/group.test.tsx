@@ -238,7 +238,7 @@ describe("group widget", () => {
                     title: "",
                 },
                 "numeric-input 1": {
-                    alignment: "default",
+                    alignment: "inline-block",
                     answerForms: [],
                     coefficient: false,
                     currentValue: "99",
@@ -248,7 +248,7 @@ describe("group widget", () => {
                     static: false,
                 },
                 "numeric-input 2": {
-                    alignment: "default",
+                    alignment: "inline-block",
                     answerForms: [],
                     coefficient: false,
                     currentValue: "",
