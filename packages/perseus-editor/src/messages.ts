@@ -1,4 +1,5 @@
 import type {Issue} from "./components/issues-panel";
+import type {LintHelpLink} from "@khanacademy/perseus-linter";
 
 // Severities are defined in the perseus-linter package in `rule.ts`
 const SEVERITY_ERROR = 1;
@@ -10,6 +11,11 @@ const SEVERITY_MAP = {
     [SEVERITY_WARNING]: "medium",
     [SEVERITY_GUIDELINE]: "low",
 };
+
+const DEFAULT_HELP_LINK = {
+    text: "Learn more about best practices for authoring items",
+    url: "https://docs.google.com/document/d/1N13f4sY-7EXWDwQ04ivA9vJBVvPPd60qjBT73B4NHuM/edit?tab=t.0",
+} satisfies LintHelpLink;
 
 // This file is meant to contain any and all perseus-editor messages
 // we want to show within the Issues Panel.
@@ -26,16 +32,18 @@ export const WARNINGS = {
             "Selecting inaccessible widgets for a practice item will result in this exercise being hidden from users with 'Hide visually dependant content' setting set to true. Please select another widget or create an alternative practice item.",
     }),
 
+    // `helpLink` is the rule's own docs link. Rules without one get the
+    // general authoring best practices doc.
     genericLinterWarning: (
         rule: string,
         message: string,
         severity: number | undefined,
+        helpLink?: LintHelpLink,
     ): Issue => ({
         id: rule,
         description: message,
-        help: "Learn more about best practices for authoring items",
-        helpUrl:
-            "https://docs.google.com/document/d/1N13f4sY-7EXWDwQ04ivA9vJBVvPPd60qjBT73B4NHuM/edit?tab=t.0",
+        help: helpLink?.text ?? DEFAULT_HELP_LINK.text,
+        helpUrl: helpLink?.url ?? DEFAULT_HELP_LINK.url,
         impact: SEVERITY_MAP[severity ?? SEVERITY_GUIDELINE],
         message: message,
     }),

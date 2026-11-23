@@ -89,4 +89,76 @@ the previous heading was level ${previousHeading.level}`);
 
         expect(issues[2].rule).toEqual(ruleDescriptions[2].name);
     });
+
+    describe("helpLink", () => {
+        const helpLink = {
+            text: "Learn more",
+            url: "https://example.com/docs",
+        };
+
+        function lintMarkdown(rule: Rule, content: string): LinterIssue[] {
+            const context: any = {
+                content,
+                contentType: "exercise",
+                stack: [],
+                widgets: {"radio 1": {type: "radio"}},
+            };
+            const tt = new TreeTransformer(PureMarkdown.parse(content));
+            const issues: LinterIssue[] = [];
+            tt.traverse((node, state, nodeContent) => {
+                issues.push(...rule.check(node, state, nodeContent, context));
+            });
+            return issues;
+        }
+
+        it("is added to every issue a rule reports", () => {
+            // Arrange
+            const rule = Rule.makeRule({
+                name: "every-paragraph",
+                selector: "paragraph",
+                helpLink,
+                lint: () => linterWarning("Found a paragraph"),
+            });
+
+            // Act
+            const issues = lintMarkdown(rule, "First\n\nSecond");
+
+            // Assert
+            expect(issues.map((issue) => issue.helpLink)).toEqual([
+                helpLink,
+                helpLink,
+            ]);
+        });
+
+        it("is undefined when the rule has none", () => {
+            // Arrange
+            const rule = Rule.makeRule({
+                name: "every-paragraph",
+                selector: "paragraph",
+                lint: () => linterWarning("Found a paragraph"),
+            });
+
+            // Act
+            const issues = lintMarkdown(rule, "A paragraph");
+
+            // Assert
+            expect(issues[0].helpLink).toBeUndefined();
+        });
+
+        it("is added to issues from widget rules", () => {
+            // Arrange
+            const rule = Rule.makeWidgetRule({
+                name: "every-radio",
+                widgetType: "radio",
+                helpLink,
+                lint: () => linterWarning("Found a radio"),
+            });
+
+            // Act
+            const issues = lintMarkdown(rule, "[[☃ radio 1]]");
+
+            // Assert
+            expect(issues[0].helpLink).toEqual(helpLink);
+        });
+    });
 });

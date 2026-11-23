@@ -1,5 +1,6 @@
 import {expectPass, expectIssue} from "../__tests__/test-utils";
 
+import {TABLE_NOTATION_HELP_LINK} from "./table-help-link";
 import tableMissingCaptionRule, {
     MISSING_CAPTION_MESSAGE,
     EMPTY_CAPTION_MESSAGE,
@@ -68,5 +69,15 @@ describe("table-missing-caption", () => {
             undefined,
             {messages: [MISSING_CAPTION_MESSAGE]},
         );
+    });
+
+    it("links to the table notation guide", () => {
+        // Arrange
+        const markdown = UNCAPTIONED_TABLE;
+
+        // Act, Assert
+        expectIssue(tableMissingCaptionRule, markdown, undefined, {
+            helpLink: TABLE_NOTATION_HELP_LINK,
+        });
     });
 });

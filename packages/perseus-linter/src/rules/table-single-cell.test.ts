@@ -1,6 +1,7 @@
 import {expectPass, expectIssue} from "../__tests__/test-utils";
 import Rule from "../rule";
 
+import {TABLE_NOTATION_HELP_LINK} from "./table-help-link";
 import tableSingleCellRule from "./table-single-cell";
 
 describe("table-single-cell", () => {
@@ -24,5 +25,15 @@ describe("table-single-cell", () => {
     ])("passes when a table has %s", (_, markdown) => {
         // Arrange, Act, Assert
         expectPass(tableSingleCellRule, markdown);
+    });
+
+    it("links to the table notation guide", () => {
+        // Arrange
+        const markdown = "| Answer |\n|--------|\n| 42 |";
+
+        // Act, Assert
+        expectIssue(tableSingleCellRule, markdown, undefined, {
+            helpLink: TABLE_NOTATION_HELP_LINK,
+        });
     });
 });

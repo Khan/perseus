@@ -51,11 +51,21 @@ import type {Lint} from "./lint";
 import type {TraversalState, TreeNode} from "./tree-transformer";
 import type {PerseusWidgetTypes} from "@khanacademy/perseus-core";
 
+/**
+ * A link to additional documentation or explanation for a lint rule.
+ */
+export type LintHelpLink = {
+    /** The link's visible text, e.g. "Learn more about [rule]" */
+    text: string;
+    url: string;
+};
+
 export type MakeRuleOptions = {
     name: string;
     pattern?: RegExp;
     selector?: string;
     locale?: string;
+    helpLink?: LintHelpLink;
     lint: LintTester;
 };
 
@@ -64,6 +74,7 @@ export type MakeWidgetRuleOptions<
 > = {
     name: string;
     widgetType: TWidgetType;
+    helpLink?: LintHelpLink;
     lint: (
         widgetInfo: PerseusWidgetTypes[TWidgetType],
         // TODO(benchristel): type context properly, here and everywhere it's
@@ -90,6 +101,7 @@ export type LinterIssue = {
     target?: string;
     severity: number;
     metadata?: Record<string, any>;
+    helpLink?: LintHelpLink;
 };
 
 type LintRuleContextObject =
@@ -125,6 +137,7 @@ export default class Rule {
     selector: Selector; // The specified selector or the DEFAULT_SELECTOR
     pattern: RegExp | null | undefined; // A regular expression if one was specified
     lint: LintTester; // The lint-testing function or a default
+    helpLink: LintHelpLink | undefined; // Additional information for fixing this lint rule
     static DEFAULT_SELECTOR: Selector;
 
     // The comment at the top of this file has detailed docs for
@@ -134,6 +147,7 @@ export default class Rule {
         selector: Selector | null | undefined,
         pattern: RegExp | null | undefined,
         lint: LintTester,
+        helpLink?: LintHelpLink,
     ) {
         if (!selector && !pattern) {
             throw new PerseusError(
@@ -147,6 +161,7 @@ export default class Rule {
         this.selector = selector || Rule.DEFAULT_SELECTOR;
         this.pattern = pattern || null;
         this.lint = lint;
+        this.helpLink = helpLink;
     }
 
     // A factory method for use with rules described in JSON files
@@ -157,6 +172,7 @@ export default class Rule {
             options.selector ? Selector.parse(options.selector) : null,
             Rule.makePattern(options.pattern),
             options.lint,
+            options.helpLink,
         );
     }
 
@@ -190,6 +206,7 @@ export default class Rule {
                         message: `${widgetId}: ${lint.message}`,
                     }));
             },
+            options.helpLink,
         );
     }
 
@@ -214,6 +231,7 @@ export default class Rule {
                 severity: error.severity,
                 message: error.message,
                 metadata: error.metadata,
+                helpLink: this.helpLink,
                 ...location,
             };
         };

@@ -172,6 +172,41 @@ describe("gatherLinterIssues", () => {
         );
     });
 
+    it("links an issue to its rule's help page", () => {
+        // Arrange
+        const singleCellTable = {
+            content: "|| Caption ||\n| Answer |\n|--------|\n| 42 |",
+            images: {},
+            widgets: {},
+        };
+
+        // Act
+        const issues = gatherLinterIssues(singleCellTable, []);
+
+        // Assert
+        expect(issues).toContainEqual(
+            expect.objectContaining({
+                id: "table-single-cell",
+                help: "Learn more about table notation",
+                helpUrl: "https://khanacademy.atlassian.net/wiki/x/vQC-LQE",
+            }),
+        );
+    });
+
+    it("links an issue to default best practices doc when none is specified", () => {
+        // Arrange, Act
+        const issues = gatherLinterIssues(twoImageRenderer, []);
+
+        // Assert
+        expect(issues[0]).toEqual(
+            expect.objectContaining({
+                help: "Learn more about best practices for authoring items",
+                helpUrl:
+                    "https://docs.google.com/document/d/1N13f4sY-7EXWDwQ04ivA9vJBVvPPd60qjBT73B4NHuM/edit?tab=t.0",
+            }),
+        );
+    });
+
     it("includes host-provided issues first", () => {
         // Arrange
         const issue = hostIssue();

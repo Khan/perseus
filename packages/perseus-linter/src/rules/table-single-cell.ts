@@ -1,6 +1,8 @@
 import {linterWarning} from "../lint";
 import Rule from "../rule";
 
+import {TABLE_NOTATION_HELP_LINK} from "./table-help-link";
+
 export const SINGLE_CELL_MESSAGE = `This table has only one cell:
 Screen readers announce a table's structure (rows, columns and headers)
 before its content, which adds noise when a table holds a single value. Please use
@@ -15,6 +17,7 @@ function isSingleCellTable(table: any): boolean {
 export default Rule.makeRule({
     name: "table-single-cell",
     selector: "table",
+    helpLink: TABLE_NOTATION_HELP_LINK,
     lint: function (_state, _content, nodes) {
         if (isSingleCellTable(nodes[0])) {
             return linterWarning(SINGLE_CELL_MESSAGE);
