@@ -916,16 +916,7 @@ export const LabelsAlongEdgeZoomed: Story = {
 };
 
 // Verifies the protractor measurement tool (uses `--mafs-blue` from protractor.css).
-// Also checks for dark mode inversion for the protractor image element.
 export const Protractor: Story = {
-    parameters: {
-        chromatic: {
-            modes: {
-                ...themeModes,
-                "syl-dark": {theme: "syl-dark"},
-            },
-        },
-    },
     args: {
         correct: generateIGAngleGraph(),
         showProtractor: true,
