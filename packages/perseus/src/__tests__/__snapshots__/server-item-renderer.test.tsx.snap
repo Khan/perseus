@@ -88,7 +88,6 @@ exports[`server item renderer should snapshot: initial render 1`] = `
         </span>
         <span
           class="perseus-hint-label"
-          style="display: block;"
         >
           1 / 3
         </span>
@@ -118,7 +117,6 @@ exports[`server item renderer should snapshot: initial render 1`] = `
         </span>
         <span
           class="perseus-hint-label"
-          style="display: block;"
         >
           2 / 3
         </span>
@@ -148,7 +146,6 @@ exports[`server item renderer should snapshot: initial render 1`] = `
         </span>
         <span
           class="perseus-hint-label"
-          style="display: block;"
         >
           3 / 3
         </span>
