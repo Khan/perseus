@@ -3,7 +3,6 @@ import {isEmptyTableCell, tableHasRowHeaders} from "@khanacademy/perseus-core";
 import {linterWarning} from "../lint";
 import Rule from "../rule";
 
-// `columns` are 1-based column numbers, to match what authors see.
 export function emptyColumnHeaderMessage(columns: number[]): string {
     const label =
         columns.length > 1
