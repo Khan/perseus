@@ -1,7 +1,6 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
-    generateDefinitionOptions,
     generateImageWidget,
     generateRadioWidget,
 } from "@khanacademy/perseus-core";
@@ -13,10 +12,7 @@ import {testDependencies} from "../../testing/test-dependencies";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors.testutils";
 import WidgetEditorContainer from "../widget-editor-container";
 
-import type {
-    PerseusDefinitionWidgetOptions,
-    PerseusWidget,
-} from "@khanacademy/perseus-core";
+import type {PerseusWidget} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("WidgetEditor", () => {
