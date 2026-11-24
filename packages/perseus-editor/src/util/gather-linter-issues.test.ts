@@ -1,10 +1,13 @@
 import {generateCategorizerWidget} from "@khanacademy/perseus-core";
+import * as PerseusLinter from "@khanacademy/perseus-linter";
 
 import {getIssueKey} from "../components/issues-panel";
+import {DEFAULT_HELP_LINK} from "../messages";
 
 import {gatherLinterIssues} from "./gather-linter-issues";
 
 import type {Issue} from "../components/issues-panel";
+import type {LinterIssue} from "@khanacademy/perseus-linter";
 
 const cleanQuestion = {content: "What is $2 + 2$?", images: {}, widgets: {}};
 const cleanHint = {content: "The answer is $4$.", images: {}, widgets: {}};
@@ -26,6 +29,17 @@ function hostIssue(overrides?: Partial<Issue>): Issue {
         helpUrl: "https://example.com",
         impact: "high",
         message: "Something is wrong",
+        ...overrides,
+    };
+}
+
+function fakeLinterIssue(overrides?: Partial<LinterIssue>): LinterIssue {
+    return {
+        rule: "fake-rule",
+        message: "Fake warning",
+        severity: 2,
+        start: 0,
+        end: 0,
         ...overrides,
     };
 }
@@ -174,37 +188,39 @@ describe("gatherLinterIssues", () => {
 
     it("links an issue to its rule's help page", () => {
         // Arrange
-        const singleCellTable = {
-            content: "|| Caption ||\n| Answer |\n|--------|\n| 42 |",
-            images: {},
-            widgets: {},
-        };
+        jest.spyOn(PerseusLinter, "runLinter").mockReturnValue([
+            fakeLinterIssue({
+                helpLink: {
+                    text: "Fake help",
+                    url: "https://example.com/fake-help",
+                },
+            }),
+        ]);
 
         // Act
-        const issues = gatherLinterIssues(singleCellTable, []);
+        const issues = gatherLinterIssues(cleanQuestion, []);
 
         // Assert
         expect(issues).toContainEqual(
             expect.objectContaining({
-                id: "table-single-cell",
-                help: "Learn more about table notation",
-                helpUrl: "https://khanacademy.atlassian.net/wiki/x/vQC-LQE",
+                id: "fake-rule",
+                help: "Fake help",
+                helpUrl: "https://example.com/fake-help",
             }),
         );
     });
 
-    it("links an issue to default best practices doc when none is specified", () => {
-        // Arrange, Act
-        const issues = gatherLinterIssues(twoImageRenderer, []);
+    it("links an issue to default help docs when none is specified", () => {
+        // Arrange
+        jest.spyOn(PerseusLinter, "runLinter").mockReturnValue([
+            fakeLinterIssue({helpLink: undefined}),
+        ]);
+
+        // Act
+        const issues = gatherLinterIssues(cleanQuestion, []);
 
         // Assert
-        expect(issues[0]).toEqual(
-            expect.objectContaining({
-                help: "Learn more about best practices for authoring items",
-                helpUrl:
-                    "https://docs.google.com/document/d/1N13f4sY-7EXWDwQ04ivA9vJBVvPPd60qjBT73B4NHuM/edit?tab=t.0",
-            }),
-        );
+        expect(issues[0]).toEqual(expect.objectContaining(DEFAULT_HELP_LINK));
     });
 
     it("includes host-provided issues first", () => {

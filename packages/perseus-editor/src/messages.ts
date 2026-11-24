@@ -12,7 +12,7 @@ const SEVERITY_MAP = {
     [SEVERITY_GUIDELINE]: "low",
 };
 
-const DEFAULT_HELP_LINK = {
+export const DEFAULT_HELP_LINK = {
     text: "Learn more about best practices for authoring items",
     url: "https://docs.google.com/document/d/1N13f4sY-7EXWDwQ04ivA9vJBVvPPd60qjBT73B4NHuM/edit?tab=t.0",
 } satisfies LintHelpLink;
