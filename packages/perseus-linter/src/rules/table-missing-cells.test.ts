@@ -1,6 +1,6 @@
 import {expectIssue, expectPass} from "../__tests__/linter.testutils";
 
-import {TABLE_NOTATION_HELP_LINK} from "./table-help-link";
+import {TABLE_HELP_LINK} from "./table-help-link";
 import tableMissingCellsRule from "./table-missing-cells";
 
 describe("table-missing-cells", () => {
@@ -27,7 +27,7 @@ describe("table-missing-cells", () => {
 
         // Act, Assert
         expectIssue(tableMissingCellsRule, markdown, undefined, {
-            helpLink: TABLE_NOTATION_HELP_LINK,
+            helpLink: TABLE_HELP_LINK,
         });
     });
 });

@@ -1,7 +1,7 @@
 import {linterGuideline} from "../lint";
 import Rule from "../rule";
 
-import {TABLE_NOTATION_HELP_LINK} from "./table-help-link";
+import {TABLE_HELP_LINK} from "./table-help-link";
 
 export const MISSING_CAPTION_MESSAGE = `Table is missing a caption:
 Screen reader users rely on a caption to understand what a table contains
@@ -54,7 +54,7 @@ export default Rule.makeRule({
     // `titledTable` node whose `table` property holds the table itself, so
     // the table's parent tells us whether a caption was authored.
     selector: "table",
-    helpLink: TABLE_NOTATION_HELP_LINK,
+    helpLink: TABLE_HELP_LINK,
     lint: function (state, _content, nodes) {
         // A table whose column headers are all empty isn't being used as a
         // data table (instead as a layout table) so a caption is not required

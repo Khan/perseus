@@ -3,6 +3,8 @@ import {isEmptyTableCell} from "@khanacademy/perseus-core";
 import {linterWarning} from "../lint";
 import Rule from "../rule";
 
+import {TABLE_HELP_LINK} from "./table-help-link";
+
 // A table cell is the array of inline nodes parsed from its text.
 type MarkdownTableCell = ReadonlyArray<{type: string; [key: string]: unknown}>;
 
@@ -30,6 +32,7 @@ layout table.`;
 export default Rule.makeRule({
     name: "table-empty-column-header",
     selector: "table",
+    helpLink: TABLE_HELP_LINK,
     lint: function (_state, _content, nodes) {
         const table = nodes[0];
 

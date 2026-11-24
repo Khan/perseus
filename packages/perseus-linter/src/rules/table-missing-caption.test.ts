@@ -1,6 +1,6 @@
 import {expectPass, expectIssue} from "../__tests__/linter.testutils";
 
-import {TABLE_NOTATION_HELP_LINK} from "./table-help-link";
+import {TABLE_HELP_LINK} from "./table-help-link";
 import tableMissingCaptionRule, {
     MISSING_CAPTION_MESSAGE,
     EMPTY_CAPTION_MESSAGE,
@@ -77,7 +77,7 @@ describe("table-missing-caption", () => {
 
         // Act, Assert
         expectIssue(tableMissingCaptionRule, markdown, undefined, {
-            helpLink: TABLE_NOTATION_HELP_LINK,
+            helpLink: TABLE_HELP_LINK,
         });
     });
 });

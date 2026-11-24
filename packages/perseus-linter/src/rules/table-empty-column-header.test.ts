@@ -3,6 +3,7 @@ import {expectIssue, expectPass} from "../__tests__/linter.testutils";
 import tableEmptyColumnHeaderRule, {
     emptyColumnHeaderMessage,
 } from "./table-empty-column-header";
+import {TABLE_HELP_LINK} from "./table-help-link";
 
 describe("table-empty-column-header", () => {
     it("warns when a middle column header is empty", () => {
@@ -74,5 +75,15 @@ describe("table-empty-column-header", () => {
 
         // Act, Assert
         expectPass(tableEmptyColumnHeaderRule, markdown);
+    });
+
+    it("links to the table notation guide", () => {
+        // Arrange
+        const markdown = "| Name | |\n" + "|-|-|\n" + "| Ann | 30 |";
+
+        // Act, Assert
+        expectIssue(tableEmptyColumnHeaderRule, markdown, undefined, {
+            helpLink: TABLE_HELP_LINK,
+        });
     });
 });

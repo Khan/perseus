@@ -1,7 +1,7 @@
 import {expectPass, expectIssue} from "../__tests__/linter.testutils";
 import Rule from "../rule";
 
-import {TABLE_NOTATION_HELP_LINK} from "./table-help-link";
+import {TABLE_HELP_LINK} from "./table-help-link";
 import tableSingleCellRule from "./table-single-cell";
 
 describe("table-single-cell", () => {
@@ -33,7 +33,7 @@ describe("table-single-cell", () => {
 
         // Act, Assert
         expectIssue(tableSingleCellRule, markdown, undefined, {
-            helpLink: TABLE_NOTATION_HELP_LINK,
+            helpLink: TABLE_HELP_LINK,
         });
     });
 });
