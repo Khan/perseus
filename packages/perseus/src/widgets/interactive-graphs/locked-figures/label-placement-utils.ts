@@ -1,3 +1,5 @@
+import {vec} from "mafs";
+
 import {pointToPixel} from "../graphs/use-transform";
 import {
     boxToCircleGap,
@@ -16,7 +18,6 @@ import type {
     MarkingsType,
     ShowAxisTicks,
 } from "@khanacademy/perseus-core";
-import type {vec} from "mafs";
 
 /**
  * Distance, in pixels, from a point's center to the nearest corner of its
@@ -476,41 +477,41 @@ type PixelSegment = {
 };
 
 /**
- * The part of a segment beyond `radius` of `point`, or `undefined` when the
- * whole segment lies within it.
+ * How far a label's box sits from a drawn line, skipping the stretch of that
+ * line running through the point the label names.
  *
- * Used when a label measures against its own line: it sits beside the point it
- * labels, so the closest part of that line is the stretch running through that
- * very point — which should not count as something to avoid.
+ * A label is placed `labelOffsetPx` from its own anchor, and that anchor lies
+ * on the line — so measuring against the whole line returns that same gap
+ * rather than the distance to any stroke the label has to avoid. Skipping the
+ * stretch around the anchor makes the measurement reach the rest of the line.
+ *
+ * The skip only applies where the anchor is an end of the line. An anchor
+ * partway along — a ray's second point, or either point defining an infinite
+ * line — has stroke running past it on both sides, and that stroke is a real
+ * obstacle, so the whole line is measured.
  */
-function trimSegmentNearPoint(
+function strokeDistanceIgnoringAnchor(
     segment: PixelSegment,
-    point: [number, number],
-    radius: number,
-): PixelSegment | undefined {
+    box: Box,
+    anchorPx: [number, number],
+): number {
     const {a, b} = segment;
-    const length = Math.hypot(b[X] - a[X], b[Y] - a[Y]);
-    if (length === 0 || radius >= length) {
-        return undefined;
+    const length = vec.dist(a, b);
+    const fromA = vec.dist(anchorPx, a);
+    const fromB = vec.dist(anchorPx, b);
+
+    const anchorIsAtAnEnd = Math.min(fromA, fromB) <= labelOffsetPx;
+    if (length === 0 || labelOffsetPx >= length || !anchorIsAtAnEnd) {
+        return segmentToBoxDistance([a, b], box);
     }
 
-    // Only an end can be the part to trim: the anchor is always an endpoint of
-    // its own line, or its midpoint, and a midpoint label is already held off
-    // the line by its perpendicular placement.
-    const fromA = Math.hypot(point[X] - a[X], point[Y] - a[Y]);
-    const fromB = Math.hypot(point[X] - b[X], point[Y] - b[Y]);
-    const t = radius / length;
+    const trimFraction = labelOffsetPx / length;
+    const trimmedSegment: Segment =
+        fromA <= fromB
+            ? [vec.lerp(a, b, trimFraction), b]
+            : [a, vec.lerp(b, a, trimFraction)];
 
-    if (fromA <= fromB) {
-        return {
-            ...segment,
-            a: [a[X] + (b[X] - a[X]) * t, a[Y] + (b[Y] - a[Y]) * t],
-        };
-    }
-    return {
-        ...segment,
-        b: [b[X] + (a[X] - b[X]) * t, b[Y] + (a[Y] - b[Y]) * t],
-    };
+    return segmentToBoxDistance(trimmedSegment, box);
 }
 
 /** A point that labels have to stay clear of. */
@@ -522,8 +523,8 @@ type PointObstacle = {
 };
 
 /**
- * A position beside a line: `t` of the way along it, offset perpendicular to
- * it on the given `side`.
+ * A position beside a line: the given fraction of the way along it, offset
+ * perpendicular to it on the given `side`.
  *
  * Used for the label that names a line, which belongs next to the stroke
  * rather than radiating out of the middle of the graph the way a point's label
@@ -531,7 +532,7 @@ type PointObstacle = {
  */
 function getPerpendicularCandidate(
     segmentPx: PixelSegment,
-    t: number,
+    positionAlongSegment: number,
     side: 1 | -1,
     size: LabelSize,
     graphInfo: AutoLabelGraphInfo,
@@ -540,21 +541,17 @@ function getPerpendicularCandidate(
     const dx = b[X] - a[X];
     const dy = b[Y] - a[Y];
 
-    const anchorPx: [number, number] = [a[X] + dx * t, a[Y] + dy * t];
-    const unit = perpendicularTo([a, b]);
-    const perpendicular: [number, number] = [unit[X] * side, unit[Y] * side];
+    const anchorPx: [number, number] = [
+        a[X] + dx * positionAlongSegment,
+        a[Y] + dy * positionAlongSegment,
+    ];
 
-    // The anchors put the label's near corner at the offset position and let
-    // the box extend away from the line, so this is the visible gap between
-    // the two. It's the same gap a point label keeps from its point, and a
-    // flat distance rather than one scaled to the label: the box approaches
-    // the line along a known direction, so its width says nothing about how
-    // far away it needs to sit.
     const distance = labelOffsetPx + strokeWidth / 2;
+    const offsetPx = vec.scale(perpendicularTo([a, b]), side * distance);
 
     const fittedOffset = fitOffsetWithinGraph(
         anchorPx,
-        [perpendicular[X] * distance, perpendicular[Y] * distance],
+        offsetPx,
         size,
         graphInfo,
     );
@@ -617,7 +614,7 @@ function getCandidates(
             );
         }
 
-        const segmentLength = Math.hypot(b[X] - a[X], b[Y] - a[Y]);
+        const segmentLength = vec.dist(a, b);
         if (segmentLength > slideMinSegmentLengthPx) {
             for (const t of slidePositions) {
                 for (const side of sides) {
@@ -683,13 +680,12 @@ function scoreCandidate(
     const normalizeArea = labelOffsetPx * labelOffsetPx;
     const ownClearance = labelClearance(item.size);
 
-    const centerOf = (r: Rect) => [
+    const centerOf = (r: Rect): vec.Vector2 => [
         (r.left + r.right) / 2,
         (r.top + r.bottom) / 2,
     ];
-    const [cx, cy] = centerOf(rect);
-    const [idealX, idealY] = centerOf(idealRect);
-    const deviation = Math.hypot(cx - idealX, cy - idealY) / labelOffsetPx;
+    const deviation =
+        vec.dist(centerOf(rect), centerOf(idealRect)) / labelOffsetPx;
 
     // The shared geometry in `math/` works in boxes, so convert once here.
     const box = rectToBox(rect);
@@ -735,37 +731,30 @@ function scoreCandidate(
 
     let segmentPenalty = 0;
     for (const segment of segments) {
-        // A label belonging to a line — its midpoint label, or one on one of
-        // its endpoints — is meant to sit beside that line, so it doesn't keep
-        // the full clearance from it. It must still not lie across the stroke.
+        // A label that names a line, or one of its endpoints, is meant to sit
+        // beside that line, so it only has to clear the stroke rather than
+        // keep the clearance it keeps from every other figure.
         //
-        // Ownership is declared rather than inferred from position: an
-        // unrelated point can happen to sit on a line, especially a ray
-        // running the width of the graph, and its label should still be held
-        // the full distance away.
+        // Ownership is declared rather than derived from position: an
+        // unrelated point can sit on a line, especially a ray running the
+        // width of the graph, and its label is still held the full distance
+        // away.
         const isOwnLine =
             segment.owner != null && segment.owner === item.ownerSegment;
-        // The relief only applies where the label is actually near its anchor.
-        // Without that it would be free to slide anywhere along its own line —
-        // the length of the graph, for a ray — since nothing else holds it to
-        // the point it labels.
-        const nearOwnAnchor =
+        // The reduced clearance applies only to candidates placed beside the
+        // anchor. Without that a label could sit anywhere along its own line —
+        // the width of the graph, for a ray — since no other term holds it to
+        // the point it names.
+        const besideOwnLine =
             isOwnLine && boxToPointDistance(box, anchorPx) <= ownClearance;
-        const required = nearOwnAnchor
+
+        const distance = besideOwnLine
+            ? strokeDistanceIgnoringAnchor(segment, box, anchorPx)
+            : segmentToBoxDistance([segment.a, segment.b], box);
+        const required = besideOwnLine
             ? labelOffsetPx + segment.strokeWidth / 2
             : ownClearance + segment.strokeWidth / 2;
 
-        // Measuring against its own line, a label beside the point it labels
-        // is nearest that line *at that very point* — so the line's own end
-        // reads as an obstacle and pushes the label off a side that is in fact
-        // clear. Step past the anchor and measure against the rest.
-        const measured = nearOwnAnchor
-            ? trimSegmentNearPoint(segment, anchorPx, labelOffsetPx)
-            : segment;
-        // const measured = segment;
-        const distance = measured
-            ? segmentToBoxDistance([measured.a, measured.b], box)
-            : Infinity;
         if (distance < required) {
             segmentPenalty += (required - distance) / labelOffsetPx;
         }
@@ -868,7 +857,7 @@ export function getAutoLabelPlacements(
     const ordered = [...items].sort((a, b) => {
         const distance = (item: LabelPlacementItem) => {
             const px = pointToPixel(item.anchorCoord, graphInfo);
-            return Math.hypot(px[X] - referencePx[X], px[Y] - referencePx[Y]);
+            return vec.dist(px, referencePx);
         };
         const byDistance = distance(b) - distance(a);
         return byDistance === 0 ? a.key.localeCompare(b.key) : byDistance;
