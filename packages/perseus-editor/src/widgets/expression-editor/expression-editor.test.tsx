@@ -282,6 +282,7 @@ describe("expression-editor", () => {
     });
 
     it("should be possible to update answer", async () => {
+        // Arrange:
         const onChangeMock = rs.fn();
 
         render(
@@ -306,13 +307,16 @@ describe("expression-editor", () => {
             }),
         );
 
+        // Act: enter an answer
         await userEvent.click(
-            screen.getByRole("button", {
+            await screen.findByRole("button", {
                 name: "9",
             }),
         );
-        act(() => rs.runOnlyPendingTimers());
+        // Act: wait for floating-ui to position the popover.
+        await act(async () => rs.runOnlyPendingTimers());
 
+        // Assert:
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 answerForms: [

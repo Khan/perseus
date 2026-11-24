@@ -1317,12 +1317,18 @@ class Renderer
             return PerseusMarkdown.ruleOutput(node, nestedOutput, state);
         }
 
-        const table = this.outputTableElement(node.table, nestedOutput, state);
+        const table = this.outputTableElement(node.table, nestedOutput, {
+            ...state,
+            key: 0,
+        });
         // If the table is for layout purposes, we render it not as a caption
         // element within a table, but as a paragraph above the table.
         const contents = isLayoutTable(node.table) ? (
             <React.Fragment key={state.key}>
-                {nestedOutput({type: "paragraph", content: node.title}, state)}
+                {nestedOutput(
+                    {type: "paragraph", content: node.title},
+                    {...state, key: 1},
+                )}
                 {table}
             </React.Fragment>
         ) : (
