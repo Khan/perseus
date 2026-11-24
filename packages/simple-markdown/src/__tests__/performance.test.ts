@@ -161,6 +161,17 @@ describe("simple-markdown parse performance", () => {
         },
     );
 
+    it("parses many unclosed autolink openers quickly", () => {
+        // Arrange
+        const source = "<a".repeat(40000);
+
+        // Act
+        const duration = timeParse(inlineParse, source);
+
+        // Assert
+        expect(duration).toBeLessThan(MAX_PARSE_MS);
+    });
+
     it("parses many unclosed mailto openers quickly", () => {
         // Arrange
         const source = "<@".repeat(2000);

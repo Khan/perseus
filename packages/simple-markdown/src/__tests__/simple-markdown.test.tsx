@@ -999,6 +999,27 @@ describe("simple markdown", function () {
             ]);
         });
 
+        it("does not parse an autolink whose url contains a <", () => {
+            // Arrange, Act
+            const parsed = inlineParse("<http://a<b>");
+
+            // Assert
+            expect(parsed).not.toContainEqual(
+                expect.objectContaining({type: "link"}),
+            );
+        });
+
+        it("starts an autolink at the last < before the url", () => {
+            // Arrange, Act
+            const parsed = inlineParse("<a<http://b.com>");
+
+            // Assert
+            expect(parsed).toEqual([
+                {type: "text", content: "<a"},
+                expect.objectContaining({type: "link", target: "http://b.com"}),
+            ]);
+        });
+
         it("should parse basic <mailto@autolinks>", function () {
             var parsed = inlineParse("<test@example.com>");
             validateParse(parsed, [

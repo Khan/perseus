@@ -796,6 +796,28 @@ var LINK_INSIDE = "(?:\\[[^\\]]*\\]|[^\\[\\]]|\\](?=[^\\[]*\\]))*";
 var LINK_HREF_AND_TITLE =
     "\\s*<?((?:\\([^()]*\\)|[^\\s\\\\]|\\\\.)*?)>?(?:\\s+['\"]([\\s\\S]*?)['\"])?\\s*";
 var AUTOLINK_MAILTO_CHECK_R = /mailto:/i;
+// only match _s surrounding words.
+var EM_UNDERSCORE_R = /^\b_((?:__|\\[\s\S]|[^\\_])+?)_\b/;
+var EM_STAR_R = new RegExp(
+    // Only match *s that are followed by a non-space:
+    "^\\*(?=\\S)(" +
+        // Match at least one of:
+        "(?:" +
+        //  - `**`: so that bolds inside italics don't close the
+        //          italics
+        "\\*\\*|" +
+        //  - escape sequence: so escaped *s don't close us
+        "\\\\[\\s\\S]|" +
+        //  - whitespace: followed by a non-* (we don't
+        //          want ' *' to close an italics--it might
+        //          start a list)
+        "\\s+(?:\\\\[\\s\\S]|[^\\s\\*\\\\]|\\*\\*)|" +
+        //  - non-whitespace, non-*, non-backslash characters
+        "[^\\s\\*\\\\]" +
+        ")+?" +
+        // followed by a non-space, non-* then *
+        ")\\*(?!\\*)",
+);
 
 var parseRef = function (
     capture: Capture,
@@ -931,6 +953,15 @@ var defaultRules: DefaultRules = {
     },
     fence: {
         order: currOrder++,
+        // TODO: This regex is quadratic in the length of the opening run.
+        // `{3,} can give characters back to the info string (\S+), and on a
+        // failed match every split rescans the body for a closing run: 16KB
+        // of backticks takes about 1s. Reading the whole run as the opener
+        // ((?=(`{3,}|~{3,}))\1) fixes this, but then a fence can only close
+        // with a run at least as long as its opener. Production content has
+        // fences opened with four backticks and closed with three, which
+        // currently parse as a code block with a stray "`" at the start of
+        // its lang. Fix this once that content is migrated.
         match: blockRegex(
             /^ *(`{3,}|~{3,}) *(?:(\S+) *)?\n([\s\S]+?)\n?\1 *(?:\n *)+\n/,
         ),
@@ -1233,7 +1264,7 @@ var defaultRules: DefaultRules = {
     },
     autolink: {
         order: currOrder++,
-        match: inlineRegex(/^<([^: >]+:\/[^ >]+)>/),
+        match: inlineRegex(/^<([^: <>]+:\/[^ <>]+)>/),
         parse: function (capture, parse, state) {
             return {
                 type: "link",
@@ -1383,34 +1414,17 @@ var defaultRules: DefaultRules = {
     },
     em: {
         order: currOrder /* same as strong/u */,
-        match: inlineRegex(
-            new RegExp(
-                // only match _s surrounding words.
-                "^\\b_" +
-                    "((?:__|\\\\[\\s\\S]|[^\\\\_])+?)_" +
-                    "\\b" +
-                    // Or match *s:
-                    "|" +
-                    // Only match *s that are followed by a non-space:
-                    "^\\*(?=\\S)(" +
-                    // Match at least one of:
-                    "(?:" +
-                    //  - `**`: so that bolds inside italics don't close the
-                    //          italics
-                    "\\*\\*|" +
-                    //  - escape sequence: so escaped *s don't close us
-                    "\\\\[\\s\\S]|" +
-                    //  - whitespace: followed by a non-* (we don't
-                    //          want ' *' to close an italics--it might
-                    //          start a list)
-                    "\\s+(?:\\\\[\\s\\S]|[^\\s\\*\\\\]|\\*\\*)|" +
-                    //  - non-whitespace, non-*, non-backslash characters
-                    "[^\\s\\*\\\\]" +
-                    ")+?" +
-                    // followed by a non-space, non-* then *
-                    ")\\*(?!\\*)",
-            ),
-        ),
+        // Two regexes tried in order, rather than one regex with the two
+        // alternatives: JavaScriptCore (Safari) takes time proportional to
+        // the rest of the input whenever the combined regex fails to match,
+        // which made parsing long text quadratic. Either regex's content is
+        // in capture[1].
+        match: function (source, state) {
+            if (!state.inline) {
+                return null;
+            }
+            return EM_UNDERSCORE_R.exec(source) || EM_STAR_R.exec(source);
+        },
         quality: function (capture) {
             // precedence by length, `em` wins ties:
             return capture[0].length + 0.2;
