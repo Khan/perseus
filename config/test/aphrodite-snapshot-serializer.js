@@ -266,13 +266,12 @@ function expandStylesInElement(node) {
  * the whole subtree in one pass and records every node here, so `test()`
  * lets the clone (and its descendants) through to the default printer.
  * Without this, the clone itself would match `test()` and recurse forever.
- *
- * TODO: Remove this set by having `test()` match only elements that still
- * carry an Aphrodite class (one in `definitionsByClassName`).
- * `expandStylesInElement()` strips those classes from the clone and its
- * descendants, so they'd stop matching on their own, and elements without
- * Aphrodite styling would no longer be cloned at all.
  */
+// TODO: Remove this set by having `test()` match only elements that still
+// carry an Aphrodite class (one in `definitionsByClassName`).
+// `expandStylesInElement()` strips those classes from the clone and its
+// descendants, so they'd stop matching on their own, and elements without
+// Aphrodite styling would no longer be cloned at all.
 const alreadyExpanded = new WeakSet();
 
 function expandStylesInTree(element) {
