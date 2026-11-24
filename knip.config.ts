@@ -57,8 +57,15 @@ const config: KnipConfig = {
                 "!config/build/**/*",
             ],
             entry: [
+                // Rspack loads it by path (see `tools.bundlerChain` in
+                // rstest.config.mts).
+                "config/test/rstest/basename-loader.ts",
                 // CLI tools
                 "utils/**/*.{ts,tsx,js,jsx}",
+                // Tests import it as `@jest/globals` (see `resolve.alias` in
+                // rstest.config.mts).
+                // TODO: Remove when Jest is fully removed from the repo!
+                "config/test/rstest/jest-globals.ts",
             ],
             ignoreDependencies: [
                 // Storybook imports its CSS (.storybook/styles/shared.css),

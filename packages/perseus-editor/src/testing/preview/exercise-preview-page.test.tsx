@@ -1,3 +1,4 @@
+import {rs} from "@rstest/core";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
@@ -9,7 +10,7 @@ const mockReportHeight = jest.fn();
 let mockContent: PreviewContent | null = null;
 let mockHighlightTargets: Element[] = [];
 
-jest.mock("../../preview/use-preview-presenter", () => ({
+rs.mock("../../preview/use-preview-presenter", () => ({
     usePreviewPresenter: () => ({
         content: mockContent,
         isMobile: false,
@@ -20,7 +21,7 @@ jest.mock("../../preview/use-preview-presenter", () => ({
     }),
 }));
 
-jest.mock("./preview-renderer", () => ({
+rs.mock("./preview-renderer", () => ({
     PreviewRenderer: () => <div>Preview content</div>,
 }));
 

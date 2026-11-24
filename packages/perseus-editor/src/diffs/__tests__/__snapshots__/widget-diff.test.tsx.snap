@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`WidgetDiff renders a widget in the diff view 1`] = `
+exports[`WidgetDiff > renders a widget in the diff view 1`] = `
 <div>
   <div
     class="diff-header"
@@ -359,7 +359,7 @@ exports[`WidgetDiff renders a widget in the diff view 1`] = `
 </div>
 `;
 
-exports[`WidgetDiff renders with both 'before' and 'after' undefined 1`] = `
+exports[`WidgetDiff > renders with both 'before' and 'after' undefined 1`] = `
 <div>
   <div
     class="diff-header"
@@ -379,7 +379,7 @@ exports[`WidgetDiff renders with both 'before' and 'after' undefined 1`] = `
 </div>
 `;
 
-exports[`WidgetDiff renders with missing 'after' props 1`] = `
+exports[`WidgetDiff > renders with missing 'after' props 1`] = `
 <div>
   <div
     class="diff-header"
@@ -917,7 +917,7 @@ exports[`WidgetDiff renders with missing 'after' props 1`] = `
 </div>
 `;
 
-exports[`WidgetDiff renders with missing 'before' props 1`] = `
+exports[`WidgetDiff > renders with missing 'before' props 1`] = `
 <div>
   <div
     class="diff-header"

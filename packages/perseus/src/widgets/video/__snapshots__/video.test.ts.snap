@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`video widget should snapshot on mobile: first mobile render 1`] = `
+exports[`video widget > should snapshot > first render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -74,7 +74,7 @@ exports[`video widget should snapshot on mobile: first mobile render 1`] = `
 </div>
 `;
 
-exports[`video widget should snapshot: first render 1`] = `
+exports[`video widget > should snapshot on mobile > first mobile render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"

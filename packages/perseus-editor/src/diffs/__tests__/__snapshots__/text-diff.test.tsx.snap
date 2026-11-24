@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`TextDiff renders text in the diff view 1`] = `
+exports[`TextDiff > renders text in the diff view 1`] = `
 <div>
   <div>
     <div
@@ -79,7 +79,7 @@ exports[`TextDiff renders text in the diff view 1`] = `
 </div>
 `;
 
-exports[`TextDiff renders text with images in the diff view 1`] = `
+exports[`TextDiff > renders text with images in the diff view 1`] = `
 <div>
   <div>
     <div
@@ -354,7 +354,7 @@ exports[`TextDiff renders text with images in the diff view 1`] = `
 </div>
 `;
 
-exports[`TextDiff renders with both 'before' and 'after' undefined 1`] = `
+exports[`TextDiff > renders with both 'before' and 'after' undefined 1`] = `
 <div>
   <div>
     <div
@@ -411,7 +411,7 @@ exports[`TextDiff renders with both 'before' and 'after' undefined 1`] = `
 </div>
 `;
 
-exports[`TextDiff renders with missing 'after' props 1`] = `
+exports[`TextDiff > renders with missing 'after' props 1`] = `
 <div>
   <div>
     <div
@@ -470,7 +470,7 @@ exports[`TextDiff renders with missing 'after' props 1`] = `
 </div>
 `;
 
-exports[`TextDiff renders with missing 'before' props 1`] = `
+exports[`TextDiff > renders with missing 'before' props 1`] = `
 <div>
   <div>
     <div
