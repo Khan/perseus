@@ -4,6 +4,7 @@
 import fs from "node:fs";
 
 import {describe, expect, it, jest, beforeEach} from "@jest/globals";
+import {rs} from "@rstest/core";
 
 import * as CatalogHashUtils from "./catalog-hash-utils";
 import * as CheckForCatalogHashUpdate from "./check-for-catalog-hash-update";
@@ -13,7 +14,7 @@ import {updateCatalogHashes} from "./update-catalog-hashes";
 import type {PnpmWorkspace} from "./catalog-hash-utils";
 
 // Mock fs to prevent actual file writes
-jest.mock("node:fs");
+rs.mock("node:fs");
 
 describe("updateCatalogHashes", () => {
     beforeEach(() => {

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`grapher widget should snapshot linear graph question: initial render 1`] = `
+exports[`grapher widget > should snapshot linear graph question > initial render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -1361,7 +1361,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
 </div>
 `;
 
-exports[`grapher widget should snapshot question with multiple graph types: initial render 1`] = `
+exports[`grapher widget > should snapshot question with multiple graph types > initial render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`ArticleDiff renders an article in the diff view 1`] = `
+exports[`ArticleDiff > renders an article in the diff view 1`] = `
 <div>
   <div
     class="framework-perseus"

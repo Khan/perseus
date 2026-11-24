@@ -1,3 +1,4 @@
+import {rs} from "@rstest/core";
 import {renderHook, act, waitFor} from "@testing-library/react";
 
 import {PREVIEW_MESSAGE_SOURCE} from "./message-types";
@@ -10,7 +11,7 @@ const mockAxeRun = jest.fn().mockResolvedValue({
     incomplete: [],
 });
 
-jest.mock("axe-core", () => ({
+rs.mock("axe-core", () => ({
     __esModule: true,
     default: {
         configure: jest.fn(),
