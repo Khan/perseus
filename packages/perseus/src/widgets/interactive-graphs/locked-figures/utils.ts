@@ -8,6 +8,20 @@ export const strokeWeights: Record<StrokeWeight, number> = {
 } as const;
 
 /**
+ * How far a vector's arrowhead reaches from the tip it sits on, in pixels.
+ *
+ * The arrowhead path spans 5.6px either side of the line and 5.7px back from
+ * the tip (see `graphs/components/arrowhead.tsx`), so its furthest corner is
+ * hypot(5.6, 5.7) ≈ 8px away. Plus half the stroke, which straddles the path.
+ *
+ * Treating it as a circle over-reserves a little to the sides, where the
+ * arrowhead is narrower than it is long.
+ */
+export function getArrowheadRadiusPx(strokeWidth: number): number {
+    return 8 + strokeWidth / 2;
+}
+
+/**
  * A dashed locked figure's `stroke-dasharray`, scaled to the stroke width so the
  * dashes stay visible at every weight. mafs hardcodes `4, 3` regardless of
  * width, making thick lines read as nearly solid; this restores legacy graphie's

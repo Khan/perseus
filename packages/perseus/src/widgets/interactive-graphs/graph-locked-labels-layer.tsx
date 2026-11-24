@@ -3,11 +3,10 @@ import * as React from "react";
 import {getIntersectionOfRayWithBox} from "./graphs/utils";
 import {
     assumedLabelSize,
-    getArrowheadRadiusPx,
     getAutoLabelPlacements,
-} from "./locked-figures/label-placement-utils";
+} from "./locked-figures/auto-label-placement";
 import LockedLabel from "./locked-figures/locked-label";
-import {strokeWeights} from "./locked-figures/utils";
+import {getArrowheadRadiusPx, strokeWeights} from "./locked-figures/utils";
 import useGraphConfig from "./reducer/use-graph-config";
 
 import type {
@@ -15,7 +14,7 @@ import type {
     LabelSize,
     PointObstacleInput,
     SegmentObstacle,
-} from "./locked-figures/label-placement-utils";
+} from "./locked-figures/auto-label-placement";
 import type {LockedFigure, LockedLabelType} from "@khanacademy/perseus-core";
 
 /** Keys joining a label to its measurement and its computed placement. */
