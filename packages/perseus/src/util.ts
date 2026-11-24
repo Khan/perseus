@@ -5,6 +5,7 @@ import {
     getSvgUrl,
     getDataUrl,
     getImageSizeModern,
+    isEmptyTableCell,
     isLabeledSVG,
 } from "@khanacademy/perseus-core";
 import {KhanAnswerTypes} from "@khanacademy/perseus-score";
@@ -114,53 +115,12 @@ export const isContentGraphie = (node: SingleASTNode): boolean => {
 const isWhitespaceOnlyTextNode = (node: SingleASTNode): boolean =>
     node?.type === "text" && node.content.trim() === "";
 
-type TableCell = Array<SingleASTNode>;
-
-export function isEmptyTableCell(cell: TableCell): boolean {
-    return cell.every(isWhitespaceOnlyTextNode);
-}
-
-// A cell is bold when its entire content is `**...**`. Partially bold cells
-// (e.g. `**3** cats`) don't count.
-export function isBoldTableCell(cell: TableCell): boolean {
-    const content = cell.filter((node) => !isWhitespaceOnlyTextNode(node));
-    return content.length === 1 && content[0].type === "strong";
-}
-
 /**
  * Identifies whether a table is a layout table. A layout table
  * is denoted when it has an all empty header row.
  */
 export function isLayoutTable(node: SingleASTNode): boolean {
     return node.header.every(isEmptyTableCell);
-}
-
-/**
- * Markdown has no syntax for row headers, so we infer them from two common
- * authoring patterns:
- *
- * 1. The first column header is empty.
- * Or
- * 2. Every body cell in the first column is bold.
- *
- * Tables with a single column are never treated as having row headers, as
- * there would be no data cells for the headers to describe.
- */
-export function tableHasRowHeaders(node: SingleASTNode): boolean {
-    if (node.header.length < 2) {
-        return false;
-    }
-
-    if (isEmptyTableCell(node.header[0])) {
-        return true;
-    }
-
-    return (
-        node.cells.length > 0 &&
-        node.cells.every(
-            (row: TableCell[]) => row[0] != null && isBoldTableCell(row[0]),
-        )
-    );
 }
 
 /**
