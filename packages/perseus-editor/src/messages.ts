@@ -27,8 +27,6 @@ export const WARNINGS = {
             "Selecting inaccessible widgets for a practice item will result in this exercise being hidden from users with 'Hide visually dependant content' setting set to true. Please select another widget or create an alternative practice item.",
     }),
 
-    // `helpLink` is the rule's own docs link. Rules without one get the
-    // general authoring best practices doc.
     genericLinterWarning: (
         rule: string,
         message: string,

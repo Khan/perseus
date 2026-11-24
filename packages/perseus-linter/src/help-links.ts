@@ -8,8 +8,8 @@ export const DEFAULT_HELP_LINK = {
         "1N13f4sY-7EXWDwQ04ivA9vJBVvPPd60qjBT73B4NHuM/edit?tab=t.0",
 } satisfies LintHelpLink;
 
-// Shared table notation help link.
+// Shared markdown table documentation link.
 export const TABLE_HELP_LINK = {
-    text: "Learn more about table notation",
+    text: "Learn more about perseus table markup",
     url: "https://khanacademy.atlassian.net/wiki/x/vQC-LQE",
 } satisfies LintHelpLink;
