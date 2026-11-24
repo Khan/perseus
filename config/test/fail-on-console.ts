@@ -1,4 +1,4 @@
-import {afterEach, beforeAll} from "@rstest/core";
+import {afterEach} from "@rstest/core";
 
 /**
  * @file
@@ -27,7 +27,6 @@ import {afterEach, beforeAll} from "@rstest/core";
  */
 
 export function failOnConsole() {
-    failOn("assert");
     failOn("error");
     failOn("warn");
     failOn("info");
@@ -39,12 +38,19 @@ function failOn(consoleMethod: string) {
     const consoleCallStacks: Array<string | undefined> = [];
     let originalMethod: undefined | ((...data: unknown[]) => void);
 
+    // We use *All instead of *Each to catch console logs that occur outside
+    // any test case.
     beforeAll(() => {
-        flushMessages();
         stubConsole();
     });
-    afterEach(() => {
+    afterAll(() => {
         restoreConsole();
+        flushMessages();
+    });
+
+    // Throw errors after each test case, so the specific test case that logs
+    // is marked as failing.
+    afterEach(() => {
         flushMessages();
     });
 
