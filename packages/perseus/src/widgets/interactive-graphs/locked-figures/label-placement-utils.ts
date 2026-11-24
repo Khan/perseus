@@ -377,13 +377,6 @@ const candidateRadiusScales = [1, 1.5, 2, 3];
 const slidePositions = [0.3, 0.7];
 
 /**
- * Below this on-screen length, sliding a label along its segment lands the
- * positions within a label's width of each other — near-duplicates that cost
- * scoring time without opening up a real alternative.
- */
-const slideMinSegmentLengthPx = 75;
-
-/**
  * How much each kind of problem counts against a candidate position.
  *
  * Collisions outrank distance: a label that sits a long way from its point
@@ -586,18 +579,13 @@ function getCandidates(
         // come first; the radial ones below are the fallback when those are
         // taken. Prefer the side facing away from the middle of the graph.
         const {a, b} = ownerSegmentPx;
-        const midpoint: [number, number] = [
-            (a[X] + b[X]) / 2,
-            (a[Y] + b[Y]) / 2,
-        ];
-        const unit = perpendicularTo([a, b]);
+        const midpoint: vec.Vector2 = [(a[X] + b[X]) / 2, (a[Y] + b[Y]) / 2];
+        const perpendicular = perpendicularTo([a, b]);
         // Which way the perpendicular leans relative to the middle of the
         // graph. A segment pointing straight away from the reference gives no
         // preference either way, and either side reads equally well.
         const outward: 1 | -1 =
-            unit[X] * (midpoint[X] - referencePx[X]) +
-                unit[Y] * (midpoint[Y] - referencePx[Y]) >=
-            0
+            vec.dot(perpendicular, vec.sub(midpoint, referencePx)) >= 0
                 ? 1
                 : -1;
         const sides: Array<1 | -1> = [outward, outward === 1 ? -1 : 1];
@@ -615,13 +603,16 @@ function getCandidates(
         }
 
         const segmentLength = vec.dist(a, b);
-        if (segmentLength > slideMinSegmentLengthPx) {
-            for (const t of slidePositions) {
+        // Minimum on-screen length, in pixels, for sliding to be worthwhile:
+        // below it the slide positions land within a label's width of each
+        // other. A tuned value, not one derived from the numbers above.
+        if (segmentLength > 75) {
+            for (const slidePosition of slidePositions) {
                 for (const side of sides) {
                     candidates.push(
                         getPerpendicularCandidate(
                             ownerSegmentPx,
-                            t,
+                            slidePosition,
                             side,
                             size,
                             graphInfo,
@@ -642,6 +633,7 @@ function getCandidates(
         for (const dx of [-1, 0, 1]) {
             for (const dy of [-1, 0, 1]) {
                 if (dx === 0 && dy === 0) {
+                    // Not a direction, so there's nothing to normalize.
                     continue;
                 }
                 const length = Math.hypot(dx, dy);
