@@ -1,4 +1,4 @@
-import {expectPass, expectIssue} from "../__tests__/test-utils";
+import {expectPass, expectIssue} from "../__tests__/linter.testutils";
 
 import staticWidgetInQuestionStemRule from "./static-widget-in-question-stem";
 
