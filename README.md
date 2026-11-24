@@ -95,7 +95,7 @@ Catalog hashes ensure packages are republished when their catalog dependencies (
 
 ### Random notes
 
-- We use `v8` to track Rstest coverage. There's some old legacy code that we don't want coverage for, so we ignore that with `c8 ignore`. It might look like `c8` isn't be used, but it's used by the `v8` coverage `provider` (defined in rstest.config.mts).
+- We use `v8` to track Rstest coverage. There's some old legacy code that we don't want coverage for, so we ignore that with `c8 ignore`. It might look like `c8` isn't used, but it's used by the `v8` coverage `provider` (defined in rstest.config.mts).
 
 ## Contributing
 
