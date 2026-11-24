@@ -4,7 +4,7 @@ import {defineConfig} from "@rstest/core";
 
 export default defineConfig({
     globals: true,
-    // Some test files run in node instead with an `@jest-environment node`
+    // Some test files run in node instead with an `@rstest-environment node`
     // docblock.
     testEnvironment: "jsdom",
     include: ["**/*.test.{js,jsx,ts,tsx}"],

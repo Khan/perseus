@@ -10,7 +10,7 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // Vite 8 applies Node's CJS interop in "type": "module" packages, so the
 // default import is the whole `module.exports` ({default: ReactJson}).
-// Jest/TS interop already unwraps it. Handle both.
+// Other loaders already unwrap it. Handle both.
 const ReactJson: typeof ReactJsonModule =
     // eslint-disable-next-line no-restricted-syntax -- react-json-view's CommonJS/Vite interop exposes an untyped default at this external module boundary.
     (ReactJsonModule as any).default ?? ReactJsonModule;

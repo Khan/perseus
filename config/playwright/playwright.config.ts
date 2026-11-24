@@ -31,7 +31,7 @@ const NAVIGATION_TIMEOUT = 15_000;
 
 export default defineConfig({
     // Specs live beside the code they test, in any package. `.spec.ts` keeps
-    // them apart from Jest's `.test.ts` files.
+    // them apart from Rstest's `.test.ts` files.
     testDir: path.join(REPO_ROOT, "packages"),
     testMatch: "**/*.spec.ts",
     // Each test's traces, screenshots and so on. Playwright empties this at

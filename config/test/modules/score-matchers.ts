@@ -1,5 +1,5 @@
 /**
- * Matchers for asserting on a PerseusScore, shared by our Jest tests (see
+ * Matchers for asserting on a PerseusScore, shared by our Rstest tests (see
  * custom-matchers.ts) and our Playwright tests (see
  * config/playwright/fixtures.ts).
  */
