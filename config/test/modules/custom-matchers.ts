@@ -13,6 +13,10 @@ interface CustomMatchers<R = unknown> {
     toHaveBeenAnsweredIncorrectly(): R;
 }
 
+// Rstest types `expect(x)` as `Assertion`, and asymmetric matchers such as
+// `expect.not.*` as `AsymmetricMatchersContaining`. `expect.extend()` below
+// adds the matchers only at runtime, so both interfaces need them for
+// TypeScript to accept them.
 declare module "@rstest/core" {
     // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- rstest custom matcher augmentation
     interface Assertion<T = any> extends CustomMatchers<T> {}
