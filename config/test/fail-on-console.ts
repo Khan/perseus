@@ -1,4 +1,4 @@
-import {afterEach, beforeAll} from "@jest/globals";
+import {afterEach, beforeAll} from "@rstest/core";
 
 /**
  * @file
