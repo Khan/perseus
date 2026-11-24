@@ -119,7 +119,7 @@ function getLabelRect(
 }
 
 /**
- * Where the conceptual line through each point starts.
+ * Where the ideal line through each point starts.
  *
  * The origin is the natural center of a graph that shows it, so labels radiate
  * away from it and away from the axes that cross there. A graph whose range
@@ -143,7 +143,7 @@ function getReferencePointInPixels(
 /**
  * Offset, in pixels, from a point to the nearest corner of its label.
  *
- * The label is placed along the conceptual line running from the graph's
+ * The label is placed along the ideal line running from the graph's
  * reference point (see `getReferencePointInPixels`) out through the point, so
  * it reads as belonging to that point and sits away from the middle of the
  * graph. The offset is a fixed distance along that line. The label is anchored
@@ -291,7 +291,7 @@ function getTickZones(graphInfo: AutoLabelGraphInfo): Rect[] {
  * sits only `labelOffsetPx` from its point, so the box would cover the point
  * itself. Mirroring the offset instead puts the label on the opposite side
  * with the same gap, which keeps it clear of the point and still on the
- * conceptual line through it.
+ * ideal line through it.
  *
  * Each axis is handled separately, and only when mirroring actually helps —
  * for a label too large to fit on either side, the original placement stands.
@@ -812,30 +812,30 @@ function scoreCandidate(
  * to it, so it picks first, while labels nearer the middle have room to give
  * way.
  *
- * Every label still starts from its ideal spot on the conceptual line out
- * through its point, and only moves when something is in the way.
+ * Every label still starts on the ideal line out through its point, and
+ * only moves when something is in the way.
  *
  * Positions are returned as the top-left corner of the label's box, keyed by
  * `LabelPlacementItem.key`.
  */
 export function getAutoLabelPlacements(
-    items: ReadonlyArray<LabelPlacementItem>,
+    labels: ReadonlyArray<LabelPlacementItem>,
     graphInfo: AutoLabelGraphInfo,
     segments: ReadonlyArray<SegmentObstacle> = [],
     points: ReadonlyArray<PointObstacleInput> = [],
 ): ReadonlyMap<string, LabelPlacement> {
-    const placements = new Map<string, LabelPlacement>();
-
-    // Without a measured graph there's no pixel geometry to reason about, so
-    // leave every label on its own point until layout gives the graph a size.
+    // A graph with no range has no pixel geometry to reason about — every
+    // coordinate maps to the same place. Leave each label on its point.
     if (graphInfo.width === 0 || graphInfo.height === 0) {
-        for (const item of items) {
-            placements.set(item.key, {
-                cornerPx: pointToPixel(item.anchorCoord, graphInfo),
-            });
-        }
-        return placements;
+        return new Map(
+            labels.map((label) => [
+                label.key,
+                {cornerPx: pointToPixel(label.anchorCoord, graphInfo)},
+            ]),
+        );
     }
+
+    const placements = new Map<string, LabelPlacement>();
 
     const referencePx = getReferencePointInPixels(graphInfo);
     const tickZones = getTickZones(graphInfo);
@@ -846,8 +846,6 @@ export function getAutoLabelPlacements(
         owner: segment,
     }));
 
-    // Every drawn point repels labels, whether or not it carries one of its
-    // own — an unlabelled point is just as much a thing to avoid covering.
     // One obstacle per distinct coordinate, since points can coincide.
     const pointsByCoord = new Map<string, PointObstacle>();
     for (const point of points) {
@@ -855,9 +853,7 @@ export function getAutoLabelPlacements(
         const existing = pointsByCoord.get(coordKey);
         const owners = existing ? existing.ownerKeys : new Set<string>();
 
-        for (const key of point.ownerKeys ?? []) {
-            owners.add(key);
-        }
+        point.ownerKeys?.forEach((key) => owners.add(key));
 
         if (existing) {
             // Coinciding marks: keep whichever reserves the most space.
@@ -877,35 +873,34 @@ export function getAutoLabelPlacements(
 
     // Outermost first. Ties break on key so the order is total, and placement
     // doesn't shift when figures are reordered.
-    const ordered = [...items].sort((a, b) => {
-        const distance = (item: LabelPlacementItem) => {
-            const px = pointToPixel(item.anchorCoord, graphInfo);
+    const sortedLabels = [...labels].sort((a, b) => {
+        const distance = (label: LabelPlacementItem) => {
+            const px = pointToPixel(label.anchorCoord, graphInfo);
             return vec.dist(px, referencePx);
         };
-        const byDistance = distance(b) - distance(a);
-        return byDistance === 0 ? a.key.localeCompare(b.key) : byDistance;
+        const difference = distance(b) - distance(a);
+        return difference === 0 ? a.key.localeCompare(b.key) : difference;
     });
 
     const placedLabels: Array<{rect: Rect; size: LabelSize}> = [];
 
-    for (const item of ordered) {
-        const pointPx = pointToPixel(item.anchorCoord, graphInfo);
+    for (const label of sortedLabels) {
+        const pointPx = pointToPixel(label.anchorCoord, graphInfo);
         const candidates = getCandidates(
-            item,
+            label,
             pointPx,
             referencePx,
             graphInfo,
-            item.labelsTheLine && item.ownerSegment
-                ? segmentsPx.find((s) => s.owner === item.ownerSegment)
+            label.labelsTheLine && label.ownerSegment
+                ? segmentsPx.find((s) => s.owner === label.ownerSegment)
                 : undefined,
         );
         const idealRect = candidates[0].rect;
 
-        // Fixed while this label is scored; `placedLabels` grows between them.
-        const label: LabelInfo = {
-            key: item.key,
-            size: item.size,
-            ownerSegment: item.ownerSegment,
+        const labelInfo: LabelInfo = {
+            key: label.key,
+            size: label.size,
+            ownerSegment: label.ownerSegment,
             anchorPx: pointPx,
         };
         const obstacles: Obstacles = {
@@ -915,34 +910,25 @@ export function getAutoLabelPlacements(
             segments: segmentsPx,
         };
 
-        let best = candidates[0];
-        let bestScore = scoreCandidate(
-            best.rect,
-            label,
-            idealRect,
-            obstacles,
-            graphInfo,
-        );
-
-        for (const candidate of candidates.slice(1)) {
-            const score = scoreCandidate(
+        const scored = candidates.map((candidate) => ({
+            candidate,
+            score: scoreCandidate(
                 candidate.rect,
-                label,
+                labelInfo,
                 idealRect,
                 obstacles,
                 graphInfo,
-            );
-            // Strictly better, so ties keep the earlier (more ideal) position.
-            if (score < bestScore) {
-                best = candidate;
-                bestScore = score;
-            }
-        }
+            ),
+        }));
+        // Strictly better, so ties keep the earlier (more ideal) position.
+        const bestCandidate = scored.reduce((best, entry) =>
+            entry.score < best.score ? entry : best,
+        ).candidate;
 
-        placements.set(item.key, {
-            cornerPx: [best.rect.left, best.rect.top],
+        placements.set(label.key, {
+            cornerPx: [bestCandidate.rect.left, bestCandidate.rect.top],
         });
-        placedLabels.push({rect: best.rect, size: item.size});
+        placedLabels.push({rect: bestCandidate.rect, size: label.size});
     }
 
     return placements;
