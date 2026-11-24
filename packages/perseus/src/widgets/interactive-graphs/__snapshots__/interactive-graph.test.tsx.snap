@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`Interactive Graph A none-type graph renders predictably: first render 1`] = `
+exports[`Interactive Graph > A none-type graph > renders predictably > first render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -1101,7 +1101,7 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
 </div>
 `;
 
-exports[`Interactive Graph question Should render blank predictably: first render 1`] = `
+exports[`Interactive Graph > question > Should render blank predictably > first render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -1557,7 +1557,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
 </div>
 `;
 
-exports[`Interactive Graph question Should render blank predictably: first render 2`] = `
+exports[`Interactive Graph > question > Should render blank predictably > first render 2`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -1991,7 +1991,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
 </div>
 `;
 
-exports[`Interactive Graph question Should render blank predictably: first render 3`] = `
+exports[`Interactive Graph > question > Should render blank predictably > first render 3`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -2228,7 +2228,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
 </div>
 `;
 
-exports[`Interactive Graph question Should render blank predictably: first render 4`] = `
+exports[`Interactive Graph > question > Should render blank predictably > first render 4`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -2523,7 +2523,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
 </div>
 `;
 
-exports[`Interactive Graph question Should render user input predictably: with user input 1`] = `
+exports[`Interactive Graph > question > Should render user input predictably > with user input 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -2952,7 +2952,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
 </div>
 `;
 
-exports[`Interactive Graph question Should render user input predictably: with user input 2`] = `
+exports[`Interactive Graph > question > Should render user input predictably > with user input 2`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -3386,7 +3386,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
 </div>
 `;
 
-exports[`Interactive Graph question Should render user input predictably: with user input 3`] = `
+exports[`Interactive Graph > question > Should render user input predictably > with user input 3`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -3717,7 +3717,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
 </div>
 `;
 
-exports[`Interactive Graph question Should render user input predictably: with user input 4`] = `
+exports[`Interactive Graph > question > Should render user input predictably > with user input 4`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"

@@ -1,4 +1,4 @@
-import {expectPass, expectIssue} from "../__tests__/test-utils";
+import {expectPass, expectIssue} from "../__tests__/linter.testutils";
 
 import {TABLE_NOTATION_HELP_LINK} from "./table-help-link";
 import tableMissingCaptionRule, {

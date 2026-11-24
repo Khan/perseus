@@ -10,7 +10,6 @@ import {themeModes} from "../../../../.storybook/modes";
 import {storybookDependenciesV2} from "../testing/test-dependencies";
 import {ipsumExample} from "../widgets/explanation/explanation.testdata";
 
-import {bibliotronExerciseDecorator} from "./hints-renderer-decorator";
 import {HintsRendererForStories} from "./hints-renderer-for-stories";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -46,7 +45,6 @@ export default meta;
 type Story = StoryObj<typeof HintsRendererForStories>;
 
 export const ExplanationWidgetInHint: Story = {
-    decorators: [bibliotronExerciseDecorator],
     args: {
         dependencies: storybookDependenciesV2,
         hints: [{...ipsumExample, replace: false}],
@@ -62,7 +60,6 @@ export const ExplanationWidgetInHint: Story = {
 };
 
 export const DefinitionWidgetInHint: Story = {
-    decorators: [bibliotronExerciseDecorator],
     args: {
         dependencies: storybookDependenciesV2,
         hints: [

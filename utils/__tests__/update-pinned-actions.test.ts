@@ -4,10 +4,11 @@
 import fs from "node:fs";
 
 import {beforeEach, describe, expect, it, jest} from "@jest/globals";
+import {rs} from "@rstest/core";
 
 import {collectActionRefs} from "../update-pinned-actions";
 
-jest.mock("node:fs");
+rs.mock("node:fs");
 
 // A valid 40-character hex SHA for use in tests
 const SHA = "abcdef0123456789abcdef0123456789abcdef01";

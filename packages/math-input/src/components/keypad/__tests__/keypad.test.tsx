@@ -8,7 +8,7 @@ import {MathInputI18nContextProvider} from "../../i18n-context";
 import {CursorContext} from "../../input/cursor-contexts";
 import Keypad from "../index";
 
-import {getTestDataTabs} from "./test-data-tabs";
+import {getTestDataTabs} from "./keypad-tabs.testdata";
 
 import type {UserEvent} from "@testing-library/user-event";
 

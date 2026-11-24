@@ -1,4 +1,5 @@
 import {generateImageOptions} from "@khanacademy/perseus-core";
+import {rs} from "@rstest/core";
 import {act, render, waitFor, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -22,8 +23,8 @@ import {ExploreImageModal} from "./explore-image-modal";
 
 import type {UserEvent} from "@testing-library/user-event";
 
-jest.mock("../utils", () => ({
-    ...jest.requireActual("../utils"),
+rs.mock("../utils", () => ({
+    ...rs.requireActual("../utils"),
     decodeGifFrames: jest.fn(),
 }));
 

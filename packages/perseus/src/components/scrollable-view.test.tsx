@@ -1,3 +1,4 @@
+import {rs} from "@rstest/core";
 import {render, screen, act} from "@testing-library/react";
 import * as React from "react";
 
@@ -6,7 +7,7 @@ import {mockStrings} from "../strings";
 import ScrollableView from "./scrollable-view";
 
 // Mock strings for testing
-jest.mock("./i18n-context", () => ({
+rs.mock("./i18n-context", () => ({
     usePerseusI18n: () => ({
         strings: {
             scrollAnswers: mockStrings.scrollAnswers,

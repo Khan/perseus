@@ -1,4 +1,5 @@
 import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
+import {rs} from "@rstest/core";
 import {act, renderHook} from "@testing-library/react";
 
 import {CHOICE_BANK_DROP_ID} from "./choice-bank";
@@ -7,7 +8,7 @@ import {useTileMoveActions} from "./use-tile-move-actions";
 import type {MaxUses, TilePlacements} from "./tile-placements";
 import type {DragEndEvent} from "@dnd-kit/react";
 
-jest.mock("@khanacademy/wonder-blocks-announcer", () => ({
+rs.mock("@khanacademy/wonder-blocks-announcer", () => ({
     announceMessage: jest.fn(),
 }));
 

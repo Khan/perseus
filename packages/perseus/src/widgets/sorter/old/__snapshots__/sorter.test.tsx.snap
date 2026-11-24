@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`sorter widget layout keeps a horizontal sorter horizontal at exactly the maximum number of cards 1`] = `
+exports[`sorter widget > layout > keeps a horizontal sorter horizontal at exactly the maximum number of cards 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -125,7 +125,7 @@ exports[`sorter widget layout keeps a horizontal sorter horizontal at exactly th
 </div>
 `;
 
-exports[`sorter widget layout lays out a horizontal sorter vertically when it has more cards than the maximum 1`] = `
+exports[`sorter widget > layout > lays out a horizontal sorter vertically when it has more cards than the maximum 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -269,7 +269,7 @@ exports[`sorter widget layout lays out a horizontal sorter vertically when it ha
 </div>
 `;
 
-exports[`sorter widget layout lays out the cards horizontally when the layout is horizontal 1`] = `
+exports[`sorter widget > layout > lays out the cards horizontally when the layout is horizontal 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -375,7 +375,7 @@ exports[`sorter widget layout lays out the cards horizontally when the layout is
 </div>
 `;
 
-exports[`sorter widget layout lays out the cards vertically when the layout is vertical 1`] = `
+exports[`sorter widget > layout > lays out the cards vertically when the layout is vertical 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -481,7 +481,7 @@ exports[`sorter widget layout lays out the cards vertically when the layout is v
 </div>
 `;
 
-exports[`sorter widget snapshot should snapshot on mobile: first mobile render 1`] = `
+exports[`sorter widget > snapshot > should snapshot > first render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -533,7 +533,7 @@ exports[`sorter widget snapshot should snapshot on mobile: first mobile render 1
 </div>
 `;
 
-exports[`sorter widget snapshot should snapshot: first render 1`] = `
+exports[`sorter widget > snapshot > should snapshot on mobile > first mobile render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"

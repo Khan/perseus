@@ -2,10 +2,11 @@
  * @jest-environment node
  */
 import {describe, expect, it, jest, beforeEach} from "@jest/globals";
+import {rs} from "@rstest/core";
 
 // We need to mock the module before importing it
 const mockUpdateCatalogHashes = jest.fn();
-jest.mock("../internal/update-catalog-hashes", () => ({
+rs.mock("../internal/update-catalog-hashes", () => ({
     updateCatalogHashes: mockUpdateCatalogHashes,
 }));
 
@@ -36,7 +37,7 @@ describe("update-catalog-hashes-cli", () => {
         // Restore original argv
         process.argv = originalArgv;
         // Clear the module cache to allow re-importing with new argv
-        jest.resetModules();
+        rs.resetModules();
     });
 
     // Helper to load and execute the CLI with given args

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`interaction widget renders movable point elements with blank constraintXMin, constraintXMax, etc. 1`] = `
+exports[`interaction widget > renders movable point elements with blank constraintXMin, constraintXMax, etc. 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -871,7 +871,7 @@ exports[`interaction widget renders movable point elements with blank constraint
 </div>
 `;
 
-exports[`interaction widget should render 1`] = `
+exports[`interaction widget > should render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`keypad should snapshot expanded: first render 1`] = `
+exports[`keypad > should snapshot expanded > first render 1`] = `
 <div>
   <div
     class="keypad-outer-container"
@@ -1135,7 +1135,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
 </div>
 `;
 
-exports[`keypad should snapshot unexpanded: first render 1`] = `
+exports[`keypad > should snapshot unexpanded > first render 1`] = `
 <div>
   <div
     style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"

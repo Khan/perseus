@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`number-line widget snapshots can handle fractions: show fractions 1`] = `
+exports[`number-line widget > snapshots > can handle fractions > show fractions 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -403,7 +403,7 @@ exports[`number-line widget snapshots can handle fractions: show fractions 1`] =
 </div>
 `;
 
-exports[`number-line widget snapshots default: first render 1`] = `
+exports[`number-line widget > snapshots > default > first render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -828,7 +828,7 @@ exports[`number-line widget snapshots default: first render 1`] = `
 </div>
 `;
 
-exports[`number-line widget snapshots endpoints are highlighted when labels are NOT indicated: left endpoint highlighted 1`] = `
+exports[`number-line widget > snapshots > endpoints are highlighted when labels are NOT indicated > left endpoint highlighted 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -1517,7 +1517,7 @@ exports[`number-line widget snapshots endpoints are highlighted when labels are 
 </div>
 `;
 
-exports[`number-line widget snapshots endpoints are highlighted when labels are NOT indicated: right endpoint highlighted 1`] = `
+exports[`number-line widget > snapshots > endpoints are highlighted when labels are NOT indicated > right endpoint highlighted 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -2206,7 +2206,7 @@ exports[`number-line widget snapshots endpoints are highlighted when labels are 
 </div>
 `;
 
-exports[`number-line widget snapshots labels are highlighted when part of the tick step: show highlighted labels 1`] = `
+exports[`number-line widget > snapshots > labels are highlighted when part of the tick step > show highlighted labels 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -2675,7 +2675,7 @@ exports[`number-line widget snapshots labels are highlighted when part of the ti
 </div>
 `;
 
-exports[`number-line widget snapshots labels are inserted when NOT part of the tick step: show inserted labels 1`] = `
+exports[`number-line widget > snapshots > labels are inserted when NOT part of the tick step > show inserted labels 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -3188,7 +3188,7 @@ exports[`number-line widget snapshots labels are inserted when NOT part of the t
 </div>
 `;
 
-exports[`number-line widget snapshots mobile: first mobile render 1`] = `
+exports[`number-line widget > snapshots > mobile > first mobile render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -3618,7 +3618,7 @@ exports[`number-line widget snapshots mobile: first mobile render 1`] = `
 </div>
 `;
 
-exports[`number-line widget snapshots only endpoints/labels show when "Show label ticks" is off: show label ticks off (endpoints) 1`] = `
+exports[`number-line widget > snapshots > only endpoints/labels show when "Show label ticks" is off > show label ticks off (endpoints) 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -4022,7 +4022,7 @@ exports[`number-line widget snapshots only endpoints/labels show when "Show labe
 </div>
 `;
 
-exports[`number-line widget snapshots only endpoints/labels show when "Show label ticks" is off: show label ticks off (labels) 1`] = `
+exports[`number-line widget > snapshots > only endpoints/labels show when "Show label ticks" is off > show label ticks off (labels) 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"

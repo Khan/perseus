@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`ImageWidgetDiff renders an image widget in the diff view 1`] = `
+exports[`ImageWidgetDiff > renders an image widget in the diff view 1`] = `
 <div>
   <div>
     <div
@@ -67,7 +67,7 @@ exports[`ImageWidgetDiff renders an image widget in the diff view 1`] = `
 </div>
 `;
 
-exports[`ImageWidgetDiff renders with both 'before' and 'after' undefined 1`] = `
+exports[`ImageWidgetDiff > renders with both 'before' and 'after' undefined 1`] = `
 <div>
   <div>
     <div
@@ -80,7 +80,7 @@ exports[`ImageWidgetDiff renders with both 'before' and 'after' undefined 1`] = 
 </div>
 `;
 
-exports[`ImageWidgetDiff renders with missing 'after' props 1`] = `
+exports[`ImageWidgetDiff > renders with missing 'after' props 1`] = `
 <div>
   <div>
     <div
@@ -120,7 +120,7 @@ exports[`ImageWidgetDiff renders with missing 'after' props 1`] = `
 </div>
 `;
 
-exports[`ImageWidgetDiff renders with missing 'before' props 1`] = `
+exports[`ImageWidgetDiff > renders with missing 'before' props 1`] = `
 <div>
   <div>
     <div
@@ -160,7 +160,7 @@ exports[`ImageWidgetDiff renders with missing 'before' props 1`] = `
 </div>
 `;
 
-exports[`ImageWidgetDiff renders with unchanged image 1`] = `
+exports[`ImageWidgetDiff > renders with unchanged image 1`] = `
 <div>
   <div>
     <div

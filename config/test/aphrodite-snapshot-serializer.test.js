@@ -1,5 +1,5 @@
-// The serializer under test is registered globally in `setupFilesAfterEnv`
-// (see test.config.js), so these tests exercise it through `expect()` just as
+// The serializer under test is registered globally by the test setup (see
+// rstest/setup.ts), so these tests exercise it through `expect()` just as
 // any other snapshot test would.
 import {StyleSheet, css} from "aphrodite";
 
