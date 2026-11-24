@@ -19,11 +19,11 @@ const defaultProps = {
 
 describe("Locked Label Settings", () => {
     let userEvent: UserEvent;
-    const onChangeProps = jest.fn();
+    const onChangeProps = rs.fn();
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
@@ -83,7 +83,7 @@ describe("Locked Label Settings", () => {
 
         test("calls 'onToggle' when header is clicked", async () => {
             // Arrange
-            const onToggle = jest.fn();
+            const onToggle = rs.fn();
             render(
                 <LockedLabelSettings
                     {...defaultProps}

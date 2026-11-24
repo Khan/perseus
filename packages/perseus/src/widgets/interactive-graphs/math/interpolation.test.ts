@@ -1,7 +1,7 @@
 import {lerp} from "./interpolation";
 
 describe("lerp", () => {
-    it.each`
+    it.each<any>`
         a    | b    | fraction | expected | note
         ${3} | ${7} | ${0}     | ${3}     | ${""}
         ${3} | ${7} | ${1}     | ${7}     | ${""}

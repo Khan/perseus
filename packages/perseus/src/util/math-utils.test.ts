@@ -1,7 +1,7 @@
 import {isPiMultiple} from "./math-utils";
 
 describe("isPiMultiple", () => {
-    test.each`
+    test.each<any>`
         case      | number
         ${"π"}    | ${Math.PI}
         ${"2π"}   | ${Math.PI * 2}
@@ -17,7 +17,7 @@ describe("isPiMultiple", () => {
         expect(isPiMultiple(number)).toBe(true);
     });
 
-    test.each`
+    test.each<any>`
         case         | number
         ${"0"}       | ${0}
         ${"1"}       | ${1}

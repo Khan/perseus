@@ -218,7 +218,7 @@ describe("removeDuplicateCoordsFromArray", () => {
 });
 
 describe("getAngleFromPoints", () => {
-    test.each`
+    test.each<any>`
         index
         ${-1}
         ${3}
@@ -234,7 +234,7 @@ describe("getAngleFromPoints", () => {
         expect(result).toBeNull();
     });
 
-    test.each`
+    test.each<any>`
         number | points
         ${0}   | ${[]}
         ${1}   | ${[[0, 0]]}
@@ -262,7 +262,7 @@ describe("getAngleFromPoints", () => {
         }
     });
 
-    test.each`
+    test.each<any>`
         index | angle
         ${0}  | ${45}
         ${1}  | ${90}
@@ -287,7 +287,7 @@ describe("getAngleFromPoints", () => {
 });
 
 describe("getSideLengthsFromPoints", () => {
-    test.each`
+    test.each<any>`
         index
         ${-1}
         ${3}
@@ -304,7 +304,7 @@ describe("getSideLengthsFromPoints", () => {
         expect(result).toEqual([]);
     });
 
-    test.each`
+    test.each<any>`
         number | points
         ${0}   | ${[]}
         ${1}   | ${[[0, 0]]}
@@ -316,7 +316,7 @@ describe("getSideLengthsFromPoints", () => {
         },
     );
 
-    test.each`
+    test.each<any>`
         index | sideLengths
         ${0}  | ${[{pointIndex: 1, sideLength: 10}]}
         ${1}  | ${[{pointIndex: 0, sideLength: 10}]}
@@ -330,7 +330,7 @@ describe("getSideLengthsFromPoints", () => {
         expect(result).toEqual(sideLengths);
     });
 
-    test.each`
+    test.each<any>`
         index | sideLengths
         ${0}  | ${[{pointIndex: 3, sideLength: 10}, {pointIndex: 1, sideLength: 10}]}
         ${1}  | ${[{pointIndex: 0, sideLength: 10}, {pointIndex: 2, sideLength: 10}]}
@@ -351,7 +351,7 @@ describe("getSideLengthsFromPoints", () => {
         },
     );
 
-    test.each`
+    test.each<any>`
         index | sideLengths
         ${0}  | ${[{pointIndex: 2, sideLength: 5}, {pointIndex: 1, sideLength: 4}]}
         ${1}  | ${[{pointIndex: 0, sideLength: 4}, {pointIndex: 2, sideLength: 3}]}
@@ -372,7 +372,7 @@ describe("getSideLengthsFromPoints", () => {
 });
 
 describe("calculateScaledRadius", () => {
-    test.each`
+    test.each<any>`
         xMin   | xMax  | yMin   | yMax  | expected
         ${-1}  | ${1}  | ${-1}  | ${1}  | ${0.12}
         ${-10} | ${10} | ${-10} | ${10} | ${1.2}

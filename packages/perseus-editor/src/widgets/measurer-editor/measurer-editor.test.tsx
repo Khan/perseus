@@ -12,13 +12,13 @@ describe("MeasurerEditor", () => {
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
     it("calls onChange when a checkbox is toggled", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = rs.fn();
         render(
             <MeasurerEditor
                 {...generateMeasurerOptions()}

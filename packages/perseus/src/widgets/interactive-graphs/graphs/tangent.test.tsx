@@ -32,7 +32,7 @@ const baseTangentState: InteractiveGraphState = {
 
 describe("Tangent graph screen reader", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -108,7 +108,7 @@ describe("Tangent graph screen reader", () => {
 // TODO(LEMS-3995, post-PR-7): route the curve SR-tree summaries through buildPointAriaLabel once new locale string keys land.
 describe("Tangent graph pointLabels", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -202,7 +202,7 @@ describe("Tangent graph pointLabels", () => {
 
 describe("Tangent graph asymptotes", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -240,14 +240,14 @@ describe("Tangent graph asymptotes", () => {
         ).toBeGreaterThan(2);
     });
 
-    it.each`
+    it.each<any>`
         description          | coords
         ${"vertical line"}   | ${[[0, 0], [0, 2]]}
         ${"horizontal line"} | ${[[0, 0], [2, 0]]}
     `("throws when the points form a degenerate $description", ({coords}) => {
         // A degenerate line has no well-defined tangent, so rendering asserts
         // against it. Silence React's expected error logging for the throw.
-        jest.spyOn(console, "error").mockImplementation(() => {});
+        rs.spyOn(console, "error").mockImplementation(() => {});
 
         // Arrange, Act, Assert
         expect(() =>

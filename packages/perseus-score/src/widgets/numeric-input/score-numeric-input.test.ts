@@ -307,7 +307,7 @@ describe("scoreNumericInput", () => {
     });
 
     it("guards against pathological input", () => {
-        jest.useRealTimers();
+        rs.useRealTimers();
         const rubric = generateNumericInputOptions({
             coefficient: false,
             answers: [
@@ -731,7 +731,7 @@ describe("scoreNumericInput", () => {
     // The tests for these values characterize the current behavior as of
     // 2025-03-18. Note that "accepted", "correct", booleans, undefined, and
     // null are treated the same as "required".
-    describe.each`
+    describe.each<any>`
         simplify      | unsimplifiedFractionScore
         ${"enforced"} | ${"incorrect"}
         ${"optional"} | ${"correct"}
@@ -915,7 +915,7 @@ describe("the regex for multiples of pi (with any coefficient format)", () => {
 });
 
 function timeRegex(re: RegExp, s: string): number {
-    jest.useRealTimers();
+    rs.useRealTimers();
     const t0 = Date.now();
     re.test(s);
     const t1 = Date.now();

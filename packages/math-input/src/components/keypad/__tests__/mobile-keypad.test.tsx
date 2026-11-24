@@ -63,7 +63,7 @@ describe("mobile keypad", () => {
 
     it("should fire an 'opened' event when activated", () => {
         // Arrange
-        const onAnalyticsEvent = jest.fn();
+        const onAnalyticsEvent = rs.fn();
 
         // Act
         render(
@@ -84,7 +84,7 @@ describe("mobile keypad", () => {
     });
 
     it("should fire an 'closed' event when dismissed", async () => {
-        const onAnalyticsEvent = jest.fn();
+        const onAnalyticsEvent = rs.fn();
 
         // Arrange
         const {rerender, unmount} = render(
@@ -116,7 +116,7 @@ describe("mobile keypad", () => {
 
     it("getDOMNode returns the keypad element while mounted", () => {
         // Arrange
-        const onElementMounted = jest.fn((api: KeypadAPI | null) => undefined);
+        const onElementMounted = rs.fn((api: KeypadAPI | null) => undefined);
 
         // Act
         render(
@@ -135,7 +135,7 @@ describe("mobile keypad", () => {
 
     it("clears the element reference and returns null from getDOMNode on unmount", () => {
         // Arrange
-        const onElementMounted = jest.fn((api: KeypadAPI | null) => undefined);
+        const onElementMounted = rs.fn((api: KeypadAPI | null) => undefined);
         const {unmount} = render(
             <MobileKeypadInternals
                 onAnalyticsEvent={async () => undefined}

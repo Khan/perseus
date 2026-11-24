@@ -6,6 +6,8 @@ import * as UseDraggableModule from "../use-draggable";
 
 import {MovableAsymptote} from "./movable-asymptote";
 
+import type {MockInstance} from "@rstest/core";
+
 const defaultProps = {
     // eslint-disable-next-line no-restricted-syntax
     start: [-100, 0] as [number, number],
@@ -15,17 +17,17 @@ const defaultProps = {
     mid: [0, 0] as [number, number],
     // eslint-disable-next-line no-restricted-syntax
     point: [-10, 0] as [number, number],
-    onMove: jest.fn(),
+    onMove: rs.fn(),
     orientation: "horizontal" as const,
     ariaLabel:
         "Horizontal asymptote at y equals 0. Use up and down arrow keys to move.",
 };
 
 describe("MovableAsymptote", () => {
-    let useDraggable: jest.SpyInstance;
+    let useDraggable: MockInstance;
 
     beforeEach(() => {
-        useDraggable = jest
+        useDraggable = rs
             .spyOn(UseDraggableModule, "useDraggable")
             .mockReturnValue({dragging: false});
     });

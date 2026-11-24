@@ -9,6 +9,10 @@
     "extends": "./tsconfig-common.json",
     "compilerOptions": {
         "noEmit": true,
+        // Only this checkout's @types. Without it, TypeScript also loads the
+        // @types of every parent folder's node_modules, which in a worktree
+        // inside another checkout includes that checkout's @types/jest.
+        "typeRoots": ["./node_modules/@types"],
         "plugins": [
             {
                 "name": "typescript-plugin-css-modules",

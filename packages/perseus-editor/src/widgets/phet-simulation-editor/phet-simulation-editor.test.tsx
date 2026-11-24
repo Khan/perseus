@@ -13,10 +13,10 @@ describe("phet-simulation editor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -34,7 +34,7 @@ describe("phet-simulation editor", () => {
 
     it("should be possible to change URL", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         // Act
         render(
@@ -54,7 +54,7 @@ describe("phet-simulation editor", () => {
 
     it("should be possible to change Description", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         // Act
         render(

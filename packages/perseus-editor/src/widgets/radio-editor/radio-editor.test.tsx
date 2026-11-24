@@ -28,7 +28,7 @@ import type {PerseusRadioChoice} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 // Get the mocked function so we can control it in tests
-const mockedRandomUuid = jest.fn();
+const mockedRandomUuid = rs.fn();
 crypto.randomUUID = mockedRandomUuid;
 
 function renderRadioEditor(
@@ -59,10 +59,10 @@ describe("radio-editor", () => {
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
 
@@ -84,7 +84,7 @@ describe("radio-editor", () => {
 
     describe("Id generation", () => {
         it("should generate IDs for choices with missing IDs on mount", () => {
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             const choicesWithMissingIds = [
                 {id: "", content: "Choice 1"}, // empty string ID
                 {id: "valid-id", content: "Choice 2"}, // valid ID
@@ -109,7 +109,7 @@ describe("radio-editor", () => {
         });
 
         it("should not call onChange if all choices already have valid IDs", () => {
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             const choicesWithValidIds = [
                 {id: "valid-id-1", content: "Choice 1"},
                 {id: "valid-id-2", content: "Choice 2"},
@@ -125,7 +125,7 @@ describe("radio-editor", () => {
         });
 
         it("should generate IDs for choices with whitespace-only IDs", () => {
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             const choicesWithWhitespaceIds = [
                 {id: "   ", content: "Choice 1"}, // whitespace-only ID
                 {id: "\t\n", content: "Choice 2"}, // tabs and newlines
@@ -149,7 +149,7 @@ describe("radio-editor", () => {
     });
 
     it("should toggle multiple select checkbox", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         renderRadioEditor(onChangeMock);
 
@@ -168,7 +168,7 @@ describe("radio-editor", () => {
     });
 
     it("should toggle count choices checkbox", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         renderRadioEditor(onChangeMock, {
             multipleSelect: true,
@@ -187,7 +187,7 @@ describe("radio-editor", () => {
     });
 
     it("should toggle randomize order checkbox", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         renderRadioEditor(onChangeMock);
 
@@ -203,7 +203,7 @@ describe("radio-editor", () => {
     });
 
     it("should be possible to add answer", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         renderRadioEditor(onChangeMock);
 
@@ -232,11 +232,11 @@ describe("radio-editor", () => {
     });
 
     it("should be possible to delete answer", async () => {
-        const confirmSpy = jest.spyOn(window, "confirm").mockImplementation(
+        const confirmSpy = rs.spyOn(window, "confirm").mockImplementation(
             // Confirm button clicked
             () => true,
         );
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         renderRadioEditor(onChangeMock, {
             choices: fourChoicesWithNoneOfTheAboveAndCorrect,
@@ -260,8 +260,8 @@ describe("radio-editor", () => {
     });
 
     it("removes noneOfTheAbove when a 'none of the above' choice is deleted", async () => {
-        const onChangeMock = jest.fn();
-        const confirmSpy = jest.spyOn(window, "confirm").mockImplementation(
+        const onChangeMock = rs.fn();
+        const confirmSpy = rs.spyOn(window, "confirm").mockImplementation(
             // Confirm button clicked
             () => true,
         );
@@ -288,11 +288,11 @@ describe("radio-editor", () => {
     });
 
     it("should not delete answer if the user cancels the confirmation", async () => {
-        const confirmSpy = jest.spyOn(window, "confirm").mockImplementation(
+        const confirmSpy = rs.spyOn(window, "confirm").mockImplementation(
             // Confirm button clicked
             () => false,
         );
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         renderRadioEditor(onChangeMock, {
             choices: fourChoicesWithNoneOfTheAboveAndCorrect,
@@ -328,7 +328,7 @@ describe("radio-editor", () => {
     });
 
     it("derives num correct when calling onChange", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(
             <RadioEditor
@@ -361,7 +361,7 @@ describe("radio-editor", () => {
     });
 
     it("calls onChange when the correct choice is picked", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         renderRadioEditor(onChangeMock, {
             choices: fourChoices,
@@ -379,7 +379,7 @@ describe("radio-editor", () => {
     });
 
     it("calls onChange when the correct choice is changed", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         renderRadioEditor(onChangeMock, {
             choices: fourChoicesWithFirstCorrect,
@@ -398,7 +398,7 @@ describe("radio-editor", () => {
     });
 
     it("calls onChange when the previously correct choice is marked wrong", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         renderRadioEditor(onChangeMock, {
             choices: fourChoicesWithFirstCorrect,
@@ -417,7 +417,7 @@ describe("radio-editor", () => {
     });
 
     it("calls onChange when the correct choices are updated with multipleSelect", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         renderRadioEditor(onChangeMock, {
             choices: fourChoicesWithFirstCorrect,
@@ -438,7 +438,7 @@ describe("radio-editor", () => {
     });
 
     it("calls onChange when the content is changed", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         renderRadioEditor(onChangeMock, {
             choices: fourChoices,
@@ -456,7 +456,7 @@ describe("radio-editor", () => {
     });
 
     it("calls onChange when the rationale is changed", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         renderRadioEditor(onChangeMock, {
             choices: fourChoices,
@@ -474,7 +474,7 @@ describe("radio-editor", () => {
     });
 
     it("calls onChange when the rationale is cleared", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         renderRadioEditor(onChangeMock, {
             choices: fourChoicesWithOneRationale,
@@ -493,7 +493,7 @@ describe("radio-editor", () => {
     });
 
     it("recalculates numCorrect on mount when multipleSelect and countChoices are enabled", () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <RadioEditor
                 onChange={onChangeMock}
@@ -519,7 +519,7 @@ describe("radio-editor", () => {
     });
 
     it("does not recalculate numCorrect when countChoices is false", () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <RadioEditor
                 onChange={onChangeMock}
@@ -541,11 +541,11 @@ describe("radio-editor", () => {
     });
 
     it("updates numCorrect when deleting an option", async () => {
-        jest.spyOn(window, "confirm").mockImplementation(
+        rs.spyOn(window, "confirm").mockImplementation(
             // Confirm button clicked
             () => true,
         );
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(
             <RadioEditor
@@ -577,7 +577,7 @@ describe("radio-editor", () => {
     });
 
     it("resets numCorrect when switching from multiple select to single select with multiple correct choices", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(
             <RadioEditor
@@ -611,7 +611,7 @@ describe("radio-editor", () => {
     });
 
     it("preserves numCorrect when switching from single select to multiple select", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(
             <RadioEditor
@@ -645,7 +645,7 @@ describe("radio-editor", () => {
     });
 
     it("preserves numCorrect when switching from multiple select to single select with a single correct choice", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(
             <RadioEditor
@@ -688,7 +688,7 @@ describe("radio-editor", () => {
     ])(
         "calls onChange when choice 2 is moved ($case)",
         async ({buttonIndex, expectedOrder}) => {
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
 
             renderRadioEditor(onChangeMock, {
                 choices: fourChoices,
@@ -759,7 +759,7 @@ describe("radio-editor", () => {
 
         it("should add an empty image when the 'Add image' button is clicked", async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             renderRadioEditor(onChangeMock, {
                 choices: [{id: "0-0-0-0-0", content: "Choice 1"}],
             });
@@ -856,7 +856,7 @@ describe("radio-editor", () => {
 
         it("should call onChange when the image URL field is blurred", async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             renderRadioEditor(onChangeMock, {
                 choices: [{id: "0-0-0-0-0", content: "Choice 1\n![]()"}],
             });
@@ -882,7 +882,7 @@ describe("radio-editor", () => {
 
         it("should not call onChange while the user is typing in the image URL field", async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             renderRadioEditor(onChangeMock, {
                 choices: [{id: "0-0-0-0-0", content: "Choice 1\n![]()"}],
             });
@@ -901,7 +901,7 @@ describe("radio-editor", () => {
 
         it("should call onChange when the image alt text is changed", async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             renderRadioEditor(onChangeMock, {
                 choices: [
                     // empty alt
@@ -932,7 +932,7 @@ describe("radio-editor", () => {
 
         it("fetches the image's dimensions on mount", async () => {
             // Arrange
-            const getImageSizeSpy = jest
+            const getImageSizeSpy = rs
                 .spyOn(Util, "getImageSizeModern")
                 .mockResolvedValue([100, 200]);
 
@@ -952,7 +952,7 @@ describe("radio-editor", () => {
 
         it("re-fetches the image's dimensions when the image URL changes", async () => {
             // Arrange
-            const getImageSizeSpy = jest
+            const getImageSizeSpy = rs
                 .spyOn(Util, "getImageSizeModern")
                 .mockResolvedValue([100, 200]);
             const {rerender} = renderRadioEditor(() => {}, {
@@ -990,7 +990,7 @@ describe("radio-editor", () => {
 
         it("does not re-fetch the image's dimensions when only the alt text changes", async () => {
             // Arrange
-            const getImageSizeSpy = jest
+            const getImageSizeSpy = rs
                 .spyOn(Util, "getImageSizeModern")
                 .mockResolvedValue([100, 200]);
             const {rerender} = renderRadioEditor(() => {}, {
@@ -1029,11 +1029,11 @@ describe("radio-editor", () => {
 
         it("should call onChange when the 'Delete image' button is clicked", async () => {
             // Arrange
-            jest.spyOn(window, "confirm").mockImplementation(
+            rs.spyOn(window, "confirm").mockImplementation(
                 // Confirm button clicked
                 () => true,
             );
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             renderRadioEditor(onChangeMock, {
                 choices: [
                     {id: "0-0-0-0-0", content: "Choice 1\n![Alt](image.jpg)"},
@@ -1056,11 +1056,11 @@ describe("radio-editor", () => {
 
         it("should call onChange when the 'Delete image' button is clicked with multiple images in the content", async () => {
             // Arrange
-            jest.spyOn(window, "confirm").mockImplementation(
+            rs.spyOn(window, "confirm").mockImplementation(
                 // Confirm button clicked
                 () => true,
             );
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             renderRadioEditor(onChangeMock, {
                 choices: [
                     {
@@ -1090,11 +1090,11 @@ describe("radio-editor", () => {
 
         it("should call onChange when the 'Delete image' button is clicked with multiple images in the content (first image)", async () => {
             // Arrange
-            jest.spyOn(window, "confirm").mockImplementation(
+            rs.spyOn(window, "confirm").mockImplementation(
                 // Confirm button clicked
                 () => true,
             );
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             renderRadioEditor(onChangeMock, {
                 choices: [
                     {

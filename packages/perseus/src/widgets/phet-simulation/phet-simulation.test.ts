@@ -7,6 +7,7 @@ import {renderQuestion} from "../../__testutils__/render-question";
 import {nonPhetUrl, question1} from "./phet-simulation.testdata";
 
 import type {APIOptions} from "../../types";
+import type {Mock} from "@rstest/core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const phetOrigin = "https://phet.colorado.edu";
@@ -16,11 +17,11 @@ describe("phet-simulation widget", () => {
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn(() =>
+        global.fetch = rs.fn(() =>
             Promise.resolve({
                 json: () =>
                     Promise.resolve({
@@ -28,7 +29,7 @@ describe("phet-simulation widget", () => {
                     }),
                 ok: true,
             }),
-        ) as jest.Mock;
+        ) as Mock;
         // jsdom doesn't implement the Fullscreen API, so we mark it as
         // supported to keep the fullscreen button visible in these tests.
         Object.defineProperty(document, "fullscreenEnabled", {
@@ -214,7 +215,7 @@ describe("phet-simulation widget", () => {
 
     it("requests browser fullscreen when the fullscreen button is clicked on web", async () => {
         // Arrange
-        const requestFullscreen = jest.fn(() => Promise.resolve());
+        const requestFullscreen = rs.fn(() => Promise.resolve());
         renderQuestion(question1, {apiOptions: {isMobile: false}});
         const iframe = await screen.findByTitle("Projectile Data Lab");
         iframe.requestFullscreen = requestFullscreen;
@@ -230,7 +231,7 @@ describe("phet-simulation widget", () => {
 
     it("falls back to webkitRequestFullscreen when the standard API is unavailable", async () => {
         // Arrange
-        const webkitRequestFullscreen = jest.fn();
+        const webkitRequestFullscreen = rs.fn();
         renderQuestion(question1, {apiOptions: {isMobile: false}});
         const iframe = await screen.findByTitle("Projectile Data Lab");
         // jsdom doesn't implement requestFullscreen, so only the prefixed

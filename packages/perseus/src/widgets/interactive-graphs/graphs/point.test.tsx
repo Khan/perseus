@@ -63,9 +63,9 @@ describe("PointGraph", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -96,7 +96,7 @@ describe("PointGraph", () => {
 
     it("dispatches movePoint when a limited-graph point is moved with the keyboard", async () => {
         // Arrange
-        const dispatch = jest.fn();
+        const dispatch = rs.fn();
         renderPointGraphState(
             {
                 ...baseLimitedPointState,
@@ -189,7 +189,7 @@ describe("PointGraph", () => {
     describe("unlimited point graph interactions", () => {
         it("dispatches addPoint when the graph background is clicked", async () => {
             // Arrange
-            const dispatch = jest.fn();
+            const dispatch = rs.fn();
             renderPointGraphState(
                 {...baseUnlimitedPointState, coords: []},
                 dispatch,
@@ -208,7 +208,7 @@ describe("PointGraph", () => {
 
         it("dispatches movePoint when a point is moved with the keyboard", async () => {
             // Arrange
-            const dispatch = jest.fn();
+            const dispatch = rs.fn();
             renderPointGraphState(
                 {
                     ...baseUnlimitedPointState,
@@ -233,7 +233,7 @@ describe("PointGraph", () => {
 
         it("dispatches focusPoint when a point receives focus", () => {
             // Arrange
-            const dispatch = jest.fn();
+            const dispatch = rs.fn();
             renderPointGraphState(
                 {...baseUnlimitedPointState, coords: [[0, 0]]},
                 dispatch,
@@ -252,7 +252,7 @@ describe("PointGraph", () => {
 
         it("dispatches clickPoint when a point is clicked", async () => {
             // Arrange
-            const dispatch = jest.fn();
+            const dispatch = rs.fn();
             renderPointGraphState(
                 {...baseUnlimitedPointState, coords: [[0, 0]]},
                 dispatch,
@@ -269,7 +269,7 @@ describe("PointGraph", () => {
 
         it("dispatches movePoint while a point is being dragged", () => {
             // Arrange
-            const dispatch = jest.fn();
+            const dispatch = rs.fn();
             renderPointGraphState(
                 {...baseUnlimitedPointState, coords: [[0, 0]]},
                 dispatch,
@@ -285,7 +285,7 @@ describe("PointGraph", () => {
 
         it("ignores the click that fires immediately after a drag (no point added)", () => {
             // Arrange
-            const dispatch = jest.fn();
+            const dispatch = rs.fn();
             renderPointGraphState(
                 {...baseUnlimitedPointState, coords: [[0, 0]]},
                 dispatch,
