@@ -1,4 +1,4 @@
-import {isEmptyTableCell, tableHasRowHeaders} from "@khanacademy/perseus-core";
+import {isEmptyTableCell} from "@khanacademy/perseus-core";
 
 import {linterWarning} from "../lint";
 import Rule from "../rule";
