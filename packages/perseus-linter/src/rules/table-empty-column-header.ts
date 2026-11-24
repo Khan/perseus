@@ -3,6 +3,19 @@ import {isEmptyTableCell} from "@khanacademy/perseus-core";
 import {linterWarning} from "../lint";
 import Rule from "../rule";
 
+// A table cell is the array of inline nodes parsed from its text.
+type MarkdownTableCell = ReadonlyArray<{type: string; [key: string]: unknown}>;
+
+// The parts of a parsed markdown table node that this rule reads.
+type MarkdownTableNode = {
+    type: "table";
+    header: ReadonlyArray<MarkdownTableCell>;
+};
+
+function isTableNode(node: {type: string}): node is MarkdownTableNode {
+    return node.type === "table";
+}
+
 export function emptyColumnHeaderMessage(columns: number[]): string {
     const label =
         columns.length > 1
@@ -18,8 +31,14 @@ export default Rule.makeRule({
     name: "table-empty-column-header",
     selector: "table",
     lint: function (_state, _content, nodes) {
-        const table: any = nodes[0];
-        const header: any[] = table.header;
+        const table = nodes[0];
+
+        // We already know that the node will always be a table (due to the selector),
+        // but we're adding this type guard to make TypeScript happy without casting.
+        if (!isTableNode(table)) {
+            return;
+        }
+        const header = table.header;
 
         // A table whose column headers are all empty isn't being used as a
         // data table (instead as a layout table), so we don't need to warn authors.
