@@ -9,24 +9,30 @@ import type {MakeRuleOptions, LinterIssue} from "../rule";
 
 describe("PerseusLinter lint Rules class", () => {
     const markdown = `
-## This Heading is in Title Case
+        ## This Heading is in Title Case
 
-This paragraph contains an unescaped $ sign.
+        This paragraph contains an unescaped $ sign.
 
-#### This heading skipped a level
-`;
+        #### This heading skipped a level
+        `;
 
     const titleCaseMessage = `Title case in heading:
-Only capitalize the first word of headings.`;
+        Only capitalize the first word of headings.`;
     const unescapedDollarMessage = `Unescaped '$':
-If writing math, pair with another $.
-Otherwise escape it by writing \\$.`;
+        If writing math, pair with another $.
+        Otherwise escape it by writing \\$.`;
+
+    const fakeHelpLink = {
+        text: "Learn more",
+        url: "https://example.com/docs",
+    };
 
     const ruleDescriptions: MakeRuleOptions[] = [
         {
             name: "heading-title-case",
             selector: "heading",
             pattern: /\s[A-Z][a-z]/,
+            helpLink: fakeHelpLink,
             lint: Rule.makeLintFunction({
                 message: titleCaseMessage,
                 severity: Rule.Severity.WARNING,
@@ -63,22 +69,31 @@ the previous heading was level ${previousHeading.level}`);
         },
     ];
 
-    function parseTree() {
-        return PureMarkdown.parse(markdown);
+    function extractIssues(
+        descriptions: ReadonlyArray<MakeRuleOptions>,
+        content: string,
+    ): LinterIssue[] {
+        const rules = descriptions.map((r) => Rule.makeRule(r));
+        const basicContext: any = {
+            content,
+            contentType: "exercise",
+            stack: [],
+            widgets: {"radio 1": {type: "radio"}},
+        };
+        const tt = new TreeTransformer(PureMarkdown.parse(content));
+        const issues: LinterIssue[] = [];
+        tt.traverse((node, state, nodeContent) => {
+            rules.forEach((rule) => {
+                issues.push(
+                    ...rule.check(node, state, nodeContent, basicContext),
+                );
+            });
+        });
+        return issues;
     }
 
     it("check() method", () => {
-        const rules = ruleDescriptions.map((r) => Rule.makeRule(r));
-        const tree = parseTree();
-        const tt = new TreeTransformer(tree);
-        const issues: LinterIssue[] = [];
-
-        tt.traverse((node, state, content) => {
-            rules.forEach((r) => {
-                const lint = r.check(node, state, content, undefined);
-                issues.push(...lint);
-            });
-        });
+        const issues = extractIssues(ruleDescriptions, markdown);
 
         expect(issues).toHaveLength(3);
 
@@ -92,74 +107,32 @@ the previous heading was level ${previousHeading.level}`);
     });
 
     describe("helpLink", () => {
-        const helpLink = {
-            text: "Learn more",
-            url: "https://example.com/docs",
-        };
-
-        function lintMarkdown(rule: Rule, content: string): LinterIssue[] {
-            const context: any = {
-                content,
-                contentType: "exercise",
-                stack: [],
-                widgets: {"radio 1": {type: "radio"}},
-            };
-            const tt = new TreeTransformer(PureMarkdown.parse(content));
-            const issues: LinterIssue[] = [];
-            tt.traverse((node, state, nodeContent) => {
-                issues.push(...rule.check(node, state, nodeContent, context));
-            });
-            return issues;
-        }
-
         it("is added to every issue a rule reports", () => {
-            // Arrange
-            const rule = Rule.makeRule({
-                name: "every-paragraph",
-                selector: "paragraph",
-                helpLink,
-                lint: () => linterWarning("Found a paragraph"),
-            });
-
-            // Act
-            const issues = lintMarkdown(rule, "First\n\nSecond");
+            // Arrange, Act
+            const issues = extractIssues(ruleDescriptions, markdown);
 
             // Assert
             expect(issues.map((issue) => issue.helpLink)).toEqual([
-                helpLink,
-                helpLink,
+                fakeHelpLink,
+                DEFAULT_HELP_LINK,
+                DEFAULT_HELP_LINK,
             ]);
         });
 
-        it("is the default help link when the rule has none", () => {
+        it("uses the default help link when the rule has none", () => {
             // Arrange
-            const rule = Rule.makeRule({
-                name: "every-paragraph",
-                selector: "paragraph",
-                lint: () => linterWarning("Found a paragraph"),
-            });
+            const rulesWithoutHelpLink = ruleDescriptions.filter(
+                (r) => !r.helpLink,
+            );
 
             // Act
-            const issues = lintMarkdown(rule, "A paragraph");
+            const issues = extractIssues(rulesWithoutHelpLink, markdown);
 
             // Assert
-            expect(issues[0].helpLink).toEqual(DEFAULT_HELP_LINK);
-        });
-
-        it("is added to issues from widget rules", () => {
-            // Arrange
-            const rule = Rule.makeWidgetRule({
-                name: "every-radio",
-                widgetType: "radio",
-                helpLink,
-                lint: () => linterWarning("Found a radio"),
-            });
-
-            // Act
-            const issues = lintMarkdown(rule, "[[☃ radio 1]]");
-
-            // Assert
-            expect(issues[0].helpLink).toEqual(helpLink);
+            expect(issues.map((issue) => issue.helpLink)).toEqual([
+                DEFAULT_HELP_LINK,
+                DEFAULT_HELP_LINK,
+            ]);
         });
     });
 });
