@@ -469,6 +469,30 @@ type PixelSegment = {
     owner?: SegmentObstacle;
 };
 
+/** The label being scored, reduced to what scoring reads. */
+type LabelInfo = {
+    /** Identifies this label, so it can skip the point it names. */
+    key: string;
+    /** Measured size, or `assumedLabelSize` if it has not been measured. */
+    size: LabelSize;
+    /**
+     * The line this label belongs to, if any. Matched by reference against a
+     * segment's `owner`, so this has to stay the caller's own object.
+     */
+    ownerSegment?: SegmentObstacle;
+    /** The point this label names, in pixels. */
+    anchorPx: [number, number];
+};
+
+/** Everything a candidate position has to avoid. */
+type Obstacles = {
+    /** Labels already positioned, with the sizes that set their gaps. */
+    placedLabels: ReadonlyArray<{rect: Rect; size: LabelSize}>;
+    points: ReadonlyArray<PointObstacle>;
+    tickZones: ReadonlyArray<Rect>;
+    segments: ReadonlyArray<PixelSegment>;
+};
+
 /**
  * How far a label's box sits from a drawn line, skipping the stretch of that
  * line running through the point the label names.
@@ -658,108 +682,115 @@ function getCandidates(
  * normalized by the same area.
  */
 function scoreCandidate(
-    candidate: Candidate,
-    item: LabelPlacementItem,
-    anchorPx: [number, number],
+    candidateRect: Rect,
+    label: LabelInfo,
     idealRect: Rect,
-    placed: ReadonlyArray<{rect: Rect; size: LabelSize}>,
-    points: ReadonlyArray<PointObstacle>,
-    tickZones: ReadonlyArray<Rect>,
-    segments: ReadonlyArray<PixelSegment>,
-    graphInfo: AutoLabelGraphInfo,
+    obstacles: Obstacles,
+    graphSizePx: GraphDimensions,
 ): number {
-    const {rect} = candidate;
+    const {anchorPx} = label;
     const normalizeArea = labelOffsetPx * labelOffsetPx;
-    const ownClearance = labelClearance(item.size);
+    const ownClearance = labelClearance(label.size);
 
     const centerOf = (r: Rect): vec.Vector2 => [
         (r.left + r.right) / 2,
         (r.top + r.bottom) / 2,
     ];
     const deviation =
-        vec.dist(centerOf(rect), centerOf(idealRect)) / labelOffsetPx;
+        vec.dist(centerOf(candidateRect), centerOf(idealRect)) / labelOffsetPx;
 
     // The shared geometry in `math/` works in boxes, so convert once here.
-    const box = rectToBox(rect);
+    const candidateBox = rectToBox(candidateRect);
     // `inset` shrinks a box; a negative amount grows it instead.
-    const inflate = (by: number) => inset([-by, -by], box);
+    const inflate = (by: number) => inset([-by, -by], candidateBox);
 
-    let labelPenalty = 0;
-    for (const other of placed) {
-        // The gap the pair needs is set by whichever label is larger. Only
-        // this candidate is inflated — inflating both would double the gap.
-        const required = Math.max(
-            labelClearance(item.size),
-            labelClearance(other.size),
-        );
-        labelPenalty +=
-            overlapArea(inflate(required), rectToBox(other.rect)) /
-            normalizeArea;
-    }
+    const labelPenalty = obstacles.placedLabels.reduce(
+        (penalty, otherLabel) => {
+            // The clearance the pair needs is set by whichever label is larger.
+            const required = Math.max(
+                ownClearance,
+                labelClearance(otherLabel.size),
+            );
+            const inflatedCandidateBox = inflate(required);
+            const otherLabelBox = rectToBox(otherLabel.rect);
 
-    let pointPenalty = 0;
-    for (const point of points) {
+            return (
+                penalty +
+                overlapArea(inflatedCandidateBox, otherLabelBox) / normalizeArea
+            );
+        },
+        0,
+    );
+
+    const pointPenalty = obstacles.points.reduce((penalty, point) => {
         // A label sits close to its own point by design, so it only has to
         // clear the others.
-        if (point.ownerKeys.has(item.key)) {
-            continue;
+        if (point.ownerKeys.has(label.key)) {
+            return penalty;
         }
+
         const gap = boxToCircleGap(
             inflate(ownClearance),
             point.centerPx,
             point.radiusPx,
         );
-        if (gap < 0) {
-            // Penetration depth rather than area: it pushes the label out
-            // along the shortest way clear.
-            pointPenalty += -gap / labelOffsetPx;
+        // When there is space between the label and the point, there is no
+        // additional penalty.
+        if (gap >= 0) {
+            return penalty;
         }
-    }
 
-    let tickPenalty = 0;
-    for (const zone of tickZones) {
-        tickPenalty += overlapArea(box, rectToBox(zone)) / normalizeArea;
-    }
+        // The point has intruded into the label's clearance. Penalize by
+        // penetration depth rather than area: depth pushes the label out
+        // along the shortest way clear.
+        return penalty - gap / labelOffsetPx;
+    }, 0);
 
-    let segmentPenalty = 0;
-    for (const segment of segments) {
-        // A label that names a line, or one of its endpoints, is meant to sit
-        // beside that line, so it only has to clear the stroke rather than
-        // keep the clearance it keeps from every other figure.
-        //
-        // Ownership is declared rather than derived from position: an
-        // unrelated point can sit on a line, especially a ray running the
-        // width of the graph, and its label is still held the full distance
-        // away.
+    const tickPenalty = obstacles.tickZones.reduce(
+        (penalty, zone) =>
+            penalty +
+            overlapArea(candidateBox, rectToBox(zone)) / normalizeArea,
+        0,
+    );
+
+    const segmentPenalty = obstacles.segments.reduce((penalty, segment) => {
+        // Ownership is declared, not derived from position: an unrelated
+        // point can sit on a line, and its label is still held the full
+        // distance away.
         const isOwnLine =
-            segment.owner != null && segment.owner === item.ownerSegment;
-        // The reduced clearance applies only to candidates placed beside the
-        // anchor. Without that a label could sit anywhere along its own line —
-        // the width of the graph, for a ray — since no other term holds it to
-        // the point it names.
-        const besideOwnLine =
-            isOwnLine && boxToPointDistance(box, anchorPx) <= ownClearance;
+            segment.owner != null && segment.owner === label.ownerSegment;
 
+        // Ownership is the same for every candidate; proximity is what makes
+        // the relief positional.
+        const besideOwnLine =
+            isOwnLine &&
+            boxToPointDistance(candidateBox, anchorPx) <= ownClearance;
+
+        // A label beside its own line only has to clear the stroke.
         const distance = besideOwnLine
-            ? strokeDistanceIgnoringAnchor(segment, box, anchorPx)
-            : segmentToBoxDistance([segment.a, segment.b], box);
+            ? strokeDistanceIgnoringAnchor(segment, candidateBox, anchorPx)
+            : segmentToBoxDistance([segment.a, segment.b], candidateBox);
         const required = besideOwnLine
             ? labelOffsetPx + segment.strokeWidth / 2
             : ownClearance + segment.strokeWidth / 2;
 
-        if (distance < required) {
-            segmentPenalty += (required - distance) / labelOffsetPx;
+        if (distance >= required) {
+            return penalty;
         }
-    }
+        return penalty + (required - distance) / labelOffsetPx;
+    }, 0);
 
     // The graph's own bounds, in pixels. Both intervals run from 0 because the
     // origin of pixel space is the graph's top-left corner.
     const graphBox: Box = [
-        [0, graphInfo.width],
-        [0, graphInfo.height],
+        [0, graphSizePx.width],
+        [0, graphSizePx.height],
     ];
-    const rectArea = (rect.right - rect.left) * (rect.bottom - rect.top);
-    const outOfBounds = (rectArea - overlapArea(box, graphBox)) / normalizeArea;
+    const candidateArea =
+        (candidateRect.right - candidateRect.left) *
+        (candidateRect.bottom - candidateRect.top);
+    const outOfBounds =
+        (candidateArea - overlapArea(candidateBox, graphBox)) / normalizeArea;
 
     return (
         weightDeviation * deviation +
@@ -855,7 +886,7 @@ export function getAutoLabelPlacements(
         return byDistance === 0 ? a.key.localeCompare(b.key) : byDistance;
     });
 
-    const placed: Array<{rect: Rect; size: LabelSize}> = [];
+    const placedLabels: Array<{rect: Rect; size: LabelSize}> = [];
 
     for (const item of ordered) {
         const pointPx = pointToPixel(item.anchorCoord, graphInfo);
@@ -870,29 +901,35 @@ export function getAutoLabelPlacements(
         );
         const idealRect = candidates[0].rect;
 
+        // Fixed while this label is scored; `placedLabels` grows between them.
+        const label: LabelInfo = {
+            key: item.key,
+            size: item.size,
+            ownerSegment: item.ownerSegment,
+            anchorPx: pointPx,
+        };
+        const obstacles: Obstacles = {
+            placedLabels,
+            points: pointObstacles,
+            tickZones,
+            segments: segmentsPx,
+        };
+
         let best = candidates[0];
         let bestScore = scoreCandidate(
-            best,
-            item,
-            pointPx,
+            best.rect,
+            label,
             idealRect,
-            placed,
-            pointObstacles,
-            tickZones,
-            segmentsPx,
+            obstacles,
             graphInfo,
         );
 
         for (const candidate of candidates.slice(1)) {
             const score = scoreCandidate(
-                candidate,
-                item,
-                pointPx,
+                candidate.rect,
+                label,
                 idealRect,
-                placed,
-                pointObstacles,
-                tickZones,
-                segmentsPx,
+                obstacles,
                 graphInfo,
             );
             // Strictly better, so ties keep the earlier (more ideal) position.
@@ -905,7 +942,7 @@ export function getAutoLabelPlacements(
         placements.set(item.key, {
             cornerPx: [best.rect.left, best.rect.top],
         });
-        placed.push({rect: best.rect, size: item.size});
+        placedLabels.push({rect: best.rect, size: item.size});
     }
 
     return placements;
