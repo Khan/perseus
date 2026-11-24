@@ -5,9 +5,12 @@ import {
     Errors,
     excludeDenylistKeys,
     getDefaultAnswerArea,
+    isBoldTableCell,
+    isEmptyTableCell,
     mapObject,
     PerseusError,
     splitPerseusItem,
+    tableHasRowHeaders,
 } from "@khanacademy/perseus-core";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {emptyWidgetsFunctional} from "@khanacademy/perseus-score";
@@ -32,13 +35,7 @@ import {ApiOptions, ClassNames as ApiClassNames} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown";
 import QuestionParagraph from "./question-paragraph";
 import TranslationLinter from "./translation-linter";
-import Util, {
-    isBoldTableCell,
-    isContentGraphie,
-    isEmptyTableCell,
-    isLayoutTable,
-    tableHasRowHeaders,
-} from "./util";
+import Util, {isContentGraphie, isLayoutTable} from "./util";
 import {containerSizeClass} from "./util/sizing-utils";
 import preprocessTex from "./util/tex-preprocess";
 import WidgetContainer from "./widget-container";
