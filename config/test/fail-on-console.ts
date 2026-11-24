@@ -1,4 +1,4 @@
-import {afterAll, beforeAll} from "@jest/globals";
+import {afterEach, beforeAll} from "@jest/globals";
 
 /**
  * @file
@@ -43,7 +43,7 @@ function failOn(consoleMethod: string) {
         flushMessages();
         stubConsole();
     });
-    afterAll(() => {
+    afterEach(() => {
         restoreConsole();
         flushMessages();
     });
