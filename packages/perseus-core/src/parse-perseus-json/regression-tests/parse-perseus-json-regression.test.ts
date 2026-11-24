@@ -38,28 +38,24 @@ import type {
 
 const itemDataDir = join(__dirname, "item-data");
 const itemDataFixtures = import.meta.webpackContext("./item-data", {
-    recursive: false,
     regExp: /\.ts$/,
 });
 const itemDataFiles = fs.readdirSync(itemDataDir);
 
 const articleDataDir = join(__dirname, "article-data");
 const articleDataFixtures = import.meta.webpackContext("./article-data", {
-    recursive: false,
     regExp: /\.ts$/,
 });
 const articleDataFiles = fs.readdirSync(articleDataDir);
 
 const userInputDataDir = join(__dirname, "user-input-data");
 const userInputDataFixtures = import.meta.webpackContext("./user-input-data", {
-    recursive: false,
     regExp: /\.ts$/,
 });
 const userInputDataFiles = fs.readdirSync(userInputDataDir);
 
 const rendererDataDir = join(__dirname, "renderer-data");
 const rendererDataFixtures = import.meta.webpackContext("./renderer-data", {
-    recursive: false,
     regExp: /\.ts$/,
 });
 const rendererDataFiles = fs.readdirSync(rendererDataDir);
