@@ -22,7 +22,7 @@ export function generateFreeResponseWidget(
         graded: true,
         version: {major: 0, minor: 0},
         static: false,
-        alignment: "default",
+        alignment: "block",
         options: generateFreeResponseOptions(), // default options
         ...freeResponseWidgetProperties,
     };

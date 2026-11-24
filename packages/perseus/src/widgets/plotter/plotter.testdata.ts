@@ -8,7 +8,7 @@ export const question1: PerseusRenderer = {
     images: {},
     widgets: {
         "plotter 1": {
-            alignment: "default",
+            alignment: "block",
             graded: true,
             options: {
                 categories: [

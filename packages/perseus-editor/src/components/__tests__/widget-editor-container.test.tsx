@@ -96,7 +96,7 @@ describe("WidgetEditor", () => {
             jest.spyOn(
                 CoreWidgetRegistry,
                 "getSupportedAlignments",
-            ).mockReturnValue(["default"]);
+            ).mockReturnValue(["block"]);
 
             render(
                 <WidgetEditorContainer

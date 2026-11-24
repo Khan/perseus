@@ -593,7 +593,7 @@ exports[`WidgetDiff > renders with missing 'after' props 1`] = `
               <span
                 class="inner-value dark removed dark"
               >
-                "default"
+                "block"
               </span>
             </div>
           </div>
@@ -1142,7 +1142,7 @@ exports[`WidgetDiff > renders with missing 'before' props 1`] = `
               <span
                 class="inner-value dark added dark"
               >
-                "default"
+                "block"
               </span>
             </div>
           </div>

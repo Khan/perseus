@@ -165,7 +165,7 @@ export const itemWithRadioAndExpressionWidgets: PerseusItem =
                             },
                         ],
                     },
-                    alignment: "default",
+                    alignment: "block",
                 }),
                 "expression 1": generateExpressionWidget({
                     options: generateExpressionOptions({
@@ -211,7 +211,7 @@ export const labelImageItem: PerseusItem = {
         widgets: {
             // eslint-disable-next-line no-restricted-syntax
             "label-image 1": {
-                alignment: "default",
+                alignment: "block",
                 graded: true,
                 static: false,
                 type: "label-image",

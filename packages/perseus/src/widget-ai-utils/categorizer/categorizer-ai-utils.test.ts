@@ -20,7 +20,7 @@ const randomizedQuestion: PerseusRenderer = {
             version: {major: 0, minor: 0},
             type: "categorizer",
             graded: true,
-            alignment: "default",
+            alignment: "block",
             options: {
                 items: ["Graph $1$", "Graph $2$"],
                 values: [1, 3],

@@ -28,7 +28,7 @@ export function generateRadioWidget(
         graded: true,
         version: {major: 0, minor: 0},
         static: false,
-        alignment: "default",
+        alignment: "block",
         options: generateRadioOptions(), // default options
         ...radioWidgetProperties,
     };

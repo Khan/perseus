@@ -13,7 +13,7 @@ export const absoluteValueQuestion: PerseusRenderer = {
     widgets: {
         "grapher 1": {
             type: "grapher",
-            alignment: "default",
+            alignment: "block",
             static: false,
             graded: true,
             options: {
@@ -62,7 +62,7 @@ export const exponentialQuestion: PerseusRenderer = {
     images: {},
     widgets: {
         "grapher 1": {
-            alignment: "default",
+            alignment: "block",
             graded: true,
             options: {
                 availableTypes: ["exponential"],
@@ -117,7 +117,7 @@ export const linearQuestion: PerseusRenderer = {
     widgets: {
         "grapher 1": {
             type: "grapher",
-            alignment: "default",
+            alignment: "block",
             static: false,
             graded: true,
             options: {
@@ -165,7 +165,7 @@ export const logarithmQuestion: PerseusRenderer = {
     images: {},
     widgets: {
         "grapher 1": {
-            alignment: "default",
+            alignment: "block",
             graded: true,
             options: {
                 availableTypes: ["logarithm"],
@@ -220,7 +220,7 @@ export const quadraticQuestion: PerseusRenderer = {
     images: {},
     widgets: {
         "grapher 1": {
-            alignment: "default",
+            alignment: "block",
             graded: true,
             options: {
                 availableTypes: ["quadratic"],
@@ -269,7 +269,7 @@ export const sinusoidQuestion: PerseusRenderer = {
     images: {},
     widgets: {
         "grapher 1": {
-            alignment: "default",
+            alignment: "block",
             graded: true,
             options: {
                 availableTypes: ["sinusoid"],
@@ -319,7 +319,7 @@ export const multipleAvailableTypesQuestion: PerseusRenderer = {
     images: {},
     widgets: {
         "grapher 1": {
-            alignment: "default",
+            alignment: "block",
             graded: true,
             options: {
                 availableTypes: [

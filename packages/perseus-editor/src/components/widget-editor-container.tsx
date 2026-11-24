@@ -105,15 +105,17 @@ class WidgetEditorContainer extends React.Component<Props, State> {
         const WidgetEditor =
             WidgetEditorRegistry.getEditor(widgetInfo.type) ??
             UnsupportedWidgetEditor;
-        let supportedAlignments: ReadonlyArray<Alignment>;
+        let supportedAlignments = CoreWidgetRegistry.getSupportedAlignments(
+            widgetInfo.type,
+        );
 
-        if (this.props.apiOptions.showAlignmentOptions) {
-            supportedAlignments = CoreWidgetRegistry.getSupportedAlignments(
-                widgetInfo.type,
-            );
-        } else {
-            // NOTE(kevinb): "default" is not one in `validAlignments` in widgets.js.
-            supportedAlignments = ["default"];
+        if (!this.props.apiOptions.showAlignmentOptions) {
+            // HACK(benchristel): this causes the alignment dropdown
+            // to not display when showAlignmentOptions is false. The
+            // WidgetEditorSettings component only shows the dropdown if
+            // supportedAlignments has more than one element.
+            const [defaultAlignment] = supportedAlignments;
+            supportedAlignments = [defaultAlignment];
         }
 
         const supportsStaticMode = Widgets.supportsStaticMode(widgetInfo.type);

@@ -26,7 +26,7 @@ const question: PerseusRenderer = generateTestPerseusRenderer({
                 widgets: {
                     "categorizer 1": {
                         type: "categorizer",
-                        alignment: "default",
+                        alignment: "block",
                         static: false,
                         graded: true,
                         options: {
@@ -50,7 +50,7 @@ const question: PerseusRenderer = generateTestPerseusRenderer({
                     widgets: {
                         "categorizer 1": {
                             type: "categorizer",
-                            alignment: "default",
+                            alignment: "block",
                             static: true,
                             graded: true,
                             options: {

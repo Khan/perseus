@@ -56,7 +56,7 @@ const shuffledQuestion: PerseusRenderer = {
                 randomize: true,
                 deselectEnabled: false,
             },
-            alignment: "default",
+            alignment: "block",
         } as RadioWidget,
     },
 };

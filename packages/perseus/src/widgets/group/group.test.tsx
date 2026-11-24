@@ -171,7 +171,7 @@ describe("group widget", () => {
         expect(state).toEqual({
             "group 1": {
                 "radio 1": {
-                    alignment: "default",
+                    alignment: "block",
                     choiceStates: [
                         expectedChoiceState,
                         expectedChoiceState,

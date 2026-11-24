@@ -351,7 +351,7 @@ describe("splitPerseusRenderer", () => {
                         },
                         lockedFigures: [],
                     },
-                    alignment: "default",
+                    alignment: "block",
                     static: false,
                     graded: true,
                 },

@@ -14,7 +14,7 @@ const basicRadioWidget: PerseusWidget = {
     options: {
         choices: [],
     },
-    alignment: "default",
+    alignment: "block",
 };
 
 describe("generateExplanationOptions", () => {

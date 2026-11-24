@@ -82,7 +82,7 @@ describe("Sorter serialization", () => {
         expect(state).toEqual({
             question: {
                 "sorter 1": {
-                    alignment: "default",
+                    alignment: "block",
                     static: false,
                     correct: ["First", "Second", "Third"],
                     options: ["First", "Second", "Third"],

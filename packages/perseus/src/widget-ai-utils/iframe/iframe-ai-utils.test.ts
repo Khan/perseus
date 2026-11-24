@@ -32,7 +32,7 @@ const question1: PerseusRenderer = {
                 width: "410",
                 allowFullScreen: true,
             },
-            alignment: "default",
+            alignment: "block",
         },
     },
 };

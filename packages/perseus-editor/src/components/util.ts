@@ -12,7 +12,7 @@ import type {Alignment} from "@khanacademy/perseus-core";
  * within the Exercise editor.
  */
 export const alignmentInfoMap: Record<
-    Exclude<Alignment, "default" | "inline-block" | "inline">,
+    Exclude<Alignment, "inline-block" | "inline">,
     string
 > = {
     block: "Block - widget is constrained to the width of the article content container.",

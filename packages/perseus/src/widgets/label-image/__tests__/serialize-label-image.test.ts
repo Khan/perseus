@@ -116,7 +116,7 @@ describe("LabelImage serialization", () => {
         expect(state).toEqual({
             question: {
                 "label-image 1": {
-                    alignment: "default",
+                    alignment: "block",
                     static: false,
                     choices: ["One", "Two", "Three"],
                     imageAlt: "Alt text",

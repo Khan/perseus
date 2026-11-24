@@ -8,7 +8,11 @@ import LabeledSwitch from "./labeled-switch";
 
 import "./widget-editor-settings.css";
 
-import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
+import type {
+    Alignment,
+    PerseusWidget,
+    SupportedAlignments,
+} from "@khanacademy/perseus-core";
 
 interface BestPracticesLink {
     url: string;
@@ -23,7 +27,7 @@ interface WidgetEditorSettingsProps {
     supportsGradedToggle: boolean;
     isGraded: boolean;
     onGradedChange: (value: boolean) => unknown;
-    supportedAlignments: ReadonlyArray<Alignment>;
+    supportedAlignments: SupportedAlignments;
     widgetInfo: PerseusWidget;
     onAlignmentChange: (newAlignment: Alignment) => unknown;
     isEditingDisabled: boolean;

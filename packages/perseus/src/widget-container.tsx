@@ -93,12 +93,12 @@ class WidgetContainer extends React.Component<Props, State> {
         const userAgent = navigator.userAgent;
 
         let alignment = this.props.widgetProps.alignment;
-        if (alignment == null || alignment === "default") {
+        if (alignment == null) {
             alignment = CoreWidgetRegistry.getDefaultAlignment(type);
         }
 
         // This will set the WidgetContainer's alignment
-        className += CoreWidgetRegistry.getAlignmentClassName(type, alignment);
+        className += CoreWidgetRegistry.getAlignmentClassName(alignment);
 
         const subType =
             getWidgetSubType(type, this.props.widgetProps.options) ?? "null";

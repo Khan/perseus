@@ -81,7 +81,7 @@ describe("NumberLine serialization", () => {
         expect(state).toEqual({
             question: {
                 "number-line 1": {
-                    alignment: "default",
+                    alignment: "block",
                     static: false,
                     range: [-4, 4],
                     labelRange: [null, null],

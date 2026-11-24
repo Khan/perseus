@@ -86,7 +86,7 @@ describe("Plotter serialization", () => {
         expect(state).toEqual({
             question: {
                 "plotter 1": {
-                    alignment: "default",
+                    alignment: "block",
                     static: false,
                     scaleY: 1,
                     maxY: 2,

@@ -33,7 +33,7 @@ describe("GradedGroupSet AI utils", () => {
             widgets: {
                 "numeric-input 1": {
                     type: "numeric-input",
-                    alignment: "default",
+                    alignment: "inline-block",
                     options: {
                         labelText: "Numeric input label",
                         size: "Normal",
@@ -83,7 +83,7 @@ describe("GradedGroupSet AI utils", () => {
                     widgets: {
                         "numeric-input 1": {
                             type: "numeric-input",
-                            alignment: "default",
+                            alignment: "inline-block",
                             options: {
                                 labelText: "Numeric input label",
                                 size: "Normal",

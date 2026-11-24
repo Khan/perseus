@@ -51,7 +51,7 @@ export const imageWidget: ImageWidget = {
 export const mockWidget: MockWidget = {
     type: "mock-widget",
     graded: true,
-    alignment: "default",
+    alignment: "block",
     options: {
         value: "0.3333333333333333",
     },
@@ -152,7 +152,7 @@ export const mockedRandomItem: PerseusRenderer = {
                     },
                 ],
             },
-            alignment: "default",
+            alignment: "block",
         },
         "radio 2": {
             graded: true,
@@ -195,7 +195,7 @@ export const mockedRandomItem: PerseusRenderer = {
                     },
                 ],
             },
-            alignment: "default",
+            alignment: "block",
         },
     },
 } as PerseusRenderer;

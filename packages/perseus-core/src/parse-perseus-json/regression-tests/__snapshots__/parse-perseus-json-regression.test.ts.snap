@@ -35,7 +35,7 @@ Most important, the production possibilities frontier clearly shows the tradeoff
     "images": {},
     "widgets": {
       "explanation 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "explanation": "There are two major differences between a budget constraint and a production possibilities frontier. The first is the fact that the budget constraint is a straight line. This is because its slope is given by the relative prices of the two goods. In contrast, the PPF has a curved shape because of the law of the diminishing returns. The second is the absence of specific numbers on the axes of the PPF. There are no specific numbers because we do not know the exact amount of resources this imaginary economy has, nor do we know how many resources it takes to produce healthcare and how many resources it takes to produce education. If this were a real-world example, that data would be available. An additional reason for the lack of numbers is that there is no single way to measure levels of education and healthcare. However, when you think of improvements in education, you can think of accomplishments like more years of school completed, fewer high-school dropouts, and higher scores on standardized tests. When you think of improvements in healthcare, you can think of longer life expectancies, lower levels of infant mortality, and fewer outbreaks of disease.
@@ -266,7 +266,7 @@ What are the similarities between a consumer’s budget constraint and society�
     "images": {},
     "widgets": {
       "explanation 0": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": false,
         "options": {
           "explanation": "
@@ -284,7 +284,7 @@ Because of the improvement in technology, the vertical intercept of the PPF woul
         },
       },
       "explanation 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": false,
         "options": {
           "explanation": "
@@ -302,7 +302,7 @@ No. Allocative efficiency requires productive efficiency, because it pertains to
         },
       },
       "explanation 2": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": false,
         "options": {
           "explanation": "
@@ -407,7 +407,7 @@ It is clear that productive inefficiency is a waste since resources are being us
     "images": {},
     "widgets": {
       "explanation 0": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": false,
         "options": {
           "explanation": "## Attribution
@@ -504,7 +504,7 @@ exports[`parseAndMigratePerseusItem > given categorizer-missing-randomizeItems.t
     "images": {},
     "widgets": {
       "categorizer 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "categories": [
@@ -597,7 +597,7 @@ exports[`parseAndMigratePerseusItem > given categorizer-missing-static.ts > retu
     "images": {},
     "widgets": {
       "categorizer 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "categories": [
@@ -643,7 +643,7 @@ exports[`parseAndMigratePerseusItem > given categorizer-with-null-value.ts > ret
     "images": {},
     "widgets": {
       "categorizer 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "categories": [
@@ -699,7 +699,7 @@ exports[`parseAndMigratePerseusItem > given categorizer-with-null-value.ts > ret
     "images": {},
     "widgets": {
       "categorizer 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "categories": [
@@ -778,7 +778,7 @@ exports[`parseAndMigratePerseusItem > given cs-program-missing-static.ts > retur
         },
       },
       "numeric-input 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "answers": [
@@ -978,7 +978,7 @@ exports[`parseAndMigratePerseusItem > given definition-missing-static.ts > retur
     "images": {},
     "widgets": {
       "categorizer 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "categories": [
@@ -1041,7 +1041,7 @@ exports[`parseAndMigratePerseusItem > given definition-missing-static.ts > retur
     "images": {},
     "widgets": {
       "categorizer 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "categories": [
@@ -1501,7 +1501,7 @@ exports[`parseAndMigratePerseusItem > given expression-answerForm-missing-form.t
     "images": {},
     "widgets": {
       "expression 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "answerForms": [
@@ -1746,7 +1746,7 @@ exports[`parseAndMigratePerseusItem > given expression-option-missing-value.ts >
     "images": {},
     "widgets": {
       "expression 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "answerForms": [],
@@ -2369,7 +2369,7 @@ A certain tungsten filament has a mass of $0.0176\\text{ g}$.
     },
     "widgets": {
       "explanation 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "explanation": "explanation goes here
@@ -2387,7 +2387,7 @@ more explanation",
         },
       },
       "explanation 2": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "explanation": "Avogadro's number $= 6.022\\times 10^{23}$",
@@ -2403,7 +2403,7 @@ more explanation",
         },
       },
       "expression 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "answerForms": [
@@ -2690,7 +2690,7 @@ To find entry $(i,j)$ of the resulting product matrix, we calculate the vector *
       "replace": false,
       "widgets": {
         "explanation 1": {
-          "alignment": "default",
+          "alignment": undefined,
           "graded": true,
           "options": {
             "explanation": "In general, vector dot product is an operation that takes two vectors of equal dimensions and returns a single real number.
@@ -2744,7 +2744,7 @@ The other entries of $\\text{H}$ can be found similarly.
       "replace": false,
       "widgets": {
         "graded-group 1": {
-          "alignment": "default",
+          "alignment": undefined,
           "graded": true,
           "options": {
             "content": "**What is the appropriate calculation of $\\textbf{H}_{2,1}$?**
@@ -2757,7 +2757,7 @@ The other entries of $\\text{H}$ can be found similarly.
             "title": "",
             "widgets": {
               "radio 1": {
-                "alignment": "default",
+                "alignment": undefined,
                 "graded": true,
                 "options": {
                   "choices": [
@@ -2829,7 +2829,7 @@ $ \\text{H}=\\left[\\begin{array}{rr}4 & -1 \\\\ 4 & 0\\end{array}\\right]$ ",
     "images": {},
     "widgets": {
       "matrix 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "answers": [
@@ -2901,7 +2901,7 @@ exports[`parseAndMigratePerseusItem > given graded-group-with-false-hint.ts > re
     "images": {},
     "widgets": {
       "matrix 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "answers": [],
@@ -2991,7 +2991,7 @@ So the $x$-intercept is $(5,0)$.",
       "replace": false,
       "widgets": {
         "grapher 1": {
-          "alignment": "default",
+          "alignment": undefined,
           "graded": true,
           "options": {
             "availableTypes": [
@@ -3071,7 +3071,7 @@ So the $x$-intercept is $(5,0)$.",
     "images": {},
     "widgets": {
       "grapher 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "availableTypes": [
@@ -3181,7 +3181,7 @@ exports[`parseAndMigratePerseusItem > given grapher-with-empty-coords.ts > retur
     "images": {},
     "widgets": {
       "grapher 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "availableTypes": [
@@ -3354,7 +3354,7 @@ exports[`parseAndMigratePerseusItem > given grapher-with-null-coords.ts > return
     "images": {},
     "widgets": {
       "grapher 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "availableTypes": [
@@ -3458,7 +3458,7 @@ For more practice, go to [Systems of equations with elimination challenge](/e/sy
       "replace": false,
       "widgets": {
         "graded-group-set 2": {
-          "alignment": "default",
+          "alignment": undefined,
           "graded": true,
           "options": {
             "gradedGroups": [
@@ -3513,7 +3513,7 @@ $\\begin{align}
                 "title": "Problem 1.1",
                 "widgets": {
                   "numeric-input 1": {
-                    "alignment": "default",
+                    "alignment": undefined,
                     "graded": true,
                     "options": {
                       "answers": [
@@ -3539,7 +3539,7 @@ $\\begin{align}
                     },
                   },
                   "numeric-input 2": {
-                    "alignment": "default",
+                    "alignment": undefined,
                     "graded": true,
                     "options": {
                       "answers": [
@@ -3618,7 +3618,7 @@ When we solve the resulting equation we obtain that $x = -5$. Then, we can subst
                 "title": "Problem 1.2",
                 "widgets": {
                   "numeric-input 1": {
-                    "alignment": "default",
+                    "alignment": undefined,
                     "graded": true,
                     "options": {
                       "answers": [
@@ -3644,7 +3644,7 @@ When we solve the resulting equation we obtain that $x = -5$. Then, we can subst
                     },
                   },
                   "numeric-input 2": {
-                    "alignment": "default",
+                    "alignment": undefined,
                     "graded": true,
                     "options": {
                       "answers": [
@@ -3778,7 +3778,7 @@ exports[`parseAndMigratePerseusItem > given hint-with-null-replace.ts > returns 
     "metadata": null,
     "widgets": {
       "radio 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "key": null,
         "options": {
@@ -3853,7 +3853,7 @@ exports[`parseAndMigratePerseusItem > given hint-with-null-replace.ts > returns 
     "metadata": null,
     "widgets": {
       "radio 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "key": null,
         "options": {
@@ -4012,7 +4012,7 @@ exports[`parseAndMigratePerseusItem > given iframe-missing-allowFullScreen.ts > 
     "images": {},
     "widgets": {
       "iframe 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "allowFullScreen": false,
@@ -4540,7 +4540,7 @@ exports[`parseAndMigratePerseusItem > given image-with-null-dimensions.ts > retu
         },
       },
       "radio 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "key": null,
         "options": {
@@ -4681,7 +4681,7 @@ exports[`parseAndMigratePerseusItem > given image-with-null-dimensions.ts > retu
         },
       },
       "radio 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "key": null,
         "options": {
@@ -4970,7 +4970,7 @@ exports[`parseAndMigratePerseusItem > given input-number-with-boolean-value.ts >
         },
       },
       "radio 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "choices": [
@@ -5060,7 +5060,7 @@ exports[`parseAndMigratePerseusItem > given input-number-with-null-version.ts > 
     "metadata": null,
     "widgets": {
       "input-number 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "key": null,
         "options": {
@@ -5376,7 +5376,7 @@ exports[`parseAndMigratePerseusItem > given interaction-element-missing-constrai
     "images": {},
     "widgets": {
       "interaction 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "elements": [
@@ -6086,7 +6086,7 @@ Next, we'll look at some other representations of functions!",
     },
     "widgets": {
       "interaction 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "elements": [
@@ -6173,7 +6173,7 @@ Next, we'll look at some other representations of functions!",
         },
       },
       "interaction 2": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "elements": [
@@ -6260,7 +6260,7 @@ Next, we'll look at some other representations of functions!",
         },
       },
       "interaction 3": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "elements": [
@@ -6347,7 +6347,7 @@ Next, we'll look at some other representations of functions!",
         },
       },
       "interaction 4": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "elements": [
@@ -6434,7 +6434,7 @@ Next, we'll look at some other representations of functions!",
         },
       },
       "interaction 5": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "elements": [
@@ -6555,7 +6555,7 @@ exports[`parseAndMigratePerseusItem > given interactive-graph-angle-offset-deg-n
     },
     "widgets": {
       "interactive-graph 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -6683,7 +6683,7 @@ exports[`parseAndMigratePerseusItem > given interactive-graph-angle-offset-deg-n
     },
     "widgets": {
       "interactive-graph 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -6828,7 +6828,7 @@ $3$ | $8$
     "images": {},
     "widgets": {
       "interactive-graph 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -6965,7 +6965,7 @@ $3$ | $8$
     "images": {},
     "widgets": {
       "interactive-graph 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -7060,7 +7060,7 @@ exports[`parseAndMigratePerseusItem > given interactive-graph-locked-figure-colo
     "images": {},
     "widgets": {
       "interactive-graph 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -7227,7 +7227,7 @@ exports[`parseAndMigratePerseusItem > given interactive-graph-locked-figure-colo
     "images": {},
     "widgets": {
       "interactive-graph 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -7394,7 +7394,7 @@ exports[`parseAndMigratePerseusItem > given interactive-graph-locked-figures-mis
     "images": {},
     "widgets": {
       "interactive-graph 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -7670,7 +7670,7 @@ exports[`parseAndMigratePerseusItem > given interactive-graph-locked-figures-mis
     "images": {},
     "widgets": {
       "interactive-graph 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -7944,7 +7944,7 @@ exports[`parseAndMigratePerseusItem > given interactive-graph-locked-function-wi
     "images": {},
     "widgets": {
       "interactive-graph 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -8035,7 +8035,7 @@ exports[`parseAndMigratePerseusItem > given interactive-graph-locked-function-wi
     "images": {},
     "widgets": {
       "interactive-graph 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -8125,7 +8125,7 @@ exports[`parseAndMigratePerseusItem > given interactive-graph-locked-label-with-
     "images": {},
     "widgets": {
       "interactive-graph 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -8212,7 +8212,7 @@ exports[`parseAndMigratePerseusItem > given interactive-graph-locked-label-with-
     "images": {},
     "widgets": {
       "interactive-graph 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -8320,7 +8320,7 @@ Locked figures:
     "images": {},
     "widgets": {
       "interactive-graph 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -8446,7 +8446,7 @@ Locked figures:
         },
       },
       "interactive-graph 2": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -8520,7 +8520,7 @@ Locked figures:
         },
       },
       "interactive-graph 3": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -8584,7 +8584,7 @@ Locked figures:
         },
       },
       "interactive-graph 4": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -8646,7 +8646,7 @@ Locked figures:
         },
       },
       "interactive-graph 5": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -8708,7 +8708,7 @@ Locked figures:
         },
       },
       "interactive-graph 6": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -8770,7 +8770,7 @@ Locked figures:
         },
       },
       "interactive-graph 7": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -8832,7 +8832,7 @@ Locked figures:
         },
       },
       "interactive-graph 8": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -9172,7 +9172,7 @@ Locked figures:
     "images": {},
     "widgets": {
       "interactive-graph 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -9235,7 +9235,7 @@ Locked figures:
         },
       },
       "interactive-graph 2": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -9297,7 +9297,7 @@ Locked figures:
         },
       },
       "interactive-graph 3": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -9361,7 +9361,7 @@ Locked figures:
         },
       },
       "interactive-graph 4": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -9423,7 +9423,7 @@ Locked figures:
         },
       },
       "interactive-graph 5": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -9485,7 +9485,7 @@ Locked figures:
         },
       },
       "interactive-graph 6": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -9547,7 +9547,7 @@ Locked figures:
         },
       },
       "interactive-graph 7": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -9609,7 +9609,7 @@ Locked figures:
         },
       },
       "interactive-graph 8": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -9983,7 +9983,7 @@ $\\begin{align}
       "replace": false,
       "widgets": {
         "explanation 1": {
-          "alignment": "default",
+          "alignment": undefined,
           "graded": true,
           "options": {
             "explanation": "We can move $\\purpleD {B_V}$ to the right in the diagram to get the right angle triangle as shown below.
@@ -10128,7 +10128,7 @@ $B_E\\ \\sin{45\\degree}\\downarrow$
     },
     "widgets": {
       "radio 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "choices": [
@@ -10245,7 +10245,7 @@ exports[`parseAndMigratePerseusItem > given interactive-graph-missing-graph.ts >
     },
     "widgets": {
       "radio 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "choices": [
@@ -10320,7 +10320,7 @@ exports[`parseAndMigratePerseusItem > given interactive-graph-missing-gridStep.t
       "replace": false,
       "widgets": {
         "interactive-graph 1": {
-          "alignment": "default",
+          "alignment": undefined,
           "graded": true,
           "options": {
             "backgroundImage": {
@@ -10386,7 +10386,7 @@ exports[`parseAndMigratePerseusItem > given interactive-graph-missing-gridStep.t
     "images": {},
     "widgets": {
       "interactive-graph 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -10450,7 +10450,7 @@ exports[`parseAndMigratePerseusItem > given interactive-graph-missing-gridStep.t
         },
       },
       "interactive-graph 2": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -10545,7 +10545,7 @@ exports[`parseAndMigratePerseusItem > given interactive-graph-missing-gridStep.t
     "images": {},
     "widgets": {
       "interactive-graph 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -10599,7 +10599,7 @@ exports[`parseAndMigratePerseusItem > given interactive-graph-missing-gridStep.t
         },
       },
       "interactive-graph 2": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -10821,7 +10821,7 @@ exports[`parseAndMigratePerseusItem > given interactive-graph-missing-labels.ts 
     "images": {},
     "widgets": {
       "interactive-graph 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -11083,7 +11083,7 @@ Draw the rhombus in the first quadrant.
     "images": {},
     "widgets": {
       "interactive-graph 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -11181,7 +11181,7 @@ exports[`parseAndMigratePerseusItem > given interactive-graph-with-string-backgr
     "images": {},
     "widgets": {
       "interactive-graph 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -11267,7 +11267,7 @@ exports[`parseAndMigratePerseusItem > given interactive-graph-with-string-backgr
         },
       },
       "radio 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "choices": [
@@ -11335,7 +11335,7 @@ exports[`parseAndMigratePerseusItem > given interactive-graph-with-string-backgr
     "images": {},
     "widgets": {
       "interactive-graph 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -11406,7 +11406,7 @@ exports[`parseAndMigratePerseusItem > given interactive-graph-with-string-backgr
         },
       },
       "radio 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "choices": [
@@ -11461,7 +11461,7 @@ exports[`parseAndMigratePerseusItem > given interactive-graph-without-show-point
     "images": {},
     "widgets": {
       "interactive-graph 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -11579,7 +11579,7 @@ exports[`parseAndMigratePerseusItem > given interactive-graph-without-show-point
     "images": {},
     "widgets": {
       "interactive-graph 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "backgroundImage": {
@@ -11743,7 +11743,7 @@ ___
     "metadata": null,
     "widgets": {
       "definition 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "key": null,
         "options": {
@@ -11758,7 +11758,7 @@ ___
         },
       },
       "explanation 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "key": null,
         "options": {
@@ -12071,7 +12071,7 @@ $9 \\times 5 =$ [[☃ numeric-input 1]]",
     "images": {},
     "widgets": {
       "label-image 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "choices": [
@@ -12112,7 +12112,7 @@ $9 \\times 5 =$ [[☃ numeric-input 1]]",
         },
       },
       "numeric-input 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "answers": [
@@ -12193,7 +12193,7 @@ $9 \\times 5 =$ [[☃ numeric-input 1]]",
     "images": {},
     "widgets": {
       "label-image 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "choices": [
@@ -12294,7 +12294,7 @@ Non-renewable source can be exhausted with continuous use",
     "images": {},
     "widgets": {
       "categorizer 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "categories": [
@@ -12434,7 +12434,7 @@ exports[`parseAndMigratePerseusItem > given label-image-missing-static.ts > retu
     "images": {},
     "widgets": {
       "categorizer 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "categories": [
@@ -12479,7 +12479,7 @@ exports[`parseAndMigratePerseusItem > given label-image-missing-static.ts > retu
         },
       },
       "label-image 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "choices": [],
@@ -12499,7 +12499,7 @@ exports[`parseAndMigratePerseusItem > given label-image-missing-static.ts > retu
         },
       },
       "matcher 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "labels": [
@@ -12527,7 +12527,7 @@ exports[`parseAndMigratePerseusItem > given label-image-missing-static.ts > retu
         },
       },
       "sorter 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "correct": [
@@ -12574,7 +12574,7 @@ Order L-R: -2.9, -2 5/8, -7/3
     "images": {},
     "widgets": {
       "label-image 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "choices": [
@@ -12651,7 +12651,7 @@ Order L-R: -2.9, -2 5/8, -7/3
     "images": {},
     "widgets": {
       "label-image 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "choices": [
@@ -12763,7 +12763,7 @@ exports[`parseAndMigratePerseusItem > given lights-puzzle.ts > returns the same 
     "images": {},
     "widgets": {
       "lights-puzzle 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "gradeIncompleteAsWrong": false,
@@ -12856,7 +12856,7 @@ exports[`parseAndMigratePerseusItem > given matcher-with-null-options.ts > retur
     "images": {},
     "widgets": {
       "matcher 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "labels": [
@@ -13059,7 +13059,7 @@ exports[`parseAndMigratePerseusItem > given matrix-missing-version.ts > returns 
     "images": {},
     "widgets": {
       "matrix 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "answers": [],
@@ -13100,7 +13100,7 @@ exports[`parseAndMigratePerseusItem > given matrix-with-nulls-in-answer.ts > ret
     "images": {},
     "widgets": {
       "matrix 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "answers": [
@@ -13157,7 +13157,7 @@ exports[`parseAndMigratePerseusItem > given matrix-with-nulls-in-answer.ts > ret
     "images": {},
     "widgets": {
       "matrix 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "answers": [],
@@ -13207,7 +13207,7 @@ $x_1\\cdot\\vec{v_1}+x_2\\cdot\\vec{v_2}+...+x_n\\cdot\\vec{v_n}$
       "replace": false,
       "widgets": {
         "explanation 1": {
-          "alignment": "default",
+          "alignment": undefined,
           "graded": true,
           "options": {
             "explanation": "We learned that for 2-dimensional matrices, the first column is the image of the unit vector $\\left[\\begin{array}{c}1\\\\\\\\0\\end{array}\\right]$ and the second column is the image of the unit vector $\\left[\\begin{array}{c}0\\\\\\\\1\\end{array}\\right]$.
@@ -13401,7 +13401,7 @@ $\\left[\\begin{array}{c}
     "images": {},
     "widgets": {
       "matrix 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "answers": [
@@ -13495,7 +13495,7 @@ $\\left[\\begin{array}{c}
     "images": {},
     "widgets": {
       "matrix 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "answers": [],
@@ -13696,7 +13696,7 @@ exports[`parseAndMigratePerseusItem > given measurer-missing-image.ts > returns 
         },
       },
       "measurer 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "box": [
@@ -13788,7 +13788,7 @@ exports[`parseAndMigratePerseusItem > given measurer-missing-static.ts > returns
     "images": {},
     "widgets": {
       "measurer 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "box": [
@@ -14007,7 +14007,7 @@ exports[`parseAndMigratePerseusItem > given measurer-missing-version.ts > return
         },
       },
       "measurer 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "box": [
@@ -14115,7 +14115,7 @@ The graph of the solution of the inequality, $c ≥ 8.75$, looks like this:
       "replace": false,
       "widgets": {
         "number-line 3": {
-          "alignment": "default",
+          "alignment": undefined,
           "graded": true,
           "options": {
             "correctRel": "ge",
@@ -14182,7 +14182,7 @@ The graph of the solution of the inequality, $c ≥ 8.75$, looks like this:
     },
     "widgets": {
       "expression 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "answerForms": [
@@ -14219,7 +14219,7 @@ The graph of the solution of the inequality, $c ≥ 8.75$, looks like this:
         },
       },
       "number-line 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "correctRel": "ge",
@@ -14354,7 +14354,7 @@ exports[`parseAndMigratePerseusItem > given number-line-missing-snapDivisions.ts
         },
       },
       "number-line 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "correctX": null,
@@ -14464,7 +14464,7 @@ exports[`parseAndMigratePerseusItem > given number-line-missing-static.ts > retu
     "images": {},
     "widgets": {
       "number-line 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "correctX": null,
@@ -14671,7 +14671,7 @@ exports[`parseAndMigratePerseusItem > given number-line-with-empty-strings-in-la
     "images": {},
     "widgets": {
       "number-line 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "correctX": null,
@@ -14705,7 +14705,7 @@ exports[`parseAndMigratePerseusItem > given number-line-with-empty-strings-in-la
         },
       },
       "radio 2": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "choices": [
@@ -14877,7 +14877,7 @@ exports[`parseAndMigratePerseusItem > given number-line-with-null-correctX.ts > 
     "images": {},
     "widgets": {
       "number-line 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "correctX": null,
@@ -15064,7 +15064,7 @@ exports[`parseAndMigratePerseusItem > given numeric-input-answer-with-simplify-t
     "images": {},
     "widgets": {
       "numeric-input 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "answers": [
@@ -15187,7 +15187,7 @@ $\\dfrac{2}{3}\\times \\dfrac{2}{3}\\times\\dfrac{2}{3}=\\boxed{\\dfrac{8}{27}}$
     "images": {},
     "widgets": {
       "expression 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "answerForms": [
@@ -15223,7 +15223,7 @@ $\\dfrac{2}{3}\\times \\dfrac{2}{3}\\times\\dfrac{2}{3}=\\boxed{\\dfrac{8}{27}}$
         },
       },
       "numeric-input 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "answers": [
@@ -15375,7 +15375,7 @@ exports[`parseAndMigratePerseusItem > given numeric-input-center-aligned.ts > re
     "images": {},
     "widgets": {
       "numeric-input 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "answers": [
@@ -15976,7 +15976,7 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
         },
       },
       "sequence 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "json": [
@@ -16028,7 +16028,7 @@ exports[`parseAndMigratePerseusItem > given numeric-input-right-aligned.ts > ret
     "images": {},
     "widgets": {
       "numeric-input 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "answers": [
@@ -16367,7 +16367,7 @@ exports[`parseAndMigratePerseusItem > given numeric-input-with-null-answerForms.
         },
       },
       "numeric-input 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "key": null,
         "options": {
@@ -16395,7 +16395,7 @@ exports[`parseAndMigratePerseusItem > given numeric-input-with-null-answerForms.
         },
       },
       "numeric-input 2": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "key": null,
         "options": {
@@ -16423,7 +16423,7 @@ exports[`parseAndMigratePerseusItem > given numeric-input-with-null-answerForms.
         },
       },
       "numeric-input 3": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "key": null,
         "options": {
@@ -16451,7 +16451,7 @@ exports[`parseAndMigratePerseusItem > given numeric-input-with-null-answerForms.
         },
       },
       "radio 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "key": null,
         "options": {
@@ -16677,7 +16677,7 @@ exports[`parseAndMigratePerseusItem > given numeric-input-with-null-answerForms.
         },
       },
       "radio 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "key": null,
         "options": {
@@ -16869,7 +16869,7 @@ Stella landed $1.68$ kilometers from the skydiving center.",
         },
       },
       "numeric-input 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "answers": [
@@ -17094,7 +17094,7 @@ exports[`parseAndMigratePerseusItem > given numeric-input-with-simplify-false.ts
     },
     "widgets": {
       "numeric-input 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "answers": [
@@ -17287,7 +17287,7 @@ exports[`parseAndMigratePerseusItem > given numeric-input-with-simplify-true-str
     "images": {},
     "widgets": {
       "numeric-input 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "answers": [
@@ -17456,7 +17456,7 @@ A **unit fraction** is a fraction with a numerator of $1$. [[☃ explanation 2]]
       "replace": false,
       "widgets": {
         "explanation 1": {
-          "alignment": "default",
+          "alignment": undefined,
           "graded": true,
           "options": {
             "explanation": "We can decompose $54$ into $50+4$.",
@@ -17472,7 +17472,7 @@ A **unit fraction** is a fraction with a numerator of $1$. [[☃ explanation 2]]
           },
         },
         "explanation 2": {
-          "alignment": "default",
+          "alignment": undefined,
           "graded": true,
           "options": {
             "explanation": "$\\dfrac15$ is a unit fraction because the numerator (top number) is $1$.",
@@ -17511,7 +17511,7 @@ Let's decompose $\\dfrac59$ into unit fractions.
       "replace": false,
       "widgets": {
         "explanation 1": {
-          "alignment": "default",
+          "alignment": undefined,
           "graded": true,
           "options": {
             "explanation": "
@@ -17531,7 +17531,7 @@ $\\dfrac59$ can be broken up into $\\dfrac19+\\dfrac19+\\dfrac19+\\dfrac19+\\dfr
           },
         },
         "graded-group 1": {
-          "alignment": "default",
+          "alignment": undefined,
           "graded": true,
           "options": {
             "content": "**Drag the cards to create an expression that is equivalent to $\\dfrac59$.**
@@ -17541,7 +17541,7 @@ $\\dfrac59$ can be broken up into $\\dfrac19+\\dfrac19+\\dfrac19+\\dfrac19+\\dfr
             "title": "",
             "widgets": {
               "orderer 1": {
-                "alignment": "default",
+                "alignment": undefined,
                 "graded": true,
                 "options": {
                   "correctOptions": [
@@ -17648,7 +17648,7 @@ How can we decompose $\\dfrac38$?
       "replace": false,
       "widgets": {
         "explanation 1": {
-          "alignment": "default",
+          "alignment": undefined,
           "graded": true,
           "options": {
             "explanation": "$\\dfrac18+\\dfrac18+\\dfrac18$
@@ -17666,7 +17666,7 @@ How can we decompose $\\dfrac38$?
           },
         },
         "graded-group 1": {
-          "alignment": "default",
+          "alignment": undefined,
           "graded": true,
           "options": {
             "content": "**Write an expression decomposing $\\dfrac38$ into unit fractions.**
@@ -17680,7 +17680,7 @@ How can we decompose $\\dfrac38$?
             "title": "",
             "widgets": {
               "expression 1": {
-                "alignment": "default",
+                "alignment": undefined,
                 "graded": true,
                 "options": {
                   "answerForms": [
@@ -17745,7 +17745,7 @@ How can we decompose $\\dfrac64$?
       "replace": false,
       "widgets": {
         "explanation 1": {
-          "alignment": "default",
+          "alignment": undefined,
           "graded": true,
           "options": {
             "explanation": "$\\dfrac14+\\dfrac14+\\dfrac14+\\dfrac14+\\dfrac14+\\dfrac14$",
@@ -17761,7 +17761,7 @@ How can we decompose $\\dfrac64$?
           },
         },
         "graded-group 1": {
-          "alignment": "default",
+          "alignment": undefined,
           "graded": true,
           "options": {
             "content": "**Drag the cards to create an expression that is equivalent to $\\dfrac64$.**
@@ -17773,7 +17773,7 @@ How can we decompose $\\dfrac64$?
             "title": "",
             "widgets": {
               "orderer 1": {
-                "alignment": "default",
+                "alignment": undefined,
                 "graded": true,
                 "options": {
                   "correctOptions": [
@@ -17901,7 +17901,7 @@ How can we decompose $\\dfrac64$?
       "replace": false,
       "widgets": {
         "explanation 1": {
-          "alignment": "default",
+          "alignment": undefined,
           "graded": true,
           "options": {
             "explanation": "$\\dfrac29=\\dfrac19+\\dfrac19$",
@@ -17917,7 +17917,7 @@ How can we decompose $\\dfrac64$?
           },
         },
         "explanation 2": {
-          "alignment": "default",
+          "alignment": undefined,
           "graded": true,
           "options": {
             "explanation": "$\\dfrac13+\\dfrac13+\\dfrac13+\\dfrac13+\\dfrac13$",
@@ -17933,7 +17933,7 @@ How can we decompose $\\dfrac64$?
           },
         },
         "explanation 3": {
-          "alignment": "default",
+          "alignment": undefined,
           "graded": true,
           "options": {
             "explanation": "$\\dfrac16+\\dfrac16+\\dfrac16+\\dfrac16+\\dfrac16=\\dfrac56$
@@ -17950,7 +17950,7 @@ How can we decompose $\\dfrac64$?
           },
         },
         "explanation 4": {
-          "alignment": "default",
+          "alignment": undefined,
           "graded": true,
           "options": {
             "explanation": "
@@ -17972,7 +17972,7 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
           },
         },
         "graded-group 1": {
-          "alignment": "default",
+          "alignment": undefined,
           "graded": true,
           "options": {
             "content": "**Which shows $\\dfrac29$ decomposed into unit fractions?**
@@ -17984,7 +17984,7 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
             "title": "",
             "widgets": {
               "radio 1": {
-                "alignment": "default",
+                "alignment": undefined,
                 "graded": true,
                 "options": {
                   "choices": [
@@ -18034,7 +18034,7 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
           },
         },
         "graded-group 2": {
-          "alignment": "default",
+          "alignment": undefined,
           "graded": true,
           "options": {
             "content": "**Write an expression showing $\\dfrac53$ decomposed into unit fractions.**
@@ -18048,7 +18048,7 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
             "title": "",
             "widgets": {
               "expression 1": {
-                "alignment": "default",
+                "alignment": undefined,
                 "graded": true,
                 "options": {
                   "answerForms": [
@@ -18093,7 +18093,7 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
           },
         },
         "graded-group 3": {
-          "alignment": "default",
+          "alignment": undefined,
           "graded": true,
           "options": {
             "content": "**What fraction is equal to $\\dfrac16+\\dfrac16+\\dfrac16+\\dfrac16+\\dfrac16$?**
@@ -18107,7 +18107,7 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
             "title": "",
             "widgets": {
               "numeric-input 1": {
-                "alignment": "default",
+                "alignment": undefined,
                 "graded": true,
                 "options": {
                   "answers": [
@@ -18146,7 +18146,7 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
           },
         },
         "graded-group 4": {
-          "alignment": "default",
+          "alignment": undefined,
           "graded": true,
           "options": {
             "content": "**Match each fraction to its equivalent expression.**
@@ -18160,7 +18160,7 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
             "title": "",
             "widgets": {
               "matcher 1": {
-                "alignment": "default",
+                "alignment": undefined,
                 "graded": true,
                 "options": {
                   "labels": [
@@ -18421,7 +18421,7 @@ exports[`parseAndMigratePerseusItem > given orderer-option-missing-widgets.ts > 
     },
     "widgets": {
       "radio 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "choices": [
@@ -18574,7 +18574,7 @@ exports[`parseAndMigratePerseusItem > given orderer-with-invalid-height.ts > ret
     "images": {},
     "widgets": {
       "orderer 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "correctOptions": [],
@@ -18744,7 +18744,7 @@ A free body diagram of the **box** is shown below.
         },
       },
       "radio 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "choices": [
@@ -18792,7 +18792,7 @@ A free body diagram of the **box** is shown below.
         },
       },
       "sorter 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "correct": [
@@ -18923,7 +18923,7 @@ A free body diagram of the **box** is shown below.
         },
       },
       "orderer 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "correctOptions": [],
@@ -18940,7 +18940,7 @@ A free body diagram of the **box** is shown below.
         },
       },
       "radio 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "choices": [
@@ -18980,7 +18980,7 @@ A free body diagram of the **box** is shown below.
         },
       },
       "sorter 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "correct": [
@@ -19193,7 +19193,7 @@ exports[`parseAndMigratePerseusItem > given plotter-missing-scaleY-and-snapsPerL
         },
       },
       "plotter 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "categories": [
@@ -19401,7 +19401,7 @@ exports[`parseAndMigratePerseusItem > given plotter-with-undefined-plotDimension
     "images": {},
     "widgets": {
       "radio 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "choices": [
@@ -19504,7 +19504,7 @@ exports[`parseAndMigratePerseusItem > given radio-choice-ids-set-to-empty-string
     "images": {},
     "widgets": {
       "radio 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "choices": [
@@ -19583,7 +19583,7 @@ exports[`parseAndMigratePerseusItem > given radio-choice-ids-set-to-empty-string
     "images": {},
     "widgets": {
       "radio 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "choices": [
@@ -19931,7 +19931,7 @@ exports[`parseAndMigratePerseusItem > given radio-choice-missing-content.ts > re
     "images": {},
     "widgets": {
       "group 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "content": "
@@ -19940,7 +19940,7 @@ exports[`parseAndMigratePerseusItem > given radio-choice-missing-content.ts > re
           "images": {},
           "widgets": {
             "radio 1": {
-              "alignment": "default",
+              "alignment": "block",
               "graded": true,
               "options": {
                 "choices": [
@@ -19989,7 +19989,7 @@ exports[`parseAndMigratePerseusItem > given radio-choice-missing-content.ts > re
         },
       },
       "group 2": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "content": "
@@ -19998,7 +19998,7 @@ exports[`parseAndMigratePerseusItem > given radio-choice-missing-content.ts > re
           "images": {},
           "widgets": {
             "radio 1": {
-              "alignment": "default",
+              "alignment": "block",
               "graded": true,
               "options": {
                 "choices": [
@@ -20047,7 +20047,7 @@ exports[`parseAndMigratePerseusItem > given radio-choice-missing-content.ts > re
         },
       },
       "group 3": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "content": "
@@ -20056,7 +20056,7 @@ exports[`parseAndMigratePerseusItem > given radio-choice-missing-content.ts > re
           "images": {},
           "widgets": {
             "radio 1": {
-              "alignment": "default",
+              "alignment": "block",
               "graded": true,
               "options": {
                 "choices": [
@@ -20105,7 +20105,7 @@ exports[`parseAndMigratePerseusItem > given radio-choice-missing-content.ts > re
         },
       },
       "group 4": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "content": "
@@ -20114,7 +20114,7 @@ exports[`parseAndMigratePerseusItem > given radio-choice-missing-content.ts > re
           "images": {},
           "widgets": {
             "radio 1": {
-              "alignment": "default",
+              "alignment": "block",
               "graded": true,
               "options": {
                 "choices": [
@@ -20467,7 +20467,7 @@ exports[`parseAndMigratePerseusItem > given radio-choice-v2-with-rationale.ts > 
     "images": {},
     "widgets": {
       "group 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "content": "
@@ -20476,7 +20476,7 @@ exports[`parseAndMigratePerseusItem > given radio-choice-v2-with-rationale.ts > 
           "images": {},
           "widgets": {
             "radio 1": {
-              "alignment": "default",
+              "alignment": "block",
               "graded": true,
               "options": {
                 "choices": [
@@ -20525,7 +20525,7 @@ exports[`parseAndMigratePerseusItem > given radio-choice-v2-with-rationale.ts > 
         },
       },
       "group 2": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "content": "
@@ -20534,7 +20534,7 @@ exports[`parseAndMigratePerseusItem > given radio-choice-v2-with-rationale.ts > 
           "images": {},
           "widgets": {
             "radio 1": {
-              "alignment": "default",
+              "alignment": "block",
               "graded": true,
               "options": {
                 "choices": [
@@ -20583,7 +20583,7 @@ exports[`parseAndMigratePerseusItem > given radio-choice-v2-with-rationale.ts > 
         },
       },
       "group 3": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "content": "
@@ -20592,7 +20592,7 @@ exports[`parseAndMigratePerseusItem > given radio-choice-v2-with-rationale.ts > 
           "images": {},
           "widgets": {
             "radio 1": {
-              "alignment": "default",
+              "alignment": "block",
               "graded": true,
               "options": {
                 "choices": [
@@ -20641,7 +20641,7 @@ exports[`parseAndMigratePerseusItem > given radio-choice-v2-with-rationale.ts > 
         },
       },
       "group 4": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "content": "
@@ -20650,7 +20650,7 @@ exports[`parseAndMigratePerseusItem > given radio-choice-v2-with-rationale.ts > 
           "images": {},
           "widgets": {
             "radio 1": {
-              "alignment": "default",
+              "alignment": "block",
               "graded": true,
               "options": {
                 "choices": [
@@ -20727,7 +20727,7 @@ B &= \\{x: x \\text{ is a square in the plane P} \\}
     "images": {},
     "widgets": {
       "radio 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "choices": [
@@ -20789,7 +20789,7 @@ B &= \\{x: x \\text{ is a square in the plane P} \\}
     "images": {},
     "widgets": {
       "radio 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "choices": [
@@ -20873,7 +20873,7 @@ exports[`parseAndMigratePerseusItem > given radio-with-extra-fields-from-go-sche
     "metadata": null,
     "widgets": {
       "definition 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "key": null,
         "options": {
@@ -20888,7 +20888,7 @@ exports[`parseAndMigratePerseusItem > given radio-with-extra-fields-from-go-sche
         },
       },
       "definition 2": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "key": null,
         "options": {
@@ -20903,7 +20903,7 @@ exports[`parseAndMigratePerseusItem > given radio-with-extra-fields-from-go-sche
         },
       },
       "definition 3": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "key": null,
         "options": {
@@ -20918,7 +20918,7 @@ exports[`parseAndMigratePerseusItem > given radio-with-extra-fields-from-go-sche
         },
       },
       "explanation 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "key": null,
         "options": {
@@ -20978,7 +20978,7 @@ exports[`parseAndMigratePerseusItem > given radio-with-extra-fields-from-go-sche
         },
       },
       "radio 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "key": null,
         "options": {
@@ -21190,7 +21190,7 @@ exports[`parseAndMigratePerseusItem > given radio-with-extra-fields-from-go-sche
         },
       },
       "radio 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "key": null,
         "options": {
@@ -21256,7 +21256,7 @@ exports[`parseAndMigratePerseusItem > given radio-with-null-options.ts > returns
       "replace": false,
       "widgets": {
         "explanation 1": {
-          "alignment": "default",
+          "alignment": undefined,
           "graded": true,
           "key": null,
           "options": {
@@ -21304,7 +21304,7 @@ exports[`parseAndMigratePerseusItem > given radio-with-null-options.ts > returns
     "metadata": null,
     "widgets": {
       "radio 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "key": null,
         "options": {
@@ -21401,7 +21401,7 @@ exports[`parseAndMigratePerseusItem > given radio-with-null-options.ts > returns
     "metadata": null,
     "widgets": {
       "radio 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "key": null,
         "options": {
@@ -21502,7 +21502,7 @@ ___
     "metadata": null,
     "widgets": {
       "explanation 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "key": null,
         "options": {
@@ -21562,7 +21562,7 @@ ___
         },
       },
       "radio 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "key": null,
         "options": {
@@ -21734,7 +21734,7 @@ ___
         },
       },
       "radio 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "key": null,
         "options": {
@@ -21841,7 +21841,7 @@ exports[`parseAndMigratePerseusItem > given radio-with-weird-alignment.ts > retu
         },
       },
       "radio 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "choices": [
@@ -21939,7 +21939,7 @@ exports[`parseAndMigratePerseusItem > given radio-with-weird-alignment.ts > retu
         },
       },
       "radio 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "choices": [
@@ -22056,7 +22056,7 @@ exports[`parseAndMigratePerseusItem > given simulator-widget.ts > returns the sa
     "images": {},
     "widgets": {
       "simulator 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "numTrials": 100,
@@ -22073,7 +22073,7 @@ exports[`parseAndMigratePerseusItem > given simulator-widget.ts > returns the sa
         },
       },
       "sorter 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "correct": [
@@ -22115,7 +22115,7 @@ exports[`parseAndMigratePerseusItem > given sorter-with-legend-and-variant.ts > 
     "images": {},
     "widgets": {
       "sorter 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "correct": [
@@ -22165,7 +22165,7 @@ exports[`parseAndMigratePerseusItem > given sorter-with-legend-and-variant.ts > 
     "images": {},
     "widgets": {
       "sorter 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "correct": [
@@ -22215,7 +22215,7 @@ exports[`parseAndMigratePerseusItem > given sorter-without-legend-and-variant.ts
     "images": {},
     "widgets": {
       "sorter 1": {
-        "alignment": "default",
+        "alignment": undefined,
         "graded": true,
         "options": {
           "correct": [
@@ -22257,7 +22257,7 @@ exports[`parseAndMigratePerseusItem > given sorter-without-legend-and-variant.ts
     "images": {},
     "widgets": {
       "sorter 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "correct": [
@@ -22463,7 +22463,7 @@ exports[`parseAndMigratePerseusItem > given transformer-widget.ts > returns the 
     "images": {},
     "widgets": {
       "transformer 1": {
-        "alignment": "default",
+        "alignment": "block",
         "graded": true,
         "options": {
           "correct": {

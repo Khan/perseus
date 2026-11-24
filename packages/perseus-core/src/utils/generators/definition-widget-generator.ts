@@ -23,7 +23,7 @@ export function generateDefinitionWidget(
         graded: false,
         version: {major: 0, minor: 0},
         static: false,
-        alignment: "default",
+        alignment: "inline",
         options: generateDefinitionOptions(),
         ...definitionWidgetProperties,
     };

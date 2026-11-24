@@ -33,7 +33,7 @@ export const applyDefaultsToWidget = <W extends PerseusWidget>(
     // Widgets that support multiple alignments will "lock in" the
     // alignment to the alignment that would be listed first in the
     // select box.
-    if (alignment == null || alignment === "default") {
+    if (alignment == null) {
         alignment = getSupportedAlignments(type)?.[0];
         if (!alignment) {
             throw new PerseusError(

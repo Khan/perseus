@@ -51,7 +51,7 @@ export function generateFillInTheBlankWidget(
         graded: true,
         version: {major: 0, minor: 0},
         static: false,
-        alignment: "default",
+        alignment: "block",
         ...fillInTheBlankWidgetProperties,
         options: generateFillInTheBlankOptions(
             fillInTheBlankWidgetProperties?.options,

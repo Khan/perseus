@@ -33,7 +33,7 @@ describe("freeResponseWidget", () => {
                 },
                 graded: false,
                 static: false,
-                alignment: "default",
+                alignment: "block",
                 options: {
                     allowUnlimitedCharacters: false,
                     characterLimit: 500,

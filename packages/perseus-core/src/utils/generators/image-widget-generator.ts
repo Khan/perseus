@@ -33,7 +33,7 @@ export function generateImageWidget(
         graded: false,
         version: {major: 0, minor: 0},
         static: false,
-        alignment: "default",
+        alignment: "block",
         options: generateImageOptions({}), // default options
         ...imageWidgetProperties,
     };

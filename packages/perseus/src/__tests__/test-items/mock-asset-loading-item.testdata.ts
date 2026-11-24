@@ -11,7 +11,7 @@ export const mockedAssetItem: PerseusItem = {
             // @ts-expect-error - TS2353 - Object literal may only specify known properties, and '"mock-asset-loading-widget 1"' does not exist in type 'PerseusWidgetsMap'.
             "mock-asset-loading-widget 1": {
                 type: "mock-asset-loading-widget",
-                alignment: "default",
+                alignment: "block",
                 static: false,
                 graded: true,
                 options: Object.freeze({value: ""}),
