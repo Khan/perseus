@@ -1,4 +1,5 @@
 import {ApiOptions} from "@khanacademy/perseus";
+import {rs} from "@rstest/core";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
@@ -9,14 +10,14 @@ import type {A11yIssue} from "./components/issues-panel";
 import type {PreviewContent} from "./preview/message-types";
 import type {A11yReport} from "./preview/use-preview-controller";
 
-const mockSendData = jest.fn();
-const mockSetA11yScanningEnabled = jest.fn();
-const mockHighlightIssues = jest.fn();
-const mockClearHighlights = jest.fn();
+const mockSendData = rs.fn();
+const mockSetA11yScanningEnabled = rs.fn();
+const mockHighlightIssues = rs.fn();
+const mockClearHighlights = rs.fn();
 let mockHeight: number | null = null;
 let mockA11yReport: A11yReport | null = null;
 
-jest.mock("./preview/use-preview-controller", () => ({
+rs.mock("./preview/use-preview-controller", () => ({
     usePreviewController: () => ({
         sendData: mockSendData,
         height: mockHeight,
@@ -281,7 +282,7 @@ describe("PreviewWithIframe", () => {
                 needsReview: [],
             };
             mockA11yReport = report;
-            const onA11yReport = jest.fn();
+            const onA11yReport = rs.fn();
 
             // Act
             render(

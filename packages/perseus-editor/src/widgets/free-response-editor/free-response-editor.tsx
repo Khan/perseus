@@ -1,4 +1,3 @@
-import {freeResponseLogic} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox, TextArea, TextField} from "@khanacademy/wonder-blocks-form";
@@ -22,10 +21,6 @@ type Props = WidgetEditorProps<PerseusFreeResponseWidgetOptions>;
  * An editor for adding a free response widget that allows users to enter open-ended text answers.
  */
 class FreeResponseEditor extends React.Component<Props> {
-    static defaultProps = {
-        ...freeResponseLogic.defaultWidgetOptions,
-    };
-
     handleChange(changes: Partial<PerseusFreeResponseWidgetOptions>) {
         this.props.onChange({
             allowUnlimitedCharacters: this.props.allowUnlimitedCharacters,

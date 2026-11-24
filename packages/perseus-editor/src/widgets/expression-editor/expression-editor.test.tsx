@@ -1,4 +1,5 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
+import {generateExpressionOptions} from "@khanacademy/perseus-core";
 import {act, render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -19,7 +20,7 @@ function HarnessedEditor({
         <ExpressionEditor
             apiOptions={apiOptions}
             onChange={onChange}
-            {...rest}
+            {...generateExpressionOptions(rest)}
         />
     );
 }
@@ -28,17 +29,17 @@ describe("expression-editor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
     it("should render", async () => {
         render(<HarnessedEditor />);
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         expect(await screen.findByText(/Add new answer/)).toBeInTheDocument();
     });
@@ -69,16 +70,16 @@ describe("expression-editor", () => {
         ];
 
         render(<HarnessedEditor answerForms={answerForms} />);
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         expect(await screen.findByText(/π/)).toBeInTheDocument();
     });
 
     it("should toggle multiplication checkbox", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(<HarnessedEditor onChange={onChangeMock} />);
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         await userEvent.click(
             screen.getByRole("checkbox", {
@@ -94,10 +95,10 @@ describe("expression-editor", () => {
     });
 
     it("should be possible to change function variables", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(<HarnessedEditor onChange={onChangeMock} functions={[]} />);
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         const input = screen.getByRole("textbox", {
             name: "Function variables",
@@ -121,10 +122,10 @@ describe("expression-editor", () => {
     });
 
     it("should toggle division checkbox", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(<HarnessedEditor onChange={onChangeMock} />);
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         await userEvent.click(
             screen.getByRole("checkbox", {
@@ -140,10 +141,10 @@ describe("expression-editor", () => {
     });
 
     it("should toggle trig checkbox", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(<HarnessedEditor onChange={onChangeMock} />);
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         await userEvent.click(
             screen.getByRole("checkbox", {
@@ -159,10 +160,10 @@ describe("expression-editor", () => {
     });
 
     it("should toggle prealgebra checkbox", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(<HarnessedEditor onChange={onChangeMock} />);
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         await userEvent.click(
             screen.getByRole("checkbox", {
@@ -178,9 +179,9 @@ describe("expression-editor", () => {
     });
 
     it("should toggle logarithms checkbox", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(<HarnessedEditor onChange={onChangeMock} />);
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         await userEvent.click(
             screen.getByRole("checkbox", {
@@ -196,9 +197,9 @@ describe("expression-editor", () => {
     });
 
     it("should toggle basic relations checkbox", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(<HarnessedEditor onChange={onChangeMock} />);
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         await userEvent.click(
             screen.getByRole("checkbox", {
@@ -214,10 +215,10 @@ describe("expression-editor", () => {
     });
 
     it("should toggle advanced relations checkbox", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(<HarnessedEditor onChange={onChangeMock} />);
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         await userEvent.click(
             screen.getByRole("checkbox", {
@@ -233,10 +234,10 @@ describe("expression-editor", () => {
     });
 
     it("should toggle scientific checkbox", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(<HarnessedEditor onChange={onChangeMock} />);
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         await userEvent.click(
             screen.getByRole("checkbox", {
@@ -252,11 +253,11 @@ describe("expression-editor", () => {
     });
 
     it("should be possible to add an answer", async () => {
-        const onChangeMock = jest.fn();
-        crypto.randomUUID = jest.fn(() => "0-0-0-0-0");
+        const onChangeMock = rs.fn();
+        rs.spyOn(crypto, "randomUUID").mockReturnValue("0-0-0-0-0");
 
         render(<HarnessedEditor onChange={onChangeMock} />);
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         await userEvent.click(
             screen.getByRole("button", {
@@ -281,7 +282,8 @@ describe("expression-editor", () => {
     });
 
     it("should be possible to update answer", async () => {
-        const onChangeMock = jest.fn();
+        // Arrange:
+        const onChangeMock = rs.fn();
 
         render(
             <HarnessedEditor
@@ -297,7 +299,7 @@ describe("expression-editor", () => {
                 ]}
             />,
         );
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         await userEvent.click(
             screen.getByRole("button", {
@@ -305,13 +307,16 @@ describe("expression-editor", () => {
             }),
         );
 
+        // Act: enter an answer
         await userEvent.click(
-            screen.getByRole("button", {
+            await screen.findByRole("button", {
                 name: "9",
             }),
         );
-        act(() => jest.runOnlyPendingTimers());
+        // Act: wait for floating-ui to position the popover.
+        await act(async () => rs.runOnlyPendingTimers());
 
+        // Assert:
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 answerForms: [
@@ -329,7 +334,7 @@ describe("expression-editor", () => {
     });
 
     it("should be possible to toggle same form", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(
             <HarnessedEditor
@@ -345,7 +350,7 @@ describe("expression-editor", () => {
                 ]}
             />,
         );
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         await userEvent.click(
             screen.getByRole("checkbox", {
@@ -370,7 +375,7 @@ describe("expression-editor", () => {
     });
 
     it("should be possible to toggle expanded and simplified", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(
             <HarnessedEditor
@@ -386,7 +391,7 @@ describe("expression-editor", () => {
                 ]}
             />,
         );
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         await userEvent.click(
             screen.getByRole("checkbox", {
@@ -411,7 +416,7 @@ describe("expression-editor", () => {
     });
 
     it("should be possible to delete answer", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(
             <HarnessedEditor
@@ -427,7 +432,7 @@ describe("expression-editor", () => {
                 ]}
             />,
         );
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         await userEvent.click(
             screen.getByRole("button", {
@@ -467,17 +472,17 @@ describe("expression-editor", () => {
                 ]}
             />,
         );
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         const input = screen.getByRole("textbox", {name: /Math input/});
         await userEvent.type(input, "42");
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         // default extra keys, since "42" doesn't have variables
         expect(options?.extraKeys).toEqual(["PI"]);
 
         await userEvent.type(input, "x");
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         // derived extra keys, since "42x" has a variable
         expect(options?.extraKeys).toEqual(["x"]);

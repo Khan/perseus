@@ -1,5 +1,6 @@
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
+import {rs} from "@rstest/core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -22,8 +23,8 @@ const defaultProps = {
 const defaultLabel = getDefaultFigureForType("label");
 
 // Mock the async functions
-jest.mock("./util", () => ({
-    ...jest.requireActual("./util"),
+rs.mock("./util", () => ({
+    ...rs.requireActual("./util"),
     generateSpokenMathDetails: (input) =>
         mockedGenerateSpokenMathDetailsForTests(input),
     joinLabelsAsSpokenMath: (input) =>
@@ -34,7 +35,7 @@ describe("LockedPointSettings", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
     test("Should show the point's coordinates and color by default", () => {
@@ -105,7 +106,7 @@ describe("LockedPointSettings", () => {
 
     it("does not call onChangeProps when you enter an invalid x coordinate", async () => {
         // Arrange
-        const onChangeSpy = jest.fn();
+        const onChangeSpy = rs.fn();
         render(
             <LockedPointSettings
                 {...defaultProps}
@@ -126,7 +127,7 @@ describe("LockedPointSettings", () => {
 
     it("does not call onChangeProps when you enter an invalid y coordinate", async () => {
         // Arrange
-        const onChangeSpy = jest.fn();
+        const onChangeSpy = rs.fn();
         render(
             <LockedPointSettings
                 {...defaultProps}
@@ -147,7 +148,7 @@ describe("LockedPointSettings", () => {
 
     test("Calls onToggle when header is clicked", async () => {
         // Arrange
-        const onToggle = jest.fn();
+        const onToggle = rs.fn();
         render(
             <LockedPointSettings
                 {...defaultProps}
@@ -166,7 +167,7 @@ describe("LockedPointSettings", () => {
 
     test("Updates label coords when point x coord is updated", async () => {
         // Arrange
-        const onChangeProps = jest.fn();
+        const onChangeProps = rs.fn();
         render(
             <LockedPointSettings
                 {...defaultProps}
@@ -196,7 +197,7 @@ describe("LockedPointSettings", () => {
 
     test("Updates label coords when point y coord is updated", async () => {
         // Arrange
-        const onChangeProps = jest.fn();
+        const onChangeProps = rs.fn();
         render(
             <LockedPointSettings
                 {...defaultProps}
@@ -226,7 +227,7 @@ describe("LockedPointSettings", () => {
 
     test("Updates label color when point color is updated", async () => {
         // Arrange
-        const onChangeProps = jest.fn();
+        const onChangeProps = rs.fn();
         render(
             <LockedPointSettings
                 {...defaultProps}
@@ -255,7 +256,7 @@ describe("LockedPointSettings", () => {
 
     test("Updates labels when label text is updated", async () => {
         // Arrange
-        const onChangeProps = jest.fn();
+        const onChangeProps = rs.fn();
         render(
             <LockedPointSettings
                 {...defaultProps}
@@ -282,7 +283,7 @@ describe("LockedPointSettings", () => {
 
     test("Removes label when delete button is clicked", async () => {
         // Arrange
-        const onChangeProps = jest.fn();
+        const onChangeProps = rs.fn();
         render(
             <LockedPointSettings
                 {...defaultProps}
@@ -311,7 +312,7 @@ describe("LockedPointSettings", () => {
 
     test("Adds a new label when add label button is clicked", async () => {
         // Arrange
-        const onChangeProps = jest.fn();
+        const onChangeProps = rs.fn();
         render(
             <LockedPointSettings
                 {...defaultProps}
@@ -369,7 +370,7 @@ describe("LockedPointSettings", () => {
 
     test("calls onChangeProps when the aria label is updated", async () => {
         // Arrange
-        const onChangeProps = jest.fn();
+        const onChangeProps = rs.fn();
         render(
             <LockedPointSettings
                 {...defaultProps}
@@ -392,7 +393,7 @@ describe("LockedPointSettings", () => {
 
     test("aria label auto-generates (no labels)", async () => {
         // Arrange
-        const onChangeProps = jest.fn();
+        const onChangeProps = rs.fn();
 
         // Act
         render(
@@ -420,7 +421,7 @@ describe("LockedPointSettings", () => {
 
     test("aria label auto-generates (one label)", async () => {
         // Arrange
-        const onChangeProps = jest.fn();
+        const onChangeProps = rs.fn();
         render(
             <LockedPointSettings
                 {...defaultProps}
@@ -454,7 +455,7 @@ describe("LockedPointSettings", () => {
 
     test("aria label auto-generates (multiple labels)", async () => {
         // Arrange
-        const onChangeProps = jest.fn();
+        const onChangeProps = rs.fn();
         render(
             <LockedPointSettings
                 {...defaultProps}
@@ -491,7 +492,7 @@ describe("LockedPointSettings", () => {
 
     test("aria label does not include fill when filled is false", async () => {
         // Arrange
-        const onChangeProps = jest.fn();
+        const onChangeProps = rs.fn();
 
         // Act
         render(

@@ -1,4 +1,5 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
+import {generateNumericInputOptions} from "@khanacademy/perseus-core";
 import {render, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -20,7 +21,7 @@ function HarnessedEditor({
         <NumericInputEditor
             apiOptions={apiOptions}
             onChange={onChange}
-            {...rest}
+            {...generateNumericInputOptions(rest)}
         />
     );
 }
@@ -29,10 +30,10 @@ describe("numeric-input-editor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -48,7 +49,7 @@ describe("numeric-input-editor", () => {
     });
 
     it("should be possible to select normal width", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(<HarnessedEditor onChange={onChangeMock} />);
 
@@ -65,7 +66,7 @@ describe("numeric-input-editor", () => {
     });
 
     it("should be possible to select small width", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(<HarnessedEditor onChange={onChangeMock} />);
 
@@ -82,7 +83,7 @@ describe("numeric-input-editor", () => {
     });
 
     it("should be possible to change text alignment", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(<HarnessedEditor onChange={onChangeMock} />);
 
@@ -102,7 +103,7 @@ describe("numeric-input-editor", () => {
     });
 
     it("should be possible to select coefficient", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(<HarnessedEditor onChange={onChangeMock} />);
 
@@ -118,7 +119,7 @@ describe("numeric-input-editor", () => {
     });
 
     it("should be possible to select strictly match only these formats", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(<HarnessedEditor onChange={onChangeMock} />);
 
@@ -146,7 +147,7 @@ describe("numeric-input-editor", () => {
     });
 
     it("should be possible to update label text", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(<HarnessedEditor onChange={onChangeMock} />);
 
@@ -187,7 +188,7 @@ describe("numeric-input-editor", () => {
     });
 
     it("should be possible to set unsimplified answers to ungraded", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(<HarnessedEditor onChange={onChangeMock} />);
 
@@ -209,7 +210,7 @@ describe("numeric-input-editor", () => {
     });
 
     it("should be possible to set unsimplified answers to accepted", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(<HarnessedEditor onChange={onChangeMock} />);
 
@@ -231,7 +232,7 @@ describe("numeric-input-editor", () => {
     });
 
     it("should be possible to set unsimplified answers to wrong", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(<HarnessedEditor onChange={onChangeMock} />);
 
@@ -263,7 +264,7 @@ describe("numeric-input-editor", () => {
 
     Object.entries(answerFormats).forEach(([key, name]) => {
         it(`should be possible to set suggested answer format to: ${name}`, async () => {
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
 
             render(<HarnessedEditor onChange={onChangeMock} />);
 

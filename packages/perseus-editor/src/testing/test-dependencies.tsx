@@ -1,6 +1,6 @@
 // This defines a version of PerseusDependencies that is suitable for use in tests.
 // It should not make network requests, for example.
-import {registerAllWidgetsForTesting} from "@khanacademy/perseus";
+import {registerAllWidgetsForTesting} from "@khanacademy/perseus/testing";
 import * as React from "react";
 
 import type {

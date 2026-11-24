@@ -1,3 +1,4 @@
+import {rs} from "@rstest/core";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
@@ -5,11 +6,11 @@ import ExercisePreviewPage from "./exercise-preview-page";
 
 import type {PreviewContent} from "../../preview/message-types";
 
-const mockReportHeight = jest.fn();
+const mockReportHeight = rs.fn();
 let mockContent: PreviewContent | null = null;
 let mockHighlightTargets: Element[] = [];
 
-jest.mock("../../preview/use-preview-presenter", () => ({
+rs.mock("../../preview/use-preview-presenter", () => ({
     usePreviewPresenter: () => ({
         content: mockContent,
         isMobile: false,
@@ -20,7 +21,7 @@ jest.mock("../../preview/use-preview-presenter", () => ({
     }),
 }));
 
-jest.mock("./preview-renderer", () => ({
+rs.mock("./preview-renderer", () => ({
     PreviewRenderer: () => <div>Preview content</div>,
 }));
 
@@ -43,11 +44,11 @@ describe("ExercisePreviewPage", () => {
         // A `function`, not an arrow: the page calls `new ResizeObserver()`,
         // and some test runners construct a mock's implementation with `new`.
         // eslint-disable-next-line no-restricted-syntax
-        window.ResizeObserver = jest.fn().mockImplementation(function () {
+        window.ResizeObserver = rs.fn().mockImplementation(function () {
             return {
-                observe: jest.fn(),
-                unobserve: jest.fn(),
-                disconnect: jest.fn(),
+                observe: rs.fn(),
+                unobserve: rs.fn(),
+                disconnect: rs.fn(),
             };
         }) as unknown as typeof ResizeObserver;
     });

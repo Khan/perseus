@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`Definition widget should have a default snapshot: first render 1`] = `
+exports[`Definition widget > should have a default snapshot > first render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -55,7 +55,7 @@ exports[`Definition widget should have a default snapshot: first render 1`] = `
 </div>
 `;
 
-exports[`Definition widget should have an open state snapshot: open state 1`] = `
+exports[`Definition widget > should have an open state snapshot > open state 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"

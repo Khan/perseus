@@ -1,5 +1,25 @@
 # @khanacademy/math-input
 
+## 30.2.6
+
+### Patch Changes
+
+-   Updated dependencies [[`f1e953e`](https://github.com/Khan/perseus/commit/f1e953ebce191080630bb42e318c0e6aab5ec2b0)]:
+    -   @khanacademy/perseus-core@42.5.1
+    -   @khanacademy/keypad-context@6.0.16
+
+## 30.2.5
+
+### Patch Changes
+
+-   [#4586](https://github.com/Khan/perseus/pull/4586) [`e178624`](https://github.com/Khan/perseus/commit/e178624f485116c3727cbcfec3247d0a638d5941) Thanks [@jandrade](https://github.com/jandrade)! - Update Wonder Blocks peer/dev dependencies to the latest releases, including `@khanacademy/wonder-blocks-layout` 4.0.0, which removes the deprecated `MediaLayout` APIs (unused by Perseus)
+
+-   [#4567](https://github.com/Khan/perseus/pull/4567) [`8c751a4`](https://github.com/Khan/perseus/commit/8c751a4be09536040308d2abf3cc2e3e065a3c1a) Thanks [@benchristel](https://github.com/benchristel)! - Updated dependencies
+
+-   Updated dependencies [[`18aabdc`](https://github.com/Khan/perseus/commit/18aabdcfcbe7a753263514143c1af7711de1f474), [`a0b8db9`](https://github.com/Khan/perseus/commit/a0b8db913a3497f8344610791635a4489ed68800), [`894ed72`](https://github.com/Khan/perseus/commit/894ed729bff8e27ea338eca3a11dca91c213a82a), [`79c4ac2`](https://github.com/Khan/perseus/commit/79c4ac24ad2c927cd109181b55248884be1961b2)]:
+    -   @khanacademy/perseus-core@42.5.0
+    -   @khanacademy/keypad-context@6.0.15
+
 ## 30.2.4
 
 ### Patch Changes

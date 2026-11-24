@@ -35,7 +35,7 @@ function closeTo(x: number) {
 
 describe("Angle graph screen reader", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -175,7 +175,7 @@ describe("Angle graph screen reader", () => {
 // TODO(LEMS-3995, post-PR-7): route the angle SR-tree summary through buildPointAriaLabel once new locale string keys land.
 describe("Angle graph pointLabels", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });

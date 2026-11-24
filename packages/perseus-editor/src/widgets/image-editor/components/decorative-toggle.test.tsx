@@ -8,30 +8,31 @@ import {testDependencies} from "../../../testing/test-dependencies";
 
 import DecorativeToggle from "./decorative-toggle";
 
+import type {Mock} from "@rstest/core";
 import type {UserEvent} from "@testing-library/user-event";
 
-import "@testing-library/jest-dom"; // Imports custom matchers
+// Imports custom matchers
 
 function userEventForFakeTimers() {
     return userEventLib.setup({
-        advanceTimers: jest.advanceTimersByTime,
+        advanceTimers: rs.advanceTimersByTime,
     });
 }
 
 describe("DecorativeToggle", () => {
     let userEvent: UserEvent;
-    let mockOnChange: jest.Mock;
+    let mockOnChange: Mock;
 
     beforeEach(() => {
         userEvent = userEventForFakeTimers();
-        mockOnChange = jest.fn();
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        mockOnChange = rs.fn();
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
     afterEach(() => {
-        jest.restoreAllMocks();
+        rs.restoreAllMocks();
     });
 
     it("renders the toggle unchecked by default", () => {
@@ -103,7 +104,7 @@ describe("DecorativeToggle", () => {
 
     it("shows warning dialog when toggle is clicked and fields are populated", async () => {
         // Arrange
-        const mockConfirm = jest.spyOn(window, "confirm").mockReturnValue(true);
+        const mockConfirm = rs.spyOn(window, "confirm").mockReturnValue(true);
         render(
             <DecorativeToggle
                 hasPopulatedFields={true}
@@ -131,9 +132,7 @@ describe("DecorativeToggle", () => {
 
     it("does not call onChange when user cancels the warning dialog", async () => {
         // Arrange
-        const mockConfirm = jest
-            .spyOn(window, "confirm")
-            .mockReturnValue(false);
+        const mockConfirm = rs.spyOn(window, "confirm").mockReturnValue(false);
         render(
             <DecorativeToggle
                 hasPopulatedFields={true}

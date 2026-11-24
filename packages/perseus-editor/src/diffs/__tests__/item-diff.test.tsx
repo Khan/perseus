@@ -26,14 +26,14 @@ describe("ItemDiff", () => {
     });
 
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
         unmockImageLoading = mockImageLoading();
     });
 
     afterEach(() => {
-        jest.restoreAllMocks();
+        rs.restoreAllMocks();
         unmockImageLoading();
     });
 
@@ -145,7 +145,7 @@ describe("ItemDiff", () => {
 
         // Wait for the next tick to allow setTimeout to execute
         act(() => {
-            jest.runAllTimers();
+            rs.runAllTimers();
         });
 
         // Assert

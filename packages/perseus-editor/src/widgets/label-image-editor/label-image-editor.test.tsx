@@ -34,7 +34,7 @@ const defaultProps: Props = {
     multipleAnswers: false,
     hideChoicesFromInstructions: false,
     preferredPopoverDirection: "NONE",
-    onChange: jest.fn(),
+    onChange: rs.fn(),
 };
 
 describe("label-image-editor", () => {
@@ -42,10 +42,10 @@ describe("label-image-editor", () => {
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -59,7 +59,7 @@ describe("label-image-editor", () => {
     });
 
     it("should render with default props", () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(<LabelImageEditor {...defaultProps} onChange={onChangeMock} />);
 
         // Should render without crashing
@@ -67,7 +67,7 @@ describe("label-image-editor", () => {
     });
 
     it("should call onChange when image URL is changed", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <LabelImageEditor
                 {...defaultProps}
@@ -88,7 +88,7 @@ describe("label-image-editor", () => {
     });
 
     it("should call onChange when alt text is changed", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <LabelImageEditor
                 {...defaultProps}
@@ -109,7 +109,7 @@ describe("label-image-editor", () => {
     });
 
     it("should not render alt text field when no image is selected", () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <LabelImageEditor
                 {...defaultProps}
@@ -127,7 +127,7 @@ describe("label-image-editor", () => {
 
     it("should not allow markers to be added when editingDisabled is true", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(
             <LabelImageEditor
@@ -187,7 +187,7 @@ describe("label-image-editor", () => {
 
         it('calls onChange with "dark-mode=off" added to the image URL when Suppress Dark Mode Filter is toggled on', async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             render(
                 <LabelImageEditor
                     {...defaultProps}
@@ -219,7 +219,7 @@ describe("label-image-editor", () => {
 
         it('calls onChange with "dark-mode=off" removed from the image URL when Suppress Dark Mode Filter is toggled off', async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             render(
                 <LabelImageEditor
                     {...defaultProps}
@@ -241,7 +241,7 @@ describe("label-image-editor", () => {
             );
         });
 
-        it.each`
+        it.each<any>`
             case                           | extension
             ${"images without extensions"} | ${""}
             ${"JPEGs"}                     | ${".jpeg"}
@@ -267,7 +267,7 @@ describe("label-image-editor", () => {
             },
         );
 
-        it.each`
+        it.each<any>`
             case      | extension
             ${"PNGs"} | ${".png"}
             ${"SVGs"} | ${".svg"}

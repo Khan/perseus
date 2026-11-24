@@ -57,6 +57,9 @@ const config: KnipConfig = {
                 "!config/build/**/*",
             ],
             entry: [
+                // Rspack loads it by path (see `tools.bundlerChain` in
+                // rstest.config.mts).
+                "config/test/rstest/basename-loader.ts",
                 // CLI tools
                 "utils/**/*.{ts,tsx,js,jsx}",
             ],
@@ -120,10 +123,8 @@ const config: KnipConfig = {
         // nyc merges and reports code coverage (see
         // utils/test-with-coverage.sh).
         "nyc",
-        // swc_mut_cjs_exports is a plugin for swc, configured like
-        // `swcrc.jsc.experimental.plugins.push(["swc_mut_cjs_exports", {}]);`
-        // (hence, not imported).
-        "swc_mut_cjs_exports",
+        // @swc/core is a peer dependency of @swc-node/register (above).
+        "@swc/core",
     ],
 };
 

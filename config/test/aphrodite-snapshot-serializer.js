@@ -19,9 +19,9 @@
  * We deliberately don't use that flag here, for two reasons:
  *
  *  1. It changes what components *render*, not just what snapshots *print*.
- *     `test-setup.ts` calls `StyleSheetTestUtils.suppressStyleInjection()`, so
- *     in tests, Aphrodite rules never reach the CSSOM and declarations like
- *     `pointer-events: none` are inert. Inlining the styles makes jsdom start
+ *     `rstest/setup.ts` calls `StyleSheetTestUtils.suppressStyleInjection()`,
+ *     so in tests, Aphrodite rules never reach the CSSOM and declarations
+ *     like `pointer-events: none` are inert. Inlining the styles makes jsdom start
  *     honoring them, which breaks ~260 interaction tests that click on things
  *     Aphrodite considers unclickable.
  *  2. It only covers components that route styles through Wonder Blocks'
@@ -32,6 +32,8 @@
  * name means as it is created, then rewrite class attributes on a *clone* of
  * the tree while it is being printed. The live DOM is never touched.
  */
+// TODO: Convert this file to TypeScript
+
 const aphrodite = require("aphrodite");
 // Aphrodite's own helpers for turning a definition into CSS.
 const {kebabifyStyleName, stringifyValue} = require("aphrodite/lib/util");

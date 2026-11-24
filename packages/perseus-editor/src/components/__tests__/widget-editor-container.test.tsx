@@ -1,7 +1,6 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
-    generateDefinitionOptions,
     generateImageWidget,
     generateRadioWidget,
 } from "@khanacademy/perseus-core";
@@ -11,14 +10,9 @@ import * as React from "react";
 
 import {testDependencies} from "../../testing/test-dependencies";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors.testutils";
-import WidgetEditorContainer, {
-    _upgradeWidgetInfo,
-} from "../widget-editor-container";
+import WidgetEditorContainer from "../widget-editor-container";
 
-import type {
-    PerseusDefinitionWidgetOptions,
-    PerseusWidget,
-} from "@khanacademy/perseus-core";
+import type {PerseusWidget} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("WidgetEditor", () => {
@@ -29,10 +23,10 @@ describe("WidgetEditor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -42,7 +36,7 @@ describe("WidgetEditor", () => {
             // Arrange
             // Mock getSupportedAlignments to return multiple alignments
             // This ensures the test is checking showAlignmentOptions, not alignment count
-            jest.spyOn(
+            rs.spyOn(
                 CoreWidgetRegistry,
                 "getSupportedAlignments",
             ).mockReturnValue(["block", "inline", "full-width"]);
@@ -71,7 +65,7 @@ describe("WidgetEditor", () => {
         it("should display alignment dropdown when widget supports multiple alignments", () => {
             // Arrange
             // Mock getSupportedAlignments to return multiple alignments
-            jest.spyOn(
+            rs.spyOn(
                 CoreWidgetRegistry,
                 "getSupportedAlignments",
             ).mockReturnValue(["block", "inline", "full-width"]);
@@ -99,7 +93,7 @@ describe("WidgetEditor", () => {
         it("should NOT display alignment dropdown when widget supports only one alignment", () => {
             // Arrange
             // Mock getSupportedAlignments to return a single alignment
-            jest.spyOn(
+            rs.spyOn(
                 CoreWidgetRegistry,
                 "getSupportedAlignments",
             ).mockReturnValue(["default"]);
@@ -125,8 +119,8 @@ describe("WidgetEditor", () => {
 
         it("should call onChange when alignment is changed", async () => {
             // Arrange
-            const onChangeMock = jest.fn();
-            jest.spyOn(
+            const onChangeMock = rs.fn();
+            rs.spyOn(
                 CoreWidgetRegistry,
                 "getSupportedAlignments",
             ).mockReturnValue(["block", "inline", "full-width"]);
@@ -162,7 +156,7 @@ describe("WidgetEditor", () => {
 
         it("should disable alignment dropdown when editing is disabled", () => {
             // Arrange
-            jest.spyOn(
+            rs.spyOn(
                 CoreWidgetRegistry,
                 "getSupportedAlignments",
             ).mockReturnValue(["block", "inline", "full-width"]);
@@ -214,52 +208,6 @@ describe("WidgetEditor", () => {
             expect(
                 screen.getByText("Perseus doesn't support this widget type."),
             ).toBeInTheDocument();
-        });
-    });
-
-    describe("_upgradeWidgetInfo", () => {
-        it("runs data through the denylist", () => {
-            const options: PerseusDefinitionWidgetOptions = {
-                togglePrompt: "Neat prompt",
-                definition: "Cool definition",
-            };
-
-            const widgetInfo: PerseusWidget = {
-                type: "definition",
-                options,
-            };
-
-            // problemNum is in the denylist,
-            // so we want to make sure it's removed
-            const dirtyInfo: any = {...widgetInfo, problemNum: 42};
-
-            const output = _upgradeWidgetInfo(dirtyInfo);
-
-            // make sure we filter as expected
-            // eslint-disable-next-line no-restricted-syntax
-            expect((output as any).onChange).toBeUndefined();
-            // eslint-disable-next-line no-restricted-syntax
-            expect((output as any).onRemove).toBeUndefined();
-            // eslint-disable-next-line no-restricted-syntax
-            expect((output as any).apiOptions).toBeUndefined();
-            // eslint-disable-next-line no-restricted-syntax
-            expect((output as any).problemNum).toBeUndefined();
-
-            // make sure we're not filtering too much
-            expect(output.type).toBe("definition");
-            expect(output.options).toEqual(options);
-        });
-
-        it("passes graded through", () => {
-            const widgetInfo: PerseusWidget = {
-                type: "definition",
-                graded: true,
-                options: generateDefinitionOptions(),
-            };
-
-            const output = _upgradeWidgetInfo(widgetInfo);
-
-            expect(output.graded).toBe(true);
         });
     });
 });

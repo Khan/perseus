@@ -1,0 +1,40 @@
+import {generateMeasurerOptions} from "@khanacademy/perseus-core";
+import {render, screen} from "@testing-library/react";
+import {userEvent as userEventLib} from "@testing-library/user-event";
+import * as React from "react";
+
+import MeasurerEditor from "./measurer-editor";
+
+import type {UserEvent} from "@testing-library/user-event";
+
+describe("MeasurerEditor", () => {
+    let userEvent: UserEvent;
+
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: rs.advanceTimersByTime,
+        });
+    });
+
+    it("calls onChange when a checkbox is toggled", async () => {
+        // Arrange
+        const onChange = rs.fn();
+        render(
+            <MeasurerEditor
+                {...generateMeasurerOptions()}
+                showProtractor={false}
+                onChange={onChange}
+            />,
+        );
+
+        // Act
+        await userEvent.click(screen.getByLabelText("Show protractor"));
+
+        // Assert
+        expect(onChange).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+                showProtractor: true,
+            }),
+        );
+    });
+});

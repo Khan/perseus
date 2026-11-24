@@ -333,8 +333,8 @@ class Zoomable extends React.Component<Props, State> {
         const {animateHeight, disableEntranceAnimation} = this.props;
 
         const property = animateHeight
-            ? "opacity transform height"
-            : "opacity transform";
+            ? "opacity, transform, height"
+            : "opacity, transform";
 
         // Since we're not using aphrodite, we have to prefix ourselves.
         const transitionStyle = visible

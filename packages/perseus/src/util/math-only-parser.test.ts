@@ -94,7 +94,7 @@ describe("replaceOutsideTeX", () => {
         expect(convertedString).toEqual("\\text{abc}");
     });
 
-    test.each`
+    test.each<any>`
         input     | expectedOutput
         ${"$"}    | ${"\\text{\\$}"}
         ${"$$"}   | ${"\\text{$$}"}
@@ -209,7 +209,7 @@ describe("mathOnlyParser", () => {
         ]);
     });
 
-    test.each`
+    test.each<any>`
         character
         ${">"}
         ${"> "}
@@ -227,7 +227,7 @@ describe("mathOnlyParser", () => {
         expect(nodes).toEqual([{content: character, type: "text"}]);
     });
 
-    test.each`
+    test.each<any>`
         character
         ${"\\"}
         ${"\\\\"}

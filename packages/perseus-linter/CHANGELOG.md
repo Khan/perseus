@@ -1,5 +1,25 @@
 # @khanacademy/perseus-linter
 
+## 8.2.1
+
+### Patch Changes
+
+-   Updated dependencies [[`f1e953e`](https://github.com/Khan/perseus/commit/f1e953ebce191080630bb42e318c0e6aab5ec2b0)]:
+    -   @khanacademy/perseus-core@42.5.1
+    -   @khanacademy/kmath@3.1.9
+
+## 8.2.0
+
+### Minor Changes
+
+-   [#4441](https://github.com/Khan/perseus/pull/4441) [`79c4ac2`](https://github.com/Khan/perseus/commit/79c4ac24ad2c927cd109181b55248884be1961b2) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Add legend fields to the sorter editor, with linter warnings for missing or incomplete legends, and a sorter legend test generator
+
+### Patch Changes
+
+-   Updated dependencies [[`18aabdc`](https://github.com/Khan/perseus/commit/18aabdcfcbe7a753263514143c1af7711de1f474), [`a0b8db9`](https://github.com/Khan/perseus/commit/a0b8db913a3497f8344610791635a4489ed68800), [`894ed72`](https://github.com/Khan/perseus/commit/894ed729bff8e27ea338eca3a11dca91c213a82a), [`79c4ac2`](https://github.com/Khan/perseus/commit/79c4ac24ad2c927cd109181b55248884be1961b2)]:
+    -   @khanacademy/perseus-core@42.5.0
+    -   @khanacademy/kmath@3.1.8
+
 ## 8.1.0
 
 ### Minor Changes

@@ -10,11 +10,11 @@ import InteractiveGraphDescription from "./interactive-graph-description";
 
 import type {UserEvent} from "@testing-library/user-event";
 
-import "@testing-library/jest-dom"; // Imports custom matchers
+// Imports custom matchers
 
 function userEventForFakeTimers() {
     return userEventLib.setup({
-        advanceTimers: jest.advanceTimersByTime,
+        advanceTimers: rs.advanceTimersByTime,
     });
 }
 
@@ -22,7 +22,7 @@ describe("InteractiveGraphSettings", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventForFakeTimers();
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -33,7 +33,7 @@ describe("InteractiveGraphSettings", () => {
             <InteractiveGraphDescription
                 ariaLabelValue="Graph Title"
                 ariaDescriptionValue="Graph Description"
-                onChange={jest.fn()}
+                onChange={rs.fn()}
             />,
             {wrapper: RenderStateRoot},
         );
@@ -53,7 +53,7 @@ describe("InteractiveGraphSettings", () => {
 
     it("calls onChange when the title is changed", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = rs.fn();
         render(
             <InteractiveGraphDescription
                 ariaLabelValue=""
@@ -79,7 +79,7 @@ describe("InteractiveGraphSettings", () => {
 
     it("calls onChange when the description is changed", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = rs.fn();
         render(
             <InteractiveGraphDescription
                 ariaLabelValue=""
@@ -107,7 +107,7 @@ describe("InteractiveGraphSettings", () => {
 
     it("saves undefined when the title is cleared", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = rs.fn();
         render(
             <InteractiveGraphDescription
                 ariaLabelValue="Graph Title"
@@ -127,7 +127,7 @@ describe("InteractiveGraphSettings", () => {
 
     it("saves undefined when the description is cleared", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = rs.fn();
         render(
             <InteractiveGraphDescription
                 ariaLabelValue=""
@@ -154,7 +154,7 @@ describe("InteractiveGraphSettings", () => {
             <InteractiveGraphDescription
                 ariaLabelValue=""
                 ariaDescriptionValue=""
-                onChange={jest.fn()}
+                onChange={rs.fn()}
             />,
             {wrapper: RenderStateRoot},
         );

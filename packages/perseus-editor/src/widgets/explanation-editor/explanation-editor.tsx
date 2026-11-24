@@ -1,5 +1,4 @@
 import {components} from "@khanacademy/perseus";
-import {explanationLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
@@ -16,9 +15,6 @@ type Props = WidgetEditorProps<PerseusExplanationWidgetOptions>;
  * An editor for adding an explanation widget that provides supplementary information to users.
  */
 class ExplanationEditor extends React.Component<Props> {
-    static defaultProps: PerseusExplanationWidgetOptions =
-        explanationLogic.defaultWidgetOptions;
-
     handleChange(changes: Partial<PerseusExplanationWidgetOptions>) {
         this.props.onChange({
             showPrompt: this.props.showPrompt,

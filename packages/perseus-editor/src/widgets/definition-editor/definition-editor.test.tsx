@@ -1,4 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
+import {generateDefinitionOptions} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -13,16 +14,21 @@ describe("definition-editor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
     it("should render", async () => {
-        render(<DefinitionEditor onChange={() => undefined} />);
+        render(
+            <DefinitionEditor
+                {...generateDefinitionOptions()}
+                onChange={() => undefined}
+            />,
+        );
 
         expect(
             await screen.findByText("Definition style guide"),
@@ -30,17 +36,24 @@ describe("definition-editor", () => {
     });
 
     it("should be possible to change the definition", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
-        render(<DefinitionEditor onChange={onChangeMock} />);
+        render(
+            <DefinitionEditor
+                togglePrompt=""
+                definition="the definition"
+                onChange={onChangeMock}
+            />,
+        );
 
         const input = screen.getByRole("textbox", {
             name: "Word to be defined:",
         });
         await userEvent.type(input, "a");
 
-        expect(onChangeMock).toHaveBeenCalledWith(
-            expect.objectContaining({togglePrompt: "a"}),
-        );
+        expect(onChangeMock).toHaveBeenCalledWith({
+            togglePrompt: "a",
+            definition: "the definition",
+        });
     });
 });

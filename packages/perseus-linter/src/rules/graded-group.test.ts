@@ -5,7 +5,7 @@ import {
     generateGradedGroupWidget,
 } from "@khanacademy/perseus-core";
 
-import {expectIssue} from "../__tests__/test-utils";
+import {expectIssue} from "../__tests__/linter.testutils";
 
 import {GradedGroupWidgetRule} from "./graded-group";
 

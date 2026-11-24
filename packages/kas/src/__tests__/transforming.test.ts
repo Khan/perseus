@@ -1,7 +1,7 @@
 import * as KAS from "../index";
 
 expect.extend({
-    toFactorAs(input: string, reference: string): jest.CustomMatcherResult {
+    toFactorAs(input: string, reference: string) {
         const actual = KAS.parse(input).expr.factor().normalize().repr();
         const expected = KAS.parse(reference).expr.normalize().repr();
 
@@ -12,7 +12,7 @@ expect.extend({
                   message: () => `${input} does not factor as ${reference}`,
               };
     },
-    toExpandAs(input: string, reference: string): jest.CustomMatcherResult {
+    toExpandAs(input: string, reference: string) {
         const actual = KAS.parse(input).expr.expand().normalize().print();
         const expected = KAS.parse(reference).expr.normalize().print();
 
@@ -24,7 +24,7 @@ expect.extend({
                       `${input} does not expand as expected.\nExpected: ${this.utils.printExpected(reference)}\nReceived: ${this.utils.printReceived(actual)}`,
               };
     },
-    toExpandAsRepr(input: string, reference: string): jest.CustomMatcherResult {
+    toExpandAsRepr(input: string, reference: string) {
         const actual = KAS.parse(input).expr.expand().repr();
 
         return actual === reference
@@ -35,7 +35,7 @@ expect.extend({
                       `${input} does not expand to the expected repr().\nExpected: ${this.utils.printExpected(reference)}\nReceived: ${this.utils.printReceived(actual)}`,
               };
     },
-    toExpandAsTex(input: string, reference: string): jest.CustomMatcherResult {
+    toExpandAsTex(input: string, reference: string) {
         const actual = KAS.parse(input).expr.expand().tex();
 
         return actual === reference
@@ -46,7 +46,7 @@ expect.extend({
                       `${input} does not expand to the expected tex().\nExpected: ${this.utils.printExpected(reference)}\nReceived: ${this.utils.printReceived(actual)}`,
               };
     },
-    toCollectAs(input: string, reference: string): jest.CustomMatcherResult {
+    toCollectAs(input: string, reference: string) {
         const actual = KAS.parse(input).expr.collect().normalize().print();
         const expected = KAS.parse(reference)
             .expr.collect()
@@ -57,24 +57,21 @@ expect.extend({
             ? {pass: true, message: () => ""}
             : {pass: false, message: () => `${input} collects as ${reference}`};
     },
-    toCollectAsRepr(
-        input: string,
-        reference: string,
-    ): jest.CustomMatcherResult {
+    toCollectAsRepr(input: string, reference: string) {
         const actual = KAS.parse(input).expr.collect().repr();
 
         return actual === reference
             ? {pass: true, message: () => ""}
             : {pass: false, message: () => `${input} collects as ${reference}`};
     },
-    toCollectAsTex(input: string, reference: string): jest.CustomMatcherResult {
+    toCollectAsTex(input: string, reference: string) {
         const actual = KAS.parse(input).expr.collect().tex();
 
         return actual === reference
             ? {pass: true, message: () => ""}
             : {pass: false, message: () => `${input} collects as ${reference}`};
     },
-    toSimplifyAs(input: string, reference: string): jest.CustomMatcherResult {
+    toSimplifyAs(input: string, reference: string) {
         const actual = KAS.parse(input).expr.simplify().normalize().print();
         const expected = KAS.parse(reference).expr.normalize().print();
 
@@ -88,20 +85,22 @@ expect.extend({
 });
 
 // TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
-declare global {
-    // eslint-disable-next-line @typescript-eslint/no-namespace
-    namespace jest {
-        interface Matchers<R> {
-            toFactorAs(reference: string): R;
-            toExpandAs(reference: string): R;
-            toExpandAsRepr(reference: string): R;
-            toExpandAsTex(reference: string): R;
-            toCollectAs(reference: string): R;
-            toCollectAsRepr(reference: string): R;
-            toCollectAsTex(reference: string): R;
-            toSimplifyAs(reference: string): R;
-        }
-    }
+interface CustomMatchers<R = unknown> {
+    toFactorAs(reference: string): R;
+    toExpandAs(reference: string): R;
+    toExpandAsRepr(reference: string): R;
+    toExpandAsTex(reference: string): R;
+    toCollectAs(reference: string): R;
+    toCollectAsRepr(reference: string): R;
+    toCollectAsTex(reference: string): R;
+    toSimplifyAs(reference: string): R;
+}
+
+declare module "@rstest/core" {
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- rstest custom matcher augmentation
+    interface Assertion<T = any> extends CustomMatchers<T> {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- rstest custom matcher augmentation
+    interface AsymmetricMatchersContaining extends CustomMatchers {}
 }
 
 describe("transforming", () => {

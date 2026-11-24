@@ -1,5 +1,4 @@
 import {components} from "@khanacademy/perseus";
-import {measurerLogic} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import _ from "underscore";
@@ -20,9 +19,6 @@ const defaultImage = {
 type Props = WidgetEditorProps<PerseusMeasurerWidgetOptions>;
 
 class MeasurerEditor extends React.Component<Props> {
-    static defaultProps: PerseusMeasurerWidgetOptions =
-        measurerLogic.defaultWidgetOptions;
-
     className = "perseus-widget-measurer";
 
     handleChange(changes: Partial<PerseusMeasurerWidgetOptions>) {

@@ -13,24 +13,36 @@ describe("python-program-editor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
     it("should render", async () => {
-        render(<PythonProgramEditor onChange={() => undefined} />);
+        render(
+            <PythonProgramEditor
+                onChange={() => undefined}
+                programID=""
+                height={400}
+            />,
+        );
 
         expect(await screen.findByText(/user program id/i)).toBeInTheDocument();
     });
 
     it("should be possible to update the User Program ID", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
-        render(<PythonProgramEditor onChange={onChangeMock} />);
+        render(
+            <PythonProgramEditor
+                onChange={onChangeMock}
+                programID=""
+                height={400}
+            />,
+        );
 
         const input = screen.getByRole("textbox", {
             name: "User Program ID:",
@@ -44,9 +56,15 @@ describe("python-program-editor", () => {
     });
 
     it("should be possible to update the height", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
-        render(<PythonProgramEditor onChange={onChangeMock} />);
+        render(
+            <PythonProgramEditor
+                onChange={onChangeMock}
+                programID=""
+                height={400}
+            />,
+        );
 
         const input = screen.getByRole("textbox", {
             name: "Height:",

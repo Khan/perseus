@@ -1,5 +1,6 @@
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
+import {rs} from "@rstest/core";
 // eslint-disable-next-line testing-library/no-manual-cleanup
 import {render, screen, cleanup} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -22,19 +23,19 @@ const defaultProps = {
 const defaultLabel = getDefaultFigureForType("label");
 
 // Mock the async function generateSpokenMathDetails
-jest.mock("./util", () => ({
-    ...jest.requireActual("./util"),
+rs.mock("./util", () => ({
+    ...rs.requireActual("./util"),
     joinLabelsAsSpokenMath: (input) =>
         mockedJoinLabelsAsSpokenMathForTests(input),
 }));
 
 describe("Locked Function Settings", () => {
     let userEvent: UserEvent;
-    const onChangeProps = jest.fn();
+    const onChangeProps = rs.fn();
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
@@ -173,7 +174,7 @@ describe("Locked Function Settings", () => {
 
         test("calls 'onToggle' when header is clicked", async () => {
             // Arrange
-            const onToggle = jest.fn();
+            const onToggle = rs.fn();
             render(
                 <LockedFunctionSettings
                     {...defaultProps}
@@ -467,13 +468,9 @@ describe("Locked Function Settings", () => {
 
             test("example equation is copied to the clipboard when 'copy' icon button is activated", async () => {
                 // Arrange
-                const writeTextMock = jest.fn();
-                const clipboardFnMock = jest.fn();
-                jest.spyOn(
-                    global.navigator,
-                    "clipboard",
-                    "get",
-                ).mockReturnValue({
+                const writeTextMock = rs.fn();
+                const clipboardFnMock = rs.fn();
+                rs.spyOn(global.navigator, "clipboard", "get").mockReturnValue({
                     // Only interested in the "writeText" function.
                     writeText: writeTextMock,
                     // The other functions are here to avoid TS from complaining.
@@ -540,7 +537,7 @@ describe("Locked Function Settings", () => {
         describe("Labels", () => {
             test("Updates the label color when the function color changes", async () => {
                 // Arrange
-                const onChangeProps = jest.fn();
+                const onChangeProps = rs.fn();
                 render(
                     <LockedFunctionSettings
                         {...defaultProps}
@@ -576,7 +573,7 @@ describe("Locked Function Settings", () => {
 
             test("Updates the label when the label text changes", async () => {
                 // Arrange
-                const onChangeProps = jest.fn();
+                const onChangeProps = rs.fn();
                 render(
                     <LockedFunctionSettings
                         {...defaultProps}
@@ -603,7 +600,7 @@ describe("Locked Function Settings", () => {
 
             test("Removes label when delete button is clicked", async () => {
                 // Arrange
-                const onChangeProps = jest.fn();
+                const onChangeProps = rs.fn();
                 render(
                     <LockedFunctionSettings
                         {...defaultProps}
@@ -632,7 +629,7 @@ describe("Locked Function Settings", () => {
 
             test("Adds a new label when the add label button is clicked", async () => {
                 // Arrange
-                const onChangeProps = jest.fn();
+                const onChangeProps = rs.fn();
                 render(
                     <LockedFunctionSettings
                         {...defaultProps}
@@ -691,7 +688,7 @@ describe("Locked Function Settings", () => {
 
             test("calls onChangeProps when the aria label is updated", async () => {
                 // Arrange
-                const onChangeProps = jest.fn();
+                const onChangeProps = rs.fn();
                 render(
                     <LockedFunctionSettings
                         {...defaultProps}
@@ -714,7 +711,7 @@ describe("Locked Function Settings", () => {
 
             test("aria label auto-generates (no labels)", async () => {
                 // Arrange
-                const onChangeProps = jest.fn();
+                const onChangeProps = rs.fn();
 
                 // Act
                 render(
@@ -740,7 +737,7 @@ describe("Locked Function Settings", () => {
 
             test("aria label auto-generates with directional axis", async () => {
                 // Arrange
-                const onChangeProps = jest.fn();
+                const onChangeProps = rs.fn();
                 render(
                     <LockedFunctionSettings
                         {...defaultProps}
@@ -767,7 +764,7 @@ describe("Locked Function Settings", () => {
 
             test("aria label auto-generates with domain", async () => {
                 // Arrange
-                const onChangeProps = jest.fn();
+                const onChangeProps = rs.fn();
                 render(
                     <LockedFunctionSettings
                         {...defaultProps}
@@ -793,7 +790,7 @@ describe("Locked Function Settings", () => {
 
             test("aria label does not auto-generate with domain when it is -Infinity to Infinity", async () => {
                 // Arrange
-                const onChangeProps = jest.fn();
+                const onChangeProps = rs.fn();
                 render(
                     <LockedFunctionSettings
                         {...defaultProps}
@@ -817,7 +814,7 @@ describe("Locked Function Settings", () => {
                 });
             });
 
-            test.each`
+            test.each<any>`
                 domainValue       | domainAria
                 ${[1, Infinity]}  | ${"1 to Infinity"}
                 ${[-Infinity, 2]} | ${"-Infinity to 2"}
@@ -825,7 +822,7 @@ describe("Locked Function Settings", () => {
                 "aria label auto-generates with partial domain info: $domainValue",
                 async ({domainValue, domainAria}) => {
                     // Arrange
-                    const onChangeProps = jest.fn();
+                    const onChangeProps = rs.fn();
                     render(
                         <LockedFunctionSettings
                             {...defaultProps}
@@ -851,7 +848,7 @@ describe("Locked Function Settings", () => {
 
             test("aria label auto-generates (one label)", async () => {
                 // Arrange
-                const onChangeProps = jest.fn();
+                const onChangeProps = rs.fn();
                 render(
                     <LockedFunctionSettings
                         {...defaultProps}
@@ -882,7 +879,7 @@ describe("Locked Function Settings", () => {
 
             test("aria label auto-generates (multiple labels)", async () => {
                 // Arrange
-                const onChangeProps = jest.fn();
+                const onChangeProps = rs.fn();
                 render(
                     <LockedFunctionSettings
                         {...defaultProps}

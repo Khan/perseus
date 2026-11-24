@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`label-image-editor popover direction snapshots should render with DOWN popover direction 1`] = `
+exports[`label-image-editor > popover direction snapshots > should render with DOWN popover direction 1`] = `
 <div>
   <div
     class="editor"
@@ -433,7 +433,7 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
 </div>
 `;
 
-exports[`label-image-editor popover direction snapshots should render with LEFT popover direction 1`] = `
+exports[`label-image-editor > popover direction snapshots > should render with LEFT popover direction 1`] = `
 <div>
   <div
     class="editor"
@@ -866,7 +866,7 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
 </div>
 `;
 
-exports[`label-image-editor popover direction snapshots should render with NONE popover direction 1`] = `
+exports[`label-image-editor > popover direction snapshots > should render with NONE popover direction 1`] = `
 <div>
   <div
     class="editor"
@@ -1299,7 +1299,7 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
 </div>
 `;
 
-exports[`label-image-editor popover direction snapshots should render with RIGHT popover direction 1`] = `
+exports[`label-image-editor > popover direction snapshots > should render with RIGHT popover direction 1`] = `
 <div>
   <div
     class="editor"
@@ -1732,7 +1732,7 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
 </div>
 `;
 
-exports[`label-image-editor popover direction snapshots should render with UP popover direction 1`] = `
+exports[`label-image-editor > popover direction snapshots > should render with UP popover direction 1`] = `
 <div>
   <div
     class="editor"

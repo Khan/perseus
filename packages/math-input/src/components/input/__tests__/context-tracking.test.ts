@@ -1,7 +1,7 @@
 import {mockStrings} from "../../../strings";
 import {CursorContext} from "../cursor-contexts";
 
-import TestMathWrapper from "./test-math-wrapper";
+import TestMathWrapper from "./math-wrapper.testutils";
 
 describe("Cursor context", () => {
     let mathField;

@@ -32,7 +32,7 @@ describe("IssuesPanel", () => {
     let userEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
@@ -274,7 +274,7 @@ describe("IssuesPanel", () => {
 
     it("calls A11yContext's setA11yScanningEnabled when the scan toggle is clicked", async () => {
         // Arrange
-        const setA11yScanningEnabled = jest.fn();
+        const setA11yScanningEnabled = rs.fn();
         render(
             <A11yContext.Provider
                 value={createA11yContextValue({

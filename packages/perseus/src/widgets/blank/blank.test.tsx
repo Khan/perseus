@@ -76,8 +76,8 @@ describe("Blank Widget", function () {
 
     it("throws when rendered without a BlankContext provider", () => {
         // Arrange
-        jest.spyOn(console, "error").mockImplementation(() => {});
-        const logErrorSpy = jest.spyOn(testDependencies.Log, "error");
+        rs.spyOn(console, "error").mockImplementation(() => {});
+        const logErrorSpy = rs.spyOn(testDependencies.Log, "error");
 
         // Act
         renderQuestion(basicBlankQuestion);

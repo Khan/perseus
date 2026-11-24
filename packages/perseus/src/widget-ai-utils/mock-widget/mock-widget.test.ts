@@ -36,7 +36,7 @@ describe("mock-widget", () => {
         registerWidget("mock-widget", MockWidgetExport);
 
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 

@@ -4,6 +4,7 @@ import {
     DependenciesContext,
     Util,
 } from "@khanacademy/perseus";
+import {generateImageOptions} from "@khanacademy/perseus-core";
 import {act, render, screen, fireEvent, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -20,8 +21,11 @@ import {
 
 import ImageEditor from "./image-editor";
 
-import type {PerseusImageBackground} from "@khanacademy/perseus-core";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import type {APIOptions} from "@khanacademy/perseus";
+import type {
+    PerseusImageBackground,
+    PerseusImageWidgetOptions,
+} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const nonKhanImageWarning =
@@ -31,15 +35,27 @@ const altTextTooLongError =
 const altTextTooShortError =
     "Add more detail to describe your image. While alt text should be brief, it must also describe the image well.";
 
-const apiOptions = ApiOptions.defaults;
+type ImageEditorWithDependenciesProps = {
+    apiOptions?: APIOptions;
+    options: Partial<PerseusImageWidgetOptions>;
+    onChange?: (options: PerseusImageWidgetOptions) => void;
+};
 
-const ImageEditorWithDependencies = (props: PropsFor<typeof ImageEditor>) => {
+function ImageEditorWithDependencies({
+    apiOptions = ApiOptions.defaults,
+    options,
+    onChange = () => {},
+}: ImageEditorWithDependenciesProps) {
     return (
         <DependenciesContext.Provider value={testDependenciesV2}>
-            <ImageEditor {...props} />
+            <ImageEditor
+                apiOptions={apiOptions}
+                onChange={onChange}
+                {...generateImageOptions(options)}
+            />
         </DependenciesContext.Provider>
     );
-};
+}
 
 describe("image editor", () => {
     let userEvent: UserEvent;
@@ -47,10 +63,10 @@ describe("image editor", () => {
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
 
@@ -75,15 +91,7 @@ describe("image editor", () => {
             // Arrange
 
             // Act
-            render(
-                <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    onChange={() => {}}
-                    backgroundImage={backgroundImage}
-                    longDescription={""}
-                    decorative={false}
-                />,
-            );
+            render(<ImageEditorWithDependencies options={{backgroundImage}} />);
 
             // Assert
             const urlField = screen.getByRole("textbox", {name: "Image URL"});
@@ -109,14 +117,13 @@ describe("image editor", () => {
         // Act
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
-                backgroundImage={earthMoonImage}
-                alt="Earth and moon alt"
-                longDescription="Earth and moon long description"
-                caption="Earth and moon caption"
-                title="Earth and moon title"
-                decorative={false}
-                onChange={() => {}}
+                options={{
+                    backgroundImage: earthMoonImage,
+                    alt: "Earth and moon alt",
+                    longDescription: "Earth and moon long description",
+                    caption: "Earth and moon caption",
+                    title: "Earth and moon title",
+                }}
             />,
         );
 
@@ -168,11 +175,7 @@ describe("image editor", () => {
         // Act
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
-                backgroundImage={earthMoonImage}
-                onChange={() => {}}
-                longDescription={""}
-                decorative={false}
+                options={{backgroundImage: earthMoonImage}}
             />,
         );
 
@@ -220,14 +223,11 @@ describe("image editor", () => {
 
     it("should render warning for non-Khan Academy image", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
-                backgroundImage={{}}
+                options={{backgroundImage: {}}}
                 onChange={onChangeMock}
-                longDescription={""}
-                decorative={false}
             />,
         );
 
@@ -245,12 +245,10 @@ describe("image editor", () => {
         // Arrange, Act
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
-                // frescoImage is very large (1698 x 955)
-                backgroundImage={frescoImage}
-                onChange={() => {}}
-                longDescription={""}
-                decorative={false}
+                options={{
+                    // frescoImage is very large (1698 x 955)
+                    backgroundImage: frescoImage,
+                }}
             />,
         );
 
@@ -266,12 +264,10 @@ describe("image editor", () => {
         // Arrange, Act
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
-                // earthMoonImage is small (400 x 225)
-                backgroundImage={earthMoonImage}
-                onChange={() => {}}
-                longDescription={""}
-                decorative={false}
+                options={{
+                    // earthMoonImage is small (400 x 225)
+                    backgroundImage: earthMoonImage,
+                }}
             />,
         );
 
@@ -290,18 +286,16 @@ describe("image editor", () => {
         render(
             <DependenciesContext.Provider value={testDependenciesV2}>
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={earthMoonImage}
-                    alt="Earth and moon alt"
-                    onChange={() => {}}
-                    longDescription={""}
-                    decorative={false}
+                    options={{
+                        backgroundImage: earthMoonImage,
+                        alt: "Earth and moon alt",
+                    }}
                 />
             </DependenciesContext.Provider>,
         );
 
         act(() => {
-            jest.runAllTimers();
+            rs.runAllTimers();
         });
 
         // Assert
@@ -315,17 +309,13 @@ describe("image editor", () => {
         render(
             <DependenciesContext.Provider value={testDependenciesV2}>
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={earthMoonImage}
-                    onChange={() => {}}
-                    longDescription={""}
-                    decorative={false}
+                    options={{backgroundImage: earthMoonImage}}
                 />
             </DependenciesContext.Provider>,
         );
 
         act(() => {
-            jest.runAllTimers();
+            rs.runAllTimers();
         });
 
         // Assert
@@ -334,15 +324,12 @@ describe("image editor", () => {
 
     it("should call onChange with the new image url", async () => {
         // Arrange
-        jest.spyOn(Util, "getImageSizeModern").mockResolvedValue([200, 300]);
-        const onChangeMock = jest.fn();
+        rs.spyOn(Util, "getImageSizeModern").mockResolvedValue([200, 300]);
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
-                backgroundImage={{}}
+                options={{backgroundImage: {}}}
                 onChange={onChangeMock}
-                longDescription={""}
-                decorative={false}
             />,
         );
 
@@ -367,13 +354,11 @@ describe("image editor", () => {
 
     it("should call onChange with empty image url", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
+                options={{}}
                 onChange={onChangeMock}
-                longDescription={""}
-                decorative={false}
             />,
         );
 
@@ -398,14 +383,11 @@ describe("image editor", () => {
 
     it("should clear the warning when the image url is cleared", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
+                options={{backgroundImage: {url: "abc"}}}
                 onChange={onChangeMock}
-                backgroundImage={{url: "abc"}}
-                longDescription={""}
-                decorative={false}
             />,
         );
 
@@ -429,18 +411,17 @@ describe("image editor", () => {
 
     it("should call onChange with original image size when recalculate natural size is clicked", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
-                backgroundImage={{
-                    url: earthMoonImage.url,
-                    width: earthMoonImage.width / 2,
-                    height: earthMoonImage.height / 2,
+                options={{
+                    backgroundImage: {
+                        url: earthMoonImage.url,
+                        width: earthMoonImage.width / 2,
+                        height: earthMoonImage.height / 2,
+                    },
                 }}
                 onChange={onChangeMock}
-                longDescription={""}
-                decorative={false}
             />,
         );
 
@@ -460,14 +441,11 @@ describe("image editor", () => {
 
     it("should not call onChange when recalculate natural size is clicked and the image size is already the original size", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
-                backgroundImage={earthMoonImage}
+                options={{backgroundImage: earthMoonImage}}
                 onChange={onChangeMock}
-                longDescription={""}
-                decorative={false}
             />,
         );
 
@@ -483,14 +461,11 @@ describe("image editor", () => {
 
     it("should call onChange with new alt text", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
-                backgroundImage={earthMoonImage}
+                options={{backgroundImage: earthMoonImage}}
                 onChange={onChangeMock}
-                longDescription={""}
-                decorative={false}
             />,
         );
 
@@ -509,15 +484,14 @@ describe("image editor", () => {
 
     it("should call onChange with empty alt", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
-                backgroundImage={earthMoonImage}
-                alt="Earth and moon"
+                options={{
+                    backgroundImage: earthMoonImage,
+                    alt: "Earth and moon",
+                }}
                 onChange={onChangeMock}
-                longDescription={""}
-                decorative={false}
             />,
         );
 
@@ -535,14 +509,11 @@ describe("image editor", () => {
 
     it("should call onChange with new long description", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
-                backgroundImage={earthMoonImage}
+                options={{backgroundImage: earthMoonImage}}
                 onChange={onChangeMock}
-                longDescription={""}
-                decorative={false}
             />,
         );
 
@@ -563,14 +534,14 @@ describe("image editor", () => {
 
     it("should call onChange with empty long description", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
-                backgroundImage={earthMoonImage}
-                longDescription="Earth and moon long description"
+                options={{
+                    backgroundImage: earthMoonImage,
+                    longDescription: "Earth and moon long description",
+                }}
                 onChange={onChangeMock}
-                decorative={false}
             />,
         );
 
@@ -590,14 +561,13 @@ describe("image editor", () => {
 
     it("should call onChange with new caption", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
-                backgroundImage={earthMoonImage}
+                options={{
+                    backgroundImage: earthMoonImage,
+                }}
                 onChange={onChangeMock}
-                longDescription={""}
-                decorative={false}
             />,
         );
 
@@ -616,15 +586,14 @@ describe("image editor", () => {
 
     it("should call onChange with empty caption", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
-                backgroundImage={earthMoonImage}
-                caption="Earth and moon"
+                options={{
+                    backgroundImage: earthMoonImage,
+                    caption: "Earth and moon",
+                }}
                 onChange={onChangeMock}
-                longDescription={""}
-                decorative={false}
             />,
         );
 
@@ -641,14 +610,11 @@ describe("image editor", () => {
     });
     it("should call onChange with new title", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
-                backgroundImage={earthMoonImage}
+                options={{backgroundImage: earthMoonImage}}
                 onChange={onChangeMock}
-                longDescription={""}
-                decorative={false}
             />,
         );
 
@@ -667,15 +633,14 @@ describe("image editor", () => {
 
     it("should call onChange with empty title", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
-                backgroundImage={earthMoonImage}
-                title="Earth and moon"
+                options={{
+                    backgroundImage: earthMoonImage,
+                    title: "Earth and moon",
+                }}
                 onChange={onChangeMock}
-                longDescription={""}
-                decorative={false}
             />,
         );
 
@@ -693,14 +658,11 @@ describe("image editor", () => {
 
     it("should show alt text too short error", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
+                options={{backgroundImage: earthMoonImage}}
                 onChange={onChangeMock}
-                backgroundImage={earthMoonImage}
-                longDescription={""}
-                decorative={false}
             />,
         );
 
@@ -718,14 +680,11 @@ describe("image editor", () => {
 
     it("should show alt text too long error", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
+                options={{backgroundImage: earthMoonImage}}
                 onChange={onChangeMock}
-                backgroundImage={earthMoonImage}
-                longDescription={""}
-                decorative={false}
             />,
         );
 
@@ -740,15 +699,15 @@ describe("image editor", () => {
 
     it("should clear the error when the alt text is cleared", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
+                options={{
+                    backgroundImage: earthMoonImage,
+                    // Start with short alt text that will trigger error on blur
+                    alt: "aaa",
+                }}
                 onChange={onChangeMock}
-                backgroundImage={earthMoonImage}
-                alt="aaa" // Start with short alt text that will trigger error on blur
-                longDescription={""}
-                decorative={false}
             />,
         );
 
@@ -772,12 +731,10 @@ describe("image editor", () => {
         // Arrange, Act
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
-                onChange={() => {}}
-                backgroundImage={earthMoonImage}
-                alt="123456789"
-                longDescription={""}
-                decorative={false}
+                options={{
+                    backgroundImage: earthMoonImage,
+                    alt: "123456789",
+                }}
             />,
         );
 
@@ -790,11 +747,7 @@ describe("image editor", () => {
         // Arrange, Act
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
-                backgroundImage={earthMoonImage}
-                onChange={() => {}}
-                longDescription={""}
-                decorative={false}
+                options={{backgroundImage: earthMoonImage}}
             />,
         );
 
@@ -807,11 +760,10 @@ describe("image editor", () => {
             // Arrange & Act
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={earthMoonImage}
-                    decorative={true}
-                    onChange={() => {}}
-                    longDescription={""}
+                    options={{
+                        backgroundImage: earthMoonImage,
+                        decorative: true,
+                    }}
                 />,
             );
 
@@ -825,14 +777,11 @@ describe("image editor", () => {
 
         it("should call onChange when decorative toggle is clicked", async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={earthMoonImage}
+                    options={{backgroundImage: earthMoonImage}}
                     onChange={onChangeMock}
-                    longDescription={""}
-                    decorative={false}
                 />,
             );
 
@@ -852,15 +801,14 @@ describe("image editor", () => {
     describe("scale input", () => {
         it("should render the scale inputs", () => {
             // Arrange, Act
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={earthMoonImage}
-                    scale={1}
+                    options={{
+                        backgroundImage: earthMoonImage,
+                        scale: 1,
+                    }}
                     onChange={onChangeMock}
-                    longDescription={""}
-                    decorative={false}
                 />,
             );
 
@@ -886,15 +834,14 @@ describe("image editor", () => {
 
         it("should render scaled values of width and height", () => {
             // Arrange, Act
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={earthMoonImage}
-                    scale={2}
+                    options={{
+                        backgroundImage: earthMoonImage,
+                        scale: 2,
+                    }}
                     onChange={onChangeMock}
-                    longDescription={""}
-                    decorative={false}
                 />,
             );
 
@@ -914,15 +861,14 @@ describe("image editor", () => {
 
         it("should call onChange with new scale when scale is changed", async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={earthMoonImage}
-                    scale={1}
+                    options={{
+                        backgroundImage: earthMoonImage,
+                        scale: 1,
+                    }}
                     onChange={onChangeMock}
-                    longDescription={""}
-                    decorative={false}
                 />,
             );
 
@@ -941,15 +887,14 @@ describe("image editor", () => {
 
         it("should call onChange with new scale when scaled width is changed", async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={earthMoonImage}
-                    scale={1}
+                    options={{
+                        backgroundImage: earthMoonImage,
+                        scale: 1,
+                    }}
                     onChange={onChangeMock}
-                    longDescription={""}
-                    decorative={false}
                 />,
             );
 
@@ -970,15 +915,14 @@ describe("image editor", () => {
 
         it("should call onChange with new scale when scaled height is changed", async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={earthMoonImage}
-                    scale={1}
+                    options={{
+                        backgroundImage: earthMoonImage,
+                        scale: 1,
+                    }}
                     onChange={onChangeMock}
-                    longDescription={""}
-                    decorative={false}
                 />,
             );
 
@@ -1001,15 +945,14 @@ describe("image editor", () => {
             "should not call onChange when scale is invalid (%s)",
             async (scale) => {
                 // Arrange
-                const onChangeMock = jest.fn();
+                const onChangeMock = rs.fn();
                 render(
                     <ImageEditorWithDependencies
-                        apiOptions={apiOptions}
-                        backgroundImage={earthMoonImage}
-                        scale={1}
+                        options={{
+                            backgroundImage: earthMoonImage,
+                            scale: 1,
+                        }}
                         onChange={onChangeMock}
-                        longDescription={""}
-                        decorative={false}
                     />,
                 );
 
@@ -1027,17 +970,16 @@ describe("image editor", () => {
 
         it("should disable the scale inputs when the image size is invalid", () => {
             // Arrange, Act
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={{
-                        // Missing width and height
-                        url: earthMoonImage.url,
+                    options={{
+                        backgroundImage: {
+                            // Missing width and height
+                            url: earthMoonImage.url,
+                        },
                     }}
                     onChange={onChangeMock}
-                    longDescription={""}
-                    decorative={false}
                 />,
             );
 
@@ -1058,11 +1000,9 @@ describe("image editor", () => {
             // Arrange, Act
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={{url: earthMoonImage.url}}
-                    onChange={() => {}}
-                    longDescription={""}
-                    decorative={false}
+                    options={{
+                        backgroundImage: {url: earthMoonImage.url},
+                    }}
                 />,
             );
 
@@ -1078,15 +1018,13 @@ describe("image editor", () => {
             // Arrange, Act
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={{
-                        url: earthMoonImage.url,
-                        width: 0,
-                        height: 0,
+                    options={{
+                        backgroundImage: {
+                            url: earthMoonImage.url,
+                            width: 0,
+                            height: 0,
+                        },
                     }}
-                    onChange={() => {}}
-                    longDescription={""}
-                    decorative={false}
                 />,
             );
 
@@ -1100,18 +1038,17 @@ describe("image editor", () => {
 
         it("should enable the scale inputs when the image size is valid", () => {
             // Arrange, Act
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={{
-                        url: earthMoonImage.url,
-                        width: earthMoonImage.width,
-                        height: earthMoonImage.height,
+                    options={{
+                        backgroundImage: {
+                            url: earthMoonImage.url,
+                            width: earthMoonImage.width,
+                            height: earthMoonImage.height,
+                        },
                     }}
                     onChange={onChangeMock}
-                    longDescription={""}
-                    decorative={false}
                 />,
             );
 
@@ -1132,11 +1069,7 @@ describe("image editor", () => {
             // Arrange, Act
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={earthMoonImage}
-                    onChange={() => {}}
-                    longDescription={""}
-                    decorative={false}
+                    options={{backgroundImage: earthMoonImage}}
                 />,
             );
 
@@ -1160,11 +1093,7 @@ describe("image editor", () => {
             // Arrange, Act
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={earthMoonImage}
-                    onChange={() => {}}
-                    longDescription={""}
-                    decorative={false}
+                    options={{backgroundImage: earthMoonImage}}
                 />,
             );
 
@@ -1180,15 +1109,13 @@ describe("image editor", () => {
             // Arrange, Act
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={{
-                        url: "web+graphie://ka-perseus-graphie.s3.amazonaws.com/2ac8f769a7323f55e41c12cfa39e774be08bc138",
-                        width: 400,
-                        height: 225,
+                    options={{
+                        backgroundImage: {
+                            url: "web+graphie://ka-perseus-graphie.s3.amazonaws.com/2ac8f769a7323f55e41c12cfa39e774be08bc138",
+                            width: 400,
+                            height: 225,
+                        },
                     }}
-                    onChange={() => {}}
-                    longDescription={""}
-                    decorative={false}
                 />,
             );
 
@@ -1204,11 +1131,7 @@ describe("image editor", () => {
             // Arrange
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={earthMoonImage}
-                    onChange={() => {}}
-                    longDescription={""}
-                    decorative={false}
+                    options={{backgroundImage: earthMoonImage}}
                 />,
             );
 
@@ -1233,11 +1156,7 @@ describe("image editor", () => {
             // Arrange, Act
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={pngImage}
-                    onChange={() => {}}
-                    longDescription={""}
-                    decorative={false}
+                    options={{backgroundImage: pngImage}}
                 />,
             );
 
@@ -1256,11 +1175,7 @@ describe("image editor", () => {
             // Arrange, Act
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={pngImage}
-                    onChange={() => {}}
-                    longDescription={""}
-                    decorative={false}
+                    options={{backgroundImage: pngImage}}
                 />,
             );
 
@@ -1274,11 +1189,7 @@ describe("image editor", () => {
             // Arrange, Act
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={pngImage}
-                    onChange={() => {}}
-                    longDescription={""}
-                    decorative={false}
+                    options={{backgroundImage: pngImage}}
                 />,
             );
 
@@ -1294,14 +1205,12 @@ describe("image editor", () => {
             // Arrange, Act
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={{
-                        ...pngImage,
-                        url: pngImage.url + "?foo=bar&dark-mode=off",
+                    options={{
+                        backgroundImage: {
+                            ...pngImage,
+                            url: pngImage.url + "?foo=bar&dark-mode=off",
+                        },
                     }}
-                    onChange={() => {}}
-                    longDescription={""}
-                    decorative={false}
                 />,
             );
 
@@ -1317,16 +1226,15 @@ describe("image editor", () => {
             // Arrange, Act
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={{
-                        ...pngImage,
-                        // A relative path is not a valid absolute URL, so
-                        // URL.canParse returns false and parsing is skipped.
-                        url: "not a valid url.png",
+                    options={{
+                        backgroundImage: {
+                            ...pngImage,
+                            // A relative path is not a valid absolute URL, so
+                            // URL.canParse returns false and parsing is
+                            // skipped.
+                            url: "not a valid url.png",
+                        },
                     }}
-                    onChange={() => {}}
-                    longDescription={""}
-                    decorative={false}
                 />,
             );
 
@@ -1342,11 +1250,7 @@ describe("image editor", () => {
             // Arrange
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={pngImage}
-                    onChange={() => {}}
-                    longDescription={""}
-                    decorative={false}
+                    options={{backgroundImage: pngImage}}
                 />,
             );
             const toggle = screen.getByRole("switch", {
@@ -1364,11 +1268,7 @@ describe("image editor", () => {
             // Arrange
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={pngImage}
-                    onChange={() => {}}
-                    longDescription={""}
-                    decorative={false}
+                    options={{backgroundImage: pngImage}}
                 />,
             );
 
@@ -1387,11 +1287,7 @@ describe("image editor", () => {
             // Arrange
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={pngImage}
-                    onChange={() => {}}
-                    longDescription={""}
-                    decorative={false}
+                    options={{backgroundImage: pngImage}}
                 />,
             );
             const toggle = screen.getByRole("switch", {
@@ -1410,14 +1306,11 @@ describe("image editor", () => {
 
         it('calls onChange with "dark-mode=off" included in the URL query string when Suppress Dark Mode Filter is toggled on', async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={pngImage}
+                    options={{backgroundImage: pngImage}}
                     onChange={onChangeMock}
-                    longDescription={""}
-                    decorative={false}
                 />,
             );
 
@@ -1441,17 +1334,16 @@ describe("image editor", () => {
 
         it('calls onChange with "dark-mode=off" removed when Suppress Dark Mode Filter is toggled off', async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={{
-                        ...pngImage,
-                        url: pngImage.url + "?dark-mode=off",
+                    options={{
+                        backgroundImage: {
+                            ...pngImage,
+                            url: pngImage.url + "?dark-mode=off",
+                        },
                     }}
                     onChange={onChangeMock}
-                    longDescription={""}
-                    decorative={false}
                 />,
             );
 
@@ -1477,11 +1369,7 @@ describe("image editor", () => {
             // Arrange
             const {rerender} = render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={pngImage}
-                    onChange={() => {}}
-                    longDescription={""}
-                    decorative={false}
+                    options={{backgroundImage: pngImage}}
                 />,
             );
             expect(
@@ -1493,11 +1381,7 @@ describe("image editor", () => {
             // Act
             rerender(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={earthMoonImage}
-                    onChange={() => {}}
-                    longDescription={""}
-                    decorative={false}
+                    options={{backgroundImage: earthMoonImage}}
                 />,
             );
 
@@ -1514,10 +1398,7 @@ describe("image editor", () => {
             render(
                 <ImageEditorWithDependencies
                     apiOptions={{...ApiOptions.defaults, editingDisabled: true}}
-                    backgroundImage={pngImage}
-                    onChange={() => {}}
-                    longDescription={""}
-                    decorative={false}
+                    options={{backgroundImage: pngImage}}
                 />,
             );
 

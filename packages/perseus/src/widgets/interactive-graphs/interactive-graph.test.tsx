@@ -1,4 +1,3 @@
-import {beforeEach, describe, it} from "@jest/globals";
 import {
     generateIGLinearGraph,
     generateIGLockedEllipse,
@@ -17,6 +16,7 @@ import {
 } from "@khanacademy/perseus-core";
 import {scoreQuestion} from "@khanacademy/perseus-score";
 import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {beforeEach, describe, it} from "@rstest/core";
 import {screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {Plot} from "mafs";
@@ -83,6 +83,7 @@ import type {
     StrokeWeight,
     UserInputMap,
 } from "@khanacademy/perseus-core";
+import type {Mock} from "@rstest/core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const commonInstructions =
@@ -94,17 +95,17 @@ describe("Interactive Graph", function () {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
         // Mocked for loading graphie in svg-image
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn(() =>
+        global.fetch = rs.fn(() =>
             Promise.resolve({
                 text: () => Promise.resolve("{}"),
                 ok: true,
             }),
-        ) as jest.Mock;
+        ) as Mock;
     });
 
     describe.each(questionsAndAnswers)(
@@ -1362,10 +1363,10 @@ describe("Interactive Graph", function () {
 
             it("plots the supplied equation on the axis specified", () => {
                 // Arrange
-                const PlotOfXMock = jest
+                const PlotOfXMock = rs
                     .spyOn(Plot, "OfX")
                     .mockReturnValue(<div>OfX</div>);
-                const PlotOfYMock = jest
+                const PlotOfYMock = rs
                     .spyOn(Plot, "OfY")
                     .mockReturnValue(<div>OfY</div>);
 
@@ -1393,7 +1394,7 @@ describe("Interactive Graph", function () {
 
             it("plots the equation with any supplied domain", () => {
                 // Arrange
-                const PlotOfXMock = jest
+                const PlotOfXMock = rs
                     .spyOn(Plot, "OfX")
                     .mockReturnValue(<div>OfX</div>);
                 const expectedParameters = {

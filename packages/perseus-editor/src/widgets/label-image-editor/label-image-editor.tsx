@@ -1,5 +1,4 @@
 import {Util} from "@khanacademy/perseus";
-import {labelImageLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import DarkModeToggle from "../../components/dark-mode-toggle/dark-mode-toggle";
@@ -32,9 +31,6 @@ class LabelImageEditor extends React.Component<Props, State> {
     private _questionMarkers: QuestionMarkers | null | undefined;
 
     state: State = {wbTheme: undefined};
-
-    static defaultProps: PerseusLabelImageWidgetOptions =
-        labelImageLogic.defaultWidgetOptions;
 
     componentDidUpdate(prevProps: Props) {
         const coordsToMarkers: Record<string, any> = {};

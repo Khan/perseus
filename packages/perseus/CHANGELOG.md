@@ -1,5 +1,69 @@
 # @khanacademy/perseus
 
+## 95.0.2
+
+### Patch Changes
+
+-   [#4597](https://github.com/Khan/perseus/pull/4597) [`d1fe849`](https://github.com/Khan/perseus/commit/d1fe84942f2cb904489fad42526b196b95b355a0) Thanks [@handeyeco](https://github.com/handeyeco)! - Override TeX user-select rule in Draggable
+
+## 95.0.1
+
+### Patch Changes
+
+-   [#4596](https://github.com/Khan/perseus/pull/4596) [`511ffda`](https://github.com/Khan/perseus/commit/511ffda98ce1cef6cf6d31882f0500c317d4beb6) Thanks [@handeyeco](https://github.com/handeyeco)! - Disable select on draggable elements for dnd-kit components
+
+-   Updated dependencies [[`f1e953e`](https://github.com/Khan/perseus/commit/f1e953ebce191080630bb42e318c0e6aab5ec2b0)]:
+    -   @khanacademy/perseus-core@42.5.1
+    -   @khanacademy/keypad-context@6.0.16
+    -   @khanacademy/kmath@3.1.9
+    -   @khanacademy/math-input@30.2.6
+    -   @khanacademy/perseus-linter@8.2.1
+    -   @khanacademy/perseus-score@10.0.1
+
+## 95.0.0
+
+### Major Changes
+
+-   [#4558](https://github.com/Khan/perseus/pull/4558) [`87cb448`](https://github.com/Khan/perseus/commit/87cb448874ee0edb7fe4e062a99e3343e4a2290c) Thanks [@benchristel](https://github.com/benchristel)! - Renamed `scorePerseusItem` to `scoreQuestion`; the old name is kept as a deprecated alias. Also removed the deprecated `score` method of `Renderer` and the export of `scoreWidgetsFunctional` from `perseus-score`.
+
+-   [#4581](https://github.com/Khan/perseus/pull/4581) [`d1791f0`](https://github.com/Khan/perseus/commit/d1791f02e8170b61fc283eee9c4d1e492f8732b1) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Stop exporting `generateTestCategorizerWidget` and `registerAllWidgetsForTesting`, which only tests used. Use `generateCategorizerWidget` from `@khanacademy/perseus-core` instead of `generateTestCategorizerWidget`.
+
+### Minor Changes
+
+-   [#4550](https://github.com/Khan/perseus/pull/4550) [`a0b8db9`](https://github.com/Khan/perseus/commit/a0b8db913a3497f8344610791635a4489ed68800) Thanks [@nishasy](https://github.com/nishasy)! - [FITB] Update schema to handle max uses per tile (no existing content yet)
+
+### Patch Changes
+
+-   [#4541](https://github.com/Khan/perseus/pull/4541) [`18aabdc`](https://github.com/Khan/perseus/commit/18aabdcfcbe7a753263514143c1af7711de1f474) Thanks [@benchristel](https://github.com/benchristel)! - Export `isCorrect` from `@khanacademy/perseus-core`
+
+-   [#4563](https://github.com/Khan/perseus/pull/4563) [`23f1575`](https://github.com/Khan/perseus/commit/23f1575d5ff0fe467e22bc52a8d11d6cece2b7be) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Styles] Consolidate Graphie-specific styles
+
+-   [#4582](https://github.com/Khan/perseus/pull/4582) [`b6eee6a`](https://github.com/Khan/perseus/commit/b6eee6a714b11ee702189442ecc70de19810e755) Thanks [@benchristel](https://github.com/benchristel)! - Deleted unused CSS for MathJax-rendered math
+
+-   [#4560](https://github.com/Khan/perseus/pull/4560) [`4228723`](https://github.com/Khan/perseus/commit/4228723cb405f8201c630519f1600a559a2b8750) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Deleted references to the unused CSS class `perseus-rendered-radio`
+
+-   [#4561](https://github.com/Khan/perseus/pull/4561) [`284d4ea`](https://github.com/Khan/perseus/commit/284d4eac1d37241a6d3c20a612fe76566df228a6) Thanks [@benchristel](https://github.com/benchristel)! - Removed unused CSS rules from the Interactive Graph widget stylesheet
+
+-   [#4568](https://github.com/Khan/perseus/pull/4568) [`a335819`](https://github.com/Khan/perseus/commit/a3358196dd1a7649bac3b214868dde032b740c63) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Styles] Remove unused .perseus-formats-tooltip styling
+
+-   [#4569](https://github.com/Khan/perseus/pull/4569) [`18e060d`](https://github.com/Khan/perseus/commit/18e060d98eb1f9408338ff6f56c996d96795617d) Thanks [@nedredmond](https://github.com/nedredmond)! - Radio: clicking a choice's content now focuses its button, so keyboard navigation continues from that choice instead of jumping to the first focusable parent
+
+-   [#4586](https://github.com/Khan/perseus/pull/4586) [`e178624`](https://github.com/Khan/perseus/commit/e178624f485116c3727cbcfec3247d0a638d5941) Thanks [@jandrade](https://github.com/jandrade)! - Update Wonder Blocks peer/dev dependencies to the latest releases, including `@khanacademy/wonder-blocks-layout` 4.0.0, which removes the deprecated `MediaLayout` APIs (unused by Perseus)
+
+-   [#4572](https://github.com/Khan/perseus/pull/4572) [`c017260`](https://github.com/Khan/perseus/commit/c01726070a5c6a686131e0cff34683d4d76c6a83) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Bugfix - Floated images that are taller than the surrounding text were invading space of a subsequent renderer
+
+-   [#4570](https://github.com/Khan/perseus/pull/4570) [`97d0f52`](https://github.com/Khan/perseus/commit/97d0f527acecd0619ac75529f63be3fb2dd31950) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Consolidated CSS for SVG images
+
+-   [#4567](https://github.com/Khan/perseus/pull/4567) [`8c751a4`](https://github.com/Khan/perseus/commit/8c751a4be09536040308d2abf3cc2e3e065a3c1a) Thanks [@benchristel](https://github.com/benchristel)! - Updated dependencies
+
+-   Updated dependencies [[`87cb448`](https://github.com/Khan/perseus/commit/87cb448874ee0edb7fe4e062a99e3343e4a2290c), [`d1b2485`](https://github.com/Khan/perseus/commit/d1b2485eeec77256d0f1219f49aba3cf6fa4d27c), [`18aabdc`](https://github.com/Khan/perseus/commit/18aabdcfcbe7a753263514143c1af7711de1f474), [`a0b8db9`](https://github.com/Khan/perseus/commit/a0b8db913a3497f8344610791635a4489ed68800), [`894ed72`](https://github.com/Khan/perseus/commit/894ed729bff8e27ea338eca3a11dca91c213a82a), [`79c4ac2`](https://github.com/Khan/perseus/commit/79c4ac24ad2c927cd109181b55248884be1961b2), [`e178624`](https://github.com/Khan/perseus/commit/e178624f485116c3727cbcfec3247d0a638d5941), [`8c751a4`](https://github.com/Khan/perseus/commit/8c751a4be09536040308d2abf3cc2e3e065a3c1a)]:
+    -   @khanacademy/perseus-score@10.0.0
+    -   @khanacademy/perseus-core@42.5.0
+    -   @khanacademy/perseus-linter@8.2.0
+    -   @khanacademy/math-input@30.2.5
+    -   @khanacademy/keypad-context@6.0.15
+    -   @khanacademy/kmath@3.1.8
+
 ## 94.0.0
 
 ### Major Changes

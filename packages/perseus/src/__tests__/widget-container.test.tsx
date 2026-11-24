@@ -78,7 +78,7 @@ const getBaseProps = (
 describe("widget-container", () => {
     it("renders the unsupported-widget notice when the widget isn't registered", () => {
         // Arrange
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
 
@@ -101,7 +101,7 @@ describe("widget-container", () => {
 
     it("should render the requested widget", () => {
         // Arrange
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
 
@@ -133,7 +133,7 @@ describe("widget-container", () => {
 
     describe("container element by alignment", () => {
         beforeEach(() => {
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
                 testDependencies,
             );
             registerWidget("explanation", Explanation);
@@ -329,15 +329,15 @@ describe("widget-container", () => {
 
     it("should send analytics even when widget rendering errors", () => {
         // Arrange
-        jest.spyOn(window.navigator, "userAgent", "get").mockReturnValue(
+        rs.spyOn(window.navigator, "userAgent", "get").mockReturnValue(
             "userAgent",
         );
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
-        jest.spyOn(console, "error").mockImplementation(() => {});
+        rs.spyOn(console, "error").mockImplementation(() => {});
 
-        const onAnalyticsEventSpy = jest.fn();
+        const onAnalyticsEventSpy = rs.fn();
         const depsV2: PerseusDependenciesV2 = {
             ...testDependenciesV2,
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},

@@ -43,10 +43,6 @@
 .framework-perseus.perseus-mobile .perseus-input-center-align .keypad-input {
     text-align: center;
 }
-.framework-perseus .zoomable {
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    -webkit-touch-callout: none;
-}
 .framework-perseus .range-input {
     border: 1px solid var(--wb-semanticColor-core-border-neutral-subtle);
     border-radius: var(--wb-border-radius-radius_040);
@@ -122,14 +118,6 @@
     font-size: 18px !important;
 }
 
-.hint.last-hint .deprecated-perseus-container,
-    /* A higher-specificity version of this rule, to override the compiled version
-     * of the rule below that uses `:-webkit-any` instead of `:is`. See:
-     * https://khanacademy.atlassian.net/browse/LEMS-4627
-     */
-.framework-perseus .hint.last-hint .deprecated-perseus-container {
-    font-weight: bold;
-}
 .perseus-article
     .perseus-dropdown
     .perseus-renderer

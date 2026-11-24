@@ -1,4 +1,4 @@
-import {describe, it} from "@jest/globals";
+import {describe, it} from "@rstest/core";
 import {act, render, screen} from "@testing-library/react";
 import * as React from "react";
 
@@ -7,6 +7,7 @@ import RadioComponent from "../radio-component";
 
 import type {RadioComponentProps} from "../radio-component";
 import type {ChoiceType} from "../radio-widget";
+import type {MockInstance} from "@rstest/core";
 
 type overrideProps = {
     choiceOverrides?: Partial<ChoiceType>;
@@ -45,10 +46,10 @@ const getComponentProps = (props?: overrideProps) => {
 };
 
 describe("Radio widget UI component", () => {
-    let choiceSpy: jest.SpyInstance;
+    let choiceSpy: MockInstance;
 
     beforeEach(() => {
-        choiceSpy = jest.spyOn(Choice, "default");
+        choiceSpy = rs.spyOn(Choice, "default");
     });
 
     describe("styling", () => {
@@ -111,7 +112,7 @@ describe("Radio widget UI component", () => {
     });
 
     describe("choice option configuration", () => {
-        it.each`
+        it.each<any>`
             reviewMode | isCorrect | expectedCorrectness | when
             ${false}   | ${true}   | ${undefined}        | ${"NOT in review mode and choice is correct"}
             ${true}    | ${true}   | ${"correct"}        | ${"in review mode and choice is correct"}
@@ -212,7 +213,7 @@ describe("Radio widget UI component", () => {
             ).not.toBeInTheDocument();
         });
 
-        it.each`
+        it.each<any>`
             reviewMode | isCorrect | expectedLabel            | shows              | when
             ${true}    | ${true}   | ${"(Choice A, Correct)"} | ${"shows"}         | ${"when in review mode and choice is correct"}
             ${true}    | ${false}  | ${"(Choice A)"}          | ${"does NOT show"} | ${"when in review mode and choice is NOT correct"}
@@ -241,7 +242,7 @@ describe("Radio widget UI component", () => {
 
     describe("functionality", () => {
         it("calls the 'onChoiceChange' callback when a choice is activated", () => {
-            const onChoiceChangeFn = jest.fn();
+            const onChoiceChangeFn = rs.fn();
             const props = getComponentProps({
                 onChoiceChange: onChoiceChangeFn,
             });

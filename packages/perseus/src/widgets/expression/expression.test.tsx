@@ -1,4 +1,3 @@
-import {beforeEach, describe, it} from "@jest/globals";
 import {
     generateExpressionAnswerForm,
     generateExpressionOptions,
@@ -8,6 +7,7 @@ import {
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import {scoreQuestion} from "@khanacademy/perseus-score";
+import {beforeEach, describe, it} from "@rstest/core";
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -24,6 +24,7 @@ import {
 } from "./expression.testdata";
 
 import type {PerseusItem, PerseusRenderer} from "@khanacademy/perseus-core";
+import type {Mock} from "@rstest/core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const renderAndAnswer = async (
@@ -32,10 +33,10 @@ const renderAndAnswer = async (
     input: string,
     isCorrect: boolean,
 ) => {
-    jest.useFakeTimers();
+    rs.useFakeTimers();
     const {renderer} = renderQuestion(itemData.question);
     await userEvent.type(screen.getByRole("textbox"), input);
-    act(() => jest.runOnlyPendingTimers());
+    act(() => rs.runOnlyPendingTimers());
 
     return renderer;
 };
@@ -83,13 +84,13 @@ const assertInvalid = async (
     itemData: PerseusItem,
     input: string,
 ) => {
-    jest.useFakeTimers();
+    rs.useFakeTimers();
     const {renderer} = renderQuestion(itemData.question);
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (input.length) {
         await userEvent.type(screen.getByRole("textbox"), input);
     }
-    act(() => jest.runOnlyPendingTimers());
+    act(() => rs.runOnlyPendingTimers());
     const score = scoreQuestion(
         itemData.question,
         renderer.getUserInputMap(),
@@ -104,13 +105,13 @@ const assertValid = async (
     input: string,
     message?: string,
 ) => {
-    jest.useFakeTimers();
+    rs.useFakeTimers();
     const {renderer} = renderQuestion(itemData.question);
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (input.length) {
         await userEvent.type(screen.getByRole("textbox"), input);
     }
-    act(() => jest.runOnlyPendingTimers());
+    act(() => rs.runOnlyPendingTimers());
     const score = scoreQuestion(
         itemData.question,
         renderer.getUserInputMap(),
@@ -123,10 +124,10 @@ describe("Expression Widget", function () {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(testDependenciesV2.analytics, "onAnalyticsEvent");
+        rs.spyOn(testDependenciesV2.analytics, "onAnalyticsEvent");
     });
 
     describe("grading", function () {
@@ -528,7 +529,7 @@ describe("Expression Widget", function () {
     describe("rendering", () => {
         it("should send analytics event when widget is rendered", () => {
             // Arrange
-            const onAnalyticsEventSpy = jest.spyOn(
+            const onAnalyticsEventSpy = rs.spyOn(
                 testDependenciesV2.analytics,
                 "onAnalyticsEvent",
             );
@@ -536,7 +537,7 @@ describe("Expression Widget", function () {
             // Act
             renderQuestion(expressionItemMultipleEquivalentAnswers.question);
             act(() => {
-                jest.runAllTimers();
+                rs.runAllTimers();
             });
 
             // Assert
@@ -568,7 +569,7 @@ describe("Expression Widget", function () {
 
     describe("interaction", () => {
         beforeEach(() => {
-            jest.useFakeTimers();
+            rs.useFakeTimers();
         });
 
         it("has a developer facility for inserting", async () => {
@@ -576,11 +577,11 @@ describe("Expression Widget", function () {
             const {renderer} = renderQuestion(
                 expressionItemMultipleEquivalentAnswers.question,
             );
-            act(() => jest.runOnlyPendingTimers());
+            act(() => rs.runOnlyPendingTimers());
 
             const expression = renderer.findWidgets("expression 1")[0];
             act(() => expression.insert("x+1"));
-            act(() => jest.runOnlyPendingTimers());
+            act(() => rs.runOnlyPendingTimers());
 
             // act
             const score = scoreQuestion(
@@ -611,7 +612,7 @@ describe("Expression Widget", function () {
                     expression.insert("x+1");
                 }),
             ).not.toThrow();
-            act(() => jest.runOnlyPendingTimers());
+            act(() => rs.runOnlyPendingTimers());
 
             // Assert
             const score = scoreQuestion(
@@ -637,17 +638,17 @@ describe("Expression Widget", function () {
             // opens. With real timers, waiting for the popover gives that
             // update a chance to settle inside act(); Jest's fake timers
             // would leave it pending until after the test finishes.
-            jest.useRealTimers();
+            rs.useRealTimers();
             userEvent = userEventLib.setup();
 
             // Mocked for loading graphie in svg-image
             // eslint-disable-next-line no-restricted-syntax
-            global.fetch = jest.fn(() =>
+            global.fetch = rs.fn(() =>
                 Promise.resolve({
                     text: () => "",
                     ok: true,
                 }),
-            ) as jest.Mock;
+            ) as Mock;
         });
 
         function getFullItem(): PerseusItem {

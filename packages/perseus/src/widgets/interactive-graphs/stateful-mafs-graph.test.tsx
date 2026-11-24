@@ -1,4 +1,5 @@
 import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
+import {rs} from "@rstest/core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import React from "react";
@@ -15,8 +16,8 @@ import {StatefulMafsGraph} from "./stateful-mafs-graph";
 import type {StatefulMafsGraphProps} from "./stateful-mafs-graph";
 import type {UserEvent} from "@testing-library/user-event";
 
-jest.mock("@khanacademy/wonder-blocks-announcer", () => ({
-    announceMessage: jest.fn(),
+rs.mock("@khanacademy/wonder-blocks-announcer", () => ({
+    announceMessage: rs.fn(),
 }));
 
 function getBaseStatefulMafsGraphProps(): StatefulMafsGraphProps {
@@ -54,16 +55,16 @@ function getBaseStatefulMafsGraphProps(): StatefulMafsGraphProps {
 describe("StatefulMafsGraph", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
     afterEach(() => {
-        jest.restoreAllMocks();
+        rs.restoreAllMocks();
     });
 
     it("renders", () => {
@@ -75,7 +76,7 @@ describe("StatefulMafsGraph", () => {
     });
 
     it("calls onChange when using graph", async () => {
-        const mockChangeHandler = jest.fn();
+        const mockChangeHandler = rs.fn();
 
         render(
             <StatefulMafsGraph
@@ -140,7 +141,7 @@ describe("StatefulMafsGraph", () => {
         // Spy before render so useReducer captures the mock. Returns a state
         // with stateAnnouncement only for point-move dispatches; all other
         // dispatches (range, snapStep, reinitialize) get the base state.
-        jest.spyOn(GraphReducer, "interactiveGraphReducer").mockImplementation(
+        rs.spyOn(GraphReducer, "interactiveGraphReducer").mockImplementation(
             (_state, action) =>
                 action.type === MOVE_POINT_IN_FIGURE
                     ? {
@@ -158,7 +159,7 @@ describe("StatefulMafsGraph", () => {
         render(<StatefulMafsGraph {...props} />);
 
         // stateAnnouncement is undefined on initial render — no announcement
-        expect(jest.mocked(announceMessage)).not.toHaveBeenCalled();
+        expect(rs.mocked(announceMessage)).not.toHaveBeenCalled();
 
         // Act: tab to focus a point, then move it
         await userEvent.tab();
@@ -166,7 +167,7 @@ describe("StatefulMafsGraph", () => {
         await userEvent.keyboard("{arrowup}");
 
         // Assert: announceMessage fired once stateAnnouncement was set
-        expect(jest.mocked(announceMessage)).toHaveBeenCalledWith({
+        expect(rs.mocked(announceMessage)).toHaveBeenCalledWith({
             message: expect.any(String),
         });
     });
@@ -290,7 +291,7 @@ describe("StatefulMafsGraph", () => {
     it("does not reinitialize when pointLabels has the same values but a new array reference", () => {
         // The editor rebuilds props every render: a fresh-but-equal
         // pointLabels array must not re-fire reinitialize.
-        const reinitializeSpy = jest.spyOn(
+        const reinitializeSpy = rs.spyOn(
             InteractiveGraphAction,
             "reinitialize",
         );
@@ -328,7 +329,7 @@ describe("StatefulMafsGraph", () => {
     });
 
     it("reinitializes when pointLabels values change", () => {
-        const reinitializeSpy = jest.spyOn(
+        const reinitializeSpy = rs.spyOn(
             InteractiveGraphAction,
             "reinitialize",
         );
@@ -368,7 +369,7 @@ describe("StatefulMafsGraph", () => {
     it("does not reinitialize when startCoords has the same values but a new array reference", () => {
         // Same as pointLabels: a fresh-but-equal startCoords array must not
         // re-fire reinitialize.
-        const reinitializeSpy = jest.spyOn(
+        const reinitializeSpy = rs.spyOn(
             InteractiveGraphAction,
             "reinitialize",
         );
@@ -396,7 +397,7 @@ describe("StatefulMafsGraph", () => {
     });
 
     it("reinitializes when startCoords values change", () => {
-        const reinitializeSpy = jest.spyOn(
+        const reinitializeSpy = rs.spyOn(
             InteractiveGraphAction,
             "reinitialize",
         );

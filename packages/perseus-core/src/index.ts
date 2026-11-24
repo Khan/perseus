@@ -18,6 +18,11 @@ export type {ErrorKind} from "./error/errors";
 export {default as ErrorCodes, type ErrorCode} from "./error-codes";
 
 export {isCorrect} from "./utils/is-correct";
+export {
+    isBoldTableCell,
+    isEmptyTableCell,
+    tableHasRowHeaders,
+} from "./utils/table-row-headers";
 /** @hidden */
 export type {FunctionTypeMappingKeys} from "./utils/grapher-util";
 /** @hidden */
@@ -442,6 +447,7 @@ export {generateVideoWidget} from "./utils/generators/video-widget-generator";
 export {
     generateSorterWidget,
     generateSorterOptions,
+    generateSorterLegend,
 } from "./utils/generators/sorter-widget-generator";
 /** @hidden */
 export {generateTableOptions} from "./utils/generators/table-widget-generator";

@@ -1,5 +1,6 @@
 import {Dependencies} from "@khanacademy/perseus";
 import {
+    generateSorterLegend,
     generateSorterOptions,
     sorterLogic,
     SORTER_MAX_HORIZONTAL_CARDS,
@@ -45,10 +46,10 @@ describe("sorter-editor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -61,7 +62,7 @@ describe("sorter-editor", () => {
 
     it("should be possible to change layout to vertical", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <SorterEditor
                 onChange={onChangeMock}
@@ -81,7 +82,7 @@ describe("sorter-editor", () => {
 
     it("should be possible to change layout to horizontal", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <SorterEditor
                 onChange={onChangeMock}
@@ -150,7 +151,7 @@ describe("sorter-editor", () => {
     });
 
     it("should be possible to change padding", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(<SorterEditor onChange={onChangeMock} />);
 
@@ -178,7 +179,7 @@ describe("sorter-editor", () => {
 
     it("calls onChange with the updated correct answer when a card is edited", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         renderControlled(
             generateSorterOptions({correct: ["Cat", "Dog"]}),
             onChangeMock,
@@ -199,7 +200,7 @@ describe("sorter-editor", () => {
 
     it("calls onChange with an empty card appended when the add button is clicked", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <SorterEditor
                 onChange={onChangeMock}
@@ -237,7 +238,7 @@ describe("sorter-editor", () => {
 
     it("does not add an eleventh card when the add button is clicked", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <SorterEditor
                 onChange={onChangeMock}
@@ -290,13 +291,15 @@ describe("sorter-editor", () => {
             );
 
             // Assert
-            expect(screen.getAllByRole("textbox")).toHaveLength(15);
+            expect(
+                screen.getAllByRole("textbox", {name: /^Card \d+$/}),
+            ).toHaveLength(15);
             expect(screen.getByDisplayValue("Item 15")).toBeInTheDocument();
         });
 
         it("calls onChange with the updated correct answer when a card past the limit is edited", async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             renderControlled(
                 generateSorterOptions({correct: fifteenCards}),
                 onChangeMock,
@@ -317,7 +320,7 @@ describe("sorter-editor", () => {
 
         it("removes a card past the limit when its delete button is clicked", async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             render(
                 <SorterEditor
                     onChange={onChangeMock}
@@ -356,7 +359,7 @@ describe("sorter-editor", () => {
 
     it("swaps a card with the one above it when move up is clicked", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <SorterEditor
                 onChange={onChangeMock}
@@ -379,7 +382,7 @@ describe("sorter-editor", () => {
 
     it("swaps a card with the one below it when move down is clicked", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <SorterEditor
                 onChange={onChangeMock}
@@ -426,7 +429,7 @@ describe("sorter-editor", () => {
 
     it("removes a card when its delete button is clicked", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <SorterEditor
                 onChange={onChangeMock}
@@ -455,7 +458,9 @@ describe("sorter-editor", () => {
         );
 
         // Assert
-        expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
+        expect(
+            screen.queryByRole("textbox", {name: /^Card \d+$/}),
+        ).not.toBeInTheDocument();
     });
 
     it("renumbers the remaining cards after one is deleted", async () => {
@@ -475,7 +480,7 @@ describe("sorter-editor", () => {
 
     it("does not drop the legend when another option is edited", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = rs.fn();
         const legend: PerseusSorterWidgetOptions["legend"] = {
             startCap: "arrow",
             endCap: "bar",
@@ -513,9 +518,253 @@ describe("sorter-editor", () => {
         render(<SorterEditor onChange={() => {}} />);
 
         // Assert
-        expect(screen.getAllByRole("textbox")).toHaveLength(3);
+        expect(
+            screen.getAllByRole("textbox", {name: /^Card \d+$/}),
+        ).toHaveLength(3);
         expect(screen.getByDisplayValue("$x$")).toBeInTheDocument();
         expect(screen.getByDisplayValue("$y$")).toBeInTheDocument();
         expect(screen.getByDisplayValue("$z$")).toBeInTheDocument();
+    });
+
+    describe("legend", () => {
+        it("creates the full legend with arrow caps on the first legend edit of a scale", async () => {
+            // Arrange
+            const onChange = rs.fn();
+            renderControlled(generateSorterOptions(), onChange);
+
+            // Act
+            await userEvent.type(
+                screen.getByRole("textbox", {name: "Start label"}),
+                "Low",
+            );
+
+            // Assert
+            expect(onChange).toHaveBeenLastCalledWith(
+                expect.objectContaining({
+                    legend: {
+                        startCap: "arrow",
+                        endCap: "arrow",
+                        startLabel: "Low",
+                        endLabel: "",
+                        ariaLabel: "",
+                        position: "below",
+                    },
+                }),
+            );
+        });
+
+        it("creates the legend with bar caps on the first legend edit of a timeline", async () => {
+            // Arrange
+            const onChange = rs.fn();
+            renderControlled(
+                generateSorterOptions({variant: "timeline"}),
+                onChange,
+            );
+
+            // Act
+            await userEvent.type(
+                screen.getByRole("textbox", {name: "Start label"}),
+                "1944",
+            );
+
+            // Assert
+            expect(onChange).toHaveBeenLastCalledWith(
+                expect.objectContaining({
+                    legend: expect.objectContaining({
+                        startCap: "bar",
+                        endCap: "bar",
+                    }),
+                }),
+            );
+        });
+
+        // TODO: Re-enable when the variant dropdown ships.
+        it.skip("resets the caps when they're the old variant's defaults", async () => {
+            // Arrange
+            const onChange = rs.fn();
+            renderControlled(
+                generateSorterOptions({
+                    variant: "scale",
+                    legend: generateSorterLegend({
+                        startCap: "arrow",
+                        endCap: "arrow",
+                    }),
+                }),
+                onChange,
+            );
+
+            // Act
+            await userEvent.click(
+                screen.getByRole("combobox", {name: "Variant"}),
+            );
+            await userEvent.click(
+                screen.getByRole("option", {name: "Timeline"}),
+            );
+
+            // Assert
+            expect(onChange).toHaveBeenLastCalledWith(
+                expect.objectContaining({
+                    variant: "timeline",
+                    legend: generateSorterLegend({
+                        startCap: "bar",
+                        endCap: "bar",
+                    }),
+                }),
+            );
+        });
+
+        // TODO: Re-enable when the variant dropdown ships.
+        it.skip("keeps the caps when they aren't the old variant's defaults", async () => {
+            // Arrange
+            const onChange = rs.fn();
+            const mixedCapsLegend = generateSorterLegend({
+                startCap: "arrow",
+                endCap: "bar",
+            });
+            renderControlled(
+                generateSorterOptions({
+                    variant: "scale",
+                    legend: mixedCapsLegend,
+                }),
+                onChange,
+            );
+
+            // Act
+            await userEvent.click(
+                screen.getByRole("combobox", {name: "Variant"}),
+            );
+            await userEvent.click(
+                screen.getByRole("option", {name: "Timeline"}),
+            );
+
+            // Assert
+            expect(onChange).toHaveBeenLastCalledWith(
+                expect.objectContaining({
+                    variant: "timeline",
+                    legend: mixedCapsLegend,
+                }),
+            );
+        });
+
+        // TODO: Re-enable when the variant dropdown ships.
+        it.skip("does not add a legend when the variant changes before the legend exists", async () => {
+            // Arrange
+            const onChange = rs.fn();
+            renderControlled(generateSorterOptions(), onChange);
+
+            // Act
+            await userEvent.click(
+                screen.getByRole("combobox", {name: "Variant"}),
+            );
+            await userEvent.click(
+                screen.getByRole("option", {name: "Timeline"}),
+            );
+
+            // Assert
+            const lastOptions = onChange.mock.lastCall?.[0];
+            expect(lastOptions.variant).toBe("timeline");
+            expect(lastOptions.legend).toBeUndefined();
+        });
+
+        it("keeps the other legend fields when one is edited", async () => {
+            // Arrange
+            const onChange = rs.fn();
+            renderControlled(
+                generateSorterOptions({legend: generateSorterLegend()}),
+                onChange,
+            );
+
+            // Act
+            await userEvent.click(
+                screen.getByRole("combobox", {name: "End cap"}),
+            );
+            await userEvent.click(screen.getByRole("option", {name: "None"}));
+
+            // Assert
+            expect(onChange).toHaveBeenLastCalledWith(
+                expect.objectContaining({
+                    legend: generateSorterLegend({endCap: "none"}),
+                }),
+            );
+        });
+
+        it("does not add a legend when another option is edited", async () => {
+            // Arrange
+            const onChange = rs.fn();
+            renderControlled(
+                generateSorterOptions({correct: ["Cat", "Dog"]}),
+                onChange,
+            );
+
+            // Act
+            await userEvent.type(screen.getByDisplayValue("Dog"), "s");
+
+            // Assert
+            expect(onChange.mock.lastCall?.[0].legend).toBeUndefined();
+        });
+
+        it("disables position when the layout is vertical", () => {
+            // Arrange, Act
+            render(
+                <SorterEditor
+                    {...generateSorterOptions({layout: "vertical"})}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("combobox", {name: "Position"}),
+            ).toHaveAttribute("aria-disabled", "true");
+        });
+
+        it("disables position when a horizontal sorter has too many cards to display horizontally", () => {
+            // Arrange, Act
+            render(
+                <SorterEditor
+                    {...generateSorterOptions({
+                        layout: "horizontal",
+                        correct: Array.from(
+                            {length: SORTER_MAX_HORIZONTAL_CARDS + 1},
+                            (_, i) => `Card ${i}`,
+                        ),
+                    })}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("combobox", {name: "Position"}),
+            ).toHaveAttribute("aria-disabled", "true");
+        });
+
+        it("enables position when the sorter displays horizontally", () => {
+            // Arrange, Act
+            render(
+                <SorterEditor
+                    {...generateSorterOptions({
+                        layout: "horizontal",
+                        correct: ["Cat", "Dog"],
+                    })}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("combobox", {name: "Position"}),
+            ).not.toHaveAttribute("aria-disabled", "true");
+        });
+
+        it("marks the description as required", () => {
+            // Arrange, Act
+            render(<SorterEditor onChange={() => {}} />);
+
+            // Assert
+            expect(
+                screen.getByRole("textbox", {name: "Description"}),
+            ).toBeRequired();
+        });
     });
 });

@@ -1,4 +1,4 @@
-import {describe, expect, it} from "@jest/globals";
+import {describe, expect, it} from "@rstest/core";
 
 import {anySuccess, ctx} from "../general-purpose-parsers/parser.testutils";
 import {assertSuccess, success} from "../result";

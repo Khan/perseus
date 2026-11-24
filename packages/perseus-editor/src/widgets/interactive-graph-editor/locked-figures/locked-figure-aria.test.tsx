@@ -11,7 +11,7 @@ describe("LockedFigureAria", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
@@ -70,7 +70,7 @@ describe("LockedFigureAria", () => {
 
     test("auto-generate button calls onChange with the prepopulated label", async () => {
         // Arrange
-        const onChangeProps = jest.fn();
+        const onChangeProps = rs.fn();
 
         // Act
         render(
@@ -98,7 +98,7 @@ describe("LockedFigureAria", () => {
 
     test("calls onChange with undefined when input is cleared", async () => {
         // Arrange
-        const onChangeProps = jest.fn();
+        const onChangeProps = rs.fn();
         render(
             <LockedFigureAria
                 ariaLabel="Point at (x, y)"

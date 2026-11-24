@@ -31,7 +31,7 @@ import {registerWidget} from "../widgets";
 import MockAssetLoadingWidgetExport from "../widgets/mock-widgets/mock-asset-loading-widget.testutils";
 import MockWidget from "../widgets/mock-widgets/mock-widget";
 
-import {mockedAssetItem} from "./test-items/mock-asset-loading-item";
+import {mockedAssetItem} from "./test-items/mock-asset-loading-item.testdata";
 
 import type {MockAssetLoadingWidgetHandle} from "../widgets/mock-widgets/mock-asset-loading-widget.testutils";
 import type {KeypadAPI} from "@khanacademy/math-input";
@@ -45,10 +45,10 @@ describe("server item renderer", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -58,7 +58,7 @@ describe("server item renderer", () => {
         // If we don't spin the timers here, then the timer fires in the test
         // _after_ and breaks it because we do setState() in the callback,
         // and by that point the component has been unmounted.
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
     });
 
     it("should snapshot", () => {
@@ -103,7 +103,7 @@ describe("server item renderer", () => {
 
     it("calls onInteraction callback with the current user data", async () => {
         // Arrange
-        const interactionCallback = jest.fn();
+        const interactionCallback = rs.fn();
         renderItem(itemWithTwoMockWidgets, {
             interactionCallback,
         });
@@ -112,7 +112,7 @@ describe("server item renderer", () => {
         const inputs = screen.getAllByRole("textbox");
         await userEvent.type(inputs[0], "1");
         await userEvent.type(inputs[1], "2");
-        act(() => jest.runOnlyPendingTimers()); // Renderer uses setTimeout setting widget props
+        act(() => rs.runOnlyPendingTimers()); // Renderer uses setTimeout setting widget props
 
         // Assert
         expect(interactionCallback).toHaveBeenCalledWith({
@@ -164,7 +164,7 @@ describe("server item renderer", () => {
 
     it("should call the answerable callback when no widgets are empty", async () => {
         // Arrange
-        const answerableCallback = jest.fn();
+        const answerableCallback = rs.fn();
         render(
             <RenderStateRoot>
                 <ServerItemRenderer
@@ -201,7 +201,7 @@ describe("server item renderer", () => {
             MockAssetLoadingWidgetExport,
         );
 
-        const onRendered = jest.fn();
+        const onRendered = rs.fn();
         let renderer: ServerItemRenderer | null | undefined;
         const {rerender} = render(
             <RenderStateRoot>
@@ -253,14 +253,14 @@ describe("server item renderer", () => {
         // Arrange
         // This TeX never reports rendering, standing in for math that MathJax
         // hasn't finished with yet.
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
             TeX: ({children}: {children: React.ReactNode}) => (
                 <span className="mock-TeX">{children}</span>
             ),
         });
 
-        const onRendered = jest.fn();
+        const onRendered = rs.fn();
 
         // Act
         render(
@@ -287,7 +287,7 @@ describe("server item renderer", () => {
         // has mounted, which is the case we're covering. (`useEffect` runs
         // after paint, so it would land after `componentDidMount` instead.)
         // https://legacy.reactjs.org/docs/hooks-reference.html#uselayouteffect
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
             TeX: ({
                 children,
@@ -300,7 +300,7 @@ describe("server item renderer", () => {
                 return <span className="mock-TeX">{children}</span>;
             },
         });
-        const onRendered = jest.fn();
+        const onRendered = rs.fn();
 
         // Act
         render(
@@ -324,7 +324,7 @@ describe("server item renderer", () => {
         // Arrange
         // The default test TeX never fires onRender, so we need one that does
         // in order to get the Zoomable measuring.
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
             TeX: ({
                 children,
@@ -338,7 +338,7 @@ describe("server item renderer", () => {
             },
         });
 
-        const onRendered = jest.fn();
+        const onRendered = rs.fn();
 
         // Act
         render(
@@ -368,7 +368,7 @@ describe("server item renderer", () => {
         // the length of that animation.
 
         // Arrange
-        const onRendered = jest.fn();
+        const onRendered = rs.fn();
 
         // Act
         render(
@@ -397,13 +397,11 @@ describe("server item renderer", () => {
         expect(onRendered).not.toHaveBeenCalled();
 
         // The entrance animation is running now, so we're still not settled.
-        act(() =>
-            jest.advanceTimersByTime(ENTRANCE_TRANSITION_DURATION_MS - 1),
-        );
+        act(() => rs.advanceTimersByTime(ENTRANCE_TRANSITION_DURATION_MS - 1));
         expect(onRendered).not.toHaveBeenCalled();
 
         // Now wait for the animation to complete
-        act(() => jest.advanceTimersByTime(2));
+        act(() => rs.advanceTimersByTime(2));
         expect(onRendered).toHaveBeenCalledWith(true);
     });
 
@@ -426,7 +424,7 @@ describe("server item renderer", () => {
             hints: [],
         };
 
-        const onRendered = jest.fn();
+        const onRendered = rs.fn();
 
         // Act
         render(
@@ -460,7 +458,7 @@ describe("server item renderer", () => {
     describe("focus management", () => {
         it("calls onFocusChange when focusing the renderer", async () => {
             // Arranged
-            const onFocusChange = jest.fn();
+            const onFocusChange = rs.fn();
             const {renderer} = renderItem(itemWithMockWidget, {
                 onFocusChange,
             });
@@ -469,7 +467,7 @@ describe("server item renderer", () => {
             const gotFocus = await act(() => renderer.focus());
 
             // We have some async processes that need to be resolved here
-            jest.runAllTimers();
+            rs.runAllTimers();
 
             // Assert
             expect(gotFocus).toBe(true);
@@ -483,7 +481,7 @@ describe("server item renderer", () => {
 
         it("activates the keypadElement when focusing the renderer on mobile", async () => {
             // Arranged
-            const onFocusChange = jest.fn();
+            const onFocusChange = rs.fn();
             const keypadElementDOMNode = document.createElement("div");
 
             // We need to mock the getBoundingClientRect() method for our
@@ -495,14 +493,14 @@ describe("server item renderer", () => {
                 }) as DOMRect;
 
             const keypadElement: KeypadAPI = {
-                getDOMNode: jest
+                getDOMNode: rs
                     .fn()
                     .mockImplementation(() => keypadElementDOMNode),
-                activate: jest.fn(),
-                dismiss: jest.fn(),
-                configure: jest.fn(),
-                setCursor: jest.fn(),
-                setKeyHandler: jest.fn(),
+                activate: rs.fn(),
+                dismiss: rs.fn(),
+                configure: rs.fn(),
+                setCursor: rs.fn(),
+                setKeyHandler: rs.fn(),
             };
             const {renderer} = renderItem(
                 itemWithNumericInput,
@@ -514,7 +512,7 @@ describe("server item renderer", () => {
             const gotFocus = await act(() => renderer.focus());
 
             // We have some async processes that need to be resolved here
-            act(() => jest.runAllTimers());
+            act(() => rs.runAllTimers());
 
             // Assert
             expect(keypadElement.activate).toHaveBeenCalled();
@@ -529,7 +527,7 @@ describe("server item renderer", () => {
 
         it("calls onFocusChange when blurring the renderer", () => {
             // Arrange
-            const onFocusChange = jest.fn();
+            const onFocusChange = rs.fn();
             const {renderer} = renderItem(itemWithMockWidget, {
                 onFocusChange,
             });
@@ -539,7 +537,7 @@ describe("server item renderer", () => {
             act(() => renderer.blur());
 
             // We have some async processes that need to be resolved here
-            jest.runAllTimers();
+            rs.runAllTimers();
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledTimes(2);
@@ -553,7 +551,7 @@ describe("server item renderer", () => {
 
         it("dismisses the keypadElement when blurring the renderer on mobile", () => {
             // Arranged
-            const onFocusChange = jest.fn();
+            const onFocusChange = rs.fn();
             const keypadElementDOMNode = document.createElement("div");
 
             // We need to mock the getBoundingClientRect() method for our
@@ -565,14 +563,14 @@ describe("server item renderer", () => {
                 }) as DOMRect;
 
             const keypadElement: KeypadAPI = {
-                getDOMNode: jest
+                getDOMNode: rs
                     .fn()
                     .mockImplementation(() => keypadElementDOMNode),
-                activate: jest.fn(),
-                dismiss: jest.fn(),
-                configure: jest.fn(),
-                setCursor: jest.fn(),
-                setKeyHandler: jest.fn(),
+                activate: rs.fn(),
+                dismiss: rs.fn(),
+                configure: rs.fn(),
+                setCursor: rs.fn(),
+                setKeyHandler: rs.fn(),
             };
             const {renderer} = renderItem(
                 itemWithNumericInput,
@@ -585,7 +583,7 @@ describe("server item renderer", () => {
             act(() => renderer.blur());
 
             // We have some async processes that need to be resolved here
-            act(() => jest.runAllTimers());
+            act(() => rs.runAllTimers());
 
             // Assert
             expect(keypadElement.dismiss).toHaveBeenCalled();
@@ -600,7 +598,7 @@ describe("server item renderer", () => {
 
         it("should focus the widget requested in focusPath()", () => {
             // Arrange
-            const onFocusChange = jest.fn();
+            const onFocusChange = rs.fn();
             const {renderer} = renderItem(itemWithMockWidget, {
                 onFocusChange,
             });
@@ -609,7 +607,7 @@ describe("server item renderer", () => {
             act(() => renderer.focusPath(["mock-widget 1"]));
 
             // We have some async processes that need to be resolved here
-            jest.runAllTimers();
+            rs.runAllTimers();
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`mobile keypad should not render the keypad when not active 1`] = `
+exports[`mobile keypad > should not render the keypad when not active 1`] = `
 <div>
   <div
     style="align-items: stretch; border-width: 1px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: fixed; z-index: 0; min-block-size: 0px; min-inline-size: 0px; inset-block-end: 0px; inset-inline-start: 0px; inset-inline-end: 0px; border-color: var(--wb-semanticColor-core-border-neutral-subtle);"
@@ -8,7 +8,7 @@ exports[`mobile keypad should not render the keypad when not active 1`] = `
 </div>
 `;
 
-exports[`mobile keypad should render keypad when active 1`] = `
+exports[`mobile keypad > should render keypad when active 1`] = `
 <div>
   <div
     style="align-items: stretch; border-width: 1px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: fixed; z-index: 0; min-block-size: 0px; min-inline-size: 0px; inset-block-end: 0px; inset-inline-start: 0px; inset-inline-end: 0px; border-color: var(--wb-semanticColor-core-border-neutral-subtle);"

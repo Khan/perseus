@@ -14,8 +14,8 @@ type JSCoverageEntry = {
     functions: Parameters<ReturnType<typeof v8toIstanbul>["applyCoverage"]>[0];
 };
 
-// The same source files Jest collects coverage from (see
-// config/test/test.config.js), so the two reports merge cleanly.
+// The same source files Rstest collects coverage from (see `coverage` in
+// rstest.config.mts), so the two reports merge cleanly.
 function isCoveredSource(file: string): boolean {
     const relative = path.relative(REPO_ROOT, file);
     return (

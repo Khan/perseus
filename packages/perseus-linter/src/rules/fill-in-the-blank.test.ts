@@ -3,7 +3,7 @@ import {
     generateFillInTheBlankWidget,
 } from "@khanacademy/perseus-core";
 
-import {expectIssue} from "../__tests__/test-utils";
+import {expectIssue} from "../__tests__/linter.testutils";
 
 import {FillInTheBlankRule} from "./fill-in-the-blank";
 

@@ -51,17 +51,17 @@ describe("Explanation", function () {
             matches: (mediaQuery ?? query) === query ? doesMatch : !doesMatch,
             media: query,
             onchange: null,
-            addEventListener: jest.fn(),
-            addListener: jest.fn(),
-            removeListener: jest.fn(),
-            removeEventListener: jest.fn(),
-            dispatchEvent: jest.fn(),
+            addEventListener: rs.fn(),
+            addListener: rs.fn(),
+            removeListener: rs.fn(),
+            removeEventListener: rs.fn(),
+            dispatchEvent: rs.fn(),
         });
     };
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
@@ -88,7 +88,7 @@ describe("Explanation", function () {
 
     it("should send analytics when widget is rendered", () => {
         // Arrange
-        const onAnalyticsEventSpy = jest.fn();
+        const onAnalyticsEventSpy = rs.fn();
         const dependencies = {
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
         };
@@ -181,7 +181,7 @@ describe("Explanation", function () {
 
     it("uses transitions when it is expanded/collapsed", async () => {
         // Arrange
-        jest.spyOn(window, "matchMedia").mockImplementation(
+        rs.spyOn(window, "matchMedia").mockImplementation(
             getMatchMediaMockFn(
                 true,
                 "(prefers-reduced-motion: no-preference)",
@@ -219,7 +219,7 @@ describe("Explanation", function () {
             matchMedia: {value: undefined},
         });
         // eslint-disable-next-line no-restricted-syntax
-        jest.spyOn(window, "window", "get").mockReturnValue(fakeWindow as any);
+        rs.spyOn(window, "window", "get").mockReturnValue(fakeWindow as any);
         renderQuestion(question1);
 
         // Act - expand
@@ -236,7 +236,7 @@ describe("Explanation", function () {
     // TODO (LEMS-3815): Remove test when legacy styles are removed
     it("does NOT use transitions when the user prefers reduced motion", async () => {
         // Arrange
-        jest.spyOn(window, "matchMedia").mockImplementation(
+        rs.spyOn(window, "matchMedia").mockImplementation(
             getMatchMediaMockFn(
                 false,
                 "(prefers-reduced-motion: no-preference)",
