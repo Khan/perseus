@@ -1,4 +1,4 @@
-import {expectIssue, expectPass} from "../__tests__/test-utils";
+import {expectIssue, expectPass} from "../__tests__/linter.testutils";
 
 import imageWidgetEmptySizeRule from "./image-widget-empty-size";
 

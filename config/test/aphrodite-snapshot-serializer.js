@@ -19,9 +19,9 @@
  * We deliberately don't use that flag here, for two reasons:
  *
  *  1. It changes what components *render*, not just what snapshots *print*.
- *     `test-setup.ts` calls `StyleSheetTestUtils.suppressStyleInjection()`, so
- *     in tests, Aphrodite rules never reach the CSSOM and declarations like
- *     `pointer-events: none` are inert. Inlining the styles makes jsdom start
+ *     `rstest/setup.ts` calls `StyleSheetTestUtils.suppressStyleInjection()`,
+ *     so in tests, Aphrodite rules never reach the CSSOM and declarations
+ *     like `pointer-events: none` are inert. Inlining the styles makes jsdom start
  *     honoring them, which breaks ~260 interaction tests that click on things
  *     Aphrodite considers unclickable.
  *  2. It only covers components that route styles through Wonder Blocks'
