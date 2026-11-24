@@ -1,13 +1,6 @@
 import {rs} from "@rstest/core";
 import {screen} from "@testing-library/react";
 
-if (typeof rs === "undefined") {
-    /**
-     * This file is for test use only.
-     */
-    throw new Error("Invalid import - for use in tests only");
-}
-
 type WaitOptions = {
     /**
      * The time in milliseconds to wait on each wait.
