@@ -1,10 +1,7 @@
 import * as React from "react";
 
 import {getIntersectionOfRayWithBox} from "./graphs/utils";
-import {
-    assumedLabelSize,
-    getAutoLabelPlacements,
-} from "./locked-figures/auto-label-placement";
+import {getAutoLabelPlacements} from "./locked-figures/auto-label-placement";
 import LockedLabel from "./locked-figures/locked-label";
 import {getArrowheadRadiusPx, strokeWeights} from "./locked-figures/utils";
 import useGraphConfig from "./reducer/use-graph-config";
@@ -14,8 +11,15 @@ import type {
     LabelSize,
     PointObstacleInput,
     SegmentObstacle,
-} from "./locked-figures/auto-label-placement";
+} from "./locked-figures/auto-label-placement-types";
 import type {LockedFigure, LockedLabelType} from "@khanacademy/perseus-core";
+
+/**
+ * Size assumed for a label that hasn't been measured yet. Placement runs
+ * before the label's text has been typeset, so it starts from this and is
+ * recomputed once a real measurement arrives.
+ */
+const assumedLabelSize: LabelSize = {width: 24, height: 19};
 
 /** Keys joining a label to its measurement and its computed placement. */
 const pointLabelKey = (figureIndex: number, labelIndex: number) =>
