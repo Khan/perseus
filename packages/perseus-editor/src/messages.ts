@@ -12,11 +12,6 @@ const SEVERITY_MAP = {
     [SEVERITY_GUIDELINE]: "low",
 };
 
-export const DEFAULT_HELP_LINK = {
-    text: "Learn more about best practices for authoring items",
-    url: "https://docs.google.com/document/d/1N13f4sY-7EXWDwQ04ivA9vJBVvPPd60qjBT73B4NHuM/edit?tab=t.0",
-} satisfies LintHelpLink;
-
 // This file is meant to contain any and all perseus-editor messages
 // we want to show within the Issues Panel.
 export const WARNINGS = {
@@ -38,12 +33,12 @@ export const WARNINGS = {
         rule: string,
         message: string,
         severity: number | undefined,
-        helpLink?: LintHelpLink,
+        helpLink: LintHelpLink,
     ): Issue => ({
         id: rule,
         description: message,
-        help: helpLink?.text ?? DEFAULT_HELP_LINK.text,
-        helpUrl: helpLink?.url ?? DEFAULT_HELP_LINK.url,
+        help: helpLink.text,
+        helpUrl: helpLink.url,
         impact: SEVERITY_MAP[severity ?? SEVERITY_GUIDELINE],
         message: message,
     }),

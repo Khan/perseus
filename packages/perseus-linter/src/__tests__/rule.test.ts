@@ -1,5 +1,6 @@
 import * as PureMarkdown from "@khanacademy/pure-markdown";
 
+import {DEFAULT_HELP_LINK} from "../help-links";
 import {linterWarning} from "../lint";
 import Rule from "../rule";
 import TreeTransformer from "../tree-transformer";
@@ -130,7 +131,7 @@ the previous heading was level ${previousHeading.level}`);
             ]);
         });
 
-        it("is undefined when the rule has none", () => {
+        it("is the default help link when the rule has none", () => {
             // Arrange
             const rule = Rule.makeRule({
                 name: "every-paragraph",
@@ -142,7 +143,7 @@ the previous heading was level ${previousHeading.level}`);
             const issues = lintMarkdown(rule, "A paragraph");
 
             // Assert
-            expect(issues[0].helpLink).toBeUndefined();
+            expect(issues[0].helpLink).toEqual(DEFAULT_HELP_LINK);
         });
 
         it("is added to issues from widget rules", () => {

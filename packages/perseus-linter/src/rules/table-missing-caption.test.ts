@@ -1,6 +1,6 @@
 import {expectPass, expectIssue} from "../__tests__/linter.testutils";
+import {TABLE_HELP_LINK} from "../help-links";
 
-import {TABLE_HELP_LINK} from "./table-help-link";
 import tableMissingCaptionRule, {
     MISSING_CAPTION_MESSAGE,
     EMPTY_CAPTION_MESSAGE,

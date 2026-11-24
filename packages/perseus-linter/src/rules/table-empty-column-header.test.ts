@@ -1,9 +1,9 @@
 import {expectIssue, expectPass} from "../__tests__/linter.testutils";
+import {TABLE_HELP_LINK} from "../help-links";
 
 import tableEmptyColumnHeaderRule, {
     emptyColumnHeaderMessage,
 } from "./table-empty-column-header";
-import {TABLE_HELP_LINK} from "./table-help-link";
 
 describe("table-empty-column-header", () => {
     it("warns when a middle column header is empty", () => {

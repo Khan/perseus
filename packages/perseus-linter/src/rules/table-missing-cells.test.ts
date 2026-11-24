@@ -1,6 +1,6 @@
 import {expectIssue, expectPass} from "../__tests__/linter.testutils";
+import {TABLE_HELP_LINK} from "../help-links";
 
-import {TABLE_HELP_LINK} from "./table-help-link";
 import tableMissingCellsRule from "./table-missing-cells";
 
 describe("table-missing-cells", () => {

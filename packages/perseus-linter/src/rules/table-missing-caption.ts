@@ -1,7 +1,6 @@
+import {TABLE_HELP_LINK} from "../help-links";
 import {linterGuideline} from "../lint";
 import Rule from "../rule";
-
-import {TABLE_HELP_LINK} from "./table-help-link";
 
 export const MISSING_CAPTION_MESSAGE = `Table is missing a caption:
 Screen reader users rely on a caption to understand what a table contains

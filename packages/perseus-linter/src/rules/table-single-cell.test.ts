@@ -1,7 +1,7 @@
 import {expectPass, expectIssue} from "../__tests__/linter.testutils";
+import {TABLE_HELP_LINK} from "../help-links";
 import Rule from "../rule";
 
-import {TABLE_HELP_LINK} from "./table-help-link";
 import tableSingleCellRule from "./table-single-cell";
 
 describe("table-single-cell", () => {

@@ -1,7 +1,6 @@
+import {TABLE_HELP_LINK} from "../help-links";
 import {linterWarning} from "../lint";
 import Rule from "../rule";
-
-import {TABLE_HELP_LINK} from "./table-help-link";
 
 export const SINGLE_CELL_MESSAGE = `This table has only one cell:
 Screen readers announce a table's structure (rows, columns and headers)

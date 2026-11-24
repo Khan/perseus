@@ -1,9 +1,8 @@
 import {isEmptyTableCell} from "@khanacademy/perseus-core";
 
+import {TABLE_HELP_LINK} from "../help-links";
 import {linterWarning} from "../lint";
 import Rule from "../rule";
-
-import {TABLE_HELP_LINK} from "./table-help-link";
 
 // A table cell is the array of inline nodes parsed from its text.
 type MarkdownTableCell = ReadonlyArray<{type: string; [key: string]: unknown}>;

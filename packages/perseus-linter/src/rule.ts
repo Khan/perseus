@@ -44,6 +44,7 @@
 
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 
+import {DEFAULT_HELP_LINK} from "./help-links";
 import {Severity} from "./lint";
 import Selector from "./selector";
 
@@ -101,7 +102,7 @@ export type LinterIssue = {
     target?: string;
     severity: number;
     metadata?: Record<string, any>;
-    helpLink?: LintHelpLink;
+    helpLink: LintHelpLink;
 };
 
 type LintRuleContextObject =
@@ -137,7 +138,7 @@ export default class Rule {
     selector: Selector; // The specified selector or the DEFAULT_SELECTOR
     pattern: RegExp | null | undefined; // A regular expression if one was specified
     lint: LintTester; // The lint-testing function or a default
-    helpLink: LintHelpLink | undefined; // Additional information for fixing this lint rule
+    helpLink: LintHelpLink; // Additional information for fixing this lint rule
     static DEFAULT_SELECTOR: Selector;
 
     // The comment at the top of this file has detailed docs for
@@ -161,7 +162,7 @@ export default class Rule {
         this.selector = selector || Rule.DEFAULT_SELECTOR;
         this.pattern = pattern || null;
         this.lint = lint;
-        this.helpLink = helpLink;
+        this.helpLink = helpLink ?? DEFAULT_HELP_LINK;
     }
 
     // A factory method for use with rules described in JSON files
@@ -300,6 +301,7 @@ Stack trace:
 ${e.stack}`,
                     start: 0,
                     end: content.length,
+                    helpLink: DEFAULT_HELP_LINK,
                 },
             ];
         }

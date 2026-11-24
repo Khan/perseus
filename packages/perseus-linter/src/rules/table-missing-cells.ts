@@ -1,7 +1,6 @@
+import {TABLE_HELP_LINK} from "../help-links";
 import {linterWarning} from "../lint";
 import Rule from "../rule";
-
-import {TABLE_HELP_LINK} from "./table-help-link";
 
 export default Rule.makeRule({
     name: "table-missing-cells",
