@@ -675,6 +675,19 @@ describe("simple markdown", function () {
             ]);
         });
 
+        it("reads the whole opening backtick run as the inline code fence", () => {
+            // Arrange, Act
+            // The opening run is two backticks, so a single backtick can't
+            // close it. Only the second backtick can open the code span.
+            const parsed = inlineParse("``a`");
+
+            // Assert
+            validateParse(parsed, [
+                {type: "text", content: "`"},
+                {type: "inlineCode", content: "a"},
+            ]);
+        });
+
         it("should parse * and _ inside `` as code", function () {
             var parsed = inlineParse("`const int * const * const p; // _hi_`");
             validateParse(parsed, [
@@ -877,6 +890,33 @@ describe("simple markdown", function () {
             ]);
         });
 
+        it.each([
+            ["[x](u(a)b)", "u(a)b"],
+            ["[x](u(a b))", "u(a b)"],
+            [
+                "[w](http://en.wikipedia.org/wiki/Foo_(bar))",
+                "http://en.wikipedia.org/wiki/Foo_(bar)",
+            ],
+        ])("parses %s as a link to %s", (source, target) => {
+            // Arrange, Act
+            const parsed = inlineParse(source);
+
+            // Assert
+            expect(parsed).toEqual([
+                expect.objectContaining({type: "link", target}),
+            ]);
+        });
+
+        it("does not parse a link url whose paren group contains a (", () => {
+            // Arrange, Act
+            const parsed = inlineParse("[x](u(a (b))");
+
+            // Assert
+            expect(parsed).not.toContainEqual(
+                expect.objectContaining({type: "link"}),
+            );
+        });
+
         it("should parse basic <autolinks>", function () {
             var parsed = inlineParse("<http://www.google.com>");
             validateParse(parsed, [
@@ -1014,6 +1054,37 @@ describe("simple markdown", function () {
                     ],
                     target: "MAILTO:TEST@EXAMPLE.COM",
                 },
+            ]);
+        });
+
+        it("parses a mailto address whose domain contains an @", () => {
+            // Arrange, Act
+            const parsed = inlineParse("<a@b@c>");
+
+            // Assert
+            expect(parsed).toEqual([
+                expect.objectContaining({type: "link", target: "mailto:a@b@c"}),
+            ]);
+        });
+
+        it("does not parse a mailto address with nothing before the @", () => {
+            // Arrange, Act
+            const parsed = inlineParse("<@@a>");
+
+            // Assert
+            expect(parsed).not.toContainEqual(
+                expect.objectContaining({type: "link"}),
+            );
+        });
+
+        it("starts a mailto link at the last < before the address", () => {
+            // Arrange, Act
+            const parsed = inlineParse("<a<b@c>");
+
+            // Assert
+            expect(parsed).toEqual([
+                {type: "text", content: "<a"},
+                expect.objectContaining({type: "link", target: "mailto:b@c"}),
             ]);
         });
 
@@ -1329,6 +1400,47 @@ describe("simple markdown", function () {
                     title: "nowhere",
                 },
             ]);
+        });
+
+        it.each(["constructor", "__proto__"])(
+            "parses a reflink whose label is the Object property %s",
+            (label) => {
+                // Arrange, Act
+                const parsed = implicitParse(
+                    `[a][${label}]\n\n[${label}]: http://example.com\n\n`,
+                );
+
+                // Assert
+                expect(parsed[0]).toMatchObject({
+                    type: "paragraph",
+                    content: [{type: "link", target: "http://example.com"}],
+                });
+            },
+        );
+
+        it.each(["constructor", "__proto__"])(
+            "parses a def labelled %s that comes after its reflink",
+            (label) => {
+                // Arrange, Act
+                const parsed = implicitParse(
+                    `[a][b]\n\n[${label}]: http://example.com\n\n`,
+                );
+
+                // Assert
+                expect(parsed[1]).toMatchObject({
+                    type: "def",
+                    def: label,
+                    target: "http://example.com",
+                });
+            },
+        );
+
+        it("parses an image reflink whose label is constructor", () => {
+            // Arrange, Act
+            const parsed = inlineParse("![a][constructor]");
+
+            // Assert
+            expect(parsed[0]).toMatchObject({type: "image"});
         });
 
         it("should parse [reflinks][] with implicit targets", function () {

@@ -794,7 +794,7 @@ var TABLES = (function () {
 
 var LINK_INSIDE = "(?:\\[[^\\]]*\\]|[^\\[\\]]|\\](?=[^\\[]*\\]))*";
 var LINK_HREF_AND_TITLE =
-    "\\s*<?((?:\\([^)]*\\)|[^\\s\\\\]|\\\\.)*?)>?(?:\\s+['\"]([\\s\\S]*?)['\"])?\\s*";
+    "\\s*<?((?:\\([^()]*\\)|[^\\s\\\\]|\\\\.)*?)>?(?:\\s+['\"]([\\s\\S]*?)['\"])?\\s*";
 var AUTOLINK_MAILTO_CHECK_R = /mailto:/i;
 
 var parseRef = function (
@@ -823,7 +823,7 @@ var parseRef = function (
     // we find the def, we can modify this link/image AST
     // node :).
     // I'm sorry.
-    state._refs = state._refs || {};
+    state._refs = state._refs || Object.create(null);
     state._refs[ref] = state._refs[ref] || [];
     state._refs[ref].push(refNode);
 
@@ -908,7 +908,7 @@ var defaultRules: DefaultRules = {
     },
     codeBlock: {
         order: currOrder++,
-        match: blockRegex(/^(?:    [^\n]+\n*)+(?:\n *)+\n/),
+        match: blockRegex(/^(?:    [^\n]+(?=\n)\n*)+(?:\n *)+\n/),
         parse: function (capture, parse, state) {
             var content = capture[0].replace(/^    /gm, "").replace(/\n+$/, "");
             return {
@@ -1109,7 +1109,7 @@ var defaultRules: DefaultRules = {
             // this def yet, we add our def to the table of known defs, so
             // that future reflinks can modify themselves appropriately with
             // this information.
-            state._defs = state._defs || {};
+            state._defs = state._defs || Object.create(null);
             state._defs[def] = {
                 target: target,
                 title: title,
@@ -1250,7 +1250,7 @@ var defaultRules: DefaultRules = {
     },
     mailto: {
         order: currOrder++,
-        match: inlineRegex(/^<([^ >]+@[^ >]+)>/),
+        match: inlineRegex(/^<([^ <>@]+@[^ <>]+)>/),
         parse: function (capture, parse, state) {
             var address = capture[1];
             var target = capture[1];
@@ -1468,7 +1468,7 @@ var defaultRules: DefaultRules = {
     },
     inlineCode: {
         order: currOrder++,
-        match: inlineRegex(/^(`+)([\s\S]*?[^`])\1(?!`)/),
+        match: inlineRegex(/^(?=(`+))\1([\s\S]*?[^`])\1(?!`)/),
         parse: function (capture, parse, state) {
             return {
                 content: capture[2].replace(
