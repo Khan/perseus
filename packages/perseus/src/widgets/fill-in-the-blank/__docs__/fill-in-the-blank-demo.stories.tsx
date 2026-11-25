@@ -1,4 +1,5 @@
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {mobileDecorator} from "../../__testutils__/story-decorators";
 import {
     multiUseFillInTheBlankQuestion,
     paragraphFillInTheBlankQuestion,
@@ -24,6 +25,15 @@ type Story = StoryObj<typeof QuestionRendererForStories>;
 export const Paragraph: Story = {
     args: {
         question: paragraphFillInTheBlankQuestion,
+    },
+};
+
+export const ParagraphMobile: Story = {
+    decorators: [mobileDecorator],
+    globals: {viewport: {value: "mobile2", isRotated: false}},
+    args: {
+        question: paragraphFillInTheBlankQuestion,
+        apiOptions: {isMobile: true},
     },
 };
 

@@ -1,0 +1,19 @@
+/* The hidden column of tile copies. Absolute positioning with no padding
+ * or border makes the column shrink to fit its widest tile, so its width
+ * is the measurement. */
+.column {
+    position: absolute;
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    /* `align-items` keeps each tile at its own width. */
+    align-items: flex-start;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    /* Hidden boxes still take up space, and a column of many tiles would run
+    past the widget and add scrollable space to the page. Zero height with
+    clipped overflow prevents that, and leaves the width unchanged. */
+    block-size: 0;
+    overflow: hidden;
+    pointer-events: none;
+}

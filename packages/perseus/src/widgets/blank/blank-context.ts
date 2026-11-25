@@ -3,6 +3,7 @@ import * as React from "react";
 type BlankContextValue = {
     /** The tile placed in a blank, or null when it is empty. */
     renderPlacedTile: (blankId: string) => React.ReactNode;
+    minWidth: number | undefined;
 };
 
 /**

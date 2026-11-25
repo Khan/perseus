@@ -17,7 +17,9 @@ const meta: Meta = {
     tags: ["!dev"],
     decorators: [
         (Story) => (
-            <BlankContext.Provider value={{renderPlacedTile: () => null}}>
+            <BlankContext.Provider
+                value={{renderPlacedTile: () => null, minWidth: undefined}}
+            >
                 <Story />
             </BlankContext.Provider>
         ),

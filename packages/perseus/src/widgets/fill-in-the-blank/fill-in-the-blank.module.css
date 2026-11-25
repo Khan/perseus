@@ -1,4 +1,6 @@
 .fillInTheBlank {
+    /* Contains the TileWidthMeasurer's absolutely positioned column. */
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: var(--wb-sizing-size_640);

@@ -5,7 +5,7 @@ import {
     generateFillInTheBlankWidget,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
-import {screen, within} from "@testing-library/react";
+import {act, screen, within} from "@testing-library/react";
 import {userEvent} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../__testutils__/render-question";
@@ -40,6 +40,47 @@ function generateDrumTiles(maxUses: number | "unlimited") {
     );
 }
 const drumTiles = generateDrumTiles(1);
+
+/**
+ * Replaces ResizeObserver so a test can report the tile measurer's width.
+ * jsdom has no layout, so it never fires ResizeObserver callbacks. Only
+ * observers watching the measurer's column (the widget's one inert
+ * element) are kept; dnd-kit's own observers stay inert.
+ *
+ * Returns a function that reports the column at the given width.
+ */
+function stubTileMeasurement(): (inlineSize: number) => void {
+    const columnCallbacks: Array<() => void> = [];
+    let reportedWidth = 0;
+
+    jest.spyOn(window, "ResizeObserver").mockImplementation((callback) => {
+        const observer: ResizeObserver = {
+            observe(target) {
+                if (!target.hasAttribute("inert")) {
+                    return;
+                }
+                columnCallbacks.push(() => {
+                    const entry = {
+                        borderBoxSize: [
+                            {inlineSize: reportedWidth, blockSize: 0},
+                        ],
+                    };
+                    // eslint-disable-next-line no-restricted-syntax -- The measurer reads only borderBoxSize; jsdom cannot build a real entry.
+                    const entries = [entry as unknown as ResizeObserverEntry];
+                    callback(entries, observer);
+                });
+            },
+            unobserve() {},
+            disconnect() {},
+        };
+        return observer;
+    });
+
+    return (inlineSize) => {
+        reportedWidth = inlineSize;
+        act(() => columnCallbacks.forEach((callback) => callback()));
+    };
+}
 
 /** Renders one FITB widget, optionally with blanks already filled. */
 function renderFillInTheBlank(
@@ -103,6 +144,24 @@ describe("Fill in the Blank Widget", () => {
 
         // Assert
         expect(screen.getAllByTestId("blank-widget")).toHaveLength(2);
+    });
+
+    it("sizes every empty blank to the widest tile's measured width", () => {
+        // Arrange
+        const reportTileWidth = stubTileMeasurement();
+        renderFillInTheBlank({...twoBlanks, tiles: drumTiles});
+
+        // Act
+        reportTileWidth(150);
+
+        // Assert
+        const blanks = screen.getAllByTestId("blank-widget");
+        expect(blanks).toHaveLength(2);
+        for (const blank of blanks) {
+            expect(
+                blank.style.getPropertyValue("--blank-min-inline-size"),
+            ).toBe("150px");
+        }
     });
 
     it("renders every unplaced tile in the choice bank", () => {

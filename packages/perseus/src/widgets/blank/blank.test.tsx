@@ -28,6 +28,7 @@ function renderQuestionWithContext(
     question: PerseusRenderer,
     context: React.ContextType<typeof BlankContext> = {
         renderPlacedTile: () => null,
+        minWidth: undefined,
     },
 ) {
     renderQuestion(question, {wrapper: blankContextWrapper(context)});
@@ -68,10 +69,37 @@ describe("Blank Widget", function () {
         // Arrange, Act
         renderQuestionWithContext(basicBlankQuestion, {
             renderPlacedTile: (blankId) => `tile in ${blankId}`,
+            minWidth: undefined,
         });
 
         // Assert
         expect(screen.getByText("tile in blank 1")).toBeInTheDocument();
+    });
+
+    it("uses the context's minWidth as the blank's minimum width", () => {
+        // Arrange, Act
+        renderQuestionWithContext(basicBlankQuestion, {
+            renderPlacedTile: () => null,
+            minWidth: 120,
+        });
+
+        // Assert
+        expect(screen.getByTestId("blank-widget").style.cssText).toContain(
+            "--blank-min-inline-size: 120px",
+        );
+    });
+
+    it("sets no minimum width when the context's minWidth is undefined", () => {
+        // Arrange, Act
+        renderQuestionWithContext(basicBlankQuestion, {
+            renderPlacedTile: () => null,
+            minWidth: undefined,
+        });
+
+        // Assert
+        expect(screen.getByTestId("blank-widget").style.cssText).not.toContain(
+            "--blank-min-inline-size",
+        );
     });
 
     it("throws when rendered without a BlankContext provider", () => {
