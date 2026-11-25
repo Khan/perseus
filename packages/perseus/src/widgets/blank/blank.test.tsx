@@ -77,6 +77,7 @@ describe("Blank Widget", function () {
     it("throws when rendered without a BlankContext provider", () => {
         // Arrange
         rs.spyOn(console, "error").mockImplementation(() => {});
+        rs.spyOn(process.stderr, "write").mockImplementation(() => false);
         const logErrorSpy = rs.spyOn(testDependencies.Log, "error");
 
         // Act

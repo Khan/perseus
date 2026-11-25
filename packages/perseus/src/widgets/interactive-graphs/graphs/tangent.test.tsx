@@ -248,6 +248,7 @@ describe("Tangent graph asymptotes", () => {
         // A degenerate line has no well-defined tangent, so rendering asserts
         // against it. Silence React's expected error logging for the throw.
         rs.spyOn(console, "error").mockImplementation(() => {});
+        rs.spyOn(process.stderr, "write").mockImplementation(() => false);
 
         // Arrange, Act, Assert
         expect(() =>

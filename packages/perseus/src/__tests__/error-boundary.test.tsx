@@ -11,6 +11,9 @@ const ProblematicComponent = () => {
 
 describe("error boundary", () => {
     beforeEach(() => {
+        // Stub stderr and console because React writes to them when it catches
+        // an error.
+        rs.spyOn(process.stderr, "write").mockImplementation(() => false);
         rs.spyOn(console, "error").mockImplementation(() => {});
         rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,

@@ -27,63 +27,66 @@ import {afterEach} from "@rstest/core";
  */
 
 export function failOnConsole() {
-    failOn("error");
-    failOn("warn");
-    failOn("info");
-    failOn("log");
-    failOn("debug");
+    failOn(console, "console", "error");
+    failOn(console, "console", "warn");
+    failOn(console, "console", "info");
+    failOn(console, "console", "log");
+    failOn(console, "console", "debug");
+    failOn(process.stderr, "process.stderr", "write");
+    failOn(process.stdout, "process.stdout", "write");
 }
 
-function failOn(consoleMethod: string) {
-    const consoleCallStacks: Array<string | undefined> = [];
-    let originalMethod: undefined | ((...data: unknown[]) => void);
+function failOn(receiver: any, receiverExpression: string, method: string) {
+    const callStacks: Array<string | undefined> = [];
+    let originalMethod: undefined | ((...data: unknown[]) => unknown);
 
     // We use *All instead of *Each to catch console logs that occur outside
     // any test case.
     beforeAll(() => {
-        stubConsole();
+        stubMethod();
     });
     afterAll(() => {
-        restoreConsole();
-        flushMessages();
+        restoreMethod();
+        throwIfAnyCallsWereRecorded();
     });
 
     // Throw errors after each test case, so the specific test case that logs
     // is marked as failing.
     afterEach(() => {
-        flushMessages();
+        throwIfAnyCallsWereRecorded();
     });
 
-    function stubConsole() {
-        originalMethod = console[consoleMethod];
-        console[consoleMethod] = (...args: unknown[]) => {
-            originalMethod?.(...args);
+    function stubMethod() {
+        originalMethod = receiver[method];
+        receiver[method] = (...args: unknown[]) => {
+            const ret = originalMethod?.apply(receiver, args);
             // The Error() function captures the stack trace at this point.
-            consoleCallStacks.push(Error().stack);
+            callStacks.push(Error().stack);
+            return ret;
         };
     }
 
-    function restoreConsole() {
-        console[consoleMethod] = originalMethod;
+    function restoreMethod() {
+        receiver[method] = originalMethod;
     }
 
-    function flushMessages() {
-        if (consoleCallStacks.length === 0) {
+    function throwIfAnyCallsWereRecorded() {
+        if (callStacks.length === 0) {
             return;
         }
 
-        const message = `${explanation(consoleMethod)}\n\n${gray(consoleCallStacks.join("\n"))}`;
-        consoleCallStacks.length = 0;
+        const message = `${explanation(receiverExpression, method)}\n\n${gray(callStacks.join("\n"))}`;
+        callStacks.length = 0;
         throw new Error(message);
     }
 }
 
-function explanation(consoleMethod: string): string {
+function explanation(receiverExpression: string, method: string): string {
     return (
-        `Expected test not to call ${bold(`console.${consoleMethod}()`)}.\n\n` +
-        `If the ${consoleMethod} is expected, test for it explicitly by mocking it out using ${bold(
-            "jest.spyOn",
-        )}(console, '${consoleMethod}').mockImplementation() and test that the warning occurs.`
+        `Expected test not to call ${bold(`${receiverExpression}.${method}()`)}.\n\n` +
+        `If the ${method} is expected, test for it explicitly by mocking it out using ${bold(
+            "rs.spyOn",
+        )}(${receiverExpression}, '${method}').mockImplementation(() => {}) and test that the warning occurs.`
     );
 }
 

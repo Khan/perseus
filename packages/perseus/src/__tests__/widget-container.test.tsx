@@ -336,6 +336,7 @@ describe("widget-container", () => {
             testDependencies,
         );
         rs.spyOn(console, "error").mockImplementation(() => {});
+        rs.spyOn(process.stderr, "write").mockImplementation(() => false);
 
         const onAnalyticsEventSpy = rs.fn();
         const depsV2: PerseusDependenciesV2 = {

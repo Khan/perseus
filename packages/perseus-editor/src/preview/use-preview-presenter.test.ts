@@ -146,6 +146,7 @@ describe("usePreviewPresenter", () => {
             rs.spyOn(window, "frameElement", "get").mockReturnValue(null);
             // React logs the thrown render error even though it is caught.
             rs.spyOn(console, "error").mockImplementation(() => {});
+            rs.spyOn(process.stderr, "write").mockImplementation(() => false);
 
             expect(() => {
                 renderHook(() => usePreviewPresenter());
