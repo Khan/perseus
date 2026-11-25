@@ -2363,3 +2363,7 @@ export type PerseusInputNumberAnswer = PerseusNumericInputAnswer;
 export type PerseusInputNumberWidgetOptions = PerseusNumericInputWidgetOptions;
 
 export type PerseusWidgetOptions = PerseusWidget["options"];
+
+// TEMPORARY: triggers the schema-change check to preview its PR comment.
+// Revert before merging.
+export type SchemaChangeCheckPreview = never;
