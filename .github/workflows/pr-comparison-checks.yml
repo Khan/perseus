@@ -94,7 +94,7 @@ jobs:
                       [See this list of post-mortems for more information.](https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/4504322159/Content+Platform+Breaks)
 
 
-                      **Keep old data parsing.** Because this PR changes
+                      **Keep old data parsing.** Although this PR changes
                       the schema, the parser must still accept old versions of
                       the data and migrate them to the new shape. Add a
                       parser regression test: put a new item that uses the
