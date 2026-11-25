@@ -13,12 +13,12 @@ import type {
 
 describe("PerseusLinter lint Rules class", () => {
     const markdown = `
-        ## This Heading is in Title Case
+## This Heading is in Title Case
 
-        This paragraph contains an unescaped $ sign.
+This paragraph contains an unescaped $ sign.
 
-        #### This heading skipped a level
-        `;
+#### This heading skipped a level
+`;
 
     const titleCaseMessage = `Title case in heading:
         Only capitalize the first word of headings.`;
