@@ -103,58 +103,6 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
         });
 
-        test(`Calls onChange when a locked ${figureType} is removed`, async () => {
-            // Arrange
-            const onChangeMock = rs.fn();
-            const confirmSpy = rs.spyOn(window, "confirm").mockImplementation(
-                // Confirm button clicked
-                () => true,
-            );
-
-            renderEditor({
-                onChange: onChangeMock,
-                lockedFigures: [getDefaultFigureForType(figureType)],
-            });
-
-            // Act
-            const deleteButton = screen.getByRole("button", {
-                name: `Delete locked ${figureType}`,
-            });
-            await userEvent.click(deleteButton);
-
-            // Assert
-            expect(confirmSpy).toHaveBeenCalled();
-            expect(onChangeMock).toHaveBeenCalledWith(
-                expect.objectContaining({
-                    lockedFigures: [],
-                }),
-            );
-        });
-
-        test("Does not call onChange when the delete is canceled", async () => {
-            // Arrange
-            const onChangeMock = rs.fn();
-            const confirmSpy = rs.spyOn(window, "confirm").mockImplementation(
-                // Cancel button clicked
-                () => false,
-            );
-
-            renderEditor({
-                onChange: onChangeMock,
-                lockedFigures: [getDefaultFigureForType(figureType)],
-            });
-
-            // Act
-            const deleteButton = screen.getByRole("button", {
-                name: `Delete locked ${figureType}`,
-            });
-            await userEvent.click(deleteButton);
-
-            // Assert
-            expect(confirmSpy).toHaveBeenCalled();
-            expect(onChangeMock).not.toHaveBeenCalled();
-        });
-
         test(`Shows settings accordion when a locked ${figureType} is passed in`, async () => {
             // Arrange
             renderEditor({
@@ -387,6 +335,64 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.click(moveButton[2]);
 
             // Assert
+            expect(onChangeMock).not.toHaveBeenCalled();
+        });
+    });
+
+    describe("deletion", () => {
+        // Arbitrary choice of figureType; deletion works the same for all
+        // locked figures.
+        const figureType = "point";
+
+        test(`Calls onChange when a locked ${figureType} is removed`, async () => {
+            // Arrange
+            const onChangeMock = rs.fn();
+            const confirmSpy = rs.spyOn(window, "confirm").mockImplementation(
+                // Confirm button clicked
+                () => true,
+            );
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [getDefaultFigureForType(figureType)],
+            });
+
+            // Act
+            const deleteButton = screen.getByRole("button", {
+                name: `Delete locked ${figureType}`,
+            });
+            await userEvent.click(deleteButton);
+
+            // Assert
+            expect(confirmSpy).toHaveBeenCalled();
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [],
+                }),
+            );
+        });
+
+        test("Does not call onChange when the delete is canceled", async () => {
+            // Arrange
+            const onChangeMock = rs.fn();
+            const confirmSpy = rs.spyOn(window, "confirm").mockImplementation(
+                // Cancel button clicked
+                () => false,
+            );
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [getDefaultFigureForType(figureType)],
+            });
+
+            // Act
+            const deleteButton = screen.getByRole("button", {
+                name: `Delete locked ${figureType}`,
+            });
+            await userEvent.click(deleteButton);
+
+            // Assert
+            expect(confirmSpy).toHaveBeenCalled();
             expect(onChangeMock).not.toHaveBeenCalled();
         });
     });
