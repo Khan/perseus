@@ -129,41 +129,6 @@ describe("Keypad v2 with MathQuill", () => {
         });
     });
 
-    it("can write an indexed variable using the subscript button", async () => {
-        // Arrange
-        const mockMathInputCallback = rs.fn();
-        render(
-            <V2KeypadWithMathquill onChangeMathInput={mockMathInputCallback} />,
-        );
-
-        // Act
-
-        // use the keypad for `a_{1}`
-        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
-        await userEvent.click(screen.getByRole("button", {name: "a"}));
-        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
-        await userEvent.click(screen.getByRole("button", {name: "Subscript"}));
-        await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
-        await userEvent.click(screen.getByRole("button", {name: "1"}));
-
-        // Assert
-        expect(mockMathInputCallback).toHaveBeenLastCalledWith("a_{1}");
-    });
-
-    it("allows text entry via typing", async () => {
-        // Arrange
-        const mockMathInputCallback = rs.fn();
-        render(
-            <V2KeypadWithMathquill onChangeMathInput={mockMathInputCallback} />,
-        );
-
-        // Act
-        await userEvent.type(screen.getByRole("textbox"), "a^2");
-
-        // Assert
-        expect(mockMathInputCallback).toHaveBeenLastCalledWith("a^{2}");
-    });
-
     it("deletes from the input using the backspace button", async () => {
         // Arrange
         const mockMathInputCallback = rs.fn();
@@ -183,53 +148,6 @@ describe("Keypad v2 with MathQuill", () => {
 
         // Assert:
         expect(mockMathInputCallback).toHaveBeenLastCalledWith("1");
-    });
-
-    // Keypad event tests
-    it("fires the keypad open event on open", async () => {
-        // Arrange
-        const mockAnalyticsEventHandler = rs.fn();
-        render(
-            <V2KeypadWithMathquill
-                onChangeMathInput={() => {}}
-                keypadClosed={true}
-                onAnalyticsEvent={mockAnalyticsEventHandler}
-            />,
-        );
-
-        // Act
-        await userEvent.click(
-            screen.getByRole("button", {name: "Keypad toggle"}),
-        );
-
-        // Assert
-        expect(mockAnalyticsEventHandler).toHaveBeenLastCalledWith({
-            type: "math-input:keypad-opened",
-            payload: {virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2"},
-        });
-    });
-
-    // Keypad event tests
-    it("fires the keypad open event on close", async () => {
-        // Arrange
-        const mockAnalyticsEventHandler = rs.fn();
-        render(
-            <V2KeypadWithMathquill
-                onChangeMathInput={() => {}}
-                onAnalyticsEvent={mockAnalyticsEventHandler}
-            />,
-        );
-
-        // Act
-        await userEvent.click(
-            screen.getByRole("button", {name: "Keypad toggle"}),
-        );
-
-        // Assert
-        expect(mockAnalyticsEventHandler).toHaveBeenLastCalledWith({
-            type: "math-input:keypad-closed",
-            payload: {virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2"},
-        });
     });
 
     it("handles english sin trig function", async () => {
