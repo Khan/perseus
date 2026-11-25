@@ -1,6 +1,8 @@
 import {SpeechRuleEngine} from "@khanacademy/mathjax-renderer";
 import {mathOnlyParser} from "@khanacademy/perseus";
 import {
+    getDefaultFigureForType,
+    type Coord,
     type LockedFigureColor,
     type LockedFigureFillType,
     type LockedFigureStrokeStyle,
@@ -95,4 +97,28 @@ export async function joinLabelsAsSpokenMath(
     const spokenLabels = await Promise.all(spokenLabelPromises);
 
     return ` ${spokenLabels.join(", ")}`;
+}
+
+/** The same labels in a new colour, for when their figure changes colour. */
+export function recolorLabels(
+    labels: ReadonlyArray<LockedLabelType>,
+    color: LockedFigureColor,
+): LockedLabelType[] {
+    return labels.map((label) => ({...label, color}));
+}
+
+/**
+ * A new label beside a figure's anchor point, stepping down for each label
+ * the figure already has so they do not overlap.
+ */
+export function newLabelNear(
+    anchor: Coord,
+    existing: ReadonlyArray<LockedLabelType>,
+    color: LockedFigureColor,
+): LockedLabelType {
+    return {
+        ...getDefaultFigureForType("label"),
+        coord: [anchor[0] + 0.5, anchor[1] - existing.length],
+        color,
+    };
 }

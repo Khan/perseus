@@ -24,6 +24,7 @@ import NumericInputEditor from "./widgets/numeric-input-editor";
 import OrdererEditor from "./widgets/orderer-editor";
 import PhetSimulationEditor from "./widgets/phet-simulation-editor";
 import PlotterEditor from "./widgets/plotter-editor";
+import PolarGraphEditor from "./widgets/polar-graph-editor";
 import PythonProgramEditor from "./widgets/python-program-editor";
 import RadioEditor from "./widgets/radio-editor";
 import SorterEditor from "./widgets/sorter-editor";
@@ -65,6 +66,7 @@ export const AllEditors: Record<string, unknown> = {
     orderer: OrdererEditor,
     "phet-simulation": PhetSimulationEditor,
     plotter: PlotterEditor,
+    "polar-graph": PolarGraphEditor,
     "python-program": PythonProgramEditor,
     radio: RadioEditor,
     sorter: SorterEditor,

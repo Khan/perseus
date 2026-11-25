@@ -38,6 +38,7 @@ type WidgetName =
     | "passage-ref-target" // Deprecated
     | "phet-simulation"
     | "plotter"
+    | "polar-graph"
     | "python-program"
     | "reaction-diagram"
     | "radio"
@@ -80,6 +81,7 @@ type WidgetEnum =
     | "PASSAGE_REF_TARGET"
     | "PHET_SIMULATION"
     | "PLOTTER"
+    | "POLAR_GRAPH"
     | "PYTHON_PROGRAM"
     | "REACTION_DIAGRAM"
     | "RADIO"
@@ -123,6 +125,7 @@ const widgetNameToEnum: Record<WidgetName, WidgetEnum> = {
     "passage-ref-target": "PASSAGE_REF_TARGET",
     "phet-simulation": "PHET_SIMULATION",
     plotter: "PLOTTER",
+    "polar-graph": "POLAR_GRAPH",
     "python-program": "PYTHON_PROGRAM",
     "reaction-diagram": "REACTION_DIAGRAM",
     radio: "RADIO",

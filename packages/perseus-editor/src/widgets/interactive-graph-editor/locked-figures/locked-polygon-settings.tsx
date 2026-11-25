@@ -28,6 +28,7 @@ import {TypedSingleSelect} from "../../../components/typed-single-select";
 
 import ColorSelect from "./color-select";
 import LineStrokeSelect, {
+    fillStyleOptions,
     fillableStrokeStyleOptions,
 } from "./line-stroke-select";
 import LineWeightSelect from "./line-weight-select";
@@ -38,6 +39,7 @@ import styles from "./locked-polygon-settings.module.css";
 import PolygonSwatch from "./polygon-swatch";
 import {
     generateLockedFigureAppearanceDescription,
+    recolorLabels,
     generateSpokenMathDetails,
     joinLabelsAsSpokenMath,
 } from "./util";
@@ -121,10 +123,7 @@ const LockedPolygonSettings = (props: Props) => {
         };
 
         // Update the color of the all labels to match the point
-        newProps.labels = labels.map((label) => ({
-            ...label,
-            color: newValue,
-        }));
+        newProps.labels = recolorLabels(labels, newValue);
 
         onChangeProps(newProps);
     }
@@ -227,12 +226,7 @@ const LockedPolygonSettings = (props: Props) => {
                         selectedValue={fillStyle}
                         disabled={editingDisabled}
                         onChange={(value) => onChangeProps({fillStyle: value})}
-                        options={{
-                            none: "none",
-                            white: "white",
-                            translucent: "translucent",
-                            solid: "solid",
-                        }}
+                        options={fillStyleOptions}
                     />
                 </BodyText>
             </View>

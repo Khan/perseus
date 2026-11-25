@@ -16,6 +16,7 @@ import type {getNumberLinePublicWidgetOptions} from "./number-line/number-line-u
 import type {getNumericInputPublicWidgetOptions} from "./numeric-input/numeric-input-util";
 import type {getOrdererPublicWidgetOptions} from "./orderer/orderer-util";
 import type {getPlotterPublicWidgetOptions} from "./plotter/plotter-util";
+import type {getPolarGraphPublicWidgetOptions} from "./polar-graph/polar-graph-util";
 import type {getRadioPublicWidgetOptions} from "./radio/radio-util";
 import type {getSorterPublicWidgetOptions} from "./sorter/sorter-util";
 import type {getTablePublicWidgetOptions} from "./table/table-util";
@@ -51,6 +52,7 @@ export type PublicWidgetOptionsFunction =
     | typeof getNumericInputPublicWidgetOptions
     | typeof getOrdererPublicWidgetOptions
     | typeof getPlotterPublicWidgetOptions
+    | typeof getPolarGraphPublicWidgetOptions
     | typeof getRadioPublicWidgetOptions
     | typeof getSorterPublicWidgetOptions
     | typeof getTablePublicWidgetOptions;
