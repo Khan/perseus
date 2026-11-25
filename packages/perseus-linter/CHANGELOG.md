@@ -1,5 +1,19 @@
 # @khanacademy/perseus-linter
 
+## 8.3.0
+
+### Minor Changes
+
+-   [#4562](https://github.com/Khan/perseus/pull/4562) [`dacdf56`](https://github.com/Khan/perseus/commit/dacdf564b46060ff15132f27fd88cf98a144e754) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Add a `table-empty-column-header` lint warning for markdown tables with an empty column header, skipping row header and layout tables. Move `tableHasRowHeaders` to perseus-core so the renderer and linter share it.
+
+-   [#4607](https://github.com/Khan/perseus/pull/4607) [`ced0334`](https://github.com/Khan/perseus/commit/ced03342e6cf0005355544b3f0a9dd22785394ec) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Add optional `helpLink` to lint rules so the editor's issues panel can link to rule-specific docs; table rules now link to the table notation guide
+
+### Patch Changes
+
+-   Updated dependencies [[`dacdf56`](https://github.com/Khan/perseus/commit/dacdf564b46060ff15132f27fd88cf98a144e754)]:
+    -   @khanacademy/perseus-core@42.6.0
+    -   @khanacademy/kmath@3.1.10
+
 ## 8.2.1
 
 ### Patch Changes

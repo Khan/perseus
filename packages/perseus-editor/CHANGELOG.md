@@ -1,5 +1,23 @@
 # @khanacademy/perseus-editor
 
+## 46.1.3
+
+### Patch Changes
+
+-   [#4600](https://github.com/Khan/perseus/pull/4600) [`4bb5bb1`](https://github.com/Khan/perseus/commit/4bb5bb124b4f89a40d0ea26d02a6232107664a51) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Delete `deprecatedChangeableChange` function.
+
+-   [#4606](https://github.com/Khan/perseus/pull/4606) [`6deead4`](https://github.com/Khan/perseus/commit/6deead465b1ec41fa176fcafee61cf18a8090c3d) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Remove the call to `excludeDenylistKeys()` in `WidgetEditorContainer`. It's no longer needed because widget editors don't emit any keys that need to be excluded.
+
+-   [#4607](https://github.com/Khan/perseus/pull/4607) [`ced0334`](https://github.com/Khan/perseus/commit/ced03342e6cf0005355544b3f0a9dd22785394ec) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Add optional `helpLink` to lint rules so the editor's issues panel can link to rule-specific docs; table rules now link to the table notation guide
+
+-   Updated dependencies [[`92bb751`](https://github.com/Khan/perseus/commit/92bb751aea60df42fe8e80212e2329b096d45996), [`dacdf56`](https://github.com/Khan/perseus/commit/dacdf564b46060ff15132f27fd88cf98a144e754), [`5cf4078`](https://github.com/Khan/perseus/commit/5cf407825804a813e4b7de7891e413f52db18a0d), [`3d8d5db`](https://github.com/Khan/perseus/commit/3d8d5db030bdeb6d69653abdfe7d0b43799d5f44), [`8124442`](https://github.com/Khan/perseus/commit/81244420bf691a26cc07bf833743c5448dc6b3d8), [`b148150`](https://github.com/Khan/perseus/commit/b148150a9838730faa306863ba9a3cbd0772af5f), [`ced0334`](https://github.com/Khan/perseus/commit/ced03342e6cf0005355544b3f0a9dd22785394ec), [`9484b91`](https://github.com/Khan/perseus/commit/9484b91f8062208e628e2f33d5b27a399ff0a338), [`350a342`](https://github.com/Khan/perseus/commit/350a342446efed9e81b7412a0b2083b9aeba6dfc)]:
+    -   @khanacademy/perseus@95.1.0
+    -   @khanacademy/perseus-linter@8.3.0
+    -   @khanacademy/perseus-core@42.6.0
+    -   @khanacademy/math-input@30.2.7
+    -   @khanacademy/keypad-context@6.0.17
+    -   @khanacademy/kmath@3.1.10
+
 ## 46.1.2
 
 ### Patch Changes

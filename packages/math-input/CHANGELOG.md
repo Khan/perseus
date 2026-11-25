@@ -1,5 +1,15 @@
 # @khanacademy/math-input
 
+## 30.2.7
+
+### Patch Changes
+
+-   [#4571](https://github.com/Khan/perseus/pull/4571) [`5cf4078`](https://github.com/Khan/perseus/commit/5cf407825804a813e4b7de7891e413f52db18a0d) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Skip speech rule setup when Vitest or Rstest runs the tests, as well as Jest
+
+-   Updated dependencies [[`dacdf56`](https://github.com/Khan/perseus/commit/dacdf564b46060ff15132f27fd88cf98a144e754)]:
+    -   @khanacademy/perseus-core@42.6.0
+    -   @khanacademy/keypad-context@6.0.17
+
 ## 30.2.6
 
 ### Patch Changes
