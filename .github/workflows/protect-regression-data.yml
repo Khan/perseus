@@ -25,10 +25,7 @@ concurrency:
 jobs:
     protect-regression-data:
         name: Protect frozen regression fixtures
-        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
-        strategy:
-            matrix:
-                os: [ubuntu-latest]
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && 'ubuntu-latest' || 'ephemeral-runner' }}
         steps:
             - name: Checking out latest commit
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
