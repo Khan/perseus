@@ -5,7 +5,11 @@ import {linterWarning} from "../lint";
 import Rule from "../rule";
 import TreeTransformer from "../tree-transformer";
 
-import type {MakeRuleOptions, LinterIssue} from "../rule";
+import type {
+    MakeRuleOptions,
+    LinterIssue,
+    LintRuleContextObject,
+} from "../rule";
 
 describe("PerseusLinter lint Rules class", () => {
     const markdown = `
@@ -69,16 +73,21 @@ the previous heading was level ${previousHeading.level}`);
         },
     ];
 
+    // TODO: Add a linter API that runs caller-provided rules on Perseus
+    // content (lintPerseusRenderer almost fits, but it uses the globally
+    // registered rules), and use it from both lintPerseusRenderer and these
+    // tests so the lint rule tests don't need to know about TreeTransformer
+    // or Markdown parsing.
     function extractIssues(
         descriptions: ReadonlyArray<MakeRuleOptions>,
         content: string,
     ): LinterIssue[] {
         const rules = descriptions.map((r) => Rule.makeRule(r));
-        const basicContext: any = {
+        const basicContext: LintRuleContextObject = {
             content,
             contentType: "exercise",
             stack: [],
-            widgets: {"radio 1": {type: "radio"}},
+            widgets: {},
         };
         const tt = new TreeTransformer(PureMarkdown.parse(content));
         const issues: LinterIssue[] = [];

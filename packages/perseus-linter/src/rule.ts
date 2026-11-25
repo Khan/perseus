@@ -50,7 +50,10 @@ import Selector from "./selector";
 
 import type {Lint} from "./lint";
 import type {TraversalState, TreeNode} from "./tree-transformer";
-import type {PerseusWidgetTypes} from "@khanacademy/perseus-core";
+import type {
+    PerseusWidgetsMap,
+    PerseusWidgetTypes,
+} from "@khanacademy/perseus-core";
 
 /**
  * A link to additional documentation or explanation for a lint rule.
@@ -105,12 +108,12 @@ export type LinterIssue = {
     helpLink: LintHelpLink;
 };
 
-type LintRuleContextObject =
+export type LintRuleContextObject =
     | {
           content: string;
           contentType: "article" | "exercise";
           stack: string[];
-          widgets: any[];
+          widgets: PerseusWidgetsMap;
       }
     | null
     | undefined;
