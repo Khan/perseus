@@ -1,0 +1,16 @@
+{
+    "name": "perseus",
+    "owner": {"name": "Khan Academy"},
+    "plugins": [
+        {
+            "name": "perseus-claude-plugin",
+            "description": "Write, check and preview Perseus items.",
+            "source": {
+                "source": "git-subdir",
+                "url": "https://github.com/Khan/perseus.git",
+                "path": "packages/perseus-claude-plugin",
+                "ref": "perseus-claude-plugin"
+            }
+        }
+    ]
+}
