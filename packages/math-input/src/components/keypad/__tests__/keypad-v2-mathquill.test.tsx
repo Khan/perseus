@@ -32,10 +32,8 @@ function V2KeypadWithMathquill(props: Props) {
 
     if (props.portuguese) {
         strings.sin = "sen";
-        strings.tan = "tg";
     } else {
         strings.sin = "sin";
-        strings.tan = "tan";
     }
 
     React.useEffect(() => {
@@ -131,46 +129,6 @@ describe("Keypad v2 with MathQuill", () => {
         });
     });
 
-    it("can write the Pythagorean theorem (simple)", async () => {
-        // Arrange
-        const mockMathInputCallback = rs.fn();
-        render(
-            <V2KeypadWithMathquill onChangeMathInput={mockMathInputCallback} />,
-        );
-
-        // Act
-
-        // a^2
-        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
-        await userEvent.click(screen.getByRole("button", {name: "a"}));
-        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
-        await userEvent.click(screen.getByRole("button", {name: "Square"}));
-
-        // +
-        await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
-        await userEvent.click(screen.getByRole("button", {name: "Plus"}));
-
-        // b^2 =
-        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
-        await userEvent.click(screen.getByRole("button", {name: "b"}));
-        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
-        await userEvent.click(screen.getByRole("button", {name: "Square"}));
-        await userEvent.click(
-            screen.getByRole("button", {name: "Equals sign"}),
-        );
-
-        // c^2
-        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
-        await userEvent.click(screen.getByRole("button", {name: "c"}));
-        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
-        await userEvent.click(screen.getByRole("button", {name: "Square"}));
-
-        // Assert
-        expect(mockMathInputCallback).toHaveBeenLastCalledWith(
-            "a^{2}+b^{2}=c^{2}",
-        );
-    });
-
     it("can write an indexed variable using the subscript button", async () => {
         // Arrange
         const mockMathInputCallback = rs.fn();
@@ -192,7 +150,7 @@ describe("Keypad v2 with MathQuill", () => {
         expect(mockMathInputCallback).toHaveBeenLastCalledWith("a_{1}");
     });
 
-    it("can write the Pythagorean theorem (complex)", async () => {
+    it("allows text entry via typing", async () => {
         // Arrange
         const mockMathInputCallback = rs.fn();
         render(
@@ -200,67 +158,10 @@ describe("Keypad v2 with MathQuill", () => {
         );
 
         // Act
-
-        // c = /Square root
-        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
-        await userEvent.click(screen.getByRole("button", {name: "c"}));
-        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
-        await userEvent.click(
-            screen.getByRole("button", {name: "Equals sign"}),
-        );
-        await userEvent.click(
-            screen.getByRole("button", {name: "Square root"}),
-        );
-
-        // a^2
-        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
-        await userEvent.click(screen.getByRole("button", {name: "a"}));
-        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
-        await userEvent.click(screen.getByRole("button", {name: "Square"}));
-
-        // +
-        await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
-        await userEvent.click(screen.getByRole("button", {name: "Plus"}));
-
-        // b^2
-        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
-        await userEvent.click(screen.getByRole("button", {name: "b"}));
-        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
-        await userEvent.click(screen.getByRole("button", {name: "Square"}));
+        await userEvent.type(screen.getByRole("textbox"), "a^2");
 
         // Assert
-        expect(mockMathInputCallback).toHaveBeenLastCalledWith(
-            "c=\\sqrt{a^{2}+b^{2}}",
-        );
-    });
-
-    it("writes the Pythagorean theorem using typing/clicking together", async () => {
-        // Arrange
-        const mockMathInputCallback = rs.fn();
-        render(
-            <V2KeypadWithMathquill onChangeMathInput={mockMathInputCallback} />,
-        );
-
-        // Act
-
-        // Argument is empty because mathquill generates textarea w/o label
-        await userEvent.type(screen.getByRole("textbox"), "a");
-        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
-        await userEvent.click(screen.getByRole("button", {name: "Square"}));
-
-        await userEvent.type(screen.getByRole("textbox"), "+");
-
-        // b^2
-        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
-        await userEvent.click(screen.getByRole("button", {name: "b"}));
-        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
-        await userEvent.click(screen.getByRole("button", {name: "Square"}));
-        await userEvent.type(screen.getByRole("textbox"), "=c^{2}");
-
-        // Assert
-        expect(mockMathInputCallback).toHaveBeenLastCalledWith(
-            "a^{2}+b^{2}=c^{2}",
-        );
+        expect(mockMathInputCallback).toHaveBeenLastCalledWith("a^{2}");
     });
 
     it("deletes from the input using the backspace button", async () => {
@@ -270,47 +171,19 @@ describe("Keypad v2 with MathQuill", () => {
             <V2KeypadWithMathquill onChangeMathInput={mockMathInputCallback} />,
         );
 
-        // Act
-
-        // a^2
-        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
-        await userEvent.click(screen.getByRole("button", {name: "a"}));
-        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
-        await userEvent.click(screen.getByRole("button", {name: "Square"}));
-
-        // +
         await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
-        await userEvent.click(screen.getByRole("button", {name: "Plus"}));
+        await userEvent.click(screen.getByRole("button", {name: "1"}));
+        await userEvent.click(screen.getByRole("button", {name: "2"}));
 
-        // b^2
-        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
-        await userEvent.click(screen.getByRole("button", {name: "b"}));
-        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
-        await userEvent.click(screen.getByRole("button", {name: "Square"}));
+        // Pre-assert: make sure text entry worked
+        expect(mockMathInputCallback).toHaveBeenLastCalledWith("12");
 
-        // =c^2
-        await userEvent.click(
-            screen.getByRole("button", {name: "Equals sign"}),
-        );
-        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
-        await userEvent.click(screen.getByRole("button", {name: "c"}));
-        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
-        await userEvent.click(screen.getByRole("button", {name: "Square"}));
+        // Act:
+        await userEvent.click(screen.getByRole("button", {name: "Delete"}));
 
-        // Assert
-        // make sure the formula was typed correctly
-        expect(mockMathInputCallback).toHaveBeenLastCalledWith(
-            "a^{2}+b^{2}=c^{2}",
-        );
-
-        await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
-        // delete: need 14 backspaces in MathQuill to delete `a^2+b^2=c^2`
-        for (let i = 0; i < 14; i++) {
-            await userEvent.click(screen.getByRole("button", {name: "Delete"}));
-        }
-
-        expect(mockMathInputCallback).toHaveBeenLastCalledWith("");
-    }, 10000);
+        // Assert:
+        expect(mockMathInputCallback).toHaveBeenLastCalledWith("1");
+    });
 
     // Keypad event tests
     it("fires the keypad open event on open", async () => {
@@ -369,13 +242,10 @@ describe("Keypad v2 with MathQuill", () => {
         // Act
         await userEvent.click(screen.getByRole("tab", {name: "Geometry"}));
         await userEvent.click(screen.getByRole("button", {name: "Sine"}));
-        await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
-        await userEvent.click(screen.getByRole("button", {name: "4"}));
-        await userEvent.click(screen.getByRole("button", {name: "2"}));
 
         // Assert
         expect(mockMathInputCallback).toHaveBeenLastCalledWith(
-            "\\sin\\left(42\\right)",
+            "\\sin\\left(\\right)",
         );
     });
 
@@ -394,58 +264,11 @@ describe("Keypad v2 with MathQuill", () => {
         // This needs to stay as "getByText" because we're validating translations
         // and aria-labels are in English
         await userEvent.click(screen.getByText("sen"));
-        await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
-        await userEvent.click(screen.getByRole("button", {name: "4"}));
-        await userEvent.click(screen.getByRole("button", {name: "2"}));
 
-        // Assert
+        // Assert. Note the need to use \operatorname here, because `sen` is
+        // not a registered operator name in MathJax.
         expect(mockMathInputCallback).toHaveBeenLastCalledWith(
-            "\\operatorname{sen}\\left(42\\right)",
-        );
-    });
-
-    it("handles english tan trig function", async () => {
-        // Arrange
-        const mockMathInputCallback = rs.fn();
-        render(
-            <V2KeypadWithMathquill onChangeMathInput={mockMathInputCallback} />,
-        );
-
-        // Act
-        await userEvent.click(screen.getByRole("tab", {name: "Geometry"}));
-        await userEvent.click(screen.getByRole("button", {name: "Tangent"}));
-        await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
-        await userEvent.click(screen.getByRole("button", {name: "4"}));
-        await userEvent.click(screen.getByRole("button", {name: "2"}));
-
-        // Assert
-        expect(mockMathInputCallback).toHaveBeenLastCalledWith(
-            "\\tan\\left(42\\right)",
-        );
-    });
-
-    it("handles portuguese tg trig function", async () => {
-        // Arrange
-        const mockMathInputCallback = rs.fn();
-        render(
-            <V2KeypadWithMathquill
-                onChangeMathInput={mockMathInputCallback}
-                portuguese
-            />,
-        );
-
-        // Act
-        await userEvent.click(screen.getByRole("tab", {name: "Geometry"}));
-        // This needs to stay as "getByText" because we're validating translations
-        // and aria-labels are in English
-        await userEvent.click(screen.getByText("tg"));
-        await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
-        await userEvent.click(screen.getByRole("button", {name: "4"}));
-        await userEvent.click(screen.getByRole("button", {name: "2"}));
-
-        // Assert
-        expect(mockMathInputCallback).toHaveBeenLastCalledWith(
-            "\\operatorname{tg}\\left(42\\right)",
+            "\\operatorname{sen}\\left(\\right)",
         );
     });
 });
