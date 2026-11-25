@@ -10,13 +10,13 @@ describe("GradedGroupSetEditor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
     it("adds a group when 'Add group' is clicked", async () => {
         // Arrange
-        const onChange = jest.fn();
+        const onChange = rs.fn();
         render(<GradedGroupSetEditor gradedGroups={[]} onChange={onChange} />);
 
         // Act

@@ -1,13 +1,6 @@
 import {rs} from "@rstest/core";
 import {screen} from "@testing-library/react";
 
-if (typeof jest === "undefined") {
-    /**
-     * This file is for test use only.
-     */
-    throw new Error("Invalid import - for use in tests only");
-}
-
 type WaitOptions = {
     /**
      * The time in milliseconds to wait on each wait.
@@ -41,7 +34,7 @@ const unverifiedWait = (delay: number, count: number) =>
 /**
  * Wait for the given delay as many times as indicated.
  *
- * This will throw if jest.useRealTimers() is not used.
+ * This will throw if rs.useRealTimers() is not used.
  */
 export const wait: (options?: WaitOptions) => Promise<void> = ({
     delay = 0,
@@ -49,7 +42,7 @@ export const wait: (options?: WaitOptions) => Promise<void> = ({
 } = {}) => {
     if (rs.isFakeTimers()) {
         throw new Error(
-            "Cannot use wait() with fake timers. Call jest.useRealTimers() in test case or in a beforeEach.",
+            "Cannot use wait() with fake timers. Call rs.useRealTimers() in test case or in a beforeEach.",
         );
     }
 

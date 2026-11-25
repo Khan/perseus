@@ -73,7 +73,7 @@ const questionGenerators: Record<
         }),
 };
 
-describe.each`
+describe.each<any>`
     type             | staticMode | expectedColor
     ${"Interactive"} | ${false}   | ${"var(--mafs-blue)"}
     ${"Static"}      | ${true}    | ${"var(--static-gray)"}
@@ -393,7 +393,7 @@ describe.each`
     // sinusoid - 2 points
     // polygon - 3 points + overall polygon
     // angle - 3 points
-    test.each`
+    test.each<any>`
         graphType         | expectedNumOfElements
         ${"point"}        | ${1}
         ${"segment"}      | ${3}

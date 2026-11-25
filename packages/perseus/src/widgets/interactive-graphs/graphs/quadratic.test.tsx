@@ -31,12 +31,12 @@ const overallGraphLabel = "A parabola on a 4-quadrant coordinate plane.";
 
 describe("Quadratic graph screen reader", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
-    test.each`
+    test.each<any>`
         case                                           | points                         | direction     | vertex             | xIntercepts        | yIntercept
         ${"default - up, y-axis vertex, 2 intercepts"} | ${[[-5, 5], [0, -5], [5, 5]]}  | ${"upward"}   | ${"on the Y-axis"} | ${[3.536, -3.536]} | ${-5}
         ${"up, origin vertex, 1 intercept"}            | ${[[-5, 5], [0, 0], [5, 5]]}   | ${"upward"}   | ${"at the origin"} | ${[0]}             | ${0}
@@ -254,7 +254,7 @@ describe("Quadratic graph screen reader", () => {
 // TODO(LEMS-3995, post-PR-7): route the curve SR-tree summaries through buildPointAriaLabel once new locale string keys land.
 describe("Quadratic graph pointLabels", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });

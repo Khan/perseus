@@ -4,7 +4,7 @@ import {defineConfig} from "@rstest/core";
 
 export default defineConfig({
     globals: true,
-    // Some test files run in node instead with an `@jest-environment node`
+    // Some test files run in node instead with an `@rstest-environment node`
     // docblock.
     testEnvironment: "jsdom",
     include: ["**/*.test.{js,jsx,ts,tsx}"],
@@ -17,10 +17,18 @@ export default defineConfig({
     ],
     restoreMocks: true,
     resetMocks: true,
+    // Restore environment variables set with `rs.stubEnv()` before each test.
+    unstubEnvs: true,
     // Enable Rsbuild's persistent build cache (in node_modules/.cache/rstest),
     // so a run reuses the previous run's build. CI doesn't restore the cache
     // between jobs, so there it would only be written and never reused.
     performance: {buildCache: !process.env.CI},
+    // Run each test file in a new VM context in a reused worker process,
+    // instead of in a new process. That skips most of the per-file setup, and
+    // roughly halves the suite's CPU time. A worker that has grown past 1GB is
+    // replaced after its file, so a worker that runs many files, as on a CI
+    // runner with few cores, stays under Node's heap limit.
+    pool: {type: "vmForks", memoryLimit: "1GB"},
     // Used only with `--coverage` (see utils/test-with-coverage.sh).
     coverage: {
         provider: "v8",
@@ -34,18 +42,6 @@ export default defineConfig({
         ],
         reporters: ["json"],
         reportsDirectory: "coverage/rstest",
-    },
-    resolve: {
-        alias: {
-            // Tests that import from `@jest/globals` get Rstest's test
-            // functions, and `rs` as `jest`. This is an adaptation JUST for
-            // migration and will be cleaned up at the end of this Rstest
-            // migration!
-            "@jest/globals$": path.join(
-                import.meta.dirname,
-                "config/test/rstest/jest-globals.ts",
-            ),
-        },
     },
     output: {
         // Bundle node_modules packages in node-environment tests too (jsdom

@@ -46,7 +46,7 @@ describe("defaulted()", () => {
 describe("defaultedNonEmptyString()", () => {
     const stringWithDefault = defaultedNonEmptyString(() => "default-id");
 
-    it.each`
+    it.each<any>`
         input        | expected        | description
         ${undefined} | ${"default-id"} | ${"undefined"}
         ${null}      | ${"default-id"} | ${"null"}

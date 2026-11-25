@@ -17,7 +17,7 @@ import {toIstanbulCoverage} from "./coverage";
 export const test = base.extend<{collectCoverage: void}>({
     // When coverage is enabled (see `pnpm coverage`), records the JavaScript
     // coverage of each test and writes it to COVERAGE_DIR for merging with
-    // Jest's.
+    // Rstest's.
     collectCoverage: [
         async ({page, browserName}, use, testInfo) => {
             // Coverage is a Chromium-only API.
@@ -45,7 +45,7 @@ export const test = base.extend<{collectCoverage: void}>({
 });
 
 /**
- * Playwright's `expect`, plus the score matchers our Jest tests use, such as
+ * Playwright's `expect`, plus the score matchers our Rstest tests use, such as
  * `expect(score).toHaveBeenAnsweredCorrectly()`.
  */
 export const expect = baseExpect.extend(scoreMatchers);

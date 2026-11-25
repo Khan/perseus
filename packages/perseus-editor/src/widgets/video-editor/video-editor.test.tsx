@@ -14,10 +14,10 @@ describe("VideoEditor", () => {
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -32,7 +32,7 @@ describe("VideoEditor", () => {
 
     it("should call onChange when KA video Slug is provided", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(<VideoEditor location="" onChange={onChangeMock} />);
 
         // Act
@@ -47,7 +47,7 @@ describe("VideoEditor", () => {
 
     it("should call onChange with the slug from the URL if a Khan Academy URL is provided (with prefix)", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(<VideoEditor location="" onChange={onChangeMock} />);
 
         // Act
@@ -69,7 +69,7 @@ describe("VideoEditor", () => {
 
     it("should call onChange with the slug from the URL if a Khan Academy URL is provided (without prefix)", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(<VideoEditor location="" onChange={onChangeMock} />);
 
         // Act
@@ -91,7 +91,7 @@ describe("VideoEditor", () => {
 
     it("should call onChange with the URL if a non-Khan Academy URL is provided", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(<VideoEditor location="" onChange={onChangeMock} />);
 
         // Act

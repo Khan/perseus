@@ -40,14 +40,14 @@ function renderLockedVector(vector: LockedVectorType) {
 
 describe("LockedVector", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
     it("logs no errors given coincident points", () => {
         // Arrange
-        const errorSpy = jest
+        const errorSpy = rs
             .spyOn(console, "error")
             .mockImplementation(() => {});
 

@@ -119,7 +119,7 @@ describe("UserInputManager", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
@@ -270,7 +270,7 @@ describe("UserInputManager", () => {
     });
 
     it("initializes static user input", async () => {
-        const renderSpy = jest.fn();
+        const renderSpy = rs.fn();
         const widgets: PerseusWidgetsMap = {
             "dropdown 1": {
                 type: "dropdown",
@@ -301,7 +301,7 @@ describe("UserInputManager", () => {
     });
 
     it("accepts an initial user input", async () => {
-        const renderSpy = jest.fn();
+        const renderSpy = rs.fn();
 
         const widgets: PerseusWidgetsMap = {
             "radio 1": generateRadioWidget({

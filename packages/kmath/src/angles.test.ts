@@ -8,7 +8,7 @@ import {
 import type {Coord} from "@khanacademy/perseus-core";
 
 describe("calculateAngleInDegrees", () => {
-    it.each`
+    it.each<any>`
         x     | y     | expected | note
         ${0}  | ${0}  | ${0}     | ${": zero vector has an angle of zero"}
         ${1}  | ${0}  | ${0}     | ${""}
@@ -24,7 +24,7 @@ describe("calculateAngleInDegrees", () => {
 });
 
 describe("convertDegreesToRadians", () => {
-    test.each`
+    test.each<any>`
         degrees | radians
         ${0}    | ${0}
         ${45}   | ${Math.PI / 4}
@@ -43,7 +43,7 @@ describe("convertDegreesToRadians", () => {
 });
 
 describe("convertRadiansToDegrees", () => {
-    test.each`
+    test.each<any>`
         radians          | degrees
         ${0}             | ${0}
         ${Math.PI / 4}   | ${45}

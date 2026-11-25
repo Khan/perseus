@@ -11,16 +11,27 @@ import "../crypto-polyfill";
 // eslint-disable-next-line import/no-unassigned-import -- adds a serializer
 import "../aphrodite-snapshot-serializer";
 import attachShims from "../attach-jsdom-window-shims";
+import {failOnConsole} from "../fail-on-console";
+
+import type {TestingLibraryMatchers} from "@testing-library/jest-dom/matchers";
 
 /**
  * Runs before each test file, after the test framework is set up and
  * before any tests run.
  */
 
-// Alias `rs` to `jest` to support tests during the Jest -> rstest migration.
-// Testing Library also checks for a `jest` global to decide whether to
-// advance fake timers while it waits.
-Object.assign(globalThis, {jest: rs});
+declare module "@rstest/core" {
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- adds the jest-dom matchers to Rstest's types
+    interface Assertion<T = any> extends TestingLibraryMatchers<any, T> {}
+}
+
+// Testing Library advances fake timers while it waits only when it finds a
+// `jest` global (`jestFakeTimersAreEnabled()` in @testing-library/dom), and
+// then calls `jest.advanceTimersByTime()`. Without one, its waits never see a
+// fake timer fire, and every user-event call times out.
+Object.assign(globalThis, {
+    jest: {advanceTimersByTime: rs.advanceTimersByTime.bind(rs)},
+});
 
 // Add `@testing-library/jest-dom`'s matchers to Rstest's `expect`.
 //
@@ -39,6 +50,8 @@ expect.extend(jestDomMatchers);
 StyleSheetTestUtils.suppressStyleInjection();
 
 attachShims(globalThis);
+
+failOnConsole();
 
 beforeEach(() => {
     rs.useFakeTimers();

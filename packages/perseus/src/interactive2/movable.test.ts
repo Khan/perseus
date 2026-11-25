@@ -82,7 +82,7 @@ describe("Movable", () => {
 
     it("calls the modify listener when constructed", () => {
         const dummyGraphie: any = {};
-        const modifySpy = jest.fn().mockName("modify");
+        const modifySpy = rs.fn().mockName("modify");
 
         const _0 = new Movable(dummyGraphie, {modify: modifySpy});
 
@@ -168,7 +168,7 @@ describe("Movable", () => {
                 [-10, 10],
             ],
         });
-        const onMoveStart = jest.fn();
+        const onMoveStart = rs.fn();
         const movable = new Movable(graphie, {onMoveStart});
 
         movable.grab([0, 0]);
@@ -185,7 +185,7 @@ describe("Movable", () => {
             ],
             scale: [10, 10],
         });
-        const onMove = jest.fn();
+        const onMove = rs.fn();
         const movable = new Movable(graphie, {onMove});
 
         movable.grab([0, 0]);
@@ -197,7 +197,7 @@ describe("Movable", () => {
 
     test("grab() fires onMoveEnd when mouse up", () => {
         const dummyGraphie: any = {};
-        const onMoveEnd = jest.fn();
+        const onMoveEnd = rs.fn();
         const movable = new Movable(dummyGraphie, {onMoveEnd});
 
         movable.grab([0, 0]);
@@ -209,7 +209,7 @@ describe("Movable", () => {
 
     test("grab() fires onClick if still hovering when mouse up", () => {
         const dummyGraphie: any = {};
-        const onClick = jest.fn();
+        const onClick = rs.fn();
         const movable = new Movable(dummyGraphie, {onClick});
 
         movable.grab([0, 0]);
@@ -221,7 +221,7 @@ describe("Movable", () => {
 
     test("draw() fires a draw event", () => {
         const dummyGraphie: any = {};
-        const drawSpy = jest.fn();
+        const drawSpy = rs.fn();
         const movable = new Movable(dummyGraphie, {draw: drawSpy});
 
         movable.draw();

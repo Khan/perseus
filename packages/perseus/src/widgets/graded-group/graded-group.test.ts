@@ -1,4 +1,3 @@
-import {describe, beforeEach, it} from "@jest/globals";
 import {
     generateDropdownOptions,
     generateDropdownWidget,
@@ -9,6 +8,7 @@ import {
     generateTestPerseusRenderer,
     type PerseusArticle,
 } from "@khanacademy/perseus-core";
+import {describe, beforeEach, it} from "@rstest/core";
 import {act, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -50,7 +50,7 @@ describe("graded-group", () => {
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
         // Suppress message from Link component: "Warning: A future version of
@@ -58,7 +58,7 @@ describe("graded-group", () => {
         // event handlers instead if you can. If you need to generate unsafe
         // HTML try using dangerouslySetInnerHTML instead. React was passed
         // "javascript:void(0)""
-        jest.spyOn(console, "error").mockImplementation(() => {});
+        rs.spyOn(console, "error").mockImplementation(() => {});
     });
 
     it.each([true, false])("should snapshot", (isMobile: boolean) => {
@@ -77,7 +77,7 @@ describe("graded-group", () => {
 
     it("should send analytics event when widget is rendered", () => {
         // Arrange
-        const onAnalyticsEventSpy = jest.fn();
+        const onAnalyticsEventSpy = rs.fn();
         const dependencies = {
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
         };
@@ -98,7 +98,7 @@ describe("graded-group", () => {
 
     it("renders the answer area extras for the group", () => {
         // Arrange
-        const renderExtras = jest.fn(() => "Calculator");
+        const renderExtras = rs.fn(() => "Calculator");
         const question = generateTestPerseusRenderer({
             content: "[[☃ graded-group 1]]",
             widgets: {
@@ -130,7 +130,7 @@ describe("graded-group", () => {
 
     it("does not render answer area extras when the group has no answer area", () => {
         // Arrange
-        const renderExtras = jest.fn(() => "Calculator");
+        const renderExtras = rs.fn(() => "Calculator");
 
         // Act
         renderQuestion(question1, {apiOptions: {renderExtras}});
@@ -345,7 +345,7 @@ describe("graded-group", () => {
 
         // Act
         await userEvent.click(screen.getByRole("button", {name: "Explain"}));
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         // Assert
         expect(
@@ -357,7 +357,7 @@ describe("graded-group", () => {
         // Arrange
         renderQuestion(question1);
         await userEvent.click(screen.getByRole("button", {name: "Explain"}));
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         // Act
         await userEvent.click(

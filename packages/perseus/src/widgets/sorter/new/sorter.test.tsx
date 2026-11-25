@@ -103,7 +103,7 @@ describe("new sorter widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
@@ -130,7 +130,7 @@ describe("new sorter widget", () => {
                     "x^2": "x squared",
                     "\\frac{1}{2}": "one half",
                 };
-                jest.spyOn(SpeechRuleEngine, "setup").mockResolvedValue({
+                rs.spyOn(SpeechRuleEngine, "setup").mockResolvedValue({
                     texToSpeech: (tex: string) => spokenTex[tex],
                 });
             });
@@ -196,7 +196,7 @@ describe("new sorter widget", () => {
 
         it("reports itself as rendered to analytics", () => {
             // Arrange
-            const onAnalyticsEvent = jest.fn();
+            const onAnalyticsEvent = rs.fn();
 
             // Act
             renderQuestion(generateSorterQuestion(["Apple", "Banana"]), {
@@ -414,7 +414,7 @@ describe("new sorter widget", () => {
 
         it("tracks an interaction when a card is moved", async () => {
             // Arrange
-            const trackInteraction = jest.fn();
+            const trackInteraction = rs.fn();
             renderQuestion(generateSorterQuestion(["Apple", "Banana"]), {
                 apiOptions: {...apiOptions, trackInteraction},
             });
@@ -765,7 +765,7 @@ describe("new sorter widget", () => {
 
         it("dispatches unsupported widget analytics event when above the card limit", () => {
             // Arrange
-            const onAnalyticsEventSpy = jest.fn();
+            const onAnalyticsEventSpy = rs.fn();
             const dependencies = {
                 analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
             };

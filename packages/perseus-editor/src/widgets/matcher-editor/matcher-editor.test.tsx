@@ -14,10 +14,10 @@ describe("matcher-editor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -31,7 +31,7 @@ describe("matcher-editor", () => {
     });
 
     it("is possible to change option: order of matched pairs matters", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(
             <MatcherEditor
@@ -52,7 +52,7 @@ describe("matcher-editor", () => {
     });
 
     it("should be possible to change padding", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(
             <MatcherEditor
@@ -92,7 +92,7 @@ describe("matcher-editor", () => {
 
     it("calls onChange with the updated cards when a left card is edited", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <MatcherEditor
                 onChange={onChangeMock}
@@ -116,7 +116,7 @@ describe("matcher-editor", () => {
 
     it("calls onChange with the updated cards when a right card is edited", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <MatcherEditor
                 onChange={onChangeMock}
@@ -142,7 +142,7 @@ describe("matcher-editor", () => {
 
     it("calls onChange with the updated labels when the first label is edited", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <MatcherEditor
                 onChange={onChangeMock}
@@ -165,7 +165,7 @@ describe("matcher-editor", () => {
 
     it("calls onChange with the updated labels when the second label is edited", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <MatcherEditor
                 onChange={onChangeMock}

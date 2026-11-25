@@ -89,7 +89,7 @@ describe("shouldShowLabel", () => {
     });
 });
 describe("countSignificantDecimals", () => {
-    test.each`
+    test.each<any>`
         tickStep   | expected
         ${0.3}     | ${1}
         ${0.03}    | ${2}
@@ -108,7 +108,7 @@ describe("countSignificantDecimals", () => {
 });
 
 describe("divideByAndShowPi", () => {
-    it.each`
+    it.each<any>`
         value           | expected
         ${Math.PI}      | ${"π"}
         ${-1 * Math.PI} | ${"-π"}

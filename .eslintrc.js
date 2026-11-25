@@ -257,7 +257,6 @@ module.exports = {
         },
     },
     env: {
-        "jest/globals": false,
         node: true,
         browser: true,
     },
@@ -273,6 +272,8 @@ module.exports = {
         // from types/utility.d.ts
         Empty: false,
         SpreadType: false,
+        // Rstest's `rs` global (`globals: true` in rstest.config.mts).
+        rs: false,
     },
     overrides: [
         ...noSelfPackageImports,

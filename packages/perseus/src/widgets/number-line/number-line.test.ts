@@ -79,7 +79,7 @@ describe("number-line widget", () => {
 
         it("mobile", () => {
             // Arrange
-            jest.useRealTimers();
+            rs.useRealTimers();
 
             const mobileApiOptions: APIOptions = {
                 isMobile: true,
@@ -201,7 +201,7 @@ describe("number-line widget", () => {
 
     it("should send analytics event when widget is rendered", () => {
         // Arrange
-        const onAnalyticsEventSpy = jest.fn();
+        const onAnalyticsEventSpy = rs.fn();
         const dependencies = {
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
         };
@@ -224,7 +224,7 @@ describe("number-line widget", () => {
         let userEvent: UserEvent;
         beforeEach(() => {
             userEvent = userEventLib.setup({
-                advanceTimers: jest.advanceTimersByTime,
+                advanceTimers: rs.advanceTimersByTime,
             });
         });
 
@@ -350,7 +350,7 @@ describe("number-line widget", () => {
             // every render.
 
             // Arrange
-            const logError = jest
+            const logError = rs
                 .spyOn(Log, "error")
                 .mockImplementation(() => {});
             renderQuestion(tickCtrl);

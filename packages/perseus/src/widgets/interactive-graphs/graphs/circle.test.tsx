@@ -14,6 +14,7 @@ import * as UseDraggableModule from "./use-draggable";
 
 import type {GraphConfig} from "../reducer/use-graph-config";
 import type {InteractiveGraphState} from "../types";
+import type {MockInstance} from "@rstest/core";
 import type {UserEvent} from "@testing-library/user-event";
 import type {vec} from "mafs";
 
@@ -53,18 +54,18 @@ const baseGraphConfigContext: GraphConfig = {
 };
 
 describe("Circle graph", () => {
-    let useGraphConfigMock: jest.SpyInstance;
-    let useDraggableMock: jest.SpyInstance;
+    let useGraphConfigMock: MockInstance;
+    let useDraggableMock: MockInstance;
     let userEvent: UserEvent;
     beforeEach(() => {
-        useGraphConfigMock = jest.spyOn(ReducerGraphConfig, "default");
-        useDraggableMock = jest
+        useGraphConfigMock = rs.spyOn(ReducerGraphConfig, "default");
+        useDraggableMock = rs
             .spyOn(UseDraggableModule, "useDraggable")
             .mockReturnValue({dragging: false});
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -187,7 +188,7 @@ describe("Circle graph", () => {
 
 describe("Circle graph screen reader", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -258,7 +259,7 @@ describe("Circle graph screen reader", () => {
         );
     });
 
-    test.each`
+    test.each<any>`
         side       | point
         ${"Right"} | ${[2, 0]}
         ${"Left"}  | ${[-2, 0]}
@@ -298,7 +299,7 @@ describe("Circle graph screen reader", () => {
 // TODO(LEMS-3995, post-PR-7): route the circle SR-tree summary through buildPointAriaLabel once new locale string keys land.
 describe("Circle graph pointLabels", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });

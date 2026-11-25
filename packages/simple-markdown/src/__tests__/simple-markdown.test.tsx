@@ -4567,7 +4567,7 @@ describe("simple markdown", function () {
 
     describe("custom rules", () => {
         it("should throw if `parse` returns invalid result", () => {
-            const parse = jest
+            const parse = rs
                 .fn()
                 // TypeScript correctly catches that the `parse` function returns and
                 // incorrect type, but I want to keep this test here for now

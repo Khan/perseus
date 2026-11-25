@@ -8,16 +8,16 @@ description: >
   to `@internal/playwright` (config/playwright), or when a Playwright test or
   the "Playwright" CI job fails. Also trigger when the user mentions
   Playwright, `pnpm pw`, browser tests, component tests, the story gallery,
-  or "this needs a real browser". Do NOT trigger for Jest tests
+  or "this needs a real browser". Do NOT trigger for Rstest tests
   (`*.test.ts(x)`) or Storybook stories (`*.stories.tsx`).
 ---
 
 # Playwright component tests
 
-A few Perseus tests run in a real browser with Playwright, for what Jest and
+A few Perseus tests run in a real browser with Playwright, for what Rstest and
 React Testing Library can't check: applied CSS, layout, focus and tab order,
 and real mouse, touch and keyboard input (drag-and-drop, say). They're slower
-and costlier than Jest tests, so **default to a Jest test** and write a
+and costlier than Rstest tests, so **default to an Rstest test** and write a
 Playwright test only when the behaviour needs a real browser.
 
 ## How the pieces fit
@@ -39,7 +39,7 @@ Playwright test only when the behaviour needs a real browser.
   gallery and the fixtures. Specs import `test` and `expect` from it, never
   from `@playwright/test` directly (ESLint enforces this), so that its
   fixtures, such as coverage collection, apply to every spec. Its `expect`
-  also has the score matchers our Jest tests use, such as
+  also has the score matchers our Rstest tests use, such as
   `toHaveBeenAnsweredCorrectly()`.
 
 ## Writing a spec for a Perseus question
@@ -146,7 +146,7 @@ free. To iterate on a story or component with live reloading, run
 `pnpm pw:gallery` (Vite's dev server) in another terminal; `pnpm pw` reuses
 it. Each mount is slower that way.
 
-`pnpm coverage` runs Jest, then Playwright with coverage on, and merges the
+`pnpm coverage` runs Rstest, then Playwright with coverage on, and merges the
 two into `coverage/final`. Coverage needs the built gallery, so stop
 `pnpm pw:gallery` first.
 

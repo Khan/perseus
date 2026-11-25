@@ -1,12 +1,12 @@
 /**
  * Disclaimer: Definitely not thorough enough
  */
-import {beforeEach, describe, it} from "@jest/globals";
 import {
     generateInputNumberAnswer,
     generateInputNumberOptions,
 } from "@khanacademy/perseus-core";
 import {scoreQuestion} from "@khanacademy/perseus-score";
+import {beforeEach, describe, it} from "@rstest/core";
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -26,7 +26,7 @@ describe("input-number", function () {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
@@ -88,7 +88,7 @@ describe("input-number", function () {
         it("should send analytics event on render", async () => {
             // Arrange
 
-            const onAnalyticsEventSpy = jest.fn();
+            const onAnalyticsEventSpy = rs.fn();
             const dependencies = {
                 analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
             };
@@ -315,7 +315,7 @@ describe("input-number", () => {
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
@@ -603,7 +603,7 @@ describe.each([
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 

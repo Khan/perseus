@@ -14,10 +14,10 @@ describe("explanation-editor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -36,7 +36,7 @@ describe("explanation-editor", () => {
     });
 
     it("should be possible to change prompt to show explanation", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(
             <ExplanationEditor
@@ -56,7 +56,7 @@ describe("explanation-editor", () => {
     });
 
     it("should be possible to change prompt to hide explanation", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(
             <ExplanationEditor
