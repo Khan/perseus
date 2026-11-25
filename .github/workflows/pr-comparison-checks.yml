@@ -93,6 +93,17 @@ jobs:
                       on how to release.
                       [See this list of post-mortems for more information.](https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/4504322159/Content+Platform+Breaks)
 
+
+                      **Keep old data parsing.** If this PR changes the
+                      schema, the parser must still accept old versions of
+                      the data and migrate them to the new shape. Add a
+                      parser regression test: put a new item that uses the
+                      old shape in `regression-tests/item-data/`, then
+                      confirm it parses and its snapshot shows the migrated
+                      shape. Add new fixtures only; never edit existing
+                      ones.
+                      [How to write a regression test.](https://github.com/Khan/perseus/tree/main/packages/perseus-core/src/parse-perseus-json#regression-testing-against-old-data)
+
     check_item_splitting:
         name: "Item Splitting"
         # Scope concurrency to this job (not the whole workflow) so toggling
