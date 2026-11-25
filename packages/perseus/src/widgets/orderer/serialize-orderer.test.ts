@@ -80,7 +80,7 @@ describe("Orderer serialization", () => {
         expect(state).toEqual({
             question: {
                 "orderer 1": {
-                    alignment: "default",
+                    alignment: "block",
                     static: false,
                     // ???
                     otherOptions: [],

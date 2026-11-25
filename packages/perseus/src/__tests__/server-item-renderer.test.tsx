@@ -640,7 +640,7 @@ describe("server item renderer", () => {
                 hints: [{}, {}, {}],
                 question: {
                     "mock-widget 1": {
-                        alignment: "default",
+                        alignment: "block",
                         currentValue: "-42",
                         static: false,
                         value: "3",

@@ -25,7 +25,7 @@ const textQuestion: PerseusRenderer = {
     widgets: {
         "label-image 1": {
             type: "label-image",
-            alignment: "default",
+            alignment: "block",
             static: false,
             graded: true,
             options: {

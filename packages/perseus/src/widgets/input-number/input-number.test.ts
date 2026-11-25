@@ -128,7 +128,7 @@ describe("input-number", function () {
                         },
                         type: "input-number",
                         graded: true,
-                        alignment: "default",
+                        alignment: "inline-block",
                         options: {
                             size: "normal",
                             coefficient: false,
@@ -172,7 +172,7 @@ describe("input-number", function () {
                         type: "input-number",
                         version: {major: 1, minor: 0},
                         graded: true,
-                        alignment: "default",
+                        alignment: "inline-block",
                         options: {
                             size: "normal",
                             coefficient: false,

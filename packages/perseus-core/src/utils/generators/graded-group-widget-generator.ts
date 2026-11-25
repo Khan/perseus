@@ -22,7 +22,7 @@ export function generateGradedGroupWidget(
         graded: false,
         version: {major: 0, minor: 0},
         static: false,
-        alignment: "default",
+        alignment: "block",
         options: generateGradedGroupOptions(),
         ...gradedGroupWidgetProperties,
     };

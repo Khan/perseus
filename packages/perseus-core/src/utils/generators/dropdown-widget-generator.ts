@@ -22,7 +22,7 @@ export function generateDropdownWidget(
         graded: true,
         version: {major: 0, minor: 0},
         static: false,
-        alignment: "default",
+        alignment: "inline-block",
         options: generateDropdownOptions(),
         ...dropdownWidgetProperties,
     };

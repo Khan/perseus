@@ -652,7 +652,7 @@ describe("injectWidgets", () => {
         const widgets: PerseusWidgetsMap = {
             "categorizer 1": {
                 type: "categorizer",
-                alignment: "default",
+                alignment: "block",
                 static: true,
                 graded: true,
                 options: {

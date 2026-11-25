@@ -1,3 +1,5 @@
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
+
 import {Errors} from "../error/errors";
 import {PerseusError} from "../error/perseus-error";
 import Registry from "../utils/registry";
@@ -37,12 +39,13 @@ import videoWidgetLogic from "./video";
 
 import type {
     PublicWidgetOptionsFunction,
+    SupportedAlignments,
     WidgetLogic,
 } from "./logic-export.types";
 import type {
-    PerseusWidgetOptions,
-    PerseusWidget,
     Alignment,
+    PerseusWidget,
+    PerseusWidgetOptions,
 } from "../data-schema";
 
 const widgets = new Registry<WidgetLogic<any, any>>("Core widget registry");
@@ -126,15 +129,9 @@ export const traverseChildWidgets = (
  * Supported alignments are given as an array of strings in the exports of
  * a widget's module.
  */
-export const getSupportedAlignments = (
-    type: string,
-): ReadonlyArray<Alignment> => {
+export const getSupportedAlignments = (type: string): SupportedAlignments => {
     const widgetLogic = widgets.get(type);
-    if (!widgetLogic?.supportedAlignments?.[0]) {
-        // default alignments
-        return ["default"];
-    }
-    return widgetLogic?.supportedAlignments;
+    return widgetLogic?.supportedAlignments ?? ["block"];
 };
 
 /**
@@ -147,11 +144,7 @@ export const getSupportedAlignments = (
  * the exports of a widget's module.
  */
 export const getDefaultAlignment = (type: string): Alignment => {
-    const widgetLogic = widgets.get(type);
-    if (!widgetLogic?.defaultAlignment) {
-        return "block";
-    }
-    return widgetLogic.defaultAlignment;
+    return widgets.get(type)?.supportedAlignments?.[0] ?? "block";
 };
 
 /**
@@ -162,7 +155,7 @@ export const isInlineWidget = (
     type: string,
     alignment?: Alignment,
 ): boolean => {
-    if (alignment == null || alignment === "default") {
+    if (alignment == null) {
         alignment = getDefaultAlignment(type);
     }
     return alignment.startsWith("inline");
@@ -172,10 +165,7 @@ export const isInlineWidget = (
  * Returns the CSS class name corresponding to the specified widget alignment.
  * Uses explicit mapping to make it easy to locate related CSS style definitions.
  */
-export const getAlignmentClassName = (
-    type: string,
-    alignment: Alignment,
-): string => {
+export function getAlignmentClassName(alignment: Alignment): string {
     switch (alignment) {
         case "block":
             return " widget-block";
@@ -189,14 +179,10 @@ export const getAlignmentClassName = (
             return " widget-wrap-right";
         case "full-width":
             return " widget-full-width";
-        case "default":
-            // This is for widgets that don't have supportedAlignments
-            // It doesn't have any impact on styling it is used for error handling
-            return getDefaultAlignment(type);
         default:
-            return "";
+            throw new UnreachableCaseError(alignment, "Invalid alignment");
     }
-};
+}
 
 /**
  * We use a function here rather than registering widgets

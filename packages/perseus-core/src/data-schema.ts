@@ -299,18 +299,7 @@ export type PerseusImageDetail = {
     height: number;
 };
 
-// TODO(benchristel): as of 2026, only some of these alignments appear in our
-//  content corpus. Counts (for all locales):
-//     5955449  "block"
-//     20442080 "default"
-//     12622    "full-width"
-//     52       "wrap-left"
-//     35       "wrap-right"
-//  It seems possible that "wrap-left" and "wrap-right" are vestigial. "inline"
-//  and "inline-block" are definitely unused. Consider removing them from this
-//  type.
 export type Alignment =
-    | "default"
     | "block"
     | "inline-block"
     | "inline"
@@ -407,7 +396,7 @@ export type WidgetOptions<
      */
     graded?: boolean;
     /**
-     * The HTML alignment of the widget. "default" or "block".
+     * The HTML alignment of the widget.
      *
      * If the alignment is "default", it gets the default alignment from the
      * widget logic, which can be various other alignments (e.g.

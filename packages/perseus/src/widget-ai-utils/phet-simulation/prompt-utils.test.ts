@@ -21,7 +21,7 @@ const question1: PerseusRenderer = {
                 url: "https://phet.colorado.edu/sims/html/projectile-data-lab/latest/projectile-data-lab_all.html",
                 description: "Projectile Data Lab",
             },
-            alignment: "default",
+            alignment: "block",
         },
     },
 };

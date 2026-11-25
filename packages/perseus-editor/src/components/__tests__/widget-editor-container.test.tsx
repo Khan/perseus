@@ -96,7 +96,7 @@ describe("WidgetEditor", () => {
             rs.spyOn(
                 CoreWidgetRegistry,
                 "getSupportedAlignments",
-            ).mockReturnValue(["default"]);
+            ).mockReturnValue(["block"]);
 
             render(
                 <WidgetEditorContainer

@@ -31,7 +31,7 @@ export const question: PerseusRenderer = {
                 correctX: -2.5,
                 isTickCtrl: false,
             },
-            alignment: "default",
+            alignment: "block",
         },
     },
 };

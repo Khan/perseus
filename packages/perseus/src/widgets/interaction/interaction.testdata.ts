@@ -6,7 +6,7 @@ export const question1: PerseusRenderer = {
     images: {},
     widgets: {
         "interaction 1": {
-            alignment: "default",
+            alignment: "block",
             graded: true,
             options: {
                 elements: [

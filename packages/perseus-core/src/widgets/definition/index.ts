@@ -9,7 +9,7 @@ const defaultWidgetOptions: PerseusDefinitionWidgetOptions = {
 const definitionWidgetLogic: WidgetLogic<PerseusDefinitionWidgetOptions> = {
     name: "definition",
     defaultWidgetOptions,
-    defaultAlignment: "inline",
+    supportedAlignments: ["inline"],
     accessible: true,
 };
 

@@ -62,7 +62,7 @@ describe("generateFreeResponseWidget", () => {
         expect(widget.graded).toBe(true);
         expect(widget.static).toBe(false);
         expect(widget.version).toEqual({major: 0, minor: 0});
-        expect(widget.alignment).toBe("default");
+        expect(widget.alignment).toBe("block");
         expect(widget.options).toEqual({
             allowUnlimitedCharacters: false,
             characterLimit: 500,

@@ -20,7 +20,7 @@ export const question1: PerseusRenderer = {
                 ],
                 matrixBoardSize: [3, 4],
             },
-            alignment: "default",
+            alignment: "block",
         },
     },
 };

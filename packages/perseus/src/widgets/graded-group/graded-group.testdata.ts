@@ -21,7 +21,7 @@ export const question1: PerseusRenderer = {
                 widgets: {
                     "categorizer 1": {
                         type: "categorizer",
-                        alignment: "default",
+                        alignment: "block",
                         static: false,
                         graded: true,
                         options: {
@@ -45,7 +45,7 @@ export const question1: PerseusRenderer = {
                     widgets: {
                         "categorizer 1": {
                             type: "categorizer",
-                            alignment: "default",
+                            alignment: "block",
                             static: true,
                             graded: true,
                             options: {

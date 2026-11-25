@@ -31,7 +31,6 @@ const imageWidgetLogic: WidgetLogic<PerseusImageWidgetOptions> = {
     // This will allow text to wrap around the widget and not have large space
     // on either side.
     supportedAlignments: ["block", "wrap-left", "wrap-right", "full-width"],
-    defaultAlignment: "block",
     // This widget's accessibility depends on its widget option: if the image
     // has a background but no alt text, it is not accessible
     accessible: (widgetOptions: PerseusImageWidgetOptions): boolean => {

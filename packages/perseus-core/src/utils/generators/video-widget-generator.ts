@@ -8,7 +8,7 @@ export function generateVideoWidget(
         graded: true,
         version: {major: 0, minor: 0},
         static: false,
-        alignment: "default",
+        alignment: "block",
         // video widget only has one option: location
         options: {location: ""}, // default options
         ...videoWidgetProperties,

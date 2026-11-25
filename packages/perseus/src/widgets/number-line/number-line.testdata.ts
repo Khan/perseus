@@ -25,7 +25,7 @@ export const question1: PerseusRenderer = {
                 correctX: -2.5,
                 isTickCtrl: false,
             },
-            alignment: "default",
+            alignment: "block",
         },
     },
 };
@@ -36,7 +36,7 @@ export const tickCtrl: PerseusRenderer = {
     widgets: {
         "number-line 1": {
             type: "number-line",
-            alignment: "default",
+            alignment: "block",
             static: false,
             graded: true,
             options: {

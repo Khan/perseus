@@ -32,7 +32,7 @@ const question: PerseusRenderer = {
                 ],
                 matrixBoardSize: [3, 4],
             },
-            alignment: "default",
+            alignment: "block",
         },
     },
 };

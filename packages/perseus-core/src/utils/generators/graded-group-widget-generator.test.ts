@@ -76,7 +76,7 @@ describe("generateGradedGroupWidget", () => {
             graded: false,
             version: {major: 0, minor: 0},
             static: false,
-            alignment: "default",
+            alignment: "block",
             options: {
                 title: "",
                 content: "",

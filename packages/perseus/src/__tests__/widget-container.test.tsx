@@ -199,7 +199,7 @@ describe("widget-container", () => {
         it("resolves a 'default' alignment through the registry", () => {
             // Arrange, Act
             const containerElement = renderContainer("explanation", {
-                alignment: "default",
+                alignment: "inline",
                 options: {
                     showPrompt: "Explanation",
                     hidePrompt: "Hide explanation",

@@ -246,7 +246,7 @@ describe("renderer", () => {
 
             // Assert
             expect(renderer.state.widgetInfo["dropdown 1"]?.alignment).toBe(
-                "default",
+                "inline-block",
             );
         });
 

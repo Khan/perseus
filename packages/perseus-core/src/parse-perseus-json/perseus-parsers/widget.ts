@@ -13,17 +13,15 @@ import type {Parser} from "../parser-types";
 
 function toValidAlignment(alignment: string | undefined) {
     switch (alignment) {
-        case "default":
         case "block":
         case "inline-block":
         case "inline":
         case "wrap-left":
         case "wrap-right":
         case "full-width":
-        case undefined:
             return alignment;
         default:
-            return "default";
+            return undefined;
     }
 }
 

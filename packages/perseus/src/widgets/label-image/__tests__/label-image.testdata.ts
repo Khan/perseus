@@ -15,7 +15,7 @@ export const textQuestion: PerseusRenderer = {
     widgets: {
         "label-image 1": {
             type: "label-image",
-            alignment: "default",
+            alignment: "block",
             static: false,
             graded: true,
             options: {
@@ -76,7 +76,7 @@ export const shortTextQuestion: PerseusRenderer = {
     widgets: {
         "label-image 1": {
             type: "label-image",
-            alignment: "default",
+            alignment: "block",
             static: false,
             graded: true,
             options: {
@@ -119,7 +119,7 @@ export const mathQuestion: PerseusRenderer = {
     widgets: {
         "label-image 1": {
             type: "label-image",
-            alignment: "default",
+            alignment: "block",
             static: false,
             graded: true,
             options: {
@@ -179,7 +179,7 @@ export const numberline: PerseusRenderer = {
     widgets: {
         "label-image 1": {
             type: "label-image",
-            alignment: "default",
+            alignment: "block",
             static: false,
             graded: true,
             options: {
@@ -227,7 +227,7 @@ export const longTextFromArticle: PerseusRenderer = {
     widgets: {
         "label-image 1": {
             type: "label-image",
-            alignment: "default",
+            alignment: "block",
             static: false,
             graded: true,
             options: {
@@ -305,7 +305,7 @@ export const mixedContentQuestion: PerseusRenderer = {
         },
         "label-image 1": {
             type: "label-image",
-            alignment: "default",
+            alignment: "block",
             static: false,
             graded: true,
             options: {

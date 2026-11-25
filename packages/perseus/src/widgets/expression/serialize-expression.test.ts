@@ -92,7 +92,7 @@ describe("Expression serialization", () => {
         expect(state).toEqual({
             question: {
                 "expression 1": {
-                    alignment: "default",
+                    alignment: "inline-block",
                     static: false,
                     buttonsVisible: "always",
                     keypadConfiguration: {

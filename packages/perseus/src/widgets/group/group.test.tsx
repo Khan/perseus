@@ -172,7 +172,7 @@ describe("group widget", () => {
         expect(state).toEqual({
             "group 1": {
                 "radio 1": {
-                    alignment: "default",
+                    alignment: "block",
                     choiceStates: [
                         expectedChoiceState,
                         expectedChoiceState,
@@ -239,7 +239,7 @@ describe("group widget", () => {
                     title: "",
                 },
                 "numeric-input 1": {
-                    alignment: "default",
+                    alignment: "inline-block",
                     answerForms: [],
                     coefficient: false,
                     currentValue: "99",
@@ -249,7 +249,7 @@ describe("group widget", () => {
                     static: false,
                 },
                 "numeric-input 2": {
-                    alignment: "default",
+                    alignment: "inline-block",
                     answerForms: [],
                     coefficient: false,
                     currentValue: "",

@@ -15,7 +15,7 @@ export const question1: PerseusRenderer = {
             type: "input-number",
             version: {major: 1, minor: 0},
             graded: true,
-            alignment: "default",
+            alignment: "inline-block",
             options: {
                 size: "normal",
                 coefficient: false,

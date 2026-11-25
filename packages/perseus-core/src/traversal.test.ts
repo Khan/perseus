@@ -34,7 +34,7 @@ const missingOptions = {
                 major: 0,
                 minor: 0,
             },
-            alignment: "default",
+            alignment: "block",
         },
     },
 };
@@ -56,7 +56,7 @@ const sampleOptions: PerseusRenderer = {
                 major: 0,
                 minor: 0,
             },
-            alignment: "default",
+            alignment: "block",
         },
     },
 };
@@ -94,7 +94,7 @@ const sampleOptions2: PerseusRenderer = {
                 major: 0,
                 minor: 0,
             },
-            alignment: "default",
+            alignment: "block",
         },
     },
 };
@@ -118,7 +118,7 @@ const sampleGroup: PerseusRenderer = {
                 major: 0,
                 minor: 0,
             },
-            alignment: "default",
+            alignment: "block",
         },
     },
 };

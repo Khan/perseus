@@ -23,7 +23,7 @@ export const measurerQuestion = (
                     ...measurerLogic.defaultWidgetOptions,
                     ...options,
                 },
-                alignment: "default",
+                alignment: "block",
             },
         },
     });

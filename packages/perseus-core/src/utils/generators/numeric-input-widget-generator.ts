@@ -32,7 +32,7 @@ export function generateNumericInputWidget(
         graded: true,
         static: false,
         version: {major: 0, minor: 0},
-        alignment: "default",
+        alignment: "inline-block",
         options: generateNumericInputOptions(),
         ...numericInputWidgetProperties,
     };

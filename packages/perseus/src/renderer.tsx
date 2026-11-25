@@ -452,23 +452,19 @@ class Renderer
         return false;
     }
 
-    renderWidget: (
+    renderWidget = (
         impliedType: string,
         id: string,
         state: WidgetState,
-    ) => null | React.ReactNode = (
-        impliedType: string,
-        id: string,
-        state: WidgetState,
-    ) => {
-        const widgetInfo = this.state.widgetInfo[id];
+    ): React.ReactNode => {
+        const widgetInfo: PerseusWidget | undefined = this.state.widgetInfo[id];
 
         if (widgetInfo && widgetInfo.alignment === "full-width") {
             state.foundFullWidth = true;
         }
 
         if (widgetInfo) {
-            const type = (widgetInfo && widgetInfo.type) || impliedType;
+            const type = widgetInfo.type || impliedType;
 
             // By this point we should have no duplicates, which are
             // filtered out in this.render(), so we shouldn't have to

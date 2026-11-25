@@ -22,7 +22,7 @@ export function generateBlankWidget(
         graded: true,
         version: {major: 0, minor: 0},
         static: false,
-        alignment: "default",
+        alignment: "inline-block",
         ...blankWidgetProperties,
         options: generateBlankOptions({...blankWidgetProperties?.options}),
     };

@@ -12,7 +12,7 @@ import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const expectedSerializedRadio = {
-    alignment: "default",
+    alignment: "block",
     numCorrect: 1,
     hasNoneOfTheAbove: false,
     choices: [

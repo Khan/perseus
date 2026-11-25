@@ -47,7 +47,7 @@ export function generateOrdererWidget(
         graded: true,
         version: {major: 0, minor: 0},
         static: false,
-        alignment: "default",
+        alignment: "block",
         ...ordererWidgetProperties,
         options: generateOrdererOptions(ordererWidgetProperties?.options),
     };

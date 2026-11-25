@@ -79,7 +79,7 @@ describe("Categorizer serialization", () => {
         expect(state).toEqual({
             question: {
                 "categorizer 1": {
-                    alignment: "default",
+                    alignment: "block",
                     static: false,
                     categories: ["one", "two", "three"],
                     items: ["uno", "dos", "tres"],

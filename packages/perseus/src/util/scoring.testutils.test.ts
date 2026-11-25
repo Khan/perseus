@@ -120,7 +120,7 @@ describe("getAnswerlessItem", () => {
                                 },
                             ],
                         },
-                        alignment: "default",
+                        alignment: "inline-block",
                         version: {major: 0, minor: 0},
                         graded: true,
                         static: false,

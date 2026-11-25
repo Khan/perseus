@@ -55,7 +55,7 @@ describe("core-widget-registry", () => {
             graded: true,
             static: false,
             version: {major: 0, minor: 0},
-            alignment: "default",
+            alignment: "block",
         } as unknown as PerseusWidget;
 
         beforeEach(() => {
@@ -114,12 +114,12 @@ describe("core-widget-registry", () => {
             registerWidget("_inline-widget_", {
                 name: "_inline-widget_",
                 defaultWidgetOptions: {},
-                defaultAlignment: "inline-block",
+                supportedAlignments: ["inline-block"],
             });
             registerWidget("_block-widget_", {
                 name: "_block-widget_",
                 defaultWidgetOptions: {},
-                defaultAlignment: "block",
+                supportedAlignments: ["block"],
             });
             registerWidget("_no-alignment-widget_", {
                 name: "_no-alignment-widget_",
@@ -139,8 +139,8 @@ describe("core-widget-registry", () => {
             expect(isInlineWidget("_no-alignment-widget_")).toBe(false);
         });
 
-        it("uses the default alignment when alignment is 'default'", () => {
-            expect(isInlineWidget("_inline-widget_", "default")).toBe(true);
+        it("uses the default alignment when alignment is undefined", () => {
+            expect(isInlineWidget("_inline-widget_", undefined)).toBe(true);
         });
 
         it("uses the given alignment instead of the default", () => {

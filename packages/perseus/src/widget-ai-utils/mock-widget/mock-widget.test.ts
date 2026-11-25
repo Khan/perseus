@@ -25,7 +25,7 @@ const question: PerseusRenderer = {
             options: {
                 value: "42",
             },
-            alignment: "default",
+            alignment: "block",
         } satisfies MockWidget,
     },
 };

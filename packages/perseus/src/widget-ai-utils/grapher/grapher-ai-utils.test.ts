@@ -13,7 +13,7 @@ const question: PerseusRenderer = {
     widgets: {
         "grapher 1": {
             type: "grapher",
-            alignment: "default",
+            alignment: "block",
             static: false,
             graded: true,
             options: {

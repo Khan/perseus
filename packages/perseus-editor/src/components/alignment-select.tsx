@@ -9,11 +9,15 @@ import InfoTip from "./info-tip";
 import {TypedSingleSelect} from "./typed-single-select";
 import {alignmentInfoMap} from "./util";
 
-import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
+import type {
+    Alignment,
+    PerseusWidget,
+    SupportedAlignments,
+} from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 interface Props {
-    supportedAlignments: ReadonlyArray<Alignment>;
+    supportedAlignments: SupportedAlignments;
     widgetInfo: PerseusWidget;
     isEditingDisabled: boolean;
     onChange: (newAlignment: Alignment) => void;
@@ -44,11 +48,9 @@ export function AlignmentSelect({
             </BodyText>
             <TypedSingleSelect<Alignment>
                 aria-labelledby={labelId}
-                selectedValue={widgetInfo.alignment ?? "default"}
+                selectedValue={widgetInfo.alignment ?? supportedAlignments[0]}
                 disabled={isEditingDisabled}
                 options={{
-                    default:
-                        supportedAlignments.includes("default") && "default",
                     block: supportedAlignments.includes("block") && "block",
                     "inline-block":
                         supportedAlignments.includes("inline-block") &&

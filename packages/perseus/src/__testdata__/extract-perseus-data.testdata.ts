@@ -81,7 +81,7 @@ export const PerseusItemWithInputNumber = generateTestPerseusItem({
         widgets: {
             "input-number 1": {
                 type: "input-number",
-                alignment: "default",
+                alignment: "inline-block",
                 static: false,
                 graded: true,
                 options: {
