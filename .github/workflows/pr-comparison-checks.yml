@@ -89,7 +89,7 @@ jobs:
 
                       Usually this means you need to update the Go parser
                       that Content Platform maintains. Follow these
-                      [steps](https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4992466950/Deploying+Perseus+to+Khan+Academy+s+web+applications)
+                      [steps](https://www.khanacademy.org/r/perseus/deploying)
                       on how to deploy.
                       [See this list of post-mortems for more information.](https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/4504322159/Content+Platform+Breaks)
 
