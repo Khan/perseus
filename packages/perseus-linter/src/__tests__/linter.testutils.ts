@@ -2,7 +2,7 @@ import {parse} from "@khanacademy/pure-markdown";
 
 import TreeTransformer from "../tree-transformer";
 
-import type {LinterIssue} from "../rule";
+import type {LintHelpLink, LinterIssue} from "../rule";
 import type Rule from "../rule";
 
 function testRule(rule: Rule, markdown: string, context): LinterIssue[] {
@@ -47,6 +47,7 @@ export function expectIssue(
     options?: {
         messages?: string[];
         severity?: number;
+        helpLink?: LintHelpLink;
     },
 ) {
     const result = testRule(rule, string, context);
@@ -59,6 +60,10 @@ export function expectIssue(
 
     if (options?.severity) {
         expect(result[0]?.severity).toBe(options.severity);
+    }
+
+    if (options?.helpLink) {
+        expect(result[0]?.helpLink).toEqual(options.helpLink);
     }
 }
 

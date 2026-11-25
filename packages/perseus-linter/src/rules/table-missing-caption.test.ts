@@ -1,4 +1,5 @@
 import {expectPass, expectIssue} from "../__tests__/linter.testutils";
+import {TABLE_HELP_LINK} from "../help-links";
 
 import tableMissingCaptionRule, {
     MISSING_CAPTION_MESSAGE,
@@ -68,5 +69,15 @@ describe("table-missing-caption", () => {
             undefined,
             {messages: [MISSING_CAPTION_MESSAGE]},
         );
+    });
+
+    it("links to the table notation guide", () => {
+        // Arrange
+        const markdown = UNCAPTIONED_TABLE;
+
+        // Act, Assert
+        expectIssue(tableMissingCaptionRule, markdown, undefined, {
+            helpLink: TABLE_HELP_LINK,
+        });
     });
 });

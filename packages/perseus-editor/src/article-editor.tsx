@@ -114,6 +114,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
                             linterWarning.rule,
                             linterWarning.message,
                             linterWarning.severity,
+                            linterWarning.helpLink,
                         );
                     },
                 ) ?? [];

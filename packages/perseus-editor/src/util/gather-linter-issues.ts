@@ -30,6 +30,7 @@ function lintRenderer(content: string, widgets?: PerseusWidgetsMap): Issue[] {
             warning.rule,
             warning.message,
             warning.severity,
+            warning.helpLink,
         );
     });
 

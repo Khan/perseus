@@ -1,4 +1,5 @@
 import {expectPass, expectIssue} from "../__tests__/linter.testutils";
+import {TABLE_HELP_LINK} from "../help-links";
 import Rule from "../rule";
 
 import tableSingleCellRule from "./table-single-cell";
@@ -24,5 +25,15 @@ describe("table-single-cell", () => {
     ])("passes when a table has %s", (_, markdown) => {
         // Arrange, Act, Assert
         expectPass(tableSingleCellRule, markdown);
+    });
+
+    it("links to the table notation guide", () => {
+        // Arrange
+        const markdown = "| Answer |\n|--------|\n| 42 |";
+
+        // Act, Assert
+        expectIssue(tableSingleCellRule, markdown, undefined, {
+            helpLink: TABLE_HELP_LINK,
+        });
     });
 });

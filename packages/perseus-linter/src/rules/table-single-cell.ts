@@ -1,3 +1,4 @@
+import {TABLE_HELP_LINK} from "../help-links";
 import {linterWarning} from "../lint";
 import Rule from "../rule";
 
@@ -15,6 +16,7 @@ function isSingleCellTable(table: any): boolean {
 export default Rule.makeRule({
     name: "table-single-cell",
     selector: "table",
+    helpLink: TABLE_HELP_LINK,
     lint: function (_state, _content, nodes) {
         if (isSingleCellTable(nodes[0])) {
             return linterWarning(SINGLE_CELL_MESSAGE);

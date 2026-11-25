@@ -1,5 +1,6 @@
 import {isEmptyTableCell} from "@khanacademy/perseus-core";
 
+import {TABLE_HELP_LINK} from "../help-links";
 import {linterWarning} from "../lint";
 import Rule from "../rule";
 
@@ -30,6 +31,7 @@ layout table.`;
 export default Rule.makeRule({
     name: "table-empty-column-header",
     selector: "table",
+    helpLink: TABLE_HELP_LINK,
     lint: function (_state, _content, nodes) {
         const table = nodes[0];
 

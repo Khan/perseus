@@ -1,4 +1,5 @@
 import {expectIssue, expectPass} from "../__tests__/linter.testutils";
+import {TABLE_HELP_LINK} from "../help-links";
 
 import tableEmptyColumnHeaderRule, {
     emptyColumnHeaderMessage,
@@ -74,5 +75,15 @@ describe("table-empty-column-header", () => {
 
         // Act, Assert
         expectPass(tableEmptyColumnHeaderRule, markdown);
+    });
+
+    it("links to the table notation guide", () => {
+        // Arrange
+        const markdown = "| Name | |\n" + "|-|-|\n" + "| Ann | 30 |";
+
+        // Act, Assert
+        expectIssue(tableEmptyColumnHeaderRule, markdown, undefined, {
+            helpLink: TABLE_HELP_LINK,
+        });
     });
 });
