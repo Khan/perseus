@@ -81,7 +81,7 @@ describe("InteractiveGraphEditor locked figures", () => {
         ${"polygon"}  | ${"Polygon"}
         ${"function"} | ${"Function"}
     `(`$figureType basics`, ({figureType, figureName}) => {
-        test("Calls onChange when a locked $figureType is added", async () => {
+        test(`Calls onChange when a locked ${figureType} is added`, async () => {
             // Arrange
             const onChangeMock = rs.fn();
 
@@ -103,7 +103,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
         });
 
-        test("Calls onChange when a locked $figureType is removed", async () => {
+        test(`Calls onChange when a locked ${figureType} is removed`, async () => {
             // Arrange
             const onChangeMock = rs.fn();
             const confirmSpy = rs.spyOn(window, "confirm").mockImplementation(
@@ -155,190 +155,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             expect(onChangeMock).not.toHaveBeenCalled();
         });
 
-        describe("movement", () => {
-            const first = {
-                ...getDefaultFigureForType(figureType),
-                color: "blue",
-            };
-            const second = {
-                ...getDefaultFigureForType(figureType),
-                color: "green",
-            };
-            const third = {
-                ...getDefaultFigureForType(figureType),
-                color: "red",
-            };
-
-            test(`Calls onChange when a locked ${figureType} is moved back`, async () => {
-                // Arrange
-                const onChangeMock = rs.fn();
-
-                renderEditor({
-                    onChange: onChangeMock,
-                    lockedFigures: [first, second, third],
-                });
-
-                // Act
-                const moveButton = screen.getAllByRole("button", {
-                    name: `Move locked ${figureType} to the back`,
-                });
-                await userEvent.click(moveButton[2]);
-
-                // Assert
-                expect(onChangeMock).toHaveBeenCalledWith(
-                    expect.objectContaining({
-                        lockedFigures: [third, first, second],
-                    }),
-                );
-            });
-
-            test(`Calls onChange when a locked ${figureType} is moved backward`, async () => {
-                // Arrange
-                const onChangeMock = rs.fn();
-
-                renderEditor({
-                    onChange: onChangeMock,
-                    lockedFigures: [first, second, third],
-                });
-
-                // Act
-                const moveButton = screen.getAllByRole("button", {
-                    name: `Move locked ${figureType} backward`,
-                });
-                await userEvent.click(moveButton[2]);
-
-                // Assert
-                expect(onChangeMock).toHaveBeenCalledWith(
-                    expect.objectContaining({
-                        lockedFigures: [first, third, second],
-                    }),
-                );
-            });
-
-            test(`Calls onChange when a locked ${figureType} is moved forward`, async () => {
-                // Arrange
-                const onChangeMock = rs.fn();
-
-                renderEditor({
-                    onChange: onChangeMock,
-                    lockedFigures: [first, second, third],
-                });
-
-                // Act
-                const moveButton = screen.getAllByRole("button", {
-                    name: `Move locked ${figureType} forward`,
-                });
-                await userEvent.click(moveButton[0]);
-
-                // Assert
-                expect(onChangeMock).toHaveBeenCalledWith(
-                    expect.objectContaining({
-                        lockedFigures: [second, first, third],
-                    }),
-                );
-            });
-
-            test(`Calls onChange when a locked ${figureType} is moved front`, async () => {
-                // Arrange
-                const onChangeMock = rs.fn();
-
-                renderEditor({
-                    onChange: onChangeMock,
-                    lockedFigures: [first, second, third],
-                });
-
-                // Act
-                const moveButton = screen.getAllByRole("button", {
-                    name: `Move locked ${figureType} to the front`,
-                });
-                await userEvent.click(moveButton[0]);
-
-                // Assert
-                expect(onChangeMock).toHaveBeenCalledWith(
-                    expect.objectContaining({
-                        lockedFigures: [second, third, first],
-                    }),
-                );
-            });
-
-            test(`Does not call onChange when a locked ${figureType} is moved to the back and is already in the back`, async () => {
-                // Arrange
-                const onChangeMock = rs.fn();
-
-                renderEditor({
-                    onChange: onChangeMock,
-                    lockedFigures: [first, second, third],
-                });
-
-                // Act
-                const moveButton = screen.getAllByRole("button", {
-                    name: `Move locked ${figureType} to the back`,
-                });
-                await userEvent.click(moveButton[0]);
-
-                // Assert
-                expect(onChangeMock).not.toHaveBeenCalled();
-            });
-
-            test(`Does not call onChange when a locked ${figureType} is moved backward and is already in the back`, async () => {
-                // Arrange
-                const onChangeMock = rs.fn();
-
-                renderEditor({
-                    onChange: onChangeMock,
-                    lockedFigures: [first, second, third],
-                });
-
-                // Act
-                const moveButton = screen.getAllByRole("button", {
-                    name: `Move locked ${figureType} backward`,
-                });
-                await userEvent.click(moveButton[0]);
-
-                // Assert
-                expect(onChangeMock).not.toHaveBeenCalled();
-            });
-
-            test(`Does not call onChange when a locked ${figureType} is moved forward and is already in the front`, async () => {
-                // Arrange
-                const onChangeMock = rs.fn();
-
-                renderEditor({
-                    onChange: onChangeMock,
-                    lockedFigures: [first, second, third],
-                });
-
-                // Act
-                const moveButton = screen.getAllByRole("button", {
-                    name: `Move locked ${figureType} forward`,
-                });
-                await userEvent.click(moveButton[2]);
-
-                // Assert
-                expect(onChangeMock).not.toHaveBeenCalled();
-            });
-
-            test(`Does not call onChange when a locked ${figureType} is moved to the front and is already in the front`, async () => {
-                // Arrange
-                const onChangeMock = rs.fn();
-
-                renderEditor({
-                    onChange: onChangeMock,
-                    lockedFigures: [first, second, third],
-                });
-
-                // Act
-                const moveButton = screen.getAllByRole("button", {
-                    name: `Move locked ${figureType} to the front`,
-                });
-                await userEvent.click(moveButton[2]);
-
-                // Assert
-                expect(onChangeMock).not.toHaveBeenCalled();
-            });
-        });
-
-        test("Shows settings accordion when a locked $figureType is passed in", async () => {
+        test(`Shows settings accordion when a locked ${figureType} is passed in`, async () => {
             // Arrange
             renderEditor({
                 lockedFigures: [getDefaultFigureForType(figureType)],
@@ -358,7 +175,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             expect(accordionHeading).toHaveTextContent(figureName);
         });
 
-        test("Calls onChange when a locked $figureType's color is changed", async () => {
+        test(`Calls onChange when a locked ${figureType}'s color is changed`, async () => {
             // Arrange
             const onChangeMock = rs.fn();
 
@@ -384,6 +201,193 @@ describe("InteractiveGraphEditor locked figures", () => {
                     ],
                 }),
             );
+        });
+    });
+
+    describe("movement", () => {
+        // Arbitrary choice of figureType; movement works the same for all
+        // locked figures.
+        const figureType = "point";
+
+        const first = {
+            ...getDefaultFigureForType(figureType),
+            color: "blue",
+        };
+        const second = {
+            ...getDefaultFigureForType(figureType),
+            color: "green",
+        };
+        const third = {
+            ...getDefaultFigureForType(figureType),
+            color: "red",
+        };
+
+        test(`Calls onChange when a locked ${figureType} is moved back`, async () => {
+            // Arrange
+            const onChangeMock = rs.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [first, second, third],
+            });
+
+            // Act
+            const moveButton = screen.getAllByRole("button", {
+                name: `Move locked ${figureType} to the back`,
+            });
+            await userEvent.click(moveButton[2]);
+
+            // Assert
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [third, first, second],
+                }),
+            );
+        });
+
+        test(`Calls onChange when a locked ${figureType} is moved backward`, async () => {
+            // Arrange
+            const onChangeMock = rs.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [first, second, third],
+            });
+
+            // Act
+            const moveButton = screen.getAllByRole("button", {
+                name: `Move locked ${figureType} backward`,
+            });
+            await userEvent.click(moveButton[2]);
+
+            // Assert
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [first, third, second],
+                }),
+            );
+        });
+
+        test(`Calls onChange when a locked ${figureType} is moved forward`, async () => {
+            // Arrange
+            const onChangeMock = rs.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [first, second, third],
+            });
+
+            // Act
+            const moveButton = screen.getAllByRole("button", {
+                name: `Move locked ${figureType} forward`,
+            });
+            await userEvent.click(moveButton[0]);
+
+            // Assert
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [second, first, third],
+                }),
+            );
+        });
+
+        test(`Calls onChange when a locked ${figureType} is moved front`, async () => {
+            // Arrange
+            const onChangeMock = rs.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [first, second, third],
+            });
+
+            // Act
+            const moveButton = screen.getAllByRole("button", {
+                name: `Move locked ${figureType} to the front`,
+            });
+            await userEvent.click(moveButton[0]);
+
+            // Assert
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [second, third, first],
+                }),
+            );
+        });
+
+        test(`Does not call onChange when a locked ${figureType} is moved to the back and is already in the back`, async () => {
+            // Arrange
+            const onChangeMock = rs.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [first, second, third],
+            });
+
+            // Act
+            const moveButton = screen.getAllByRole("button", {
+                name: `Move locked ${figureType} to the back`,
+            });
+            await userEvent.click(moveButton[0]);
+
+            // Assert
+            expect(onChangeMock).not.toHaveBeenCalled();
+        });
+
+        test(`Does not call onChange when a locked ${figureType} is moved backward and is already in the back`, async () => {
+            // Arrange
+            const onChangeMock = rs.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [first, second, third],
+            });
+
+            // Act
+            const moveButton = screen.getAllByRole("button", {
+                name: `Move locked ${figureType} backward`,
+            });
+            await userEvent.click(moveButton[0]);
+
+            // Assert
+            expect(onChangeMock).not.toHaveBeenCalled();
+        });
+
+        test(`Does not call onChange when a locked ${figureType} is moved forward and is already in the front`, async () => {
+            // Arrange
+            const onChangeMock = rs.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [first, second, third],
+            });
+
+            // Act
+            const moveButton = screen.getAllByRole("button", {
+                name: `Move locked ${figureType} forward`,
+            });
+            await userEvent.click(moveButton[2]);
+
+            // Assert
+            expect(onChangeMock).not.toHaveBeenCalled();
+        });
+
+        test(`Does not call onChange when a locked ${figureType} is moved to the front and is already in the front`, async () => {
+            // Arrange
+            const onChangeMock = rs.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [first, second, third],
+            });
+
+            // Act
+            const moveButton = screen.getAllByRole("button", {
+                name: `Move locked ${figureType} to the front`,
+            });
+            await userEvent.click(moveButton[2]);
+
+            // Assert
+            expect(onChangeMock).not.toHaveBeenCalled();
         });
     });
 
