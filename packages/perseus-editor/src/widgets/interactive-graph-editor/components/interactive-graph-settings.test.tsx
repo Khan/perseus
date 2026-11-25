@@ -14,24 +14,12 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
-// Imports custom matchers
-
-function userEventForFakeTimers() {
-    return userEventLib.setup({
-        advanceTimers: rs.advanceTimersByTime,
-    });
-}
-
-function userEventForRealTimers() {
-    return userEventLib.setup({
-        advanceTimers: () => {},
-    });
-}
-
 describe("InteractiveGraphSettings", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
-        userEvent = userEventForFakeTimers();
+        userEvent = userEventLib.setup({
+            advanceTimers: rs.advanceTimersByTime,
+        });
         rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -125,8 +113,6 @@ describe("InteractiveGraphSettings", () => {
 
     test("calls onChange when background image is changed", async () => {
         // Arrange
-        rs.useRealTimers();
-        userEvent = userEventForRealTimers();
         const onChange = rs.fn();
         const mockGetImageSize = (url, cb: (width, height) => void) => {
             cb(100, 100);
@@ -161,8 +147,6 @@ describe("InteractiveGraphSettings", () => {
 
     test("validates background image size", async () => {
         // Arrange
-        rs.useRealTimers();
-        userEvent = userEventForRealTimers();
         const onChange = rs.fn();
         const mockGetImageSize = (url, cb: (width, height) => void) => {
             // Large image should be invalid
@@ -196,8 +180,6 @@ describe("InteractiveGraphSettings", () => {
 
     test("calls onChange with null background image if background image input is empty", async () => {
         // Arrange
-        rs.useRealTimers();
-        userEvent = userEventForRealTimers();
         const onChange = rs.fn();
         const mockGetImageSize = (url, cb: (width, height) => void) => {};
         rs.spyOn(Util, "getImageSize").mockImplementation(mockGetImageSize);
@@ -230,8 +212,6 @@ describe("InteractiveGraphSettings", () => {
 
     test("does not update background image until input is blurred", async () => {
         // Arrange
-        rs.useRealTimers();
-        userEvent = userEventForRealTimers();
         const onChange = rs.fn();
 
         render(
@@ -320,8 +300,6 @@ describe("InteractiveGraphSettings", () => {
 
     test("Calls onChange when x range is changed and valid", async () => {
         // Arrange
-        rs.useRealTimers();
-        userEvent = userEventForRealTimers();
         const onChange = rs.fn();
         render(
             <InteractiveGraphSettings
@@ -356,8 +334,6 @@ describe("InteractiveGraphSettings", () => {
 
     test("Calls onChange when y range is changed and valid", async () => {
         // Arrange
-        rs.useRealTimers();
-        userEvent = userEventForRealTimers();
         const onChange = rs.fn();
         render(
             <InteractiveGraphSettings
@@ -387,8 +363,6 @@ describe("InteractiveGraphSettings", () => {
 
     test("validates range input when left is bigger than right", async () => {
         // Arrange
-        rs.useRealTimers();
-        userEvent = userEventForRealTimers();
         const onChange = rs.fn();
         render(
             <InteractiveGraphSettings
@@ -418,8 +392,6 @@ describe("InteractiveGraphSettings", () => {
 
     test("Calls onChange when step value is changed and valid", async () => {
         // Arrange
-        rs.useRealTimers();
-        userEvent = userEventForRealTimers();
         const onChange = rs.fn();
         render(
             <InteractiveGraphSettings
@@ -446,8 +418,6 @@ describe("InteractiveGraphSettings", () => {
 
     test("validates step value when tick step is too large", async () => {
         // Arrange
-        rs.useRealTimers();
-        userEvent = userEventForRealTimers();
         const onChange = rs.fn();
         render(
             <InteractiveGraphSettings
@@ -474,8 +444,6 @@ describe("InteractiveGraphSettings", () => {
 
     test("validates step value when tick step is too small", async () => {
         // Arrange
-        rs.useRealTimers();
-        userEvent = userEventForRealTimers();
         const onChange = rs.fn();
         render(
             <InteractiveGraphSettings
@@ -506,8 +474,6 @@ describe("InteractiveGraphSettings", () => {
 
     test("Calls onChange when snap step is changed and valid", async () => {
         // Arrange
-        rs.useRealTimers();
-        userEvent = userEventForRealTimers();
         const onChange = rs.fn();
         render(
             <InteractiveGraphSettings
@@ -535,8 +501,6 @@ describe("InteractiveGraphSettings", () => {
 
     test("validates when the snap step is too large", async () => {
         // Arrange
-        rs.useRealTimers();
-        userEvent = userEventForRealTimers();
         const onChange = rs.fn();
         render(
             <InteractiveGraphSettings
@@ -564,8 +528,6 @@ describe("InteractiveGraphSettings", () => {
 
     test("Calls onChange when grid step is changed and valid", async () => {
         // Arrange
-        rs.useRealTimers();
-        userEvent = userEventForRealTimers();
         const onChange = rs.fn();
         render(
             <InteractiveGraphSettings
@@ -593,8 +555,6 @@ describe("InteractiveGraphSettings", () => {
 
     test("validates when the grid step is too large", async () => {
         // Arrange
-        rs.useRealTimers();
-        userEvent = userEventForRealTimers();
         const onChange = rs.fn();
         render(
             <InteractiveGraphSettings
@@ -622,8 +582,6 @@ describe("InteractiveGraphSettings", () => {
 
     test("Calls onChange when the x label is changed", async () => {
         // Arrange
-        rs.useRealTimers();
-        userEvent = userEventForRealTimers();
         const onChange = rs.fn();
         render(
             <InteractiveGraphSettings
@@ -650,8 +608,6 @@ describe("InteractiveGraphSettings", () => {
 
     test("Calls onChange when the y label is changed", async () => {
         // Arrange
-        rs.useRealTimers();
-        userEvent = userEventForRealTimers();
         const onChange = rs.fn();
         render(
             <InteractiveGraphSettings
