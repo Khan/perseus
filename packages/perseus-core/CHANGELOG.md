@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 42.6.0
+
+### Minor Changes
+
+-   [#4562](https://github.com/Khan/perseus/pull/4562) [`dacdf56`](https://github.com/Khan/perseus/commit/dacdf564b46060ff15132f27fd88cf98a144e754) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Add a `table-empty-column-header` lint warning for markdown tables with an empty column header, skipping row header and layout tables. Move `tableHasRowHeaders` to perseus-core so the renderer and linter share it.
+
 ## 42.5.1
 
 ### Patch Changes

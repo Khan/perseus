@@ -1,5 +1,33 @@
 # @khanacademy/perseus
 
+## 95.1.0
+
+### Minor Changes
+
+-   [#4592](https://github.com/Khan/perseus/pull/4592) [`92bb751`](https://github.com/Khan/perseus/commit/92bb751aea60df42fe8e80212e2329b096d45996) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Render a markdown table whose column headers are all empty as a layout table (`role="presentation"`, with the title as a paragraph rather than a caption), so screen readers don't announce rows and columns for tables used only for layout.
+
+### Patch Changes
+
+-   [#4562](https://github.com/Khan/perseus/pull/4562) [`dacdf56`](https://github.com/Khan/perseus/commit/dacdf564b46060ff15132f27fd88cf98a144e754) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Add a `table-empty-column-header` lint warning for markdown tables with an empty column header, skipping row header and layout tables. Move `tableHasRowHeaders` to perseus-core so the renderer and linter share it.
+
+-   [#4593](https://github.com/Khan/perseus/pull/4593) [`3d8d5db`](https://github.com/Khan/perseus/commit/3d8d5db030bdeb6d69653abdfe7d0b43799d5f44) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix Zoomable's `transition-property` so browsers apply its fade and zoom transitions
+
+-   [#4599](https://github.com/Khan/perseus/pull/4599) [`8124442`](https://github.com/Khan/perseus/commit/81244420bf691a26cc07bf833743c5448dc6b3d8) Thanks [@benchristel](https://github.com/benchristel)! - Internal: consolidated CSS for hints in hint-renderer.css
+
+-   [#4595](https://github.com/Khan/perseus/pull/4595) [`b148150`](https://github.com/Khan/perseus/commit/b148150a9838730faa306863ba9a3cbd0772af5f) Thanks [@benchristel](https://github.com/benchristel)! - Fixed rendering of locked functions in Safari. Previously, functions with asymptotes at the edge of the graph bounds didn't render.
+
+-   [#4590](https://github.com/Khan/perseus/pull/4590) [`9484b91`](https://github.com/Khan/perseus/commit/9484b91f8062208e628e2f33d5b27a399ff0a338) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Styles] Relocate image inversion for Dark Mode
+
+-   [#4587](https://github.com/Khan/perseus/pull/4587) [`350a342`](https://github.com/Khan/perseus/commit/350a342446efed9e81b7412a0b2083b9aeba6dfc) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Styles] Remove unused `.zoomable` style definition
+
+-   Updated dependencies [[`dacdf56`](https://github.com/Khan/perseus/commit/dacdf564b46060ff15132f27fd88cf98a144e754), [`5cf4078`](https://github.com/Khan/perseus/commit/5cf407825804a813e4b7de7891e413f52db18a0d), [`ced0334`](https://github.com/Khan/perseus/commit/ced03342e6cf0005355544b3f0a9dd22785394ec)]:
+    -   @khanacademy/perseus-linter@8.3.0
+    -   @khanacademy/perseus-core@42.6.0
+    -   @khanacademy/math-input@30.2.7
+    -   @khanacademy/keypad-context@6.0.17
+    -   @khanacademy/kmath@3.1.10
+    -   @khanacademy/perseus-score@10.0.2
+
 ## 95.0.2
 
 ### Patch Changes
