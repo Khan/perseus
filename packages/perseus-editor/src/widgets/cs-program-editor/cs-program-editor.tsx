@@ -10,7 +10,6 @@ import * as React from "react";
 import BlurInput from "../../components/blur-input";
 import InfoTip from "../../components/info-tip";
 import {PairsEditor} from "../../components/pairs-editor";
-import {deprecatedChangeableChange} from "../../mixins/changeable";
 
 import type {WidgetEditorProps} from "../widget-editor-props";
 import type {PerseusCSProgramWidgetOptions} from "@khanacademy/perseus-core";
@@ -39,11 +38,6 @@ type Props = WidgetEditorProps<PerseusCSProgramWidgetOptions>;
  * This is the main editor for this widget, to specify all the options.
  */
 class CSProgramEditor extends React.Component<Props> {
-    change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-        // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
-        return deprecatedChangeableChange.apply(this, args);
-    };
-
     handleChange(changed: Partial<PerseusCSProgramWidgetOptions>) {
         this.props.onChange({
             programID: this.props.programID,
@@ -126,9 +120,11 @@ class CSProgramEditor extends React.Component<Props> {
                     }}
                 />
                 <InfoTip>
-                    If you show the editor, you should use the
-                    &quot;full-width&quot; alignment to make room for the width
-                    of the editor.
+                    <p>
+                        If you show the editor, you should use the
+                        &quot;full-width&quot; alignment to make room for the
+                        width of the editor.
+                    </p>
                 </InfoTip>
                 <br />
                 <Checkbox
@@ -139,7 +135,6 @@ class CSProgramEditor extends React.Component<Props> {
                     }}
                 />
                 <br />
-                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO(LEMS-2871): Address a11y error */}
                 <label>
                     Settings:
                     <PairsEditor
@@ -147,8 +142,11 @@ class CSProgramEditor extends React.Component<Props> {
                         onChange={(settings) => this.handleChange({settings})}
                     />
                     <InfoTip>
-                        Settings that you add here are available to the program
-                        as an object returned by <code>Program.settings()</code>
+                        <p>
+                            Settings that you add here are available to the
+                            program as an object returned by{" "}
+                            <code>Program.settings()</code>
+                        </p>
                     </InfoTip>
                 </label>
             </div>

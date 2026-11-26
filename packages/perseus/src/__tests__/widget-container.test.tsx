@@ -21,20 +21,28 @@ import {registerWidget} from "../widgets";
 import Explanation from "../widgets/explanation";
 import Image from "../widgets/image";
 
-import type {PerseusDependenciesV2, WidgetExports, WidgetProps} from "../types";
+import type {
+    PerseusDependenciesV2,
+    Widget,
+    WidgetExports,
+    WidgetProps,
+} from "../types";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
-const MockWidgetComponent = ({
-    options: {text, fail = false},
-}: {
-    options: {text: string; fail: boolean};
-}) => {
+const MockWidgetComponent = React.forwardRef<
+    Widget,
+    {options: {text: string; fail: boolean}}
+>(function MockWidgetComponent({options: {text, fail = false}}, ref) {
+    // useImperativeHandle allows the WidgetContainer to get a ref to this
+    // function component. React logs an error if this is removed.
+    React.useImperativeHandle(ref, () => ({}));
+
     if (fail) {
         throw new Error("MockWidget failed to render");
     }
 
     return <div>{text}</div>;
-};
+});
 
 const MockWidget: WidgetExports<typeof MockWidgetComponent> = {
     name: "mock-widget",
@@ -70,7 +78,7 @@ const getBaseProps = (
 describe("widget-container", () => {
     it("renders the unsupported-widget notice when the widget isn't registered", () => {
         // Arrange
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
 
@@ -93,7 +101,7 @@ describe("widget-container", () => {
 
     it("should render the requested widget", () => {
         // Arrange
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
 
@@ -125,7 +133,7 @@ describe("widget-container", () => {
 
     describe("container element by alignment", () => {
         beforeEach(() => {
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
                 testDependencies,
             );
             registerWidget("explanation", Explanation);
@@ -321,15 +329,16 @@ describe("widget-container", () => {
 
     it("should send analytics even when widget rendering errors", () => {
         // Arrange
-        jest.spyOn(window.navigator, "userAgent", "get").mockReturnValue(
+        rs.spyOn(window.navigator, "userAgent", "get").mockReturnValue(
             "userAgent",
         );
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
-        jest.spyOn(console, "error").mockImplementation(() => {});
+        rs.spyOn(console, "error").mockImplementation(() => {});
+        rs.spyOn(process.stderr, "write").mockImplementation(() => false);
 
-        const onAnalyticsEventSpy = jest.fn();
+        const onAnalyticsEventSpy = rs.fn();
         const depsV2: PerseusDependenciesV2 = {
             ...testDependenciesV2,
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},

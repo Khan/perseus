@@ -1,5 +1,7 @@
 import {act} from "@testing-library/react";
 
+import type {Mock} from "@rstest/core";
+
 /**
  * Mocks image loading done by the ImageLoader component to immediately trigger
  * the load event.
@@ -11,7 +13,9 @@ export const mockImageLoading = (options?: {
 }) => {
     const originalImage = window.Image;
 
-    const mockImage = jest.fn(() => {
+    // A `function`, not an arrow: the code under test calls `new Image()`,
+    // and some test runners construct a mock's implementation with `new`.
+    const mockImage = rs.fn(function () {
         // eslint-disable-next-line no-restricted-syntax
         const img = {
             naturalWidth: options?.naturalWidth,
@@ -27,12 +31,12 @@ export const mockImageLoading = (options?: {
         }, 0);
 
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn((url) => {
+        global.fetch = rs.fn((url) => {
             return Promise.resolve({
                 text: () => Promise.resolve(""),
                 ok: true,
             });
-        }) as jest.Mock;
+        }) as Mock;
 
         return img;
     });

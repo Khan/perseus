@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`interaction widget renders movable point elements with blank constraintXMin, constraintXMax, etc. 1`] = `
+exports[`interaction widget > renders movable point elements with blank constraintXMin, constraintXMax, etc. 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -871,7 +871,7 @@ exports[`interaction widget renders movable point elements with blank constraint
 </div>
 `;
 
-exports[`interaction widget should render 1`] = `
+exports[`interaction widget > should render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -879,11 +879,12 @@ exports[`interaction widget should render 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         Drag the dot all the way to the right.
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -1177,14 +1178,15 @@ exports[`interaction widget should render 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <em>
           Notice that we add a zero to the empty place value.
         </em>
          
-      </p>
+      </div>
     </div>
   </div>
 </div>

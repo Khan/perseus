@@ -5,16 +5,15 @@ import {
     Errors,
     excludeDenylistKeys,
     getDefaultAnswerArea,
+    isBoldTableCell,
+    isEmptyTableCell,
     mapObject,
     PerseusError,
     splitPerseusItem,
+    tableHasRowHeaders,
 } from "@khanacademy/perseus-core";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
-import {
-    emptyWidgetsFunctional,
-    flattenScores,
-    scoreWidgetsFunctional,
-} from "@khanacademy/perseus-score";
+import {emptyWidgetsFunctional} from "@khanacademy/perseus-score";
 import classNames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -36,7 +35,7 @@ import {ApiOptions, ClassNames as ApiClassNames} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown";
 import QuestionParagraph from "./question-paragraph";
 import TranslationLinter from "./translation-linter";
-import Util, {isContentGraphie, noParagraphForInlineWidget} from "./util";
+import Util, {isContentGraphie, isLayoutTable} from "./util";
 import {containerSizeClass} from "./util/sizing-utils";
 import preprocessTex from "./util/tex-preprocess";
 import WidgetContainer from "./widget-container";
@@ -65,7 +64,6 @@ import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
     PerseusItem,
     PerseusRenderer,
-    PerseusScore,
     PerseusWidget,
     PerseusWidgetOptions,
     PerseusWidgetsMap,
@@ -116,6 +114,9 @@ type WidgetState = {
     paragraphIndex?: number;
     foundFullWidth?: boolean;
     baseElements?: any;
+    // Set by perseus-markdown's lint rule when it re-renders a linted
+    // titled table, which wraps the table itself.
+    unwrapTitledTableContents?: boolean;
 };
 
 type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
@@ -154,8 +155,6 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
      * the linter and any warnings will be highlighted in the rendered output.
      */
     linterContext: LinterContextProps;
-
-    legacyPerseusLint?: ReadonlyArray<string>;
 
     /**
      *  Skip adding paragraph class
@@ -245,10 +244,6 @@ class Renderer
     };
     // @ts-expect-error - TS2564 - Property '_isMounted' has no initializer and is not definitely assigned in the constructor.
     _isMounted: boolean;
-    // TODO(benchristel): _isTwoColumn causes a class to be set on a <div>.
-    // No CSS in frontend or Perseus references that class name. Delete this?
-    // @ts-expect-error - TS2564 - Property '_isTwoColumn' has no initializer and is not definitely assigned in the constructor.
-    _isTwoColumn: boolean;
 
     // The i18n linter.
     _translationLinter: TranslationLinter;
@@ -855,6 +850,9 @@ class Renderer
         this._foundTextNodes = false;
         state.foundFullWidth = false;
         const output = this.outputNested(ast, state);
+        if (output == null) {
+            return null;
+        }
 
         // In Jipt-land, we need to render the exact same outer
         // QuestionParagraph nodes always. This means the number of
@@ -933,10 +931,7 @@ class Renderer
     // output individual AST nodes [not arrays]
     outputNode = (
         node: SingleASTNode,
-        nestedOutput: (
-            ast: SingleASTNode,
-            state: WidgetState,
-        ) => React.ReactNode,
+        nestedOutput: (ast: ASTNode, state: WidgetState) => React.ReactNode,
         state: WidgetState,
     ): React.ReactNode => {
         const apiOptions = this.getApiOptions();
@@ -956,17 +951,17 @@ class Renderer
                 );
             }
 
-            if (noParagraphForInlineWidget(node)) {
-                // Some widgets can appear inline with text, but
-                // shouldn't be contained by a <p> element, so just render the
-                // content and let the parent handle layout, etc.
-                return content;
-            }
-
+            // Some widgets can appear inline with text, but
+            // shouldn't be contained by a <p> element (invalid HTML),
+            // so set the role of the container to "paragraph".
             return (
-                <p key={state.key} className="deprecated-perseus-container">
+                <div
+                    role="paragraph"
+                    key={state.key}
+                    className="deprecated-perseus-container"
+                >
                     {content}
-                </p>
+                </div>
             );
         }
         if (node.type === "widget") {
@@ -1157,16 +1152,8 @@ class Renderer
                 </ErrorBoundary>
             );
         }
-        if (node.type === "columns") {
-            // Note that we have two columns. This is so we can put
-            // a className on the outer renderer content for SAT.
-            this._isTwoColumn = true;
-            // but then render normally:
-            return (
-                <ErrorBoundary key={state.key}>
-                    {PerseusMarkdown.ruleOutput(node, nestedOutput, state)}
-                </ErrorBoundary>
-            );
+        if (node.type === "deprecatedColumnSeparator") {
+            return null;
         }
         if (node.type === "text") {
             if (rContainsNonWhitespace.test(node.content)) {
@@ -1183,11 +1170,15 @@ class Renderer
             return node.content;
         }
         if (node.type === "table" || node.type === "titledTable") {
-            const output = PerseusMarkdown.ruleOutput(node, nestedOutput, {
+            const tableState = {
                 ...state,
                 isMobile: apiOptions.isMobile,
                 inTable: true,
-            });
+            };
+            const output =
+                node.type === "table"
+                    ? this.outputTable(node, nestedOutput, tableState)
+                    : this.outputTitledTable(node, nestedOutput, tableState);
 
             if (!apiOptions.isMobile) {
                 return output;
@@ -1223,6 +1214,141 @@ class Renderer
             <ErrorBoundary key={state.key}>
                 {PerseusMarkdown.ruleOutput(node, nestedOutput, state)}
             </ErrorBoundary>
+        );
+    };
+
+    /**
+     * Renders a markdown table nodes.
+     */
+    outputTableElement = (
+        node: SingleASTNode,
+        nestedOutput: (ast: ASTNode, state: WidgetState) => React.ReactNode,
+        state: WidgetState,
+    ): React.ReactElement => {
+        const isLayout = isLayoutTable(node);
+        const hasRowHeaders = !isLayout && tableHasRowHeaders(node);
+
+        const getStyle = (colIndex: number): React.CSSProperties =>
+            node.align[colIndex] == null
+                ? {}
+                : {textAlign: node.align[colIndex]};
+
+        const headers = node.header.map(
+            (content: Array<SingleASTNode>, i: number) =>
+                // An empty top-left cell labels nothing, so per the W3C
+                // pattern it's a plain `<td>` rather than a header.
+                hasRowHeaders && i === 0 && isEmptyTableCell(content) ? (
+                    <td key={i} />
+                ) : (
+                    <th key={i} style={getStyle(i)} scope="col">
+                        {nestedOutput(content, state)}
+                    </th>
+                ),
+        );
+
+        const rows = node.cells.map(
+            (row: Array<Array<SingleASTNode>>, r: number) => (
+                <tr key={r}>
+                    {row.map((content, c) =>
+                        hasRowHeaders && c === 0 ? (
+                            <th key={c} style={getStyle(c)} scope="row">
+                                {/* Row headers are already bold, so render
+                                    the contents of a bold cell without its
+                                    `<strong>`. */}
+                                {nestedOutput(
+                                    isBoldTableCell(content)
+                                        ? content.find(
+                                              (node) => node.type === "strong",
+                                          )?.content
+                                        : content,
+                                    state,
+                                )}
+                            </th>
+                        ) : (
+                            <td key={c} style={getStyle(c)}>
+                                {nestedOutput(content, state)}
+                            </td>
+                        ),
+                    )}
+                </tr>
+            ),
+        );
+
+        return (
+            <table key={state.key} role={isLayout ? "presentation" : undefined}>
+                <thead key="thead">
+                    <tr>{headers}</tr>
+                </thead>
+                <tbody key="tbody">{rows}</tbody>
+            </table>
+        );
+    };
+
+    outputTable = (
+        node: SingleASTNode,
+        nestedOutput: (ast: ASTNode, state: WidgetState) => React.ReactNode,
+        state: WidgetState,
+    ): React.ReactElement => {
+        const table = this.outputTableElement(node, nestedOutput, state);
+
+        // Ensure that the table is focusable in sequential keyboard
+        // navigation when rendered on mobile in a modal. Specifically this is
+        // needed for Android Talkback, to enable reading/navigating tables
+        // with the swipe left/right gesture.
+        //
+        // Layout tables are skipped: browsers ignore `role="presentation"` on
+        // a focusable element, which would restore the table semantics.
+        if (state.isMobile && !isLayoutTable(node)) {
+            return React.cloneElement(table, {tabIndex: 0});
+        }
+
+        return table;
+    };
+
+    outputTitledTable = (
+        node: SingleASTNode,
+        nestedOutput: (ast: ASTNode, state: WidgetState) => React.ReactNode,
+        state: WidgetState,
+    ): React.ReactNode => {
+        // If the table is wrapped in a lint node, use
+        // PerseusMarkdown to render it. PerseusMarkdown defines
+        // the `lint` rule and rendering logic.
+        if (node.table?.type !== "table") {
+            return PerseusMarkdown.ruleOutput(node, nestedOutput, state);
+        }
+
+        const table = this.outputTableElement(node.table, nestedOutput, {
+            ...state,
+            key: 0,
+        });
+        // If the table is for layout purposes, we render it not as a caption
+        // element within a table, but as a paragraph above the table.
+        const contents = isLayoutTable(node.table) ? (
+            <React.Fragment key={state.key}>
+                {nestedOutput(
+                    {type: "paragraph", content: node.title},
+                    {...state, key: 1},
+                )}
+                {table}
+            </React.Fragment>
+        ) : (
+            // Splice the caption into the table's children as the first child.
+            React.cloneElement(table, undefined, [
+                <caption key="caption" className="perseus-table-title">
+                    {nestedOutput(node.title, state)}
+                </caption>,
+                ...table.props.children,
+            ])
+        );
+
+        if (state.unwrapTitledTableContents) {
+            return contents;
+        }
+
+        return (
+            <div className="perseus-titled-table-wrapper" key={state.key}>
+                {contents}
+            </div>
         );
     };
 
@@ -1481,28 +1607,6 @@ class Renderer
         };
     }
 
-    /**
-     * Scores the content.
-     *
-     * @deprecated use scorePerseusItem
-     */
-    score(): PerseusScore {
-        if (!this.props.userInput) {
-            throw new Error(
-                `score called without providing userInput to Renderer`,
-            );
-        }
-
-        const scores = scoreWidgetsFunctional(
-            this.state.widgetInfo,
-            this.widgetIds,
-            this.props.userInput,
-            this.context.locale,
-        );
-        const combinedScore = flattenScores(scores);
-        return combinedScore;
-    }
-
     // TranslationLinter callback
     handletranslationLintErrors: (lintErrors: ReadonlyArray<string>) => void = (
         lintErrors: ReadonlyArray<string>,
@@ -1573,16 +1677,6 @@ class Renderer
             }
         }
 
-        // Hacks:
-        // We use mutable state here to figure out whether the output
-        // had two columns.
-        // It is updated to true by `this.outputMarkdown` if a
-        // column break is found
-        // TODO(aria): We now have a state variable threaded through
-        // simple-markdown output. We should mutate it instead of
-        // state on this component to do this in a less hacky way.
-        this._isTwoColumn = false;
-
         // Parse the string of markdown to a parse tree
         let parsedMarkdown = this.props.inline
             ? PerseusMarkdown.parseInline(content, {
@@ -1617,10 +1711,10 @@ class Renderer
             PerseusLinter.runLinter(parsedMarkdown, fullLinterContext, true);
 
             // Apply the lint errors from the last TranslationLinter run.
-            this._translationLinter.applyLintErrors(parsedMarkdown, [
-                ...this.state.translationLintErrors,
-                ...(this.props.legacyPerseusLint || []),
-            ]);
+            this._translationLinter.applyLintErrors(
+                parsedMarkdown,
+                this.state.translationLintErrors,
+            );
         }
 
         // Render the linted markdown parse tree with React components
@@ -1634,7 +1728,6 @@ class Renderer
         const className = classNames({
             [ApiClassNames.RENDERER]: true,
             [ApiClassNames.RESPONSIVE_RENDERER]: true,
-            [ApiClassNames.TWO_COLUMN_RENDERER]: this._isTwoColumn,
         });
 
         return (

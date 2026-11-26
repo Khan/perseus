@@ -44,10 +44,7 @@ export function AlignmentSelect({
             </BodyText>
             <TypedSingleSelect<Alignment>
                 aria-labelledby={labelId}
-                // TODO(benchristel): properly type widgetInfo.alignment and
-                //  remove this cast.
-                // eslint-disable-next-line no-restricted-syntax
-                selectedValue={(widgetInfo.alignment as Alignment) ?? "default"}
+                selectedValue={widgetInfo.alignment ?? "default"}
                 disabled={isEditingDisabled}
                 options={{
                     default:

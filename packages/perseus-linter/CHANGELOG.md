@@ -1,5 +1,66 @@
 # @khanacademy/perseus-linter
 
+## 8.3.0
+
+### Minor Changes
+
+-   [#4562](https://github.com/Khan/perseus/pull/4562) [`dacdf56`](https://github.com/Khan/perseus/commit/dacdf564b46060ff15132f27fd88cf98a144e754) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Add a `table-empty-column-header` lint warning for markdown tables with an empty column header, skipping row header and layout tables. Move `tableHasRowHeaders` to perseus-core so the renderer and linter share it.
+
+-   [#4607](https://github.com/Khan/perseus/pull/4607) [`ced0334`](https://github.com/Khan/perseus/commit/ced03342e6cf0005355544b3f0a9dd22785394ec) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Add optional `helpLink` to lint rules so the editor's issues panel can link to rule-specific docs; table rules now link to the table notation guide
+
+### Patch Changes
+
+-   Updated dependencies [[`dacdf56`](https://github.com/Khan/perseus/commit/dacdf564b46060ff15132f27fd88cf98a144e754)]:
+    -   @khanacademy/perseus-core@42.6.0
+    -   @khanacademy/kmath@3.1.10
+
+## 8.2.1
+
+### Patch Changes
+
+-   Updated dependencies [[`f1e953e`](https://github.com/Khan/perseus/commit/f1e953ebce191080630bb42e318c0e6aab5ec2b0)]:
+    -   @khanacademy/perseus-core@42.5.1
+    -   @khanacademy/kmath@3.1.9
+
+## 8.2.0
+
+### Minor Changes
+
+-   [#4441](https://github.com/Khan/perseus/pull/4441) [`79c4ac2`](https://github.com/Khan/perseus/commit/79c4ac24ad2c927cd109181b55248884be1961b2) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Add legend fields to the sorter editor, with linter warnings for missing or incomplete legends, and a sorter legend test generator
+
+### Patch Changes
+
+-   Updated dependencies [[`18aabdc`](https://github.com/Khan/perseus/commit/18aabdcfcbe7a753263514143c1af7711de1f474), [`a0b8db9`](https://github.com/Khan/perseus/commit/a0b8db913a3497f8344610791635a4489ed68800), [`894ed72`](https://github.com/Khan/perseus/commit/894ed729bff8e27ea338eca3a11dca91c213a82a), [`79c4ac2`](https://github.com/Khan/perseus/commit/79c4ac24ad2c927cd109181b55248884be1961b2)]:
+    -   @khanacademy/perseus-core@42.5.0
+    -   @khanacademy/kmath@3.1.8
+
+## 8.1.0
+
+### Minor Changes
+
+-   [#4532](https://github.com/Khan/perseus/pull/4532) [`874f1a8`](https://github.com/Khan/perseus/commit/874f1a8bb4678411437be2d6fbdf844be0ef9271) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Add a `table-single-cell` lint warning for 1x1 tables
+
+### Patch Changes
+
+-   [#4546](https://github.com/Khan/perseus/pull/4546) [`d3ef535`](https://github.com/Khan/perseus/commit/d3ef535f47ca46f64dc9b55d2abcbd6c0850a1f7) Thanks [@benchristel](https://github.com/benchristel)! - Removed the unused `blockHighlight` concept from the linting system.
+
+-   Updated dependencies [[`b65a0f6`](https://github.com/Khan/perseus/commit/b65a0f62fd6d2a2d4d636b872111188bc7f2602c), [`e86e304`](https://github.com/Khan/perseus/commit/e86e30436b76b90c8acaa529d1525b0339d06bd1)]:
+    -   @khanacademy/perseus-core@42.4.0
+    -   @khanacademy/kmath@3.1.7
+
+## 8.0.1
+
+### Patch Changes
+
+-   [#4505](https://github.com/Khan/perseus/pull/4505) [`0782684`](https://github.com/Khan/perseus/commit/0782684495ed6a2a588248f67b0a569193f51009) Thanks [@benchristel](https://github.com/benchristel)! - Fixed a bug where an invalid numeric input widget would cause the issues panel to show a nonsensical message like "numeric-input 1: undefined". The correct message is now shown.
+
+-   [#4461](https://github.com/Khan/perseus/pull/4461) [`3d90cad`](https://github.com/Khan/perseus/commit/3d90cade198d395d563f01332d4d9788e3251f78) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Fixing missing table header lint.
+
+-   Updated dependencies [[`aa65a1f`](https://github.com/Khan/perseus/commit/aa65a1f73488da6067c5a82bfac225c23e744074), [`d5d3257`](https://github.com/Khan/perseus/commit/d5d3257f6c7b83b1b907ab1ae3a0b6dcd5d0a44b)]:
+    -   @khanacademy/pure-markdown@4.0.0
+    -   @khanacademy/perseus-core@42.3.0
+    -   @khanacademy/kmath@3.1.6
+
 ## 8.0.0
 
 ### Major Changes

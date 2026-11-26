@@ -303,7 +303,7 @@ describe("joinLabelsAsSpokenText", () => {
         expect(actualOutput).toBe("");
     });
 
-    it.each`
+    it.each<any>`
         input                   | expectedOutput
         ${["a"]}                | ${" a"}
         ${["a", "b"]}           | ${" a, b"}

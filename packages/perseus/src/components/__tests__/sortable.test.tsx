@@ -7,7 +7,7 @@ import Sortable from "../sortable";
 
 describe("Sortable", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -39,7 +39,7 @@ describe("Sortable", () => {
             simulateFakeTeXRendering = onRender || simulateFakeTeXRendering;
             return <div className="fake-tex">{children}</div>;
         }
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
             TeX: FakeTeX,
         });
@@ -74,15 +74,15 @@ describe("Sortable", () => {
         // the stub can be a plain one.
         // eslint-disable-next-line no-restricted-syntax
         const fonts = new EventTarget() as unknown as FontFaceSet;
-        jest.spyOn(document, "fonts", "get").mockReturnValue(fonts);
+        rs.spyOn(document, "fonts", "get").mockReturnValue(fonts);
 
         let webFontLoaded = false;
-        jest.spyOn(
+        rs.spyOn(
             HTMLElement.prototype,
             "offsetHeight",
             "get",
         ).mockImplementation(() => (webFontLoaded ? 1 : 2));
-        jest.spyOn(
+        rs.spyOn(
             HTMLElement.prototype,
             "offsetWidth",
             "get",
@@ -119,7 +119,7 @@ describe("Sortable", () => {
 
 describe("moveOptionToIndex", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -221,7 +221,7 @@ describe("moveOptionToIndex", () => {
 
 describe("Sortable.itemsFromProps", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -298,7 +298,7 @@ describe("Sortable.itemsFromProps", () => {
 
 describe("Sortable.clearItemMeasurements", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });

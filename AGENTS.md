@@ -71,6 +71,8 @@ utils/                   # Repo scripts (changed-files, lint, publishing)
 - Wrap comments and string literals at 80 columns. Prettier doesn't wrap
   them. Split long strings by concatenation so the runtime value is
   unchanged.
+- Don't hand-write CSS vendor prefixes (`-webkit-`, etc.). The build adds
+  them for the browsers in `config/build/browser-targets.ts`.
 - Run `pnpm fixc` to format and lint changed files.
 
 ## Testing Guidelines
@@ -81,6 +83,9 @@ utils/                   # Repo scripts (changed-files, lint, publishing)
    `dropdown.testdata.ts`.
 2. Follow the AAA pattern with `// Arrange`, `// Act` and `// Assert`
    comments. When Arrange and Act are one step, use `// Arrange, Act`.
+   Playwright component tests (`*.spec.ts`) are the exception: a browser test
+   interleaves actions and assertions, so the comments don't fit. Comment a
+   step there only to say what it's for.
 3. Build test data with the generators in
    `packages/perseus-core/src/utils/generators`. Pass values the test depends
    on (used in assertions or the logic under test) explicitly instead of

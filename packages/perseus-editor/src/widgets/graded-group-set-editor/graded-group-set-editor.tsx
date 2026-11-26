@@ -1,4 +1,4 @@
-import {gradedGroupSetLogic} from "@khanacademy/perseus-core";
+import {gradedGroupLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import GradedGroupEditor from "../graded-group-editor";
@@ -9,27 +9,11 @@ import type {PerseusGradedGroupSetWidgetOptions} from "@khanacademy/perseus-core
 type Props = WidgetEditorProps<PerseusGradedGroupSetWidgetOptions>;
 
 class GradedGroupSetEditor extends React.Component<Props> {
-    _editors: Array<GradedGroupEditor | null> = [];
-
-    static defaultProps: PerseusGradedGroupSetWidgetOptions =
-        gradedGroupSetLogic.defaultWidgetOptions;
-
-    getSaveWarnings: () => ReadonlyArray<any> = () => {
-        return [].concat(
-            ...this._editors.map((editor) =>
-                editor ? editor.getSaveWarnings() : [],
-            ),
-        );
-    };
-
     renderGroups: () => React.ReactNode = () => {
-        // `defaultProps` only fills in for `undefined`, so content with an
-        // explicit `gradedGroups: null` still reaches us as null.
-        const gradedGroups = this.props.gradedGroups ?? [];
+        const {gradedGroups} = this.props;
         return gradedGroups.map((group, i) => (
             <GradedGroupEditor
                 key={i}
-                ref={(el) => (this._editors[i] = el)}
                 {...group}
                 apiOptions={this.props.apiOptions}
                 onChange={(data) =>
@@ -42,7 +26,7 @@ class GradedGroupSetEditor extends React.Component<Props> {
     };
 
     addGroup = () => {
-        const newGroup = GradedGroupEditor.defaultProps;
+        const newGroup = gradedGroupLogic.defaultWidgetOptions;
         this.props.onChange({
             gradedGroups: this.props.gradedGroups.concat([newGroup]),
         });

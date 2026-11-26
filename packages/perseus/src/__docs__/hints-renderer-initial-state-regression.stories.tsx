@@ -24,7 +24,6 @@ import {ApiOptions} from "../perseus-api";
 import {storybookDependenciesV2} from "../testing/test-dependencies";
 import {earthMoonImage} from "../widgets/image/__testdata__/image.testdata";
 
-import {bibliotronExerciseDecorator} from "./hints-renderer-decorator";
 import {HintsRendererForStories} from "./hints-renderer-for-stories";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -61,10 +60,7 @@ export default meta;
 
 type Story = StoryObj<typeof HintsRendererForStories>;
 
-const desktopDecorators = [bibliotronExerciseDecorator];
-
 export const MultipleHintsShown: Story = {
-    decorators: desktopDecorators,
     args: {
         dependencies: storybookDependenciesV2,
         hints: [
@@ -91,7 +87,6 @@ export const MultipleHintsShown: Story = {
 };
 
 export const WithAllInteractiveGraphs: Story = {
-    decorators: desktopDecorators,
     args: {
         apiOptions: defaultApiOptions,
         dependencies: storybookDependenciesV2,
@@ -161,7 +156,6 @@ export const WithAllInteractiveGraphs: Story = {
 };
 
 export const ImageWidgetInHint: Story = {
-    decorators: desktopDecorators,
     args: {
         dependencies: storybookDependenciesV2,
         hints: [
@@ -185,7 +179,6 @@ export const ImageWidgetInHint: Story = {
 };
 
 export const DefinitionWidgetInHint: Story = {
-    decorators: desktopDecorators,
     args: {
         dependencies: storybookDependenciesV2,
         hints: [

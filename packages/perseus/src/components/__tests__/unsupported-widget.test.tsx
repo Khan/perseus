@@ -1,11 +1,11 @@
 import {generateTestPerseusRenderer} from "@khanacademy/perseus-core";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
 import {renderQuestion} from "../../__testutils__/render-question";
 import {DependenciesContext} from "../../dependencies";
 import {testDependenciesV2} from "../../testing/test-dependencies";
-import {scorePerseusItemTesting} from "../../util/scoring.testutils";
 import UnsupportedWidgetMessage from "../unsupported-widget-message";
 
 import type {PerseusWidgetsMap} from "@khanacademy/perseus-core";
@@ -37,10 +37,7 @@ describe("UnsupportedWidgetMessage", () => {
         const {renderer} = renderQuestion(question);
 
         // Act
-        const score = scorePerseusItemTesting(
-            question,
-            renderer.getUserInputMap(),
-        );
+        const score = scoreQuestion(question, renderer.getUserInputMap(), "en");
 
         // Assert
         expect(score).toHaveBeenAnsweredCorrectly({shouldHavePoints: false});
@@ -48,7 +45,7 @@ describe("UnsupportedWidgetMessage", () => {
 
     it("logs the widget's type, ID and reason", () => {
         // Arrange
-        const onAnalyticsEventSpy = jest.fn();
+        const onAnalyticsEventSpy = rs.fn();
         const dependencies = {
             ...testDependenciesV2,
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
@@ -79,7 +76,7 @@ describe("UnsupportedWidgetMessage", () => {
 
     it("does not log more than once per component instance", () => {
         // Arrange
-        const onAnalyticsEventSpy = jest.fn();
+        const onAnalyticsEventSpy = rs.fn();
         const dependencies = {
             ...testDependenciesV2,
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},

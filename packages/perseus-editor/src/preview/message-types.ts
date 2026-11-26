@@ -60,7 +60,6 @@ export type QuestionPreviewData = {
     apiOptions: SerializableApiOptions;
     linterContext: PreviewLinterContext;
     reviewMode?: boolean;
-    legacyPerseusLint?: ReadonlyArray<string>;
     problemNum?: number;
 };
 
@@ -81,7 +80,6 @@ export type ArticleSectionPreviewData = {
     article: PerseusRenderer;
     apiOptions: SerializableApiOptions;
     linterContext: PreviewLinterContext;
-    legacyPerseusLint?: ReadonlyArray<string>;
 };
 
 /**

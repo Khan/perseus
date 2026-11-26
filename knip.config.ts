@@ -18,11 +18,11 @@ import type {KnipConfig} from "knip";
 const basePackageConfig = {
     project: [
         "src/**/*.{ts,tsx,js,jsx}!",
-        "src/**/*.{cypress,mockData,stories,test,testdata,testutils,typetest}.{ts,tsx,js,jsx}",
+        "src/**/*.{mockData,spec,stories,story,test,testdata,testutils,typetest}.{ts,tsx,js,jsx}",
     ],
     entry: [
         "src/index.{ts,tsx}!",
-        "src/**/*.{cypress,stories,test,typetest}.{ts,tsx}",
+        "src/**/*.{spec,stories,story,test,typetest}.{ts,tsx}",
     ],
 };
 
@@ -57,17 +57,21 @@ const config: KnipConfig = {
                 "!config/build/**/*",
             ],
             entry: [
+                // Rspack loads it by path (see `tools.bundlerChain` in
+                // rstest.config.mts).
+                "config/test/rstest/basename-loader.ts",
                 // CLI tools
                 "utils/**/*.{ts,tsx,js,jsx}",
+            ],
+            ignoreDependencies: [
+                // Storybook imports its CSS (.storybook/styles/shared.css),
+                // and knip doesn't follow CSS imports.
+                "@khanacademy/wonder-blocks-tokens",
             ],
         },
         __docs__: ignoredPackageConfig,
         "config/build": {
             project: ["**/*.{ts,tsx,js,jsx}"],
-        },
-        "config/cypress": {
-            // Cypress loads this file through its supportFile setting.
-            entry: ["support.ts"],
         },
         "config/eslint-plugin": {
             project: [
@@ -116,12 +120,11 @@ const config: KnipConfig = {
         // @swc-node/register is used in the shabang of executable TypeScript
         // files.
         "@swc-node/register",
-        // nyc measures code coverage.
+        // nyc merges and reports code coverage (see
+        // utils/test-with-coverage.sh).
         "nyc",
-        // swc_mut_cjs_exports is a plugin for swc, configured like
-        // `swcrc.jsc.experimental.plugins.push(["swc_mut_cjs_exports", {}]);`
-        // (hence, not imported).
-        "swc_mut_cjs_exports",
+        // @swc/core is a peer dependency of @swc-node/register (above).
+        "@swc/core",
     ],
 };
 

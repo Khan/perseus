@@ -1,4 +1,5 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
+import {generateCategorizerOptions} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -13,10 +14,10 @@ describe("categorizer-editor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -26,6 +27,7 @@ describe("categorizer-editor", () => {
             <CategorizerEditor
                 onChange={() => undefined}
                 apiOptions={ApiOptions.defaults}
+                {...generateCategorizerOptions()}
             />,
         );
 
@@ -35,12 +37,13 @@ describe("categorizer-editor", () => {
     });
 
     it("should be possible to change randomize item order", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(
             <CategorizerEditor
                 onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
+                {...generateCategorizerOptions({randomizeItems: false})}
             />,
         );
 

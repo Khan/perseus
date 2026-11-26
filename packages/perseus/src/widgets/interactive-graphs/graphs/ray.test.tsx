@@ -27,7 +27,7 @@ const overallGraphLabel = "A ray on a coordinate plane.";
 
 describe("Ray graph screen reader", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -48,7 +48,7 @@ describe("Ray graph screen reader", () => {
         );
     });
 
-    test.each`
+    test.each<any>`
         element         | index | expectedValue
         ${"point1"}     | ${0}  | ${"Endpoint at -5 comma 5."}
         ${"grabHandle"} | ${1}  | ${"Ray with endpoint -5 comma 5 going through point 5 comma 5."}
@@ -119,7 +119,7 @@ describe("Ray graph screen reader", () => {
 
 describe("Ray graph pointLabels", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });

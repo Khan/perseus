@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`iframe widget should snapshot on mobile: first mobile render 1`] = `
+exports[`iframe widget > should snapshot > first render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -8,12 +8,13 @@ exports[`iframe widget should snapshot on mobile: first mobile render 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         Try matching the target image
 
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -38,7 +39,7 @@ exports[`iframe widget should snapshot on mobile: first mobile render 1`] = `
 </div>
 `;
 
-exports[`iframe widget should snapshot: first render 1`] = `
+exports[`iframe widget > should snapshot on mobile > first mobile render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -46,12 +47,13 @@ exports[`iframe widget should snapshot: first render 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         Try matching the target image
 
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"

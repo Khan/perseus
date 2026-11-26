@@ -1,4 +1,5 @@
 import type {Issue} from "./components/issues-panel";
+import type {LintHelpLink} from "@khanacademy/perseus-linter";
 
 // Severities are defined in the perseus-linter package in `rule.ts`
 const SEVERITY_ERROR = 1;
@@ -30,12 +31,12 @@ export const WARNINGS = {
         rule: string,
         message: string,
         severity: number | undefined,
+        helpLink: LintHelpLink,
     ): Issue => ({
         id: rule,
         description: message,
-        help: "Learn more about best practices for authoring items",
-        helpUrl:
-            "https://docs.google.com/document/d/1N13f4sY-7EXWDwQ04ivA9vJBVvPPd60qjBT73B4NHuM/edit?tab=t.0",
+        help: helpLink.text,
+        helpUrl: helpLink.url,
         impact: SEVERITY_MAP[severity ?? SEVERITY_GUIDELINE],
         message: message,
     }),

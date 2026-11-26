@@ -1,4 +1,6 @@
 import {
+    generateIGAngleGraph,
+    generateInteractiveGraphQuestion,
     generateRadioOptions,
     generateRadioWidget,
     generateTestPerseusRenderer,
@@ -141,6 +143,17 @@ export const RadioWithMathJax: Story = {
                     }),
                 }),
             },
+        }),
+    ),
+};
+
+// The interactive graph's protractor draws the protractor as an `<image>`
+// inside the graph's SVG.
+export const ImageElement: Story = {
+    render: RenderInDarkMode(
+        generateInteractiveGraphQuestion({
+            correct: generateIGAngleGraph(),
+            showProtractor: true,
         }),
     ),
 };

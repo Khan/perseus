@@ -3,23 +3,24 @@ import {
     SORTER_MAX_HORIZONTAL_CARDS,
     SORTER_MAX_CARDS,
     type PerseusSorterWidgetOptions,
+    type SorterVariant,
 } from "@khanacademy/perseus-core";
 import Banner from "@khanacademy/wonder-blocks-banner";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import * as React from "react";
 
 import InfoTip from "../../components/info-tip";
+import PerseusEditorAccordion from "../../components/perseus-editor-accordion";
 import {TypedSingleSelect} from "../../components/typed-single-select";
 
 import CardEditor from "./card-editor";
+import LegendEditor, {getDefaultLegend} from "./legend-editor";
 import styles from "./sorter-editor.module.css";
-
-// There's nothing to sort with fewer than two cards.
-const minCards = 2;
 
 // Annotated because WidgetLogic types `defaultWidgetOptions` as `any`. Without
 // this, the `any` spreads: a destructured prop whose default is `any` is itself
@@ -30,7 +31,14 @@ const defaultOptions: PerseusSorterWidgetOptions =
 const layoutOptions = {
     horizontal: "Horizontal",
     vertical: "Vertical",
-} as const satisfies Record<PerseusSorterWidgetOptions["layout"], string>;
+} satisfies Record<PerseusSorterWidgetOptions["layout"], string>;
+
+// TODO: Remove the disable when the variant dropdown ships.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const variantOptions = {
+    scale: "Scale",
+    timeline: "Timeline",
+} satisfies Record<SorterVariant, string>;
 
 // TODO(benchristel): Define Props in terms of WidgetEditorProps. We can't do
 //  this currently because `pnpm build:types` fails with a cryptic error. The
@@ -41,177 +49,201 @@ interface Props extends PerseusSorterWidgetOptions {
 }
 
 /**
- * Imperative API that WidgetEditor calls
- */
-type SorterEditorHandle = {
-    getSaveWarnings: () => string[];
-};
-
-/**
  * An editor for adding a sorter widget that allows users to arrange items in a specific order.
  */
-const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
-    function SorterEditor(
-        {
-            correct = defaultOptions.correct,
-            layout = defaultOptions.layout,
-            padding = defaultOptions.padding,
-            onChange,
-        },
-        ref,
-    ) {
-        React.useImperativeHandle(
-            ref,
-            () => ({
-                // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend
-                // uses the new linter rules for save warnings.
-                getSaveWarnings: () => {
-                    const warnings: string[] = [];
-                    // don't allow too few cards
-                    if (correct.length < minCards) {
-                        warnings.push(
-                            `Sorter requires at least ${minCards} cards.`,
-                        );
-                    }
-                    // don't allow blanks
-                    if (correct.some((card) => card.trim() === "")) {
-                        warnings.push("Sorter cards cannot be blank.");
-                    }
-                    return warnings;
-                },
-            }),
-            [correct],
-        );
+function SorterEditor({
+    correct = defaultOptions.correct,
+    layout = defaultOptions.layout,
+    variant = defaultOptions.variant,
+    padding = defaultOptions.padding,
+    legend,
+    onChange,
+}: Props) {
+    const [isLegendExpanded, setIsLegendExpanded] = React.useState(true);
+    const displaysVertically =
+        layout === "vertical" || correct.length > SORTER_MAX_HORIZONTAL_CARDS;
 
-        function handleChange(changes: Partial<PerseusSorterWidgetOptions>) {
-            onChange({
-                correct,
-                layout,
-                padding,
-                ...changes,
-            });
+    function handleChange(changes: Partial<PerseusSorterWidgetOptions>) {
+        onChange({
+            correct,
+            layout,
+            padding,
+            variant,
+            legend,
+            ...changes,
+        });
+    }
+
+    // TODO: Remove the disable when the variant dropdown ships.
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    function handleVariantChange(newVariant: SorterVariant) {
+        if (legend == null) {
+            handleChange({variant: newVariant});
+            return;
         }
 
-        const onCardChange = (index: number, value: string) => {
-            const newCorrect = [...correct];
-            newCorrect[index] = value;
-            handleChange({correct: newCorrect});
-        };
+        const oldDefault = getDefaultLegend(variant);
+        const hasDefaultCaps =
+            legend.startCap === oldDefault.startCap &&
+            legend.endCap === oldDefault.endCap;
+        if (!hasDefaultCaps) {
+            handleChange({variant: newVariant});
+            return;
+        }
 
-        const onAddCard = () => {
-            if (correct.length >= SORTER_MAX_CARDS) {
-                return;
-            }
-            handleChange({correct: [...correct, ""]});
-        };
+        const {startCap, endCap} = getDefaultLegend(newVariant);
+        handleChange({
+            variant: newVariant,
+            legend: {...legend, startCap, endCap},
+        });
+    }
 
-        const onMoveCard = (index: number, offset: -1 | 1) => {
-            const newCorrect = [...correct];
-            const newIndex = index + offset;
-            [newCorrect[index], newCorrect[newIndex]] = [
-                newCorrect[newIndex],
-                newCorrect[index],
-            ];
-            handleChange({correct: newCorrect});
-        };
+    const onCardChange = (index: number, value: string) => {
+        const newCorrect = [...correct];
+        newCorrect[index] = value;
+        handleChange({correct: newCorrect});
+    };
 
-        const onDeleteCard = (index: number) => {
-            handleChange({
-                correct: correct.filter((card, i) => i !== index),
-            });
-        };
+    const onAddCard = () => {
+        if (correct.length >= SORTER_MAX_CARDS) {
+            return;
+        }
+        handleChange({correct: [...correct, ""]});
+    };
 
-        return (
-            <View className={styles.editor}>
-                <View className={styles.section}>
-                    <div>
-                        Correct answer{" "}
-                        <InfoTip>
-                            <p>
-                                Enter the correct answer (in the correct order)
-                                here. The preview on the right will have the
-                                cards in a randomized order, which is how the
-                                student will see them.
-                            </p>
-                            <p>
-                                For horizontal orientation, the top input
-                                represents the leftmost card and the bottom
-                                input represents the rightmost card.
-                            </p>
-                        </InfoTip>
-                    </div>
-                    <View tag="ol" className={styles.cards}>
-                        {correct.map((card, i) => (
-                            <CardEditor
-                                key={i}
-                                index={i}
-                                value={card}
-                                isFirst={i === 0}
-                                isLast={i === correct.length - 1}
-                                onChange={(value) => onCardChange(i, value)}
-                                onMoveUp={() => onMoveCard(i, -1)}
-                                onMoveDown={() => onMoveCard(i, 1)}
-                                onDelete={() => onDeleteCard(i)}
-                            />
-                        ))}
-                    </View>
-                    <Button
-                        kind="tertiary"
-                        startIcon={plusCircle}
-                        className={styles.addCard}
-                        disabled={correct.length >= SORTER_MAX_CARDS}
-                        onClick={onAddCard}
-                    >
-                        Add a card
-                    </Button>
-                </View>
-                <LabeledField
-                    label="Layout"
-                    field={
-                        <TypedSingleSelect
-                            options={layoutOptions}
-                            selectedValue={layout}
-                            onChange={(layout) => handleChange({layout})}
-                        />
-                    }
-                    contextLabel={
-                        <InfoTip>
-                            <p>
-                                Use the horizontal layout for short text and
-                                small images. The vertical layout is best for
-                                longer text and larger images.
-                            </p>
-                        </InfoTip>
-                    }
-                    styles={{
-                        contextLabel: {
-                            marginInlineEnd: "auto",
-                        },
-                    }}
-                />
-                {layout === "horizontal" &&
-                    correct.length > SORTER_MAX_HORIZONTAL_CARDS && (
-                        <Banner
-                            kind="warning"
-                            text={`Sorter widget with more than ${SORTER_MAX_HORIZONTAL_CARDS} options will display vertically, even if the layout is set to horizontal.`}
-                        />
-                    )}
-                <div className={styles.row}>
-                    <Checkbox
-                        label="Padding"
-                        checked={padding}
-                        onChange={(padding) => handleChange({padding})}
-                    />
+    const onMoveCard = (index: number, offset: -1 | 1) => {
+        const newCorrect = [...correct];
+        const newIndex = index + offset;
+        [newCorrect[index], newCorrect[newIndex]] = [
+            newCorrect[newIndex],
+            newCorrect[index],
+        ];
+        handleChange({correct: newCorrect});
+    };
+
+    const onDeleteCard = (index: number) => {
+        handleChange({
+            correct: correct.filter((card, i) => i !== index),
+        });
+    };
+
+    return (
+        <View className={styles.editor}>
+            <View className={styles.section}>
+                <div>
+                    Correct answer{" "}
                     <InfoTip>
                         <p>
-                            Padding is good for text, but not needed for images.
+                            Enter the correct answer (in the correct order)
+                            here. The preview on the right will have the cards
+                            in a randomized order, which is how the student will
+                            see them.
+                        </p>
+                        <p>
+                            For horizontal orientation, the top input represents
+                            the leftmost card and the bottom input represents
+                            the rightmost card.
                         </p>
                     </InfoTip>
                 </div>
+                <View tag="ol" className={styles.cards}>
+                    {correct.map((card, i) => (
+                        <CardEditor
+                            key={i}
+                            index={i}
+                            value={card}
+                            isFirst={i === 0}
+                            isLast={i === correct.length - 1}
+                            onChange={(value) => onCardChange(i, value)}
+                            onMoveUp={() => onMoveCard(i, -1)}
+                            onMoveDown={() => onMoveCard(i, 1)}
+                            onDelete={() => onDeleteCard(i)}
+                        />
+                    ))}
+                </View>
+                <Button
+                    kind="tertiary"
+                    startIcon={plusCircle}
+                    className={styles.addCard}
+                    disabled={correct.length >= SORTER_MAX_CARDS}
+                    onClick={onAddCard}
+                >
+                    Add a card
+                </Button>
             </View>
-        );
-    },
-);
+            {/* TODO: Show the variant dropdown when the timeline variant ships.
+                Until then, timeline looks the same as scale, so authors could
+                pick it without knowing what it will change.
+            <LabeledField
+                label="Variant"
+                field={
+                    <TypedSingleSelect
+                        options={variantOptions}
+                        selectedValue={variant}
+                        onChange={handleVariantChange}
+                    />
+                }
+            /> */}
+            <LabeledField
+                label="Layout"
+                field={
+                    <TypedSingleSelect
+                        options={layoutOptions}
+                        selectedValue={layout}
+                        onChange={(layout) => handleChange({layout})}
+                    />
+                }
+                contextLabel={
+                    <InfoTip>
+                        <p>
+                            Use the horizontal layout for short text and small
+                            images. The vertical layout is best for longer text
+                            and larger images.
+                        </p>
+                    </InfoTip>
+                }
+                styles={{
+                    contextLabel: {
+                        marginInlineEnd: "auto",
+                    },
+                }}
+            />
+            {layout === "horizontal" &&
+                correct.length > SORTER_MAX_HORIZONTAL_CARDS && (
+                    <Banner
+                        kind="warning"
+                        text={`Sorter widget with more than ${SORTER_MAX_HORIZONTAL_CARDS} options will display vertically, even if the layout is set to horizontal.`}
+                    />
+                )}
+            <div className={styles.row}>
+                <Checkbox
+                    label="Padding"
+                    checked={padding}
+                    onChange={(padding) => handleChange({padding})}
+                />
+                <InfoTip>
+                    <p>Padding is good for text, but not needed for images.</p>
+                </InfoTip>
+            </div>
+            <PerseusEditorAccordion
+                header={
+                    <BodyText size="medium" weight="bold" tag="span">
+                        Legend
+                    </BodyText>
+                }
+                expanded={isLegendExpanded}
+                onToggle={setIsLegendExpanded}
+            >
+                <LegendEditor
+                    legend={legend}
+                    variant={variant}
+                    displaysVertically={displaysVertically}
+                    onChange={(legend) => handleChange({legend})}
+                />
+            </PerseusEditorAccordion>
+        </View>
+    );
+}
 
 export default Object.assign(SorterEditor, {
     // Read directly by the editor page to seed the options of a newly inserted

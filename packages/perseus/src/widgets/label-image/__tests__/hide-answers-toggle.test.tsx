@@ -14,7 +14,7 @@ describe("HideAnswersToggle", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
@@ -34,7 +34,7 @@ describe("HideAnswersToggle", () => {
     });
 
     it("should call the onChange callback when the toggle switch is clicked", async () => {
-        const onChange = jest.fn((checked) => expect(checked).toBe(true));
+        const onChange = rs.fn((checked) => expect(checked).toBe(true));
         const screen = render(
             <HideAnswersToggle areAnswersHidden={false} onChange={onChange} />,
             {wrapper: RenderStateRoot},

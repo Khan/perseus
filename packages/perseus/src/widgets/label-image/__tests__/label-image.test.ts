@@ -5,14 +5,13 @@ import {
     generateTestPerseusRenderer,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {scorePerseusItem} from "@khanacademy/perseus-score";
-import {screen} from "@testing-library/react";
+import {scoreQuestion} from "@khanacademy/perseus-score";
+import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../../__testutils__/render-question";
 import {testDependenciesV2} from "../../../testing/test-dependencies";
-import {scorePerseusItemTesting} from "../../../util/scoring.testutils";
-import {LabelImage, getComputedSelectedState} from "../label-image";
+import {getComputedSelectedState, LabelImage} from "../label-image";
 
 import {shortTextQuestion, textQuestion} from "./label-image.testdata";
 
@@ -22,6 +21,7 @@ import type {
     PerseusLabelImageUserInputMarker,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
+import type {Mock} from "@rstest/core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const emptyMarker: InteractiveMarkerType = {
@@ -41,17 +41,17 @@ describe("LabelImage", function () {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
         // Mocked for loading graphie in svg-image
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn(() =>
+        global.fetch = rs.fn(() =>
             Promise.resolve({
                 text: () => "",
                 ok: true,
             }),
-        ) as jest.Mock;
+        ) as Mock;
     });
 
     describe("getComputedSelectedState", function () {
@@ -821,7 +821,7 @@ describe("LabelImage", function () {
 
     describe("analytics", () => {
         beforeEach(() => {
-            jest.spyOn(testDependenciesV2.analytics, "onAnalyticsEvent");
+            rs.spyOn(testDependenciesV2.analytics, "onAnalyticsEvent");
         });
 
         it("sends an analytics event when widget is rendered", async () => {
@@ -930,15 +930,16 @@ describe("LabelImage", function () {
         });
     });
 
-    describe("scorePerseusItem", () => {
+    describe("scoreQuestion", () => {
         it("should be invalid on first render", () => {
             // Arrange
             const {renderer} = renderQuestion(textQuestion);
 
             // Act
-            const score = scorePerseusItemTesting(
+            const score = scoreQuestion(
                 textQuestion,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert
@@ -987,9 +988,12 @@ describe("LabelImage", function () {
             ).toBeInTheDocument();
         });
 
-        it("names the marker combobox as correct when answered correctly", () => {
+        it("names the marker combobox as correct when answered correctly", async () => {
             // Arrange, Act
             renderQuestion(question, {extraProps: {reviewMode: true}});
+            // The popover positions itself asynchronously. We need to ensure
+            // that happens during an `act` call, or RTL warns.
+            await act(() => Promise.resolve());
 
             // Assert
             expect(
@@ -1021,18 +1025,21 @@ describe("LabelImage", function () {
             expect(screen.getByRole("combobox")).not.toBeRequired();
         });
 
-        it("does not render the marker as required in review mode", () => {
+        it("does not render the marker as required in review mode", async () => {
             // Arrange, Act
             renderQuestion(generateSingleMarkerRenderer(), {
                 apiOptions: {readOnly: false},
                 extraProps: {isScorable: true, reviewMode: true},
             });
+            // The popover positions itself asynchronously. We need to ensure
+            // that happens during an `act` call, or RTL warns.
+            await act(() => Promise.resolve());
 
             // Assert
             expect(screen.getByRole("combobox")).not.toBeRequired();
         });
 
-        it("does not render the marker as required when showing solutions", () => {
+        it("does not render the marker as required when showing solutions", async () => {
             // Arrange, Act
             renderQuestion(generateSingleMarkerRenderer(), {
                 apiOptions: {readOnly: false},
@@ -1042,17 +1049,23 @@ describe("LabelImage", function () {
                     showSolutions: "all",
                 },
             });
+            // The popover positions itself asynchronously. We need to ensure
+            // that happens during an `act` call, or RTL warns.
+            await act(() => Promise.resolve());
 
             // Assert
             expect(screen.getByRole("combobox")).not.toBeRequired();
         });
 
-        it("does not render the marker as required when static", () => {
+        it("does not render the marker as required when static", async () => {
             // Arrange, Act
             renderQuestion(generateSingleMarkerRenderer({isStatic: true}), {
                 apiOptions: {readOnly: false},
                 extraProps: {isScorable: true, reviewMode: false},
             });
+            // The popover positions itself asynchronously. We need to ensure
+            // that happens during an `act` call, or RTL warns.
+            await act(() => Promise.resolve());
 
             // Assert
             expect(screen.getByRole("combobox")).not.toBeRequired();
@@ -1067,6 +1080,79 @@ describe("LabelImage", function () {
 
             // Assert
             expect(screen.getByRole("combobox")).not.toBeRequired();
+        });
+    });
+
+    describe("disabled state", () => {
+        it("opens the answer choices when interactive", async () => {
+            // Arrange
+            renderQuestion(generateSingleMarkerRenderer(), {
+                apiOptions: {readOnly: false},
+            });
+
+            // Act
+            await userEvent.click(screen.getByRole("combobox"));
+
+            // Assert
+            expect(
+                screen.getByRole("option", {name: "Cars"}),
+            ).toBeInTheDocument();
+        });
+
+        it("disables the marker combobox when static", async () => {
+            // Arrange, Act
+            renderQuestion(generateSingleMarkerRenderer({isStatic: true}), {
+                apiOptions: {readOnly: false},
+            });
+
+            // Assert
+            expect(await screen.findByRole("combobox")).toHaveAttribute(
+                "aria-disabled",
+                "true",
+            );
+        });
+
+        it("does not open the answer choices when static", async () => {
+            // Arrange
+            renderQuestion(generateSingleMarkerRenderer({isStatic: true}), {
+                apiOptions: {readOnly: false},
+            });
+
+            // Act
+            await userEvent.click(screen.getByRole("combobox"));
+
+            // Assert
+            expect(
+                screen.queryByRole("option", {name: "Cars"}),
+            ).not.toBeInTheDocument();
+        });
+
+        it("disables the marker combobox when read-only", () => {
+            // Arrange, Act
+            renderQuestion(generateSingleMarkerRenderer(), {
+                apiOptions: {readOnly: true},
+            });
+
+            // Assert
+            expect(screen.getByRole("combobox")).toHaveAttribute(
+                "aria-disabled",
+                "true",
+            );
+        });
+
+        it("does not open the answer choices when read-only", async () => {
+            // Arrange
+            renderQuestion(generateSingleMarkerRenderer(), {
+                apiOptions: {readOnly: true},
+            });
+
+            // Act
+            await userEvent.click(screen.getByRole("combobox"));
+
+            // Assert
+            expect(
+                screen.queryByRole("option", {name: "Cars"}),
+            ).not.toBeInTheDocument();
         });
     });
 
@@ -1133,7 +1219,7 @@ describe("LabelImage", function () {
 
             // Act
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItem(
+            const score = scoreQuestion(
                 answerfulItem.question,
                 userInput,
                 "en",
@@ -1156,9 +1242,10 @@ describe("LabelImage", function () {
             const choice = screen.getByRole("option", {name: "SUVs"});
             await userEvent.click(choice);
 
-            const score = scorePerseusItemTesting(
+            const score = scoreQuestion(
                 answerfulItem.question,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert
@@ -1178,9 +1265,10 @@ describe("LabelImage", function () {
             const choice = screen.getByRole("option", {name: "Trucks"});
             await userEvent.click(choice);
 
-            const score = scorePerseusItemTesting(
+            const score = scoreQuestion(
                 answerfulItem.question,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert

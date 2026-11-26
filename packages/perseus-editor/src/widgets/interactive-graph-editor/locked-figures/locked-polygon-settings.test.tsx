@@ -1,5 +1,6 @@
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
+import {rs} from "@rstest/core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -24,8 +25,8 @@ const defaultProps = {
 const defaultLabel = getDefaultFigureForType("label");
 
 // Mock the async functions
-jest.mock("./util", () => ({
-    ...jest.requireActual("./util"),
+rs.mock("./util", () => ({
+    ...rs.requireActual("./util"),
     generateSpokenMathDetails: (input) =>
         mockedGenerateSpokenMathDetailsForTests(input),
     joinLabelsAsSpokenMath: (input) =>
@@ -36,7 +37,7 @@ describe("LockedPolygonSettings", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
     it("renders", () => {
@@ -164,7 +165,7 @@ describe("LockedPolygonSettings", () => {
 
     it("calls onToggle when header is clicked", async () => {
         // Arrange
-        const onToggle = jest.fn();
+        const onToggle = rs.fn();
         render(
             <LockedPolygonSettings {...defaultProps} onToggle={onToggle} />,
             {
@@ -184,7 +185,7 @@ describe("LockedPolygonSettings", () => {
 
     it("calls onChange when the whole polygon is moved up", async () => {
         // Arrange
-        const onChangeSpy = jest.fn();
+        const onChangeSpy = rs.fn();
         const initialLabel: LockedLabelType = {
             type: "label",
             coord: [0, 0],
@@ -227,7 +228,7 @@ describe("LockedPolygonSettings", () => {
 
     it("calls onChange when the whole polygon is moved down", async () => {
         // Arrange
-        const onChangeSpy = jest.fn();
+        const onChangeSpy = rs.fn();
         const initialLabel: LockedLabelType = {
             type: "label",
             coord: [0, 0],
@@ -270,7 +271,7 @@ describe("LockedPolygonSettings", () => {
 
     it("calls onChange when the whole polygon is moved left", async () => {
         // Arrange
-        const onChangeSpy = jest.fn();
+        const onChangeSpy = rs.fn();
         const initialLabel: LockedLabelType = {
             type: "label",
             coord: [0, 0],
@@ -313,7 +314,7 @@ describe("LockedPolygonSettings", () => {
 
     it("calls onChange when the whole polygon is moved right", async () => {
         // Arrange
-        const onChangeSpy = jest.fn();
+        const onChangeSpy = rs.fn();
         const initialLabel: LockedLabelType = {
             type: "label",
             coord: [0, 0],
@@ -356,7 +357,7 @@ describe("LockedPolygonSettings", () => {
 
     it("calls onChange when the weight is changed", async () => {
         // Arrange
-        const onChangeSpy = jest.fn();
+        const onChangeSpy = rs.fn();
         render(
             <LockedPolygonSettings
                 {...defaultProps}
@@ -379,7 +380,7 @@ describe("LockedPolygonSettings", () => {
 
     it("offers a 'none' stroke option (fill-only shading)", async () => {
         // Arrange
-        const onChangeSpy = jest.fn();
+        const onChangeSpy = rs.fn();
         render(
             <LockedPolygonSettings
                 {...defaultProps}
@@ -423,7 +424,7 @@ describe("LockedPolygonSettings", () => {
             expect(inputField).toHaveValue("label text");
         });
 
-        it.each`
+        it.each<any>`
             movement   | label                   | coord | updatedBy
             ${"up"}    | ${"Move polygon up"}    | ${1}  | ${1}
             ${"down"}  | ${"Move polygon down"}  | ${1}  | ${-1}
@@ -439,7 +440,7 @@ describe("LockedPolygonSettings", () => {
                     [1, 1],
                 ] satisfies Coord[];
 
-                const onChangeProps = jest.fn();
+                const onChangeProps = rs.fn();
                 render(
                     <LockedPolygonSettings
                         {...defaultProps}
@@ -482,7 +483,7 @@ describe("LockedPolygonSettings", () => {
 
         it("Updates the label color when the polygon color changes", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = rs.fn();
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
@@ -518,7 +519,7 @@ describe("LockedPolygonSettings", () => {
 
         it("Updates the label when the label text changes", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = rs.fn();
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
@@ -545,7 +546,7 @@ describe("LockedPolygonSettings", () => {
 
         it("Removes label when delete button is clicked", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = rs.fn();
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
@@ -574,7 +575,7 @@ describe("LockedPolygonSettings", () => {
 
         it("Adds a new label when the add label button is clicked", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = rs.fn();
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
@@ -637,7 +638,7 @@ describe("LockedPolygonSettings", () => {
 
         it("calls onChangeProps when the aria label is updated", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = rs.fn();
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
@@ -660,7 +661,7 @@ describe("LockedPolygonSettings", () => {
 
         it("aria label auto-generates (no labels)", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = rs.fn();
 
             // Act
             render(
@@ -691,7 +692,7 @@ describe("LockedPolygonSettings", () => {
 
         it("aria label auto-generates (one label)", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = rs.fn();
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
@@ -727,7 +728,7 @@ describe("LockedPolygonSettings", () => {
 
         it("aria label auto-generates (multiple labels)", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            const onChangeProps = rs.fn();
             render(
                 <LockedPolygonSettings
                     {...defaultProps}

@@ -8,6 +8,7 @@ const defaultWidgetOptions: PerseusSorterWidgetOptions = {
     correct: ["$x$", "$y$", "$z$"],
     layout: "horizontal",
     padding: true,
+    variant: "scale",
 };
 
 const sorterWidgetLogic: WidgetLogic<

@@ -1,5 +1,198 @@
 # @khanacademy/perseus
 
+## 95.1.0
+
+### Minor Changes
+
+-   [#4592](https://github.com/Khan/perseus/pull/4592) [`92bb751`](https://github.com/Khan/perseus/commit/92bb751aea60df42fe8e80212e2329b096d45996) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Render a markdown table whose column headers are all empty as a layout table (`role="presentation"`, with the title as a paragraph rather than a caption), so screen readers don't announce rows and columns for tables used only for layout.
+
+### Patch Changes
+
+-   [#4562](https://github.com/Khan/perseus/pull/4562) [`dacdf56`](https://github.com/Khan/perseus/commit/dacdf564b46060ff15132f27fd88cf98a144e754) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Add a `table-empty-column-header` lint warning for markdown tables with an empty column header, skipping row header and layout tables. Move `tableHasRowHeaders` to perseus-core so the renderer and linter share it.
+
+-   [#4593](https://github.com/Khan/perseus/pull/4593) [`3d8d5db`](https://github.com/Khan/perseus/commit/3d8d5db030bdeb6d69653abdfe7d0b43799d5f44) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix Zoomable's `transition-property` so browsers apply its fade and zoom transitions
+
+-   [#4599](https://github.com/Khan/perseus/pull/4599) [`8124442`](https://github.com/Khan/perseus/commit/81244420bf691a26cc07bf833743c5448dc6b3d8) Thanks [@benchristel](https://github.com/benchristel)! - Internal: consolidated CSS for hints in hint-renderer.css
+
+-   [#4595](https://github.com/Khan/perseus/pull/4595) [`b148150`](https://github.com/Khan/perseus/commit/b148150a9838730faa306863ba9a3cbd0772af5f) Thanks [@benchristel](https://github.com/benchristel)! - Fixed rendering of locked functions in Safari. Previously, functions with asymptotes at the edge of the graph bounds didn't render.
+
+-   [#4590](https://github.com/Khan/perseus/pull/4590) [`9484b91`](https://github.com/Khan/perseus/commit/9484b91f8062208e628e2f33d5b27a399ff0a338) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Styles] Relocate image inversion for Dark Mode
+
+-   [#4587](https://github.com/Khan/perseus/pull/4587) [`350a342`](https://github.com/Khan/perseus/commit/350a342446efed9e81b7412a0b2083b9aeba6dfc) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Styles] Remove unused `.zoomable` style definition
+
+-   Updated dependencies [[`dacdf56`](https://github.com/Khan/perseus/commit/dacdf564b46060ff15132f27fd88cf98a144e754), [`5cf4078`](https://github.com/Khan/perseus/commit/5cf407825804a813e4b7de7891e413f52db18a0d), [`ced0334`](https://github.com/Khan/perseus/commit/ced03342e6cf0005355544b3f0a9dd22785394ec)]:
+    -   @khanacademy/perseus-linter@8.3.0
+    -   @khanacademy/perseus-core@42.6.0
+    -   @khanacademy/math-input@30.2.7
+    -   @khanacademy/keypad-context@6.0.17
+    -   @khanacademy/kmath@3.1.10
+    -   @khanacademy/perseus-score@10.0.2
+
+## 95.0.2
+
+### Patch Changes
+
+-   [#4597](https://github.com/Khan/perseus/pull/4597) [`d1fe849`](https://github.com/Khan/perseus/commit/d1fe84942f2cb904489fad42526b196b95b355a0) Thanks [@handeyeco](https://github.com/handeyeco)! - Override TeX user-select rule in Draggable
+
+## 95.0.1
+
+### Patch Changes
+
+-   [#4596](https://github.com/Khan/perseus/pull/4596) [`511ffda`](https://github.com/Khan/perseus/commit/511ffda98ce1cef6cf6d31882f0500c317d4beb6) Thanks [@handeyeco](https://github.com/handeyeco)! - Disable select on draggable elements for dnd-kit components
+
+-   Updated dependencies [[`f1e953e`](https://github.com/Khan/perseus/commit/f1e953ebce191080630bb42e318c0e6aab5ec2b0)]:
+    -   @khanacademy/perseus-core@42.5.1
+    -   @khanacademy/keypad-context@6.0.16
+    -   @khanacademy/kmath@3.1.9
+    -   @khanacademy/math-input@30.2.6
+    -   @khanacademy/perseus-linter@8.2.1
+    -   @khanacademy/perseus-score@10.0.1
+
+## 95.0.0
+
+### Major Changes
+
+-   [#4558](https://github.com/Khan/perseus/pull/4558) [`87cb448`](https://github.com/Khan/perseus/commit/87cb448874ee0edb7fe4e062a99e3343e4a2290c) Thanks [@benchristel](https://github.com/benchristel)! - Renamed `scorePerseusItem` to `scoreQuestion`; the old name is kept as a deprecated alias. Also removed the deprecated `score` method of `Renderer` and the export of `scoreWidgetsFunctional` from `perseus-score`.
+
+-   [#4581](https://github.com/Khan/perseus/pull/4581) [`d1791f0`](https://github.com/Khan/perseus/commit/d1791f02e8170b61fc283eee9c4d1e492f8732b1) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Stop exporting `generateTestCategorizerWidget` and `registerAllWidgetsForTesting`, which only tests used. Use `generateCategorizerWidget` from `@khanacademy/perseus-core` instead of `generateTestCategorizerWidget`.
+
+### Minor Changes
+
+-   [#4550](https://github.com/Khan/perseus/pull/4550) [`a0b8db9`](https://github.com/Khan/perseus/commit/a0b8db913a3497f8344610791635a4489ed68800) Thanks [@nishasy](https://github.com/nishasy)! - [FITB] Update schema to handle max uses per tile (no existing content yet)
+
+### Patch Changes
+
+-   [#4541](https://github.com/Khan/perseus/pull/4541) [`18aabdc`](https://github.com/Khan/perseus/commit/18aabdcfcbe7a753263514143c1af7711de1f474) Thanks [@benchristel](https://github.com/benchristel)! - Export `isCorrect` from `@khanacademy/perseus-core`
+
+-   [#4563](https://github.com/Khan/perseus/pull/4563) [`23f1575`](https://github.com/Khan/perseus/commit/23f1575d5ff0fe467e22bc52a8d11d6cece2b7be) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Styles] Consolidate Graphie-specific styles
+
+-   [#4582](https://github.com/Khan/perseus/pull/4582) [`b6eee6a`](https://github.com/Khan/perseus/commit/b6eee6a714b11ee702189442ecc70de19810e755) Thanks [@benchristel](https://github.com/benchristel)! - Deleted unused CSS for MathJax-rendered math
+
+-   [#4560](https://github.com/Khan/perseus/pull/4560) [`4228723`](https://github.com/Khan/perseus/commit/4228723cb405f8201c630519f1600a559a2b8750) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Deleted references to the unused CSS class `perseus-rendered-radio`
+
+-   [#4561](https://github.com/Khan/perseus/pull/4561) [`284d4ea`](https://github.com/Khan/perseus/commit/284d4eac1d37241a6d3c20a612fe76566df228a6) Thanks [@benchristel](https://github.com/benchristel)! - Removed unused CSS rules from the Interactive Graph widget stylesheet
+
+-   [#4568](https://github.com/Khan/perseus/pull/4568) [`a335819`](https://github.com/Khan/perseus/commit/a3358196dd1a7649bac3b214868dde032b740c63) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Styles] Remove unused .perseus-formats-tooltip styling
+
+-   [#4569](https://github.com/Khan/perseus/pull/4569) [`18e060d`](https://github.com/Khan/perseus/commit/18e060d98eb1f9408338ff6f56c996d96795617d) Thanks [@nedredmond](https://github.com/nedredmond)! - Radio: clicking a choice's content now focuses its button, so keyboard navigation continues from that choice instead of jumping to the first focusable parent
+
+-   [#4586](https://github.com/Khan/perseus/pull/4586) [`e178624`](https://github.com/Khan/perseus/commit/e178624f485116c3727cbcfec3247d0a638d5941) Thanks [@jandrade](https://github.com/jandrade)! - Update Wonder Blocks peer/dev dependencies to the latest releases, including `@khanacademy/wonder-blocks-layout` 4.0.0, which removes the deprecated `MediaLayout` APIs (unused by Perseus)
+
+-   [#4572](https://github.com/Khan/perseus/pull/4572) [`c017260`](https://github.com/Khan/perseus/commit/c01726070a5c6a686131e0cff34683d4d76c6a83) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Bugfix - Floated images that are taller than the surrounding text were invading space of a subsequent renderer
+
+-   [#4570](https://github.com/Khan/perseus/pull/4570) [`97d0f52`](https://github.com/Khan/perseus/commit/97d0f527acecd0619ac75529f63be3fb2dd31950) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Consolidated CSS for SVG images
+
+-   [#4567](https://github.com/Khan/perseus/pull/4567) [`8c751a4`](https://github.com/Khan/perseus/commit/8c751a4be09536040308d2abf3cc2e3e065a3c1a) Thanks [@benchristel](https://github.com/benchristel)! - Updated dependencies
+
+-   Updated dependencies [[`87cb448`](https://github.com/Khan/perseus/commit/87cb448874ee0edb7fe4e062a99e3343e4a2290c), [`d1b2485`](https://github.com/Khan/perseus/commit/d1b2485eeec77256d0f1219f49aba3cf6fa4d27c), [`18aabdc`](https://github.com/Khan/perseus/commit/18aabdcfcbe7a753263514143c1af7711de1f474), [`a0b8db9`](https://github.com/Khan/perseus/commit/a0b8db913a3497f8344610791635a4489ed68800), [`894ed72`](https://github.com/Khan/perseus/commit/894ed729bff8e27ea338eca3a11dca91c213a82a), [`79c4ac2`](https://github.com/Khan/perseus/commit/79c4ac24ad2c927cd109181b55248884be1961b2), [`e178624`](https://github.com/Khan/perseus/commit/e178624f485116c3727cbcfec3247d0a638d5941), [`8c751a4`](https://github.com/Khan/perseus/commit/8c751a4be09536040308d2abf3cc2e3e065a3c1a)]:
+    -   @khanacademy/perseus-score@10.0.0
+    -   @khanacademy/perseus-core@42.5.0
+    -   @khanacademy/perseus-linter@8.2.0
+    -   @khanacademy/math-input@30.2.5
+    -   @khanacademy/keypad-context@6.0.15
+    -   @khanacademy/kmath@3.1.8
+
+## 94.0.0
+
+### Major Changes
+
+-   [#4503](https://github.com/Khan/perseus/pull/4503) [`c8ae23d`](https://github.com/Khan/perseus/commit/c8ae23d2aa3b43d8a35e005189ccc4dfe025d953) Thanks [@benchristel](https://github.com/benchristel)! - Removed `getSaveWarnings()` methods from Perseus editors. Clients should use `@khanacademy/perseus-linter` for all linting needs. The `legacyPerseusLint` props have also been removed from the renderers and the `PreviewContent` types.
+
+### Minor Changes
+
+-   [#4462](https://github.com/Khan/perseus/pull/4462) [`f534b24`](https://github.com/Khan/perseus/commit/f534b242de153fd659b366c9ea2e066b381dd1f7) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Render the first column of a markdown table as row headers (`<th scope="row">`) when its column header is empty or when every body cell in it is bold, so screen readers announce each row's label.
+
+-   [#4432](https://github.com/Khan/perseus/pull/4432) [`920d8bb`](https://github.com/Khan/perseus/commit/920d8bb75f94116f2fac4f00da2b8713f7e36f33) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Adds sorter legend bar, end caps, and labels
+
+### Patch Changes
+
+-   [#4534](https://github.com/Khan/perseus/pull/4534) [`9249cc3`](https://github.com/Khan/perseus/commit/9249cc360f025a6433eff364eb8625890069f678) Thanks [@benchristel](https://github.com/benchristel)! - Unconditionally render `<div role="paragraph">` elements instead of `<p>` to prevent invalid DOM nesting.
+
+-   [#4523](https://github.com/Khan/perseus/pull/4523) [`0ade729`](https://github.com/Khan/perseus/commit/0ade729de3b12fbecbe5c7c6749964ca14b44f5b) Thanks [@nishasy](https://github.com/nishasy)! - [Plotter] Add disabled state to Plotter widget and remove static overlay
+
+-   [#4507](https://github.com/Khan/perseus/pull/4507) [`743d06b`](https://github.com/Khan/perseus/commit/743d06bf7e4436e44596fd9d709505e0f7e76af5) Thanks [@benchristel](https://github.com/benchristel)! - Consolidated the styling for image widget captions. Styling is now consistent across screen sizes and aligned with Wonder Blocks tokens.
+
+-   [#4509](https://github.com/Khan/perseus/pull/4509) [`318e9a6`](https://github.com/Khan/perseus/commit/318e9a604933bf3dfe1d1f46a798eacb0f2e5b72) Thanks [@benchristel](https://github.com/benchristel)! - Internal: consolidated CSS for image widget titles
+
+-   [#4547](https://github.com/Khan/perseus/pull/4547) [`3fa79d2`](https://github.com/Khan/perseus/commit/3fa79d2e66a2833588519d7dc851db84677da673) Thanks [@benchristel](https://github.com/benchristel)! - Consolidated CSS for inline code and code blocks, and made the styling consistent across desktop and mobile.
+
+-   [#4543](https://github.com/Khan/perseus/pull/4543) [`61a5988`](https://github.com/Khan/perseus/commit/61a5988aa93144234757e70fcbac38524c3b4be2) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Styling] Migrate remaining styling associated with lists
+
+-   [#4419](https://github.com/Khan/perseus/pull/4419) [`e86e304`](https://github.com/Khan/perseus/commit/e86e30436b76b90c8acaa529d1525b0339d06bd1) Thanks [@nishasy](https://github.com/nishasy)! - [FITB] Foundation for a fill-in-the-blank widget
+
+-   [#4556](https://github.com/Khan/perseus/pull/4556) [`6807723`](https://github.com/Khan/perseus/commit/6807723d58e413edcc86724092dce50931ca5a22) Thanks [@benchristel](https://github.com/benchristel)! - Deleted unused CSS for `<sup>` tags.
+
+-   [#4536](https://github.com/Khan/perseus/pull/4536) [`4b251fb`](https://github.com/Khan/perseus/commit/4b251fbb1361ff07ee75b24ce7b68586c7923bcc) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Styling] Remove redundant styling associated with headers in a mobile context
+
+-   [#4519](https://github.com/Khan/perseus/pull/4519) [`184e26e`](https://github.com/Khan/perseus/commit/184e26e0123897346a2691122909ef1991bd0523) Thanks [@nishasy](https://github.com/nishasy)! - [Number Line] Add disabled state to Number Line widget and remove static overlay
+
+-   [#4546](https://github.com/Khan/perseus/pull/4546) [`d3ef535`](https://github.com/Khan/perseus/commit/d3ef535f47ca46f64dc9b55d2abcbd6c0850a1f7) Thanks [@benchristel](https://github.com/benchristel)! - Removed the unused `blockHighlight` concept from the linting system.
+
+-   [#4454](https://github.com/Khan/perseus/pull/4454) [`49d06ee`](https://github.com/Khan/perseus/commit/49d06eec4fff2f307fa391557b6c69dd7a1a36a3) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Normalize vertical spacing to fit the new font styles
+
+-   [#4533](https://github.com/Khan/perseus/pull/4533) [`cc332b2`](https://github.com/Khan/perseus/commit/cc332b245d97ceee80d95a26db3a526acad4c60e) Thanks [@benchristel](https://github.com/benchristel)! - Locked lines with coincident points no longer render NaN coordinates, and `NumberInput` passes only known props to its `<input>`
+
+-   [#4526](https://github.com/Khan/perseus/pull/4526) [`61c84cc`](https://github.com/Khan/perseus/commit/61c84cccfa4b9aeb25a6a7736d5ecb9915f6c6e7) Thanks [@kevinb-khan](https://github.com/kevinb-khan)! - Update Wonder Blocks peer/dev dependencies from frontend, including `@khanacademy/wonder-blocks-dropdown` 11.0.0, whose OptionItem and ActionItem now forward refs to their DOM element
+
+-   [#4548](https://github.com/Khan/perseus/pull/4548) [`bc30f01`](https://github.com/Khan/perseus/commit/bc30f0186e3b7460392663b824f7e82adc5285a4) Thanks [@benchristel](https://github.com/benchristel)! - Consolidated styling of blockquote elements, making it consistent across desktop and mobile.
+
+-   Updated dependencies [[`4163210`](https://github.com/Khan/perseus/commit/4163210b8e6b71ecda752cd1d882bb87973ee571), [`874f1a8`](https://github.com/Khan/perseus/commit/874f1a8bb4678411437be2d6fbdf844be0ef9271), [`d3ef535`](https://github.com/Khan/perseus/commit/d3ef535f47ca46f64dc9b55d2abcbd6c0850a1f7), [`b65a0f6`](https://github.com/Khan/perseus/commit/b65a0f62fd6d2a2d4d636b872111188bc7f2602c), [`4163210`](https://github.com/Khan/perseus/commit/4163210b8e6b71ecda752cd1d882bb87973ee571), [`61c84cc`](https://github.com/Khan/perseus/commit/61c84cccfa4b9aeb25a6a7736d5ecb9915f6c6e7), [`e86e304`](https://github.com/Khan/perseus/commit/e86e30436b76b90c8acaa529d1525b0339d06bd1)]:
+    -   @khanacademy/perseus-score@9.0.15
+    -   @khanacademy/perseus-linter@8.1.0
+    -   @khanacademy/perseus-core@42.4.0
+    -   @khanacademy/math-input@30.2.4
+    -   @khanacademy/keypad-context@6.0.14
+    -   @khanacademy/kmath@3.1.7
+
+## 93.1.0
+
+### Minor Changes
+
+-   [#4511](https://github.com/Khan/perseus/pull/4511) [`aa65a1f`](https://github.com/Khan/perseus/commit/aa65a1f73488da6067c5a82bfac225c23e744074) Thanks [@benchristel](https://github.com/benchristel)! - Dropped support for the deprecated 'columns' markdown parse node type. The column separator '=====' is now ignored, and has no effect on rendered content.
+
+### Patch Changes
+
+-   [#4490](https://github.com/Khan/perseus/pull/4490) [`07110c6`](https://github.com/Khan/perseus/commit/07110c6393ee705660e959f2b438734261de3b0c) Thanks [@handeyeco](https://github.com/handeyeco)! - Reduce dnd-kit pointer delay
+
+-   [#4486](https://github.com/Khan/perseus/pull/4486) [`043173f`](https://github.com/Khan/perseus/commit/043173f00fc5a794113890ff5bb12aaa2128886f) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove extra margins around TeX in Sorter widgets
+
+-   [#4489](https://github.com/Khan/perseus/pull/4489) [`33928d6`](https://github.com/Khan/perseus/commit/33928d642696436ccfd13a5ba8886710f4a55201) Thanks [@handeyeco](https://github.com/handeyeco)! - Add breakpoint for Sorter to switch from horizontal to vertical
+
+-   [#4498](https://github.com/Khan/perseus/pull/4498) [`26b5931`](https://github.com/Khan/perseus/commit/26b593173902e19d5578ed84a8f373f5ca3a8534) Thanks [@handeyeco](https://github.com/handeyeco)! - Sorter: convert TeX to text with SpeechRuleEngine for screen readers
+
+-   [#4487](https://github.com/Khan/perseus/pull/4487) [`b337344`](https://github.com/Khan/perseus/commit/b33734424004d4ba1999ff4549ba09f3f734af1f) Thanks [@handeyeco](https://github.com/handeyeco)! - Add drag and drop target styles to card bank when moving from blank
+
+-   [#4494](https://github.com/Khan/perseus/pull/4494) [`d5d3257`](https://github.com/Khan/perseus/commit/d5d3257f6c7b83b1b907ab1ae3a0b6dcd5d0a44b) Thanks [@nishasy](https://github.com/nishasy)! - [Group + Graded Group/Set] Updated Group, Graded Group, and Graded Group set parsers to drop static
+
+-   [#4488](https://github.com/Khan/perseus/pull/4488) [`19a9701`](https://github.com/Khan/perseus/commit/19a97013673b8ecd50b8e953a9d8ed2504cd531a) Thanks [@handeyeco](https://github.com/handeyeco)! - Fix long text reflow in new Sorter
+
+-   [#4527](https://github.com/Khan/perseus/pull/4527) [`f73dbd1`](https://github.com/Khan/perseus/commit/f73dbd129bc30dc8261b9fe8da8746a0a6e0ece8) Thanks [@benchristel](https://github.com/benchristel)! - Updated catalog hash
+
+-   [#4520](https://github.com/Khan/perseus/pull/4520) [`043beb2`](https://github.com/Khan/perseus/commit/043beb248736b12c0bf3d7527eee1f59260c21a7) Thanks [@benchristel](https://github.com/benchristel)! - Fixed an invalid DOM nesting issue that happened when the click-blocking "static overlay" was displayed. This overlay element appears when a widget is answered correctly.
+
+-   [#4492](https://github.com/Khan/perseus/pull/4492) [`f343966`](https://github.com/Khan/perseus/commit/f34396603982ccbd69ffe2fd784f46dbde0f27d0) Thanks [@nishasy](https://github.com/nishasy)! - [Free Response] Add disabled state to Free Response and remove overlay
+
+-   [#4499](https://github.com/Khan/perseus/pull/4499) [`b092f46`](https://github.com/Khan/perseus/commit/b092f4657f151edb98f84c9ed29eb7384a4e7e20) Thanks [@handeyeco](https://github.com/handeyeco)! - Sorter: Fix vertical jump when removing tile from blank
+
+-   [#4493](https://github.com/Khan/perseus/pull/4493) [`61b57d2`](https://github.com/Khan/perseus/commit/61b57d23d264d31776a4a5e0a41c479f53e6ccd0) Thanks [@nishasy](https://github.com/nishasy)! - [Grapher] Add disabled state to Grapher and remove overlay
+
+-   [#4514](https://github.com/Khan/perseus/pull/4514) [`c493a2b`](https://github.com/Khan/perseus/commit/c493a2b3c9f4a676368c4144622d03f0e40917e2) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Bugfix - Tables on mobile showed at full size instead of reduced (zoomable)
+
+-   [#4495](https://github.com/Khan/perseus/pull/4495) [`cab6677`](https://github.com/Khan/perseus/commit/cab6677530a2c1d66df841beccc7ee9b91374d3f) Thanks [@nishasy](https://github.com/nishasy)! - [Label Image] Add disabled state to Label Image widget and remove static overlay
+
+-   [#4481](https://github.com/Khan/perseus/pull/4481) [`49c8b4d`](https://github.com/Khan/perseus/commit/49c8b4d7780ae9aeab10b29e822985e63501c833) Thanks [@nishasy](https://github.com/nishasy)! - [Categorizer] Update Categorizer widget to handle its own static elements and remove overlay
+
+-   [#4521](https://github.com/Khan/perseus/pull/4521) [`067c806`](https://github.com/Khan/perseus/commit/067c80623d9dc16ed0e655158d1a66958ad9bff8) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - move `mathOnlyParser` and `replaceOutsideTeX` out of the Interactive Graph widget into a shared Perseus util, so other widgets can render text-and-TeX labels without importing Interactive Graph internals.
+
+-   Updated dependencies [[`0782684`](https://github.com/Khan/perseus/commit/0782684495ed6a2a588248f67b0a569193f51009), [`aa65a1f`](https://github.com/Khan/perseus/commit/aa65a1f73488da6067c5a82bfac225c23e744074), [`d5d3257`](https://github.com/Khan/perseus/commit/d5d3257f6c7b83b1b907ab1ae3a0b6dcd5d0a44b), [`3d90cad`](https://github.com/Khan/perseus/commit/3d90cade198d395d563f01332d4d9788e3251f78)]:
+    -   @khanacademy/perseus-linter@8.0.1
+    -   @khanacademy/pure-markdown@4.0.0
+    -   @khanacademy/perseus-core@42.3.0
+    -   @khanacademy/keypad-context@6.0.13
+    -   @khanacademy/kmath@3.1.6
+    -   @khanacademy/math-input@30.2.3
+    -   @khanacademy/perseus-score@9.0.14
+
 ## 93.0.3
 
 ### Patch Changes

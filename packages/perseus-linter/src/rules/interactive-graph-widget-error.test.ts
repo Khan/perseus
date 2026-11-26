@@ -8,7 +8,7 @@ import {
     generateInteractiveGraphWidget,
 } from "@khanacademy/perseus-core";
 
-import {expectPass, expectIssue} from "../__tests__/test-utils";
+import {expectPass, expectIssue} from "../__tests__/linter.testutils";
 import Rule from "../rule";
 
 import interactiveGraphWidgetErrorRule from "./interactive-graph-widget-error";

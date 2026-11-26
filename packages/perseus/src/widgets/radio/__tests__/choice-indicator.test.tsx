@@ -1,11 +1,12 @@
-import {describe, it} from "@jest/globals";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
+import {describe, it} from "@rstest/core";
 import {act, render, screen} from "@testing-library/react";
 import * as React from "react";
 
 import Indicator from "../choice-indicator";
 
 import type {IndicatorContent} from "../choice-indicator";
+import type {MockInstance, Mock} from "@rstest/core";
 
 const indicatorContent: IndicatorContent = {
     visible: "A",
@@ -13,20 +14,19 @@ const indicatorContent: IndicatorContent = {
 };
 
 describe("Radio widget choice indicator", () => {
-    let iconMock: jest.SpyInstance;
-    let mockClickHandler: jest.Mock;
+    let iconMock: MockInstance;
+    let mockClickHandler: Mock;
     let buttonRef: React.Ref<HTMLButtonElement>;
 
     beforeEach(() => {
         // @ts-expect-error TS2769: No overload matches this call.
-        iconMock = jest.spyOn(PhosphorIcon, "render");
-        mockClickHandler = jest.fn();
+        iconMock = rs.spyOn(PhosphorIcon, "render");
+        mockClickHandler = rs.fn();
         buttonRef = React.createRef<HTMLButtonElement>();
-        jest.spyOn(React, "useId").mockReturnValue("id:foo");
     });
 
     afterEach(() => {
-        jest.restoreAllMocks();
+        rs.restoreAllMocks();
     });
 
     describe("content", () => {
@@ -138,27 +138,31 @@ describe("Radio widget choice indicator", () => {
             expect(indicator).not.toHaveAttribute("aria-describedby");
         });
 
-        it("also includes any aria-labelledby information when provided", () => {
+        it("names itself from its aria-label and the given labelledBy element", () => {
+            // Arrange
             const contentWithLabel: IndicatorContent = {
                 ...indicatorContent,
-                labelledBy: ":bar:",
+                labelledBy: "choice-content",
             };
+
+            // Act
             render(
-                <Indicator
-                    buttonRef={buttonRef}
-                    checked={true}
-                    shape="circle"
-                    content={contentWithLabel}
-                    showCorrectness="wrong"
-                    updateChecked={mockClickHandler}
-                />,
+                <>
+                    <span id="choice-content">Ten apples</span>
+                    <Indicator
+                        buttonRef={buttonRef}
+                        checked={true}
+                        shape="circle"
+                        content={contentWithLabel}
+                        showCorrectness="wrong"
+                        updateChecked={mockClickHandler}
+                    />
+                </>,
             );
+
+            // Assert
             const indicator = screen.getByRole("button");
-            expect(indicator).toHaveAttribute("aria-label", "Choice A");
-            expect(indicator).toHaveAttribute(
-                "aria-labelledby",
-                "id:foo :bar:",
-            );
+            expect(indicator).toHaveAccessibleName("Choice A Ten apples");
             expect(indicator).not.toHaveAttribute("aria-describedby");
         });
 
@@ -234,7 +238,7 @@ describe("Radio widget choice indicator", () => {
             expect(mockClickHandler).toHaveBeenCalledTimes(0);
         });
 
-        it.each`
+        it.each<any>`
             checked  | expected
             ${true}  | ${false}
             ${false} | ${true}

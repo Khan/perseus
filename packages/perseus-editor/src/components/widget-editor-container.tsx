@@ -1,8 +1,7 @@
 import {Widgets} from "@khanacademy/perseus";
 import {
-    CoreWidgetRegistry,
     applyDefaultsToWidget,
-    excludeDenylistKeys,
+    CoreWidgetRegistry,
 } from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
@@ -29,42 +28,17 @@ interface Props {
 
 type State = {
     showWidget: boolean;
-    widgetInfo: PerseusWidget;
 };
 
-// exported for tests
-export function _upgradeWidgetInfo(widgetInfo: PerseusWidget): PerseusWidget {
-    // eslint-disable-next-line no-restricted-syntax
-    const filteredWidget: PerseusWidget = excludeDenylistKeys(
-        widgetInfo,
-    ) as any;
-
-    // This is circumventing an issue with excludeDenylistKeys;
-    // it removes `graded` from WidgetOptions.options (good)
-    // but it's also recursive so it removes `graded`
-    // from the higher-up WidgetOptions (bad)
-    // See: LEMS-4108 and https://khanacademy.slack.com/archives/C01AZ9H8TTQ/p1778089642003609
-    filteredWidget.graded = widgetInfo.graded;
-
-    return applyDefaultsToWidget(filteredWidget);
-}
-
 class WidgetEditorContainer extends React.Component<Props, State> {
-    widgetSpecificEditor: React.RefObject<{
-        getSaveWarnings?: () => unknown;
-    }>;
-
     constructor(props: Props) {
         super(props);
         this.state = {
             showWidget: props.widgetIsOpen ?? true,
-            widgetInfo: _upgradeWidgetInfo(props.widgetInfo),
         };
-        this.widgetSpecificEditor = React.createRef();
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
-        this.setState({widgetInfo: _upgradeWidgetInfo(nextProps.widgetInfo)});
         // user can update internal state while the widget is handled globally
         if (
             nextProps.widgetIsOpen != null &&
@@ -72,6 +46,10 @@ class WidgetEditorContainer extends React.Component<Props, State> {
         ) {
             this.setState({showWidget: nextProps.widgetIsOpen});
         }
+    }
+
+    getWidgetInfo() {
+        return applyDefaultsToWidget(this.props.widgetInfo);
     }
 
     _toggleWidget = (e: React.SyntheticEvent) => {
@@ -82,7 +60,7 @@ class WidgetEditorContainer extends React.Component<Props, State> {
     _handleWidgetChange = (newOptions: PerseusWidget["options"]) => {
         // eslint-disable-next-line no-restricted-syntax
         const newWidgetInfo = {
-            ...this.state.widgetInfo,
+            ...this.getWidgetInfo(),
             options: newOptions,
         } as PerseusWidget;
         this.props.onChange(newWidgetInfo);
@@ -90,7 +68,7 @@ class WidgetEditorContainer extends React.Component<Props, State> {
 
     _setStatic = (value: boolean) => {
         const newWidgetInfo = {
-            ...this.state.widgetInfo,
+            ...this.getWidgetInfo(),
             static: value,
             // if it's "interactive but ungraded" (ungraded)
             // we don't also want it to be "non-interactive" (static)
@@ -102,7 +80,7 @@ class WidgetEditorContainer extends React.Component<Props, State> {
 
     _setGraded = (value: boolean) => {
         const newWidgetInfo = {
-            ...this.state.widgetInfo,
+            ...this.getWidgetInfo(),
             graded: value,
             // if it's "interactive but ungraded" (ungraded)
             // we don't also want it to be "non-interactive" (static)
@@ -114,18 +92,13 @@ class WidgetEditorContainer extends React.Component<Props, State> {
 
     _handleAlignmentChange = (newAlignment: Alignment) => {
         this.props.onChange({
-            ...this.state.widgetInfo,
+            ...this.getWidgetInfo(),
             alignment: newAlignment,
         });
     };
 
-    getSaveWarnings = () => {
-        const issuesFunc = this.widgetSpecificEditor.current?.getSaveWarnings;
-        return issuesFunc ? issuesFunc() : [];
-    };
-
     render(): React.ReactNode {
-        const widgetInfo = this.state.widgetInfo;
+        const widgetInfo = this.getWidgetInfo();
         const isEditingDisabled =
             this.props.apiOptions.editingDisabled ?? false;
 
@@ -202,7 +175,6 @@ class WidgetEditorContainer extends React.Component<Props, State> {
                     }
                 >
                     <WidgetEditor
-                        ref={this.widgetSpecificEditor}
                         onChange={this._handleWidgetChange}
                         static={widgetInfo.static}
                         graded={widgetInfo.graded}

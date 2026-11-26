@@ -102,14 +102,13 @@ export {default as Util} from "./util";
 export {default as KhanColors} from "./util/colors";
 /** @hidden */
 export {default as preprocessTex} from "./util/tex-preprocess";
-export {registerAllWidgetsForTesting} from "./util/register-all-widgets-for-testing";
 /** @hidden */
 export {
     containerSizeClass,
     getInteractiveBoxFromSizeClass,
 } from "./util/sizing-utils";
 /** @hidden */
-export {mathOnlyParser} from "./widgets/interactive-graphs/utils";
+export {mathOnlyParser} from "./util/math-only-parser";
 export {
     isWrongAnswerSupported,
     shouldHaveIndividualAnswer,
@@ -123,7 +122,6 @@ export {
     getValidWidgetIds,
 } from "./util/extract-perseus-data";
 
-export {generateTestCategorizerWidget} from "./util/scoring.testutils";
 export {
     getWidgetTypeByWidgetId,
     getWidgetSubTypeByWidgetId,

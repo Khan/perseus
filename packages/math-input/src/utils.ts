@@ -45,8 +45,13 @@ export function convertDotToTimesByLocale(
 }
 
 /**
- * Use this to avoid running code that should not run in Jest.
+ * Use this to avoid running code that should not run in tests. True when
+ * Jest or Rstest runs the code: each sets its own worker ID.
+ *
+ * @deprecated :hand-wave: this is not the solution you're looking for. Don't
+ * ever use this!
  **/
-export const inJest =
-    typeof process !== "undefined" && !!process?.env?.JEST_WORKER_ID;
-// Explicitly checking for undefined because Cypress throws an error
+export const inTest =
+    // Explicitly checking for undefined because Cypress throws an error
+    typeof process !== "undefined" &&
+    !!(process?.env?.JEST_WORKER_ID || process?.env?.RSTEST_WORKER_ID);

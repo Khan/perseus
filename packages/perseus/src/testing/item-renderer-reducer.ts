@@ -7,8 +7,12 @@ import type {
 
 // Define state type
 export type ItemRendererState = {
+    /**
+     * The full item (with answers), including any edits made in the debug
+     * UI's JSON editor. The answerless version shown to the learner is
+     * derived from this at render time.
+     */
     perseusItem: PerseusItem;
-    originalItem: PerseusItem;
     answerless: boolean;
     score: PerseusScore | undefined;
     userInput: UserInputMap | undefined;
@@ -37,7 +41,6 @@ export const createInitialState = (
     showSolutions?: ShowSolutions,
 ): ItemRendererState => ({
     perseusItem: item,
-    originalItem: item,
     answerless: true,
     score: undefined,
     userInput: undefined,
@@ -77,8 +80,10 @@ export const itemRendererReducer = (
             return {...state, answerless: action.payload};
 
         case "RESET_STATE":
+            // Keep the (possibly edited) item so that resetting clears the
+            // learner's attempt without discarding JSON edits.
             return {
-                ...createInitialState(state.originalItem, state.reviewMode),
+                ...createInitialState(state.perseusItem, state.reviewMode),
                 key: state.key + 1, // Force remount
             };
 
@@ -86,7 +91,7 @@ export const itemRendererReducer = (
             return {
                 ...state,
                 answerless: false,
-                hintsVisible: state.originalItem.hints.length,
+                hintsVisible: state.perseusItem.hints.length,
                 showSolutions: "all",
             };
 

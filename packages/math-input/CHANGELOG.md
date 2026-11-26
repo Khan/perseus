@@ -1,5 +1,53 @@
 # @khanacademy/math-input
 
+## 30.2.7
+
+### Patch Changes
+
+-   [#4571](https://github.com/Khan/perseus/pull/4571) [`5cf4078`](https://github.com/Khan/perseus/commit/5cf407825804a813e4b7de7891e413f52db18a0d) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Skip speech rule setup when Vitest or Rstest runs the tests, as well as Jest
+
+-   Updated dependencies [[`dacdf56`](https://github.com/Khan/perseus/commit/dacdf564b46060ff15132f27fd88cf98a144e754)]:
+    -   @khanacademy/perseus-core@42.6.0
+    -   @khanacademy/keypad-context@6.0.17
+
+## 30.2.6
+
+### Patch Changes
+
+-   Updated dependencies [[`f1e953e`](https://github.com/Khan/perseus/commit/f1e953ebce191080630bb42e318c0e6aab5ec2b0)]:
+    -   @khanacademy/perseus-core@42.5.1
+    -   @khanacademy/keypad-context@6.0.16
+
+## 30.2.5
+
+### Patch Changes
+
+-   [#4586](https://github.com/Khan/perseus/pull/4586) [`e178624`](https://github.com/Khan/perseus/commit/e178624f485116c3727cbcfec3247d0a638d5941) Thanks [@jandrade](https://github.com/jandrade)! - Update Wonder Blocks peer/dev dependencies to the latest releases, including `@khanacademy/wonder-blocks-layout` 4.0.0, which removes the deprecated `MediaLayout` APIs (unused by Perseus)
+
+-   [#4567](https://github.com/Khan/perseus/pull/4567) [`8c751a4`](https://github.com/Khan/perseus/commit/8c751a4be09536040308d2abf3cc2e3e065a3c1a) Thanks [@benchristel](https://github.com/benchristel)! - Updated dependencies
+
+-   Updated dependencies [[`18aabdc`](https://github.com/Khan/perseus/commit/18aabdcfcbe7a753263514143c1af7711de1f474), [`a0b8db9`](https://github.com/Khan/perseus/commit/a0b8db913a3497f8344610791635a4489ed68800), [`894ed72`](https://github.com/Khan/perseus/commit/894ed729bff8e27ea338eca3a11dca91c213a82a), [`79c4ac2`](https://github.com/Khan/perseus/commit/79c4ac24ad2c927cd109181b55248884be1961b2)]:
+    -   @khanacademy/perseus-core@42.5.0
+    -   @khanacademy/keypad-context@6.0.15
+
+## 30.2.4
+
+### Patch Changes
+
+-   [#4526](https://github.com/Khan/perseus/pull/4526) [`61c84cc`](https://github.com/Khan/perseus/commit/61c84cccfa4b9aeb25a6a7736d5ecb9915f6c6e7) Thanks [@kevinb-khan](https://github.com/kevinb-khan)! - Update Wonder Blocks peer/dev dependencies from frontend, including `@khanacademy/wonder-blocks-dropdown` 11.0.0, whose OptionItem and ActionItem now forward refs to their DOM element
+
+-   Updated dependencies [[`b65a0f6`](https://github.com/Khan/perseus/commit/b65a0f62fd6d2a2d4d636b872111188bc7f2602c), [`e86e304`](https://github.com/Khan/perseus/commit/e86e30436b76b90c8acaa529d1525b0339d06bd1)]:
+    -   @khanacademy/perseus-core@42.4.0
+    -   @khanacademy/keypad-context@6.0.14
+
+## 30.2.3
+
+### Patch Changes
+
+-   Updated dependencies [[`d5d3257`](https://github.com/Khan/perseus/commit/d5d3257f6c7b83b1b907ab1ae3a0b6dcd5d0a44b)]:
+    -   @khanacademy/perseus-core@42.3.0
+    -   @khanacademy/keypad-context@6.0.13
+
 ## 30.2.2
 
 ### Patch Changes

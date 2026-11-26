@@ -171,9 +171,7 @@ const ImageWidget = forwardRef<Widget, ImageWidgetProps>(
             >
                 {/* Title */}
                 {title && (
-                    <div
-                        className={`perseus-image-title ${styles.titleContainer}`}
-                    >
+                    <div className={styles.imageTitle}>
                         {/* The Renderer component is used here so that the title
                             can support Markdown and TeX. */}
                         <Renderer

@@ -1,3 +1,4 @@
+import {SpeechRuleEngine} from "@khanacademy/mathjax-renderer";
 import {
     generateSorterOptions,
     generateSorterWidget,
@@ -7,15 +8,15 @@ import {
     SORTER_MAX_HORIZONTAL_CARDS,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {screen, within} from "@testing-library/react";
+import {scoreQuestion} from "@khanacademy/perseus-score";
+import {isInaccessible, screen, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../../__testutils__/render-question";
 import {getFeatureFlags} from "../../../testing/feature-flags-util";
-import {scorePerseusItemTesting} from "../../../util/scoring.testutils";
 
 import type {APIOptions} from "../../../types";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {PerseusRenderer, SorterLegend} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const apiOptions: APIOptions = {
@@ -35,6 +36,27 @@ function generateSorterQuestion(
         },
     });
 }
+
+function generateSorterQuestionWithLegend(
+    legend: SorterLegend,
+    layout: "horizontal" | "vertical" = "horizontal",
+    correct: string[] = ["Apple", "Banana"],
+): PerseusRenderer {
+    const options = generateSorterOptions({correct, layout, legend});
+    return generateTestPerseusRenderer({
+        content: "[[☃ sorter 1]]",
+        widgets: {"sorter 1": generateSorterWidget({options})},
+    });
+}
+
+const legend: SorterLegend = {
+    startCap: "arrow",
+    endCap: "bar",
+    startLabel: "Lowest",
+    endLabel: "Highest",
+    ariaLabel: "Interest rates, from lowest to highest",
+    position: "below",
+};
 
 function getChoiceBank(): HTMLElement {
     return screen.getByRole("list", {name: "Choices"});
@@ -81,7 +103,7 @@ describe("new sorter widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
@@ -100,6 +122,57 @@ describe("new sorter widget", () => {
             expect(bank.getByRole("button", {name: "Apple"})).toBeVisible();
             expect(bank.getByRole("button", {name: "Banana"})).toBeVisible();
             expect(bank.getByRole("button", {name: "Cherry"})).toBeVisible();
+        });
+
+        describe("handling TeX with a SpeechRuleEngine", () => {
+            beforeEach(() => {
+                const spokenTex: Record<string, string> = {
+                    "x^2": "x squared",
+                    "\\frac{1}{2}": "one half",
+                };
+                rs.spyOn(SpeechRuleEngine, "setup").mockResolvedValue({
+                    texToSpeech: (tex: string) => spokenTex[tex],
+                });
+            });
+
+            it("labels TeX cards' menu buttons with spoken math", async () => {
+                // Arrange, Act
+                renderQuestion(
+                    generateSorterQuestion(["$x^2$", "$\\frac{1}{2}$"]),
+                    {apiOptions},
+                );
+
+                // Assert
+                const bank = within(getChoiceBank());
+                expect(
+                    await bank.findByRole("button", {name: "x squared"}),
+                ).toBeVisible();
+                expect(
+                    bank.getByRole("button", {name: "one half"}),
+                ).toBeVisible();
+            });
+
+            it("labels mixed text and TeX cards' menu buttons with the text and spoken math", async () => {
+                // Arrange, Act
+                renderQuestion(
+                    generateSorterQuestion([
+                        "Area is $x^2$",
+                        "Half is $\\frac{1}{2}$ cup",
+                    ]),
+                    {apiOptions},
+                );
+
+                // Assert
+                const bank = within(getChoiceBank());
+                expect(
+                    await bank.findByRole("button", {
+                        name: "Area is x squared",
+                    }),
+                ).toBeVisible();
+                expect(
+                    bank.getByRole("button", {name: "Half is one half cup"}),
+                ).toBeVisible();
+            });
         });
 
         it("renders an empty blank for each card", () => {
@@ -123,7 +196,7 @@ describe("new sorter widget", () => {
 
         it("reports itself as rendered to analytics", () => {
             // Arrange
-            const onAnalyticsEvent = jest.fn();
+            const onAnalyticsEvent = rs.fn();
 
             // Act
             renderQuestion(generateSorterQuestion(["Apple", "Banana"]), {
@@ -216,6 +289,54 @@ describe("new sorter widget", () => {
             // Assert
             expect(getBlankList()).toHaveClass("vertical");
         });
+
+        it("renders a horizontal legend bar when the layout is horizontal", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateSorterQuestionWithLegend(legend, "horizontal"),
+                {apiOptions},
+            );
+
+            // Assert
+            expect(screen.getByTestId("legend-bar")).toHaveAttribute(
+                "data-orientation",
+                "horizontal",
+            );
+        });
+
+        it("renders a vertical legend bar when the layout is vertical", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateSorterQuestionWithLegend(legend, "vertical"),
+                {apiOptions},
+            );
+
+            // Assert
+            expect(screen.getByTestId("legend-bar")).toHaveAttribute(
+                "data-orientation",
+                "vertical",
+            );
+        });
+
+        it("renders a vertical legend bar when a horizontal sorter has more cards than the maximum", () => {
+            // Arrange
+            const correct = Array.from(
+                {length: SORTER_MAX_HORIZONTAL_CARDS + 1},
+                (_, index) => `Card ${index}`,
+            );
+
+            // Act
+            renderQuestion(
+                generateSorterQuestionWithLegend(legend, "horizontal", correct),
+                {apiOptions},
+            );
+
+            // Assert
+            expect(screen.getByTestId("legend-bar")).toHaveAttribute(
+                "data-orientation",
+                "vertical",
+            );
+        });
     });
 
     describe("interaction", () => {
@@ -293,7 +414,7 @@ describe("new sorter widget", () => {
 
         it("tracks an interaction when a card is moved", async () => {
             // Arrange
-            const trackInteraction = jest.fn();
+            const trackInteraction = rs.fn();
             renderQuestion(generateSorterQuestion(["Apple", "Banana"]), {
                 apiOptions: {...apiOptions, trackInteraction},
             });
@@ -306,6 +427,116 @@ describe("new sorter widget", () => {
                 type: "sorter",
                 id: "sorter 1",
             });
+        });
+    });
+
+    describe("legend", () => {
+        it("names the list of blanks with the legend's aria label", () => {
+            // Arrange, Act
+            renderQuestion(generateSorterQuestionWithLegend(legend), {
+                apiOptions,
+            });
+
+            // Assert
+            expect(
+                screen.getByRole("list", {
+                    name: "Interest rates, from lowest to highest",
+                }),
+            ).toBeInTheDocument();
+        });
+
+        it("renders the legend labels", () => {
+            // Arrange, Act
+            renderQuestion(generateSorterQuestionWithLegend(legend), {
+                apiOptions,
+            });
+
+            // Assert
+            expect(screen.getByText("Lowest")).toBeInTheDocument();
+            expect(screen.getByText("Highest")).toBeInTheDocument();
+        });
+
+        it("hides the legend labels from assistive technology", () => {
+            // Arrange, Act
+            renderQuestion(generateSorterQuestionWithLegend(legend), {
+                apiOptions,
+            });
+
+            // Assert
+            expect(isInaccessible(screen.getByText("Lowest"))).toBe(true);
+            expect(isInaccessible(screen.getByText("Highest"))).toBe(true);
+        });
+
+        it("renders the legend caps", () => {
+            // Arrange, Act
+            renderQuestion(generateSorterQuestionWithLegend(legend), {
+                apiOptions,
+            });
+
+            // Assert
+            expect(screen.getByTestId("legend-bar-start-cap")).toHaveAttribute(
+                "data-cap",
+                "arrow",
+            );
+            expect(screen.getByTestId("legend-bar-end-cap")).toHaveAttribute(
+                "data-cap",
+                "bar",
+            );
+        });
+
+        it("renders the legend labels in the vertical layout", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateSorterQuestionWithLegend(legend, "vertical"),
+                {apiOptions},
+            );
+
+            // Assert
+            expect(screen.getByText("Lowest")).toBeInTheDocument();
+            expect(screen.getByText("Highest")).toBeInTheDocument();
+        });
+
+        it("places the legend labels after the blanks when the position is below", () => {
+            // Arrange, Act
+            renderQuestion(generateSorterQuestionWithLegend(legend), {
+                apiOptions,
+            });
+
+            // Assert
+            expect(
+                getBlankList().compareDocumentPosition(
+                    screen.getByText("Lowest"),
+                ),
+            ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+        });
+
+        it("places the legend labels before the blanks when the position is above", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateSorterQuestionWithLegend({
+                    ...legend,
+                    position: "above",
+                }),
+                {apiOptions},
+            );
+
+            // Assert
+            expect(
+                getBlankList().compareDocumentPosition(
+                    screen.getByText("Lowest"),
+                ),
+            ).toBe(Node.DOCUMENT_POSITION_PRECEDING);
+        });
+
+        it("renders no legend bar or labels when the options have no legend", () => {
+            // Arrange, Act
+            renderQuestion(generateSorterQuestion(["Apple", "Banana"]), {
+                apiOptions,
+            });
+
+            // Assert
+            expect(screen.queryByTestId("legend-bar")).not.toBeInTheDocument();
+            expect(screen.queryByText("Lowest")).not.toBeInTheDocument();
         });
     });
 
@@ -432,9 +663,10 @@ describe("new sorter widget", () => {
                 const {renderer} = renderQuestion(question, {apiOptions});
 
                 // Act
-                const score = scorePerseusItemTesting(
+                const score = scoreQuestion(
                     answerfulItem.question,
                     renderer.getUserInputMap(),
+                    "en",
                 );
 
                 // Assert
@@ -448,9 +680,10 @@ describe("new sorter widget", () => {
                 await moveTileToBlank(userEvent, "Banana", 2);
 
                 // Act
-                const score = scorePerseusItemTesting(
+                const score = scoreQuestion(
                     answerfulItem.question,
                     renderer.getUserInputMap(),
+                    "en",
                 );
 
                 // Assert
@@ -465,9 +698,10 @@ describe("new sorter widget", () => {
                 await moveTileToBlank(userEvent, "Cherry", 3);
 
                 // Act
-                const score = scorePerseusItemTesting(
+                const score = scoreQuestion(
                     answerfulItem.question,
                     renderer.getUserInputMap(),
+                    "en",
                 );
 
                 // Assert
@@ -482,9 +716,10 @@ describe("new sorter widget", () => {
                 await moveTileToBlank(userEvent, "Apple", 3);
 
                 // Act
-                const score = scorePerseusItemTesting(
+                const score = scoreQuestion(
                     answerfulItem.question,
                     renderer.getUserInputMap(),
+                    "en",
                 );
 
                 // Assert
@@ -530,7 +765,7 @@ describe("new sorter widget", () => {
 
         it("dispatches unsupported widget analytics event when above the card limit", () => {
             // Arrange
-            const onAnalyticsEventSpy = jest.fn();
+            const onAnalyticsEventSpy = rs.fn();
             const dependencies = {
                 analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
             };

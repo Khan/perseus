@@ -1,9 +1,11 @@
+import {TABLE_HELP_LINK} from "../help-links";
 import {linterWarning} from "../lint";
 import Rule from "../rule";
 
 export default Rule.makeRule({
     name: "table-missing-cells",
     selector: "table",
+    helpLink: TABLE_HELP_LINK,
     lint: function (state, content, nodes, match) {
         const table: any = nodes[0];
         const headerLength = table.header.length;

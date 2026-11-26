@@ -1,9 +1,6 @@
 import {KhanMath} from "@khanacademy/kmath";
 import {components} from "@khanacademy/perseus";
-import {
-    numericInputLogic,
-    type PerseusNumericInputWidgetOptions,
-} from "@khanacademy/perseus-core";
+import {type PerseusNumericInputWidgetOptions} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
@@ -67,10 +64,6 @@ interface State {
  */
 class NumericInputEditor extends React.Component<Props, State> {
     static displayName = "NumericInputEditor";
-
-    static defaultProps = {
-        ...numericInputLogic.defaultWidgetOptions,
-    };
 
     constructor(props: Props) {
         super(props);
@@ -174,30 +167,6 @@ class NumericInputEditor extends React.Component<Props, State> {
         const showAnswerDetails = this.state.showAnswerDetails.concat(true);
         this.setState({showAnswerDetails: showAnswerDetails});
         this.handleChange({answers: answers});
-    };
-
-    // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
-    // the new linter rules for save warnings.
-    getSaveWarnings = () => {
-        // Filter out all the empty answers
-        const warnings = [];
-        if (_.contains(_.pluck(this.props.answers, "value"), "")) {
-            // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
-            warnings.push("One or more answers is empty");
-        }
-        this.props.answers.forEach((answer, i) => {
-            const formatError =
-                answer.strict &&
-                (!answer.answerForms || answer.answerForms.length === 0);
-            if (formatError) {
-                warnings.push(
-                    // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
-                    `Answer ${i + 1} is set to string format ` +
-                        "matching, but no format was selected",
-                );
-            }
-        });
-        return warnings;
     };
 
     render() {

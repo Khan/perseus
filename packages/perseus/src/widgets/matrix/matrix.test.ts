@@ -1,5 +1,5 @@
 import {type PerseusMatrixWidgetOptions} from "@khanacademy/perseus-core";
-import {scorePerseusItem, validateMatrix} from "@khanacademy/perseus-score";
+import {scoreQuestion, validateMatrix} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -8,7 +8,6 @@ import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-
 import {
     getAnswerfulItem,
     getAnswerlessItem,
-    scorePerseusItemTesting,
 } from "../../util/scoring.testutils";
 
 import matrixExport from "./matrix";
@@ -21,7 +20,7 @@ describe("matrix widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
@@ -53,7 +52,7 @@ describe("matrix widget", () => {
 
     it("should send analytics event when widget is rendered", () => {
         // Arrange
-        const onAnalyticsEventSpy = jest.fn();
+        const onAnalyticsEventSpy = rs.fn();
         const dependencies = {
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
         };
@@ -90,9 +89,10 @@ describe("matrix widget", () => {
         for (let i = 0; i < textboxes.length; i++) {
             await userEvent.type(textboxes[i], correctAnswers[i].toString());
         }
-        const score = scorePerseusItemTesting(
+        const score = scoreQuestion(
             question1,
             renderer.getUserInputMap(),
+            "en",
         );
 
         // assert
@@ -111,9 +111,10 @@ describe("matrix widget", () => {
         for (let i = 0; i < textboxes.length; i++) {
             await userEvent.type(textboxes[i], "1");
         }
-        const score = scorePerseusItemTesting(
+        const score = scoreQuestion(
             question1,
             renderer.getUserInputMap(),
+            "en",
         );
 
         // Assert
@@ -151,7 +152,7 @@ describe("matrix widget", () => {
             await userEvent.type(screen.getAllByRole("textbox")[1], "-2");
 
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItem(
+            const score = scoreQuestion(
                 getAnswerfulItem("matrix", matrixOptions).question,
                 userInput,
                 "en",

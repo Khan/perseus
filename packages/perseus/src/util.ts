@@ -5,6 +5,7 @@ import {
     getSvgUrl,
     getDataUrl,
     getImageSizeModern,
+    isEmptyTableCell,
     isLabeledSVG,
 } from "@khanacademy/perseus-core";
 import {KhanAnswerTypes} from "@khanacademy/perseus-score";
@@ -103,17 +104,6 @@ const isParagraphWithBlockWidget = (node: SingleASTNode): boolean =>
     Array.isArray(node.content) &&
     node.content.some(isBlockWidgetNode);
 
-/**
- * These are the widgets that are marked as "inline", but should be excluded
- * from certain containers, like a paragraph (<p>).
- */
-const inlineWidgetsToExclude = (node: SingleASTNode): boolean => {
-    const widgetsToExclude = ["dropdown", "explanation", "expression"];
-    return (
-        node?.type === "widget" && widgetsToExclude.includes(node.widgetType)
-    );
-};
-
 const nodeIsGraphie = (node: SingleASTNode): boolean => {
     return node.type === "image" && node.target.startsWith("web+graphie:");
 };
@@ -122,17 +112,16 @@ export const isContentGraphie = (node: SingleASTNode): boolean => {
     return Array.isArray(node.content) && node.content.some(nodeIsGraphie);
 };
 
-/**
- * Some widgets render as inline content but CANNOT safely live
- * inside a paragraph (`<p>`). When this function returns true, the
- * QuestionParagraph component will not render the containing <p> element.
- * No additional processing is done on the sibling nodes.
- */
-export const noParagraphForInlineWidget = (node: SingleASTNode): boolean =>
-    Array.isArray(node.content) && node.content.some(inlineWidgetsToExclude);
-
 const isWhitespaceOnlyTextNode = (node: SingleASTNode): boolean =>
     node?.type === "text" && node.content.trim() === "";
+
+/**
+ * Identifies whether a table is a layout table. A layout table
+ * is denoted when it has an all empty header row.
+ */
+export function isLayoutTable(node: SingleASTNode): boolean {
+    return node.header.every(isEmptyTableCell);
+}
 
 /**
  * Trim whitespace-only text nodes from the start and end of an array of inline

@@ -1,5 +1,50 @@
 # @khanacademy/perseus-core
 
+## 42.6.0
+
+### Minor Changes
+
+-   [#4562](https://github.com/Khan/perseus/pull/4562) [`dacdf56`](https://github.com/Khan/perseus/commit/dacdf564b46060ff15132f27fd88cf98a144e754) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Add a `table-empty-column-header` lint warning for markdown tables with an empty column header, skipping row header and layout tables. Move `tableHasRowHeaders` to perseus-core so the renderer and linter share it.
+
+## 42.5.1
+
+### Patch Changes
+
+-   [#4575](https://github.com/Khan/perseus/pull/4575) [`f1e953e`](https://github.com/Khan/perseus/commit/f1e953ebce191080630bb42e318c0e6aab5ec2b0) Thanks [@benchristel](https://github.com/benchristel)! - Register the free-response widget's logic in `registerCoreWidgets()`
+
+## 42.5.0
+
+### Minor Changes
+
+-   [#4541](https://github.com/Khan/perseus/pull/4541) [`18aabdc`](https://github.com/Khan/perseus/commit/18aabdcfcbe7a753263514143c1af7711de1f474) Thanks [@benchristel](https://github.com/benchristel)! - Export `isCorrect` from `@khanacademy/perseus-core`
+
+-   [#4550](https://github.com/Khan/perseus/pull/4550) [`a0b8db9`](https://github.com/Khan/perseus/commit/a0b8db913a3497f8344610791635a4489ed68800) Thanks [@nishasy](https://github.com/nishasy)! - [FITB] Update schema to handle max uses per tile (no existing content yet)
+
+### Patch Changes
+
+-   [#4566](https://github.com/Khan/perseus/pull/4566) [`894ed72`](https://github.com/Khan/perseus/commit/894ed729bff8e27ea338eca3a11dca91c213a82a) Thanks [@benchristel](https://github.com/benchristel)! - Narrowed the types of the number-line widget's `range`, `labelRange`, and `divisionRange` properties. Previously, they were arrays, and now they are tuples. The parser now rejects data with the wrong number of elements.
+
+-   [#4441](https://github.com/Khan/perseus/pull/4441) [`79c4ac2`](https://github.com/Khan/perseus/commit/79c4ac24ad2c927cd109181b55248884be1961b2) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Add legend fields to the sorter editor, with linter warnings for missing or incomplete legends, and a sorter legend test generator
+
+## 42.4.0
+
+### Minor Changes
+
+-   [#4412](https://github.com/Khan/perseus/pull/4412) [`b65a0f6`](https://github.com/Khan/perseus/commit/b65a0f62fd6d2a2d4d636b872111188bc7f2602c) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Adds `variant` and optional `legend` fields to Sorter widget options (end caps, start/end labels, screen reader label, position), and keeps the legend when other options change. The parser defaults `variant` to "scale" for content saved without one.
+
+-   [#4419](https://github.com/Khan/perseus/pull/4419) [`e86e304`](https://github.com/Khan/perseus/commit/e86e30436b76b90c8acaa529d1525b0339d06bd1) Thanks [@nishasy](https://github.com/nishasy)! - [FITB] Foundation for fill-in-the-blank widget
+
+## 42.3.0
+
+### Minor Changes
+
+-   [#4494](https://github.com/Khan/perseus/pull/4494) [`d5d3257`](https://github.com/Khan/perseus/commit/d5d3257f6c7b83b1b907ab1ae3a0b6dcd5d0a44b) Thanks [@nishasy](https://github.com/nishasy)! - [Group + Graded Group/Set] Updated Group, Graded Group, and Graded Group set parsers to drop static
+
+### Patch Changes
+
+-   Updated dependencies [[`aa65a1f`](https://github.com/Khan/perseus/commit/aa65a1f73488da6067c5a82bfac225c23e744074)]:
+    -   @khanacademy/pure-markdown@4.0.0
+
 ## 42.2.0
 
 ### Minor Changes

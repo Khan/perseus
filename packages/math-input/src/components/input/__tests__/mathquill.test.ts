@@ -1,6 +1,6 @@
 import {mockStrings} from "../../../strings";
 
-import TestMathWrapper from "./test-math-wrapper";
+import TestMathWrapper from "./math-wrapper.testutils";
 
 const MQ = {L: "-1", R: "1"};
 const END_OF_EXPR = 0;

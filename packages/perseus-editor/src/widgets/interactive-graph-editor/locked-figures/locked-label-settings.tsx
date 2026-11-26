@@ -142,14 +142,17 @@ export default function LockedLabelSettings(props: Props) {
                     />
                 </BodyText>
                 <InfoTip>
-                    Surround your text with $ for TeX.
-                    <br />
-                    Example: {`This circle has radius $\\frac{1}{2}$ units.`}
-                    <br />
-                    <br />
-                    It is important to use TeX when appropriate for
-                    accessibility. The above example would be read as &quot;This
-                    circle has radius one-half units&quot; by screen readers.
+                    <p>Surround your text with $ for TeX.</p>
+                    <p>
+                        Example:{" "}
+                        {`This circle has radius $\\frac{1}{2}$ units.`}
+                    </p>
+                    <p>
+                        It is important to use TeX when appropriate for
+                        accessibility. The above example would be read as
+                        &quot;This circle has radius one-half units&quot; by
+                        screen readers.
+                    </p>
                 </InfoTip>
             </View>
 

@@ -23,13 +23,13 @@ describe("Perseus' MathInput", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
-        jest.useFakeTimers();
+        rs.useFakeTimers();
     });
 
     it("renders", () => {
@@ -43,7 +43,7 @@ describe("Perseus' MathInput", () => {
                 value=""
             />,
         );
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         // Assert
         expect(
@@ -62,7 +62,7 @@ describe("Perseus' MathInput", () => {
                 value=""
             />,
         );
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         // Assert
         expect(
@@ -82,7 +82,7 @@ describe("Perseus' MathInput", () => {
                 ariaLabel="Hello world"
             />,
         );
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         // Assert
         expect(
@@ -92,7 +92,7 @@ describe("Perseus' MathInput", () => {
 
     it("is possible to type in the input", async () => {
         // Arrange
-        const mockOnChange = jest.fn();
+        const mockOnChange = rs.fn();
         render(
             <MathInput
                 onChange={mockOnChange}
@@ -102,14 +102,14 @@ describe("Perseus' MathInput", () => {
                 value=""
             />,
         );
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         // Act
         await userEvent.type(
             screen.getByRole("textbox", {name: "Math input:"}),
             "12345",
         );
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         // Assert
         expect(mockOnChange).toHaveBeenLastCalledWith("12345");
@@ -119,15 +119,15 @@ describe("Perseus' MathInput", () => {
         beforeEach(() => {
             // floating-ui positions the keypad popover asynchronously after it
             // opens. With real timers, waiting for the popover gives that
-            // update a chance to settle inside act(); Jest's fake timers
+            // update a chance to settle inside act(); fake timers
             // would leave it pending until after the test finishes.
-            jest.useRealTimers();
+            rs.useRealTimers();
             userEvent = userEventLib.setup();
         });
 
         it("is possible to use buttons", async () => {
             // Arrange
-            const mockOnChange = jest.fn();
+            const mockOnChange = rs.fn();
             render(
                 <MathInput
                     onChange={mockOnChange}
@@ -156,7 +156,7 @@ describe("Perseus' MathInput", () => {
 
         it("is possible to use the scientific keypad", async () => {
             // Arrange
-            const mockOnChange = jest.fn();
+            const mockOnChange = rs.fn();
             render(
                 <MathInput
                     onChange={mockOnChange}
@@ -185,7 +185,7 @@ describe("Perseus' MathInput", () => {
 
         it("is possible to use buttons with legacy props", async () => {
             // Arrange
-            const mockOnChange = jest.fn();
+            const mockOnChange = rs.fn();
             render(
                 <MathInput
                     onChange={mockOnChange}

@@ -1,4 +1,5 @@
-import {expectPass, expectIssue} from "../__tests__/test-utils";
+import {expectPass, expectIssue} from "../__tests__/linter.testutils";
+import {TABLE_HELP_LINK} from "../help-links";
 
 import tableMissingCaptionRule, {
     MISSING_CAPTION_MESSAGE,
@@ -13,6 +14,9 @@ const UNCAPTIONED_TABLE =
 // table. `title` is spliced into the line to vary the caption under test.
 const captionedTable = (title: string) =>
     `||${title}||\n Header A | Header B \n - | - \n Cell 1 | Cell 2 \n`;
+
+// A table whose header row has only empty cells.
+const EMPTY_HEADERS_TABLE = "|  |   |\n|----|----|\n|cell1|cell2|";
 
 describe("table-missing-caption", () => {
     it("warns when a table has no caption", () => {
@@ -44,5 +48,36 @@ describe("table-missing-caption", () => {
     it("passes when a caption is made of formatted text", () => {
         // Arrange, Act, Assert
         expectPass(tableMissingCaptionRule, captionedTable(" *My caption* "));
+    });
+
+    it.each([
+        ["no caption", EMPTY_HEADERS_TABLE],
+        ["an empty caption", `||  ||\n${EMPTY_HEADERS_TABLE}`],
+    ])(
+        "passes when all column headers are empty and the table has %s",
+        (_, markdown) => {
+            // Arrange, Act, Assert
+            expectPass(tableMissingCaptionRule, markdown);
+        },
+    );
+
+    it("warns when a table has no caption and some column headers are empty", () => {
+        // Arrange, Act, Assert
+        expectIssue(
+            tableMissingCaptionRule,
+            "|col1|  |\n|----|----|\n|cell1|cell2|",
+            undefined,
+            {messages: [MISSING_CAPTION_MESSAGE]},
+        );
+    });
+
+    it("links to the table notation guide", () => {
+        // Arrange
+        const markdown = UNCAPTIONED_TABLE;
+
+        // Act, Assert
+        expectIssue(tableMissingCaptionRule, markdown, undefined, {
+            helpLink: TABLE_HELP_LINK,
+        });
     });
 });

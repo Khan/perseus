@@ -56,17 +56,17 @@ describe("Editor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
     it("should delete widget if confirmed", async () => {
-        const onChangeMock = jest.fn();
-        jest.spyOn(window, "confirm").mockReturnValue(true);
+        const onChangeMock = rs.fn();
+        rs.spyOn(window, "confirm").mockReturnValue(true);
 
         // Arrange
         render(<Harnessed onChange={onChangeMock} />);
@@ -83,8 +83,8 @@ describe("Editor", () => {
     });
 
     it("should NOT delete widget if not confirmed", async () => {
-        const onChangeMock = jest.fn();
-        jest.spyOn(window, "confirm").mockReturnValue(false);
+        const onChangeMock = rs.fn();
+        rs.spyOn(window, "confirm").mockReturnValue(false);
 
         // Arrange
         render(<Harnessed onChange={onChangeMock} />);
@@ -125,9 +125,9 @@ describe("Editor", () => {
 
     it("should update values", async () => {
         // Arrange
-        jest.spyOn(Util, "getImageSizeModern").mockResolvedValue([200, 200]);
+        rs.spyOn(Util, "getImageSizeModern").mockResolvedValue([200, 200]);
 
-        const changeFn = jest.fn();
+        const changeFn = rs.fn();
         render(<Harnessed onChange={changeFn} />);
 
         // Act
@@ -158,7 +158,7 @@ describe("Editor", () => {
     });
 
     it("should not log a warning given a widget with an undefined key", () => {
-        const consoleErrorSpy = jest.spyOn(console, "error");
+        const consoleErrorSpy = rs.spyOn(console, "error");
 
         render(
             <Harnessed
@@ -189,7 +189,7 @@ describe("Editor", () => {
                 }}
             />,
         );
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         const select = screen.getByTestId("editor__widget-select");
         await userEvent.selectOptions(select, "Expression / Equation");
@@ -210,7 +210,7 @@ describe("Editor", () => {
                 }}
             />,
         );
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         const select = screen.getByTestId("editor__widget-select");
         await userEvent.selectOptions(select, "Radio / Multiple choice");
@@ -232,7 +232,7 @@ describe("Editor", () => {
                 }}
             />,
         );
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         expect(
             screen.queryByRole("option", {name: "Fill in the Blank"}),
@@ -249,7 +249,7 @@ describe("Editor", () => {
                 }}
             />,
         );
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         expect(
             screen.getByRole("option", {name: "Fill in the Blank"}),
@@ -259,8 +259,7 @@ describe("Editor", () => {
     it("omits a widget from the widget dropdown in Storybook when its feature flag is off", () => {
         // Arrange: Storybook reveals every hidden widget, so the flag is the
         // only thing keeping this one out of the dropdown there.
-        const storybookEnv = process.env.STORYBOOK;
-        process.env.STORYBOOK = "true";
+        rs.stubEnv("STORYBOOK", "true");
 
         // Act
         render(
@@ -271,13 +270,11 @@ describe("Editor", () => {
                 }}
             />,
         );
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         expect(
             screen.queryByRole("option", {name: "Fill in the Blank"}),
         ).not.toBeInTheDocument();
-
-        process.env.STORYBOOK = storybookEnv;
     });
 
     it("inserts a widget behind a feature flag when it is chosen from the dropdown", async () => {
@@ -294,7 +291,7 @@ describe("Editor", () => {
                 }}
             />,
         );
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         // Act
         const select = screen.getByTestId("editor__widget-select");
@@ -386,7 +383,7 @@ describe("Editor", () => {
                 }}
             />,
         );
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         const select = screen.getByTestId("editor__template-select");
         await userEvent.selectOptions(select, "Table");
@@ -472,7 +469,7 @@ describe("Editor", () => {
         });
 
         it("places the cursor at the end of pasted content when pasting widget content", async () => {
-            jest.spyOn(
+            rs.spyOn(
                 clipboardUtil,
                 "getPerseusClipboardData",
             ).mockResolvedValue({text: "_", widgets: {}});
@@ -481,7 +478,7 @@ describe("Editor", () => {
             render(
                 <StatefulHarness initialContent={"AB"} initialWidgets={{}} />,
             );
-            act(() => jest.runOnlyPendingTimers());
+            act(() => rs.runOnlyPendingTimers());
 
             const textarea = screen.getByRole("textbox", {
                 name: "Markdown content",
@@ -514,7 +511,7 @@ describe("Editor", () => {
                 }}
             />,
         );
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         const select = screen.getByTestId("editor__template-select");
         await userEvent.selectOptions(select, "custom-template");

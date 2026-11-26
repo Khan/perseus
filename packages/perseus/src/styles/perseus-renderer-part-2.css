@@ -1,48 +1,5 @@
 /* All perseus-widget-container styles moved to widget-container.css */
 
-.bibliotron-exercise .perseus-hint-renderer {
-    border-left: var(--wb-border-width-thick) solid
-        var(--wb-semanticColor-core-border-neutral-subtle);
-    padding-left: var(--wb-sizing-size_160);
-    position: relative;
-}
-.bibliotron-exercise .perseus-hint-renderer:focus {
-    border-left-color: var(--wb-semanticColor-core-border-neutral-default);
-    outline: none;
-}
-.bibliotron-exercise .perseus-hint-renderer:before,
-.bibliotron-exercise .perseus-hint-renderer:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-.bibliotron-exercise .perseus-hint-renderer.last-hint {
-    margin-bottom: var(--wb-sizing-size_320);
-}
-@media (max-width: 767px) {
-    .bibliotron-exercise .perseus-hint-renderer.last-hint {
-        margin-bottom: 0;
-    }
-}
-.perseus-hint-label {
-    color: var(--wb-semanticColor-core-foreground-instructive-strong);
-    display: none;
-    font-weight: var(--wb-font-weight-bold);
-    margin-right: var(--wb-sizing-size_120);
-    position: absolute;
-    right: 100%;
-    white-space: nowrap;
-}
-.bibliotron-exercise .perseus-hint-renderer.last-rendered .perseus-hint-label {
-    display: block;
-}
-@media (max-width: 767px) {
-    .bibliotron-exercise
-        .perseus-hint-renderer.last-rendered
-        .perseus-hint-label {
-        display: none;
-    }
-}
 .perseus-math-input.mq-editable-field.mq-math-mode {
     background-color: transparent;
     font-size: 18px;
@@ -70,9 +27,6 @@
 .perseus-math-input.mq-editable-field.mq-math-mode .mq-binary-operator {
     font-family: KaTeX_Main !important;
 }
-.perseus-math-input.mq-editable-field.mq-math-mode sup {
-    line-height: normal;
-}
 .perseus-widget-editor
     .perseus-math-input.mq-editable-field.mq-math-mode
     > .mq-root-block {
@@ -88,14 +42,6 @@
     border-radius: var(--wb-border-radius-radius_040);
     padding: var(--wb-sizing-size_200);
     margin: var(--wb-sizing-size_160) 0 var(--wb-sizing-size_100);
-}
-@media (max-width: 767px) {
-    .perseus-renderer-responsive {
-        margin: 0 var(--wb-sizing-size_160);
-    }
-    .perseus-renderer-responsive .perseus-renderer-responsive {
-        margin: 0;
-    }
 }
 @media (max-width: 767px) {
     .perseus-mobile .perseus-block-math {

@@ -1,5 +1,114 @@
 # @khanacademy/perseus-editor
 
+## 46.1.3
+
+### Patch Changes
+
+-   [#4600](https://github.com/Khan/perseus/pull/4600) [`4bb5bb1`](https://github.com/Khan/perseus/commit/4bb5bb124b4f89a40d0ea26d02a6232107664a51) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Delete `deprecatedChangeableChange` function.
+
+-   [#4606](https://github.com/Khan/perseus/pull/4606) [`6deead4`](https://github.com/Khan/perseus/commit/6deead465b1ec41fa176fcafee61cf18a8090c3d) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Remove the call to `excludeDenylistKeys()` in `WidgetEditorContainer`. It's no longer needed because widget editors don't emit any keys that need to be excluded.
+
+-   [#4607](https://github.com/Khan/perseus/pull/4607) [`ced0334`](https://github.com/Khan/perseus/commit/ced03342e6cf0005355544b3f0a9dd22785394ec) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Add optional `helpLink` to lint rules so the editor's issues panel can link to rule-specific docs; table rules now link to the table notation guide
+
+-   Updated dependencies [[`92bb751`](https://github.com/Khan/perseus/commit/92bb751aea60df42fe8e80212e2329b096d45996), [`dacdf56`](https://github.com/Khan/perseus/commit/dacdf564b46060ff15132f27fd88cf98a144e754), [`5cf4078`](https://github.com/Khan/perseus/commit/5cf407825804a813e4b7de7891e413f52db18a0d), [`3d8d5db`](https://github.com/Khan/perseus/commit/3d8d5db030bdeb6d69653abdfe7d0b43799d5f44), [`8124442`](https://github.com/Khan/perseus/commit/81244420bf691a26cc07bf833743c5448dc6b3d8), [`b148150`](https://github.com/Khan/perseus/commit/b148150a9838730faa306863ba9a3cbd0772af5f), [`ced0334`](https://github.com/Khan/perseus/commit/ced03342e6cf0005355544b3f0a9dd22785394ec), [`9484b91`](https://github.com/Khan/perseus/commit/9484b91f8062208e628e2f33d5b27a399ff0a338), [`350a342`](https://github.com/Khan/perseus/commit/350a342446efed9e81b7412a0b2083b9aeba6dfc)]:
+    -   @khanacademy/perseus@95.1.0
+    -   @khanacademy/perseus-linter@8.3.0
+    -   @khanacademy/perseus-core@42.6.0
+    -   @khanacademy/math-input@30.2.7
+    -   @khanacademy/keypad-context@6.0.17
+    -   @khanacademy/kmath@3.1.10
+
+## 46.1.2
+
+### Patch Changes
+
+-   Updated dependencies [[`d1fe849`](https://github.com/Khan/perseus/commit/d1fe84942f2cb904489fad42526b196b95b355a0)]:
+    -   @khanacademy/perseus@95.0.2
+
+## 46.1.1
+
+### Patch Changes
+
+-   [#4575](https://github.com/Khan/perseus/pull/4575) [`f1e953e`](https://github.com/Khan/perseus/commit/f1e953ebce191080630bb42e318c0e6aab5ec2b0) Thanks [@benchristel](https://github.com/benchristel)! - Initialize newly inserted widgets' options from the core widget registry's defaults, and pass those defaults to a widget editor's `initializeWidgetOptions(defaults, params)` hook
+
+-   Updated dependencies [[`f1e953e`](https://github.com/Khan/perseus/commit/f1e953ebce191080630bb42e318c0e6aab5ec2b0), [`511ffda`](https://github.com/Khan/perseus/commit/511ffda98ce1cef6cf6d31882f0500c317d4beb6)]:
+    -   @khanacademy/perseus-core@42.5.1
+    -   @khanacademy/perseus@95.0.1
+    -   @khanacademy/keypad-context@6.0.16
+    -   @khanacademy/kmath@3.1.9
+    -   @khanacademy/math-input@30.2.6
+    -   @khanacademy/perseus-linter@8.2.1
+
+## 46.1.0
+
+### Minor Changes
+
+-   [#4441](https://github.com/Khan/perseus/pull/4441) [`79c4ac2`](https://github.com/Khan/perseus/commit/79c4ac24ad2c927cd109181b55248884be1961b2) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Add legend fields to the sorter editor, with linter warnings for missing or incomplete legends, and a sorter legend test generator
+
+### Patch Changes
+
+-   [#4582](https://github.com/Khan/perseus/pull/4582) [`b6eee6a`](https://github.com/Khan/perseus/commit/b6eee6a714b11ee702189442ecc70de19810e755) Thanks [@benchristel](https://github.com/benchristel)! - Deleted unused CSS for MathJax-rendered math
+
+-   [#4586](https://github.com/Khan/perseus/pull/4586) [`e178624`](https://github.com/Khan/perseus/commit/e178624f485116c3727cbcfec3247d0a638d5941) Thanks [@jandrade](https://github.com/jandrade)! - Update Wonder Blocks peer/dev dependencies to the latest releases, including `@khanacademy/wonder-blocks-layout` 4.0.0, which removes the deprecated `MediaLayout` APIs (unused by Perseus)
+
+-   [#4567](https://github.com/Khan/perseus/pull/4567) [`8c751a4`](https://github.com/Khan/perseus/commit/8c751a4be09536040308d2abf3cc2e3e065a3c1a) Thanks [@benchristel](https://github.com/benchristel)! - Updated dependencies
+
+-   Updated dependencies [[`87cb448`](https://github.com/Khan/perseus/commit/87cb448874ee0edb7fe4e062a99e3343e4a2290c), [`18aabdc`](https://github.com/Khan/perseus/commit/18aabdcfcbe7a753263514143c1af7711de1f474), [`a0b8db9`](https://github.com/Khan/perseus/commit/a0b8db913a3497f8344610791635a4489ed68800), [`23f1575`](https://github.com/Khan/perseus/commit/23f1575d5ff0fe467e22bc52a8d11d6cece2b7be), [`b6eee6a`](https://github.com/Khan/perseus/commit/b6eee6a714b11ee702189442ecc70de19810e755), [`894ed72`](https://github.com/Khan/perseus/commit/894ed729bff8e27ea338eca3a11dca91c213a82a), [`79c4ac2`](https://github.com/Khan/perseus/commit/79c4ac24ad2c927cd109181b55248884be1961b2), [`4228723`](https://github.com/Khan/perseus/commit/4228723cb405f8201c630519f1600a559a2b8750), [`284d4ea`](https://github.com/Khan/perseus/commit/284d4eac1d37241a6d3c20a612fe76566df228a6), [`a335819`](https://github.com/Khan/perseus/commit/a3358196dd1a7649bac3b214868dde032b740c63), [`18e060d`](https://github.com/Khan/perseus/commit/18e060d98eb1f9408338ff6f56c996d96795617d), [`e178624`](https://github.com/Khan/perseus/commit/e178624f485116c3727cbcfec3247d0a638d5941), [`d1791f0`](https://github.com/Khan/perseus/commit/d1791f02e8170b61fc283eee9c4d1e492f8732b1), [`c017260`](https://github.com/Khan/perseus/commit/c01726070a5c6a686131e0cff34683d4d76c6a83), [`97d0f52`](https://github.com/Khan/perseus/commit/97d0f527acecd0619ac75529f63be3fb2dd31950), [`8c751a4`](https://github.com/Khan/perseus/commit/8c751a4be09536040308d2abf3cc2e3e065a3c1a)]:
+    -   @khanacademy/perseus@95.0.0
+    -   @khanacademy/perseus-core@42.5.0
+    -   @khanacademy/perseus-linter@8.2.0
+    -   @khanacademy/math-input@30.2.5
+    -   @khanacademy/keypad-context@6.0.15
+    -   @khanacademy/kmath@3.1.8
+
+## 46.0.0
+
+### Major Changes
+
+-   [#4503](https://github.com/Khan/perseus/pull/4503) [`c8ae23d`](https://github.com/Khan/perseus/commit/c8ae23d2aa3b43d8a35e005189ccc4dfe025d953) Thanks [@benchristel](https://github.com/benchristel)! - Removed `getSaveWarnings()` methods from Perseus editors. Clients should use `@khanacademy/perseus-linter` for all linting needs. The `legacyPerseusLint` props have also been removed from the renderers and the `PreviewContent` types.
+
+### Patch Changes
+
+-   [#4534](https://github.com/Khan/perseus/pull/4534) [`9249cc3`](https://github.com/Khan/perseus/commit/9249cc360f025a6433eff364eb8625890069f678) Thanks [@benchristel](https://github.com/benchristel)! - Unconditionally render `<div role="paragraph">` elements instead of `<p>` to prevent invalid DOM nesting.
+
+-   [#4507](https://github.com/Khan/perseus/pull/4507) [`743d06b`](https://github.com/Khan/perseus/commit/743d06bf7e4436e44596fd9d709505e0f7e76af5) Thanks [@benchristel](https://github.com/benchristel)! - Consolidated the styling for image widget captions. Styling is now consistent across screen sizes and aligned with Wonder Blocks tokens.
+
+-   [#4535](https://github.com/Khan/perseus/pull/4535) [`5291bb1`](https://github.com/Khan/perseus/commit/5291bb16c43f5a68ddf5f76a74b540cef45156b3) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Fixed invalid DOM nesting issues in the InfoTip component.
+
+-   [#4509](https://github.com/Khan/perseus/pull/4509) [`318e9a6`](https://github.com/Khan/perseus/commit/318e9a604933bf3dfe1d1f46a798eacb0f2e5b72) Thanks [@benchristel](https://github.com/benchristel)! - Internal: consolidated CSS for image widget titles
+
+-   [#4412](https://github.com/Khan/perseus/pull/4412) [`b65a0f6`](https://github.com/Khan/perseus/commit/b65a0f62fd6d2a2d4d636b872111188bc7f2602c) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Adds `variant` and optional `legend` fields to Sorter widget options (end caps, start/end labels, screen reader label, position), and keeps the legend when other options change. The parser defaults `variant` to "scale" for content saved without one.
+
+-   [#4554](https://github.com/Khan/perseus/pull/4554) [`7b9afdd`](https://github.com/Khan/perseus/commit/7b9afddec360362557dc7ab94aa5be6844cadf98) Thanks [@benchristel](https://github.com/benchristel)! - Remove an unused forwardRef from FormWrappedTextField
+
+-   [#4526](https://github.com/Khan/perseus/pull/4526) [`61c84cc`](https://github.com/Khan/perseus/commit/61c84cccfa4b9aeb25a6a7736d5ecb9915f6c6e7) Thanks [@kevinb-khan](https://github.com/kevinb-khan)! - Update Wonder Blocks peer/dev dependencies from frontend, including `@khanacademy/wonder-blocks-dropdown` 11.0.0, whose OptionItem and ActionItem now forward refs to their DOM element
+
+-   Updated dependencies [[`9249cc3`](https://github.com/Khan/perseus/commit/9249cc360f025a6433eff364eb8625890069f678), [`f534b24`](https://github.com/Khan/perseus/commit/f534b242de153fd659b366c9ea2e066b381dd1f7), [`0ade729`](https://github.com/Khan/perseus/commit/0ade729de3b12fbecbe5c7c6749964ca14b44f5b), [`743d06b`](https://github.com/Khan/perseus/commit/743d06bf7e4436e44596fd9d709505e0f7e76af5), [`318e9a6`](https://github.com/Khan/perseus/commit/318e9a604933bf3dfe1d1f46a798eacb0f2e5b72), [`3fa79d2`](https://github.com/Khan/perseus/commit/3fa79d2e66a2833588519d7dc851db84677da673), [`61a5988`](https://github.com/Khan/perseus/commit/61a5988aa93144234757e70fcbac38524c3b4be2), [`e86e304`](https://github.com/Khan/perseus/commit/e86e30436b76b90c8acaa529d1525b0339d06bd1), [`6807723`](https://github.com/Khan/perseus/commit/6807723d58e413edcc86724092dce50931ca5a22), [`4b251fb`](https://github.com/Khan/perseus/commit/4b251fbb1361ff07ee75b24ce7b68586c7923bcc), [`874f1a8`](https://github.com/Khan/perseus/commit/874f1a8bb4678411437be2d6fbdf844be0ef9271), [`184e26e`](https://github.com/Khan/perseus/commit/184e26e0123897346a2691122909ef1991bd0523), [`c8ae23d`](https://github.com/Khan/perseus/commit/c8ae23d2aa3b43d8a35e005189ccc4dfe025d953), [`d3ef535`](https://github.com/Khan/perseus/commit/d3ef535f47ca46f64dc9b55d2abcbd6c0850a1f7), [`920d8bb`](https://github.com/Khan/perseus/commit/920d8bb75f94116f2fac4f00da2b8713f7e36f33), [`49d06ee`](https://github.com/Khan/perseus/commit/49d06eec4fff2f307fa391557b6c69dd7a1a36a3), [`b65a0f6`](https://github.com/Khan/perseus/commit/b65a0f62fd6d2a2d4d636b872111188bc7f2602c), [`cc332b2`](https://github.com/Khan/perseus/commit/cc332b245d97ceee80d95a26db3a526acad4c60e), [`61c84cc`](https://github.com/Khan/perseus/commit/61c84cccfa4b9aeb25a6a7736d5ecb9915f6c6e7), [`bc30f01`](https://github.com/Khan/perseus/commit/bc30f0186e3b7460392663b824f7e82adc5285a4), [`e86e304`](https://github.com/Khan/perseus/commit/e86e30436b76b90c8acaa529d1525b0339d06bd1)]:
+    -   @khanacademy/perseus@94.0.0
+    -   @khanacademy/perseus-linter@8.1.0
+    -   @khanacademy/perseus-core@42.4.0
+    -   @khanacademy/math-input@30.2.4
+    -   @khanacademy/keypad-context@6.0.14
+    -   @khanacademy/kmath@3.1.7
+
+## 45.1.0
+
+### Minor Changes
+
+-   [#4511](https://github.com/Khan/perseus/pull/4511) [`aa65a1f`](https://github.com/Khan/perseus/commit/aa65a1f73488da6067c5a82bfac225c23e744074) Thanks [@benchristel](https://github.com/benchristel)! - Dropped support for the deprecated 'columns' markdown parse node type. The column separator '=====' is now ignored, and has no effect on rendered content.
+
+### Patch Changes
+
+-   [#4506](https://github.com/Khan/perseus/pull/4506) [`9aeea31`](https://github.com/Khan/perseus/commit/9aeea3171a295944fa1efce84f7337a88faeecf2) Thanks [@benchristel](https://github.com/benchristel)! - Internal: deleted unused CSS
+
+-   Updated dependencies [[`07110c6`](https://github.com/Khan/perseus/commit/07110c6393ee705660e959f2b438734261de3b0c), [`043173f`](https://github.com/Khan/perseus/commit/043173f00fc5a794113890ff5bb12aaa2128886f), [`33928d6`](https://github.com/Khan/perseus/commit/33928d642696436ccfd13a5ba8886710f4a55201), [`26b5931`](https://github.com/Khan/perseus/commit/26b593173902e19d5578ed84a8f373f5ca3a8534), [`b337344`](https://github.com/Khan/perseus/commit/b33734424004d4ba1999ff4549ba09f3f734af1f), [`0782684`](https://github.com/Khan/perseus/commit/0782684495ed6a2a588248f67b0a569193f51009), [`aa65a1f`](https://github.com/Khan/perseus/commit/aa65a1f73488da6067c5a82bfac225c23e744074), [`d5d3257`](https://github.com/Khan/perseus/commit/d5d3257f6c7b83b1b907ab1ae3a0b6dcd5d0a44b), [`19a9701`](https://github.com/Khan/perseus/commit/19a97013673b8ecd50b8e953a9d8ed2504cd531a), [`f73dbd1`](https://github.com/Khan/perseus/commit/f73dbd129bc30dc8261b9fe8da8746a0a6e0ece8), [`043beb2`](https://github.com/Khan/perseus/commit/043beb248736b12c0bf3d7527eee1f59260c21a7), [`f343966`](https://github.com/Khan/perseus/commit/f34396603982ccbd69ffe2fd784f46dbde0f27d0), [`3d90cad`](https://github.com/Khan/perseus/commit/3d90cade198d395d563f01332d4d9788e3251f78), [`b092f46`](https://github.com/Khan/perseus/commit/b092f4657f151edb98f84c9ed29eb7384a4e7e20), [`61b57d2`](https://github.com/Khan/perseus/commit/61b57d23d264d31776a4a5e0a41c479f53e6ccd0), [`c493a2b`](https://github.com/Khan/perseus/commit/c493a2b3c9f4a676368c4144622d03f0e40917e2), [`cab6677`](https://github.com/Khan/perseus/commit/cab6677530a2c1d66df841beccc7ee9b91374d3f), [`49c8b4d`](https://github.com/Khan/perseus/commit/49c8b4d7780ae9aeab10b29e822985e63501c833), [`067c806`](https://github.com/Khan/perseus/commit/067c80623d9dc16ed0e655158d1a66958ad9bff8)]:
+    -   @khanacademy/perseus@93.1.0
+    -   @khanacademy/perseus-linter@8.0.1
+    -   @khanacademy/perseus-core@42.3.0
+    -   @khanacademy/keypad-context@6.0.13
+    -   @khanacademy/kmath@3.1.6
+    -   @khanacademy/math-input@30.2.3
+
 ## 45.0.7
 
 ### Patch Changes

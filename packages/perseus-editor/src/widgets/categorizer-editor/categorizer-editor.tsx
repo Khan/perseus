@@ -2,7 +2,6 @@ import {
     ApiOptions,
     Categorizer as CategorizerWidget,
 } from "@khanacademy/perseus";
-import {categorizerLogic} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import _ from "underscore";
@@ -21,9 +20,6 @@ type Props = WidgetEditorProps<PerseusCategorizerWidgetOptions>;
  * An editor for adding a categorizer widget that allows users to sort items into categories.
  */
 class CategorizerEditor extends React.Component<Props> {
-    static defaultProps: PerseusCategorizerWidgetOptions =
-        categorizerLogic.defaultWidgetOptions;
-
     handleChange(changed: Partial<PerseusCategorizerWidgetOptions>) {
         this.props.onChange({
             items: this.props.items,

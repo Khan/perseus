@@ -57,6 +57,8 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
+import "./grapher.css";
+
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;
 // @ts-expect-error - TS2339 - Property 'MovableLine' does not exist on type 'typeof Graphie'.
@@ -340,7 +342,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                 }}
             >
                 <div
-                    className="graphie-container blank-background"
+                    className="grapher-container blank-background"
                     style={{
                         width: box[0],
                         height: box[1],
@@ -560,6 +562,9 @@ class Grapher extends React.Component<Props> implements Widget {
 
     renderLegacyGrapher() {
         const availableTypes = this.getAvailableTypes();
+        const isDisabled = Boolean(
+            this.props.static || this.props.apiOptions.readOnly,
+        );
 
         const type = this.props.userInput.type;
         const coords = this.props.userInput.coords;
@@ -574,6 +579,7 @@ class Grapher extends React.Component<Props> implements Widget {
                     value={type}
                     buttons={availableTypes.map(typeToButton)}
                     onChange={this.handleActiveTypeChange}
+                    disabled={isDisabled}
                 />
             </div>
         );
@@ -613,7 +619,7 @@ class Grapher extends React.Component<Props> implements Widget {
             model: type && GrapherUtil.functionForType(type),
             coords: coords,
             asymptote: asymptote,
-            static: this.props.static,
+            static: isDisabled,
             isMobile: this.props.apiOptions.isMobile,
             showTooltips: graph.showTooltips,
             showHairlines: this.showHairlines,

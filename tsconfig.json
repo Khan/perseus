@@ -5,17 +5,14 @@
         "**/dist",
         "coverage",
         "coverage-ts",
-
-        // Cypress files - covered by config/cypress/tsconfig.json
-        "cypress.config.mts",
-        "config/cypress/**",
-        "**/*.cypress.ts",
-        "**/*.cypress.tsx",
-        "packages/perseus/src/testing/render-question-with-cypress.tsx",
     ],
     "extends": "./tsconfig-common.json",
     "compilerOptions": {
         "noEmit": true,
+        // Only this checkout's @types. Without it, TypeScript also loads the
+        // @types of every parent folder's node_modules, which in a worktree
+        // inside another checkout includes that checkout's @types/jest.
+        "typeRoots": ["./node_modules/@types"],
         "plugins": [
             {
                 "name": "typescript-plugin-css-modules",

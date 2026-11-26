@@ -8,7 +8,6 @@ const defaultWidgetOptions: PerseusFillInTheBlankWidgetOptions = {
     content: "",
     widgets: {},
     tiles: [],
-    maxUsesPerTile: 1,
     randomize: false,
 };
 

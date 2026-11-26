@@ -2,51 +2,12 @@ import {
     generateTestPerseusItem,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {scorePerseusItem} from "@khanacademy/perseus-score";
 
 import type {
-    CategorizerWidget,
     PerseusItem,
     PerseusRenderer,
-    PerseusScore,
     PerseusWidgetTypes,
-    UserInputMap,
 } from "@khanacademy/perseus-core";
-
-// TODO: Move to `perseus-score`!
-export function isCorrect(score: PerseusScore): boolean {
-    return score.type === "points" && score.earned >= score.total;
-}
-
-/**
- * Thin wrapper around scorePerseusItem for internal testing. Returns the
- * aggregate score; tests that need the per-widget breakdown should call
- * `scorePerseusItem` directly.
- */
-export function scorePerseusItemTesting(
-    perseusRenderData: PerseusRenderer,
-    userInputMap: UserInputMap,
-): PerseusScore {
-    return scorePerseusItem(perseusRenderData, userInputMap, "en");
-}
-
-/**
- * Creates an object with the bare amount
- * of data to be a properly typed InteractiveGraphWidget
- *
- * @returns {InteractiveGraphWidget} skeleton InteractiveGraphWidget for testing
- */
-export function generateTestCategorizerWidget(): CategorizerWidget {
-    return {
-        type: "categorizer",
-        options: {
-            items: [],
-            categories: [],
-            randomizeItems: false,
-            values: [],
-        },
-    };
-}
 
 /**
  * Creates an object with the minimum amount

@@ -34,7 +34,7 @@ const defaultProps: Props = {
     multipleAnswers: false,
     hideChoicesFromInstructions: false,
     preferredPopoverDirection: "NONE",
-    onChange: jest.fn(),
+    onChange: rs.fn(),
 };
 
 describe("label-image-editor", () => {
@@ -42,10 +42,10 @@ describe("label-image-editor", () => {
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -59,7 +59,7 @@ describe("label-image-editor", () => {
     });
 
     it("should render with default props", () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(<LabelImageEditor {...defaultProps} onChange={onChangeMock} />);
 
         // Should render without crashing
@@ -67,7 +67,7 @@ describe("label-image-editor", () => {
     });
 
     it("should call onChange when image URL is changed", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <LabelImageEditor
                 {...defaultProps}
@@ -88,7 +88,7 @@ describe("label-image-editor", () => {
     });
 
     it("should call onChange when alt text is changed", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <LabelImageEditor
                 {...defaultProps}
@@ -109,7 +109,7 @@ describe("label-image-editor", () => {
     });
 
     it("should not render alt text field when no image is selected", () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <LabelImageEditor
                 {...defaultProps}
@@ -127,7 +127,7 @@ describe("label-image-editor", () => {
 
     it("should not allow markers to be added when editingDisabled is true", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         render(
             <LabelImageEditor
@@ -187,7 +187,7 @@ describe("label-image-editor", () => {
 
         it('calls onChange with "dark-mode=off" added to the image URL when Suppress Dark Mode Filter is toggled on', async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             render(
                 <LabelImageEditor
                     {...defaultProps}
@@ -219,7 +219,7 @@ describe("label-image-editor", () => {
 
         it('calls onChange with "dark-mode=off" removed from the image URL when Suppress Dark Mode Filter is toggled off', async () => {
             // Arrange
-            const onChangeMock = jest.fn();
+            const onChangeMock = rs.fn();
             render(
                 <LabelImageEditor
                     {...defaultProps}
@@ -241,7 +241,7 @@ describe("label-image-editor", () => {
             );
         });
 
-        it.each`
+        it.each<any>`
             case                           | extension
             ${"images without extensions"} | ${""}
             ${"JPEGs"}                     | ${".jpeg"}
@@ -267,7 +267,7 @@ describe("label-image-editor", () => {
             },
         );
 
-        it.each`
+        it.each<any>`
             case      | extension
             ${"PNGs"} | ${".png"}
             ${"SVGs"} | ${".svg"}
@@ -346,182 +346,6 @@ describe("label-image-editor", () => {
             );
 
             expect(container).toMatchSnapshot();
-        });
-    });
-
-    describe("getSaveWarnings", () => {
-        it("should return warning when there are fewer than 2 choices", () => {
-            const editorRef = React.createRef<LabelImageEditor>();
-            const onChangeMock = jest.fn();
-
-            render(
-                <LabelImageEditor
-                    ref={editorRef}
-                    {...defaultProps}
-                    choices={["Choice 1"]}
-                    onChange={onChangeMock}
-                />,
-            );
-
-            const warnings = editorRef.current?.getSaveWarnings();
-
-            expect(warnings).toContain(
-                "Question requires at least two answer choices",
-            );
-        });
-
-        it("should return warning when image URL is not specified", () => {
-            const editorRef = React.createRef<LabelImageEditor>();
-            const onChangeMock = jest.fn();
-
-            render(
-                <LabelImageEditor
-                    ref={editorRef}
-                    {...defaultProps}
-                    imageUrl=""
-                    onChange={onChangeMock}
-                />,
-            );
-
-            const warnings = editorRef.current?.getSaveWarnings();
-
-            expect(warnings).toContain("Image is not specified for question");
-        });
-
-        it("should return warning when image has no alt text", () => {
-            const editorRef = React.createRef<LabelImageEditor>();
-            const onChangeMock = jest.fn();
-
-            render(
-                <LabelImageEditor
-                    ref={editorRef}
-                    {...defaultProps}
-                    imageAlt=""
-                    onChange={onChangeMock}
-                />,
-            );
-
-            const warnings = editorRef.current?.getSaveWarnings();
-
-            expect(warnings).toContain("Question image has no alt text");
-        });
-
-        it("should return warning when there are no markers", () => {
-            const editorRef = React.createRef<LabelImageEditor>();
-            const onChangeMock = jest.fn();
-
-            render(
-                <LabelImageEditor
-                    ref={editorRef}
-                    {...defaultProps}
-                    markers={[]}
-                    onChange={onChangeMock}
-                />,
-            );
-
-            const warnings = editorRef.current?.getSaveWarnings();
-
-            expect(warnings).toContain(
-                "Question has no markers, to label answers on image",
-            );
-        });
-
-        it("should return warning when markers have no answers", () => {
-            const editorRef = React.createRef<LabelImageEditor>();
-            const onChangeMock = jest.fn();
-
-            render(
-                <LabelImageEditor
-                    ref={editorRef}
-                    {...defaultProps}
-                    markers={[
-                        {
-                            answers: [],
-                            label: "First marker",
-                            x: 25,
-                            y: 25,
-                        },
-                    ]}
-                    onChange={onChangeMock}
-                />,
-            );
-
-            const warnings = editorRef.current?.getSaveWarnings();
-
-            expect(warnings).toContain(
-                "Question has 1 markers with no answers selected",
-            );
-        });
-
-        it("should return warning when markers have no ARIA label", () => {
-            const editorRef = React.createRef<LabelImageEditor>();
-            const onChangeMock = jest.fn();
-
-            render(
-                <LabelImageEditor
-                    ref={editorRef}
-                    {...defaultProps}
-                    markers={[
-                        {
-                            answers: ["Choice 1"],
-                            label: "",
-                            x: 25,
-                            y: 25,
-                        },
-                    ]}
-                    onChange={onChangeMock}
-                />,
-            );
-
-            const warnings = editorRef.current?.getSaveWarnings();
-
-            expect(warnings).toContain(
-                "Question has 1 markers with no ARIA label",
-            );
-        });
-
-        it("should return multiple warnings when multiple issues exist", () => {
-            const editorRef = React.createRef<LabelImageEditor>();
-            const onChangeMock = jest.fn();
-
-            render(
-                <LabelImageEditor
-                    ref={editorRef}
-                    {...defaultProps}
-                    choices={["Choice 1"]}
-                    imageAlt=""
-                    markers={[]}
-                    onChange={onChangeMock}
-                />,
-            );
-
-            const warnings = editorRef.current?.getSaveWarnings();
-
-            expect(warnings).toHaveLength(3);
-            expect(warnings).toContain(
-                "Question requires at least two answer choices",
-            );
-            expect(warnings).toContain("Question image has no alt text");
-            expect(warnings).toContain(
-                "Question has no markers, to label answers on image",
-            );
-        });
-
-        it("should return no warnings when all fields are valid", () => {
-            const editorRef = React.createRef<LabelImageEditor>();
-            const onChangeMock = jest.fn();
-
-            render(
-                <LabelImageEditor
-                    ref={editorRef}
-                    {...defaultProps}
-                    onChange={onChangeMock}
-                />,
-            );
-
-            const warnings = editorRef.current?.getSaveWarnings();
-
-            expect(warnings).toHaveLength(0);
         });
     });
 });

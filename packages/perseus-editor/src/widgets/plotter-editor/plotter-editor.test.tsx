@@ -1,4 +1,5 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
+import {generatePlotterOptions} from "@khanacademy/perseus-core";
 import {act, render, screen} from "@testing-library/react";
 import * as React from "react";
 
@@ -8,26 +9,30 @@ import PlotterEditor from "./plotter-editor";
 
 describe("PlotterEditor", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
-    it("renders without crashing when picUrl is undefined", () => {
+    it("renders the Picture field when picUrl is null", async () => {
         render(
             <PlotterEditor
+                {...generatePlotterOptions()}
                 onChange={() => undefined}
                 apiOptions={ApiOptions.defaults}
                 static={false}
                 type="pic"
-                picUrl={undefined}
+                picUrl={null}
             />,
         );
+        // Wait for plotter's card resizing to settle. RTL logs an error if
+        // the resize happens outside an act() call.
+        await act(() => Promise.resolve());
 
         expect(screen.getByText(/Picture:/)).toBeInTheDocument();
     });
 
-    it("clears a stale image when picUrl changes to undefined", () => {
+    it("clears a stale image when picUrl changes to null", async () => {
         // Arrange — mock Image so we can trigger onload synchronously
         const mockImage: Partial<HTMLImageElement> & {
             onload: (() => void) | null;
@@ -36,13 +41,16 @@ describe("PlotterEditor", () => {
             width: 100,
             height: 200,
         };
-        jest.spyOn(global, "Image").mockImplementation(
+        // A `function`, not an arrow: the editor calls `new Image()`, and
+        // some test runners construct a mock's implementation with `new`.
+        rs.spyOn(global, "Image").mockImplementation(function () {
             // eslint-disable-next-line no-restricted-syntax
-            () => mockImage as HTMLImageElement,
-        );
+            return mockImage as HTMLImageElement;
+        });
 
         const {rerender} = render(
             <PlotterEditor
+                {...generatePlotterOptions()}
                 onChange={() => undefined}
                 apiOptions={ApiOptions.defaults}
                 static={false}
@@ -50,6 +58,9 @@ describe("PlotterEditor", () => {
                 picUrl="https://example.com/image.png"
             />,
         );
+        // Wait for plotter's card resizing to settle. RTL logs an error if
+        // the resize happens outside an act() call.
+        await act(() => Promise.resolve());
 
         // Act — fire onload to simulate the image loading
         act(() => {
@@ -64,13 +75,17 @@ describe("PlotterEditor", () => {
         // Act — clear the URL
         rerender(
             <PlotterEditor
+                {...generatePlotterOptions()}
                 onChange={() => undefined}
                 apiOptions={ApiOptions.defaults}
                 static={false}
                 type="pic"
-                picUrl={undefined}
+                picUrl={null}
             />,
         );
+        // Wait for plotter's card resizing to settle. RTL logs an error if
+        // the resize happens outside an act() call.
+        await act(() => Promise.resolve());
 
         // Assert — stale warning should be gone
         expect(

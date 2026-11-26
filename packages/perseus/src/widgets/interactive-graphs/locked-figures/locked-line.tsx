@@ -37,30 +37,44 @@ const LockedLine = (props: Props) => {
 
     const hasAria = !!ariaLabel;
 
-    let line;
+    const [tailPx, tipPx] = useTransformVectorsToPixels(
+        point2.coord,
+        point1.coord,
+    );
 
-    if (kind === "ray") {
-        // Rays extend to the end of the graph in one direction.
-        const extendedPoint = getIntersectionOfRayWithBox(
-            point1.coord,
-            point2.coord,
-            range,
-        );
-        line = (
-            <Vector
-                tail={point1.coord}
-                tip={extendedPoint}
-                color={lockedFigureColors[color]}
-                strokeWidth={strokeWeights[weight]}
-                style={{
-                    strokeDasharray:
-                        lineStyle === "dashed"
-                            ? "var(--mafs-line-stroke-dash-style)"
-                            : undefined,
-                }}
-            />
-        );
-    } else {
+    function renderLine() {
+        if (vec.squareDist(point1.coord, point2.coord) === 0) {
+            // Two coincident points don't define a line.
+            return null;
+        }
+
+        if (kind === "ray") {
+            // Rays extend to the end of the graph in one direction.
+            const extendedPoint = getIntersectionOfRayWithBox(
+                point1.coord,
+                point2.coord,
+                range,
+            );
+            return (
+                <Vector
+                    tail={point1.coord}
+                    tip={extendedPoint}
+                    color={lockedFigureColors[color]}
+                    strokeWidth={strokeWeights[weight]}
+                    style={{
+                        strokeDasharray:
+                            lineStyle === "dashed"
+                                ? "var(--mafs-line-stroke-dash-style)"
+                                : undefined,
+                    }}
+                />
+            );
+        }
+
+        // TODO(benchristel): Split up the segment and line cases into
+        //  separate if (...) {} blocks. The ternaries and short-circuiting
+        //  && here are confusing, and lead to unnecessary code running in
+        //  the line case.
         const LineType = kind === "segment" ? Line.Segment : Line.ThroughPoints;
 
         let arrowTip =
@@ -71,11 +85,6 @@ const LockedLine = (props: Props) => {
                       point2.coord,
                       range,
                   );
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        const [tailPx, tipPx] = useTransformVectorsToPixels(
-            point2.coord,
-            point1.coord,
-        );
         const direction = vec.sub(tailPx, tipPx);
         let angle = calculateAngleInDegrees(direction);
         const startArrowHead = kind !== "segment" && (
@@ -105,7 +114,7 @@ const LockedLine = (props: Props) => {
             />
         );
 
-        line = (
+        return (
             <>
                 {startArrowHead}
                 <LineType
@@ -129,7 +138,7 @@ const LockedLine = (props: Props) => {
             // Weight-scaled dash pattern for dashed figures (see dashedStrokeStyle).
             style={dashedStrokeStyle(lineStyle === "dashed", weight)}
         >
-            {line}
+            {renderLine()}
             {showPoint1 && (
                 <Point
                     x={point1.coord[X]}

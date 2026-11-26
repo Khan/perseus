@@ -259,7 +259,7 @@ describe("getDefaultGraphStartCoords", () => {
 });
 
 describe("getSinusoidEquation", () => {
-    test.each`
+    test.each<any>`
         point1      | point2     | expected
         ${[0, 0]}   | ${[3, 2]}  | ${"y = 2.000sin(0.524x - 0.000) + 0.000"}
         ${[0, 0]}   | ${[1, 0]}  | ${"y = 0.000sin(1.571x - 0.000) + 0.000"}
@@ -279,7 +279,7 @@ describe("getSinusoidEquation", () => {
 });
 
 describe("getQuadraticEquation", () => {
-    test.each`
+    test.each<any>`
         point1     | point2     | point3    | expected
         ${[-5, 5]} | ${[0, -5]} | ${[5, 5]} | ${"y = 0.400x^2 + 0.000x + -5.000"}
         ${[-5, 5]} | ${[0, 5]}  | ${[5, 5]} | ${"y = 0.000x^2 + 0.000x + 5.000"}
@@ -296,7 +296,7 @@ describe("getQuadraticEquation", () => {
         },
     );
 
-    test.each`
+    test.each<any>`
         point1     | point2      | point3
         ${[-5, 5]} | ${[-5, -5]} | ${[5, 5]}
         ${[-5, 5]} | ${[0, -5]}  | ${[-5, 5]}
@@ -310,7 +310,7 @@ describe("getQuadraticEquation", () => {
 });
 
 describe("getAngleEquation", () => {
-    test.each`
+    test.each<any>`
         point1      | vertex    | point2                                     | expected
         ${[7, 0]}   | ${[0, 0]} | ${[6.5778483455013586, 2.394141003279681]} | ${"20° angle at (0, 0)"}
         ${[5, 1]}   | ${[1, 1]} | ${[1, 5]}                                  | ${"90° angle at (1, 1)"}

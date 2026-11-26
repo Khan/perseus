@@ -8,7 +8,7 @@ import VideoTranscriptLink from "./video-transcript-link";
 
 describe("VideoTranscriptLink", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "useDependencies").mockReturnValue({
+        rs.spyOn(Dependencies, "useDependencies").mockReturnValue({
             ...testDependenciesV2,
             useVideo: (videoId, kind) => {
                 if (videoId === "5qap5aO4i9A") {
@@ -135,7 +135,7 @@ describe("VideoTranscriptLink", () => {
 
     it("should link to /transcript/videoNotFound if the URL is not a youtube URL", () => {
         // Arrange
-        jest.spyOn(Dependencies, "useDependencies").mockReturnValue({
+        rs.spyOn(Dependencies, "useDependencies").mockReturnValue({
             ...testDependenciesV2,
             useVideo: (videoId, kind) => {
                 return {
@@ -156,7 +156,7 @@ describe("VideoTranscriptLink", () => {
 
     it("should handle a success state", () => {
         // Arrange
-        jest.spyOn(Dependencies, "useDependencies").mockReturnValue({
+        rs.spyOn(Dependencies, "useDependencies").mockReturnValue({
             ...testDependenciesV2,
             useVideo: (videoId, kind) => {
                 return {status: "loading"};
@@ -170,7 +170,7 @@ describe("VideoTranscriptLink", () => {
 
     it("should link to /transcript/videoNotFound if there's no data", () => {
         // Arrange
-        jest.spyOn(Dependencies, "useDependencies").mockReturnValue({
+        rs.spyOn(Dependencies, "useDependencies").mockReturnValue({
             ...testDependenciesV2,
             useVideo: (videoId, kind) => {
                 return {
@@ -191,7 +191,7 @@ describe("VideoTranscriptLink", () => {
 
     it("should handle an error state", () => {
         // Arrange
-        jest.spyOn(Dependencies, "useDependencies").mockReturnValue({
+        rs.spyOn(Dependencies, "useDependencies").mockReturnValue({
             ...testDependenciesV2,
             useVideo: (videoId, kind) => {
                 return {status: "error", error: new Error()};
@@ -205,7 +205,7 @@ describe("VideoTranscriptLink", () => {
 
     it("should handle an aborted state", () => {
         // Arrange
-        jest.spyOn(Dependencies, "useDependencies").mockReturnValue({
+        rs.spyOn(Dependencies, "useDependencies").mockReturnValue({
             ...testDependenciesV2,
             useVideo: (videoId, kind) => {
                 return {status: "aborted"};

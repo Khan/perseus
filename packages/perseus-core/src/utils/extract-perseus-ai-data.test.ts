@@ -1,4 +1,4 @@
-import {describe, it, expect} from "@jest/globals";
+import {describe, it, expect} from "@rstest/core";
 
 import {
     getAnswersFromWidgets,
@@ -68,8 +68,9 @@ import type {
     CategorizerWidget,
     InputNumberWidget,
 } from "../data-schema";
+import type {Mocked} from "@rstest/core";
 
-const stub: jest.MockedFunction<any> = jest.fn();
+const stub: Mocked<any> = rs.fn();
 
 beforeEach(() => {
     stub.mockClear();
@@ -721,6 +722,7 @@ describe("injectWidgets", () => {
                 options: {
                     correct: ["$4^2+2$", "$5^2$", "$6^2-6$"],
                     layout: "horizontal",
+                    variant: "scale",
                     padding: true,
                 },
             },
@@ -1188,6 +1190,7 @@ describe("getAnswersFromWidgets", () => {
             options: {
                 correct: ["$4^2+2$", "$5^2$", "$6^2-6$"],
                 layout: "horizontal",
+                variant: "scale",
                 padding: true,
             },
         };

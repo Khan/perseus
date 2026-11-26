@@ -1,7 +1,7 @@
 import {SpeechRuleEngine} from "@khanacademy/mathjax-renderer";
 import MathQuill from "mathquill";
 
-import {inJest} from "../../utils";
+import {inTest} from "../../utils";
 
 import type {
     MathQuillInterface,
@@ -123,12 +123,12 @@ export function createMathField(
             labelValue: (label, value) => strings.labelValue({label, value}),
         }) as MathFieldInterface;
 
-    // We should avoid running SpeechRuleEngine.setup() in Jest. It makes an
+    // We should avoid running SpeechRuleEngine.setup() in tests. It makes an
     //   HTTP request to fetch non-english speech rules, and cannot be easily
     //   mocked in consuming packages now that we do not bundle source code.
     //   When it eventually times out, it will cause arbitrary test failures.
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    !inJest &&
+    !inTest &&
         SpeechRuleEngine.setup(locale).then((SRE) =>
             mathField.setMathspeakOverride(SRE.texToSpeech),
         );

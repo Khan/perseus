@@ -23,10 +23,11 @@ import type {
     KeypadContextRendererInterface,
 } from "@khanacademy/perseus-core";
 
+import "./article-renderer.css";
+
 type Props = Partial<React.ContextType<typeof DependenciesContext>> &
     SharedRendererProps & {
         json: PerseusArticle;
-        legacyPerseusLint?: ReadonlyArray<string>;
         keypadElement?: KeypadAPI | null | undefined;
         dependencies: PerseusDependenciesV2;
         // the seed for deterministic shuffling (randomization)
@@ -252,7 +253,6 @@ class ArticleRenderer
                                 this.props.linterContext,
                                 "article",
                             )}
-                            legacyPerseusLint={this.props.legacyPerseusLint}
                             strings={this.context.strings}
                         />
                     )}

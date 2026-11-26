@@ -54,6 +54,7 @@ interface Props {
     useArrowKeys: boolean;
     className?: string;
     id?: string;
+    disabled?: boolean;
 }
 
 interface State {
@@ -231,19 +232,12 @@ class NumberInput extends React.Component<Props, State> {
             classes = classes + " " + this.props.className;
         }
 
-        const {
-            onFormatChange,
-            checkValidity,
-            useArrowKeys,
-            allowPiTruncation,
-            placeholder,
-            size,
-            ...restProps
-        } = this.props;
+        const {id, placeholder, disabled} = this.props;
 
         return (
             <input
-                {...restProps}
+                id={id}
+                disabled={disabled}
                 placeholder={
                     placeholder != null ? String(placeholder) : undefined
                 }
@@ -260,7 +254,6 @@ class NumberInput extends React.Component<Props, State> {
                     this.props.value,
                     this.state.format,
                 )}
-                value={undefined}
             />
         );
     }

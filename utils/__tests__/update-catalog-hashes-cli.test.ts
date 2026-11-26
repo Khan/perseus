@@ -1,33 +1,33 @@
 /**
- * @jest-environment node
+ * @rstest-environment node
  */
-import {describe, expect, it, jest, beforeEach} from "@jest/globals";
+import {describe, expect, it, rs, beforeEach} from "@rstest/core";
+
+import type {MockInstance} from "@rstest/core";
 
 // We need to mock the module before importing it
-const mockUpdateCatalogHashes = jest.fn();
-jest.mock("../internal/update-catalog-hashes", () => ({
+const mockUpdateCatalogHashes = rs.fn();
+rs.mock("../internal/update-catalog-hashes", () => ({
     updateCatalogHashes: mockUpdateCatalogHashes,
 }));
 
 describe("update-catalog-hashes-cli", () => {
-    let mockExit: jest.SpiedFunction<typeof process.exit>;
-    let mockConsoleLog: jest.SpiedFunction<typeof console.log>;
-    let mockConsoleError: jest.SpiedFunction<typeof console.error>;
+    let mockExit: MockInstance<typeof process.exit>;
+    let mockConsoleLog: MockInstance<typeof console.log>;
+    let mockConsoleError: MockInstance<typeof console.error>;
     let originalArgv: string[];
 
     beforeEach(() => {
         // Save original argv
         originalArgv = process.argv;
 
-        jest.clearAllMocks();
-        mockExit = jest
+        rs.clearAllMocks();
+        mockExit = rs
             .spyOn(process, "exit")
             // eslint-disable-next-line no-restricted-syntax
             .mockImplementation((() => {}) as any);
-        mockConsoleLog = jest
-            .spyOn(console, "log")
-            .mockImplementation(() => {});
-        mockConsoleError = jest
+        mockConsoleLog = rs.spyOn(console, "log").mockImplementation(() => {});
+        mockConsoleError = rs
             .spyOn(console, "error")
             .mockImplementation(() => {});
     });
@@ -36,7 +36,7 @@ describe("update-catalog-hashes-cli", () => {
         // Restore original argv
         process.argv = originalArgv;
         // Clear the module cache to allow re-importing with new argv
-        jest.resetModules();
+        rs.resetModules();
     });
 
     // Helper to load and execute the CLI with given args

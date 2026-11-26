@@ -14,11 +14,11 @@ import {MovablePoint} from "./movable-point";
 import type {GraphConfig} from "../../reducer/use-graph-config";
 
 function mockGraphConfig(config) {
-    return jest.spyOn(ReducerGraphConfig, "default").mockReturnValue(config);
+    return rs.spyOn(ReducerGraphConfig, "default").mockReturnValue(config);
 }
 
 function mockDraggingState(state) {
-    return jest
+    return rs
         .spyOn(UseDraggableModule, "useDraggable")
         .mockReturnValue(state ?? {dragging: false});
 }
@@ -55,7 +55,7 @@ describe("MovablePoint", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
@@ -241,7 +241,7 @@ describe("MovablePoint", () => {
     });
 
     it("calls onFocus() when you tab to it", async () => {
-        const focusSpy = jest.fn();
+        const focusSpy = rs.fn();
         render(
             <Mafs width={200} height={200}>
                 <MovablePoint
@@ -262,7 +262,7 @@ describe("MovablePoint", () => {
     });
 
     it("calls onBlur() when you tab away from it", async () => {
-        const blurSpy = jest.fn();
+        const blurSpy = rs.fn();
         render(
             <Mafs width={200} height={200}>
                 <MovablePoint
@@ -284,7 +284,7 @@ describe("MovablePoint", () => {
     });
 
     it("calls onFocusChange(true) when you click it", async () => {
-        const focusSpy = jest.fn();
+        const focusSpy = rs.fn();
         render(
             <Mafs width={200} height={200}>
                 <MovablePoint

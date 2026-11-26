@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`Marker component rendering renders an empty marker 1`] = `
+exports[`Marker > component rendering > renders an empty marker 1`] = `
 <body>
   <div>
     <button
@@ -167,7 +167,7 @@ exports[`Marker component rendering renders an empty marker 1`] = `
 </body>
 `;
 
-exports[`Marker component rendering renders with answers and choices 1`] = `
+exports[`Marker > component rendering > renders with answers and choices 1`] = `
 <body>
   <div>
     <button

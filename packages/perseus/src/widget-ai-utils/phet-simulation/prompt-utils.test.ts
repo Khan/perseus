@@ -1,8 +1,11 @@
+import {act} from "@testing-library/react";
+
 import {renderQuestion} from "../../__testutils__/render-question";
 
 import {getPromptJSON} from "./phet-simulation-ai-utils";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {Mock} from "@rstest/core";
 
 const question1: PerseusRenderer = {
     content:
@@ -26,7 +29,7 @@ const question1: PerseusRenderer = {
 describe("PhET Simulation AI utils", () => {
     beforeEach(() => {
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn(() =>
+        global.fetch = rs.fn(() =>
             Promise.resolve({
                 json: () =>
                     Promise.resolve({
@@ -34,7 +37,7 @@ describe("PhET Simulation AI utils", () => {
                     }),
                 ok: true,
             }),
-        ) as jest.Mock;
+        ) as Mock;
     });
 
     it("it returns JSON with the expected format and fields", () => {
@@ -52,6 +55,9 @@ describe("PhET Simulation AI utils", () => {
         const {renderer} = renderQuestion(question1, {
             apiOptions: {isMobile: false},
         });
+        // Wait for the widget to fetch its data and update its state. RTL logs
+        // an error if the state update happens outside an act() call.
+        await act(() => Promise.resolve());
 
         // Act
         const json = renderer.getPromptJSON();

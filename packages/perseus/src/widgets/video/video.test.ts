@@ -20,7 +20,7 @@ describe("video widget", () => {
 
     it("should snapshot on mobile", () => {
         // Arrange
-        jest.useRealTimers();
+        rs.useRealTimers();
 
         const apiOptions: APIOptions = {
             isMobile: true,
@@ -55,7 +55,7 @@ describe("video widget", () => {
             isMobile: false,
         };
 
-        const onAnalyticsEventSpy = jest.fn();
+        const onAnalyticsEventSpy = rs.fn();
         const dependencies = {
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
         };

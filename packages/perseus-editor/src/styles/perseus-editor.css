@@ -236,18 +236,9 @@ code {
     margin-top: 2px;
     text-align: right;
 }
-.MathJax .math {
-    color: inherit;
-}
 #perseus {
     margin: 20px;
     z-index: 10;
-}
-#perseus #problemarea #workarea {
-    margin: 0;
-}
-#perseus #problemarea #workarea .perseus-image-caption {
-    top: 0px !important;
 }
 #perseus .add-choice-container {
     display: flex;

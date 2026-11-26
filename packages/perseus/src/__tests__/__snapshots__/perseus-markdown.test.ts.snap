@@ -1,41 +1,22 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`perseus markdown output should output columns 1`] = `
+exports[`perseus markdown > output > should ignore the deprecated column separator '=====' 1`] = `
 [
   <div
-    className="perseus-two-columns"
+    className="paragraph"
   >
-    <div
-      className="perseus-column"
-    >
-      <div
-        className="perseus-column-content"
-      >
-        <div
-          className="paragraph"
-        >
-          col1
-        </div>
-      </div>
-    </div>
-    <div
-      className="perseus-column"
-    >
-      <div
-        className="perseus-column-content"
-      >
-        <div
-          className="paragraph"
-        >
-          col2
-        </div>
-      </div>
-    </div>
+    col1
+  </div>,
+  null,
+  <div
+    className="paragraph"
+  >
+    col2
   </div>,
 ]
 `;
 
-exports[`perseus markdown output should output paragraphs 1`] = `
+exports[`perseus markdown > output > should output paragraphs 1`] = `
 [
   <div
     className="paragraph"
@@ -45,10 +26,10 @@ exports[`perseus markdown output should output paragraphs 1`] = `
 ]
 `;
 
-exports[`perseus markdown output should output titled table with unescaped dollars 1`] = `
+exports[`perseus markdown > output > should output titled table with unescaped dollars 1`] = `
 [
   <div
-    className="perseus-titled-table"
+    className="perseus-titled-table-wrapper"
   >
     <table>
       <caption
@@ -138,7 +119,7 @@ exports[`perseus markdown output should output titled table with unescaped dolla
 ]
 `;
 
-exports[`perseus markdown output should render \`\`\`alt screenreader blocks 1`] = `
+exports[`perseus markdown > output > should render \`\`\`alt screenreader blocks 1`] = `
 [
   <div
     className="perseus-markdown-alt perseus-sr-only"
@@ -152,10 +133,10 @@ exports[`perseus markdown output should render \`\`\`alt screenreader blocks 1`]
 ]
 `;
 
-exports[`perseus markdown output with linter should output titled table with unescaped dollars in lint 1`] = `
+exports[`perseus markdown > output with linter > should output titled table with unescaped dollars in lint 1`] = `
 [
   <div
-    className="perseus-titled-table"
+    className="perseus-titled-table-wrapper"
   >
     <Lint
       inline={false}
@@ -264,7 +245,7 @@ Dollar signs must appear in pairs or be escaped as \\$"
 ]
 `;
 
-exports[`perseus markdown parser should parse titled table with unescaped dollars 1`] = `
+exports[`perseus markdown > parser > should parse titled table with unescaped dollars 1`] = `
 [
   {
     "table": {
@@ -376,11 +357,10 @@ exports[`perseus markdown parser should parse titled table with unescaped dollar
 ]
 `;
 
-exports[`perseus markdown parser with linter should lint unescaped dollars in titled table 1`] = `
+exports[`perseus markdown > parser with linter > should lint unescaped dollars in titled table 1`] = `
 [
   {
     "table": {
-      "blockHighlight": undefined,
       "content": {
         "align": [
           null,
@@ -417,7 +397,6 @@ exports[`perseus markdown parser with linter should lint unescaped dollars in ti
             ],
             [
               {
-                "blockHighlight": undefined,
                 "content": {
                   "type": "unescapedDollar",
                 },

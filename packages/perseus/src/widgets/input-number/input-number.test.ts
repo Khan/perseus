@@ -1,11 +1,12 @@
 /**
  * Disclaimer: Definitely not thorough enough
  */
-import {describe, beforeEach, it} from "@jest/globals";
 import {
     generateInputNumberAnswer,
     generateInputNumberOptions,
 } from "@khanacademy/perseus-core";
+import {scoreQuestion} from "@khanacademy/perseus-score";
+import {beforeEach, describe, it} from "@rstest/core";
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -13,7 +14,6 @@ import {renderQuestion} from "../../__testutils__/render-question";
 import {
     getAnswerfulItem,
     getAnswerlessItem,
-    scorePerseusItemTesting,
 } from "../../util/scoring.testutils";
 
 import InputNumber from "./input-number";
@@ -26,7 +26,7 @@ describe("input-number", function () {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
@@ -39,9 +39,10 @@ describe("input-number", function () {
             const textbox = await screen.findByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, "1/2");
-            const score = scorePerseusItemTesting(
+            const score = scoreQuestion(
                 question,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert
@@ -56,9 +57,10 @@ describe("input-number", function () {
             const textbox = await screen.findByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, "0.7");
-            const score = scorePerseusItemTesting(
+            const score = scoreQuestion(
                 question,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert
@@ -73,9 +75,10 @@ describe("input-number", function () {
             const textbox = await screen.findByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, "0..7");
-            const score = scorePerseusItemTesting(
+            const score = scoreQuestion(
                 question,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert
@@ -85,7 +88,7 @@ describe("input-number", function () {
         it("should send analytics event on render", async () => {
             // Arrange
 
-            const onAnalyticsEventSpy = jest.fn();
+            const onAnalyticsEventSpy = rs.fn();
             const dependencies = {
                 analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
             };
@@ -277,9 +280,10 @@ describe("input-number", function () {
             const textbox = await screen.findByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, correct);
-            const score = scorePerseusItemTesting(
+            const score = scoreQuestion(
                 question,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert
@@ -294,9 +298,10 @@ describe("input-number", function () {
             const textbox = await screen.findByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, incorrect);
-            const score = scorePerseusItemTesting(
+            const score = scoreQuestion(
                 question,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert
@@ -310,7 +315,7 @@ describe("input-number", () => {
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
@@ -332,10 +337,7 @@ describe("input-number", () => {
         const textbox = await screen.findByRole("textbox");
         await userEvent.click(textbox);
         await userEvent.type(textbox, "1/2");
-        const score = scorePerseusItemTesting(
-            question,
-            renderer.getUserInputMap(),
-        );
+        const score = scoreQuestion(question, renderer.getUserInputMap(), "en");
 
         // Assert
         expect(score).toHaveBeenAnsweredCorrectly();
@@ -349,10 +351,7 @@ describe("input-number", () => {
         const textbox = await screen.findByRole("textbox");
         await userEvent.click(textbox);
         await userEvent.type(textbox, "0.7");
-        const score = scorePerseusItemTesting(
-            question,
-            renderer.getUserInputMap(),
-        );
+        const score = scoreQuestion(question, renderer.getUserInputMap(), "en");
 
         // Assert
         expect(score).toHaveBeenAnsweredIncorrectly();
@@ -397,10 +396,7 @@ describe("input-number", () => {
             // Act
             const textbox = await screen.findByRole("textbox");
             await userEvent.type(textbox, correctAnswer);
-            const score = scorePerseusItemTesting(
-                item,
-                renderer.getUserInputMap(),
-            );
+            const score = scoreQuestion(item, renderer.getUserInputMap(), "en");
 
             // Assert
             expect(score).toHaveBeenAnsweredCorrectly();
@@ -412,7 +408,8 @@ describe("input-number", () => {
         const {renderer} = renderQuestion(question);
 
         // Act
-        const gotFocus = await act(() => renderer.focus());
+        // Needs to be async because Popper updates its position in a microtask.
+        const gotFocus = await act(async () => renderer.focus());
 
         // Assert
         expect(screen.getByRole("textbox")).toHaveFocus();
@@ -422,11 +419,12 @@ describe("input-number", () => {
     it("supports blurring", async () => {
         // Arrange
         const {renderer} = renderQuestion(question);
-        await act(() => renderer.focus());
+        // Needs to be async because Popper updates its position in a microtask.
+        await act(async () => renderer.focus());
         expect(screen.getByRole("textbox")).toHaveFocus();
 
         // Act
-        await act(() => renderer.blur());
+        await act(async () => renderer.blur());
 
         // Assert
         await waitFor(() => {
@@ -528,7 +526,7 @@ describe("focus state", () => {
         const {renderer} = renderQuestion(question);
 
         // Act
-        const gotFocus = await act(() => renderer.focus());
+        const gotFocus = await act(async () => renderer.focus());
 
         // Assert
         expect(screen.getByRole("textbox")).toHaveFocus();
@@ -538,11 +536,11 @@ describe("focus state", () => {
     it("supports blurring", async () => {
         //  Arrange
         const {renderer} = renderQuestion(question);
-        await act(() => renderer.focus());
+        await act(async () => renderer.focus());
         expect(screen.getByRole("textbox")).toHaveFocus();
 
         // Act
-        await act(() => renderer.blur());
+        await act(async () => renderer.blur());
 
         // Assert
         await waitFor(() => {
@@ -605,7 +603,7 @@ describe.each([
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
@@ -638,9 +636,10 @@ describe.each([
 
         await userEvent.type(screen.getByRole("textbox"), "42");
         const userInput = renderer.getUserInputMap();
-        const score = scorePerseusItemTesting(
+        const score = scoreQuestion(
             getAnswerfulInputNumber().question,
             userInput,
+            "en",
         );
 
         // Assert
@@ -653,9 +652,10 @@ describe.each([
 
         await userEvent.type(screen.getByRole("textbox"), "8675309");
         const userInput = renderer.getUserInputMap();
-        const score = scorePerseusItemTesting(
+        const score = scoreQuestion(
             getAnswerfulInputNumber().question,
             userInput,
+            "en",
         );
 
         // Assert
@@ -667,9 +667,10 @@ describe.each([
         const {renderer} = renderQuestion(question);
 
         const userInput = renderer.getUserInputMap();
-        const score = scorePerseusItemTesting(
+        const score = scoreQuestion(
             getAnswerfulInputNumber().question,
             userInput,
+            "en",
         );
 
         // Assert

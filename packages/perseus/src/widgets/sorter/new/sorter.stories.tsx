@@ -1,4 +1,9 @@
-import {generateTestPerseusItem} from "@khanacademy/perseus-core";
+import {
+    generateSorterOptions,
+    generateSorterWidget,
+    generateTestPerseusItem,
+    generateTestPerseusRenderer,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
@@ -11,7 +16,7 @@ import {
     twoCardVerticalQuestion,
 } from "../sorter.testdata";
 
-import type {PerseusItem} from "@khanacademy/perseus-core";
+import type {PerseusItem, SorterLegend} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 type StoryArgs = {
@@ -68,4 +73,57 @@ export const SimpleTexInArticle: Story = {
     args: {
         item: generateTestPerseusItem({question: simpleTexQuestion}),
     },
+};
+
+type LegendStoryArgs = SorterLegend & {layout: "horizontal" | "vertical"};
+
+function generateItemWithLegend(args: LegendStoryArgs): PerseusItem {
+    const {layout, ...legend} = args;
+    const options = generateSorterOptions({
+        correct: ["Car loan", "Student loan", "Credit card"],
+        layout,
+        legend,
+    });
+
+    return generateTestPerseusItem({
+        question: generateTestPerseusRenderer({
+            content: "Arrange the loans by interest rate. [[☃ sorter 1]]",
+            widgets: {"sorter 1": generateSorterWidget({options})},
+        }),
+    });
+}
+
+export const Legend: StoryObj<LegendStoryArgs> = {
+    args: {
+        layout: "horizontal",
+        startCap: "arrow",
+        endCap: "arrow",
+        startLabel: "Lowest",
+        endLabel: "Highest",
+        ariaLabel:
+            "Interest rates, from lowest at the start to highest at the end",
+        position: "below",
+    },
+    argTypes: {
+        layout: {control: "inline-radio", options: ["horizontal", "vertical"]},
+        startCap: {control: "inline-radio", options: ["arrow", "bar", "none"]},
+        endCap: {control: "inline-radio", options: ["arrow", "bar", "none"]},
+        position: {control: "inline-radio", options: ["above", "below"]},
+    },
+    parameters: {
+        controls: {
+            include: [
+                "layout",
+                "startCap",
+                "endCap",
+                "startLabel",
+                "endLabel",
+                "ariaLabel",
+                "position",
+            ],
+        },
+    },
+    render: (args) => (
+        <ServerItemRendererWithDebugUI item={generateItemWithLegend(args)} />
+    ),
 };

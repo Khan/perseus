@@ -3,11 +3,11 @@ import {
     generateDefinitionWidget,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../__testutils__/render-question";
-import {scorePerseusItemTesting} from "../../util/scoring.testutils";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
@@ -30,7 +30,7 @@ describe("Definition widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
@@ -44,7 +44,7 @@ describe("Definition widget", () => {
 
     it("should send analytics event when widget is rendered", () => {
         // Arrange
-        const onAnalyticsEventSpy = jest.fn();
+        const onAnalyticsEventSpy = rs.fn();
         const dependencies = {
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
         };
@@ -140,10 +140,7 @@ describe("Definition widget", () => {
         const {renderer} = renderQuestion(question);
 
         // Act
-        const score = scorePerseusItemTesting(
-            question,
-            renderer.getUserInputMap(),
-        );
+        const score = scoreQuestion(question, renderer.getUserInputMap(), "en");
 
         // Assert
         expect(score).toHaveBeenAnsweredCorrectly({
@@ -161,9 +158,9 @@ describe("Definition widget", () => {
 
         beforeEach(() => {
             // Popover's focus management (floating-ui) moves focus using
-            // microtasks and animation frames, which Jest's fake timers hold
+            // microtasks and animation frames, which fake timers hold
             // back.
-            jest.useRealTimers();
+            rs.useRealTimers();
             userEvent = userEventLib.setup();
         });
 

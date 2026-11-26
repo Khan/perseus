@@ -80,17 +80,19 @@ export default function DarkModeToggle({
                     onChange={toggleSuppressFilter}
                 />
                 <InfoTip>
-                    When the color in the image is important (like in an image
-                    of a flag), you can suppress the filter that is used to make
-                    images compatible with dark mode.
-                    {!isGraphicalImage(imageUrl) && (
-                        <strong>
-                            {" "}
-                            This option is only available for PNG and SVG
-                            images. Other types of images (e.g. JPG, GIF) never
-                            change in dark mode.
-                        </strong>
-                    )}
+                    <p>
+                        When the color in the image is important (like in an
+                        image of a flag), you can suppress the filter that is
+                        used to make images compatible with dark mode.
+                        {!isGraphicalImage(imageUrl) && (
+                            <strong>
+                                {" "}
+                                This option is only available for PNG and SVG
+                                images. Other types of images (e.g. JPG, GIF)
+                                never change in dark mode.
+                            </strong>
+                        )}
+                    </p>
                 </InfoTip>
             </div>
         </div>

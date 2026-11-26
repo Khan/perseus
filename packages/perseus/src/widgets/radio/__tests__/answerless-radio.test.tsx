@@ -2,7 +2,7 @@ import {
     generateTestPerseusItem,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {scorePerseusItem} from "@khanacademy/perseus-score";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -14,6 +14,7 @@ import type {
     PerseusRenderer,
     PerseusItem,
 } from "@khanacademy/perseus-core";
+import type {Mock} from "@rstest/core";
 import type {UserEvent} from "@testing-library/user-event";
 
 function getRadioWidgetOptions(): PerseusRadioWidgetOptions {
@@ -90,17 +91,17 @@ describe("interactive: full vs answerless", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
         // Mocked for loading graphie in svg-image
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn(() =>
+        global.fetch = rs.fn(() =>
             Promise.resolve({
                 text: () => "",
                 ok: true,
             }),
-        ) as jest.Mock;
+        ) as Mock;
     });
 
     test.each(["answerless", "answerful"])(
@@ -126,7 +127,7 @@ describe("interactive: full vs answerless", () => {
             expect(screen.getByText("Choose 2 answers:")).toBeInTheDocument();
 
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItem(
+            const score = scoreQuestion(
                 getAnswerfulItem().question,
                 userInput,
                 "en",

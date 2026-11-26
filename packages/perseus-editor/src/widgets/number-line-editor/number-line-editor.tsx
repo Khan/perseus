@@ -1,6 +1,5 @@
 import {number as knumber} from "@khanacademy/kmath";
 import {components} from "@khanacademy/perseus";
-import {numberLineLogic} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import _ from "underscore";
@@ -25,9 +24,6 @@ type Props = WidgetEditorProps<PerseusNumberLineWidgetOptions>;
  * positions, intervals, and points on a number line.
  */
 class NumberLineEditor extends React.Component<Props> {
-    static defaultProps: PerseusNumberLineWidgetOptions =
-        numberLineLogic.defaultWidgetOptions;
-
     handleChange(changes: Partial<PerseusNumberLineWidgetOptions>) {
         this.props.onChange({
             range: this.props.range,
@@ -49,23 +45,24 @@ class NumberLineEditor extends React.Component<Props> {
     }
 
     handleLabelRangeChange(i: number, num: number) {
-        let labelRange = this.props.labelRange.slice();
-        const otherNum = labelRange[1 - i];
+        const otherNum = this.props.labelRange[1 - i];
+        let newLabelRange: [number | null, number | null];
 
         if (num == null || otherNum == null) {
-            labelRange[i] = num;
+            newLabelRange = [null, null];
+            newLabelRange[i] = num;
         } else {
             // If both labels have values, this updates the "appropriate" one.
             // It enforces that the position of the left label <= right label.
             // If left otherwise, it makes certain aspects of validation hard.
-            labelRange = [Math.min(num, otherNum), Math.max(num, otherNum)];
+            newLabelRange = [Math.min(num, otherNum), Math.max(num, otherNum)];
         }
 
-        this.handleChange({labelRange});
+        this.handleChange({labelRange: newLabelRange});
     }
 
     onNumDivisionsChange = (numDivisions: number) => {
-        const divRange = this.props.divisionRange.slice();
+        const [minDivisions, maxDivisions] = this.props.divisionRange;
 
         // Don't allow a fraction for the number of divisions
         numDivisions = _.isFinite(numDivisions) ? Math.round(numDivisions) : 0;
@@ -78,13 +75,12 @@ class NumberLineEditor extends React.Component<Props> {
         if (numDivisions) {
             // Constrain numDivisions to be within the allowed range
             numDivisions = Math.min(
-                divRange[1],
-                Math.max(divRange[0], numDivisions),
+                maxDivisions,
+                Math.max(minDivisions, numDivisions),
             );
 
             this.handleChange({
                 tickStep: null,
-                divisionRange: divRange,
                 numDivisions: numDivisions,
             });
         }
@@ -285,7 +281,9 @@ class NumberLineEditor extends React.Component<Props> {
                             <p>
                                 This controls the position of the left / right
                                 labels. By default, the labels are set by the
-                                range <br />
+                                range.
+                            </p>
+                            <p>
                                 <strong>Note:</strong> Ensure that the labels
                                 line up with the tick marks, or it may be
                                 confusing for users.
@@ -375,7 +373,8 @@ class NumberLineEditor extends React.Component<Props> {
                                         EN_DASH +
                                         divisionRange[1]}
                                     .
-                                    <br />
+                                </p>
+                                <p>
                                     <strong>Note:</strong> The user will be able
                                     to specify the number of divisions in a
                                     number input.
@@ -425,8 +424,9 @@ class NumberLineEditor extends React.Component<Props> {
                                     number of divisions (2 divisions would split
                                     the entire range in two halves), or the tick
                                     step (the distance between ticks) and the
-                                    other value will be updated accordingly.{" "}
-                                    <br />
+                                    other value will be updated accordingly.
+                                </p>
+                                <p>
                                     <strong>Note:</strong> There is no check to
                                     see if labels coordinate with the tick
                                     marks, which may be confusing for users if
@@ -453,8 +453,9 @@ class NumberLineEditor extends React.Component<Props> {
                     <InfoTip>
                         <p>
                             This determines the number of different places the
-                            point will snap between two adjacent tick marks.{" "}
-                            <br />
+                            point will snap between two adjacent tick marks.
+                        </p>
+                        <p>
                             <strong>Note:</strong>Ensure the required number of
                             snap increments is provided to answer the question.
                         </p>

@@ -5,12 +5,11 @@ import {
     generateGroupWidget,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
-import {scorePerseusItem} from "@khanacademy/perseus-score";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../__testutils__/render-question";
-import {scorePerseusItemTesting} from "../../util/scoring.testutils";
 
 import {
     getFullGroupTestItem,
@@ -18,23 +17,24 @@ import {
     question1,
 } from "./group.testdata";
 
+import type {Mock} from "@rstest/core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("group widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
         // Mocked for loading graphie in svg-image
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn(() =>
+        global.fetch = rs.fn(() =>
             Promise.resolve({
                 text: () => "",
                 ok: true,
             }),
-        ) as jest.Mock;
+        ) as Mock;
     });
 
     it("should snapshot", () => {
@@ -48,7 +48,7 @@ describe("group widget", () => {
     describe("focus management", () => {
         it("should map focus event to onFocusChange", () => {
             // Arrange
-            const onFocusChange = jest.fn();
+            const onFocusChange = rs.fn();
 
             const {renderer} = renderQuestion(question1, {
                 apiOptions: {
@@ -68,7 +68,7 @@ describe("group widget", () => {
 
         it("should map blur event to onFocusChange", async () => {
             // Arrange
-            const onFocusChange = jest.fn();
+            const onFocusChange = rs.fn();
 
             const {renderer} = renderQuestion(question1, {
                 apiOptions: {
@@ -281,7 +281,7 @@ describe("group widget", () => {
         );
 
         const guess = renderer.getUserInputMap();
-        const score = scorePerseusItem(question1, guess, "en");
+        const score = scoreQuestion(question1, guess, "en");
 
         // Assert
         expect(score).toHaveBeenAnsweredCorrectly();
@@ -398,9 +398,10 @@ describe("group widget", () => {
             );
 
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItemTesting(
+            const score = scoreQuestion(
                 getFullGroupTestItem().question,
                 userInput,
+                "en",
             );
 
             // Assert
@@ -419,9 +420,10 @@ describe("group widget", () => {
             );
 
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItemTesting(
+            const score = scoreQuestion(
                 getFullGroupTestItem().question,
                 userInput,
+                "en",
             );
 
             // Assert
@@ -433,9 +435,10 @@ describe("group widget", () => {
             const {renderer} = renderQuestion(question);
 
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItemTesting(
+            const score = scoreQuestion(
                 getFullGroupTestItem().question,
                 userInput,
+                "en",
             );
 
             // Assert

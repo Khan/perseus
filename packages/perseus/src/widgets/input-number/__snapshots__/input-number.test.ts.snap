@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`rendering supports mobile rendering: mobile render 1`] = `
+exports[`rendering > supports mobile rendering > mobile render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -8,17 +8,19 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         Akshat works in a hospital lab.
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         To project blood quantities, he wants to know the probability that more than 
         <span
@@ -57,13 +59,14 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
           <span />
         </span>
          of donors have type-A blood.
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         Akshat uses a computer to produce many samples that simulate the next 
         <span
@@ -122,13 +125,14 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
           without
         </em>
          type-A blood.
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Based on the samples below, estimate the probability that  more than 
@@ -197,18 +201,19 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
             </div>
           </span>
         </span>
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <em>
           Note: This a small sample to practice with. A larger sample could give a much better estimate.
         </em>
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -216,10 +221,7 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
       <table>
         <thead>
           <tr>
-            <th
-              scope="col"
-              style="text-align: center;"
-            />
+            <td />
             <th
               scope="col"
               style="text-align: center;"
@@ -233,7 +235,8 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
         </thead>
         <tbody>
           <tr>
-            <td
+            <th
+              scope="row"
               style="text-align: center;"
             >
               <span
@@ -247,7 +250,7 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
                 </span>
                 <span />
               </span>
-            </td>
+            </th>
             <td
               style="text-align: center;"
             >
@@ -265,7 +268,8 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
             </td>
           </tr>
           <tr>
-            <td
+            <th
+              scope="row"
               style="text-align: center;"
             >
               <span
@@ -279,7 +283,7 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
                 </span>
                 <span />
               </span>
-            </td>
+            </th>
             <td
               style="text-align: center;"
             >
@@ -297,7 +301,8 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
             </td>
           </tr>
           <tr>
-            <td
+            <th
+              scope="row"
               style="text-align: center;"
             >
               <span
@@ -311,7 +316,7 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
                 </span>
                 <span />
               </span>
-            </td>
+            </th>
             <td
               style="text-align: center;"
             >
@@ -329,7 +334,8 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
             </td>
           </tr>
           <tr>
-            <td
+            <th
+              scope="row"
               style="text-align: center;"
             >
               <span
@@ -343,7 +349,7 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
                 </span>
                 <span />
               </span>
-            </td>
+            </th>
             <td
               style="text-align: center;"
             >
@@ -361,7 +367,8 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
             </td>
           </tr>
           <tr>
-            <td
+            <th
+              scope="row"
               style="text-align: center;"
             >
               <span
@@ -375,7 +382,7 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
                 </span>
                 <span />
               </span>
-            </td>
+            </th>
             <td
               style="text-align: center;"
             >
@@ -393,7 +400,8 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
             </td>
           </tr>
           <tr>
-            <td
+            <th
+              scope="row"
               style="text-align: center;"
             >
               <span
@@ -407,7 +415,7 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
                 </span>
                 <span />
               </span>
-            </td>
+            </th>
             <td
               style="text-align: center;"
             >
@@ -425,7 +433,8 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
             </td>
           </tr>
           <tr>
-            <td
+            <th
+              scope="row"
               style="text-align: center;"
             >
               <span
@@ -439,7 +448,7 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
                 </span>
                 <span />
               </span>
-            </td>
+            </th>
             <td
               style="text-align: center;"
             >
@@ -457,7 +466,8 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
             </td>
           </tr>
           <tr>
-            <td
+            <th
+              scope="row"
               style="text-align: center;"
             >
               <span
@@ -471,7 +481,7 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
                 </span>
                 <span />
               </span>
-            </td>
+            </th>
             <td
               style="text-align: center;"
             >

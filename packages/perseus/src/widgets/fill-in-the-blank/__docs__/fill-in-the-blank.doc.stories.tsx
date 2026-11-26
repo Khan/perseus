@@ -25,13 +25,13 @@ Fill in the Blank presents a passage with inline blanks above a choice bank of a
 
 It is the first of a drag-and-drop family — Sorter, Categorizer and Composer follow — which is why the answer tile is named for the family (\`PerseusAnswerTile\`) rather than for this widget.
 
-**The render below is a placeholder.** The drag-and-drop components in \`components/drag-and-drop/\` have not been assembled into the widget yet, so the options documented here are authored but not yet honoured.
+**The render is an early version.** \`randomize\` is not yet honored, and there is no sub/superscript, narrow-viewport, or scoring support yet.
 
 ## Key Features
 
 - **Inline blanks**: the passage is a single translatable Markdown string holding \`[[☃ blank n]]\` placeholders, so translators can move a blank within the sentence
 - **Rich tiles**: an answer tile's face is text, TeX, an image, or empty
-- **Tile reuse**: tiles are single-use, capped, or unlimited, for the whole choice bank
+- **Tile reuse**: each tile is single-use, capped, or unlimited, set per tile (e.g. 10 pennies and 5 dimes)
 - **Accessibility**: every drag has an equivalent action in the tile's actions menu, and each tile carries a screen reader label
 `,
             },
@@ -71,18 +71,8 @@ It is the first of a drag-and-drop family — Sorter, Categorizer and Composer f
             description: "The choice bank the learner draws answer tiles from",
             table: {
                 category: "Fill in the Blank Widget Options",
-                type: {summary: "PerseusAnswerTile[]"},
+                type: {summary: "PerseusFillInTheBlankTile[]"},
                 defaultValue: {summary: "[]"},
-            },
-        },
-        maxUsesPerTile: {
-            control: false,
-            description:
-                "How many times each tile may be placed, for the whole choice bank. 1 moves a placed tile rather than copying it, so it can never occupy two blanks; above 1 copies it, up to that many uses",
-            table: {
-                category: "Fill in the Blank Widget Options",
-                type: {summary: 'number | "unlimited"'},
-                defaultValue: {summary: "1"},
             },
         },
         randomize: {
@@ -132,6 +122,15 @@ It is the first of a drag-and-drop family — Sorter, Categorizer and Composer f
                 category: "Perseus Answer Tile",
                 type: {summary: "number | undefined"},
                 defaultValue: {summary: "undefined"},
+            },
+        },
+        "tiles[].maxUses": {
+            control: false,
+            description:
+                "How many blanks this tile may fill. 1 moves a placed tile rather than copying it, so it can never occupy two blanks; above 1 copies it, up to that many uses. Set per tile, so one choice bank can allow 10 pennies and 5 dimes",
+            table: {
+                category: "Fill in the Blank Tile",
+                type: {summary: 'number | "unlimited"'},
             },
         },
     } as const,

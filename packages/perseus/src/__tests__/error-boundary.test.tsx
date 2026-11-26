@@ -11,8 +11,11 @@ const ProblematicComponent = () => {
 
 describe("error boundary", () => {
     beforeEach(() => {
-        jest.spyOn(console, "error").mockImplementation(() => {});
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        // Stub stderr and console because React writes to them when it catches
+        // an error.
+        rs.spyOn(process.stderr, "write").mockImplementation(() => false);
+        rs.spyOn(console, "error").mockImplementation(() => {});
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
@@ -39,7 +42,7 @@ describe("error boundary", () => {
     });
 
     it("should call the onError callback when children error", () => {
-        const onErrorCallback = jest.fn();
+        const onErrorCallback = rs.fn();
 
         render(
             <ErrorBoundary onError={onErrorCallback}>
@@ -51,7 +54,7 @@ describe("error boundary", () => {
     });
 
     it("should log the error when children error", () => {
-        const errorSpy = jest.spyOn(testDependencies.Log, "error");
+        const errorSpy = rs.spyOn(testDependencies.Log, "error");
 
         render(
             <ErrorBoundary>

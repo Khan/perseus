@@ -1,9 +1,9 @@
 import React from "react";
 
 import {getDependencies} from "../../../dependencies";
+import {replaceOutsideTeX} from "../../../util/math-only-parser";
 import {X, Y} from "../math";
 import useGraphConfig from "../reducer/use-graph-config";
-import {replaceOutsideTeX} from "../utils";
 
 import {fontSize, getLabelTransform} from "./utils";
 

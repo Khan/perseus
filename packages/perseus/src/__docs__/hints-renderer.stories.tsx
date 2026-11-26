@@ -10,7 +10,6 @@ import {themeModes} from "../../../../.storybook/modes";
 import {storybookDependenciesV2} from "../testing/test-dependencies";
 import {earthMoonImage} from "../widgets/image/__testdata__/image.testdata";
 
-import {bibliotronExerciseDecorator} from "./hints-renderer-decorator";
 import {HintsRendererForStories} from "./hints-renderer-for-stories";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -42,7 +41,6 @@ export default meta;
 type Story = StoryObj<typeof HintsRendererForStories>;
 
 export const ImageWidgetInHint: Story = {
-    decorators: [bibliotronExerciseDecorator],
     args: {
         dependencies: storybookDependenciesV2,
         hints: [

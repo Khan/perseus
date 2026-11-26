@@ -6,10 +6,10 @@ import {font} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import {getDependencies} from "../../../dependencies";
+import {replaceOutsideTeX} from "../../../util/math-only-parser";
 import {pointToPixel} from "../graphs/use-transform";
 import LabelStrokeFilter from "../label-stroke-filter";
 import useGraphConfig from "../reducer/use-graph-config";
-import {replaceOutsideTeX} from "../utils";
 
 // The new font tokens split sizing into separate `body` and `heading` scales.
 // The body scale only goes up to `medium`, so `large` labels map to the

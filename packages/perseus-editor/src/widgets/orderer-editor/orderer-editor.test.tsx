@@ -18,18 +18,17 @@ describe("OrdererEditor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
     it("updates state correctly", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
-        const editorRef = React.createRef<OrdererEditor>();
+        const onChangeMock = rs.fn();
 
         const imageUrl =
             "https://ka-perseus-graphie.s3.amazonaws.com/6e68574abb61d2b4a12644d777006fcfa8a73cff.png";
@@ -58,11 +57,7 @@ describe("OrdererEditor", () => {
         };
 
         render(
-            <OrdererEditor
-                ref={editorRef}
-                onChange={onChangeMock}
-                {...startWidgetOptions}
-            />,
+            <OrdererEditor onChange={onChangeMock} {...startWidgetOptions} />,
         );
 
         // Act
@@ -83,7 +78,7 @@ describe("OrdererEditor", () => {
 
     it("calls onChange with the merged cards when an other card is edited", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <OrdererEditor
                 onChange={onChangeMock}
@@ -134,7 +129,7 @@ describe("OrdererEditor", () => {
 
     it("calls onChange with the new layout when the layout is changed", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <OrdererEditor
                 onChange={onChangeMock}
@@ -154,7 +149,7 @@ describe("OrdererEditor", () => {
 
     it("calls onChange with the new height when the height is changed", async () => {
         // Arrange
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         render(
             <OrdererEditor
                 onChange={onChangeMock}

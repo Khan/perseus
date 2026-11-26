@@ -19,9 +19,9 @@
  * We deliberately don't use that flag here, for two reasons:
  *
  *  1. It changes what components *render*, not just what snapshots *print*.
- *     `test-setup.ts` calls `StyleSheetTestUtils.suppressStyleInjection()`, so
- *     in tests, Aphrodite rules never reach the CSSOM and declarations like
- *     `pointer-events: none` are inert. Inlining the styles makes jsdom start
+ *     `rstest/setup.ts` calls `StyleSheetTestUtils.suppressStyleInjection()`,
+ *     so in tests, Aphrodite rules never reach the CSSOM and declarations
+ *     like `pointer-events: none` are inert. Inlining the styles makes jsdom start
  *     honoring them, which breaks ~260 interaction tests that click on things
  *     Aphrodite considers unclickable.
  *  2. It only covers components that route styles through Wonder Blocks'
@@ -32,9 +32,13 @@
  * name means as it is created, then rewrite class attributes on a *clone* of
  * the tree while it is being printed. The live DOM is never touched.
  */
-const aphrodite = require("aphrodite");
+// TODO: Convert this file to TypeScript
+
+// Aphrodite's entry point is CommonJS, so this default import is its
+// `module.exports` object itself (see the `css` wrapper below).
+import aphrodite from "aphrodite";
 // Aphrodite's own helpers for turning a definition into CSS.
-const {kebabifyStyleName, stringifyValue} = require("aphrodite/lib/util");
+import {kebabifyStyleName, stringifyValue} from "aphrodite/lib/util";
 
 /**
  * Maps a generated class name ("button_vr44p2-o_O-shared_1hhaz1q") to the
@@ -122,7 +126,8 @@ const isEmptyValue = (value) =>
     value == null || typeof value === "boolean" || value === "";
 
 /**
- * Jest prints string attributes wrapped in `"` without escaping them, so a
+ * The snapshot printer prints string attributes wrapped in `"` without
+ * escaping them, so a
  * value such as `font-family: "Times New Roman"` would end the attribute
  * early and print a broken snapshot. This function sanitizes the output
  * by swapping `"` for `'`.
@@ -252,16 +257,21 @@ function expandStylesInElement(node) {
 /**
  * Elements this serializer has already rewritten.
  *
- * Jest does recurse for us: printing an element calls `test()` on each of its
- * children. But we can't rewrite an element in place (that would touch the
- * live DOM), so `serialize()` has to print a clone, and a clone brings its
- * own children along. If we expanded only the top element each time, every
+ * The snapshot printer does recurse for us: printing an element calls
+ * `test()` on each of its children. But we can't rewrite an element in place
+ * (that would touch the live DOM), so `serialize()` has to print a clone, and
+ * a clone brings its own children along. If we expanded only the top element each time, every
  * child would be cloned again on its way through `serialize()`, re-copying
  * each subtree once per ancestor. Instead, the first call clones and expands
  * the whole subtree in one pass and records every node here, so `test()`
- * lets the clone (and its descendants) through to Jest's default printer.
+ * lets the clone (and its descendants) through to the default printer.
  * Without this, the clone itself would match `test()` and recurse forever.
  */
+// TODO: Remove this set by having `test()` match only elements that still
+// carry an Aphrodite class (one in `definitionsByClassName`).
+// `expandStylesInElement()` strips those classes from the clone and its
+// descendants, so they'd stop matching on their own, and elements without
+// Aphrodite styling would no longer be cloned at all.
 const alreadyExpanded = new WeakSet();
 
 function expandStylesInTree(element) {

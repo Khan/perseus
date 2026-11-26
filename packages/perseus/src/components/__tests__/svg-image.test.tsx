@@ -16,11 +16,11 @@ describe("SvgImage", () => {
     let unmockImageLoading: () => void;
 
     beforeEach(() => {
-        jest.clearAllMocks();
+        rs.clearAllMocks();
 
         unmockImageLoading = mockImageLoading();
 
-        jest.spyOn(Dependencies, "useDependencies").mockReturnValue({
+        rs.spyOn(Dependencies, "useDependencies").mockReturnValue({
             ...testDependenciesV2,
         });
     });
@@ -31,7 +31,7 @@ describe("SvgImage", () => {
 
     it("should render a spinner initially", () => {
         // Arrange
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
 
@@ -54,7 +54,7 @@ describe("SvgImage", () => {
 
     it("should load and render a png", () => {
         // Arrange
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
 
@@ -68,7 +68,7 @@ describe("SvgImage", () => {
         );
 
         act(() => {
-            jest.runAllTimers();
+            rs.runAllTimers();
         });
 
         // Assert
@@ -77,7 +77,7 @@ describe("SvgImage", () => {
 
     it("should load and render a normal graphie svg", async () => {
         // Arrange
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
 
@@ -91,7 +91,7 @@ describe("SvgImage", () => {
         );
 
         act(() => {
-            jest.runAllTimers();
+            rs.runAllTimers();
         });
 
         // Assert
@@ -100,7 +100,7 @@ describe("SvgImage", () => {
 
     it("should load and render a localized graphie svg", async () => {
         // Arrange
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
             kaLocale: "es",
         });
@@ -115,7 +115,7 @@ describe("SvgImage", () => {
         );
 
         act(() => {
-            jest.runAllTimers();
+            rs.runAllTimers();
         });
 
         // Assert
@@ -124,7 +124,7 @@ describe("SvgImage", () => {
 
     it("should call the generateUrl dependency to set the img src", () => {
         // Arrange
-        jest.spyOn(Dependencies, "useDependencies").mockReturnValue({
+        rs.spyOn(Dependencies, "useDependencies").mockReturnValue({
             ...testDependenciesV2,
             generateUrl: () => {
                 return "https://www.khanacademy.org/my-test-img.png";
@@ -141,7 +141,7 @@ describe("SvgImage", () => {
         );
 
         act(() => {
-            jest.runAllTimers();
+            rs.runAllTimers();
         });
 
         // Assert
@@ -153,7 +153,7 @@ describe("SvgImage", () => {
     describe("componentDidUpdate", () => {
         // Stand-in for loadGraphie answering synchronously from its cache.
         const mockCachedLoadGraphie = () =>
-            jest
+            rs
                 .spyOn(GraphieUtils, "loadGraphie")
                 .mockImplementation((url, onDataLoaded) => {
                     onDataLoaded(
@@ -169,16 +169,19 @@ describe("SvgImage", () => {
                 });
 
         beforeEach(() => {
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
                 testDependencies,
             );
             // The <img> never finishes loading, so imageLoaded stays false
             // for the whole test while the label data is already loaded.
             unmockImageLoading();
-            jest.spyOn(globalThis, "Image").mockImplementation(
+            // A `function`, not an arrow: the image loader calls
+            // `new Image()`, and some test runners construct a mock's
+            // implementation with `new`.
+            rs.spyOn(globalThis, "Image").mockImplementation(function () {
                 // eslint-disable-next-line no-restricted-syntax
-                () => ({}) as HTMLImageElement,
-            );
+                return {} as HTMLImageElement;
+            });
         });
 
         it("should not reload label data on re-render while the image is still loading", () => {
@@ -257,10 +260,10 @@ describe("SvgImage", () => {
 
         it("should have default label size when no scale is provided", () => {
             // Arrange
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
                 testDependencies,
             );
-            jest.spyOn(GraphieUtils, "loadGraphie").mockImplementation(
+            rs.spyOn(GraphieUtils, "loadGraphie").mockImplementation(
                 (url, onDataLoaded) => {
                     onDataLoaded(
                         {
@@ -286,7 +289,7 @@ describe("SvgImage", () => {
             );
 
             act(() => {
-                jest.runAllTimers();
+                rs.runAllTimers();
             });
 
             // Assert
@@ -306,10 +309,10 @@ describe("SvgImage", () => {
             "should have scaled label size when scale is %s",
             (scale, expectedFontSize) => {
                 // Arrange
-                jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
                     testDependencies,
                 );
-                jest.spyOn(GraphieUtils, "loadGraphie").mockImplementation(
+                rs.spyOn(GraphieUtils, "loadGraphie").mockImplementation(
                     (url, onDataLoaded) => {
                         onDataLoaded(
                             {
@@ -336,7 +339,7 @@ describe("SvgImage", () => {
                 );
 
                 act(() => {
-                    jest.runAllTimers();
+                    rs.runAllTimers();
                 });
 
                 // Assert
@@ -350,10 +353,10 @@ describe("SvgImage", () => {
 
         it("should have default label padding when no scale is provided", () => {
             // Arrange
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
                 testDependencies,
             );
-            jest.spyOn(GraphieUtils, "loadGraphie").mockImplementation(
+            rs.spyOn(GraphieUtils, "loadGraphie").mockImplementation(
                 (url, onDataLoaded) => {
                     onDataLoaded(
                         {
@@ -379,7 +382,7 @@ describe("SvgImage", () => {
             );
 
             act(() => {
-                jest.runAllTimers();
+                rs.runAllTimers();
             });
 
             // Assert
@@ -398,10 +401,10 @@ describe("SvgImage", () => {
             "should have scaled label padding when scale is %s",
             (scale, expectedPadding) => {
                 // Arrange
-                jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
                     testDependencies,
                 );
-                jest.spyOn(GraphieUtils, "loadGraphie").mockImplementation(
+                rs.spyOn(GraphieUtils, "loadGraphie").mockImplementation(
                     (url, onDataLoaded) => {
                         onDataLoaded(
                             {
@@ -428,7 +431,7 @@ describe("SvgImage", () => {
                 );
 
                 act(() => {
-                    jest.runAllTimers();
+                    rs.runAllTimers();
                 });
 
                 // Assert
@@ -444,11 +447,11 @@ describe("SvgImage", () => {
     describe("infinite loop prevention", () => {
         it("should only call loadGraphie once even if component re-renders during loading", () => {
             // Arrange
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
                 testDependencies,
             );
 
-            const loadGraphieSpy = jest.spyOn(GraphieUtils, "loadGraphie");
+            const loadGraphieSpy = rs.spyOn(GraphieUtils, "loadGraphie");
 
             // Act
             const {rerender} = render(
@@ -484,11 +487,11 @@ describe("SvgImage", () => {
 
         it("should reset loading flag when src changes", () => {
             // Arrange
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
                 testDependencies,
             );
 
-            const loadGraphieSpy = jest.spyOn(GraphieUtils, "loadGraphie");
+            const loadGraphieSpy = rs.spyOn(GraphieUtils, "loadGraphie");
 
             // Act
             const {rerender} = render(
@@ -514,11 +517,11 @@ describe("SvgImage", () => {
 
         it("should allow loadGraphie to be called again after loading completes", () => {
             // Arrange
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
                 testDependencies,
             );
 
-            const loadGraphieSpy = jest.spyOn(GraphieUtils, "loadGraphie");
+            const loadGraphieSpy = rs.spyOn(GraphieUtils, "loadGraphie");
 
             // Act
             const {rerender} = render(
@@ -531,7 +534,7 @@ describe("SvgImage", () => {
 
             // Complete the async loading
             act(() => {
-                jest.runAllTimers();
+                rs.runAllTimers();
             });
 
             // Change to a different graphie image

@@ -3,7 +3,6 @@
  * Provides a method for attaching some shims to a window object that JSDOM
  * otherwise doesn't support.
  */
-const {performance} = require("perf_hooks");
 
 /**
  * Attaches various shims to the window object that JSDOM doesn't or didn't
@@ -12,49 +11,6 @@ const {performance} = require("perf_hooks");
  * @param {window} targetWindow
  */
 const attachShims = (targetWindow) => {
-    if (targetWindow.Node) {
-        if (!targetWindow.Node.prototype.hasOwnProperty("innerText")) {
-            // innerText is not currently supported by JSDOM
-            // See https://github.com/tmpvar/jsdom/issues/1245
-            // So, let's patch it.
-            // We have to make sure we invoke the `textContent` of the Node
-            // instance to make sure things execute correctly.
-            Object.defineProperty(targetWindow.Node.prototype, "innerText", {
-                get: function () {
-                    return this.textContent;
-                },
-            });
-        }
-
-        if (!targetWindow.Node.prototype.hasOwnProperty("createRange")) {
-            // JSDOM doesn't support ranges since it's not a rendering engine,
-            // but some things want them to exist, so we shim it to at least
-            // not error out.
-            Object.defineProperty(targetWindow.Node.prototype, "createRange", {
-                value: () => ({
-                    setStart: () => {},
-                    setEnd: () => {},
-
-                    // Codemirror (used in iGraphQL) is calling these things
-                    // off ranges.
-                    // The spec indicates that they are experimental and
-                    // Codemirror is expecting them, so, let's shim them too.
-                    getBoundingClientRect: () => ({
-                        left: 0,
-                        right: 0,
-                    }),
-                    getClientRects: () => [],
-                }),
-            });
-        }
-    }
-
-    // JSDOM currently doesn't support the performance API, so we'll give it Node's.
-    // It isn't a 1:1 replacement (timing API differs, for example), but good enough
-    // for basic things like now().
-    targetWindow.performance = targetWindow.performance || performance;
-    targetWindow.performance.timing = targetWindow.performance.timing || {};
-
     // JSDOM window doesn't support matchMedia. Let's stub it.
     if (!targetWindow.matchMedia) {
         targetWindow.matchMedia = (query) => {
@@ -96,6 +52,9 @@ const attachShims = (targetWindow) => {
     // (which is what tests want — pointer drags aren't simulated in JSDOM).
     // Suites in the node test environment have no MouseEvent to extend and
     // no DOM to dispatch events into, so they need no shim.
+    //
+    // TODO: Remove this shim once we're on jsdom 27 or later, which implements
+    // PointerEvent (https://github.com/jsdom/jsdom/issues/2527).
     if (targetWindow.MouseEvent && !targetWindow.PointerEvent) {
         targetWindow.PointerEvent = class PointerEvent extends (
             targetWindow.MouseEvent
@@ -104,9 +63,9 @@ const attachShims = (targetWindow) => {
 
     // JSDOM doesn't implement the CSS Font Loading API, so `document.fonts`
     // doesn't exist at all — which also means there's no accessor for
-    // `jest.spyOn(document, "fonts", "get")` to wrap. Defining it as a getter
+    // `rs.spyOn(document, "fonts", "get")` to wrap. Defining it as a getter
     // returning undefined (which code must tolerate anyway) lets tests spy on
-    // it, with Jest handling the restore.
+    // it, with Rstest handling the restore.
     if (
         targetWindow.Document &&
         !targetWindow.Document.prototype.hasOwnProperty("fonts")
@@ -116,6 +75,39 @@ const attachShims = (targetWindow) => {
             configurable: true,
         });
     }
+
+    // jQuery's `.width()` and `.height()` check feature support by measuring
+    // a hidden table, and repeat the check until the table is visible (taking
+    // a width of 0 to mean the page isn't visible yet). JSDOM has no layout,
+    // so the check never considers the page to be visible nor discards the
+    // hidden table. It runs again on every call and adds 8 more nodes to the
+    // same table each time (jquery/jquery#5932), so each call is slower than
+    // the last, and a test file that measures many elements (like Graphie
+    // labels in plotter.test.tsx) slows down test by test. Giving jQuery's
+    // test table, and no other table, a width lets the check finish on its
+    // first run.
+    //
+    // Test files in a Node environment have no HTMLTableElement to patch.
+    if (targetWindow.HTMLTableElement) {
+        const offsetWidth = Object.getOwnPropertyDescriptor(
+            targetWindow.HTMLElement.prototype,
+            "offsetWidth",
+        );
+        Object.defineProperty(
+            targetWindow.HTMLTableElement.prototype,
+            "offsetWidth",
+            {
+                get() {
+                    // jQuery 4.0.0 marks its test table with `left: -11111px`.
+                    return this.style.left === "-11111px"
+                        ? 1
+                        : offsetWidth.get.call(this);
+                },
+                configurable: true,
+            },
+        );
+    }
 };
 
-module.exports = attachShims;
+// TODO: Rewrite this file in TypeScript.
+export default attachShims;

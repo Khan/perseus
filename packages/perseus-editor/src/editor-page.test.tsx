@@ -1,11 +1,9 @@
 import {Dependencies, Util} from "@khanacademy/perseus";
 import {
-    type PerseusOrdererWidgetOptions,
-    type PerseusRenderer,
-} from "@khanacademy/perseus-core";
-import {
     generateOrdererOption,
     getDefaultAnswerArea,
+    type PerseusOrdererWidgetOptions,
+    type PerseusRenderer,
 } from "@khanacademy/perseus-core";
 import {render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -30,10 +28,10 @@ describe("EditorPage", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
         Dependencies.setDependencies(testDependencies);
@@ -99,7 +97,7 @@ describe("EditorPage", () => {
     });
 
     it("updates Orderer state correctly", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         const imageUrl =
             "https://ka-perseus-graphie.s3.amazonaws.com/6e68574abb61d2b4a12644d777006fcfa8a73cff.png";
@@ -161,7 +159,8 @@ describe("EditorPage", () => {
 
         // Get the widget options directly to avoid having to mock the entire PerseusItem
         const widgetOptions =
-            onChangeMock.mock.lastCall[0].question.widgets["orderer 1"].options;
+            onChangeMock.mock.lastCall?.[0].question.widgets["orderer 1"]
+                .options;
 
         // Verify the options were updated correctly
         expect(widgetOptions).toEqual(
@@ -229,7 +228,7 @@ describe("EditorPage", () => {
             widgets: {},
         };
 
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
         const {rerender} = render(
             <EditorPage
@@ -264,8 +263,8 @@ describe("EditorPage", () => {
         ).toBeInTheDocument();
     });
 
-    it("should call initializeWidgetOptions if available", async () => {
-        const onChangeMock = jest.fn();
+    it("sets a new Definition widget's togglePrompt to the text selection", async () => {
+        const onChangeMock = rs.fn();
 
         const startRenderer: PerseusRenderer = {
             content: "That's an onomatopoeia!",
@@ -318,15 +317,78 @@ describe("EditorPage", () => {
         });
     });
 
+    it("leaves a new Definition widget's togglePrompt empty when no text is selected", async () => {
+        // Arrange
+        const onChangeMock = rs.fn();
+        render(
+            <EditorPage
+                dependencies={testDependenciesV2}
+                question={{content: "", widgets: {}, images: {}}}
+                onChange={onChangeMock}
+                previewDevice="desktop"
+                previewURL=""
+                itemId="itemId"
+                jsonMode={false}
+                widgetsAreOpen={true}
+            />,
+        );
+
+        // Act
+        await userEvent.selectOptions(
+            screen.getByTestId("editor__widget-select"),
+            "Definition",
+        );
+
+        // Assert
+        const widget =
+            onChangeMock.mock.lastCall?.[0].question.widgets["definition 1"];
+        expect(widget.options).toEqual({togglePrompt: "", definition: ""});
+    });
+
+    it("inserts a new widget from the widget dropdown", async () => {
+        // Arrange
+        const onChangeMock = rs.fn();
+        render(
+            <EditorPage
+                dependencies={testDependenciesV2}
+                question={{content: "", widgets: {}, images: {}}}
+                onChange={onChangeMock}
+                previewDevice="desktop"
+                previewURL=""
+                itemId="itemId"
+                jsonMode={false}
+                widgetsAreOpen={true}
+            />,
+        );
+
+        // Act
+        await userEvent.selectOptions(
+            screen.getByTestId("editor__widget-select"),
+            "Drop down",
+        );
+
+        // Assert
+        expect(
+            onChangeMock.mock.lastCall?.[0].question.widgets["dropdown 1"],
+        ).toEqual({
+            type: "dropdown",
+            options: {
+                placeholder: "",
+                choices: [{content: "", correct: false}],
+            },
+            version: {major: 0, minor: 0},
+        });
+    });
+
     it("converts image markdown to an image widget when the issue CTA is clicked", async () => {
         // Arrange
         const imageUrl = earthMoonImage.url;
-        jest.spyOn(Util, "getImageSizeModern").mockResolvedValue([
+        rs.spyOn(Util, "getImageSizeModern").mockResolvedValue([
             earthMoonImage.width,
             earthMoonImage.height,
         ]);
 
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
         const question: PerseusRenderer = {
             content: `Which planet is this? ![The Earth](${imageUrl})`,
             images: {
@@ -364,7 +426,7 @@ describe("EditorPage", () => {
         // Assert
         // The conversion awaits the image's dimensions before it reports back.
         await waitFor(() => expect(onChangeMock).toHaveBeenCalled());
-        expect(onChangeMock.mock.lastCall[0].question).toEqual(
+        expect(onChangeMock.mock.lastCall?.[0].question).toEqual(
             expect.objectContaining({
                 content: "Which planet is this? [[☃ image 1]]",
                 widgets: expect.objectContaining({

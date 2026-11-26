@@ -1,9 +1,9 @@
 import {
+    ApiOptions,
+    Log,
     PerseusMarkdown,
     Util,
     Widgets,
-    ApiOptions,
-    Log,
 } from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
@@ -155,9 +155,10 @@ type State = {
     rememberedWidgetsForUndo: PerseusWidgetsMap;
 };
 
-// Contextual information that widgets can use,
-// through initializeWidgetOptions,
-// to initialize widget options
+/**
+ * Contextual information passed to a widget editor's optional static
+ * `initializeWidgetOptions(defaults, params)` hook when a widget is inserted.
+ */
 export type InitializeWidgetOptionsParams = {
     selectedText: string;
 };
@@ -171,7 +172,6 @@ class Editor extends React.Component<Props, State> {
     _pendingCursorPos: number | null = null;
     widgetIds: any | null | undefined;
 
-    underlay = React.createRef<HTMLDivElement>();
     textarea = React.createRef<HTMLTextAreaElement>();
 
     static defaultProps: DefaultProps = {
@@ -269,7 +269,6 @@ class Editor extends React.Component<Props, State> {
         return (
             <WidgetEditorContainer
                 widgetInfo={this.props.widgets[id]}
-                ref={id}
                 id={id}
                 key={id}
                 onChange={this._handleWidgetEditorChange.bind(this, id)}
@@ -655,20 +654,16 @@ class Editor extends React.Component<Props, State> {
 
         const newWidgets = {...this.props.widgets};
         const widgetEditor = getEditor(widgetType);
-        const initializeWidgetOptionsParams: InitializeWidgetOptionsParams = {
-            selectedText,
-        };
-        // TODO(benchristel): get rid of all these different ways of
-        //  initializing widget options. We should probably standardize on
-        //  getting the initial options from
-        //  CoreWidgetRegistry.getDefaultWidgetOptions().
-        const startWidgetOptions = widgetEditor?.initializeWidgetOptions?.(
-            initializeWidgetOptionsParams,
-        );
-        const defaultProps = widgetEditor?.defaultProps;
+        const defaultOptions =
+            CoreWidgetRegistry.getDefaultWidgetOptions(widgetType);
+        const params: InitializeWidgetOptionsParams = {selectedText};
         newWidgets[id] = {
-            options: startWidgetOptions || defaultProps,
             type: widgetType,
+            options:
+                widgetEditor?.initializeWidgetOptions?.(
+                    defaultOptions,
+                    params,
+                ) ?? defaultOptions,
             // Track widget version on creation, so that a widget editor
             // without a valid version prop can only possibly refer to a
             // pre-versioning creation time.
@@ -754,25 +749,6 @@ class Editor extends React.Component<Props, State> {
         // See componentDidUpdate() for how this flag is used
         this.lastUserValue = this.props.content;
         this.handleChange({content: newContent});
-    };
-
-    getSaveWarnings: () => any = () => {
-        const widgetIds = _.intersection(
-            this.widgetIds,
-            Object.keys(this.refs),
-        );
-        const warnings = _(widgetIds)
-            .chain()
-            .map((id) => {
-                // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
-                const issuesFunc = this.refs[id].getSaveWarnings;
-                const issues = issuesFunc ? issuesFunc() : [];
-                return _.map(issues, (issue) => id + ": " + issue);
-            })
-            .flatten(true)
-            .value();
-
-        return warnings;
     };
 
     private getWidgetsReferencedIn(content: string): PerseusWidgetsMap {
@@ -916,11 +892,7 @@ class Editor extends React.Component<Props, State> {
         underlayPieces.push(<br key="end" />);
 
         const completeTextarea = [
-            <div
-                className="perseus-textarea-underlay"
-                ref={this.underlay}
-                key="underlay"
-            >
+            <div className="perseus-textarea-underlay" key="underlay">
                 {underlayPieces}
             </div>,
             <textarea

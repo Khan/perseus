@@ -7,6 +7,7 @@ import {
     SORTER_MAX_HORIZONTAL_CARDS,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import {act, screen} from "@testing-library/react";
 import * as React from "react";
@@ -14,8 +15,6 @@ import * as React from "react";
 import {renderQuestion} from "../../../__testutils__/render-question";
 import * as Dependencies from "../../../dependencies";
 import {testDependencies} from "../../../testing/test-dependencies";
-import {wait} from "../../../testing/wait";
-import {scorePerseusItemTesting} from "../../../util/scoring.testutils";
 import {basicQuestion} from "../sorter.testdata";
 
 import type {SorterHandle} from "./sorter";
@@ -54,7 +53,7 @@ function useLoadedTexRenderer() {
     }
 
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
             TeX: LoadedTeX,
         });
@@ -65,15 +64,12 @@ describe("sorter widget", () => {
     describe("snapshot", () => {
         it("should snapshot", async () => {
             // Arrange
-            jest.useRealTimers();
-
             const apiOptions: APIOptions = {
                 isMobile: false,
             };
 
             // Act
             const {container} = renderQuestion(basicQuestion, {apiOptions});
-            await wait();
 
             // Assert
             expect(container).toMatchSnapshot("first render");
@@ -81,15 +77,12 @@ describe("sorter widget", () => {
 
         it("should snapshot on mobile", async () => {
             // Arrange
-            jest.useRealTimers();
-
             const apiOptions: APIOptions = {
                 isMobile: true,
             };
 
             // Act
             const {container} = renderQuestion(basicQuestion, {apiOptions});
-            await wait();
 
             // Assert
             expect(container).toMatchSnapshot("first mobile render");
@@ -112,7 +105,7 @@ describe("sorter widget", () => {
 
         beforeEach(() => {
             unexpectedConsoleErrors = [];
-            jest.spyOn(console, "error").mockImplementation((...args) => {
+            rs.spyOn(console, "error").mockImplementation((...args) => {
                 const message = args.map(String).join(" ");
                 if (!EXPECTED_CONSOLE_ERROR.test(message)) {
                     unexpectedConsoleErrors.push(message);
@@ -126,7 +119,7 @@ describe("sorter widget", () => {
 
         it("reports itself as rendered to analytics", () => {
             // Arrange
-            const onAnalyticsEvent = jest.fn();
+            const onAnalyticsEvent = rs.fn();
 
             // Act
             renderQuestion(sorterQuestion, {
@@ -185,7 +178,7 @@ describe("sorter widget", () => {
 
         it("tracks an interaction when a card is moved", () => {
             // Arrange
-            const trackInteraction = jest.fn();
+            const trackInteraction = rs.fn();
             const {renderer} = renderQuestion(sorterQuestion, {
                 apiOptions: {
                     trackInteraction,
@@ -205,7 +198,7 @@ describe("sorter widget", () => {
 
         it("does not track an interaction before any card is moved", () => {
             // Arrange, Act
-            const trackInteraction = jest.fn();
+            const trackInteraction = rs.fn();
             renderQuestion(sorterQuestion, {apiOptions: {trackInteraction}});
 
             // Assert
@@ -326,9 +319,10 @@ describe("sorter widget", () => {
 
                 // Act
                 const userInput = renderer.getUserInputMap();
-                const score = scorePerseusItemTesting(
+                const score = scoreQuestion(
                     answerfulItem.question,
                     userInput,
+                    "en",
                 );
 
                 // Assert
@@ -349,9 +343,10 @@ describe("sorter widget", () => {
                 );
 
                 const userInput = renderer.getUserInputMap();
-                const score = scorePerseusItemTesting(
+                const score = scoreQuestion(
                     answerfulItem.question,
                     userInput,
+                    "en",
                 );
 
                 // Assert
@@ -366,9 +361,10 @@ describe("sorter widget", () => {
                 // Act
                 act(() => sorter.moveOptionToIndex("First", 4));
 
-                const score = scorePerseusItemTesting(
+                const score = scoreQuestion(
                     answerfulItem.question,
                     renderer.getUserInputMap(),
+                    "en",
                 );
 
                 // Assert
@@ -417,7 +413,7 @@ describe("sorter widget", () => {
 
         it("dispatches unsupported widget analytics event when above the card limit", () => {
             // Arrange
-            const onAnalyticsEventSpy = jest.fn();
+            const onAnalyticsEventSpy = rs.fn();
             const dependencies = {
                 analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
             };
@@ -445,9 +441,10 @@ describe("sorter widget", () => {
             const {renderer} = renderQuestion(question);
 
             // Act
-            const score = scorePerseusItemTesting(
+            const score = scoreQuestion(
                 question,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert

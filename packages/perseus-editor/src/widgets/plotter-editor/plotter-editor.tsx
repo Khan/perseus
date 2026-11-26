@@ -1,6 +1,6 @@
 import {number as knumber} from "@khanacademy/kmath";
 import {components, PlotterWidget, Util} from "@khanacademy/perseus";
-import {plotterLogic, plotterPlotTypes} from "@khanacademy/perseus-core";
+import {plotterPlotTypes} from "@khanacademy/perseus-core";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -42,6 +42,7 @@ type Props = WidgetEditorProps<PerseusPlotterWidgetOptions>;
 
 type State = {
     editing: EditingState;
+    // TODO(benchristel): give `pic` a real type
     pic: any;
     loadedUrl: string | null;
     minX: number;
@@ -55,9 +56,6 @@ const formatNumber = (num) => "$" + knumber.round(num, 2) + "$";
  * An editor for adding a plotter widget that allows users to create and customize data visualizations.
  */
 class PlotterEditor extends React.Component<Props, State> {
-    static defaultProps: PerseusPlotterWidgetOptions =
-        plotterLogic.defaultWidgetOptions;
-
     state: State = {
         editing: this.props.static ? STARTING : CORRECT,
         pic: null,
@@ -101,7 +99,7 @@ class PlotterEditor extends React.Component<Props, State> {
         });
     }
 
-    fetchPic: (url: string | null | undefined) => void = (url) => {
+    fetchPic: (url: string | null) => void = (url) => {
         if (url == null) {
             // Make sure we don't display a previously-loaded picUrl if we no
             // longer have one.
@@ -156,6 +154,7 @@ class PlotterEditor extends React.Component<Props, State> {
         }
 
         if (categories) {
+            // TODO(benchristel): Avoid findDOMNode and string refs here.
             const node = ReactDOM.findDOMNode(this.refs.categories);
             // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
             node.value = categories.join(", ");
@@ -209,6 +208,7 @@ class PlotterEditor extends React.Component<Props, State> {
             starting: this.props.starting.map(scale),
         });
 
+        // TODO(benchristel): Avoid findDOMNode and string refs here.
         // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
         ReactDOM.findDOMNode(this.refs.maxY).value = maxY;
     };

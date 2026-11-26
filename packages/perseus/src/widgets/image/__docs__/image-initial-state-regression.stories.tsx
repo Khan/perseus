@@ -14,10 +14,6 @@ import {
     articleDecorator,
     mobileArticleDecorator,
     rtlDecorator,
-    articleFloatLeftDecorator,
-    articleFloatRightDecorator,
-    mobileArticleFloatRightDecorator,
-    mobileArticleFloatLeftDecorator,
 } from "../../__testutils__/story-decorators";
 import {
     earthMoonImage,
@@ -285,42 +281,6 @@ export const DecorativeImageMobile: Story = {
         longDescription:
             "This is a *very* long description of the earth and moon.",
         decorative: true,
-    },
-};
-
-export const FloatLeftImageWithinArticle: Story = {
-    decorators: [imageRendererDecorator, articleFloatLeftDecorator],
-    args: {
-        backgroundImage: scienceImage,
-        alt: scienceImageAlt,
-        caption: scienceImageCaption,
-    },
-};
-
-export const FloatRightImageWithinArticle: Story = {
-    decorators: [imageRendererDecorator, articleFloatRightDecorator],
-    args: {
-        backgroundImage: scienceImage,
-        alt: scienceImageAlt,
-        caption: scienceImageCaption,
-    },
-};
-
-export const FloatLeftImageWithinArticleMobile: Story = {
-    decorators: [imageRendererDecorator, mobileArticleFloatLeftDecorator],
-    args: {
-        backgroundImage: scienceImage,
-        alt: scienceImageAlt,
-        caption: scienceImageCaption,
-    },
-};
-
-export const FloatRightImageWithinArticleMobile: Story = {
-    decorators: [imageRendererDecorator, mobileArticleFloatRightDecorator],
-    args: {
-        backgroundImage: scienceImage,
-        alt: scienceImageAlt,
-        caption: scienceImageCaption,
     },
 };
 

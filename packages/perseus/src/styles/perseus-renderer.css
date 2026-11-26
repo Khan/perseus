@@ -4,11 +4,10 @@
 @import "styles.css";
 @import "paragraph-styles.css" layer(perseus-legacy);
 @import "./perseus-renderer-part-1.css" layer(perseus-legacy);
-@import "widgets/categorizer.css" layer(perseus-legacy);
+@import "widgets/categorizer.css";
 @import "widgets/dropdown.css" layer(perseus-legacy);
 @import "widgets/expression.css" layer(perseus-legacy);
 @import "widgets/free-response.css";
-@import "widgets/grapher.css" layer(perseus-legacy);
 @import "widgets/graded-group.css" layer(perseus-legacy);
 @import "widgets/group.css" layer(perseus-legacy);
 @import "widgets/image.css" layer(perseus-legacy);

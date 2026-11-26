@@ -1,4 +1,5 @@
-import {expectIssue, expectPass} from "../__tests__/test-utils";
+import {expectIssue, expectPass} from "../__tests__/linter.testutils";
+import {TABLE_HELP_LINK} from "../help-links";
 
 import tableMissingCellsRule from "./table-missing-cells";
 
@@ -18,5 +19,15 @@ describe("table-missing-cells", () => {
         "|cell1|\n|----|\n|cell2|\n|cell3|",
     ])("tableMissingCellsRule passes with: %s", (str: string) => {
         expectPass(tableMissingCellsRule, str);
+    });
+
+    it("links to the table notation guide", () => {
+        // Arrange
+        const markdown = "|col1|col2|\n|----|----|\n|cell1|\n";
+
+        // Act, Assert
+        expectIssue(tableMissingCellsRule, markdown, undefined, {
+            helpLink: TABLE_HELP_LINK,
+        });
     });
 });

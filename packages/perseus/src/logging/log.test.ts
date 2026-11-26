@@ -8,8 +8,8 @@ import {Log} from "./log";
 describe("Perseus logging", () => {
     it("should proxy log() calls to the logger obtained from getDependencies", () => {
         // Arrange
-        const logSpy = jest.fn();
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+        const logSpy = rs.fn();
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
             Log: {...testDependencies.Log, log: logSpy},
         });
@@ -23,8 +23,8 @@ describe("Perseus logging", () => {
 
     it("should proxy error() calls to the logger obtained from getDependencies", () => {
         // Arrange
-        const errorSpy = jest.fn();
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+        const errorSpy = rs.fn();
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
             Log: {...testDependencies.Log, error: errorSpy},
         });

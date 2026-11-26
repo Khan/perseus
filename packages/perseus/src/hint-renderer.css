@@ -1,0 +1,61 @@
+@layer perseus-base {
+    .framework-perseus {
+        .perseus-hint-renderer {
+            /* TODO: Remove the selector with deprecated-perseus-container once it is removed from the renderer. */
+            :nth-child(1 of .perseus-renderer)
+                > .deprecated-perseus-container:first-child
+                > :first-child,
+            :nth-child(1 of .perseus-renderer) > :first-child {
+                margin-block-start: 0;
+            }
+        }
+
+        /* Left-align images in hints. Elsewhere, images are centered. */
+        .perseus-hint-renderer .perseus-image-widget,
+        .perseus-hint-renderer .svg-image {
+            margin-inline-start: 0;
+        }
+
+        .last-hint {
+            font-weight: bold;
+            margin-block-end: var(--wb-sizing-size_320);
+        }
+
+        .perseus-hint-renderer {
+            border-inline-start: var(--wb-border-width-thick) solid
+                var(--wb-semanticColor-core-border-neutral-subtle);
+            padding-inline-start: var(--wb-sizing-size_160);
+            position: relative;
+            /* `display: flow-root` creates a block formatting context.
+             * Per MDN, this does the following:
+             * - contains internal floats.
+             * - excludes external floats.
+             * - suppresses margin collapsing.
+             * See: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Display/Block_formatting_context
+             *
+             * As of 2026, hints cannot contain floating elements (the only
+             * context in which widgets can float is articles, which don't
+             * have hints). Therefore, the only effect of `display: flow-root`
+             * currently is to prevent margin collapsing.
+             */
+            display: flow-root;
+
+            &:focus {
+                border-inline-start-color: var(
+                    --wb-semanticColor-core-border-neutral-default
+                );
+                outline: none;
+            }
+        }
+
+        .perseus-hint-label {
+            color: var(--wb-semanticColor-core-foreground-instructive-strong);
+            display: block;
+            font-weight: var(--wb-font-weight-bold);
+            margin-inline-end: var(--wb-sizing-size_120);
+            position: absolute;
+            inset-inline-end: 100%;
+            white-space: nowrap;
+        }
+    }
+}

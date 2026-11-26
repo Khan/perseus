@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Rstest Snapshot v1
 
-exports[`Radio Widget multi-choice question should snapshot the same when invalid: invalid state 1`] = `
+exports[`Radio Widget > multi-choice question > should snapshot the same when invalid > invalid state 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -8,8 +8,9 @@ exports[`Radio Widget multi-choice question should snapshot the same when invali
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         <strong>
           Select all input values for which 
@@ -26,7 +27,7 @@ exports[`Radio Widget multi-choice question should snapshot the same when invali
           </span>
           .
         </strong>
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -274,302 +275,17 @@ exports[`Radio Widget multi-choice question should snapshot the same when invali
 </div>
 `;
 
-exports[`Radio Widget single-choice question reviewMode: false should snapshot the same with correct answer: correct answer 1`] = `
+exports[`Radio Widget > single-choice question > reviewMode: false > should snapshot the same > first render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
   >
-    <div
-      class="deprecated-perseus-container"
-    >
-      <p
-        class="deprecated-perseus-container"
-      >
-        Which of the following values of 
-        <span
-          style="white-space: nowrap;"
-        >
-          <span />
-          <span
-            class="mock-TeX"
-          >
-            x
-          </span>
-          <span />
-        </span>
-         satisfies the equation 
-        <span
-          style="white-space: nowrap;"
-        >
-          <span />
-          <span
-            class="mock-TeX"
-          >
-            \\sqrt{64}=x
-          </span>
-          <span />
-        </span>
-         ?
-      </p>
-    </div>
     <div
       class="deprecated-perseus-container"
     >
       <div
         class="deprecated-perseus-container"
-      >
-        <div
-          class="perseus-widget-container widget-block"
-        >
-          <fieldset
-            class="container"
-          >
-            <legend
-              aria-hidden="true"
-              class="instructions"
-              id=":r28:"
-            >
-              Choose 1 answer:
-            </legend>
-            <div
-              id=":r29:-scroll"
-              role="group"
-              style="overflow-x: auto;"
-            >
-              <ul
-                aria-labelledby=":r28:"
-                class="choice-list"
-                data-widget="radio"
-                role="list"
-              >
-                <li
-                  class="choice"
-                  role="listitem"
-                >
-                  <button
-                    aria-disabled="false"
-                    aria-label="(Choice A)"
-                    aria-labelledby=":r2c: :r2b:-choice-1"
-                    aria-pressed="false"
-                    class="base circle-shape"
-                    id=":r2c:"
-                    type="button"
-                  >
-                    <span>
-                      A
-                    </span>
-                  </button>
-                  <div
-                    class="content"
-                  >
-                    <div
-                      id=":r2b:-choice-1"
-                    >
-                      <div
-                        class="perseus-renderer perseus-renderer-responsive"
-                      >
-                        <div
-                          class="deprecated-perseus-container"
-                        >
-                          <p
-                            class="deprecated-perseus-container"
-                          >
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
-                              <span
-                                class="mock-TeX"
-                              >
-                                -8
-                              </span>
-                              <span />
-                            </span>
-                             and 
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
-                              <span
-                                class="mock-TeX"
-                              >
-                                8
-                              </span>
-                              <span />
-                            </span>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li
-                  class="choice"
-                  role="listitem"
-                >
-                  <button
-                    aria-disabled="false"
-                    aria-label="(Choice B)"
-                    aria-labelledby=":r2d: :r2b:-choice-2"
-                    aria-pressed="false"
-                    class="base circle-shape"
-                    id=":r2d:"
-                    type="button"
-                  >
-                    <span>
-                      B
-                    </span>
-                  </button>
-                  <div
-                    class="content"
-                  >
-                    <div
-                      id=":r2b:-choice-2"
-                    >
-                      <div
-                        class="perseus-renderer perseus-renderer-responsive"
-                      >
-                        <div
-                          class="deprecated-perseus-container perseus-paragraph-centered"
-                        >
-                          <div
-                            class="perseus-block-math"
-                          >
-                            <div
-                              class="perseus-block-math-inner"
-                              style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                            >
-                              <span
-                                class="mock-TeX"
-                              >
-                                -8
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li
-                  class="choice"
-                  role="listitem"
-                >
-                  <button
-                    aria-disabled="false"
-                    aria-label="(Choice C)"
-                    aria-labelledby=":r2e: :r2b:-choice-3"
-                    aria-pressed="true"
-                    class="base circle-shape"
-                    id=":r2e:"
-                    type="button"
-                  >
-                    <span>
-                      C
-                    </span>
-                  </button>
-                  <div
-                    class="content"
-                  >
-                    <div
-                      id=":r2b:-choice-3"
-                    >
-                      <div
-                        class="perseus-renderer perseus-renderer-responsive"
-                      >
-                        <div
-                          class="deprecated-perseus-container perseus-paragraph-centered"
-                        >
-                          <div
-                            class="perseus-block-math"
-                          >
-                            <div
-                              class="perseus-block-math-inner"
-                              style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                            >
-                              <span
-                                class="mock-TeX"
-                              >
-                                8
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li
-                  class="choice"
-                  role="listitem"
-                >
-                  <button
-                    aria-disabled="false"
-                    aria-label="(Choice D)"
-                    aria-labelledby=":r2f: :r2b:-choice-4"
-                    aria-pressed="false"
-                    class="base circle-shape"
-                    id=":r2f:"
-                    type="button"
-                  >
-                    <span>
-                      D
-                    </span>
-                  </button>
-                  <div
-                    class="content"
-                  >
-                    <div
-                      id=":r2b:-choice-4"
-                    >
-                      <div
-                        class="perseus-renderer perseus-renderer-responsive"
-                      >
-                        <div
-                          class="deprecated-perseus-container"
-                        >
-                          <p
-                            class="deprecated-perseus-container"
-                          >
-                            No value of 
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
-                              <span
-                                class="mock-TeX"
-                              >
-                                x
-                              </span>
-                              <span />
-                            </span>
-                             satisfies the equation.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </fieldset>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Radio Widget single-choice question reviewMode: false should snapshot the same with incorrect answer: incorrect answer 1`] = `
-<div>
-  <div
-    class="perseus-renderer perseus-renderer-responsive"
-  >
-    <div
-      class="deprecated-perseus-container"
-    >
-      <p
-        class="deprecated-perseus-container"
+        role="paragraph"
       >
         Which of the following values of 
         <span
@@ -596,293 +312,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
           <span />
         </span>
          ?
-      </p>
-    </div>
-    <div
-      class="deprecated-perseus-container"
-    >
-      <div
-        class="deprecated-perseus-container"
-      >
-        <div
-          class="perseus-widget-container widget-block"
-        >
-          <fieldset
-            class="container"
-          >
-            <legend
-              aria-hidden="true"
-              class="instructions"
-              id=":r2g:"
-            >
-              Choose 1 answer:
-            </legend>
-            <div
-              id=":r2h:-scroll"
-              role="group"
-              style="overflow-x: auto;"
-            >
-              <ul
-                aria-labelledby=":r2g:"
-                class="choice-list"
-                data-widget="radio"
-                role="list"
-              >
-                <li
-                  class="choice"
-                  role="listitem"
-                >
-                  <button
-                    aria-disabled="false"
-                    aria-label="(Choice A)"
-                    aria-labelledby=":r2k: :r2j:-choice-1"
-                    aria-pressed="true"
-                    class="base circle-shape"
-                    id=":r2k:"
-                    type="button"
-                  >
-                    <span>
-                      A
-                    </span>
-                  </button>
-                  <div
-                    class="content"
-                  >
-                    <div
-                      id=":r2j:-choice-1"
-                    >
-                      <div
-                        class="perseus-renderer perseus-renderer-responsive"
-                      >
-                        <div
-                          class="deprecated-perseus-container"
-                        >
-                          <p
-                            class="deprecated-perseus-container"
-                          >
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
-                              <span
-                                class="mock-TeX"
-                              >
-                                -8
-                              </span>
-                              <span />
-                            </span>
-                             and 
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
-                              <span
-                                class="mock-TeX"
-                              >
-                                8
-                              </span>
-                              <span />
-                            </span>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li
-                  class="choice"
-                  role="listitem"
-                >
-                  <button
-                    aria-disabled="false"
-                    aria-label="(Choice B)"
-                    aria-labelledby=":r2l: :r2j:-choice-2"
-                    aria-pressed="false"
-                    class="base circle-shape"
-                    id=":r2l:"
-                    type="button"
-                  >
-                    <span>
-                      B
-                    </span>
-                  </button>
-                  <div
-                    class="content"
-                  >
-                    <div
-                      id=":r2j:-choice-2"
-                    >
-                      <div
-                        class="perseus-renderer perseus-renderer-responsive"
-                      >
-                        <div
-                          class="deprecated-perseus-container perseus-paragraph-centered"
-                        >
-                          <div
-                            class="perseus-block-math"
-                          >
-                            <div
-                              class="perseus-block-math-inner"
-                              style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                            >
-                              <span
-                                class="mock-TeX"
-                              >
-                                -8
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li
-                  class="choice"
-                  role="listitem"
-                >
-                  <button
-                    aria-disabled="false"
-                    aria-label="(Choice C)"
-                    aria-labelledby=":r2m: :r2j:-choice-3"
-                    aria-pressed="false"
-                    class="base circle-shape"
-                    id=":r2m:"
-                    type="button"
-                  >
-                    <span>
-                      C
-                    </span>
-                  </button>
-                  <div
-                    class="content"
-                  >
-                    <div
-                      id=":r2j:-choice-3"
-                    >
-                      <div
-                        class="perseus-renderer perseus-renderer-responsive"
-                      >
-                        <div
-                          class="deprecated-perseus-container perseus-paragraph-centered"
-                        >
-                          <div
-                            class="perseus-block-math"
-                          >
-                            <div
-                              class="perseus-block-math-inner"
-                              style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                            >
-                              <span
-                                class="mock-TeX"
-                              >
-                                8
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li
-                  class="choice"
-                  role="listitem"
-                >
-                  <button
-                    aria-disabled="false"
-                    aria-label="(Choice D)"
-                    aria-labelledby=":r2n: :r2j:-choice-4"
-                    aria-pressed="false"
-                    class="base circle-shape"
-                    id=":r2n:"
-                    type="button"
-                  >
-                    <span>
-                      D
-                    </span>
-                  </button>
-                  <div
-                    class="content"
-                  >
-                    <div
-                      id=":r2j:-choice-4"
-                    >
-                      <div
-                        class="perseus-renderer perseus-renderer-responsive"
-                      >
-                        <div
-                          class="deprecated-perseus-container"
-                        >
-                          <p
-                            class="deprecated-perseus-container"
-                          >
-                            No value of 
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
-                              <span
-                                class="mock-TeX"
-                              >
-                                x
-                              </span>
-                              <span />
-                            </span>
-                             satisfies the equation.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </fieldset>
-        </div>
       </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Radio Widget single-choice question reviewMode: false should snapshot the same: first render 1`] = `
-<div>
-  <div
-    class="perseus-renderer perseus-renderer-responsive"
-  >
-    <div
-      class="deprecated-perseus-container"
-    >
-      <p
-        class="deprecated-perseus-container"
-      >
-        Which of the following values of 
-        <span
-          style="white-space: nowrap;"
-        >
-          <span />
-          <span
-            class="mock-TeX"
-          >
-            x
-          </span>
-          <span />
-        </span>
-         satisfies the equation 
-        <span
-          style="white-space: nowrap;"
-        >
-          <span />
-          <span
-            class="mock-TeX"
-          >
-            \\sqrt{64}=x
-          </span>
-          <span />
-        </span>
-         ?
-      </p>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -943,8 +373,9 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             <span
                               style="white-space: nowrap;"
@@ -969,7 +400,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                               </span>
                               <span />
                             </span>
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1100,8 +531,9 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             No value of 
                             <span
@@ -1116,7 +548,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                               <span />
                             </span>
                              satisfies the equation.
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1132,7 +564,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
 </div>
 `;
 
-exports[`Radio Widget single-choice question reviewMode: true should snapshot the same with correct answer: correct answer 1`] = `
+exports[`Radio Widget > single-choice question > reviewMode: false > should snapshot the same with correct answer > correct answer 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -1140,8 +572,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         Which of the following values of 
         <span
@@ -1168,7 +601,1065 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
           <span />
         </span>
          ?
-      </p>
+      </div>
+    </div>
+    <div
+      class="deprecated-perseus-container"
+    >
+      <div
+        class="deprecated-perseus-container"
+      >
+        <div
+          class="perseus-widget-container widget-block"
+        >
+          <fieldset
+            class="container"
+          >
+            <legend
+              aria-hidden="true"
+              class="instructions"
+              id=":r28:"
+            >
+              Choose 1 answer:
+            </legend>
+            <div
+              id=":r29:-scroll"
+              role="group"
+              style="overflow-x: auto;"
+            >
+              <ul
+                aria-labelledby=":r28:"
+                class="choice-list"
+                data-widget="radio"
+                role="list"
+              >
+                <li
+                  class="choice"
+                  role="listitem"
+                >
+                  <button
+                    aria-disabled="false"
+                    aria-label="(Choice A)"
+                    aria-labelledby=":r2c: :r2b:-choice-1"
+                    aria-pressed="false"
+                    class="base circle-shape"
+                    id=":r2c:"
+                    type="button"
+                  >
+                    <span>
+                      A
+                    </span>
+                  </button>
+                  <div
+                    class="content"
+                  >
+                    <div
+                      id=":r2b:-choice-1"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="deprecated-perseus-container"
+                        >
+                          <div
+                            class="deprecated-perseus-container"
+                            role="paragraph"
+                          >
+                            <span
+                              style="white-space: nowrap;"
+                            >
+                              <span />
+                              <span
+                                class="mock-TeX"
+                              >
+                                -8
+                              </span>
+                              <span />
+                            </span>
+                             and 
+                            <span
+                              style="white-space: nowrap;"
+                            >
+                              <span />
+                              <span
+                                class="mock-TeX"
+                              >
+                                8
+                              </span>
+                              <span />
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li
+                  class="choice"
+                  role="listitem"
+                >
+                  <button
+                    aria-disabled="false"
+                    aria-label="(Choice B)"
+                    aria-labelledby=":r2d: :r2b:-choice-2"
+                    aria-pressed="false"
+                    class="base circle-shape"
+                    id=":r2d:"
+                    type="button"
+                  >
+                    <span>
+                      B
+                    </span>
+                  </button>
+                  <div
+                    class="content"
+                  >
+                    <div
+                      id=":r2b:-choice-2"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="deprecated-perseus-container perseus-paragraph-centered"
+                        >
+                          <div
+                            class="perseus-block-math"
+                          >
+                            <div
+                              class="perseus-block-math-inner"
+                              style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
+                            >
+                              <span
+                                class="mock-TeX"
+                              >
+                                -8
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li
+                  class="choice"
+                  role="listitem"
+                >
+                  <button
+                    aria-disabled="false"
+                    aria-label="(Choice C)"
+                    aria-labelledby=":r2e: :r2b:-choice-3"
+                    aria-pressed="true"
+                    class="base circle-shape"
+                    id=":r2e:"
+                    type="button"
+                  >
+                    <span>
+                      C
+                    </span>
+                  </button>
+                  <div
+                    class="content"
+                  >
+                    <div
+                      id=":r2b:-choice-3"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="deprecated-perseus-container perseus-paragraph-centered"
+                        >
+                          <div
+                            class="perseus-block-math"
+                          >
+                            <div
+                              class="perseus-block-math-inner"
+                              style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
+                            >
+                              <span
+                                class="mock-TeX"
+                              >
+                                8
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li
+                  class="choice"
+                  role="listitem"
+                >
+                  <button
+                    aria-disabled="false"
+                    aria-label="(Choice D)"
+                    aria-labelledby=":r2f: :r2b:-choice-4"
+                    aria-pressed="false"
+                    class="base circle-shape"
+                    id=":r2f:"
+                    type="button"
+                  >
+                    <span>
+                      D
+                    </span>
+                  </button>
+                  <div
+                    class="content"
+                  >
+                    <div
+                      id=":r2b:-choice-4"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="deprecated-perseus-container"
+                        >
+                          <div
+                            class="deprecated-perseus-container"
+                            role="paragraph"
+                          >
+                            No value of 
+                            <span
+                              style="white-space: nowrap;"
+                            >
+                              <span />
+                              <span
+                                class="mock-TeX"
+                              >
+                                x
+                              </span>
+                              <span />
+                            </span>
+                             satisfies the equation.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Radio Widget > single-choice question > reviewMode: false > should snapshot the same with incorrect answer > incorrect answer 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="deprecated-perseus-container"
+    >
+      <div
+        class="deprecated-perseus-container"
+        role="paragraph"
+      >
+        Which of the following values of 
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            x
+          </span>
+          <span />
+        </span>
+         satisfies the equation 
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            \\sqrt{64}=x
+          </span>
+          <span />
+        </span>
+         ?
+      </div>
+    </div>
+    <div
+      class="deprecated-perseus-container"
+    >
+      <div
+        class="deprecated-perseus-container"
+      >
+        <div
+          class="perseus-widget-container widget-block"
+        >
+          <fieldset
+            class="container"
+          >
+            <legend
+              aria-hidden="true"
+              class="instructions"
+              id=":r2g:"
+            >
+              Choose 1 answer:
+            </legend>
+            <div
+              id=":r2h:-scroll"
+              role="group"
+              style="overflow-x: auto;"
+            >
+              <ul
+                aria-labelledby=":r2g:"
+                class="choice-list"
+                data-widget="radio"
+                role="list"
+              >
+                <li
+                  class="choice"
+                  role="listitem"
+                >
+                  <button
+                    aria-disabled="false"
+                    aria-label="(Choice A)"
+                    aria-labelledby=":r2k: :r2j:-choice-1"
+                    aria-pressed="true"
+                    class="base circle-shape"
+                    id=":r2k:"
+                    type="button"
+                  >
+                    <span>
+                      A
+                    </span>
+                  </button>
+                  <div
+                    class="content"
+                  >
+                    <div
+                      id=":r2j:-choice-1"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="deprecated-perseus-container"
+                        >
+                          <div
+                            class="deprecated-perseus-container"
+                            role="paragraph"
+                          >
+                            <span
+                              style="white-space: nowrap;"
+                            >
+                              <span />
+                              <span
+                                class="mock-TeX"
+                              >
+                                -8
+                              </span>
+                              <span />
+                            </span>
+                             and 
+                            <span
+                              style="white-space: nowrap;"
+                            >
+                              <span />
+                              <span
+                                class="mock-TeX"
+                              >
+                                8
+                              </span>
+                              <span />
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li
+                  class="choice"
+                  role="listitem"
+                >
+                  <button
+                    aria-disabled="false"
+                    aria-label="(Choice B)"
+                    aria-labelledby=":r2l: :r2j:-choice-2"
+                    aria-pressed="false"
+                    class="base circle-shape"
+                    id=":r2l:"
+                    type="button"
+                  >
+                    <span>
+                      B
+                    </span>
+                  </button>
+                  <div
+                    class="content"
+                  >
+                    <div
+                      id=":r2j:-choice-2"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="deprecated-perseus-container perseus-paragraph-centered"
+                        >
+                          <div
+                            class="perseus-block-math"
+                          >
+                            <div
+                              class="perseus-block-math-inner"
+                              style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
+                            >
+                              <span
+                                class="mock-TeX"
+                              >
+                                -8
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li
+                  class="choice"
+                  role="listitem"
+                >
+                  <button
+                    aria-disabled="false"
+                    aria-label="(Choice C)"
+                    aria-labelledby=":r2m: :r2j:-choice-3"
+                    aria-pressed="false"
+                    class="base circle-shape"
+                    id=":r2m:"
+                    type="button"
+                  >
+                    <span>
+                      C
+                    </span>
+                  </button>
+                  <div
+                    class="content"
+                  >
+                    <div
+                      id=":r2j:-choice-3"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="deprecated-perseus-container perseus-paragraph-centered"
+                        >
+                          <div
+                            class="perseus-block-math"
+                          >
+                            <div
+                              class="perseus-block-math-inner"
+                              style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
+                            >
+                              <span
+                                class="mock-TeX"
+                              >
+                                8
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li
+                  class="choice"
+                  role="listitem"
+                >
+                  <button
+                    aria-disabled="false"
+                    aria-label="(Choice D)"
+                    aria-labelledby=":r2n: :r2j:-choice-4"
+                    aria-pressed="false"
+                    class="base circle-shape"
+                    id=":r2n:"
+                    type="button"
+                  >
+                    <span>
+                      D
+                    </span>
+                  </button>
+                  <div
+                    class="content"
+                  >
+                    <div
+                      id=":r2j:-choice-4"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="deprecated-perseus-container"
+                        >
+                          <div
+                            class="deprecated-perseus-container"
+                            role="paragraph"
+                          >
+                            No value of 
+                            <span
+                              style="white-space: nowrap;"
+                            >
+                              <span />
+                              <span
+                                class="mock-TeX"
+                              >
+                                x
+                              </span>
+                              <span />
+                            </span>
+                             satisfies the equation.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Radio Widget > single-choice question > reviewMode: true > should snapshot the same > first render 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="deprecated-perseus-container"
+    >
+      <div
+        class="deprecated-perseus-container"
+        role="paragraph"
+      >
+        Which of the following values of 
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            x
+          </span>
+          <span />
+        </span>
+         satisfies the equation 
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            \\sqrt{64}=x
+          </span>
+          <span />
+        </span>
+         ?
+      </div>
+    </div>
+    <div
+      class="deprecated-perseus-container"
+    >
+      <div
+        class="deprecated-perseus-container"
+      >
+        <div
+          class="perseus-widget-container widget-block"
+        >
+          <fieldset
+            class="container"
+          >
+            <legend
+              aria-hidden="true"
+              class="instructions"
+              id=":r0:"
+            >
+              Choose 1 answer:
+            </legend>
+            <div
+              id=":r1:-scroll"
+              role="group"
+              style="overflow-x: auto;"
+            >
+              <ul
+                aria-labelledby=":r0:"
+                class="choice-list review-answers"
+                data-widget="radio"
+                role="list"
+              >
+                <li
+                  class="choice is-wrong"
+                  role="listitem"
+                >
+                  <button
+                    aria-describedby=":r3:-choice-1-rationale"
+                    aria-disabled="true"
+                    aria-label="(Choice A)"
+                    aria-labelledby=":r4: :r3:-choice-1"
+                    aria-pressed="false"
+                    class="base circle-shape is-wrong"
+                    id=":r4:"
+                    type="button"
+                  >
+                    <span>
+                      A
+                    </span>
+                  </button>
+                  <div
+                    class="content"
+                  >
+                    <div
+                      id=":r3:-choice-1"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="deprecated-perseus-container"
+                        >
+                          <div
+                            class="deprecated-perseus-container"
+                            role="paragraph"
+                          >
+                            <span
+                              style="white-space: nowrap;"
+                            >
+                              <span />
+                              <span
+                                class="mock-TeX"
+                              >
+                                -8
+                              </span>
+                              <span />
+                            </span>
+                             and 
+                            <span
+                              style="white-space: nowrap;"
+                            >
+                              <span />
+                              <span
+                                class="mock-TeX"
+                              >
+                                8
+                              </span>
+                              <span />
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="rationale"
+                      id=":r3:-choice-1-rationale"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="deprecated-perseus-container"
+                        >
+                          <div
+                            class="deprecated-perseus-container"
+                            role="paragraph"
+                          >
+                            The square root operation (
+                            <span
+                              style="white-space: nowrap;"
+                            >
+                              <span />
+                              <span
+                                class="mock-TeX"
+                              >
+                                \\sqrt{\\phantom{x}}
+                              </span>
+                              <span />
+                            </span>
+                            ) calculates 
+                            <em>
+                              only
+                            </em>
+                             the positive square root when performed on a number, so 
+                            <span
+                              style="white-space: nowrap;"
+                            >
+                              <span />
+                              <span
+                                class="mock-TeX"
+                              >
+                                x
+                              </span>
+                              <span />
+                            </span>
+                             is equal to 
+                            <em>
+                              only
+                            </em>
+                             
+                            <span
+                              style="white-space: nowrap;"
+                            >
+                              <span />
+                              <span
+                                class="mock-TeX"
+                              >
+                                8
+                              </span>
+                              <span />
+                            </span>
+                            .
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li
+                  class="choice is-wrong"
+                  role="listitem"
+                >
+                  <button
+                    aria-describedby=":r3:-choice-2-rationale"
+                    aria-disabled="true"
+                    aria-label="(Choice B)"
+                    aria-labelledby=":r5: :r3:-choice-2"
+                    aria-pressed="false"
+                    class="base circle-shape is-wrong"
+                    id=":r5:"
+                    type="button"
+                  >
+                    <span>
+                      B
+                    </span>
+                  </button>
+                  <div
+                    class="content"
+                  >
+                    <div
+                      id=":r3:-choice-2"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="deprecated-perseus-container perseus-paragraph-centered"
+                        >
+                          <div
+                            class="perseus-block-math"
+                          >
+                            <div
+                              class="perseus-block-math-inner"
+                              style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
+                            >
+                              <span
+                                class="mock-TeX"
+                              >
+                                -8
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="rationale"
+                      id=":r3:-choice-2-rationale"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="deprecated-perseus-container"
+                        >
+                          <div
+                            class="deprecated-perseus-container"
+                            role="paragraph"
+                          >
+                            While 
+                            <span
+                              style="white-space: nowrap;"
+                            >
+                              <span />
+                              <span
+                                class="mock-TeX"
+                              >
+                                (-8)^2=64
+                              </span>
+                              <span />
+                            </span>
+                            , the square root operation (
+                            <span
+                              style="white-space: nowrap;"
+                            >
+                              <span />
+                              <span
+                                class="mock-TeX"
+                              >
+                                \\sqrt{\\phantom{x}}
+                              </span>
+                              <span />
+                            </span>
+                            ) calculates 
+                            <em>
+                              only
+                            </em>
+                             the positive square root when performed on a number.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li
+                  class="choice is-correct"
+                  role="listitem"
+                >
+                  <button
+                    aria-describedby=":r3:-choice-3-rationale"
+                    aria-disabled="true"
+                    aria-label="(Choice C, Correct)"
+                    aria-labelledby=":r6: :r3:-choice-3"
+                    aria-pressed="true"
+                    class="base circle-shape is-correct"
+                    id=":r6:"
+                    type="button"
+                  >
+                    <span
+                      aria-hidden="true"
+                      class="icon"
+                      style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); background-color: currentColor; mask-image: url(check-bold.svg);"
+                    />
+                    <span>
+                      C
+                    </span>
+                  </button>
+                  <div
+                    class="content"
+                  >
+                    <div
+                      id=":r3:-choice-3"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="deprecated-perseus-container perseus-paragraph-centered"
+                        >
+                          <div
+                            class="perseus-block-math"
+                          >
+                            <div
+                              class="perseus-block-math-inner"
+                              style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
+                            >
+                              <span
+                                class="mock-TeX"
+                              >
+                                8
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="rationale is-correct"
+                      id=":r3:-choice-3-rationale"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="deprecated-perseus-container"
+                        >
+                          <div
+                            class="deprecated-perseus-container"
+                            role="paragraph"
+                          >
+                            <span
+                              style="white-space: nowrap;"
+                            >
+                              <span />
+                              <span
+                                class="mock-TeX"
+                              >
+                                8
+                              </span>
+                              <span />
+                            </span>
+                             is the positive square root of 
+                            <span
+                              style="white-space: nowrap;"
+                            >
+                              <span />
+                              <span
+                                class="mock-TeX"
+                              >
+                                64
+                              </span>
+                              <span />
+                            </span>
+                            .
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li
+                  class="choice is-wrong"
+                  role="listitem"
+                >
+                  <button
+                    aria-describedby=":r3:-choice-4-rationale"
+                    aria-disabled="true"
+                    aria-label="(Choice D)"
+                    aria-labelledby=":r7: :r3:-choice-4"
+                    aria-pressed="false"
+                    class="base circle-shape is-wrong"
+                    id=":r7:"
+                    type="button"
+                  >
+                    <span>
+                      D
+                    </span>
+                  </button>
+                  <div
+                    class="content"
+                  >
+                    <div
+                      id=":r3:-choice-4"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="deprecated-perseus-container"
+                        >
+                          <div
+                            class="deprecated-perseus-container"
+                            role="paragraph"
+                          >
+                            No value of 
+                            <span
+                              style="white-space: nowrap;"
+                            >
+                              <span />
+                              <span
+                                class="mock-TeX"
+                              >
+                                x
+                              </span>
+                              <span />
+                            </span>
+                             satisfies the equation.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="rationale"
+                      id=":r3:-choice-4-rationale"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="deprecated-perseus-container"
+                        >
+                          <div
+                            class="deprecated-perseus-container"
+                            role="paragraph"
+                          >
+                            <span
+                              style="white-space: nowrap;"
+                            >
+                              <span />
+                              <span
+                                class="mock-TeX"
+                              >
+                                8
+                              </span>
+                              <span />
+                            </span>
+                             satisfies the equation.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Radio Widget > single-choice question > reviewMode: true > should snapshot the same with correct answer > correct answer 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="deprecated-perseus-container"
+    >
+      <div
+        class="deprecated-perseus-container"
+        role="paragraph"
+      >
+        Which of the following values of 
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            x
+          </span>
+          <span />
+        </span>
+         satisfies the equation 
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            \\sqrt{64}=x
+          </span>
+          <span />
+        </span>
+         ?
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -1229,8 +1720,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             <span
                               style="white-space: nowrap;"
@@ -1255,7 +1747,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               </span>
                               <span />
                             </span>
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1386,8 +1878,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             No value of 
                             <span
@@ -1402,7 +1895,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               <span />
                             </span>
                              satisfies the equation.
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1418,7 +1911,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
 </div>
 `;
 
-exports[`Radio Widget single-choice question reviewMode: true should snapshot the same with incorrect answer: incorrect answer 1`] = `
+exports[`Radio Widget > single-choice question > reviewMode: true > should snapshot the same with incorrect answer > incorrect answer 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -1426,8 +1919,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
     <div
       class="deprecated-perseus-container"
     >
-      <p
+      <div
         class="deprecated-perseus-container"
+        role="paragraph"
       >
         Which of the following values of 
         <span
@@ -1454,7 +1948,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
           <span />
         </span>
          ?
-      </p>
+      </div>
     </div>
     <div
       class="deprecated-perseus-container"
@@ -1515,8 +2009,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             <span
                               style="white-space: nowrap;"
@@ -1541,7 +2036,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               </span>
                               <span />
                             </span>
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1672,8 +2167,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         <div
                           class="deprecated-perseus-container"
                         >
-                          <p
+                          <div
                             class="deprecated-perseus-container"
+                            role="paragraph"
                           >
                             No value of 
                             <span
@@ -1688,480 +2184,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               <span />
                             </span>
                              satisfies the equation.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </fieldset>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Radio Widget single-choice question reviewMode: true should snapshot the same: first render 1`] = `
-<div>
-  <div
-    class="perseus-renderer perseus-renderer-responsive"
-  >
-    <div
-      class="deprecated-perseus-container"
-    >
-      <p
-        class="deprecated-perseus-container"
-      >
-        Which of the following values of 
-        <span
-          style="white-space: nowrap;"
-        >
-          <span />
-          <span
-            class="mock-TeX"
-          >
-            x
-          </span>
-          <span />
-        </span>
-         satisfies the equation 
-        <span
-          style="white-space: nowrap;"
-        >
-          <span />
-          <span
-            class="mock-TeX"
-          >
-            \\sqrt{64}=x
-          </span>
-          <span />
-        </span>
-         ?
-      </p>
-    </div>
-    <div
-      class="deprecated-perseus-container"
-    >
-      <div
-        class="deprecated-perseus-container"
-      >
-        <div
-          class="perseus-widget-container widget-block"
-        >
-          <fieldset
-            class="container"
-          >
-            <legend
-              aria-hidden="true"
-              class="instructions"
-              id=":r0:"
-            >
-              Choose 1 answer:
-            </legend>
-            <div
-              id=":r1:-scroll"
-              role="group"
-              style="overflow-x: auto;"
-            >
-              <ul
-                aria-labelledby=":r0:"
-                class="choice-list review-answers"
-                data-widget="radio"
-                role="list"
-              >
-                <li
-                  class="choice is-wrong"
-                  role="listitem"
-                >
-                  <button
-                    aria-describedby=":r3:-choice-1-rationale"
-                    aria-disabled="true"
-                    aria-label="(Choice A)"
-                    aria-labelledby=":r4: :r3:-choice-1"
-                    aria-pressed="false"
-                    class="base circle-shape is-wrong"
-                    id=":r4:"
-                    type="button"
-                  >
-                    <span>
-                      A
-                    </span>
-                  </button>
-                  <div
-                    class="content"
-                  >
-                    <div
-                      id=":r3:-choice-1"
-                    >
-                      <div
-                        class="perseus-renderer perseus-renderer-responsive"
-                      >
-                        <div
-                          class="deprecated-perseus-container"
-                        >
-                          <p
-                            class="deprecated-perseus-container"
-                          >
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
-                              <span
-                                class="mock-TeX"
-                              >
-                                -8
-                              </span>
-                              <span />
-                            </span>
-                             and 
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
-                              <span
-                                class="mock-TeX"
-                              >
-                                8
-                              </span>
-                              <span />
-                            </span>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="rationale"
-                      id=":r3:-choice-1-rationale"
-                    >
-                      <div
-                        class="perseus-renderer perseus-renderer-responsive"
-                      >
-                        <div
-                          class="deprecated-perseus-container"
-                        >
-                          <p
-                            class="deprecated-perseus-container"
-                          >
-                            The square root operation (
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
-                              <span
-                                class="mock-TeX"
-                              >
-                                \\sqrt{\\phantom{x}}
-                              </span>
-                              <span />
-                            </span>
-                            ) calculates 
-                            <em>
-                              only
-                            </em>
-                             the positive square root when performed on a number, so 
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
-                              <span
-                                class="mock-TeX"
-                              >
-                                x
-                              </span>
-                              <span />
-                            </span>
-                             is equal to 
-                            <em>
-                              only
-                            </em>
-                             
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
-                              <span
-                                class="mock-TeX"
-                              >
-                                8
-                              </span>
-                              <span />
-                            </span>
-                            .
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li
-                  class="choice is-wrong"
-                  role="listitem"
-                >
-                  <button
-                    aria-describedby=":r3:-choice-2-rationale"
-                    aria-disabled="true"
-                    aria-label="(Choice B)"
-                    aria-labelledby=":r5: :r3:-choice-2"
-                    aria-pressed="false"
-                    class="base circle-shape is-wrong"
-                    id=":r5:"
-                    type="button"
-                  >
-                    <span>
-                      B
-                    </span>
-                  </button>
-                  <div
-                    class="content"
-                  >
-                    <div
-                      id=":r3:-choice-2"
-                    >
-                      <div
-                        class="perseus-renderer perseus-renderer-responsive"
-                      >
-                        <div
-                          class="deprecated-perseus-container perseus-paragraph-centered"
-                        >
-                          <div
-                            class="perseus-block-math"
-                          >
-                            <div
-                              class="perseus-block-math-inner"
-                              style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                            >
-                              <span
-                                class="mock-TeX"
-                              >
-                                -8
-                              </span>
-                            </div>
                           </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="rationale"
-                      id=":r3:-choice-2-rationale"
-                    >
-                      <div
-                        class="perseus-renderer perseus-renderer-responsive"
-                      >
-                        <div
-                          class="deprecated-perseus-container"
-                        >
-                          <p
-                            class="deprecated-perseus-container"
-                          >
-                            While 
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
-                              <span
-                                class="mock-TeX"
-                              >
-                                (-8)^2=64
-                              </span>
-                              <span />
-                            </span>
-                            , the square root operation (
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
-                              <span
-                                class="mock-TeX"
-                              >
-                                \\sqrt{\\phantom{x}}
-                              </span>
-                              <span />
-                            </span>
-                            ) calculates 
-                            <em>
-                              only
-                            </em>
-                             the positive square root when performed on a number.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li
-                  class="choice is-correct"
-                  role="listitem"
-                >
-                  <button
-                    aria-describedby=":r3:-choice-3-rationale"
-                    aria-disabled="true"
-                    aria-label="(Choice C, Correct)"
-                    aria-labelledby=":r6: :r3:-choice-3"
-                    aria-pressed="true"
-                    class="base circle-shape is-correct"
-                    id=":r6:"
-                    type="button"
-                  >
-                    <span
-                      aria-hidden="true"
-                      class="icon"
-                      style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); background-color: currentColor; mask-image: url(check-bold.svg);"
-                    />
-                    <span>
-                      C
-                    </span>
-                  </button>
-                  <div
-                    class="content"
-                  >
-                    <div
-                      id=":r3:-choice-3"
-                    >
-                      <div
-                        class="perseus-renderer perseus-renderer-responsive"
-                      >
-                        <div
-                          class="deprecated-perseus-container perseus-paragraph-centered"
-                        >
-                          <div
-                            class="perseus-block-math"
-                          >
-                            <div
-                              class="perseus-block-math-inner"
-                              style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                            >
-                              <span
-                                class="mock-TeX"
-                              >
-                                8
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="rationale is-correct"
-                      id=":r3:-choice-3-rationale"
-                    >
-                      <div
-                        class="perseus-renderer perseus-renderer-responsive"
-                      >
-                        <div
-                          class="deprecated-perseus-container"
-                        >
-                          <p
-                            class="deprecated-perseus-container"
-                          >
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
-                              <span
-                                class="mock-TeX"
-                              >
-                                8
-                              </span>
-                              <span />
-                            </span>
-                             is the positive square root of 
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
-                              <span
-                                class="mock-TeX"
-                              >
-                                64
-                              </span>
-                              <span />
-                            </span>
-                            .
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li
-                  class="choice is-wrong"
-                  role="listitem"
-                >
-                  <button
-                    aria-describedby=":r3:-choice-4-rationale"
-                    aria-disabled="true"
-                    aria-label="(Choice D)"
-                    aria-labelledby=":r7: :r3:-choice-4"
-                    aria-pressed="false"
-                    class="base circle-shape is-wrong"
-                    id=":r7:"
-                    type="button"
-                  >
-                    <span>
-                      D
-                    </span>
-                  </button>
-                  <div
-                    class="content"
-                  >
-                    <div
-                      id=":r3:-choice-4"
-                    >
-                      <div
-                        class="perseus-renderer perseus-renderer-responsive"
-                      >
-                        <div
-                          class="deprecated-perseus-container"
-                        >
-                          <p
-                            class="deprecated-perseus-container"
-                          >
-                            No value of 
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
-                              <span
-                                class="mock-TeX"
-                              >
-                                x
-                              </span>
-                              <span />
-                            </span>
-                             satisfies the equation.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="rationale"
-                      id=":r3:-choice-4-rationale"
-                    >
-                      <div
-                        class="perseus-renderer perseus-renderer-responsive"
-                      >
-                        <div
-                          class="deprecated-perseus-container"
-                        >
-                          <p
-                            class="deprecated-perseus-container"
-                          >
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
-                              <span
-                                class="mock-TeX"
-                              >
-                                8
-                              </span>
-                              <span />
-                            </span>
-                             satisfies the equation.
-                          </p>
                         </div>
                       </div>
                     </div>

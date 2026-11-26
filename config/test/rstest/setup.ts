@@ -1,0 +1,70 @@
+import * as fs from "node:fs/promises";
+import path from "node:path";
+
+import {beforeEach, expect, rs} from "@rstest/core";
+import * as jestDomMatchers from "@testing-library/jest-dom/matchers";
+// @ts-expect-error - TS2305 - Module '"aphrodite"' has no exported member 'StyleSheetTestUtils'.
+import {StyleSheetTestUtils} from "aphrodite";
+
+// eslint-disable-next-line import/no-unassigned-import -- polyfills crypto
+import "../crypto-polyfill";
+// eslint-disable-next-line import/no-unassigned-import -- adds a serializer
+import "../aphrodite-snapshot-serializer";
+import attachShims from "../attach-jsdom-window-shims";
+import {failOnConsole} from "../fail-on-console";
+
+import type {TestingLibraryMatchers} from "@testing-library/jest-dom/matchers";
+
+/**
+ * Runs before each test file, after the test framework is set up and
+ * before any tests run.
+ */
+
+declare module "@rstest/core" {
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- adds the jest-dom matchers to Rstest's types
+    interface Assertion<T = any> extends TestingLibraryMatchers<any, T> {}
+}
+
+// Testing Library advances fake timers while it waits only when it finds a
+// `jest` global (`jestFakeTimersAreEnabled()` in @testing-library/dom), and
+// then calls `jest.advanceTimersByTime()`. Without one, its waits never see a
+// fake timer fire, and every user-event call times out.
+Object.assign(globalThis, {
+    jest: {advanceTimersByTime: rs.advanceTimersByTime.bind(rs)},
+});
+
+// Add `@testing-library/jest-dom`'s matchers to Rstest's `expect`.
+//
+// NOTE: The main `@testing-library/jest-dom` does do this automatically, but
+// it depends on us having `global: true` set in our Rstest config.
+expect.extend(jestDomMatchers);
+
+// Keep Aphrodite's styles out of the document.
+//
+// When the oldest unit tests in this repo were written, Aphrodite's styles
+// never reached the document, so the tests were written against unstyled
+// elements: they click popovers that would be hidden and containers styled
+// `pointer-events: none`.
+//
+// TODO: Remove this and fix/rewrite failing unit tests.
+StyleSheetTestUtils.suppressStyleInjection();
+
+attachShims(globalThis);
+
+failOnConsole();
+
+beforeEach(() => {
+    rs.useFakeTimers();
+});
+
+// Globally mock the MathJax Speech Rule Engine locale data for testing.
+Object.assign(globalThis, {
+    SREfeature: {
+        custom(locale: string): Promise<string> {
+            return fs.readFile(
+                path.join(__dirname, `../mathjax-sre/${locale}.json`),
+                "utf-8",
+            );
+        },
+    },
+});

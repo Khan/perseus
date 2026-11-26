@@ -1,5 +1,3 @@
-import {Util} from "@khanacademy/perseus";
-import {freeResponseLogic} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox, TextArea, TextField} from "@khanacademy/wonder-blocks-form";
@@ -23,10 +21,6 @@ type Props = WidgetEditorProps<PerseusFreeResponseWidgetOptions>;
  * An editor for adding a free response widget that allows users to enter open-ended text answers.
  */
 class FreeResponseEditor extends React.Component<Props> {
-    static defaultProps = {
-        ...freeResponseLogic.defaultWidgetOptions,
-    };
-
     handleChange(changes: Partial<PerseusFreeResponseWidgetOptions>) {
         this.props.onChange({
             allowUnlimitedCharacters: this.props.allowUnlimitedCharacters,
@@ -37,19 +31,6 @@ class FreeResponseEditor extends React.Component<Props> {
             ...changes,
         });
     }
-
-    // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
-    // the new linter rules for save warnings.
-    getSaveWarnings: () => Array<string> = () => {
-        const warnings: Array<string> = [];
-        if (!this.props.question) {
-            warnings.push("The question is empty");
-        }
-        if (this.props.question.match(Util.rWidgetRule) != null) {
-            warnings.push("The question contains a widget");
-        }
-        return warnings;
-    };
 
     handleUpdateCharacterLimit = (newValue: string) => {
         const val = parseInt(newValue);

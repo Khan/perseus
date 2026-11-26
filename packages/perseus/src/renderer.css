@@ -9,31 +9,115 @@
         font-weight: var(--wb-font-weight-medium);
         line-height: var(--wb-font-body-lineHeight-medium);
 
-        p {
+        /* Vertical spacing for non-text elements
+           (tables, widgets, etc.) */
+        /* TODO: Remove the following selector once deprecated-perseus-container
+           is removed from the renderer. Update the 2nd selector to not include
+            deprecated-perseus-container. */
+        .perseus-renderer
+            > .deprecated-perseus-container
+            > :not(
+                p,
+                [role="paragraph"],
+                ul,
+                ol,
+                h1,
+                h2,
+                h3,
+                h4,
+                h5,
+                h6,
+                blockquote
+            ),
+        .perseus-renderer
+            > :not(
+                p,
+                [role="paragraph"],
+                ul,
+                ol,
+                h1,
+                h2,
+                h3,
+                h4,
+                h5,
+                h6,
+                blockquote,
+                .deprecated-perseus-container
+            ) {
+            margin-block: var(--wb-sizing-size_240);
+        }
+
+        /* TODO: Remove the selector with deprecated-perseus-container once it is removed from the renderer. */
+        .perseus-renderer:first-child
+            > .deprecated-perseus-container:first-child
+            > :first-child:not(.perseus-widget-container *),
+        .perseus-renderer:first-child
+            > :first-child:not(.perseus-widget-container *) {
+            margin-block-start: 0;
+        }
+
+        p,
+        [role="paragraph"] {
             /* override base font size set by frontend */
             font-size: inherit;
+            margin-block: 0 var(--wb-sizing-size_160);
         }
 
         h1 {
             font-size: var(--wb-font-heading-size-xxlarge);
             line-height: var(--wb-font-heading-lineHeight-xxlarge);
+            margin-block-end: var(--wb-sizing-size_160);
         }
 
         h2 {
             font-size: var(--wb-font-heading-size-xlarge);
             line-height: var(--wb-font-heading-lineHeight-xlarge);
+            margin-block: var(--wb-sizing-size_480) var(--wb-sizing-size_160);
         }
 
         h3 {
             font-size: var(--wb-font-heading-size-large);
             line-height: var(--wb-font-heading-lineHeight-large);
+            margin-block: var(--wb-sizing-size_480) var(--wb-sizing-size_080);
         }
 
-        h4,
+        h4 {
+            font-size: var(--wb-font-heading-size-medium);
+            line-height: var(--wb-font-heading-lineHeight-medium);
+            margin-block: var(--wb-sizing-size_320) var(--wb-sizing-size_080);
+        }
+
         h5,
         h6 {
             font-size: var(--wb-font-heading-size-medium);
             line-height: var(--wb-font-heading-lineHeight-medium);
+            margin-block: var(--wb-sizing-size_240) var(--wb-sizing-size_080);
+        }
+
+        ul,
+        ol {
+            margin-block-end: var(--wb-sizing-size_160);
+            padding-inline-start: var(--wb-sizing-size_360);
+        }
+
+        ul {
+            list-style-type: disc;
+        }
+
+        ol {
+            list-style-type: decimal;
+        }
+
+        li {
+            margin-block: var(--wb-sizing-size_080);
+        }
+
+        /* Nested lists place leading text in a paragraph element,
+           so we need to adjust the margin to match list items.
+           We also want other markdown cases that cause paragraphs
+           to respect the list-based spacing. */
+        li > :is(p, [role="paragraph"]) {
+            margin-block: var(--wb-sizing-size_080);
         }
     }
 
@@ -68,7 +152,8 @@
         th {
             font-weight: bold;
         }
-        td {
+        /* Body cells include row headers (th) for tables with row headers. */
+        tbody > :is(th, td) {
             background-color: var(
                 --wb-semanticColor-core-background-base-default
             );
@@ -89,4 +174,84 @@
         text-align: center;
         font-size: var(--wb-font-heading-size-medium);
     }
+
+    /************************
+     * Code and code blocks *
+     ************************/
+    .framework-perseus code {
+        font-family: Courier, monospace;
+    }
+    .framework-perseus pre {
+        background-color: var(--wb-semanticColor-core-background-base-subtle);
+        border-radius: var(--wb-border-radius-radius_040);
+        color: var(--wb-semanticColor-core-foreground-neutral-strong);
+        padding: var(--wb-sizing-size_160);
+        white-space: pre;
+        overflow: auto;
+        margin: var(--wb-sizing-size_240) calc(-1 * var(--wb-sizing-size_160));
+    }
+
+    /***************
+     * Blockquotes *
+     ***************/
+    .framework-perseus blockquote {
+        padding-inline: var(--wb-sizing-size_240);
+        border-inline-start: var(--wb-border-width-thick) solid
+            var(--wb-semanticColor-core-border-neutral-subtle);
+    }
+
+    /**************
+     * SVG Images *
+     **************/
+    .framework-perseus .unresponsive-svg-image {
+        display: inline-block;
+        position: relative;
+    }
+    .framework-perseus .unresponsive-svg-image > .graphie-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .framework-perseus .svg-image {
+        display: block;
+        margin-block: 0;
+        margin-inline: auto;
+    }
+
+    /********************************
+     * Image inversion in Dark Mode *
+     ********************************/
+    [data-wb-theme$="-dark"] .framework-perseus,
+    .perseus-image-preview-container[data-wb-theme$="-dark"] {
+        /* TODO(benchristel): this set of file extensions is duplicated in
+         * dark-mode-toggle.tsx. Replace these selectors with a class that gets
+         * added to images that should be inverted, so the set of extensions can
+         * have a single representation in TypeScript code.
+         */
+        img[src$=".png"],
+        img[src$=".svg"],
+        image[href$=".svg"]:not(.graphie *), /* image elements within SVGs */
+        .graphie:not(.perseus-widget-plotter) > svg {
+            /* Invert the colors of PNG/SVG images and Graphie SVGs (excluding the
+               Plotter, which is themed).
+             */
+            filter: invert(1) hue-rotate(180deg) brightness(1.5);
+        }
+    }
+}
+
+/* These stay in the main "Shared" layer because they need to override base styles */
+
+/**************
+ * Exceptions *
+ **************/
+.perseus-in-wb-popover :is(p, [role="paragraph"]) {
+    font-size: initial;
+    margin: 0;
+}
+
+/* TODO: Remove the selector with deprecated-perseus-container once it is removed from the renderer. */
+.perseus-in-wb-popover .perseus-renderer > .deprecated-perseus-container > *,
+.perseus-in-wb-popover .perseus-renderer > * {
+    margin-block: 0;
 }

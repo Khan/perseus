@@ -48,10 +48,16 @@ import PhetSimulationWidgetError from "./phet-simulation-widget-error";
 import PythonProgramWidgetError from "./python-program-widget-error";
 import RadioWidgetError from "./radio-widget-error";
 import SorterWidgetError from "./sorter-widget-error";
-import SorterWidgetWarning from "./sorter-widget-warning";
+import SorterWidgetWarning, {
+    SorterLegendLabels,
+    SorterLegendMissing,
+    SorterLegendDescription,
+} from "./sorter-widget-warning";
 import StaticWidgetInQuestionStem from "./static-widget-in-question-stem";
+import TableEmptyColumnHeader from "./table-empty-column-header";
 import TableMissingCaption from "./table-missing-caption";
 import TableMissingCells from "./table-missing-cells";
+import TableSingleCell from "./table-single-cell";
 import UnbalancedCodeDelimiters from "./unbalanced-code-delimiters";
 import UnescapedDollar from "./unescaped-dollar";
 
@@ -106,9 +112,14 @@ export function allRules(): Rule[] {
         RadioWidgetError,
         SorterWidgetError,
         SorterWidgetWarning,
+        SorterLegendMissing,
+        SorterLegendDescription,
+        SorterLegendLabels,
         StaticWidgetInQuestionStem,
+        TableEmptyColumnHeader,
         TableMissingCaption,
         TableMissingCells,
+        TableSingleCell,
         UnbalancedCodeDelimiters,
         UnescapedDollar,
     ];

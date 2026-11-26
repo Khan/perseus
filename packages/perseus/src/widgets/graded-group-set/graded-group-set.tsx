@@ -240,6 +240,7 @@ const styles = StyleSheet.create({
     indicator: {
         width: 24,
         height: 24,
+        marginBlockStart: 0,
     },
 
     indicatorButton: {

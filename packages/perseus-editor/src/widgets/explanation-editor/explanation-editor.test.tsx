@@ -1,4 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
+import {generateExplanationOptions} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -13,16 +14,21 @@ describe("explanation-editor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+        rs.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
     it("should render", async () => {
-        render(<ExplanationEditor onChange={() => undefined} />);
+        render(
+            <ExplanationEditor
+                onChange={() => undefined}
+                {...generateExplanationOptions()}
+            />,
+        );
 
         expect(
             await screen.findByText("Prompt to show explanation:"),
@@ -30,9 +36,14 @@ describe("explanation-editor", () => {
     });
 
     it("should be possible to change prompt to show explanation", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
-        render(<ExplanationEditor onChange={onChangeMock} />);
+        render(
+            <ExplanationEditor
+                onChange={onChangeMock}
+                {...generateExplanationOptions({showPrompt: "Explain"})}
+            />,
+        );
 
         const input = screen.getByRole("textbox", {
             name: "Prompt to show explanation:",
@@ -40,15 +51,21 @@ describe("explanation-editor", () => {
         await userEvent.type(input, "a");
 
         expect(onChangeMock).toHaveBeenCalledWith(
-            // The dropdown initalizes with "Explain"
             expect.objectContaining({showPrompt: "Explaina"}),
         );
     });
 
     it("should be possible to change prompt to hide explanation", async () => {
-        const onChangeMock = jest.fn();
+        const onChangeMock = rs.fn();
 
-        render(<ExplanationEditor onChange={onChangeMock} />);
+        render(
+            <ExplanationEditor
+                onChange={onChangeMock}
+                {...generateExplanationOptions({
+                    hidePrompt: "Hide explanation",
+                })}
+            />,
+        );
 
         const input = screen.getByRole("textbox", {
             name: "Prompt to hide explanation:",
@@ -56,7 +73,6 @@ describe("explanation-editor", () => {
         await userEvent.type(input, "a");
 
         expect(onChangeMock).toHaveBeenCalledWith(
-            // The dropdown initalizes with "Hide explain"
             expect.objectContaining({hidePrompt: "Hide explanationa"}),
         );
     });

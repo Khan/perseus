@@ -1,9 +1,7 @@
-import * as KAS from "@khanacademy/kas";
 import {components, Expression} from "@khanacademy/perseus";
 import {
     PerseusExpressionAnswerFormConsidered,
     deriveExtraKeys,
-    expressionLogic,
 } from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -13,7 +11,6 @@ import {Heading, BodyText} from "@khanacademy/wonder-blocks-typography";
 import {isTruthy} from "@khanacademy/wonder-stuff-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-import _ from "underscore";
 
 import InfoTip from "../../components/info-tip";
 
@@ -63,10 +60,6 @@ interface State {
  * An editor for adding an expression widget that allows users to enter mathematical expressions.
  */
 class ExpressionEditor extends React.Component<Props, State> {
-    static defaultProps = {
-        ...expressionLogic.defaultWidgetOptions,
-    };
-
     constructor(props: Props) {
         super(props);
         this.state = {
@@ -86,42 +79,6 @@ class ExpressionEditor extends React.Component<Props, State> {
             ...changes,
         });
     }
-
-    // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
-    // the new linter rules for save warnings.
-    getSaveWarnings: () => any = () => {
-        const issues: Array<any | string> = [];
-
-        if (this.props.answerForms.length === 0) {
-            issues.push("No answers specified");
-        } else {
-            const hasCorrect = this.props.answerForms.some((form) => {
-                return form.considered === "correct";
-            });
-            if (!hasCorrect) {
-                issues.push("No correct answer specified");
-            }
-
-            _(this.props.answerForms).each((form, ix) => {
-                // TODO(benchristel): validate that `form.value` isn't blank?
-
-                // note we're not using icu for content creators
-                const expression = KAS.parse(form.value, {
-                    functions: this.props.functions,
-                });
-                if (!expression.parsed) {
-                    issues.push(`Couldn't parse ${form.value}`);
-                } else if (form.simplify && !expression.expr.isSimplified()) {
-                    issues.push(
-                        `${form.value} isn't simplified, but is required" +
-                        " to be`,
-                    );
-                }
-            });
-        }
-
-        return issues;
-    };
 
     newAnswer: () => void = () => {
         const answerForms = this.props.answerForms.slice();
@@ -358,10 +315,13 @@ class ExpressionEditor extends React.Component<Props, State> {
                             <>
                                 Visible label
                                 <InfoTip>
-                                    Optional visible text; strongly encouraged
-                                    to help learners using dictation software,
-                                    but can be omitted if the surrounding
-                                    content provides enough context.
+                                    <p>
+                                        Optional visible text; strongly
+                                        encouraged to help learners using
+                                        dictation software, but can be omitted
+                                        if the surrounding content provides
+                                        enough context.
+                                    </p>
                                 </InfoTip>
                             </>
                         }
@@ -376,18 +336,20 @@ class ExpressionEditor extends React.Component<Props, State> {
                             <>
                                 Aria label
                                 <InfoTip>
-                                    Label text that&apos;s read by screen
-                                    readers. Highly recommend adding a label
-                                    here to ensure your exercise is accessible.
-                                    For more information on writting accessible
-                                    labels, please see{" "}
-                                    <a
-                                        href="https://www.w3.org/WAI/tips/designing/#ensure-that-form-elements-include-clearly-associated-labels"
-                                        target="_blank"
-                                        rel="noreferrer"
-                                    >
-                                        this article.
-                                    </a>
+                                    <p>
+                                        Label text that&apos;s read by screen
+                                        readers. Highly recommend adding a label
+                                        here to ensure your exercise is
+                                        accessible. For more information on
+                                        writting accessible labels, please see{" "}
+                                        <a
+                                            href="https://www.w3.org/WAI/tips/designing/#ensure-that-form-elements-include-clearly-associated-labels"
+                                            target="_blank"
+                                            rel="noreferrer"
+                                        >
+                                            this article.
+                                        </a>
+                                    </p>
                                 </InfoTip>
                             </>
                         }
@@ -402,10 +364,12 @@ class ExpressionEditor extends React.Component<Props, State> {
                             <>
                                 Function variables
                                 <InfoTip>
-                                    Single-letter variables listed here will be
-                                    interpreted as functions. This let us know
-                                    that f(x) means &quot;f of x&quot; and not
-                                    &quot;f times x&quot;.
+                                    <p>
+                                        Single-letter variables listed here will
+                                        be interpreted as functions. This let us
+                                        know that f(x) means &quot;f of x&quot;
+                                        and not &quot;f times x&quot;.
+                                    </p>
                                 </InfoTip>
                             </>
                         }
@@ -420,10 +384,13 @@ class ExpressionEditor extends React.Component<Props, State> {
                             <>
                                 Use × instead of ⋅ for multiplication
                                 <InfoTip>
-                                    For pre-algebra problems this option
-                                    displays multiplication as \times instead of
-                                    \cdot in both the rendered output and the
-                                    acceptable formats examples.
+                                    <p>
+                                        For pre-algebra problems this option
+                                        displays multiplication as \times
+                                        instead of \cdot in both the rendered
+                                        output and the acceptable formats
+                                        examples.
+                                    </p>
                                 </InfoTip>
                             </>
                         }
@@ -577,9 +544,11 @@ class AnswerOption extends React.Component<
                             <>
                                 Answer expression must have the same form.
                                 <InfoTip>
-                                    The student&apos;s answer must be in the
-                                    same form. Commutativity and excess negative
-                                    signs are ignored.
+                                    <p>
+                                        The student&apos;s answer must be in the
+                                        same form. Commutativity and excess
+                                        negative signs are ignored.
+                                    </p>
                                 </InfoTip>
                             </>
                         }
@@ -595,12 +564,14 @@ class AnswerOption extends React.Component<
                                 Answer expression must be fully expanded and
                                 simplified.
                                 <InfoTip>
-                                    The student&apos;s answer must be fully
-                                    expanded and simplified. Answering this
-                                    equation (x^2+2x+1) with this factored
-                                    equation (x+1)^2 will render this response
-                                    &quot;Your answer is not fully expanded and
-                                    simplified.&quot;
+                                    <p>
+                                        The student&apos;s answer must be fully
+                                        expanded and simplified. Answering this
+                                        equation (x^2+2x+1) with this factored
+                                        equation (x+1)^2 will render this
+                                        response &quot;Your answer is not fully
+                                        expanded and simplified.&quot;
+                                    </p>
                                 </InfoTip>
                             </>
                         }

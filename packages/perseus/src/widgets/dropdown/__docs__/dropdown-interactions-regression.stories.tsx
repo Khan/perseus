@@ -2,7 +2,10 @@ import {generateDropdownOptions} from "@khanacademy/perseus-core";
 import {expect, within} from "storybook/test";
 
 import {themeModes} from "../../../../../../.storybook/modes";
-import {rtlDecorator} from "../../__testutils__/story-decorators";
+import {
+    rtlDecorator,
+    styledContainer,
+} from "../../__testutils__/story-decorators";
 
 import {dropdownRendererDecorator} from "./dropdown-renderer-decorator";
 
@@ -70,7 +73,7 @@ async function selectChoice(
 /************* Selected (closed) states **************/
 
 export const SelectedSymbolOnly: Story = {
-    decorators: [dropdownRendererDecorator],
+    decorators: [dropdownRendererDecorator, styledContainer({padding: "16px"})],
     args: generateDropdownOptions({
         placeholder: "Choose a symbol",
         choices: [
@@ -88,7 +91,7 @@ export const SelectedSymbolOnly: Story = {
 };
 
 export const SelectedAndFocused: Story = {
-    decorators: [dropdownRendererDecorator],
+    decorators: [dropdownRendererDecorator, styledContainer({padding: "16px"})],
     args: generateDropdownOptions({
         placeholder: "Choose a symbol",
         choices: [
@@ -111,7 +114,7 @@ export const SelectedAndFocused: Story = {
 };
 
 export const SelectedTallMath: Story = {
-    decorators: [dropdownRendererDecorator],
+    decorators: [dropdownRendererDecorator, styledContainer({padding: "16px"})],
     args: generateDropdownOptions({
         placeholder: "Choose an expression",
         choices: [
@@ -129,7 +132,7 @@ export const SelectedTallMath: Story = {
 };
 
 export const SelectedTeXText: Story = {
-    decorators: [dropdownRendererDecorator],
+    decorators: [dropdownRendererDecorator, styledContainer({padding: "16px"})],
     args: generateDropdownOptions({
         placeholder: "Choose a label",
         choices: [
@@ -151,7 +154,7 @@ export const SelectedTeXText: Story = {
 };
 
 export const SelectedMixOfMathAndText: Story = {
-    decorators: [dropdownRendererDecorator],
+    decorators: [dropdownRendererDecorator, styledContainer({padding: "16px"})],
     args: generateDropdownOptions({
         placeholder: "Choose a description",
         choices: [
@@ -169,7 +172,7 @@ export const SelectedMixOfMathAndText: Story = {
 };
 
 export const SelectedMathOnly: Story = {
-    decorators: [dropdownRendererDecorator],
+    decorators: [dropdownRendererDecorator, styledContainer({padding: "16px"})],
     args: generateDropdownOptions({
         placeholder: "Choose an equation",
         choices: [
@@ -187,7 +190,7 @@ export const SelectedMathOnly: Story = {
 };
 
 export const SelectedMathAndSymbols: Story = {
-    decorators: [dropdownRendererDecorator],
+    decorators: [dropdownRendererDecorator, styledContainer({padding: "16px"})],
     args: generateDropdownOptions({
         placeholder: "Choose an inequality",
         choices: [
@@ -212,7 +215,7 @@ export const SelectedMathAndSymbols: Story = {
  * The opener pressed but not yet open — the inner border becomes thicker.
  */
 export const PressedNotYetOpen: Story = {
-    decorators: [dropdownRendererDecorator],
+    decorators: [dropdownRendererDecorator, styledContainer({padding: "16px"})],
     args: generateDropdownOptions({
         placeholder: "Choose a symbol",
         choices: [
@@ -234,7 +237,7 @@ export const PressedNotYetOpen: Story = {
 /************* Opened states **************/
 
 export const OpenedTallMath: Story = {
-    decorators: [dropdownRendererDecorator],
+    decorators: [dropdownRendererDecorator, styledContainer({padding: "16px"})],
     args: generateDropdownOptions({
         placeholder: "Choose an expression",
         choices: [
@@ -269,7 +272,11 @@ export const OpenedLongListOnShortScreen: Story = {
 };
 
 export const OpenedRTL: Story = {
-    decorators: [dropdownRendererDecorator, rtlDecorator],
+    decorators: [
+        dropdownRendererDecorator,
+        rtlDecorator,
+        styledContainer({padding: "16px"}),
+    ],
     args: generateDropdownOptions({
         placeholder: "اختر إجابة",
         choices: [
@@ -289,7 +296,7 @@ export const OpenedRTL: Story = {
  * and the selected option is marked in the list.
  * */
 export const OpenedAfterPreviouslySelected: Story = {
-    decorators: [dropdownRendererDecorator],
+    decorators: [dropdownRendererDecorator, styledContainer({padding: "16px"})],
     args: generateDropdownOptions({
         placeholder: "Choose an answer",
         choices: [

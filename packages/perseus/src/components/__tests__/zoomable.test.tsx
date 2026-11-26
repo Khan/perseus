@@ -1,4 +1,4 @@
-import {describe, beforeEach, it} from "@jest/globals";
+import {describe, beforeEach, it} from "@rstest/core";
 import {act, fireEvent, render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -6,6 +6,7 @@ import * as React from "react";
 import AssetContext from "../../asset-context";
 import Zoomable, {ENTRANCE_TRANSITION_DURATION_MS} from "../zoomable";
 
+import type {Mock} from "@rstest/core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const mockSize = (
@@ -16,10 +17,8 @@ const mockSize = (
     },
 ) => {
     if (el) {
-        jest.spyOn(el, "offsetWidth", "get").mockImplementation(
-            () => size.width,
-        );
-        jest.spyOn(el, "offsetHeight", "get").mockImplementation(
+        rs.spyOn(el, "offsetWidth", "get").mockImplementation(() => size.width);
+        rs.spyOn(el, "offsetHeight", "get").mockImplementation(
             () => size.height,
         );
     }
@@ -54,7 +53,7 @@ describe("Zoomable", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
@@ -70,7 +69,7 @@ describe("Zoomable", () => {
         expect(container).toMatchInlineSnapshot(`
             <div>
               <span
-                style="display: block; width: 100%; transform: scale(0, 0); transform-origin: 0 0; opacity: 1; height: 0px; transition-property: opacity transform; transition-duration: 300ms; transition-timing-function: ease-out;"
+                style="display: block; width: 100%; transform: scale(0, 0); transform-origin: 0 0; opacity: 1; height: 0px; transition-property: opacity, transform; transition-duration: 300ms; transition-timing-function: ease-out;"
               >
                 <span>
                   Some zoomable text
@@ -97,7 +96,7 @@ describe("Zoomable", () => {
         expect(container).toMatchInlineSnapshot(`
             <div>
               <span
-                style="display: block; width: 100%; transform: scale(1, 1); transform-origin: 0 0; opacity: 1; height: 1px; transition-property: opacity transform; transition-duration: 300ms; transition-timing-function: ease-out;"
+                style="display: block; width: 100%; transform: scale(1, 1); transform-origin: 0 0; opacity: 1; height: 1px; transition-property: opacity, transform; transition-duration: 300ms; transition-timing-function: ease-out;"
               >
                 <span>
                   Some zoomable text
@@ -116,17 +115,17 @@ describe("Zoomable", () => {
         );
 
         await userEvent.click(screen.getByText("Some zoomable text"));
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         // Act
         await userEvent.click(screen.getByText("Some zoomable text"));
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         // Assert
         expect(container).toMatchInlineSnapshot(`
             <div>
               <span
-                style="display: block; width: 100%; transform: scale(0, 0); transform-origin: 0 0; opacity: 1; height: 0px; transition-property: opacity transform; transition-duration: 300ms; transition-timing-function: ease-out;"
+                style="display: block; width: 100%; transform: scale(0, 0); transform-origin: 0 0; opacity: 1; height: 0px; transition-property: opacity, transform; transition-duration: 300ms; transition-timing-function: ease-out;"
               >
                 <span>
                   Some zoomable text
@@ -138,7 +137,7 @@ describe("Zoomable", () => {
 
     it("should use provided computeChildBounds function when zooming", async () => {
         // Arrange
-        const computeChildBounds = jest.fn(() => ({width: 1000, height: 1000}));
+        const computeChildBounds = rs.fn(() => ({width: 1000, height: 1000}));
 
         // Act
         await renderAndWaitForVisible(
@@ -175,13 +174,13 @@ describe("Zoomable", () => {
 
         // Act
         // The measure action uses a setState and setTimeout(0)
-        act(() => jest.runAllTimers());
+        act(() => rs.runAllTimers());
 
         // Assert
         expect(container).toMatchInlineSnapshot(`
             <div>
               <span
-                style="display: block; width: 100%; transform: scale(0.4993757802746567, 0.4993757802746567); transform-origin: 0 0; opacity: 1; height: 101px; transition-property: opacity transform; transition-duration: 300ms; transition-timing-function: ease-out;"
+                style="display: block; width: 100%; transform: scale(0.4993757802746567, 0.4993757802746567); transform-origin: 0 0; opacity: 1; height: 101px; transition-property: opacity, transform; transition-duration: 300ms; transition-timing-function: ease-out;"
               >
                 <span>
                   Some zoomable text
@@ -211,13 +210,13 @@ describe("Zoomable", () => {
         });
 
         // Act
-        act(() => jest.runOnlyPendingTimers());
+        act(() => rs.runOnlyPendingTimers());
 
         // Assert
         expect(container).toMatchInlineSnapshot(`
             <div>
               <span
-                style="display: block; width: 100%; transform: scale(1, 1); transform-origin: 0 0; opacity: 1; transition-property: opacity transform; transition-duration: 300ms; transition-timing-function: ease-out;"
+                style="display: block; width: 100%; transform: scale(1, 1); transform-origin: 0 0; opacity: 1; transition-property: opacity, transform; transition-duration: 300ms; transition-timing-function: ease-out;"
               >
                 <span>
                   Some zoomable text
@@ -259,7 +258,7 @@ describe("Zoomable", () => {
 
     it("should not call onClick prop when zoomed out (ie. initial render)", async () => {
         // Arrange
-        const onClickHandler = jest.fn();
+        const onClickHandler = rs.fn();
         await renderAndWaitForVisible(
             <Zoomable>
                 <button onClick={onClickHandler}>Some zoomable text</button>
@@ -283,7 +282,7 @@ describe("Zoomable", () => {
         await userEvent.click(screen.getByText("Some zoomable text"));
 
         // Act
-        const onClickHandler = jest.fn();
+        const onClickHandler = rs.fn();
         rerender(
             <Zoomable>
                 {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events -- TODO(LEMS-2871): Address a11y error */}
@@ -304,7 +303,7 @@ describe("Zoomable", () => {
         it("should not propogate event to children when zoomed out", async () => {
             // Arrange
             const props: Record<string, any> = {};
-            props[propName] = jest.fn();
+            props[propName] = rs.fn();
 
             await renderAndWaitForVisible(
                 <Zoomable>
@@ -314,7 +313,7 @@ describe("Zoomable", () => {
 
             // Act
             eventFirer(screen.getByText("Some zoomable text"));
-            act(() => jest.runOnlyPendingTimers());
+            act(() => rs.runOnlyPendingTimers());
 
             // Assert
             expect(props[propName]).not.toHaveBeenCalled();
@@ -323,7 +322,7 @@ describe("Zoomable", () => {
         it("should propogate event to children when not zoomed", async () => {
             // Arrange
             const props: Record<string, any> = {};
-            props[propName] = jest.fn();
+            props[propName] = rs.fn();
 
             await renderAndWaitForVisible(
                 <Zoomable>
@@ -332,7 +331,7 @@ describe("Zoomable", () => {
             );
 
             await userEvent.click(screen.getByText("Some zoomable text"));
-            act(() => jest.runOnlyPendingTimers());
+            act(() => rs.runOnlyPendingTimers());
 
             // Act
             eventFirer(screen.getByText("Some zoomable text"));
@@ -350,7 +349,7 @@ describe("Zoomable", () => {
 
         const mockBodyZoom = (zoom: string) => {
             const realGetComputedStyle = window.getComputedStyle;
-            jest.spyOn(window, "getComputedStyle").mockImplementation(
+            rs.spyOn(window, "getComputedStyle").mockImplementation(
                 (el: Element) => {
                     const style = realGetComputedStyle(el);
                     if (el === document.body) {
@@ -379,7 +378,7 @@ describe("Zoomable", () => {
             });
 
             // Act
-            act(() => jest.runAllTimers());
+            act(() => rs.runAllTimers());
 
             // Assert
             // scale = (400 * 1.5) / 801, instead of 400 / 801 unzoomed
@@ -406,7 +405,7 @@ describe("Zoomable", () => {
             });
 
             // Act
-            act(() => jest.runAllTimers());
+            act(() => rs.runAllTimers());
 
             // Assert
             expect(rootNode.style.transform).toBe("scale(1, 1)");
@@ -425,7 +424,7 @@ describe("Zoomable", () => {
                 // Post-mutation render
                 {width: 1000, height: 1000},
             ];
-            computeChildBounds = jest.fn(() => sizes.shift());
+            computeChildBounds = rs.fn(() => sizes.shift());
 
             // eslint-disable-next-line testing-library/no-render-in-lifecycle
             const {container} = render(
@@ -439,7 +438,7 @@ describe("Zoomable", () => {
             const rootNode = container.firstElementChild as HTMLElement;
             mockSize(rootNode, {width: 200, height: 200});
 
-            act(() => jest.runOnlyPendingTimers());
+            act(() => rs.runOnlyPendingTimers());
         });
 
         // A helper function that uses RTL to wait until the given styling has
@@ -467,7 +466,7 @@ describe("Zoomable", () => {
             expect(componentContainer).toMatchInlineSnapshot(`
                 <div>
                   <span
-                    style="display: block; width: 100%; transform: scale(1, 1); transform-origin: 0 0; opacity: 1; transition-property: opacity transform; transition-duration: 300ms; transition-timing-function: ease-out; height: 1001px;"
+                    style="display: block; width: 100%; transform: scale(1, 1); transform-origin: 0 0; opacity: 1; transition-property: opacity, transform; transition-duration: 300ms; transition-timing-function: ease-out; height: 1001px;"
                   >
                     <span>
                       Some more zoomable text
@@ -490,7 +489,7 @@ describe("Zoomable", () => {
             expect(componentContainer).toMatchInlineSnapshot(`
                 <div>
                   <span
-                    style="display: block; width: 100%; transform: scale(1, 1); transform-origin: 0 0; opacity: 1; transition-property: opacity transform; transition-duration: 300ms; transition-timing-function: ease-out; height: 1001px;"
+                    style="display: block; width: 100%; transform: scale(1, 1); transform-origin: 0 0; opacity: 1; transition-property: opacity, transform; transition-duration: 300ms; transition-timing-function: ease-out; height: 1001px;"
                   >
                     <span>
                       Some more zoomable text
@@ -504,7 +503,7 @@ describe("Zoomable", () => {
             // Arrange
             // We default to "zoomed", so this "unzooms"
             await userEvent.click(screen.getByText("Some zoomable text"));
-            act(() => jest.runOnlyPendingTimers());
+            act(() => rs.runOnlyPendingTimers());
 
             // Act
             screen.getByText("Some zoomable text").innerHTML =
@@ -519,7 +518,7 @@ describe("Zoomable", () => {
             expect(componentContainer).toMatchInlineSnapshot(`
                 <div>
                   <span
-                    style="display: block; width: 100%; transform: scale(0.1998001998001998, 0.1998001998001998); transform-origin: 0 0; opacity: 1; transition-property: opacity transform; transition-duration: 300ms; transition-timing-function: ease-out; height: 200px;"
+                    style="display: block; width: 100%; transform: scale(0.1998001998001998, 0.1998001998001998); transform-origin: 0 0; opacity: 1; transition-property: opacity, transform; transition-duration: 300ms; transition-timing-function: ease-out; height: 200px;"
                   >
                     <span>
                       Some more zoomable text
@@ -537,8 +536,8 @@ describe("Zoomable", () => {
 
         const renderWithAssetContext = (
             component: React.ReactElement,
-        ): {setAssetStatus: jest.Mock; container: HTMLElement} => {
-            const setAssetStatus = jest.fn();
+        ): {setAssetStatus: Mock; container: HTMLElement} => {
+            const setAssetStatus = rs.fn();
             const {container} = render(
                 <AssetContext.Provider
                     value={{assetStatuses: {}, setAssetStatus}}
@@ -549,7 +548,7 @@ describe("Zoomable", () => {
             return {setAssetStatus, container};
         };
 
-        const settledKeys = (setAssetStatus: jest.Mock): Array<string> =>
+        const settledKeys = (setAssetStatus: Mock): Array<string> =>
             setAssetStatus.mock.calls
                 .filter(([, loaded]) => loaded)
                 .map(([assetKey]) => assetKey);
@@ -583,8 +582,8 @@ describe("Zoomable", () => {
             // Two passes: the first lets React render with the content visible,
             // which is what starts the entrance animation timer. The second
             // runs that timer.
-            act(() => jest.runAllTimers());
-            act(() => jest.runAllTimers());
+            act(() => rs.runAllTimers());
+            act(() => rs.runAllTimers());
 
             // Assert
             expect(setAssetStatus).toHaveBeenCalledWith(assetKey, true);
@@ -601,7 +600,7 @@ describe("Zoomable", () => {
             // Act
             // Enough time for measuring to complete and the content to become
             // visible, but not for the 300ms entrance animation to finish.
-            act(() => jest.advanceTimersByTime(299));
+            act(() => rs.advanceTimersByTime(299));
 
             // Assert
             expect(settledKeys(setAssetStatus)).toHaveLength(0);
@@ -622,8 +621,8 @@ describe("Zoomable", () => {
             // initial passes to complete and the content to become visible, but
             // nowhere near the 300ms entrance animation. The second pass runs
             // the settle timer that becoming visible schedules.
-            act(() => jest.advanceTimersByTime(10));
-            act(() => jest.advanceTimersByTime(10));
+            act(() => rs.advanceTimersByTime(10));
+            act(() => rs.advanceTimersByTime(10));
 
             // Assert
             expect(setAssetStatus).toHaveBeenCalledWith(assetKey, true);
@@ -631,7 +630,7 @@ describe("Zoomable", () => {
 
         it("reports settled when the content fits and doesn't need scaling", () => {
             // Arrange
-            const setAssetStatus = jest.fn();
+            const setAssetStatus = rs.fn();
             const {container} = render(
                 <AssetContext.Provider
                     value={{assetStatuses: {}, setAssetStatus}}
@@ -655,8 +654,8 @@ describe("Zoomable", () => {
             // Act
             // Two passes: the first makes the content visible, the second runs
             // the settle timer that scheduled.
-            act(() => jest.runAllTimers());
-            act(() => jest.runAllTimers());
+            act(() => rs.runAllTimers());
+            act(() => rs.runAllTimers());
 
             // Assert
             expect(setAssetStatus).toHaveBeenCalledWith(assetKey, true);
@@ -670,11 +669,11 @@ describe("Zoomable", () => {
                 </Zoomable>,
             );
             const [assetKey] = setAssetStatus.mock.calls[0];
-            act(() => jest.runAllTimers());
+            act(() => rs.runAllTimers());
 
             // Act
             act(() => window.dispatchEvent(new Event("resize")));
-            act(() => jest.runAllTimers());
+            act(() => rs.runAllTimers());
 
             // Assert - we went from not-loaded to loaded and stayed that way.
             expect(setAssetStatus.mock.calls).toEqual([

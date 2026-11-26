@@ -1,5 +1,5 @@
 import {ApiOptions, components, MatrixWidget} from "@khanacademy/perseus";
-import {getMatrixSize, matrixLogic} from "@khanacademy/perseus-core";
+import {getMatrixSize} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
@@ -19,9 +19,6 @@ const MAX_BOARD_SIZE = 6;
 type Props = WidgetEditorProps<PerseusMatrixWidgetOptions>;
 
 class MatrixEditor extends React.Component<Props> {
-    static defaultProps: PerseusMatrixWidgetOptions =
-        matrixLogic.defaultWidgetOptions;
-
     handleChange(changes: Partial<PerseusMatrixWidgetOptions>) {
         // TODO(LEMS-4681): Replace `?.` with `.` once all apiOptions are
         //  passed to this component.
@@ -113,7 +110,6 @@ class MatrixEditor extends React.Component<Props> {
                     {" "}
                     Matrix prefix:{" "}
                     <Editor
-                        ref="prefix"
                         apiOptions={this.props.apiOptions}
                         content={this.props.prefix}
                         widgetEnabled={false}
@@ -126,7 +122,6 @@ class MatrixEditor extends React.Component<Props> {
                     {" "}
                     Matrix suffix:{" "}
                     <Editor
-                        ref="suffix"
                         apiOptions={this.props.apiOptions}
                         content={this.props.suffix}
                         widgetEnabled={false}

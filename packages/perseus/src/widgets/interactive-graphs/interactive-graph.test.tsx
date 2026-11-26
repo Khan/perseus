@@ -1,7 +1,5 @@
-import {describe, beforeEach, it} from "@jest/globals";
 import {
-    generateTestPerseusItem,
-    generateInteractiveGraphQuestion,
+    generateIGLinearGraph,
     generateIGLockedEllipse,
     generateIGLockedFunction,
     generateIGLockedLine,
@@ -10,12 +8,15 @@ import {
     generateIGLockedVector,
     generateIGNoneGraph,
     generateIGSegmentGraph,
+    generateInteractiveGraphQuestion,
+    generateTestPerseusItem,
+    getDefaultFigureForType,
     lockedFigureColors,
     splitPerseusItem,
-    getDefaultFigureForType,
-    generateIGLinearGraph,
 } from "@khanacademy/perseus-core";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {beforeEach, describe, it} from "@rstest/core";
 import {screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {Plot} from "mafs";
@@ -23,7 +24,6 @@ import * as React from "react";
 import invariant from "tiny-invariant";
 
 import {renderQuestion} from "../../__testutils__/render-question";
-import {scorePerseusItemTesting} from "../../util/scoring.testutils";
 import {sinusoidQuestion} from "../grapher/grapher.testdata";
 
 import {
@@ -43,6 +43,8 @@ import {
     linearQuestionWithDefaultCorrect,
     linearSystemQuestion,
     linearSystemQuestionWithDefaultCorrect,
+    logarithmQuestion,
+    logarithmQuestionWithDefaultCorrect,
     noneQuestion,
     pointQuestion,
     pointQuestionWithDefaultCorrect,
@@ -66,23 +68,22 @@ import {
     segmentWithLockedPolygonWhite,
     segmentWithLockedVectors,
     sinusoidQuestionWithDefaultCorrect,
+    sinusoidWithPiTicks,
     tangentQuestion,
     tangentQuestionWithDefaultCorrect,
-    logarithmQuestion,
-    logarithmQuestionWithDefaultCorrect,
-    sinusoidWithPiTicks,
     unlimitedPointQuestion,
     unlimitedPolygonQuestion,
 } from "./interactive-graph.testdata";
 
 import type {Coord} from "../../interactive2/types";
 import type {
-    StrokeWeight,
     PerseusGraphType,
     PerseusRenderer,
     ShowAxisArrows,
+    StrokeWeight,
     UserInputMap,
 } from "@khanacademy/perseus-core";
+import type {Mock} from "@rstest/core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const commonInstructions =
@@ -94,17 +95,17 @@ describe("Interactive Graph", function () {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
 
         // Mocked for loading graphie in svg-image
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn(() =>
+        global.fetch = rs.fn(() =>
             Promise.resolve({
                 text: () => Promise.resolve("{}"),
                 ok: true,
             }),
-        ) as jest.Mock;
+        ) as Mock;
     });
 
     describe.each(questionsAndAnswers)(
@@ -129,9 +130,10 @@ describe("Interactive Graph", function () {
                     initialUserInput: userInput,
                 });
 
-                const score = scorePerseusItemTesting(
+                const score = scoreQuestion(
                     question,
                     renderer.getUserInputMap(),
+                    "en",
                 );
 
                 // Assert
@@ -163,9 +165,10 @@ describe("Interactive Graph", function () {
                 const {renderer} = renderQuestion(question);
 
                 // Act
-                const score = scorePerseusItemTesting(
+                const score = scoreQuestion(
                     question,
                     renderer.getUserInputMap(),
+                    "en",
                 );
 
                 // Assert
@@ -187,9 +190,10 @@ describe("Interactive Graph", function () {
                     initialUserInput: userInput,
                 });
 
-                const score = scorePerseusItemTesting(
+                const score = scoreQuestion(
                     question,
                     renderer.getUserInputMap(),
+                    "en",
                 );
 
                 // Assert
@@ -214,7 +218,7 @@ describe("Interactive Graph", function () {
             });
             const {renderer} = renderQuestion(question);
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItemTesting(question, userInput);
+            const score = scoreQuestion(question, userInput, "en");
 
             expect(score).toHaveBeenAnsweredCorrectly({
                 shouldHavePoints: false,
@@ -284,9 +288,10 @@ describe("Interactive Graph", function () {
                 const {renderer} = renderQuestion(question);
 
                 // Act
-                const score = scorePerseusItemTesting(
+                const score = scoreQuestion(
                     question,
                     renderer.getUserInputMap(),
+                    "en",
                 );
 
                 // Assert
@@ -317,9 +322,10 @@ describe("Interactive Graph", function () {
                 // Assert
                 await waitFor(
                     () => {
-                        const score = scorePerseusItemTesting(
+                        const score = scoreQuestion(
                             question,
                             renderer.getUserInputMap(),
+                            "en",
                         );
                         expect(score).toHaveBeenAnsweredIncorrectly();
                     },
@@ -341,9 +347,10 @@ describe("Interactive Graph", function () {
                 // Assert
                 await waitFor(
                     () => {
-                        const score = scorePerseusItemTesting(
+                        const score = scoreQuestion(
                             question,
                             renderer.getUserInputMap(),
+                            "en",
                         );
                         expect(score).toHaveBeenAnsweredCorrectly();
                     },
@@ -366,9 +373,10 @@ describe("Interactive Graph", function () {
                 // Assert
                 await waitFor(
                     () => {
-                        const score = scorePerseusItemTesting(
+                        const score = scoreQuestion(
                             question,
                             renderer.getUserInputMap(),
+                            "en",
                         );
                         expect(score).toHaveInvalidInput();
                     },
@@ -1355,10 +1363,10 @@ describe("Interactive Graph", function () {
 
             it("plots the supplied equation on the axis specified", () => {
                 // Arrange
-                const PlotOfXMock = jest
+                const PlotOfXMock = rs
                     .spyOn(Plot, "OfX")
                     .mockReturnValue(<div>OfX</div>);
-                const PlotOfYMock = jest
+                const PlotOfYMock = rs
                     .spyOn(Plot, "OfY")
                     .mockReturnValue(<div>OfY</div>);
 
@@ -1386,7 +1394,7 @@ describe("Interactive Graph", function () {
 
             it("plots the equation with any supplied domain", () => {
                 // Arrange
-                const PlotOfXMock = jest
+                const PlotOfXMock = rs
                     .spyOn(Plot, "OfX")
                     .mockReturnValue(<div>OfX</div>);
                 const expectedParameters = {

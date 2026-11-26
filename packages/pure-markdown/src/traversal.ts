@@ -14,9 +14,6 @@ export const traverseContent = (ast: any, cb: (node: any) => void) => {
             traverseContent(ast.items, cb);
         } else if (ast.type === "titledTable") {
             traverseContent(ast.table, cb);
-        } else if (ast.type === "columns") {
-            traverseContent(ast.col1, cb);
-            traverseContent(ast.col2, cb);
         } else if (Array.isArray(ast.content)) {
             traverseContent(ast.content, cb);
         }

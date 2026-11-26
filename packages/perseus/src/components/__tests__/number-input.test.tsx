@@ -12,7 +12,7 @@ describe("NumberInput", function () {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
@@ -21,7 +21,7 @@ describe("NumberInput", function () {
         result: number,
         extraProps?: {placeholder: number},
     ) {
-        const onChange = jest.fn();
+        const onChange = rs.fn();
 
         render(
             <NumberInput
@@ -37,6 +37,14 @@ describe("NumberInput", function () {
         expect(onChange).toHaveBeenCalledWith(result);
     };
 
+    it("passes the id to the input", () => {
+        // Arrange, Act
+        render(<NumberInput value={1} onChange={() => {}} id="the-id" />);
+
+        // Assert
+        expect(screen.getByRole("textbox")).toHaveAttribute("id", "the-id");
+    });
+
     it("basic input", async function () {
         await testInputResult("42", 42);
     });
@@ -50,7 +58,7 @@ describe("NumberInput", function () {
     });
 
     it("should let you increment with the arrow keys", async function () {
-        const onChange = jest.fn();
+        const onChange = rs.fn();
         render(
             <NumberInput value={0} onChange={onChange} useArrowKeys={true} />,
         );
@@ -61,7 +69,7 @@ describe("NumberInput", function () {
     });
 
     it("should let you decrement with the arrow keys", async function () {
-        const onChange = jest.fn();
+        const onChange = rs.fn();
         render(
             <NumberInput value={0} onChange={onChange} useArrowKeys={true} />,
         );
@@ -72,7 +80,7 @@ describe("NumberInput", function () {
     });
 
     it("does not increment non-integers", async function () {
-        const onChange = jest.fn();
+        const onChange = rs.fn();
         render(
             <NumberInput
                 value={1 / 2}
@@ -87,7 +95,7 @@ describe("NumberInput", function () {
     });
 
     it("does not decrement non-integers", async function () {
-        const onChange = jest.fn();
+        const onChange = rs.fn();
         render(
             <NumberInput
                 value={1 / 2}
@@ -102,7 +110,7 @@ describe("NumberInput", function () {
     });
 
     it("shouldn't increment when the arrow keys are disabled", async function () {
-        const onChange = jest.fn();
+        const onChange = rs.fn();
         render(
             <NumberInput value={0} onChange={onChange} useArrowKeys={false} />,
         );
@@ -112,7 +120,7 @@ describe("NumberInput", function () {
         expect(onChange).not.toHaveBeenCalled();
     });
 
-    it.each`
+    it.each<any>`
         value            | expected
         ${Math.PI}       | ${"π"}
         ${Math.PI * 2}   | ${"2π"}
@@ -126,7 +134,7 @@ describe("NumberInput", function () {
             render(
                 <NumberInput
                     value={value}
-                    onChange={jest.fn()}
+                    onChange={rs.fn()}
                     allowPiTruncation={true}
                 />,
             );
@@ -144,7 +152,7 @@ describe("NumberInput", function () {
         render(
             <NumberInput
                 value={Math.PI}
-                onChange={jest.fn()}
+                onChange={rs.fn()}
                 allowPiTruncation={false}
             />,
         );
@@ -159,7 +167,7 @@ describe("NumberInput", function () {
         render(
             <NumberInput
                 value={Math.PI}
-                onChange={jest.fn()}
+                onChange={rs.fn()}
                 placeholder="hold my place"
             />,
         );
@@ -171,11 +179,7 @@ describe("NumberInput", function () {
 
     it("displays a placeholder number in an empty input", () => {
         render(
-            <NumberInput
-                value={Math.PI}
-                onChange={jest.fn()}
-                placeholder={42}
-            />,
+            <NumberInput value={Math.PI} onChange={rs.fn()} placeholder={42} />,
         );
 
         const input: HTMLInputElement = screen.getByRole("textbox");
@@ -187,7 +191,7 @@ describe("NumberInput", function () {
         render(
             <NumberInput
                 value={Math.PI}
-                onChange={jest.fn()}
+                onChange={rs.fn()}
                 placeholder={null}
             />,
         );

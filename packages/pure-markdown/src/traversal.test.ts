@@ -1,4 +1,4 @@
-import {describe, it, expect} from "@jest/globals";
+import {describe, it, expect} from "@rstest/core";
 
 import {traverseContent} from "./traversal";
 
@@ -173,7 +173,7 @@ describe("traverseContent", () => {
             expect(tableNodes.length).toBeGreaterThan(0);
         });
 
-        it("should traverse columns nodes", () => {
+        it("should traverse a deprecated column separator", () => {
             // Arrange
             const markdown =
                 "Left column content\n\n=====\n\nRight column content";
@@ -186,16 +186,15 @@ describe("traverseContent", () => {
             });
 
             // Assert
-            const columnsNode = visitedNodes.find(
-                (node) => node.type === "columns",
+            const columnSeparator = visitedNodes.find(
+                (node) => node.type === "deprecatedColumnSeparator",
             );
-            expect(columnsNode).toBeDefined();
+            expect(columnSeparator).toBeDefined();
 
-            // Verify col1 and col2 are traversed
             const paragraphNodes = visitedNodes.filter(
                 (node) => node.type === "paragraph",
             );
-            expect(paragraphNodes.length).toBeGreaterThan(0);
+            expect(paragraphNodes.length).toBe(2);
         });
     });
 

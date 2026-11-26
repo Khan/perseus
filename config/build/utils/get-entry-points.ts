@@ -4,7 +4,7 @@ import type {PackageJson} from "../types";
  * Find the entry points that we _build_ for a package.
  *
  * A package's `.exports` map points at its TypeScript sources so that tooling
- * inside this repo (TypeScript, Jest, Vite) resolves workspace packages to
+ * inside this repo (TypeScript, Rstest, Vite) resolves workspace packages to
  * source without a build.
  *
  * `.publishConfig.exports` defines what the `.exports` object looks like in the

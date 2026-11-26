@@ -3,7 +3,7 @@ import {
     splitPerseusItem,
     type PerseusItem,
 } from "@khanacademy/perseus-core";
-import {scorePerseusItem} from "@khanacademy/perseus-score";
+import {scoreQuestion} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -26,7 +26,7 @@ describe("table", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
+            advanceTimers: rs.advanceTimersByTime,
         });
     });
 
@@ -150,7 +150,7 @@ describe("table", () => {
 
             const userInput = renderer.getUserInputMap();
             const answerful = generateTableRenderer();
-            const score = scorePerseusItem(answerful, userInput, "en");
+            const score = scoreQuestion(answerful, userInput, "en");
 
             expect(score).toHaveBeenAnsweredCorrectly();
         });
