@@ -237,7 +237,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 
 - Use components from Wonder Blocks as much as possible and prefer them over native browser elements or custom components.
 - Avoid using these components:
-  - Strut, Spring
+  - Strut, Spring, MediaLayout
   - LabelXSmall, LabelSmall, LabelMedium, LabelLarge, HeadingXSmall, HeadingSmall, HeadingMedium, HeadingLarge, Body, BodySerif, BodySerifBlock, BodyMonospace, Tagline, Title, Caption, Footnote
   - LabeledTextField
 - When using Wonder Blocks components, prioritize using props rather than using custom styles to override behaviours. Custom styles for layout purposes such as `margin`, `padding` or `gap` are acceptable.
