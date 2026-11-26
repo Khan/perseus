@@ -105,6 +105,10 @@ When you add new widget fields or versions, please also add regression test
 data for the _current_ (i.e. soon-to-be-outdated) version of the widget. This
 will help ensure that future developers don't accidentally break your parser.
 
+Likewise, when you rename or remove a field or an allowed value (e.g. a color
+name), add regression test data that uses the old value, so the tests prove
+the parser still accepts it and migrates it to the new one.
+
 <details>
 <summary>Regression test example</summary>
 
