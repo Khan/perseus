@@ -7,10 +7,7 @@ import * as React from "react";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
-import {
-    narrowViewportDecorator,
-    rtlDecorator,
-} from "../../__testutils__/story-decorators";
+import {rtlDecorator} from "../../__testutils__/story-decorators";
 
 import type {
     PerseusSorterWidgetOptions,
@@ -122,8 +119,15 @@ export const LongLegendLabels: Story = {
             endLabel: "Longest distance traveled in a single day",
         },
     },
-    // Narrow enough that each label has to wrap within its half.
-    decorators: [narrowViewportDecorator],
+    // Just wide enough to stay horizontal (the Sorter switches to vertical
+    // below 504px), and narrow enough that each label wraps within its half.
+    decorators: [
+        (Story) => (
+            <div style={{maxInlineSize: "505px"}}>
+                <Story />
+            </div>
+        ),
+    ],
 };
 
 export const TexLegendLabels: Story = {
