@@ -5,7 +5,7 @@ import {
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import classNames from "classnames";
 import * as React from "react";
-import {forwardRef, useImperativeHandle, useState} from "react";
+import {forwardRef, useImperativeHandle, useRef, useState} from "react";
 
 import {AnswerTile} from "../../../components/drag-and-drop/answer-tile";
 import {BlankComponent} from "../../../components/drag-and-drop/blank";
@@ -22,6 +22,7 @@ import {LegendBar} from "../legend/legend-bar/legend-bar";
 import {LegendLabel} from "../legend/legend-label/legend-label";
 
 import styles from "./sorter.module.css";
+import {useIsNarrow} from "./use-is-narrow";
 
 import type {MoveTarget} from "../../../components/drag-and-drop/dnd-action-menu";
 import type {TilePlacements} from "../../../components/drag-and-drop/tile-placements";
@@ -34,6 +35,9 @@ import type {
 } from "@khanacademy/perseus-core";
 
 type Props = WidgetProps<PerseusSorterWidgetOptions, PerseusSorterUserInput>;
+
+// Below this width, horizontal cards get too cramped to read.
+const NARROW_SORTER_WIDTH = 504;
 
 function getBlankId(index: number): string {
     return `blank-${index}`;
@@ -80,9 +84,12 @@ const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
         });
     });
 
+    const sorterRef = useRef<HTMLDivElement>(null);
+    const isNarrow = useIsNarrow(sorterRef, NARROW_SORTER_WIDTH);
+
     const blankIds = options.correct.map((_, index) => getBlankId(index));
     const layout =
-        options.correct.length > SORTER_MAX_HORIZONTAL_CARDS
+        options.correct.length > SORTER_MAX_HORIZONTAL_CARDS || isNarrow
             ? "vertical"
             : options.layout;
 
@@ -221,7 +228,7 @@ const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
 
     return (
         <PerseusDndProvider onDragEnd={handleDragEnd}>
-            <div className={styles.sorter}>
+            <div ref={sorterRef} className={styles.sorter}>
                 <AnswerZone legend={legend} layout={layout}>
                     {blankList}
                 </AnswerZone>
