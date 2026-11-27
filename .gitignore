@@ -28,3 +28,6 @@ CLAUDE.local.md
 !.pi/git/.gitignore
 
 .pi/npm/
+
+# Argos screenshots (vitest.config.mts)
+screenshots
