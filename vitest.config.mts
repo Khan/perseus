@@ -104,7 +104,10 @@ export default mergeConfig(
                             headless: true,
                             provider: playwright({}),
                         },
-                        setupFiles: ["./.storybook/vitest.setup.ts"],
+                        setupFiles: [
+                            "./.storybook/vitest-sre-locales.ts",
+                            "./.storybook/vitest.setup.ts",
+                        ],
                     },
                 },
             ],
